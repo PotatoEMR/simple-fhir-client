@@ -1,0 +1,86 @@
+//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+package r5
+
+import "encoding/json"
+
+// http://hl7.org/fhir/r5/StructureDefinition/Procedure
+type Procedure struct {
+	Id                    *string                `json:"id,omitempty"`
+	Meta                  *Meta                  `json:"meta,omitempty"`
+	ImplicitRules         *string                `json:"implicitRules,omitempty"`
+	Language              *string                `json:"language,omitempty"`
+	Text                  *Narrative             `json:"text,omitempty"`
+	Contained             []Resource             `json:"contained,omitempty"`
+	Extension             []Extension            `json:"extension,omitempty"`
+	ModifierExtension     []Extension            `json:"modifierExtension,omitempty"`
+	Identifier            []Identifier           `json:"identifier,omitempty"`
+	InstantiatesCanonical []string               `json:"instantiatesCanonical,omitempty"`
+	InstantiatesUri       []string               `json:"instantiatesUri,omitempty"`
+	BasedOn               []Reference            `json:"basedOn,omitempty"`
+	PartOf                []Reference            `json:"partOf,omitempty"`
+	Status                string                 `json:"status"`
+	StatusReason          *CodeableConcept       `json:"statusReason,omitempty"`
+	Category              []CodeableConcept      `json:"category,omitempty"`
+	Code                  *CodeableConcept       `json:"code,omitempty"`
+	Subject               Reference              `json:"subject"`
+	Focus                 *Reference             `json:"focus,omitempty"`
+	Encounter             *Reference             `json:"encounter,omitempty"`
+	OccurrenceDateTime    *string                `json:"occurrenceDateTime"`
+	OccurrencePeriod      *Period                `json:"occurrencePeriod"`
+	OccurrenceString      *string                `json:"occurrenceString"`
+	OccurrenceAge         *Age                   `json:"occurrenceAge"`
+	OccurrenceRange       *Range                 `json:"occurrenceRange"`
+	OccurrenceTiming      *Timing                `json:"occurrenceTiming"`
+	Recorded              *string                `json:"recorded,omitempty"`
+	Recorder              *Reference             `json:"recorder,omitempty"`
+	ReportedBoolean       *bool                  `json:"reportedBoolean"`
+	ReportedReference     *Reference             `json:"reportedReference"`
+	Performer             []ProcedurePerformer   `json:"performer,omitempty"`
+	Location              *Reference             `json:"location,omitempty"`
+	Reason                []CodeableReference    `json:"reason,omitempty"`
+	BodySite              []CodeableConcept      `json:"bodySite,omitempty"`
+	Outcome               *CodeableConcept       `json:"outcome,omitempty"`
+	Report                []Reference            `json:"report,omitempty"`
+	Complication          []CodeableReference    `json:"complication,omitempty"`
+	FollowUp              []CodeableConcept      `json:"followUp,omitempty"`
+	Note                  []Annotation           `json:"note,omitempty"`
+	FocalDevice           []ProcedureFocalDevice `json:"focalDevice,omitempty"`
+	Used                  []CodeableReference    `json:"used,omitempty"`
+	SupportingInfo        []Reference            `json:"supportingInfo,omitempty"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/Procedure
+type ProcedurePerformer struct {
+	Id                *string          `json:"id,omitempty"`
+	Extension         []Extension      `json:"extension,omitempty"`
+	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
+	Function          *CodeableConcept `json:"function,omitempty"`
+	Actor             Reference        `json:"actor"`
+	OnBehalfOf        *Reference       `json:"onBehalfOf,omitempty"`
+	Period            *Period          `json:"period,omitempty"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/Procedure
+type ProcedureFocalDevice struct {
+	Id                *string          `json:"id,omitempty"`
+	Extension         []Extension      `json:"extension,omitempty"`
+	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
+	Action            *CodeableConcept `json:"action,omitempty"`
+	Manipulated       Reference        `json:"manipulated"`
+}
+
+type OtherProcedure Procedure
+
+// on convert struct to json, automatically add resourceType=Procedure
+func (r Procedure) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		OtherProcedure
+		ResourceType string `json:"resourceType"`
+	}{
+		OtherProcedure: OtherProcedure(r),
+		ResourceType:   "Procedure",
+	})
+}

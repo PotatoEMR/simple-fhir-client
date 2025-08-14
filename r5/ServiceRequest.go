@@ -1,0 +1,103 @@
+//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+package r5
+
+import "encoding/json"
+
+// http://hl7.org/fhir/r5/StructureDefinition/ServiceRequest
+type ServiceRequest struct {
+	Id                      *string                            `json:"id,omitempty"`
+	Meta                    *Meta                              `json:"meta,omitempty"`
+	ImplicitRules           *string                            `json:"implicitRules,omitempty"`
+	Language                *string                            `json:"language,omitempty"`
+	Text                    *Narrative                         `json:"text,omitempty"`
+	Contained               []Resource                         `json:"contained,omitempty"`
+	Extension               []Extension                        `json:"extension,omitempty"`
+	ModifierExtension       []Extension                        `json:"modifierExtension,omitempty"`
+	Identifier              []Identifier                       `json:"identifier,omitempty"`
+	InstantiatesCanonical   []string                           `json:"instantiatesCanonical,omitempty"`
+	InstantiatesUri         []string                           `json:"instantiatesUri,omitempty"`
+	BasedOn                 []Reference                        `json:"basedOn,omitempty"`
+	Replaces                []Reference                        `json:"replaces,omitempty"`
+	Requisition             *Identifier                        `json:"requisition,omitempty"`
+	Status                  string                             `json:"status"`
+	Intent                  string                             `json:"intent"`
+	Category                []CodeableConcept                  `json:"category,omitempty"`
+	Priority                *string                            `json:"priority,omitempty"`
+	DoNotPerform            *bool                              `json:"doNotPerform,omitempty"`
+	Code                    *CodeableReference                 `json:"code,omitempty"`
+	OrderDetail             []ServiceRequestOrderDetail        `json:"orderDetail,omitempty"`
+	QuantityQuantity        *Quantity                          `json:"quantityQuantity"`
+	QuantityRatio           *Ratio                             `json:"quantityRatio"`
+	QuantityRange           *Range                             `json:"quantityRange"`
+	Subject                 Reference                          `json:"subject"`
+	Focus                   []Reference                        `json:"focus,omitempty"`
+	Encounter               *Reference                         `json:"encounter,omitempty"`
+	OccurrenceDateTime      *string                            `json:"occurrenceDateTime"`
+	OccurrencePeriod        *Period                            `json:"occurrencePeriod"`
+	OccurrenceTiming        *Timing                            `json:"occurrenceTiming"`
+	AsNeededBoolean         *bool                              `json:"asNeededBoolean"`
+	AsNeededCodeableConcept *CodeableConcept                   `json:"asNeededCodeableConcept"`
+	AuthoredOn              *string                            `json:"authoredOn,omitempty"`
+	Requester               *Reference                         `json:"requester,omitempty"`
+	PerformerType           *CodeableConcept                   `json:"performerType,omitempty"`
+	Performer               []Reference                        `json:"performer,omitempty"`
+	Location                []CodeableReference                `json:"location,omitempty"`
+	Reason                  []CodeableReference                `json:"reason,omitempty"`
+	Insurance               []Reference                        `json:"insurance,omitempty"`
+	SupportingInfo          []CodeableReference                `json:"supportingInfo,omitempty"`
+	Specimen                []Reference                        `json:"specimen,omitempty"`
+	BodySite                []CodeableConcept                  `json:"bodySite,omitempty"`
+	BodyStructure           *Reference                         `json:"bodyStructure,omitempty"`
+	Note                    []Annotation                       `json:"note,omitempty"`
+	PatientInstruction      []ServiceRequestPatientInstruction `json:"patientInstruction,omitempty"`
+	RelevantHistory         []Reference                        `json:"relevantHistory,omitempty"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/ServiceRequest
+type ServiceRequestOrderDetail struct {
+	Id                *string                              `json:"id,omitempty"`
+	Extension         []Extension                          `json:"extension,omitempty"`
+	ModifierExtension []Extension                          `json:"modifierExtension,omitempty"`
+	ParameterFocus    *CodeableReference                   `json:"parameterFocus,omitempty"`
+	Parameter         []ServiceRequestOrderDetailParameter `json:"parameter"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/ServiceRequest
+type ServiceRequestOrderDetailParameter struct {
+	Id                   *string         `json:"id,omitempty"`
+	Extension            []Extension     `json:"extension,omitempty"`
+	ModifierExtension    []Extension     `json:"modifierExtension,omitempty"`
+	Code                 CodeableConcept `json:"code"`
+	ValueQuantity        Quantity        `json:"valueQuantity"`
+	ValueRatio           Ratio           `json:"valueRatio"`
+	ValueRange           Range           `json:"valueRange"`
+	ValueBoolean         bool            `json:"valueBoolean"`
+	ValueCodeableConcept CodeableConcept `json:"valueCodeableConcept"`
+	ValueString          string          `json:"valueString"`
+	ValuePeriod          Period          `json:"valuePeriod"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/ServiceRequest
+type ServiceRequestPatientInstruction struct {
+	Id                   *string     `json:"id,omitempty"`
+	Extension            []Extension `json:"extension,omitempty"`
+	ModifierExtension    []Extension `json:"modifierExtension,omitempty"`
+	InstructionMarkdown  *string     `json:"instructionMarkdown"`
+	InstructionReference *Reference  `json:"instructionReference"`
+}
+
+type OtherServiceRequest ServiceRequest
+
+// on convert struct to json, automatically add resourceType=ServiceRequest
+func (r ServiceRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		OtherServiceRequest
+		ResourceType string `json:"resourceType"`
+	}{
+		OtherServiceRequest: OtherServiceRequest(r),
+		ResourceType:        "ServiceRequest",
+	})
+}

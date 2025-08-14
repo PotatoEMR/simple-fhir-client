@@ -1,0 +1,51 @@
+//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+package r5
+
+import "encoding/json"
+
+// http://hl7.org/fhir/r5/StructureDefinition/DeviceMetric
+type DeviceMetric struct {
+	Id                   *string                   `json:"id,omitempty"`
+	Meta                 *Meta                     `json:"meta,omitempty"`
+	ImplicitRules        *string                   `json:"implicitRules,omitempty"`
+	Language             *string                   `json:"language,omitempty"`
+	Text                 *Narrative                `json:"text,omitempty"`
+	Contained            []Resource                `json:"contained,omitempty"`
+	Extension            []Extension               `json:"extension,omitempty"`
+	ModifierExtension    []Extension               `json:"modifierExtension,omitempty"`
+	Identifier           []Identifier              `json:"identifier,omitempty"`
+	Type                 CodeableConcept           `json:"type"`
+	Unit                 *CodeableConcept          `json:"unit,omitempty"`
+	Device               Reference                 `json:"device"`
+	OperationalStatus    *string                   `json:"operationalStatus,omitempty"`
+	Color                *string                   `json:"color,omitempty"`
+	Category             string                    `json:"category"`
+	MeasurementFrequency *Quantity                 `json:"measurementFrequency,omitempty"`
+	Calibration          []DeviceMetricCalibration `json:"calibration,omitempty"`
+}
+
+// http://hl7.org/fhir/r5/StructureDefinition/DeviceMetric
+type DeviceMetricCalibration struct {
+	Id                *string     `json:"id,omitempty"`
+	Extension         []Extension `json:"extension,omitempty"`
+	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	Type              *string     `json:"type,omitempty"`
+	State             *string     `json:"state,omitempty"`
+	Time              *string     `json:"time,omitempty"`
+}
+
+type OtherDeviceMetric DeviceMetric
+
+// on convert struct to json, automatically add resourceType=DeviceMetric
+func (r DeviceMetric) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		OtherDeviceMetric
+		ResourceType string `json:"resourceType"`
+	}{
+		OtherDeviceMetric: OtherDeviceMetric(r),
+		ResourceType:      "DeviceMetric",
+	})
+}
