@@ -6,7 +6,7 @@ client
 
 create, read, update, delete, patch, search
 
-#r4
+r4
 
 	note := r4.Annotation{Text: "it's burning up"}
 	id := "abc"
@@ -37,7 +37,7 @@ create, read, update, delete, patch, search
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
 
-#client
+client
 
 	client := fhirClient.New("https://r4.smarthealthit.org")
 	given := []string{"William"}
@@ -78,7 +78,7 @@ create, read, update, delete, patch, search
 	fmt.Println("note: this SHOULD say deleted because we're getting patient we just deleted")
 	fmt.Println(err)
 
-#search
+search
 
 	client := fhirClient.New("hapi.fhir.org/baseR4/")
 	allPatients, err := fhirClient.Search(fhirClient.SpPatient{Name: "a"}, client)
