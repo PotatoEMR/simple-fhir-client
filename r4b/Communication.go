@@ -1,0 +1,65 @@
+//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+package r4b
+
+import "encoding/json"
+
+// http://hl7.org/fhir/r4b/StructureDefinition/Communication
+type Communication struct {
+	Id                    *string                `json:"id,omitempty"`
+	Meta                  *Meta                  `json:"meta,omitempty"`
+	ImplicitRules         *string                `json:"implicitRules,omitempty"`
+	Language              *string                `json:"language,omitempty"`
+	Text                  *Narrative             `json:"text,omitempty"`
+	Contained             []Resource             `json:"contained,omitempty"`
+	Extension             []Extension            `json:"extension,omitempty"`
+	ModifierExtension     []Extension            `json:"modifierExtension,omitempty"`
+	Identifier            []Identifier           `json:"identifier,omitempty"`
+	InstantiatesCanonical []string               `json:"instantiatesCanonical,omitempty"`
+	InstantiatesUri       []string               `json:"instantiatesUri,omitempty"`
+	BasedOn               []Reference            `json:"basedOn,omitempty"`
+	PartOf                []Reference            `json:"partOf,omitempty"`
+	InResponseTo          []Reference            `json:"inResponseTo,omitempty"`
+	Status                string                 `json:"status"`
+	StatusReason          *CodeableConcept       `json:"statusReason,omitempty"`
+	Category              []CodeableConcept      `json:"category,omitempty"`
+	Priority              *string                `json:"priority,omitempty"`
+	Medium                []CodeableConcept      `json:"medium,omitempty"`
+	Subject               *Reference             `json:"subject,omitempty"`
+	Topic                 *CodeableConcept       `json:"topic,omitempty"`
+	About                 []Reference            `json:"about,omitempty"`
+	Encounter             *Reference             `json:"encounter,omitempty"`
+	Sent                  *string                `json:"sent,omitempty"`
+	Received              *string                `json:"received,omitempty"`
+	Recipient             []Reference            `json:"recipient,omitempty"`
+	Sender                *Reference             `json:"sender,omitempty"`
+	ReasonCode            []CodeableConcept      `json:"reasonCode,omitempty"`
+	ReasonReference       []Reference            `json:"reasonReference,omitempty"`
+	Payload               []CommunicationPayload `json:"payload,omitempty"`
+	Note                  []Annotation           `json:"note,omitempty"`
+}
+
+// http://hl7.org/fhir/r4b/StructureDefinition/Communication
+type CommunicationPayload struct {
+	Id                *string     `json:"id,omitempty"`
+	Extension         []Extension `json:"extension,omitempty"`
+	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+	ContentString     string      `json:"contentString"`
+	ContentAttachment Attachment  `json:"contentAttachment"`
+	ContentReference  Reference   `json:"contentReference"`
+}
+
+type OtherCommunication Communication
+
+// on convert struct to json, automatically add resourceType=Communication
+func (r Communication) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		OtherCommunication
+		ResourceType string `json:"resourceType"`
+	}{
+		OtherCommunication: OtherCommunication(r),
+		ResourceType:       "Communication",
+	})
+}

@@ -1,0 +1,64 @@
+//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+package r4b
+
+import "encoding/json"
+
+// http://hl7.org/fhir/r4b/StructureDefinition/DetectedIssue
+type DetectedIssue struct {
+	Id                 *string                   `json:"id,omitempty"`
+	Meta               *Meta                     `json:"meta,omitempty"`
+	ImplicitRules      *string                   `json:"implicitRules,omitempty"`
+	Language           *string                   `json:"language,omitempty"`
+	Text               *Narrative                `json:"text,omitempty"`
+	Contained          []Resource                `json:"contained,omitempty"`
+	Extension          []Extension               `json:"extension,omitempty"`
+	ModifierExtension  []Extension               `json:"modifierExtension,omitempty"`
+	Identifier         []Identifier              `json:"identifier,omitempty"`
+	Status             string                    `json:"status"`
+	Code               *CodeableConcept          `json:"code,omitempty"`
+	Severity           *string                   `json:"severity,omitempty"`
+	Patient            *Reference                `json:"patient,omitempty"`
+	IdentifiedDateTime *string                   `json:"identifiedDateTime"`
+	IdentifiedPeriod   *Period                   `json:"identifiedPeriod"`
+	Author             *Reference                `json:"author,omitempty"`
+	Implicated         []Reference               `json:"implicated,omitempty"`
+	Evidence           []DetectedIssueEvidence   `json:"evidence,omitempty"`
+	Detail             *string                   `json:"detail,omitempty"`
+	Reference          *string                   `json:"reference,omitempty"`
+	Mitigation         []DetectedIssueMitigation `json:"mitigation,omitempty"`
+}
+
+// http://hl7.org/fhir/r4b/StructureDefinition/DetectedIssue
+type DetectedIssueEvidence struct {
+	Id                *string           `json:"id,omitempty"`
+	Extension         []Extension       `json:"extension,omitempty"`
+	ModifierExtension []Extension       `json:"modifierExtension,omitempty"`
+	Code              []CodeableConcept `json:"code,omitempty"`
+	Detail            []Reference       `json:"detail,omitempty"`
+}
+
+// http://hl7.org/fhir/r4b/StructureDefinition/DetectedIssue
+type DetectedIssueMitigation struct {
+	Id                *string         `json:"id,omitempty"`
+	Extension         []Extension     `json:"extension,omitempty"`
+	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
+	Action            CodeableConcept `json:"action"`
+	Date              *string         `json:"date,omitempty"`
+	Author            *Reference      `json:"author,omitempty"`
+}
+
+type OtherDetectedIssue DetectedIssue
+
+// on convert struct to json, automatically add resourceType=DetectedIssue
+func (r DetectedIssue) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		OtherDetectedIssue
+		ResourceType string `json:"resourceType"`
+	}{
+		OtherDetectedIssue: OtherDetectedIssue(r),
+		ResourceType:       "DetectedIssue",
+	})
+}
