@@ -1,4 +1,4 @@
-//generated August 14 2025 with command go run ./bultaoreune -nodownload
+//generated August 15 2025 with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 

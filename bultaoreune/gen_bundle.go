@@ -120,12 +120,30 @@ func WriteResourceGroup(domainResouces []string, generateClientDirVer, fhirVersi
 	package ` + fhirVersion + `Client
 
 import ` + fhirVersion + ` "github.com/PotatoEMR/simple-fhir-client/` + fhirVersion + `"
+import "errors"
 
 type ResourceGroup struct {`)
 	for _, dr := range domainResouces {
 		sb.WriteString(dr + "_list []*" + fhirVersion + "." + dr + "\n")
 	}
-	sb.WriteString("}")
+	sb.WriteString("}\n\n")
+
+	sb.WriteString(`
+	func BundleToGroup(bundle *r4.Bundle) (*ResourceGroup, error) {
+		grp := ResourceGroup{}
+	for _, e := range bundle.Entry {
+		switch res := e.Resource.(type) {`)
+	for _, dr := range domainResouces {
+		sb.WriteString("case *" + fhirVersion + "." + dr + ":\n")
+		sb.WriteString("grp." + dr + "_list = append(grp." + dr + "_list, res)\n")
+	}
+	sb.WriteString(`default:
+			return nil, errors.New("bundle entry not a domain resource, could not put in resourcegroup")
+		}
+	}
+	return &grp, nil}
+	`)
+
 	f, _ := os.Create(path.Join(generateClientDirVer, "resourceGroup.go"))
 	f.WriteString(sb.String())
 	f.Close()

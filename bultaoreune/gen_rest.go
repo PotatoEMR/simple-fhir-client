@@ -45,18 +45,12 @@ func Search[T SearchParam](sp T, fc *FhirClient) (*FHIR_VERSION.Bundle, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Search error %s", err)
 	}
-	grp := ResourceGroup{}
-	for _, e := range bundle.Entry {
-		switch res := e.Resource.(type) {`)
-	for _, dr := range domainResources {
-		sb.WriteString("case *" + fhirVersion + "." + dr + ":\n")
-		sb.WriteString("grp." + dr + "_list = append(grp." + dr + "_list, res)\n")
+	return BundleToGroup(bundle)
 	}
-	sb.WriteString(`default:
-			return nil, errors.New("bundle entry not a domain resource, could not put in resourcegroup")
-		}
-	}
-	return &grp, nil}`)
+
+	`)
+
+	sb.WriteString(PatientEverything(fhirVersion))
 
 	//rest of crud one for each resource
 	for _, dr := range domainResources {

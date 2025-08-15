@@ -173,4 +173,15 @@ func TestSearch(t *testing.T) {
 	for _, p := range pats {
 		fmt.Println(p)
 	}
+
+	firstId := pats[0].Id
+	pEverything, _ := client.PatientEverything(*firstId)
+	for _, e := range pEverything.Entry {
+		fmt.Printf("type %T\n", e.Resource)
+	}
+
+	PEgrouped, _ := client.PatientEverythingGrouped(*firstId)
+	for _, o := range PEgrouped.Observation_list {
+		fmt.Println("observation:", *o.Subject, *o.Id)
+	}
 }
