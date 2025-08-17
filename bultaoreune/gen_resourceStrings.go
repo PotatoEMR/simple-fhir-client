@@ -6,6 +6,38 @@ func ResourceStrings() (map[string]string, []string) {
 	rs := make(map[string]string)
 	var ri []string //could probably just check if key in resourceString map, but idk maybe func doesnt need to import strings
 
+	ri = append(ri, "CodeableConcept")
+	rs["CodeableConcept"] = `
+	func (cc *CodeableConcept) String() string {
+		if cc.Text != nil {
+			return *cc.Text
+		}
+		var b strings.Builder
+		lastCoding := len(cc.Coding) - 1
+		for i, v := range cc.Coding {
+			b.WriteString(v.String())
+			if i != lastCoding {
+				b.WriteString(", ")
+			}
+		}
+		if b.String() == "" {
+			return "Unnamed CodeableConcept"
+		}
+		return b.String()
+	}`
+
+	//don't need strings
+	rs["Coding"] = `
+		func (c *Coding) String() string {
+		if c.Display != nil {
+			return *c.Display
+		} else if c.Code != nil {
+			return *c.Code
+		} else {
+			return "Unnamed Code"
+		}
+	}`
+
 	ri = append(ri, "HumanName")
 	rs["HumanName"] = `
 	func (hn HumanName) String() string {

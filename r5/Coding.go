@@ -1,4 +1,4 @@
-//generated August 15 2025 with command go run ./bultaoreune -nodownload
+//generated August 17 2025 with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -13,4 +13,14 @@ type Coding struct {
 	Code         *string     `json:"code,omitempty"`
 	Display      *string     `json:"display,omitempty"`
 	UserSelected *bool       `json:"userSelected,omitempty"`
+}
+
+func (c *Coding) String() string {
+	if c.Display != nil {
+		return *c.Display
+	} else if c.Code != nil {
+		return *c.Code
+	} else {
+		return "Unnamed Code"
+	}
 }
