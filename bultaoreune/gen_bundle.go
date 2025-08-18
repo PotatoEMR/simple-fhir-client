@@ -124,7 +124,7 @@ import "errors"
 
 type ResourceGroup struct {`)
 	for _, dr := range domainResouces {
-		sb.WriteString(dr + "_list []*" + fhirVersion + "." + dr + "\n")
+		sb.WriteString(dr + "s []*" + fhirVersion + "." + dr + "\n")
 	}
 	sb.WriteString("}\n\n")
 
