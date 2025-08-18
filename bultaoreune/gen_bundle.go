@@ -129,7 +129,7 @@ type ResourceGroup struct {`)
 	sb.WriteString("}\n\n")
 
 	sb.WriteString(`
-	func BundleToGroup(bundle *r4.Bundle) (*ResourceGroup, error) {
+	func BundleToGroup(bundle *` + fhirVersion + `.Bundle) (*ResourceGroup, error) {
 		grp := ResourceGroup{}
 	for _, e := range bundle.Entry {
 		switch res := e.Resource.(type) {`)

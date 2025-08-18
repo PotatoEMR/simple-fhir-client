@@ -15,12 +15,52 @@ import (
 )
 
 // search for resource by its Sp<resource> search params, return bundle of matching resources
-func Search[T SearchParam](sp T, fc *FhirClient) (*r5.Bundle, error) {
+//
+// SearchGrouped does exact same search, but returns list of each resource type
+func (fc *FhirClient) SearchBundled(sp SearchParam) (*r5.Bundle, error) {
 	reqUrl, err := sp.SpEncode(&fc.BaseUrl)
 	if err != nil {
 		return nil, err
 	}
 	req, err := http.NewRequest(http.MethodGet, *reqUrl, nil)
+	if err != nil {
+		return nil, fmt.Errorf("searchBundle error creating req, your fault not fhir server's %s", err)
+	}
+
+	resp, err := makeRequestCheckError(fc, req)
+	if err != nil {
+		return nil, fmt.Errorf("searchBundle makeRequestCheckError %s", err)
+	}
+
+	var parsed r5.Bundle
+	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	if err != nil {
+		return nil, fmt.Errorf("searchBundle error decoding json %s", err)
+	}
+	resp.Body.Close()
+	return &parsed, nil
+}
+
+// search for resource by its Sp<resource> search params, return bundle of matching resources
+//
+// SearchBundle does exact same search, but returns bundle of all resources
+func (fc *FhirClient) SearchGrouped(sp SearchParam) (*ResourceGroup, error) {
+	bundle, err := fc.SearchBundled(sp)
+	if err != nil {
+		return nil, fmt.Errorf("search error %s", err)
+	}
+	return BundleToGroup(bundle)
+}
+
+// Search for everything about a patient, returned as bundle
+//
+// PatientEverythingGroup does exact same search, but returns list of each resource type
+func (fc *FhirClient) PatientEverythingBundled(patId string) (*r5.Bundle, error) {
+	reqUrl, err := url.JoinPath(fc.BaseUrl, "Patient", patId, "$everything")
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest(http.MethodGet, reqUrl, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating req, your fault not fhir server's %s", err)
 	}
@@ -39,42 +79,13 @@ func Search[T SearchParam](sp T, fc *FhirClient) (*r5.Bundle, error) {
 	return &parsed, nil
 }
 
-func SearchGrouped[T SearchParam](sp T, fc *FhirClient) (*ResourceGroup, error) {
-	bundle, err := Search(sp, fc)
-	if err != nil {
-		return nil, fmt.Errorf("Search error %s", err)
-	}
-	return BundleToGroup(bundle)
-}
-
-func (fc *FhirClient) PatientEverything(patId string) (*r5.Bundle, error) {
-	reqUrl, err := url.JoinPath(fc.BaseUrl, "Patient", patId, "$everything")
-	if err != nil {
-		return nil, err
-	}
-	req, err := http.NewRequest(http.MethodGet, reqUrl, nil)
-	if err != nil {
-		return nil, fmt.Errorf("error creating req, your fault not fhir server's %s", err)
-	}
-
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
-	var parsed r4.Bundle
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
-	if err != nil {
-		return nil, fmt.Errorf("error decoding json %s", err)
-	}
-	resp.Body.Close()
-	return &parsed, nil
-}
-
+// Search for everything about a patient, returns a list of each resource type
+//
+// PatientEverythingBundled does exact same search, but returns bundle of all resources
 func (fc *FhirClient) PatientEverythingGrouped(patId string) (*ResourceGroup, error) {
-	bundle, err := fc.PatientEverything(patId)
+	bundle, err := fc.PatientEverythingBundled(patId)
 	if err != nil {
-		return nil, fmt.Errorf("PatientEverything error %s", err)
+		return nil, fmt.Errorf("patientEverything error %s", err)
 	}
 	return BundleToGroup(bundle)
 }

@@ -151,7 +151,7 @@ func TestClient(t *testing.T) {
 
 func TestSearch(t *testing.T) {
 	client := fhirClient.New("hapi.fhir.org/baseR4/")
-	allPatients, err := fhirClient.Search(fhirClient.SpPatient{Name: "a"}, client)
+	allPatients, err := client.SearchBundled(fhirClient.SpPatient{Name: "a"})
 	if err != nil {
 		t.Error("Search", err)
 	} else {
@@ -165,7 +165,7 @@ func TestSearch(t *testing.T) {
 		}
 	}
 
-	resGroup, err := fhirClient.SearchGrouped(fhirClient.SpPatient{Name: "a"}, client)
+	resGroup, err := client.SearchGrouped(fhirClient.SpPatient{Name: "a"})
 	if err != nil {
 		t.Error("SearchGrouped", err)
 	}
@@ -175,7 +175,7 @@ func TestSearch(t *testing.T) {
 	}
 
 	firstId := pats[0].Id
-	pEverything, _ := client.PatientEverything(*firstId)
+	pEverything, _ := client.PatientEverythingBundled(*firstId)
 	for _, e := range pEverything.Entry {
 		fmt.Printf("type %T\n", e.Resource)
 	}

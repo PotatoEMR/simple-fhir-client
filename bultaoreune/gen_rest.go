@@ -10,45 +10,47 @@ import (
 func writeRest(domainResources []string, generateClientDirVer, fhirVersion string) {
 	var sb strings.Builder
 	//search is generic for now
-	search := `// search for resource by its Sp<resource> search params, return bundle of matching resources
-func Search[T SearchParam](sp T, fc *FhirClient) (*FHIR_VERSION.Bundle, error) {
+	search := `
+	// search for resource by its Sp<resource> search params, return bundle of matching resources
+//
+// SearchGrouped does exact same search, but returns list of each resource type
+func (fc *FhirClient) SearchBundled(sp SearchParam) (*FHIR_VERSION.Bundle, error) {
 	reqUrl, err := sp.SpEncode(&fc.BaseUrl)
 	if err != nil {
 		return nil, err
 	}
 	req, err := http.NewRequest(http.MethodGet, *reqUrl, nil)
 	if err != nil {
-		return nil, fmt.Errorf("error creating req, your fault not fhir server's %s", err)
+		return nil, fmt.Errorf("searchBundle error creating req, your fault not fhir server's %s", err)
 	}
 
 	resp, err := makeRequestCheckError(fc, req)
 	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
+		return nil, fmt.Errorf("searchBundle makeRequestCheckError %s", err)
 	}
 
 	var parsed FHIR_VERSION.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&parsed)
 	if err != nil {
-		return nil, fmt.Errorf("error decoding json %s", err)
+		return nil, fmt.Errorf("searchBundle error decoding json %s", err)
 	}
 	resp.Body.Close()
 	return &parsed, nil
+}
+
+// search for resource by its Sp<resource> search params, return bundle of matching resources
+//
+// SearchBundle does exact same search, but returns bundle of all resources
+func (fc *FhirClient) SearchGrouped(sp SearchParam) (*ResourceGroup, error) {
+	bundle, err := fc.SearchBundled(sp)
+	if err != nil {
+		return nil, fmt.Errorf("search error %s", err)
 	}
-	
+	return BundleToGroup(bundle)
+}
 	`
 	searchFV := strings.ReplaceAll(search, "FHIR_VERSION", fhirVersion)
 	sb.WriteString(searchFV)
-
-	//searchGrouped is one generic func, but switch statement for each resource
-	sb.WriteString(`func SearchGrouped[T SearchParam](sp T, fc *FhirClient) (*ResourceGroup, error) {
-	bundle, err := Search(sp, fc)
-	if err != nil {
-		return nil, fmt.Errorf("Search error %s", err)
-	}
-	return BundleToGroup(bundle)
-	}
-
-	`)
 
 	sb.WriteString(PatientEverything(fhirVersion))
 

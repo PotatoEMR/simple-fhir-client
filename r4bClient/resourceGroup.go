@@ -145,7 +145,7 @@ type ResourceGroup struct {
 	VisionPrescription_list             []*r4b.VisionPrescription
 }
 
-func BundleToGroup(bundle *r4.Bundle) (*ResourceGroup, error) {
+func BundleToGroup(bundle *r4b.Bundle) (*ResourceGroup, error) {
 	grp := ResourceGroup{}
 	for _, e := range bundle.Entry {
 		switch res := e.Resource.(type) {
