@@ -4,150 +4,150 @@ import r4 "github.com/PotatoEMR/simple-fhir-client/r4"
 import "errors"
 
 type ResourceGroup struct {
-	Account_list                           []*r4.Account
-	ActivityDefinition_list                []*r4.ActivityDefinition
-	AdverseEvent_list                      []*r4.AdverseEvent
-	AllergyIntolerance_list                []*r4.AllergyIntolerance
-	Appointment_list                       []*r4.Appointment
-	AppointmentResponse_list               []*r4.AppointmentResponse
-	AuditEvent_list                        []*r4.AuditEvent
-	Basic_list                             []*r4.Basic
-	Binary_list                            []*r4.Binary
-	BiologicallyDerivedProduct_list        []*r4.BiologicallyDerivedProduct
-	BodyStructure_list                     []*r4.BodyStructure
-	CapabilityStatement_list               []*r4.CapabilityStatement
-	CarePlan_list                          []*r4.CarePlan
-	CareTeam_list                          []*r4.CareTeam
-	CatalogEntry_list                      []*r4.CatalogEntry
-	ChargeItem_list                        []*r4.ChargeItem
-	ChargeItemDefinition_list              []*r4.ChargeItemDefinition
-	Claim_list                             []*r4.Claim
-	ClaimResponse_list                     []*r4.ClaimResponse
-	ClinicalImpression_list                []*r4.ClinicalImpression
-	CodeSystem_list                        []*r4.CodeSystem
-	Communication_list                     []*r4.Communication
-	CommunicationRequest_list              []*r4.CommunicationRequest
-	CompartmentDefinition_list             []*r4.CompartmentDefinition
-	Composition_list                       []*r4.Composition
-	ConceptMap_list                        []*r4.ConceptMap
-	Condition_list                         []*r4.Condition
-	Consent_list                           []*r4.Consent
-	Contract_list                          []*r4.Contract
-	Coverage_list                          []*r4.Coverage
-	CoverageEligibilityRequest_list        []*r4.CoverageEligibilityRequest
-	CoverageEligibilityResponse_list       []*r4.CoverageEligibilityResponse
-	DetectedIssue_list                     []*r4.DetectedIssue
-	Device_list                            []*r4.Device
-	DeviceDefinition_list                  []*r4.DeviceDefinition
-	DeviceMetric_list                      []*r4.DeviceMetric
-	DeviceRequest_list                     []*r4.DeviceRequest
-	DeviceUseStatement_list                []*r4.DeviceUseStatement
-	DiagnosticReport_list                  []*r4.DiagnosticReport
-	DocumentManifest_list                  []*r4.DocumentManifest
-	DocumentReference_list                 []*r4.DocumentReference
-	EffectEvidenceSynthesis_list           []*r4.EffectEvidenceSynthesis
-	Encounter_list                         []*r4.Encounter
-	Endpoint_list                          []*r4.Endpoint
-	EnrollmentRequest_list                 []*r4.EnrollmentRequest
-	EnrollmentResponse_list                []*r4.EnrollmentResponse
-	EpisodeOfCare_list                     []*r4.EpisodeOfCare
-	EventDefinition_list                   []*r4.EventDefinition
-	Evidence_list                          []*r4.Evidence
-	EvidenceVariable_list                  []*r4.EvidenceVariable
-	ExampleScenario_list                   []*r4.ExampleScenario
-	ExplanationOfBenefit_list              []*r4.ExplanationOfBenefit
-	FamilyMemberHistory_list               []*r4.FamilyMemberHistory
-	Flag_list                              []*r4.Flag
-	Goal_list                              []*r4.Goal
-	GraphDefinition_list                   []*r4.GraphDefinition
-	Group_list                             []*r4.Group
-	GuidanceResponse_list                  []*r4.GuidanceResponse
-	HealthcareService_list                 []*r4.HealthcareService
-	ImagingStudy_list                      []*r4.ImagingStudy
-	Immunization_list                      []*r4.Immunization
-	ImmunizationEvaluation_list            []*r4.ImmunizationEvaluation
-	ImmunizationRecommendation_list        []*r4.ImmunizationRecommendation
-	ImplementationGuide_list               []*r4.ImplementationGuide
-	InsurancePlan_list                     []*r4.InsurancePlan
-	Invoice_list                           []*r4.Invoice
-	Library_list                           []*r4.Library
-	Linkage_list                           []*r4.Linkage
-	List_list                              []*r4.List
-	Location_list                          []*r4.Location
-	Measure_list                           []*r4.Measure
-	MeasureReport_list                     []*r4.MeasureReport
-	Media_list                             []*r4.Media
-	Medication_list                        []*r4.Medication
-	MedicationAdministration_list          []*r4.MedicationAdministration
-	MedicationDispense_list                []*r4.MedicationDispense
-	MedicationKnowledge_list               []*r4.MedicationKnowledge
-	MedicationRequest_list                 []*r4.MedicationRequest
-	MedicationStatement_list               []*r4.MedicationStatement
-	MedicinalProduct_list                  []*r4.MedicinalProduct
-	MedicinalProductAuthorization_list     []*r4.MedicinalProductAuthorization
-	MedicinalProductContraindication_list  []*r4.MedicinalProductContraindication
-	MedicinalProductIndication_list        []*r4.MedicinalProductIndication
-	MedicinalProductIngredient_list        []*r4.MedicinalProductIngredient
-	MedicinalProductInteraction_list       []*r4.MedicinalProductInteraction
-	MedicinalProductManufactured_list      []*r4.MedicinalProductManufactured
-	MedicinalProductPackaged_list          []*r4.MedicinalProductPackaged
-	MedicinalProductPharmaceutical_list    []*r4.MedicinalProductPharmaceutical
-	MedicinalProductUndesirableEffect_list []*r4.MedicinalProductUndesirableEffect
-	MessageDefinition_list                 []*r4.MessageDefinition
-	MessageHeader_list                     []*r4.MessageHeader
-	MolecularSequence_list                 []*r4.MolecularSequence
-	NamingSystem_list                      []*r4.NamingSystem
-	NutritionOrder_list                    []*r4.NutritionOrder
-	Observation_list                       []*r4.Observation
-	ObservationDefinition_list             []*r4.ObservationDefinition
-	OperationDefinition_list               []*r4.OperationDefinition
-	OperationOutcome_list                  []*r4.OperationOutcome
-	Organization_list                      []*r4.Organization
-	OrganizationAffiliation_list           []*r4.OrganizationAffiliation
-	Patient_list                           []*r4.Patient
-	PaymentNotice_list                     []*r4.PaymentNotice
-	PaymentReconciliation_list             []*r4.PaymentReconciliation
-	Person_list                            []*r4.Person
-	PlanDefinition_list                    []*r4.PlanDefinition
-	Practitioner_list                      []*r4.Practitioner
-	PractitionerRole_list                  []*r4.PractitionerRole
-	Procedure_list                         []*r4.Procedure
-	Provenance_list                        []*r4.Provenance
-	Questionnaire_list                     []*r4.Questionnaire
-	QuestionnaireResponse_list             []*r4.QuestionnaireResponse
-	RelatedPerson_list                     []*r4.RelatedPerson
-	RequestGroup_list                      []*r4.RequestGroup
-	ResearchDefinition_list                []*r4.ResearchDefinition
-	ResearchElementDefinition_list         []*r4.ResearchElementDefinition
-	ResearchStudy_list                     []*r4.ResearchStudy
-	ResearchSubject_list                   []*r4.ResearchSubject
-	RiskAssessment_list                    []*r4.RiskAssessment
-	RiskEvidenceSynthesis_list             []*r4.RiskEvidenceSynthesis
-	Schedule_list                          []*r4.Schedule
-	SearchParameter_list                   []*r4.SearchParameter
-	ServiceRequest_list                    []*r4.ServiceRequest
-	Slot_list                              []*r4.Slot
-	Specimen_list                          []*r4.Specimen
-	SpecimenDefinition_list                []*r4.SpecimenDefinition
-	StructureDefinition_list               []*r4.StructureDefinition
-	StructureMap_list                      []*r4.StructureMap
-	Subscription_list                      []*r4.Subscription
-	Substance_list                         []*r4.Substance
-	SubstanceNucleicAcid_list              []*r4.SubstanceNucleicAcid
-	SubstancePolymer_list                  []*r4.SubstancePolymer
-	SubstanceProtein_list                  []*r4.SubstanceProtein
-	SubstanceReferenceInformation_list     []*r4.SubstanceReferenceInformation
-	SubstanceSourceMaterial_list           []*r4.SubstanceSourceMaterial
-	SubstanceSpecification_list            []*r4.SubstanceSpecification
-	SupplyDelivery_list                    []*r4.SupplyDelivery
-	SupplyRequest_list                     []*r4.SupplyRequest
-	Task_list                              []*r4.Task
-	TerminologyCapabilities_list           []*r4.TerminologyCapabilities
-	TestReport_list                        []*r4.TestReport
-	TestScript_list                        []*r4.TestScript
-	ValueSet_list                          []*r4.ValueSet
-	VerificationResult_list                []*r4.VerificationResult
-	VisionPrescription_list                []*r4.VisionPrescription
+	Accounts                           []*r4.Account
+	ActivityDefinitions                []*r4.ActivityDefinition
+	AdverseEvents                      []*r4.AdverseEvent
+	AllergyIntolerances                []*r4.AllergyIntolerance
+	Appointments                       []*r4.Appointment
+	AppointmentResponses               []*r4.AppointmentResponse
+	AuditEvents                        []*r4.AuditEvent
+	Basics                             []*r4.Basic
+	Binarys                            []*r4.Binary
+	BiologicallyDerivedProducts        []*r4.BiologicallyDerivedProduct
+	BodyStructures                     []*r4.BodyStructure
+	CapabilityStatements               []*r4.CapabilityStatement
+	CarePlans                          []*r4.CarePlan
+	CareTeams                          []*r4.CareTeam
+	CatalogEntrys                      []*r4.CatalogEntry
+	ChargeItems                        []*r4.ChargeItem
+	ChargeItemDefinitions              []*r4.ChargeItemDefinition
+	Claims                             []*r4.Claim
+	ClaimResponses                     []*r4.ClaimResponse
+	ClinicalImpressions                []*r4.ClinicalImpression
+	CodeSystems                        []*r4.CodeSystem
+	Communications                     []*r4.Communication
+	CommunicationRequests              []*r4.CommunicationRequest
+	CompartmentDefinitions             []*r4.CompartmentDefinition
+	Compositions                       []*r4.Composition
+	ConceptMaps                        []*r4.ConceptMap
+	Conditions                         []*r4.Condition
+	Consents                           []*r4.Consent
+	Contracts                          []*r4.Contract
+	Coverages                          []*r4.Coverage
+	CoverageEligibilityRequests        []*r4.CoverageEligibilityRequest
+	CoverageEligibilityResponses       []*r4.CoverageEligibilityResponse
+	DetectedIssues                     []*r4.DetectedIssue
+	Devices                            []*r4.Device
+	DeviceDefinitions                  []*r4.DeviceDefinition
+	DeviceMetrics                      []*r4.DeviceMetric
+	DeviceRequests                     []*r4.DeviceRequest
+	DeviceUseStatements                []*r4.DeviceUseStatement
+	DiagnosticReports                  []*r4.DiagnosticReport
+	DocumentManifests                  []*r4.DocumentManifest
+	DocumentReferences                 []*r4.DocumentReference
+	EffectEvidenceSynthesiss           []*r4.EffectEvidenceSynthesis
+	Encounters                         []*r4.Encounter
+	Endpoints                          []*r4.Endpoint
+	EnrollmentRequests                 []*r4.EnrollmentRequest
+	EnrollmentResponses                []*r4.EnrollmentResponse
+	EpisodeOfCares                     []*r4.EpisodeOfCare
+	EventDefinitions                   []*r4.EventDefinition
+	Evidences                          []*r4.Evidence
+	EvidenceVariables                  []*r4.EvidenceVariable
+	ExampleScenarios                   []*r4.ExampleScenario
+	ExplanationOfBenefits              []*r4.ExplanationOfBenefit
+	FamilyMemberHistorys               []*r4.FamilyMemberHistory
+	Flags                              []*r4.Flag
+	Goals                              []*r4.Goal
+	GraphDefinitions                   []*r4.GraphDefinition
+	Groups                             []*r4.Group
+	GuidanceResponses                  []*r4.GuidanceResponse
+	HealthcareServices                 []*r4.HealthcareService
+	ImagingStudys                      []*r4.ImagingStudy
+	Immunizations                      []*r4.Immunization
+	ImmunizationEvaluations            []*r4.ImmunizationEvaluation
+	ImmunizationRecommendations        []*r4.ImmunizationRecommendation
+	ImplementationGuides               []*r4.ImplementationGuide
+	InsurancePlans                     []*r4.InsurancePlan
+	Invoices                           []*r4.Invoice
+	Librarys                           []*r4.Library
+	Linkages                           []*r4.Linkage
+	Lists                              []*r4.List
+	Locations                          []*r4.Location
+	Measures                           []*r4.Measure
+	MeasureReports                     []*r4.MeasureReport
+	Medias                             []*r4.Media
+	Medications                        []*r4.Medication
+	MedicationAdministrations          []*r4.MedicationAdministration
+	MedicationDispenses                []*r4.MedicationDispense
+	MedicationKnowledges               []*r4.MedicationKnowledge
+	MedicationRequests                 []*r4.MedicationRequest
+	MedicationStatements               []*r4.MedicationStatement
+	MedicinalProducts                  []*r4.MedicinalProduct
+	MedicinalProductAuthorizations     []*r4.MedicinalProductAuthorization
+	MedicinalProductContraindications  []*r4.MedicinalProductContraindication
+	MedicinalProductIndications        []*r4.MedicinalProductIndication
+	MedicinalProductIngredients        []*r4.MedicinalProductIngredient
+	MedicinalProductInteractions       []*r4.MedicinalProductInteraction
+	MedicinalProductManufactureds      []*r4.MedicinalProductManufactured
+	MedicinalProductPackageds          []*r4.MedicinalProductPackaged
+	MedicinalProductPharmaceuticals    []*r4.MedicinalProductPharmaceutical
+	MedicinalProductUndesirableEffects []*r4.MedicinalProductUndesirableEffect
+	MessageDefinitions                 []*r4.MessageDefinition
+	MessageHeaders                     []*r4.MessageHeader
+	MolecularSequences                 []*r4.MolecularSequence
+	NamingSystems                      []*r4.NamingSystem
+	NutritionOrders                    []*r4.NutritionOrder
+	Observations                       []*r4.Observation
+	ObservationDefinitions             []*r4.ObservationDefinition
+	OperationDefinitions               []*r4.OperationDefinition
+	OperationOutcomes                  []*r4.OperationOutcome
+	Organizations                      []*r4.Organization
+	OrganizationAffiliations           []*r4.OrganizationAffiliation
+	Patients                           []*r4.Patient
+	PaymentNotices                     []*r4.PaymentNotice
+	PaymentReconciliations             []*r4.PaymentReconciliation
+	Persons                            []*r4.Person
+	PlanDefinitions                    []*r4.PlanDefinition
+	Practitioners                      []*r4.Practitioner
+	PractitionerRoles                  []*r4.PractitionerRole
+	Procedures                         []*r4.Procedure
+	Provenances                        []*r4.Provenance
+	Questionnaires                     []*r4.Questionnaire
+	QuestionnaireResponses             []*r4.QuestionnaireResponse
+	RelatedPersons                     []*r4.RelatedPerson
+	RequestGroups                      []*r4.RequestGroup
+	ResearchDefinitions                []*r4.ResearchDefinition
+	ResearchElementDefinitions         []*r4.ResearchElementDefinition
+	ResearchStudys                     []*r4.ResearchStudy
+	ResearchSubjects                   []*r4.ResearchSubject
+	RiskAssessments                    []*r4.RiskAssessment
+	RiskEvidenceSynthesiss             []*r4.RiskEvidenceSynthesis
+	Schedules                          []*r4.Schedule
+	SearchParameters                   []*r4.SearchParameter
+	ServiceRequests                    []*r4.ServiceRequest
+	Slots                              []*r4.Slot
+	Specimens                          []*r4.Specimen
+	SpecimenDefinitions                []*r4.SpecimenDefinition
+	StructureDefinitions               []*r4.StructureDefinition
+	StructureMaps                      []*r4.StructureMap
+	Subscriptions                      []*r4.Subscription
+	Substances                         []*r4.Substance
+	SubstanceNucleicAcids              []*r4.SubstanceNucleicAcid
+	SubstancePolymers                  []*r4.SubstancePolymer
+	SubstanceProteins                  []*r4.SubstanceProtein
+	SubstanceReferenceInformations     []*r4.SubstanceReferenceInformation
+	SubstanceSourceMaterials           []*r4.SubstanceSourceMaterial
+	SubstanceSpecifications            []*r4.SubstanceSpecification
+	SupplyDeliverys                    []*r4.SupplyDelivery
+	SupplyRequests                     []*r4.SupplyRequest
+	Tasks                              []*r4.Task
+	TerminologyCapabilitiess           []*r4.TerminologyCapabilities
+	TestReports                        []*r4.TestReport
+	TestScripts                        []*r4.TestScript
+	ValueSets                          []*r4.ValueSet
+	VerificationResults                []*r4.VerificationResult
+	VisionPrescriptions                []*r4.VisionPrescription
 }
 
 func BundleToGroup(bundle *r4.Bundle) (*ResourceGroup, error) {
@@ -155,293 +155,293 @@ func BundleToGroup(bundle *r4.Bundle) (*ResourceGroup, error) {
 	for _, e := range bundle.Entry {
 		switch res := e.Resource.(type) {
 		case *r4.Account:
-			grp.Account_list = append(grp.Account_list, res)
+			grp.Accounts = append(grp.Accounts, res)
 		case *r4.ActivityDefinition:
-			grp.ActivityDefinition_list = append(grp.ActivityDefinition_list, res)
+			grp.ActivityDefinitions = append(grp.ActivityDefinitions, res)
 		case *r4.AdverseEvent:
-			grp.AdverseEvent_list = append(grp.AdverseEvent_list, res)
+			grp.AdverseEvents = append(grp.AdverseEvents, res)
 		case *r4.AllergyIntolerance:
-			grp.AllergyIntolerance_list = append(grp.AllergyIntolerance_list, res)
+			grp.AllergyIntolerances = append(grp.AllergyIntolerances, res)
 		case *r4.Appointment:
-			grp.Appointment_list = append(grp.Appointment_list, res)
+			grp.Appointments = append(grp.Appointments, res)
 		case *r4.AppointmentResponse:
-			grp.AppointmentResponse_list = append(grp.AppointmentResponse_list, res)
+			grp.AppointmentResponses = append(grp.AppointmentResponses, res)
 		case *r4.AuditEvent:
-			grp.AuditEvent_list = append(grp.AuditEvent_list, res)
+			grp.AuditEvents = append(grp.AuditEvents, res)
 		case *r4.Basic:
-			grp.Basic_list = append(grp.Basic_list, res)
+			grp.Basics = append(grp.Basics, res)
 		case *r4.Binary:
-			grp.Binary_list = append(grp.Binary_list, res)
+			grp.Binarys = append(grp.Binarys, res)
 		case *r4.BiologicallyDerivedProduct:
-			grp.BiologicallyDerivedProduct_list = append(grp.BiologicallyDerivedProduct_list, res)
+			grp.BiologicallyDerivedProducts = append(grp.BiologicallyDerivedProducts, res)
 		case *r4.BodyStructure:
-			grp.BodyStructure_list = append(grp.BodyStructure_list, res)
+			grp.BodyStructures = append(grp.BodyStructures, res)
 		case *r4.CapabilityStatement:
-			grp.CapabilityStatement_list = append(grp.CapabilityStatement_list, res)
+			grp.CapabilityStatements = append(grp.CapabilityStatements, res)
 		case *r4.CarePlan:
-			grp.CarePlan_list = append(grp.CarePlan_list, res)
+			grp.CarePlans = append(grp.CarePlans, res)
 		case *r4.CareTeam:
-			grp.CareTeam_list = append(grp.CareTeam_list, res)
+			grp.CareTeams = append(grp.CareTeams, res)
 		case *r4.CatalogEntry:
-			grp.CatalogEntry_list = append(grp.CatalogEntry_list, res)
+			grp.CatalogEntrys = append(grp.CatalogEntrys, res)
 		case *r4.ChargeItem:
-			grp.ChargeItem_list = append(grp.ChargeItem_list, res)
+			grp.ChargeItems = append(grp.ChargeItems, res)
 		case *r4.ChargeItemDefinition:
-			grp.ChargeItemDefinition_list = append(grp.ChargeItemDefinition_list, res)
+			grp.ChargeItemDefinitions = append(grp.ChargeItemDefinitions, res)
 		case *r4.Claim:
-			grp.Claim_list = append(grp.Claim_list, res)
+			grp.Claims = append(grp.Claims, res)
 		case *r4.ClaimResponse:
-			grp.ClaimResponse_list = append(grp.ClaimResponse_list, res)
+			grp.ClaimResponses = append(grp.ClaimResponses, res)
 		case *r4.ClinicalImpression:
-			grp.ClinicalImpression_list = append(grp.ClinicalImpression_list, res)
+			grp.ClinicalImpressions = append(grp.ClinicalImpressions, res)
 		case *r4.CodeSystem:
-			grp.CodeSystem_list = append(grp.CodeSystem_list, res)
+			grp.CodeSystems = append(grp.CodeSystems, res)
 		case *r4.Communication:
-			grp.Communication_list = append(grp.Communication_list, res)
+			grp.Communications = append(grp.Communications, res)
 		case *r4.CommunicationRequest:
-			grp.CommunicationRequest_list = append(grp.CommunicationRequest_list, res)
+			grp.CommunicationRequests = append(grp.CommunicationRequests, res)
 		case *r4.CompartmentDefinition:
-			grp.CompartmentDefinition_list = append(grp.CompartmentDefinition_list, res)
+			grp.CompartmentDefinitions = append(grp.CompartmentDefinitions, res)
 		case *r4.Composition:
-			grp.Composition_list = append(grp.Composition_list, res)
+			grp.Compositions = append(grp.Compositions, res)
 		case *r4.ConceptMap:
-			grp.ConceptMap_list = append(grp.ConceptMap_list, res)
+			grp.ConceptMaps = append(grp.ConceptMaps, res)
 		case *r4.Condition:
-			grp.Condition_list = append(grp.Condition_list, res)
+			grp.Conditions = append(grp.Conditions, res)
 		case *r4.Consent:
-			grp.Consent_list = append(grp.Consent_list, res)
+			grp.Consents = append(grp.Consents, res)
 		case *r4.Contract:
-			grp.Contract_list = append(grp.Contract_list, res)
+			grp.Contracts = append(grp.Contracts, res)
 		case *r4.Coverage:
-			grp.Coverage_list = append(grp.Coverage_list, res)
+			grp.Coverages = append(grp.Coverages, res)
 		case *r4.CoverageEligibilityRequest:
-			grp.CoverageEligibilityRequest_list = append(grp.CoverageEligibilityRequest_list, res)
+			grp.CoverageEligibilityRequests = append(grp.CoverageEligibilityRequests, res)
 		case *r4.CoverageEligibilityResponse:
-			grp.CoverageEligibilityResponse_list = append(grp.CoverageEligibilityResponse_list, res)
+			grp.CoverageEligibilityResponses = append(grp.CoverageEligibilityResponses, res)
 		case *r4.DetectedIssue:
-			grp.DetectedIssue_list = append(grp.DetectedIssue_list, res)
+			grp.DetectedIssues = append(grp.DetectedIssues, res)
 		case *r4.Device:
-			grp.Device_list = append(grp.Device_list, res)
+			grp.Devices = append(grp.Devices, res)
 		case *r4.DeviceDefinition:
-			grp.DeviceDefinition_list = append(grp.DeviceDefinition_list, res)
+			grp.DeviceDefinitions = append(grp.DeviceDefinitions, res)
 		case *r4.DeviceMetric:
-			grp.DeviceMetric_list = append(grp.DeviceMetric_list, res)
+			grp.DeviceMetrics = append(grp.DeviceMetrics, res)
 		case *r4.DeviceRequest:
-			grp.DeviceRequest_list = append(grp.DeviceRequest_list, res)
+			grp.DeviceRequests = append(grp.DeviceRequests, res)
 		case *r4.DeviceUseStatement:
-			grp.DeviceUseStatement_list = append(grp.DeviceUseStatement_list, res)
+			grp.DeviceUseStatements = append(grp.DeviceUseStatements, res)
 		case *r4.DiagnosticReport:
-			grp.DiagnosticReport_list = append(grp.DiagnosticReport_list, res)
+			grp.DiagnosticReports = append(grp.DiagnosticReports, res)
 		case *r4.DocumentManifest:
-			grp.DocumentManifest_list = append(grp.DocumentManifest_list, res)
+			grp.DocumentManifests = append(grp.DocumentManifests, res)
 		case *r4.DocumentReference:
-			grp.DocumentReference_list = append(grp.DocumentReference_list, res)
+			grp.DocumentReferences = append(grp.DocumentReferences, res)
 		case *r4.EffectEvidenceSynthesis:
-			grp.EffectEvidenceSynthesis_list = append(grp.EffectEvidenceSynthesis_list, res)
+			grp.EffectEvidenceSynthesiss = append(grp.EffectEvidenceSynthesiss, res)
 		case *r4.Encounter:
-			grp.Encounter_list = append(grp.Encounter_list, res)
+			grp.Encounters = append(grp.Encounters, res)
 		case *r4.Endpoint:
-			grp.Endpoint_list = append(grp.Endpoint_list, res)
+			grp.Endpoints = append(grp.Endpoints, res)
 		case *r4.EnrollmentRequest:
-			grp.EnrollmentRequest_list = append(grp.EnrollmentRequest_list, res)
+			grp.EnrollmentRequests = append(grp.EnrollmentRequests, res)
 		case *r4.EnrollmentResponse:
-			grp.EnrollmentResponse_list = append(grp.EnrollmentResponse_list, res)
+			grp.EnrollmentResponses = append(grp.EnrollmentResponses, res)
 		case *r4.EpisodeOfCare:
-			grp.EpisodeOfCare_list = append(grp.EpisodeOfCare_list, res)
+			grp.EpisodeOfCares = append(grp.EpisodeOfCares, res)
 		case *r4.EventDefinition:
-			grp.EventDefinition_list = append(grp.EventDefinition_list, res)
+			grp.EventDefinitions = append(grp.EventDefinitions, res)
 		case *r4.Evidence:
-			grp.Evidence_list = append(grp.Evidence_list, res)
+			grp.Evidences = append(grp.Evidences, res)
 		case *r4.EvidenceVariable:
-			grp.EvidenceVariable_list = append(grp.EvidenceVariable_list, res)
+			grp.EvidenceVariables = append(grp.EvidenceVariables, res)
 		case *r4.ExampleScenario:
-			grp.ExampleScenario_list = append(grp.ExampleScenario_list, res)
+			grp.ExampleScenarios = append(grp.ExampleScenarios, res)
 		case *r4.ExplanationOfBenefit:
-			grp.ExplanationOfBenefit_list = append(grp.ExplanationOfBenefit_list, res)
+			grp.ExplanationOfBenefits = append(grp.ExplanationOfBenefits, res)
 		case *r4.FamilyMemberHistory:
-			grp.FamilyMemberHistory_list = append(grp.FamilyMemberHistory_list, res)
+			grp.FamilyMemberHistorys = append(grp.FamilyMemberHistorys, res)
 		case *r4.Flag:
-			grp.Flag_list = append(grp.Flag_list, res)
+			grp.Flags = append(grp.Flags, res)
 		case *r4.Goal:
-			grp.Goal_list = append(grp.Goal_list, res)
+			grp.Goals = append(grp.Goals, res)
 		case *r4.GraphDefinition:
-			grp.GraphDefinition_list = append(grp.GraphDefinition_list, res)
+			grp.GraphDefinitions = append(grp.GraphDefinitions, res)
 		case *r4.Group:
-			grp.Group_list = append(grp.Group_list, res)
+			grp.Groups = append(grp.Groups, res)
 		case *r4.GuidanceResponse:
-			grp.GuidanceResponse_list = append(grp.GuidanceResponse_list, res)
+			grp.GuidanceResponses = append(grp.GuidanceResponses, res)
 		case *r4.HealthcareService:
-			grp.HealthcareService_list = append(grp.HealthcareService_list, res)
+			grp.HealthcareServices = append(grp.HealthcareServices, res)
 		case *r4.ImagingStudy:
-			grp.ImagingStudy_list = append(grp.ImagingStudy_list, res)
+			grp.ImagingStudys = append(grp.ImagingStudys, res)
 		case *r4.Immunization:
-			grp.Immunization_list = append(grp.Immunization_list, res)
+			grp.Immunizations = append(grp.Immunizations, res)
 		case *r4.ImmunizationEvaluation:
-			grp.ImmunizationEvaluation_list = append(grp.ImmunizationEvaluation_list, res)
+			grp.ImmunizationEvaluations = append(grp.ImmunizationEvaluations, res)
 		case *r4.ImmunizationRecommendation:
-			grp.ImmunizationRecommendation_list = append(grp.ImmunizationRecommendation_list, res)
+			grp.ImmunizationRecommendations = append(grp.ImmunizationRecommendations, res)
 		case *r4.ImplementationGuide:
-			grp.ImplementationGuide_list = append(grp.ImplementationGuide_list, res)
+			grp.ImplementationGuides = append(grp.ImplementationGuides, res)
 		case *r4.InsurancePlan:
-			grp.InsurancePlan_list = append(grp.InsurancePlan_list, res)
+			grp.InsurancePlans = append(grp.InsurancePlans, res)
 		case *r4.Invoice:
-			grp.Invoice_list = append(grp.Invoice_list, res)
+			grp.Invoices = append(grp.Invoices, res)
 		case *r4.Library:
-			grp.Library_list = append(grp.Library_list, res)
+			grp.Librarys = append(grp.Librarys, res)
 		case *r4.Linkage:
-			grp.Linkage_list = append(grp.Linkage_list, res)
+			grp.Linkages = append(grp.Linkages, res)
 		case *r4.List:
-			grp.List_list = append(grp.List_list, res)
+			grp.Lists = append(grp.Lists, res)
 		case *r4.Location:
-			grp.Location_list = append(grp.Location_list, res)
+			grp.Locations = append(grp.Locations, res)
 		case *r4.Measure:
-			grp.Measure_list = append(grp.Measure_list, res)
+			grp.Measures = append(grp.Measures, res)
 		case *r4.MeasureReport:
-			grp.MeasureReport_list = append(grp.MeasureReport_list, res)
+			grp.MeasureReports = append(grp.MeasureReports, res)
 		case *r4.Media:
-			grp.Media_list = append(grp.Media_list, res)
+			grp.Medias = append(grp.Medias, res)
 		case *r4.Medication:
-			grp.Medication_list = append(grp.Medication_list, res)
+			grp.Medications = append(grp.Medications, res)
 		case *r4.MedicationAdministration:
-			grp.MedicationAdministration_list = append(grp.MedicationAdministration_list, res)
+			grp.MedicationAdministrations = append(grp.MedicationAdministrations, res)
 		case *r4.MedicationDispense:
-			grp.MedicationDispense_list = append(grp.MedicationDispense_list, res)
+			grp.MedicationDispenses = append(grp.MedicationDispenses, res)
 		case *r4.MedicationKnowledge:
-			grp.MedicationKnowledge_list = append(grp.MedicationKnowledge_list, res)
+			grp.MedicationKnowledges = append(grp.MedicationKnowledges, res)
 		case *r4.MedicationRequest:
-			grp.MedicationRequest_list = append(grp.MedicationRequest_list, res)
+			grp.MedicationRequests = append(grp.MedicationRequests, res)
 		case *r4.MedicationStatement:
-			grp.MedicationStatement_list = append(grp.MedicationStatement_list, res)
+			grp.MedicationStatements = append(grp.MedicationStatements, res)
 		case *r4.MedicinalProduct:
-			grp.MedicinalProduct_list = append(grp.MedicinalProduct_list, res)
+			grp.MedicinalProducts = append(grp.MedicinalProducts, res)
 		case *r4.MedicinalProductAuthorization:
-			grp.MedicinalProductAuthorization_list = append(grp.MedicinalProductAuthorization_list, res)
+			grp.MedicinalProductAuthorizations = append(grp.MedicinalProductAuthorizations, res)
 		case *r4.MedicinalProductContraindication:
-			grp.MedicinalProductContraindication_list = append(grp.MedicinalProductContraindication_list, res)
+			grp.MedicinalProductContraindications = append(grp.MedicinalProductContraindications, res)
 		case *r4.MedicinalProductIndication:
-			grp.MedicinalProductIndication_list = append(grp.MedicinalProductIndication_list, res)
+			grp.MedicinalProductIndications = append(grp.MedicinalProductIndications, res)
 		case *r4.MedicinalProductIngredient:
-			grp.MedicinalProductIngredient_list = append(grp.MedicinalProductIngredient_list, res)
+			grp.MedicinalProductIngredients = append(grp.MedicinalProductIngredients, res)
 		case *r4.MedicinalProductInteraction:
-			grp.MedicinalProductInteraction_list = append(grp.MedicinalProductInteraction_list, res)
+			grp.MedicinalProductInteractions = append(grp.MedicinalProductInteractions, res)
 		case *r4.MedicinalProductManufactured:
-			grp.MedicinalProductManufactured_list = append(grp.MedicinalProductManufactured_list, res)
+			grp.MedicinalProductManufactureds = append(grp.MedicinalProductManufactureds, res)
 		case *r4.MedicinalProductPackaged:
-			grp.MedicinalProductPackaged_list = append(grp.MedicinalProductPackaged_list, res)
+			grp.MedicinalProductPackageds = append(grp.MedicinalProductPackageds, res)
 		case *r4.MedicinalProductPharmaceutical:
-			grp.MedicinalProductPharmaceutical_list = append(grp.MedicinalProductPharmaceutical_list, res)
+			grp.MedicinalProductPharmaceuticals = append(grp.MedicinalProductPharmaceuticals, res)
 		case *r4.MedicinalProductUndesirableEffect:
-			grp.MedicinalProductUndesirableEffect_list = append(grp.MedicinalProductUndesirableEffect_list, res)
+			grp.MedicinalProductUndesirableEffects = append(grp.MedicinalProductUndesirableEffects, res)
 		case *r4.MessageDefinition:
-			grp.MessageDefinition_list = append(grp.MessageDefinition_list, res)
+			grp.MessageDefinitions = append(grp.MessageDefinitions, res)
 		case *r4.MessageHeader:
-			grp.MessageHeader_list = append(grp.MessageHeader_list, res)
+			grp.MessageHeaders = append(grp.MessageHeaders, res)
 		case *r4.MolecularSequence:
-			grp.MolecularSequence_list = append(grp.MolecularSequence_list, res)
+			grp.MolecularSequences = append(grp.MolecularSequences, res)
 		case *r4.NamingSystem:
-			grp.NamingSystem_list = append(grp.NamingSystem_list, res)
+			grp.NamingSystems = append(grp.NamingSystems, res)
 		case *r4.NutritionOrder:
-			grp.NutritionOrder_list = append(grp.NutritionOrder_list, res)
+			grp.NutritionOrders = append(grp.NutritionOrders, res)
 		case *r4.Observation:
-			grp.Observation_list = append(grp.Observation_list, res)
+			grp.Observations = append(grp.Observations, res)
 		case *r4.ObservationDefinition:
-			grp.ObservationDefinition_list = append(grp.ObservationDefinition_list, res)
+			grp.ObservationDefinitions = append(grp.ObservationDefinitions, res)
 		case *r4.OperationDefinition:
-			grp.OperationDefinition_list = append(grp.OperationDefinition_list, res)
+			grp.OperationDefinitions = append(grp.OperationDefinitions, res)
 		case *r4.OperationOutcome:
-			grp.OperationOutcome_list = append(grp.OperationOutcome_list, res)
+			grp.OperationOutcomes = append(grp.OperationOutcomes, res)
 		case *r4.Organization:
-			grp.Organization_list = append(grp.Organization_list, res)
+			grp.Organizations = append(grp.Organizations, res)
 		case *r4.OrganizationAffiliation:
-			grp.OrganizationAffiliation_list = append(grp.OrganizationAffiliation_list, res)
+			grp.OrganizationAffiliations = append(grp.OrganizationAffiliations, res)
 		case *r4.Patient:
-			grp.Patient_list = append(grp.Patient_list, res)
+			grp.Patients = append(grp.Patients, res)
 		case *r4.PaymentNotice:
-			grp.PaymentNotice_list = append(grp.PaymentNotice_list, res)
+			grp.PaymentNotices = append(grp.PaymentNotices, res)
 		case *r4.PaymentReconciliation:
-			grp.PaymentReconciliation_list = append(grp.PaymentReconciliation_list, res)
+			grp.PaymentReconciliations = append(grp.PaymentReconciliations, res)
 		case *r4.Person:
-			grp.Person_list = append(grp.Person_list, res)
+			grp.Persons = append(grp.Persons, res)
 		case *r4.PlanDefinition:
-			grp.PlanDefinition_list = append(grp.PlanDefinition_list, res)
+			grp.PlanDefinitions = append(grp.PlanDefinitions, res)
 		case *r4.Practitioner:
-			grp.Practitioner_list = append(grp.Practitioner_list, res)
+			grp.Practitioners = append(grp.Practitioners, res)
 		case *r4.PractitionerRole:
-			grp.PractitionerRole_list = append(grp.PractitionerRole_list, res)
+			grp.PractitionerRoles = append(grp.PractitionerRoles, res)
 		case *r4.Procedure:
-			grp.Procedure_list = append(grp.Procedure_list, res)
+			grp.Procedures = append(grp.Procedures, res)
 		case *r4.Provenance:
-			grp.Provenance_list = append(grp.Provenance_list, res)
+			grp.Provenances = append(grp.Provenances, res)
 		case *r4.Questionnaire:
-			grp.Questionnaire_list = append(grp.Questionnaire_list, res)
+			grp.Questionnaires = append(grp.Questionnaires, res)
 		case *r4.QuestionnaireResponse:
-			grp.QuestionnaireResponse_list = append(grp.QuestionnaireResponse_list, res)
+			grp.QuestionnaireResponses = append(grp.QuestionnaireResponses, res)
 		case *r4.RelatedPerson:
-			grp.RelatedPerson_list = append(grp.RelatedPerson_list, res)
+			grp.RelatedPersons = append(grp.RelatedPersons, res)
 		case *r4.RequestGroup:
-			grp.RequestGroup_list = append(grp.RequestGroup_list, res)
+			grp.RequestGroups = append(grp.RequestGroups, res)
 		case *r4.ResearchDefinition:
-			grp.ResearchDefinition_list = append(grp.ResearchDefinition_list, res)
+			grp.ResearchDefinitions = append(grp.ResearchDefinitions, res)
 		case *r4.ResearchElementDefinition:
-			grp.ResearchElementDefinition_list = append(grp.ResearchElementDefinition_list, res)
+			grp.ResearchElementDefinitions = append(grp.ResearchElementDefinitions, res)
 		case *r4.ResearchStudy:
-			grp.ResearchStudy_list = append(grp.ResearchStudy_list, res)
+			grp.ResearchStudys = append(grp.ResearchStudys, res)
 		case *r4.ResearchSubject:
-			grp.ResearchSubject_list = append(grp.ResearchSubject_list, res)
+			grp.ResearchSubjects = append(grp.ResearchSubjects, res)
 		case *r4.RiskAssessment:
-			grp.RiskAssessment_list = append(grp.RiskAssessment_list, res)
+			grp.RiskAssessments = append(grp.RiskAssessments, res)
 		case *r4.RiskEvidenceSynthesis:
-			grp.RiskEvidenceSynthesis_list = append(grp.RiskEvidenceSynthesis_list, res)
+			grp.RiskEvidenceSynthesiss = append(grp.RiskEvidenceSynthesiss, res)
 		case *r4.Schedule:
-			grp.Schedule_list = append(grp.Schedule_list, res)
+			grp.Schedules = append(grp.Schedules, res)
 		case *r4.SearchParameter:
-			grp.SearchParameter_list = append(grp.SearchParameter_list, res)
+			grp.SearchParameters = append(grp.SearchParameters, res)
 		case *r4.ServiceRequest:
-			grp.ServiceRequest_list = append(grp.ServiceRequest_list, res)
+			grp.ServiceRequests = append(grp.ServiceRequests, res)
 		case *r4.Slot:
-			grp.Slot_list = append(grp.Slot_list, res)
+			grp.Slots = append(grp.Slots, res)
 		case *r4.Specimen:
-			grp.Specimen_list = append(grp.Specimen_list, res)
+			grp.Specimens = append(grp.Specimens, res)
 		case *r4.SpecimenDefinition:
-			grp.SpecimenDefinition_list = append(grp.SpecimenDefinition_list, res)
+			grp.SpecimenDefinitions = append(grp.SpecimenDefinitions, res)
 		case *r4.StructureDefinition:
-			grp.StructureDefinition_list = append(grp.StructureDefinition_list, res)
+			grp.StructureDefinitions = append(grp.StructureDefinitions, res)
 		case *r4.StructureMap:
-			grp.StructureMap_list = append(grp.StructureMap_list, res)
+			grp.StructureMaps = append(grp.StructureMaps, res)
 		case *r4.Subscription:
-			grp.Subscription_list = append(grp.Subscription_list, res)
+			grp.Subscriptions = append(grp.Subscriptions, res)
 		case *r4.Substance:
-			grp.Substance_list = append(grp.Substance_list, res)
+			grp.Substances = append(grp.Substances, res)
 		case *r4.SubstanceNucleicAcid:
-			grp.SubstanceNucleicAcid_list = append(grp.SubstanceNucleicAcid_list, res)
+			grp.SubstanceNucleicAcids = append(grp.SubstanceNucleicAcids, res)
 		case *r4.SubstancePolymer:
-			grp.SubstancePolymer_list = append(grp.SubstancePolymer_list, res)
+			grp.SubstancePolymers = append(grp.SubstancePolymers, res)
 		case *r4.SubstanceProtein:
-			grp.SubstanceProtein_list = append(grp.SubstanceProtein_list, res)
+			grp.SubstanceProteins = append(grp.SubstanceProteins, res)
 		case *r4.SubstanceReferenceInformation:
-			grp.SubstanceReferenceInformation_list = append(grp.SubstanceReferenceInformation_list, res)
+			grp.SubstanceReferenceInformations = append(grp.SubstanceReferenceInformations, res)
 		case *r4.SubstanceSourceMaterial:
-			grp.SubstanceSourceMaterial_list = append(grp.SubstanceSourceMaterial_list, res)
+			grp.SubstanceSourceMaterials = append(grp.SubstanceSourceMaterials, res)
 		case *r4.SubstanceSpecification:
-			grp.SubstanceSpecification_list = append(grp.SubstanceSpecification_list, res)
+			grp.SubstanceSpecifications = append(grp.SubstanceSpecifications, res)
 		case *r4.SupplyDelivery:
-			grp.SupplyDelivery_list = append(grp.SupplyDelivery_list, res)
+			grp.SupplyDeliverys = append(grp.SupplyDeliverys, res)
 		case *r4.SupplyRequest:
-			grp.SupplyRequest_list = append(grp.SupplyRequest_list, res)
+			grp.SupplyRequests = append(grp.SupplyRequests, res)
 		case *r4.Task:
-			grp.Task_list = append(grp.Task_list, res)
+			grp.Tasks = append(grp.Tasks, res)
 		case *r4.TerminologyCapabilities:
-			grp.TerminologyCapabilities_list = append(grp.TerminologyCapabilities_list, res)
+			grp.TerminologyCapabilitiess = append(grp.TerminologyCapabilitiess, res)
 		case *r4.TestReport:
-			grp.TestReport_list = append(grp.TestReport_list, res)
+			grp.TestReports = append(grp.TestReports, res)
 		case *r4.TestScript:
-			grp.TestScript_list = append(grp.TestScript_list, res)
+			grp.TestScripts = append(grp.TestScripts, res)
 		case *r4.ValueSet:
-			grp.ValueSet_list = append(grp.ValueSet_list, res)
+			grp.ValueSets = append(grp.ValueSets, res)
 		case *r4.VerificationResult:
-			grp.VerificationResult_list = append(grp.VerificationResult_list, res)
+			grp.VerificationResults = append(grp.VerificationResults, res)
 		case *r4.VisionPrescription:
-			grp.VisionPrescription_list = append(grp.VisionPrescription_list, res)
+			grp.VisionPrescriptions = append(grp.VisionPrescriptions, res)
 		default:
 			return nil, errors.New("bundle entry not a domain resource, could not put in resourcegroup")
 		}

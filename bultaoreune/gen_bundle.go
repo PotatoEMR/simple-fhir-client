@@ -135,7 +135,7 @@ type ResourceGroup struct {`)
 		switch res := e.Resource.(type) {`)
 	for _, dr := range domainResouces {
 		sb.WriteString("case *" + fhirVersion + "." + dr + ":\n")
-		sb.WriteString("grp." + dr + "_list = append(grp." + dr + "_list, res)\n")
+		sb.WriteString("grp." + dr + "s = append(grp." + dr + "s, res)\n")
 	}
 	sb.WriteString(`default:
 			return nil, errors.New("bundle entry not a domain resource, could not put in resourcegroup")

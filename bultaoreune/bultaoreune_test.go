@@ -169,7 +169,7 @@ func TestSearch(t *testing.T) {
 	if err != nil {
 		t.Error("SearchGrouped", err)
 	}
-	pats := resGroup.Patient_list
+	pats := resGroup.Patients
 	for _, p := range pats {
 		fmt.Println(p)
 	}
@@ -181,7 +181,7 @@ func TestSearch(t *testing.T) {
 	}
 
 	PEgrouped, _ := client.PatientEverythingGrouped(*firstId)
-	for _, o := range PEgrouped.Observation_list {
+	for _, o := range PEgrouped.Observations {
 		fmt.Println("observation:", *o.Subject, *o.Id)
 	}
 }
