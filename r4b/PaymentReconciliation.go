@@ -72,6 +72,7 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 		ResourceType:               "PaymentReconciliation",
 	})
 }
+
 func (resource *PaymentReconciliation) PaymentReconciliationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

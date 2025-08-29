@@ -50,6 +50,7 @@ func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 		ResourceType:          "SubstanceProtein",
 	})
 }
+
 func (resource *SubstanceProtein) SubstanceProteinLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

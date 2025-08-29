@@ -70,6 +70,7 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:       "DeviceRequest",
 	})
 }
+
 func (resource *DeviceRequest) DeviceRequestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

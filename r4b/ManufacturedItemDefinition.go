@@ -51,6 +51,7 @@ func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "ManufacturedItemDefinition",
 	})
 }
+
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

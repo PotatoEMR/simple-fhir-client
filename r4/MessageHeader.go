@@ -76,6 +76,7 @@ func (r MessageHeader) MarshalJSON() ([]byte, error) {
 		ResourceType:       "MessageHeader",
 	})
 }
+
 func (resource *MessageHeader) MessageHeaderLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

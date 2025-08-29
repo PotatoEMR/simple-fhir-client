@@ -63,6 +63,7 @@ func (r Communication) MarshalJSON() ([]byte, error) {
 		ResourceType:       "Communication",
 	})
 }
+
 func (resource *Communication) CommunicationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

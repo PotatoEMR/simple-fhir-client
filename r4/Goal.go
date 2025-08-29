@@ -65,6 +65,7 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 		ResourceType: "Goal",
 	})
 }
+
 func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

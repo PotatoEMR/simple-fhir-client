@@ -49,6 +49,7 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 		ResourceType:            "SubscriptionStatus",
 	})
 }
+
 func (resource *SubscriptionStatus) SubscriptionStatusLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

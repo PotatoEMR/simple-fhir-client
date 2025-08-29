@@ -50,6 +50,7 @@ func (r DeviceAssociation) MarshalJSON() ([]byte, error) {
 		ResourceType:           "DeviceAssociation",
 	})
 }
+
 func (resource *DeviceAssociation) DeviceAssociationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

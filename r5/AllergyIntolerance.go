@@ -73,6 +73,7 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 		ResourceType:            "AllergyIntolerance",
 	})
 }
+
 func (resource *AllergyIntolerance) AllergyIntoleranceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

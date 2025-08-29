@@ -91,6 +91,7 @@ func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                        "AdministrableProductDefinition",
 	})
 }
+
 func (resource *AdministrableProductDefinition) AdministrableProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

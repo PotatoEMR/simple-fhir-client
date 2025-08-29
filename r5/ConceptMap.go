@@ -167,6 +167,7 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 		ResourceType:    "ConceptMap",
 	})
 }
+
 func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

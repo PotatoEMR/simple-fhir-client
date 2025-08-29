@@ -137,6 +137,7 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 		ResourceType:          "EvidenceVariable",
 	})
 }
+
 func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

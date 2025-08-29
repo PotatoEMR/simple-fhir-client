@@ -63,6 +63,7 @@ func (r EventDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "EventDefinition",
 	})
 }
+
 func (resource *EventDefinition) EventDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -93,6 +93,7 @@ func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                   "ResearchElementDefinition",
 	})
 }
+
 func (resource *ResearchElementDefinition) ResearchElementDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

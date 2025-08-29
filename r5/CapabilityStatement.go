@@ -208,6 +208,7 @@ func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
 		ResourceType:             "CapabilityStatement",
 	})
 }
+
 func (resource *CapabilityStatement) CapabilityStatementLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

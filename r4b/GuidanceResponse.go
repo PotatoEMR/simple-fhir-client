@@ -48,6 +48,7 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 		ResourceType:          "GuidanceResponse",
 	})
 }
+
 func (resource *GuidanceResponse) GuidanceResponseLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

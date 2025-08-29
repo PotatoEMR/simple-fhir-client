@@ -241,6 +241,7 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 		ResourceType:    "TestScript",
 	})
 }
+
 func (resource *TestScript) TestScriptLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

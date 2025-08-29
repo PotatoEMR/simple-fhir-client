@@ -392,7 +392,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				func (r %s) MarshalJSON() ([]byte, error) {
 					return json.Marshal(struct {
 						Other%s`, res.Name, res.Name, res.Name, res.Name, res.Name))
-			sb.WriteString(fmt.Sprintf("\nResourceType string `json:\"resourceType\"`"))
+			sb.WriteString("\nResourceType string `json:\"resourceType\"`")
 			sb.WriteString(fmt.Sprintf(`
 							}{
 						Other%s: Other%s(r),
@@ -406,11 +406,11 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 		if err != nil {
 			panic("Error creating file:" + err.Error())
 		}
-		fmt.Fprintf(file, (fmt.Sprintf("package %s\n\n", fhirVersion)))
+		fmt.Fprintf(file, "package %s\n\n", fhirVersion)
 		fmt.Fprint(file, header)
-		fmt.Fprintf(file, sb.String())
+		fmt.Fprintln(file, sb.String())
 		if isDR {
-			fmt.Fprintf(file, formFuncs.String())
+			fmt.Fprintln(file, formFuncs.String())
 		}
 		file.Close()
 	}

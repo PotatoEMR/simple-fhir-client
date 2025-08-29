@@ -43,6 +43,7 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 		ResourceType: "Linkage",
 	})
 }
+
 func (resource *Linkage) LinkageLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

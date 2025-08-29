@@ -99,6 +99,7 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 		ResourceType: "Consent",
 	})
 }
+
 func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

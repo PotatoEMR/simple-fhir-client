@@ -142,6 +142,7 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 		ResourceType:  "ValueSet",
 	})
 }
+
 func (resource *ValueSet) ValueSetLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

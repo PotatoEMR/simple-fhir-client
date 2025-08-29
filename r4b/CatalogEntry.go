@@ -53,6 +53,7 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 		ResourceType:      "CatalogEntry",
 	})
 }
+
 func (resource *CatalogEntry) CatalogEntryLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

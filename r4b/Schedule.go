@@ -39,6 +39,7 @@ func (r Schedule) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Schedule",
 	})
 }
+
 func (resource *Schedule) ScheduleLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

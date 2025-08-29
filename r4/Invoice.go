@@ -77,6 +77,7 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 		ResourceType: "Invoice",
 	})
 }
+
 func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

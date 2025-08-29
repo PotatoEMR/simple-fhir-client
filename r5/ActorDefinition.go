@@ -54,6 +54,7 @@ func (r ActorDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ActorDefinition",
 	})
 }
+
 func (resource *ActorDefinition) ActorDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -59,6 +59,7 @@ func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 		ResourceType:             "MedicationStatement",
 	})
 }
+
 func (resource *MedicationStatement) MedicationStatementLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

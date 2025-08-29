@@ -67,6 +67,7 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 		ResourceType:          "OperationOutcome",
 	})
 }
+
 func (resource *OperationOutcome) OperationOutcomeLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

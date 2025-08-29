@@ -70,6 +70,7 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 		ResourceType:       "BodyStructure",
 	})
 }
+
 func (resource *BodyStructure) BodyStructureLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

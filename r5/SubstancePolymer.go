@@ -102,6 +102,7 @@ func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 		ResourceType:          "SubstancePolymer",
 	})
 }
+
 func (resource *SubstancePolymer) SubstancePolymerLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

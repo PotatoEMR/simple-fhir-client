@@ -93,6 +93,7 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 		ResourceType:  "CarePlan",
 	})
 }
+
 func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

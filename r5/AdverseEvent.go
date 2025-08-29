@@ -122,6 +122,7 @@ func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 		ResourceType:      "AdverseEvent",
 	})
 }
+
 func (resource *AdverseEvent) AdverseEventLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

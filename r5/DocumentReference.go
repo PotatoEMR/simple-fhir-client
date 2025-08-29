@@ -92,6 +92,7 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 		ResourceType:           "DocumentReference",
 	})
 }
+
 func (resource *DocumentReference) DocumentReferenceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

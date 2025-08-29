@@ -197,6 +197,7 @@ func (r SubstanceDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:             "SubstanceDefinition",
 	})
 }
+
 func (resource *SubstanceDefinition) SubstanceDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

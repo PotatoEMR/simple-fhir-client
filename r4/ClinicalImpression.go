@@ -71,6 +71,7 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 		ResourceType:            "ClinicalImpression",
 	})
 }
+
 func (resource *ClinicalImpression) ClinicalImpressionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

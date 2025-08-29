@@ -88,6 +88,7 @@ func (r Permission) MarshalJSON() ([]byte, error) {
 		ResourceType:    "Permission",
 	})
 }
+
 func (resource *Permission) PermissionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

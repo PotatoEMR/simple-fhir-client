@@ -63,6 +63,7 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 		ResourceType:       "DetectedIssue",
 	})
 }
+
 func (resource *DetectedIssue) DetectedIssueLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

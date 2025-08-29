@@ -61,6 +61,7 @@ func (r ArtifactAssessment) MarshalJSON() ([]byte, error) {
 		ResourceType:            "ArtifactAssessment",
 	})
 }
+
 func (resource *ArtifactAssessment) ArtifactAssessmentLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -76,6 +76,7 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MessageDefinition",
 	})
 }
+
 func (resource *MessageDefinition) MessageDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

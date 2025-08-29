@@ -129,6 +129,7 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 		ResourceType:    "CodeSystem",
 	})
 }
+
 func (resource *CodeSystem) CodeSystemLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -65,6 +65,7 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 		ResourceType:          "PractitionerRole",
 	})
 }
+
 func (resource *PractitionerRole) PractitionerRoleLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

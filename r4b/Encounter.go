@@ -119,6 +119,7 @@ func (r Encounter) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Encounter",
 	})
 }
+
 func (resource *Encounter) EncounterLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

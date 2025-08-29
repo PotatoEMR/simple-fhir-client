@@ -58,6 +58,7 @@ func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 		ResourceType:                "RegulatedAuthorization",
 	})
 }
+
 func (resource *RegulatedAuthorization) RegulatedAuthorizationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

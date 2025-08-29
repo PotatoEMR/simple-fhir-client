@@ -43,6 +43,7 @@ func (r PaymentNotice) MarshalJSON() ([]byte, error) {
 		ResourceType:       "PaymentNotice",
 	})
 }
+
 func (resource *PaymentNotice) PaymentNoticeLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

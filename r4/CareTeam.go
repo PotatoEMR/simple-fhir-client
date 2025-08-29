@@ -55,6 +55,7 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 		ResourceType:  "CareTeam",
 	})
 }
+
 func (resource *CareTeam) CareTeamLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

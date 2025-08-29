@@ -225,6 +225,7 @@ func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:          "DeviceDefinition",
 	})
 }
+
 func (resource *DeviceDefinition) DeviceDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

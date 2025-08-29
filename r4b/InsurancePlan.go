@@ -138,6 +138,7 @@ func (r InsurancePlan) MarshalJSON() ([]byte, error) {
 		ResourceType:       "InsurancePlan",
 	})
 }
+
 func (resource *InsurancePlan) InsurancePlanLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

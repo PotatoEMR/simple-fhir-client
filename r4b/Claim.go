@@ -226,6 +226,7 @@ func (r Claim) MarshalJSON() ([]byte, error) {
 		ResourceType: "Claim",
 	})
 }
+
 func (resource *Claim) ClaimLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -164,6 +164,7 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 		ResourceType:      "StructureMap",
 	})
 }
+
 func (resource *StructureMap) StructureMapLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

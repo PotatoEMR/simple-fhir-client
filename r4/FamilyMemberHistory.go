@@ -72,6 +72,7 @@ func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 		ResourceType:             "FamilyMemberHistory",
 	})
 }
+
 func (resource *FamilyMemberHistory) FamilyMemberHistoryLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -69,6 +69,7 @@ func (r ChargeItem) MarshalJSON() ([]byte, error) {
 		ResourceType:    "ChargeItem",
 	})
 }
+
 func (resource *ChargeItem) ChargeItemLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -36,6 +36,7 @@ func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 		ResourceType:                           "MedicinalProductUndesirableEffect",
 	})
 }
+
 func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

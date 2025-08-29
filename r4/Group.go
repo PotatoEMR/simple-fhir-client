@@ -66,6 +66,7 @@ func (r Group) MarshalJSON() ([]byte, error) {
 		ResourceType: "Group",
 	})
 }
+
 func (resource *Group) GroupLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

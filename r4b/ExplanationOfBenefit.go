@@ -369,6 +369,7 @@ func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
 		ResourceType:              "ExplanationOfBenefit",
 	})
 }
+
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

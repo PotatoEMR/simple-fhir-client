@@ -116,6 +116,7 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 		ResourceType:       "InventoryItem",
 	})
 }
+
 func (resource *InventoryItem) InventoryItemLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -39,6 +39,7 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ResearchSubject",
 	})
 }
+
 func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

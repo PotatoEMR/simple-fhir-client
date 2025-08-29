@@ -225,6 +225,7 @@ func (r PlanDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:        "PlanDefinition",
 	})
 }
+
 func (resource *PlanDefinition) PlanDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

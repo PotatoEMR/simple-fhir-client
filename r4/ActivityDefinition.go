@@ -102,6 +102,7 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:            "ActivityDefinition",
 	})
 }
+
 func (resource *ActivityDefinition) ActivityDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

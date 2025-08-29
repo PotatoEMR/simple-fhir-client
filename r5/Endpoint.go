@@ -52,6 +52,7 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Endpoint",
 	})
 }
+
 func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

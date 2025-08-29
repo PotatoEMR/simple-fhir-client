@@ -91,6 +91,7 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "GraphDefinition",
 	})
 }
+
 func (resource *GraphDefinition) GraphDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -75,6 +75,7 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Condition",
 	})
 }
+
 func (resource *Condition) ConditionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

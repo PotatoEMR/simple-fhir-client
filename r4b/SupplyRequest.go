@@ -61,6 +61,7 @@ func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:       "SupplyRequest",
 	})
 }
+
 func (resource *SupplyRequest) SupplyRequestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

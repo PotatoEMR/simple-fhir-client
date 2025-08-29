@@ -80,6 +80,7 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MolecularSequence",
 	})
 }
+
 func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -54,6 +54,7 @@ func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 		ResourceType:        "SupplyDelivery",
 	})
 }
+
 func (resource *SupplyDelivery) SupplyDeliveryLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

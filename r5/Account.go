@@ -113,6 +113,7 @@ func (r Account) MarshalJSON() ([]byte, error) {
 		ResourceType: "Account",
 	})
 }
+
 func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

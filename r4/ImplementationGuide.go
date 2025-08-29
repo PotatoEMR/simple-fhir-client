@@ -168,6 +168,7 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 		ResourceType:             "ImplementationGuide",
 	})
 }
+
 func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

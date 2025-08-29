@@ -52,6 +52,7 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 		ResourceType:          "DocumentManifest",
 	})
 }
+
 func (resource *DocumentManifest) DocumentManifestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

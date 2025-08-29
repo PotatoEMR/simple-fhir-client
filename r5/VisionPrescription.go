@@ -69,6 +69,7 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 		ResourceType:            "VisionPrescription",
 	})
 }
+
 func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

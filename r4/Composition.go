@@ -92,6 +92,7 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 		ResourceType:     "Composition",
 	})
 }
+
 func (resource *Composition) CompositionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

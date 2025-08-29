@@ -72,6 +72,7 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 		ResourceType:              "SubstanceNucleicAcid",
 	})
 }
+
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

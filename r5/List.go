@@ -55,6 +55,7 @@ func (r List) MarshalJSON() ([]byte, error) {
 		ResourceType: "List",
 	})
 }
+
 func (resource *List) ListLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

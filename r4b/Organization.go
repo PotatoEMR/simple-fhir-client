@@ -52,6 +52,7 @@ func (r Organization) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Organization",
 	})
 }
+
 func (resource *Organization) OrganizationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

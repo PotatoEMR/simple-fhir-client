@@ -53,6 +53,7 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 		ResourceType:          "EncounterHistory",
 	})
 }
+
 func (resource *EncounterHistory) EncounterHistoryLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -42,6 +42,7 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 		ResourceType: "Slot",
 	})
 }
+
 func (resource *Slot) SlotLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

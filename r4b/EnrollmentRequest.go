@@ -38,6 +38,7 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:           "EnrollmentRequest",
 	})
 }
+
 func (resource *EnrollmentRequest) EnrollmentRequestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

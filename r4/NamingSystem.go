@@ -56,6 +56,7 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 		ResourceType:      "NamingSystem",
 	})
 }
+
 func (resource *NamingSystem) NamingSystemLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

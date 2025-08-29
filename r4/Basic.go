@@ -36,6 +36,7 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 		ResourceType: "Basic",
 	})
 }
+
 func (resource *Basic) BasicLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

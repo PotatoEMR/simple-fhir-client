@@ -88,6 +88,7 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 		ResourceType:      "ImagingStudy",
 	})
 }
+
 func (resource *ImagingStudy) ImagingStudyLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -99,6 +99,7 @@ func (r RequestGroup) MarshalJSON() ([]byte, error) {
 		ResourceType:      "RequestGroup",
 	})
 }
+
 func (resource *RequestGroup) RequestGroupLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

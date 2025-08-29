@@ -114,6 +114,7 @@ func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:            "SpecimenDefinition",
 	})
 }
+
 func (resource *SpecimenDefinition) SpecimenDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

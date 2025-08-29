@@ -44,6 +44,7 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 		ResourceType:                "ImmunizationEvaluation",
 	})
 }
+
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -152,6 +152,7 @@ func (r RequestOrchestration) MarshalJSON() ([]byte, error) {
 		ResourceType:              "RequestOrchestration",
 	})
 }
+
 func (resource *RequestOrchestration) RequestOrchestrationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

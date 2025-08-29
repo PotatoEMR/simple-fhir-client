@@ -72,6 +72,7 @@ func (r SubstanceReferenceInformation) MarshalJSON() ([]byte, error) {
 		ResourceType:                       "SubstanceReferenceInformation",
 	})
 }
+
 func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

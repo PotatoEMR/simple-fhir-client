@@ -58,6 +58,7 @@ func (r MetadataResource) MarshalJSON() ([]byte, error) {
 		ResourceType:          "MetadataResource",
 	})
 }
+
 func (resource *MetadataResource) MetadataResourceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

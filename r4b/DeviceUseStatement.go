@@ -46,6 +46,7 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 		ResourceType:            "DeviceUseStatement",
 	})
 }
+
 func (resource *DeviceUseStatement) DeviceUseStatementLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

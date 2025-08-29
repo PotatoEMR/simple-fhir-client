@@ -180,6 +180,7 @@ func (r SubstanceSpecification) MarshalJSON() ([]byte, error) {
 		ResourceType:                "SubstanceSpecification",
 	})
 }
+
 func (resource *SubstanceSpecification) SubstanceSpecificationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

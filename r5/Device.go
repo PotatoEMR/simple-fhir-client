@@ -122,6 +122,7 @@ func (r Device) MarshalJSON() ([]byte, error) {
 		ResourceType: "Device",
 	})
 }
+
 func (resource *Device) DeviceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

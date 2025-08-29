@@ -63,6 +63,7 @@ func (r Person) MarshalJSON() ([]byte, error) {
 		ResourceType: "Person",
 	})
 }
+
 func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

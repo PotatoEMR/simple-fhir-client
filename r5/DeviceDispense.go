@@ -61,6 +61,7 @@ func (r DeviceDispense) MarshalJSON() ([]byte, error) {
 		ResourceType:        "DeviceDispense",
 	})
 }
+
 func (resource *DeviceDispense) DeviceDispenseLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

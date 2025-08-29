@@ -117,6 +117,7 @@ func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 		ResourceType:               "RiskEvidenceSynthesis",
 	})
 }
+
 func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -129,6 +129,7 @@ func (r EffectEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "EffectEvidenceSynthesis",
 	})
 }
+
 func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

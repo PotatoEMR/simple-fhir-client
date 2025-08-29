@@ -70,6 +70,7 @@ func (r Requirements) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Requirements",
 	})
 }
+
 func (resource *Requirements) RequirementsLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

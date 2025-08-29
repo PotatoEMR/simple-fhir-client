@@ -50,6 +50,7 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 		ResourceType:      "DeviceMetric",
 	})
 }
+
 func (resource *DeviceMetric) DeviceMetricLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

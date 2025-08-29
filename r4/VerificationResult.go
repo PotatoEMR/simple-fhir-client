@@ -84,6 +84,7 @@ func (r VerificationResult) MarshalJSON() ([]byte, error) {
 		ResourceType:            "VerificationResult",
 	})
 }
+
 func (resource *VerificationResult) VerificationResultLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -85,6 +85,7 @@ func (r Procedure) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Procedure",
 	})
 }
+
 func (resource *Procedure) ProcedureLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

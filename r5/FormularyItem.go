@@ -34,6 +34,7 @@ func (r FormularyItem) MarshalJSON() ([]byte, error) {
 		ResourceType:       "FormularyItem",
 	})
 }
+
 func (resource *FormularyItem) FormularyItemLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

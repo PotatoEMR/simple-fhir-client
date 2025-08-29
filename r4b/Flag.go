@@ -39,6 +39,7 @@ func (r Flag) MarshalJSON() ([]byte, error) {
 		ResourceType: "Flag",
 	})
 }
+
 func (resource *Flag) FlagLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

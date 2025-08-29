@@ -93,6 +93,7 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                   "PackagedProductDefinition",
 	})
 }
+
 func (resource *PackagedProductDefinition) PackagedProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

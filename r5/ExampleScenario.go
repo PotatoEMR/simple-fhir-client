@@ -147,6 +147,7 @@ func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ExampleScenario",
 	})
 }
+
 func (resource *ExampleScenario) ExampleScenarioLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

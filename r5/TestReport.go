@@ -132,6 +132,7 @@ func (r TestReport) MarshalJSON() ([]byte, error) {
 		ResourceType:    "TestReport",
 	})
 }
+
 func (resource *TestReport) TestReportLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

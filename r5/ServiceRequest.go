@@ -102,6 +102,7 @@ func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:        "ServiceRequest",
 	})
 }
+
 func (resource *ServiceRequest) ServiceRequestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

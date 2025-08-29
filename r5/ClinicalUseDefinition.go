@@ -120,6 +120,7 @@ func (r ClinicalUseDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:               "ClinicalUseDefinition",
 	})
 }
+
 func (resource *ClinicalUseDefinition) ClinicalUseDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

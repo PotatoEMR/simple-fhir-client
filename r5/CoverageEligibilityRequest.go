@@ -103,6 +103,7 @@ func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "CoverageEligibilityRequest",
 	})
 }
+
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

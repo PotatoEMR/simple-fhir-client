@@ -86,6 +86,7 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "BiologicallyDerivedProduct",
 	})
 }
+
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

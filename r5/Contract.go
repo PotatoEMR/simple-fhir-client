@@ -281,6 +281,7 @@ func (r Contract) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Contract",
 	})
 }
+
 func (resource *Contract) ContractLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

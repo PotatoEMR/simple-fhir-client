@@ -54,6 +54,7 @@ func (r Media) MarshalJSON() ([]byte, error) {
 		ResourceType: "Media",
 	})
 }
+
 func (resource *Media) MediaLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

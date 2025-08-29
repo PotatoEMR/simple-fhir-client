@@ -94,6 +94,7 @@ func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:             "StructureDefinition",
 	})
 }
+
 func (resource *StructureDefinition) StructureDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -72,6 +72,7 @@ func (r SearchParameter) MarshalJSON() ([]byte, error) {
 		ResourceType:         "SearchParameter",
 	})
 }
+
 func (resource *SearchParameter) SearchParameterLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

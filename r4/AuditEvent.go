@@ -105,6 +105,7 @@ func (r AuditEvent) MarshalJSON() ([]byte, error) {
 		ResourceType:    "AuditEvent",
 	})
 }
+
 func (resource *AuditEvent) AuditEventLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

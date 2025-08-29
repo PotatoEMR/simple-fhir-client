@@ -207,6 +207,7 @@ func (r Task) MarshalJSON() ([]byte, error) {
 		ResourceType: "Task",
 	})
 }
+
 func (resource *Task) TaskLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

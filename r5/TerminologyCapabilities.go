@@ -155,6 +155,7 @@ func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "TerminologyCapabilities",
 	})
 }
+
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

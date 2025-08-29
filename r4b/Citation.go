@@ -330,6 +330,7 @@ func (r Citation) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Citation",
 	})
 }
+
 func (resource *Citation) CitationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

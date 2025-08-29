@@ -93,6 +93,7 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 		ResourceType:    "Ingredient",
 	})
 }
+
 func (resource *Ingredient) IngredientLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

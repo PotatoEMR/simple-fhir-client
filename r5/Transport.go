@@ -197,6 +197,7 @@ func (r Transport) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Transport",
 	})
 }
+
 func (resource *Transport) TransportLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

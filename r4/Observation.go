@@ -102,6 +102,7 @@ func (r Observation) MarshalJSON() ([]byte, error) {
 		ResourceType:     "Observation",
 	})
 }
+
 func (resource *Observation) ObservationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

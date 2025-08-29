@@ -63,6 +63,7 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 		ResourceType:        "RiskAssessment",
 	})
 }
+
 func (resource *RiskAssessment) RiskAssessmentLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

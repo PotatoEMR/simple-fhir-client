@@ -132,6 +132,7 @@ func (r Questionnaire) MarshalJSON() ([]byte, error) {
 		ResourceType:       "Questionnaire",
 	})
 }
+
 func (resource *Questionnaire) QuestionnaireLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

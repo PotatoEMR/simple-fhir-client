@@ -49,6 +49,7 @@ func (r CanonicalResource) MarshalJSON() ([]byte, error) {
 		ResourceType:           "CanonicalResource",
 	})
 }
+
 func (resource *CanonicalResource) CanonicalResourceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

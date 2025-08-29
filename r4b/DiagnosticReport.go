@@ -59,6 +59,7 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 		ResourceType:          "DiagnosticReport",
 	})
 }
+
 func (resource *DiagnosticReport) DiagnosticReportLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

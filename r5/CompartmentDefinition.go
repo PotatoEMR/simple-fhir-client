@@ -60,6 +60,7 @@ func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:               "CompartmentDefinition",
 	})
 }
+
 func (resource *CompartmentDefinition) CompartmentDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

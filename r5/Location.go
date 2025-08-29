@@ -59,6 +59,7 @@ func (r Location) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Location",
 	})
 }
+
 func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

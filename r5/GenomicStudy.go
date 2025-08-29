@@ -109,6 +109,7 @@ func (r GenomicStudy) MarshalJSON() ([]byte, error) {
 		ResourceType:      "GenomicStudy",
 	})
 }
+
 func (resource *GenomicStudy) GenomicStudyLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

@@ -38,6 +38,7 @@ func (r MedicinalProductManufactured) MarshalJSON() ([]byte, error) {
 		ResourceType:                      "MedicinalProductManufactured",
 	})
 }
+
 func (resource *MedicinalProductManufactured) MedicinalProductManufacturedLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

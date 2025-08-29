@@ -62,6 +62,7 @@ func (r InventoryReport) MarshalJSON() ([]byte, error) {
 		ResourceType:         "InventoryReport",
 	})
 }
+
 func (resource *InventoryReport) InventoryReportLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {

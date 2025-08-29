@@ -65,6 +65,7 @@ func (r Provenance) MarshalJSON() ([]byte, error) {
 		ResourceType:    "Provenance",
 	})
 }
+
 func (resource *Provenance) ProvenanceLanguage(optionsValueSet []Coding) templ.Component {
 	currentVal := ""
 	if resource != nil {
