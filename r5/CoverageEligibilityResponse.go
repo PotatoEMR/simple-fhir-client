@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/CoverageEligibilityResponse
 type CoverageEligibilityResponse struct {
@@ -111,4 +112,35 @@ func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
 		OtherCoverageEligibilityResponse: OtherCoverageEligibilityResponse(r),
 		ResourceType:                     "CoverageEligibilityResponse",
 	})
+}
+func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseStatus() templ.Component {
+	optionsValueSet := VSFm_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *CoverageEligibilityResponse) CoverageEligibilityResponsePurpose() templ.Component {
+	optionsValueSet := VSEligibilityresponse_purpose
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Purpose[0]
+	}
+	return CodeSelect("purpose", currentVal, optionsValueSet)
+}
+func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseOutcome() templ.Component {
+	optionsValueSet := VSEligibility_outcome
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Outcome
+	}
+	return CodeSelect("outcome", currentVal, optionsValueSet)
 }

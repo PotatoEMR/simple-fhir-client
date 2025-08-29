@@ -5,6 +5,9 @@ func PatientEverything(fhirVersion string) string {
 //
 // PatientEverythingGroup does exact same search, but returns list of each resource type
 func (fc *FhirClient) PatientEverythingBundled(patId string) (*` + fhirVersion + `.Bundle, error) {
+	if patId == "" {
+		return nil, errors.New("PatientEverything called with empty pat id")
+	}
 	reqUrl, err := url.JoinPath(fc.BaseUrl, "Patient", patId, "$everything")
 	if err != nil {
 		return nil, err
@@ -34,7 +37,7 @@ func (fc *FhirClient) PatientEverythingBundled(patId string) (*` + fhirVersion +
 func (fc *FhirClient) PatientEverythingGrouped(patId string) (*ResourceGroup, error) {
 	bundle, err := fc.PatientEverythingBundled(patId)
 	if err != nil {
-		return nil, fmt.Errorf("patientEverything error %s", err)
+		return nil, err
 	}
 	return BundleToGroup(bundle)
 }`

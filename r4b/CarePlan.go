@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/CarePlan
 type CarePlan struct {
@@ -91,4 +92,43 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 		OtherCarePlan: OtherCarePlan(r),
 		ResourceType:  "CarePlan",
 	})
+}
+func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *CarePlan) CarePlanStatus() templ.Component {
+	optionsValueSet := VSRequest_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *CarePlan) CarePlanIntent() templ.Component {
+	optionsValueSet := VSCare_plan_intent
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Intent
+	}
+	return CodeSelect("intent", currentVal, optionsValueSet)
+}
+func (resource *CarePlan) CarePlanActivityDetailKind(numActivity int) templ.Component {
+	optionsValueSet := VSCare_plan_activity_kind
+	currentVal := ""
+	if resource != nil && len(resource.Activity) >= numActivity {
+		currentVal = *resource.Activity[numActivity].Detail.Kind
+	}
+	return CodeSelect("kind", currentVal, optionsValueSet)
+}
+func (resource *CarePlan) CarePlanActivityDetailStatus(numActivity int) templ.Component {
+	optionsValueSet := VSCare_plan_activity_status
+	currentVal := ""
+	if resource != nil && len(resource.Activity) >= numActivity {
+		currentVal = resource.Activity[numActivity].Detail.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
 }

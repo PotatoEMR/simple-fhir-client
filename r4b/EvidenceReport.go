@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/EvidenceReport
 type EvidenceReport struct {
@@ -100,4 +101,35 @@ func (r EvidenceReport) MarshalJSON() ([]byte, error) {
 		OtherEvidenceReport: OtherEvidenceReport(r),
 		ResourceType:        "EvidenceReport",
 	})
+}
+func (resource *EvidenceReport) EvidenceReportLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *EvidenceReport) EvidenceReportStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *EvidenceReport) EvidenceReportRelatesToCode(numRelatesTo int) templ.Component {
+	optionsValueSet := VSReport_relation_type
+	currentVal := ""
+	if resource != nil && len(resource.RelatesTo) >= numRelatesTo {
+		currentVal = resource.RelatesTo[numRelatesTo].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *EvidenceReport) EvidenceReportSectionMode(numSection int) templ.Component {
+	optionsValueSet := VSList_mode
+	currentVal := ""
+	if resource != nil && len(resource.Section) >= numSection {
+		currentVal = *resource.Section[numSection].Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
 }

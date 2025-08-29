@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/SubscriptionTopic
 type SubscriptionTopic struct {
@@ -107,4 +108,51 @@ func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 		OtherSubscriptionTopic: OtherSubscriptionTopic(r),
 		ResourceType:           "SubscriptionTopic",
 	})
+}
+func (resource *SubscriptionTopic) SubscriptionTopicLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInteraction(numResourceTrigger int) templ.Component {
+	optionsValueSet := VSInteraction_trigger
+	currentVal := ""
+	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+		currentVal = resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[0]
+	}
+	return CodeSelect("supportedInteraction", currentVal, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int) templ.Component {
+	optionsValueSet := VSSubscriptiontopic_cr_behavior
+	currentVal := ""
+	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+		currentVal = *resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate
+	}
+	return CodeSelect("resultForCreate", currentVal, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int) templ.Component {
+	optionsValueSet := VSSubscriptiontopic_cr_behavior
+	currentVal := ""
+	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+		currentVal = *resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete
+	}
+	return CodeSelect("resultForDelete", currentVal, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByModifier(numCanFilterBy int) templ.Component {
+	optionsValueSet := VSSubscription_search_modifier
+	currentVal := ""
+	if resource != nil && len(resource.CanFilterBy) >= numCanFilterBy {
+		currentVal = resource.CanFilterBy[numCanFilterBy].Modifier[0]
+	}
+	return CodeSelect("modifier", currentVal, optionsValueSet)
 }

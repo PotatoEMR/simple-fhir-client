@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Evidence
 type Evidence struct {
@@ -144,4 +145,27 @@ func (r Evidence) MarshalJSON() ([]byte, error) {
 		OtherEvidence: OtherEvidence(r),
 		ResourceType:  "Evidence",
 	})
+}
+func (resource *Evidence) EvidenceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticModelCharacteristicVariableHandling(numStatistic int, numModelCharacteristic int, numVariable int) templ.Component {
+	optionsValueSet := VSVariable_handling
+	currentVal := ""
+	if resource != nil && len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable) >= numVariable {
+		currentVal = *resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].Handling
+	}
+	return CodeSelect("handling", currentVal, optionsValueSet)
 }

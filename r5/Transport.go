@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Transport
 type Transport struct {
@@ -195,4 +196,35 @@ func (r Transport) MarshalJSON() ([]byte, error) {
 		OtherTransport: OtherTransport(r),
 		ResourceType:   "Transport",
 	})
+}
+func (resource *Transport) TransportLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Transport) TransportStatus() templ.Component {
+	optionsValueSet := VSTransport_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Transport) TransportIntent() templ.Component {
+	optionsValueSet := VSTransport_intent
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Intent
+	}
+	return CodeSelect("intent", currentVal, optionsValueSet)
+}
+func (resource *Transport) TransportPriority() templ.Component {
+	optionsValueSet := VSRequest_priority
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Priority
+	}
+	return CodeSelect("priority", currentVal, optionsValueSet)
 }

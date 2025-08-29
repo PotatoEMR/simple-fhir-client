@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/DeviceDefinition
 type DeviceDefinition struct {
@@ -109,4 +110,19 @@ func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 		OtherDeviceDefinition: OtherDeviceDefinition(r),
 		ResourceType:          "DeviceDefinition",
 	})
+}
+func (resource *DeviceDefinition) DeviceDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *DeviceDefinition) DeviceDefinitionDeviceNameType(numDeviceName int) templ.Component {
+	optionsValueSet := VSDevice_nametype
+	currentVal := ""
+	if resource != nil && len(resource.DeviceName) >= numDeviceName {
+		currentVal = resource.DeviceName[numDeviceName].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

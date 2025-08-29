@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/MolecularSequence
 type MolecularSequence struct {
@@ -153,4 +154,51 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 		OtherMolecularSequence: OtherMolecularSequence(r),
 		ResourceType:           "MolecularSequence",
 	})
+}
+func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
+	optionsValueSet := VSSequence_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceReferenceSeqOrientation() templ.Component {
+	optionsValueSet := VSOrientation_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.ReferenceSeq.Orientation
+	}
+	return CodeSelect("orientation", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceReferenceSeqStrand() templ.Component {
+	optionsValueSet := VSStrand_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.ReferenceSeq.Strand
+	}
+	return CodeSelect("strand", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceQualityType(numQuality int) templ.Component {
+	optionsValueSet := VSQuality_type
+	currentVal := ""
+	if resource != nil && len(resource.Quality) >= numQuality {
+		currentVal = resource.Quality[numQuality].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceRepositoryType(numRepository int) templ.Component {
+	optionsValueSet := VSRepository_type
+	currentVal := ""
+	if resource != nil && len(resource.Repository) >= numRepository {
+		currentVal = resource.Repository[numRepository].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

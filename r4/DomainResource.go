@@ -1,8 +1,10 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
+package r4
+
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-package r4
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/DomainResource
 type DomainResource struct {
@@ -14,4 +16,12 @@ type DomainResource struct {
 	Contained         []Resource  `json:"contained,omitempty"`
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
+}
+
+func (resource *DomainResource) DomainResourceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
 }

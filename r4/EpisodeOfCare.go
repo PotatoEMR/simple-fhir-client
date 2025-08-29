@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/EpisodeOfCare
 type EpisodeOfCare struct {
@@ -60,4 +61,27 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 		OtherEpisodeOfCare: OtherEpisodeOfCare(r),
 		ResourceType:       "EpisodeOfCare",
 	})
+}
+func (resource *EpisodeOfCare) EpisodeOfCareLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *EpisodeOfCare) EpisodeOfCareStatus() templ.Component {
+	optionsValueSet := VSEpisode_of_care_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *EpisodeOfCare) EpisodeOfCareStatusHistoryStatus(numStatusHistory int) templ.Component {
+	optionsValueSet := VSEpisode_of_care_status
+	currentVal := ""
+	if resource != nil && len(resource.StatusHistory) >= numStatusHistory {
+		currentVal = resource.StatusHistory[numStatusHistory].Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
 }

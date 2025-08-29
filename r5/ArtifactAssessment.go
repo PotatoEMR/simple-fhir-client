@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/ArtifactAssessment
 type ArtifactAssessment struct {
@@ -59,4 +60,35 @@ func (r ArtifactAssessment) MarshalJSON() ([]byte, error) {
 		OtherArtifactAssessment: OtherArtifactAssessment(r),
 		ResourceType:            "ArtifactAssessment",
 	})
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentWorkflowStatus() templ.Component {
+	optionsValueSet := VSArtifactassessment_workflow_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.WorkflowStatus
+	}
+	return CodeSelect("workflowStatus", currentVal, optionsValueSet)
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentDisposition() templ.Component {
+	optionsValueSet := VSArtifactassessment_disposition
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Disposition
+	}
+	return CodeSelect("disposition", currentVal, optionsValueSet)
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentContentInformationType(numContent int) templ.Component {
+	optionsValueSet := VSArtifactassessment_information_type
+	currentVal := ""
+	if resource != nil && len(resource.Content) >= numContent {
+		currentVal = *resource.Content[numContent].InformationType
+	}
+	return CodeSelect("informationType", currentVal, optionsValueSet)
 }

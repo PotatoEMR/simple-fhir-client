@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/TestReport
 type TestReport struct {
@@ -130,4 +131,51 @@ func (r TestReport) MarshalJSON() ([]byte, error) {
 		OtherTestReport: OtherTestReport(r),
 		ResourceType:    "TestReport",
 	})
+}
+func (resource *TestReport) TestReportLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *TestReport) TestReportStatus() templ.Component {
+	optionsValueSet := VSReport_status_codes
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *TestReport) TestReportResult() templ.Component {
+	optionsValueSet := VSReport_result_codes
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Result
+	}
+	return CodeSelect("result", currentVal, optionsValueSet)
+}
+func (resource *TestReport) TestReportParticipantType(numParticipant int) templ.Component {
+	optionsValueSet := VSReport_participant_type
+	currentVal := ""
+	if resource != nil && len(resource.Participant) >= numParticipant {
+		currentVal = resource.Participant[numParticipant].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *TestReport) TestReportSetupActionOperationResult(numAction int) templ.Component {
+	optionsValueSet := VSReport_action_result_codes
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = resource.Setup.Action[numAction].Operation.Result
+	}
+	return CodeSelect("result", currentVal, optionsValueSet)
+}
+func (resource *TestReport) TestReportSetupActionAssertResult(numAction int) templ.Component {
+	optionsValueSet := VSReport_action_result_codes
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = resource.Setup.Action[numAction].Assert.Result
+	}
+	return CodeSelect("result", currentVal, optionsValueSet)
 }

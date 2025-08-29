@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Location
 type Location struct {
@@ -67,4 +68,35 @@ func (r Location) MarshalJSON() ([]byte, error) {
 		OtherLocation: OtherLocation(r),
 		ResourceType:  "Location",
 	})
+}
+func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Location) LocationStatus() templ.Component {
+	optionsValueSet := VSLocation_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Location) LocationMode() templ.Component {
+	optionsValueSet := VSLocation_mode
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
+}
+func (resource *Location) LocationHoursOfOperationDaysOfWeek(numHoursOfOperation int) templ.Component {
+	optionsValueSet := VSDays_of_week
+	currentVal := ""
+	if resource != nil && len(resource.HoursOfOperation) >= numHoursOfOperation {
+		currentVal = resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek[0]
+	}
+	return CodeSelect("daysOfWeek", currentVal, optionsValueSet)
 }

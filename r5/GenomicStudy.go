@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/GenomicStudy
 type GenomicStudy struct {
@@ -107,4 +108,19 @@ func (r GenomicStudy) MarshalJSON() ([]byte, error) {
 		OtherGenomicStudy: OtherGenomicStudy(r),
 		ResourceType:      "GenomicStudy",
 	})
+}
+func (resource *GenomicStudy) GenomicStudyLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *GenomicStudy) GenomicStudyStatus() templ.Component {
+	optionsValueSet := VSGenomicstudy_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
 }

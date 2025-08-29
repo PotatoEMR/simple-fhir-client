@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 import "strings"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/OperationOutcome
@@ -65,4 +66,27 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 		OtherOperationOutcome: OtherOperationOutcome(r),
 		ResourceType:          "OperationOutcome",
 	})
+}
+func (resource *OperationOutcome) OperationOutcomeLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *OperationOutcome) OperationOutcomeIssueSeverity(numIssue int) templ.Component {
+	optionsValueSet := VSIssue_severity
+	currentVal := ""
+	if resource != nil && len(resource.Issue) >= numIssue {
+		currentVal = resource.Issue[numIssue].Severity
+	}
+	return CodeSelect("severity", currentVal, optionsValueSet)
+}
+func (resource *OperationOutcome) OperationOutcomeIssueCode(numIssue int) templ.Component {
+	optionsValueSet := VSIssue_type
+	currentVal := ""
+	if resource != nil && len(resource.Issue) >= numIssue {
+		currentVal = resource.Issue[numIssue].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/VisionPrescription
 type VisionPrescription struct {
@@ -67,4 +68,35 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 		OtherVisionPrescription: OtherVisionPrescription(r),
 		ResourceType:            "VisionPrescription",
 	})
+}
+func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *VisionPrescription) VisionPrescriptionStatus() templ.Component {
+	optionsValueSet := VSFm_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLensSpecification int) templ.Component {
+	optionsValueSet := VSVision_eye_codes
+	currentVal := ""
+	if resource != nil && len(resource.LensSpecification) >= numLensSpecification {
+		currentVal = resource.LensSpecification[numLensSpecification].Eye
+	}
+	return CodeSelect("eye", currentVal, optionsValueSet)
+}
+func (resource *VisionPrescription) VisionPrescriptionLensSpecificationPrismBase(numLensSpecification int, numPrism int) templ.Component {
+	optionsValueSet := VSVision_base_codes
+	currentVal := ""
+	if resource != nil && len(resource.LensSpecification[numLensSpecification].Prism) >= numPrism {
+		currentVal = resource.LensSpecification[numLensSpecification].Prism[numPrism].Base
+	}
+	return CodeSelect("base", currentVal, optionsValueSet)
 }

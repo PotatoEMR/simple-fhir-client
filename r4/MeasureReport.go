@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/MeasureReport
 type MeasureReport struct {
@@ -100,4 +101,27 @@ func (r MeasureReport) MarshalJSON() ([]byte, error) {
 		OtherMeasureReport: OtherMeasureReport(r),
 		ResourceType:       "MeasureReport",
 	})
+}
+func (resource *MeasureReport) MeasureReportLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportStatus() templ.Component {
+	optionsValueSet := VSMeasure_report_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportType() templ.Component {
+	optionsValueSet := VSMeasure_report_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

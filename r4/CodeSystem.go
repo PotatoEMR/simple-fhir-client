@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/CodeSystem
 type CodeSystem struct {
@@ -114,4 +115,86 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 		OtherCodeSystem: OtherCodeSystem(r),
 		ResourceType:    "CodeSystem",
 	})
+}
+func (resource *CodeSystem) CodeSystemLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemHierarchyMeaning() templ.Component {
+	optionsValueSet := VSCodesystem_hierarchy_meaning
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.HierarchyMeaning
+	}
+	return CodeSelect("hierarchyMeaning", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemContent() templ.Component {
+	optionsValueSet := VSCodesystem_content_mode
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Content
+	}
+	return CodeSelect("content", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemFilterCode(numFilter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Filter) >= numFilter {
+		currentVal = resource.Filter[numFilter].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemFilterOperator(numFilter int) templ.Component {
+	optionsValueSet := VSFilter_operator
+	currentVal := ""
+	if resource != nil && len(resource.Filter) >= numFilter {
+		currentVal = resource.Filter[numFilter].Operator[0]
+	}
+	return CodeSelect("operator", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Property) >= numProperty {
+		currentVal = resource.Property[numProperty].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemPropertyType(numProperty int) templ.Component {
+	optionsValueSet := VSConcept_property_type
+	currentVal := ""
+	if resource != nil && len(resource.Property) >= numProperty {
+		currentVal = resource.Property[numProperty].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemConceptCode(numConcept int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Concept) >= numConcept {
+		currentVal = resource.Concept[numConcept].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemConceptDesignationLanguage(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
+		currentVal = *resource.Concept[numConcept].Designation[numDesignation].Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemConceptPropertyCode(numConcept int, numProperty int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Concept[numConcept].Property) >= numProperty {
+		currentVal = resource.Concept[numConcept].Property[numProperty].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

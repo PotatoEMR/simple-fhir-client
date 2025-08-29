@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/OperationDefinition
 type OperationDefinition struct {
@@ -99,4 +100,80 @@ func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 		OtherOperationDefinition: OtherOperationDefinition(r),
 		ResourceType:             "OperationDefinition",
 	})
+}
+func (resource *OperationDefinition) OperationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionKind() templ.Component {
+	optionsValueSet := VSOperation_kind
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Kind
+	}
+	return CodeSelect("kind", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionCode(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionResource() templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Resource[0]
+	}
+	return CodeSelect("resource", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		currentVal = resource.Parameter[numParameter].Name
+	}
+	return CodeSelect("name", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionParameterUse(numParameter int) templ.Component {
+	optionsValueSet := VSOperation_parameter_use
+	currentVal := ""
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		currentVal = resource.Parameter[numParameter].Use
+	}
+	return CodeSelect("use", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionParameterType(numParameter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		currentVal = *resource.Parameter[numParameter].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionParameterSearchType(numParameter int) templ.Component {
+	optionsValueSet := VSSearch_param_type
+	currentVal := ""
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		currentVal = *resource.Parameter[numParameter].SearchType
+	}
+	return CodeSelect("searchType", currentVal, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionParameterBindingStrength(numParameter int) templ.Component {
+	optionsValueSet := VSBinding_strength
+	currentVal := ""
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		currentVal = resource.Parameter[numParameter].Binding.Strength
+	}
+	return CodeSelect("strength", currentVal, optionsValueSet)
 }

@@ -1,8 +1,10 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
+package r4b
+
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-package r4b
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Resource
 type Resource struct {
@@ -10,4 +12,12 @@ type Resource struct {
 	Meta          *Meta   `json:"meta,omitempty"`
 	ImplicitRules *string `json:"implicitRules,omitempty"`
 	Language      *string `json:"language,omitempty"`
+}
+
+func (resource *Resource) ResourceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
 }

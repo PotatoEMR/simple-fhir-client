@@ -1,0 +1,30 @@
+package main
+
+func FormText(fhirVersion string) string {
+	ret := `package ` + fhirVersion + `
+
+
+templ CodeSelect(fieldname, current string, valueset []Coding) {
+	<select name={ fieldname }>
+		<option value="">--</option>
+		for _, c := range valueset {
+			if c.Code != nil {
+				<option
+					value={ *c.Code }
+					if *c.Code == current {
+						selected
+					}
+				>
+					if c.Display == nil {
+						{ *c.Code }
+					} else {
+						{ *c.Display }
+					}
+				</option>
+			}
+		}
+	</select>
+}
+`
+	return ret
+}

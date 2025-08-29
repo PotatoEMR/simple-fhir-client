@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/List
 type List struct {
@@ -53,4 +54,27 @@ func (r List) MarshalJSON() ([]byte, error) {
 		OtherList:    OtherList(r),
 		ResourceType: "List",
 	})
+}
+func (resource *List) ListLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *List) ListStatus() templ.Component {
+	optionsValueSet := VSList_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *List) ListMode() templ.Component {
+	optionsValueSet := VSList_mode
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
 }

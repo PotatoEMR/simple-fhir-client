@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Goal
 type Goal struct {
@@ -63,4 +64,19 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 		OtherGoal:    OtherGoal(r),
 		ResourceType: "Goal",
 	})
+}
+func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Goal) GoalLifecycleStatus() templ.Component {
+	optionsValueSet := VSGoal_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.LifecycleStatus
+	}
+	return CodeSelect("lifecycleStatus", currentVal, optionsValueSet)
 }

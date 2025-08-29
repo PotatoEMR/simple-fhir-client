@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Citation
 type Citation struct {
@@ -274,4 +275,26 @@ func (r Citation) MarshalJSON() ([]byte, error) {
 		OtherCitation: OtherCitation(r),
 		ResourceType:  "Citation",
 	})
+}
+func (resource *Citation) CitationLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Citation) CitationStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Citation) CitationCitedArtifactRelatesToType(numRelatesTo int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.CitedArtifact.RelatesTo) >= numRelatesTo {
+		currentVal = resource.CitedArtifact.RelatesTo[numRelatesTo].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

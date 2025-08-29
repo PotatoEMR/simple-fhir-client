@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/StructureMap
 type StructureMap struct {
@@ -162,4 +163,67 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 		OtherStructureMap: OtherStructureMap(r),
 		ResourceType:      "StructureMap",
 	})
+}
+func (resource *StructureMap) StructureMapLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapStructureMode(numStructure int) templ.Component {
+	optionsValueSet := VSMap_model_mode
+	currentVal := ""
+	if resource != nil && len(resource.Structure) >= numStructure {
+		currentVal = resource.Structure[numStructure].Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapGroupTypeMode(numGroup int) templ.Component {
+	optionsValueSet := VSMap_group_type_mode
+	currentVal := ""
+	if resource != nil && len(resource.Group) >= numGroup {
+		currentVal = *resource.Group[numGroup].TypeMode
+	}
+	return CodeSelect("typeMode", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapGroupInputMode(numGroup int, numInput int) templ.Component {
+	optionsValueSet := VSMap_input_mode
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Input) >= numInput {
+		currentVal = resource.Group[numGroup].Input[numInput].Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapGroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
+	optionsValueSet := VSMap_source_list_mode
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		currentVal = *resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode
+	}
+	return CodeSelect("listMode", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapGroupRuleTargetListMode(numGroup int, numRule int, numTarget int) templ.Component {
+	optionsValueSet := VSMap_target_list_mode
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		currentVal = resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[0]
+	}
+	return CodeSelect("listMode", currentVal, optionsValueSet)
+}
+func (resource *StructureMap) StructureMapGroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
+	optionsValueSet := VSMap_transform
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		currentVal = *resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform
+	}
+	return CodeSelect("transform", currentVal, optionsValueSet)
 }

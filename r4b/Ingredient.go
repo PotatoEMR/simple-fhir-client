@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Ingredient
 type Ingredient struct {
@@ -83,4 +84,27 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 		OtherIngredient: OtherIngredient(r),
 		ResourceType:    "Ingredient",
 	})
+}
+func (resource *Ingredient) IngredientLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Ingredient) IngredientStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Ingredient) IngredientManufacturerRole(numManufacturer int) templ.Component {
+	optionsValueSet := VSIngredient_manufacturer_role
+	currentVal := ""
+	if resource != nil && len(resource.Manufacturer) >= numManufacturer {
+		currentVal = *resource.Manufacturer[numManufacturer].Role
+	}
+	return CodeSelect("role", currentVal, optionsValueSet)
 }

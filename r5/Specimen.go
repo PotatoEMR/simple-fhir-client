@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Specimen
 type Specimen struct {
@@ -94,4 +95,27 @@ func (r Specimen) MarshalJSON() ([]byte, error) {
 		OtherSpecimen: OtherSpecimen(r),
 		ResourceType:  "Specimen",
 	})
+}
+func (resource *Specimen) SpecimenLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Specimen) SpecimenStatus() templ.Component {
+	optionsValueSet := VSSpecimen_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Specimen) SpecimenCombined() templ.Component {
+	optionsValueSet := VSSpecimen_combined
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Combined
+	}
+	return CodeSelect("combined", currentVal, optionsValueSet)
 }

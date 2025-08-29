@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/ValueSet
 type ValueSet struct {
@@ -140,4 +141,55 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 		OtherValueSet: OtherValueSet(r),
 		ResourceType:  "ValueSet",
 	})
+}
+func (resource *ValueSet) ValueSetLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Compose.Include[numInclude].Concept) >= numConcept {
+		currentVal = resource.Compose.Include[numInclude].Concept[numConcept].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationLanguage(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
+		currentVal = *resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
+		currentVal = resource.Compose.Include[numInclude].Filter[numFilter].Property
+	}
+	return CodeSelect("property", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetComposeIncludeFilterOp(numInclude int, numFilter int) templ.Component {
+	optionsValueSet := VSFilter_operator
+	currentVal := ""
+	if resource != nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
+		currentVal = resource.Compose.Include[numInclude].Filter[numFilter].Op
+	}
+	return CodeSelect("op", currentVal, optionsValueSet)
+}
+func (resource *ValueSet) ValueSetExpansionContainsCode(numContains int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Expansion.Contains) >= numContains {
+		currentVal = *resource.Expansion.Contains[numContains].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

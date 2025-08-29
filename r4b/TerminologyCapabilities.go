@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/TerminologyCapabilities
 type TerminologyCapabilities struct {
@@ -148,4 +149,70 @@ func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 		OtherTerminologyCapabilities: OtherTerminologyCapabilities(r),
 		ResourceType:                 "TerminologyCapabilities",
 	})
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesKind() templ.Component {
+	optionsValueSet := VSCapability_statement_kind
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Kind
+	}
+	return CodeSelect("kind", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSearch() templ.Component {
+	optionsValueSet := VSCode_search_support
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.CodeSearch
+	}
+	return CodeSelect("codeSearch", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionLanguage(numCodeSystem int, numVersion int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
+		currentVal = resource.CodeSystem[numCodeSystem].Version[numVersion].Language[0]
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionProperty(numCodeSystem int, numVersion int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
+		currentVal = resource.CodeSystem[numCodeSystem].Version[numVersion].Property[0]
+	}
+	return CodeSelect("property", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionFilterCode(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
+		currentVal = resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionFilterOp(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
+		currentVal = resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op[0]
+	}
+	return CodeSelect("op", currentVal, optionsValueSet)
+}
+func (resource *TerminologyCapabilities) TerminologyCapabilitiesExpansionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Expansion.Parameter) >= numParameter {
+		currentVal = resource.Expansion.Parameter[numParameter].Name
+	}
+	return CodeSelect("name", currentVal, optionsValueSet)
 }

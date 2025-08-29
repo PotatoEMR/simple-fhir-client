@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 
 	r4 "github.com/PotatoEMR/simple-fhir-client/r4"
@@ -21,6 +23,7 @@ func TestAllergy_r4(t *testing.T) {
 	a := r4.AllergyIntolerance{Id: &id, Note: []r4.Annotation{note}}
 	note2 := r4.Annotation{Text: "fhir!"}
 	a.Note = append(a.Note, note2)
+	a.Criticality = r4.VSAllergy_intolerance_criticality[0].Code
 	j, err := json.Marshal(a)
 	if err != nil {
 		t.Error("r4 marshal allergy into json")
@@ -38,12 +41,18 @@ func TestAllergy_r4(t *testing.T) {
 	if err != nil {
 		t.Error("r4 unmarshal allergy json into new allergy")
 	}
-	if *a2.Id != "abc" {
+	if a2.Id == nil || *a2.Id != "abc" {
 		t.Error("r4 get original id after marshal/unmarshal")
+	}
+	if a2.Criticality == nil || *a2.Criticality != "low" {
+		t.Error("r4 get original criticality after marshal/unmarshal...array of codings maybe awkward")
 	}
 	if a2.Note[0].Text != "it's burning up" || a2.Note[1].Text != "fhir!" {
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
+	fmt.Println("does this look right?")
+	allergyCritField := a2.AllergyIntoleranceCriticality()
+	allergyCritField.Render(context.Background(), os.Stdout)
 }
 
 func TestAllergy_r4b(t *testing.T) {

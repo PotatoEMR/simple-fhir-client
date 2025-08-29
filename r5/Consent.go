@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Consent
 type Consent struct {
@@ -104,4 +105,35 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 		OtherConsent: OtherConsent(r),
 		ResourceType: "Consent",
 	})
+}
+func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Consent) ConsentStatus() templ.Component {
+	optionsValueSet := VSConsent_state_codes
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Consent) ConsentDecision() templ.Component {
+	optionsValueSet := VSConsent_provision_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Decision
+	}
+	return CodeSelect("decision", currentVal, optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionDataMeaning(numProvision int, numData int) templ.Component {
+	optionsValueSet := VSConsent_data_meaning
+	currentVal := ""
+	if resource != nil && len(resource.Provision[numProvision].Data) >= numData {
+		currentVal = resource.Provision[numProvision].Data[numData].Meaning
+	}
+	return CodeSelect("meaning", currentVal, optionsValueSet)
 }

@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/MessageDefinition
 type MessageDefinition struct {
@@ -77,4 +78,43 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 		OtherMessageDefinition: OtherMessageDefinition(r),
 		ResourceType:           "MessageDefinition",
 	})
+}
+func (resource *MessageDefinition) MessageDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *MessageDefinition) MessageDefinitionStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *MessageDefinition) MessageDefinitionCategory() templ.Component {
+	optionsValueSet := VSMessage_significance_category
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Category
+	}
+	return CodeSelect("category", currentVal, optionsValueSet)
+}
+func (resource *MessageDefinition) MessageDefinitionResponseRequired() templ.Component {
+	optionsValueSet := VSMessageheader_response_request
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.ResponseRequired
+	}
+	return CodeSelect("responseRequired", currentVal, optionsValueSet)
+}
+func (resource *MessageDefinition) MessageDefinitionFocusCode(numFocus int) templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil && len(resource.Focus) >= numFocus {
+		currentVal = resource.Focus[numFocus].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

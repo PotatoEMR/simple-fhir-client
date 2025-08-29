@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/ActivityDefinition
 type ActivityDefinition struct {
@@ -101,4 +102,51 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 		OtherActivityDefinition: OtherActivityDefinition(r),
 		ResourceType:            "ActivityDefinition",
 	})
+}
+func (resource *ActivityDefinition) ActivityDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ActivityDefinition) ActivityDefinitionStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ActivityDefinition) ActivityDefinitionKind() templ.Component {
+	optionsValueSet := VSRequest_resource_types
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Kind
+	}
+	return CodeSelect("kind", currentVal, optionsValueSet)
+}
+func (resource *ActivityDefinition) ActivityDefinitionIntent() templ.Component {
+	optionsValueSet := VSRequest_intent
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Intent
+	}
+	return CodeSelect("intent", currentVal, optionsValueSet)
+}
+func (resource *ActivityDefinition) ActivityDefinitionPriority() templ.Component {
+	optionsValueSet := VSRequest_priority
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Priority
+	}
+	return CodeSelect("priority", currentVal, optionsValueSet)
+}
+func (resource *ActivityDefinition) ActivityDefinitionParticipantType(numParticipant int) templ.Component {
+	optionsValueSet := VSAction_participant_type
+	currentVal := ""
+	if resource != nil && len(resource.Participant) >= numParticipant {
+		currentVal = resource.Participant[numParticipant].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

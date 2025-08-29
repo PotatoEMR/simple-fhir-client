@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/StructureDefinition
 type StructureDefinition struct {
@@ -95,4 +96,51 @@ func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 		OtherStructureDefinition: OtherStructureDefinition(r),
 		ResourceType:             "StructureDefinition",
 	})
+}
+func (resource *StructureDefinition) StructureDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionFhirVersion() templ.Component {
+	optionsValueSet := VSFHIR_version
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.FhirVersion
+	}
+	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionKind() templ.Component {
+	optionsValueSet := VSStructure_definition_kind
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Kind
+	}
+	return CodeSelect("kind", currentVal, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionDerivation() templ.Component {
+	optionsValueSet := VSType_derivation_rule
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Derivation
+	}
+	return CodeSelect("derivation", currentVal, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionContextType(numContext int) templ.Component {
+	optionsValueSet := VSExtension_context_type
+	currentVal := ""
+	if resource != nil && len(resource.Context) >= numContext {
+		currentVal = resource.Context[numContext].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

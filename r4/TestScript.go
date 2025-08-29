@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/TestScript
 type TestScript struct {
@@ -239,4 +240,94 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 		OtherTestScript: OtherTestScript(r),
 		ResourceType:    "TestScript",
 	})
+}
+func (resource *TestScript) TestScriptLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionOperationResource(numAction int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Operation.Resource
+	}
+	return CodeSelect("resource", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionOperationAccept(numAction int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Operation.Accept
+	}
+	return CodeSelect("accept", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionOperationContentType(numAction int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Operation.ContentType
+	}
+	return CodeSelect("contentType", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionOperationMethod(numAction int) templ.Component {
+	optionsValueSet := VSHttp_operations
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Operation.Method
+	}
+	return CodeSelect("method", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertDirection(numAction int) templ.Component {
+	optionsValueSet := VSAssert_direction_codes
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.Direction
+	}
+	return CodeSelect("direction", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertContentType(numAction int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.ContentType
+	}
+	return CodeSelect("contentType", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertOperator(numAction int) templ.Component {
+	optionsValueSet := VSAssert_operator_codes
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.Operator
+	}
+	return CodeSelect("operator", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertRequestMethod(numAction int) templ.Component {
+	optionsValueSet := VSHttp_operations
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.RequestMethod
+	}
+	return CodeSelect("requestMethod", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertResource(numAction int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.Resource
+	}
+	return CodeSelect("resource", currentVal, optionsValueSet)
+}
+func (resource *TestScript) TestScriptSetupActionAssertResponse(numAction int) templ.Component {
+	optionsValueSet := VSAssert_response_code_types
+	currentVal := ""
+	if resource != nil && len(resource.Setup.Action) >= numAction {
+		currentVal = *resource.Setup.Action[numAction].Assert.Response
+	}
+	return CodeSelect("response", currentVal, optionsValueSet)
 }

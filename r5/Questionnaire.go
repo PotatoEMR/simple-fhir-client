@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Questionnaire
 type Questionnaire struct {
@@ -130,4 +131,67 @@ func (r Questionnaire) MarshalJSON() ([]byte, error) {
 		OtherQuestionnaire: OtherQuestionnaire(r),
 		ResourceType:       "Questionnaire",
 	})
+}
+func (resource *Questionnaire) QuestionnaireLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireSubjectType() templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.SubjectType[0]
+	}
+	return CodeSelect("subjectType", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireItemType(numItem int) templ.Component {
+	optionsValueSet := VSItem_type
+	currentVal := ""
+	if resource != nil && len(resource.Item) >= numItem {
+		currentVal = resource.Item[numItem].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireItemEnableBehavior(numItem int) templ.Component {
+	optionsValueSet := VSQuestionnaire_enable_behavior
+	currentVal := ""
+	if resource != nil && len(resource.Item) >= numItem {
+		currentVal = *resource.Item[numItem].EnableBehavior
+	}
+	return CodeSelect("enableBehavior", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireItemDisabledDisplay(numItem int) templ.Component {
+	optionsValueSet := VSQuestionnaire_disabled_display
+	currentVal := ""
+	if resource != nil && len(resource.Item) >= numItem {
+		currentVal = *resource.Item[numItem].DisabledDisplay
+	}
+	return CodeSelect("disabledDisplay", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireItemAnswerConstraint(numItem int) templ.Component {
+	optionsValueSet := VSQuestionnaire_answer_constraint
+	currentVal := ""
+	if resource != nil && len(resource.Item) >= numItem {
+		currentVal = *resource.Item[numItem].AnswerConstraint
+	}
+	return CodeSelect("answerConstraint", currentVal, optionsValueSet)
+}
+func (resource *Questionnaire) QuestionnaireItemEnableWhenOperator(numItem int, numEnableWhen int) templ.Component {
+	optionsValueSet := VSQuestionnaire_enable_operator
+	currentVal := ""
+	if resource != nil && len(resource.Item[numItem].EnableWhen) >= numEnableWhen {
+		currentVal = resource.Item[numItem].EnableWhen[numEnableWhen].Operator
+	}
+	return CodeSelect("operator", currentVal, optionsValueSet)
 }

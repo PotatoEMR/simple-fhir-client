@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/ObservationDefinition
 type ObservationDefinition struct {
@@ -68,4 +69,35 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 		OtherObservationDefinition: OtherObservationDefinition(r),
 		ResourceType:               "ObservationDefinition",
 	})
+}
+func (resource *ObservationDefinition) ObservationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() templ.Component {
+	optionsValueSet := VSPermitted_data_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.PermittedDataType[0]
+	}
+	return CodeSelect("permittedDataType", currentVal, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalCategory(numQualifiedInterval int) templ.Component {
+	optionsValueSet := VSObservation_range_category
+	currentVal := ""
+	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
+		currentVal = *resource.QualifiedInterval[numQualifiedInterval].Category
+	}
+	return CodeSelect("category", currentVal, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalGender(numQualifiedInterval int) templ.Component {
+	optionsValueSet := VSAdministrative_gender
+	currentVal := ""
+	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
+		currentVal = *resource.QualifiedInterval[numQualifiedInterval].Gender
+	}
+	return CodeSelect("gender", currentVal, optionsValueSet)
 }

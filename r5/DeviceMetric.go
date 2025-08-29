@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/DeviceMetric
 type DeviceMetric struct {
@@ -48,4 +49,50 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 		OtherDeviceMetric: OtherDeviceMetric(r),
 		ResourceType:      "DeviceMetric",
 	})
+}
+func (resource *DeviceMetric) DeviceMetricLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *DeviceMetric) DeviceMetricOperationalStatus() templ.Component {
+	optionsValueSet := VSMetric_operational_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.OperationalStatus
+	}
+	return CodeSelect("operationalStatus", currentVal, optionsValueSet)
+}
+func (resource *DeviceMetric) DeviceMetricColor(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Color
+	}
+	return CodeSelect("color", currentVal, optionsValueSet)
+}
+func (resource *DeviceMetric) DeviceMetricCategory() templ.Component {
+	optionsValueSet := VSMetric_category
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Category
+	}
+	return CodeSelect("category", currentVal, optionsValueSet)
+}
+func (resource *DeviceMetric) DeviceMetricCalibrationType(numCalibration int) templ.Component {
+	optionsValueSet := VSMetric_calibration_type
+	currentVal := ""
+	if resource != nil && len(resource.Calibration) >= numCalibration {
+		currentVal = *resource.Calibration[numCalibration].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *DeviceMetric) DeviceMetricCalibrationState(numCalibration int) templ.Component {
+	optionsValueSet := VSMetric_calibration_state
+	currentVal := ""
+	if resource != nil && len(resource.Calibration) >= numCalibration {
+		currentVal = *resource.Calibration[numCalibration].State
+	}
+	return CodeSelect("state", currentVal, optionsValueSet)
 }

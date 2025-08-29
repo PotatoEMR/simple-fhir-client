@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/InventoryItem
 type InventoryItem struct {
@@ -114,4 +115,35 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 		OtherInventoryItem: OtherInventoryItem(r),
 		ResourceType:       "InventoryItem",
 	})
+}
+func (resource *InventoryItem) InventoryItemLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemStatus() templ.Component {
+	optionsValueSet := VSInventoryitem_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemNameLanguage(numName int) templ.Component {
+	optionsValueSet := VSLanguages
+	currentVal := ""
+	if resource != nil && len(resource.Name) >= numName {
+		currentVal = resource.Name[numName].Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemDescriptionLanguage() templ.Component {
+	optionsValueSet := VSLanguages
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Description.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
 }

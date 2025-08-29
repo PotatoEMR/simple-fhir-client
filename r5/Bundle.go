@@ -1,10 +1,11 @@
-//Note: Bundle is special case in gen_bundle.go, to handle entry resources with types
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
+// Note: Bundle is special case in gen_bundle.go, to handle entry resources with types
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
+import "github.com/a-h/templ"
 import (
 	"encoding/json"
 	"errors"
@@ -80,6 +81,46 @@ type BundleEntryResponse struct {
 	Etag              *string     `json:"etag,omitempty"`
 	LastModified      *string     `json:"lastModified,omitempty"`
 	Outcome           *Resource   `json:"outcome,omitempty"`
+}
+
+func (resource *Bundle) BundleLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Bundle) BundleType() templ.Component {
+	optionsValueSet := VSBundle_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *Bundle) BundleLinkRelation(numLink int) templ.Component {
+	optionsValueSet := VSIana_link_relations
+	currentVal := ""
+	if resource != nil && len(resource.Link) >= numLink {
+		currentVal = resource.Link[numLink].Relation
+	}
+	return CodeSelect("relation", currentVal, optionsValueSet)
+}
+func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
+	optionsValueSet := VSSearch_entry_mode
+	currentVal := ""
+	if resource != nil && len(resource.Entry) >= numEntry {
+		currentVal = *resource.Entry[numEntry].Search.Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
+}
+func (resource *Bundle) BundleEntryRequestMethod(numEntry int) templ.Component {
+	optionsValueSet := VSHttp_verb
+	currentVal := ""
+	if resource != nil && len(resource.Entry) >= numEntry {
+		currentVal = resource.Entry[numEntry].Request.Method
+	}
+	return CodeSelect("method", currentVal, optionsValueSet)
 }
 
 type OtherBundle Bundle

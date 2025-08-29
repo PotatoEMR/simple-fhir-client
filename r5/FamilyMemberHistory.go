@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/FamilyMemberHistory
 type FamilyMemberHistory struct {
@@ -96,4 +97,19 @@ func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 		OtherFamilyMemberHistory: OtherFamilyMemberHistory(r),
 		ResourceType:             "FamilyMemberHistory",
 	})
+}
+func (resource *FamilyMemberHistory) FamilyMemberHistoryLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *FamilyMemberHistory) FamilyMemberHistoryStatus() templ.Component {
+	optionsValueSet := VSHistory_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
 }

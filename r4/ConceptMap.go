@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/ConceptMap
 type ConceptMap struct {
@@ -106,4 +107,56 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 		OtherConceptMap: OtherConceptMap(r),
 		ResourceType:    "ConceptMap",
 	})
+}
+func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapGroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Element) >= numElement {
+		currentVal = *resource.Group[numGroup].Element[numElement].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
+		currentVal = *resource.Group[numGroup].Element[numElement].Target[numTarget].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapGroupElementTargetEquivalence(numGroup int, numElement int, numTarget int) templ.Component {
+	optionsValueSet := VSConcept_map_equivalence
+	currentVal := ""
+	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
+		currentVal = resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence
+	}
+	return CodeSelect("equivalence", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Component {
+	optionsValueSet := VSConceptmap_unmapped_mode
+	currentVal := ""
+	if resource != nil && len(resource.Group) >= numGroup {
+		currentVal = resource.Group[numGroup].Unmapped.Mode
+	}
+	return CodeSelect("mode", currentVal, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapGroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Group) >= numGroup {
+		currentVal = *resource.Group[numGroup].Unmapped.Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

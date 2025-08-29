@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/Contract
 type Contract struct {
@@ -281,4 +282,27 @@ func (r Contract) MarshalJSON() ([]byte, error) {
 		OtherContract: OtherContract(r),
 		ResourceType:  "Contract",
 	})
+}
+func (resource *Contract) ContractLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Contract) ContractStatus() templ.Component {
+	optionsValueSet := VSContract_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Contract) ContractContentDefinitionPublicationStatus() templ.Component {
+	optionsValueSet := VSContract_publicationstatus
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.ContentDefinition.PublicationStatus
+	}
+	return CodeSelect("publicationStatus", currentVal, optionsValueSet)
 }

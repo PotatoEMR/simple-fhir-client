@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Subscription
 type Subscription struct {
@@ -67,4 +68,50 @@ func (r Subscription) MarshalJSON() ([]byte, error) {
 		OtherSubscription: OtherSubscription(r),
 		ResourceType:      "Subscription",
 	})
+}
+func (resource *Subscription) SubscriptionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionStatus() templ.Component {
+	optionsValueSet := VSSubscription_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionContentType(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.ContentType
+	}
+	return CodeSelect("contentType", currentVal, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionContent() templ.Component {
+	optionsValueSet := VSSubscription_payload_content
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Content
+	}
+	return CodeSelect("content", currentVal, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionFilterByComparator(numFilterBy int) templ.Component {
+	optionsValueSet := VSSearch_comparator
+	currentVal := ""
+	if resource != nil && len(resource.FilterBy) >= numFilterBy {
+		currentVal = *resource.FilterBy[numFilterBy].Comparator
+	}
+	return CodeSelect("comparator", currentVal, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionFilterByModifier(numFilterBy int) templ.Component {
+	optionsValueSet := VSSearch_modifier_code
+	currentVal := ""
+	if resource != nil && len(resource.FilterBy) >= numFilterBy {
+		currentVal = *resource.FilterBy[numFilterBy].Modifier
+	}
+	return CodeSelect("modifier", currentVal, optionsValueSet)
 }

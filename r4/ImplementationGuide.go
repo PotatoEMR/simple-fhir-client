@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/ImplementationGuide
 type ImplementationGuide struct {
@@ -166,4 +167,74 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 		OtherImplementationGuide: OtherImplementationGuide(r),
 		ResourceType:             "ImplementationGuide",
 	})
+}
+func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Component {
+	optionsValueSet := VSSpdx_license
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.License
+	}
+	return CodeSelect("license", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Component {
+	optionsValueSet := VSFHIR_version
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.FhirVersion[0]
+	}
+	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int) templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil && len(resource.Global) >= numGlobal {
+		currentVal = resource.Global[numGlobal].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVersion(numResource int) templ.Component {
+	optionsValueSet := VSFHIR_version
+	currentVal := ""
+	if resource != nil && len(resource.Definition.Resource) >= numResource {
+		currentVal = resource.Definition.Resource[numResource].FhirVersion[0]
+	}
+	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideDefinitionPageGeneration() templ.Component {
+	optionsValueSet := VSGuide_page_generation
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Definition.Page.Generation
+	}
+	return CodeSelect("generation", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideDefinitionParameterCode(numParameter int) templ.Component {
+	optionsValueSet := VSGuide_parameter_code
+	currentVal := ""
+	if resource != nil && len(resource.Definition.Parameter) >= numParameter {
+		currentVal = resource.Definition.Parameter[numParameter].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideDefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil && len(resource.Definition.Template) >= numTemplate {
+		currentVal = resource.Definition.Template[numTemplate].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
 }

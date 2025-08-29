@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Requirements
 type Requirements struct {
@@ -68,4 +69,27 @@ func (r Requirements) MarshalJSON() ([]byte, error) {
 		OtherRequirements: OtherRequirements(r),
 		ResourceType:      "Requirements",
 	})
+}
+func (resource *Requirements) RequirementsLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Requirements) RequirementsStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Requirements) RequirementsStatementConformance(numStatement int) templ.Component {
+	optionsValueSet := VSConformance_expectation
+	currentVal := ""
+	if resource != nil && len(resource.Statement) >= numStatement {
+		currentVal = resource.Statement[numStatement].Conformance[0]
+	}
+	return CodeSelect("conformance", currentVal, optionsValueSet)
 }

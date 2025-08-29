@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/Person
 type Person struct {
@@ -48,4 +49,27 @@ func (r Person) MarshalJSON() ([]byte, error) {
 		OtherPerson:  OtherPerson(r),
 		ResourceType: "Person",
 	})
+}
+func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Person) PersonGender() templ.Component {
+	optionsValueSet := VSAdministrative_gender
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Gender
+	}
+	return CodeSelect("gender", currentVal, optionsValueSet)
+}
+func (resource *Person) PersonLinkAssurance(numLink int) templ.Component {
+	optionsValueSet := VSIdentity_assuranceLevel
+	currentVal := ""
+	if resource != nil && len(resource.Link) >= numLink {
+		currentVal = *resource.Link[numLink].Assurance
+	}
+	return CodeSelect("assurance", currentVal, optionsValueSet)
 }

@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4/StructureDefinition/GraphDefinition
 type GraphDefinition struct {
@@ -80,4 +81,59 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 		OtherGraphDefinition: OtherGraphDefinition(r),
 		ResourceType:         "GraphDefinition",
 	})
+}
+func (resource *GraphDefinition) GraphDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionStart() templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Start
+	}
+	return CodeSelect("start", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionLinkTargetType(numLink int, numTarget int) templ.Component {
+	optionsValueSet := VSResource_types
+	currentVal := ""
+	if resource != nil && len(resource.Link[numLink].Target) >= numTarget {
+		currentVal = resource.Link[numLink].Target[numTarget].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentUse(numLink int, numTarget int, numCompartment int) templ.Component {
+	optionsValueSet := VSGraph_compartment_use
+	currentVal := ""
+	if resource != nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
+		currentVal = resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Use
+	}
+	return CodeSelect("use", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentCode(numLink int, numTarget int, numCompartment int) templ.Component {
+	optionsValueSet := VSCompartment_type
+	currentVal := ""
+	if resource != nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
+		currentVal = resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Code
+	}
+	return CodeSelect("code", currentVal, optionsValueSet)
+}
+func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentRule(numLink int, numTarget int, numCompartment int) templ.Component {
+	optionsValueSet := VSGraph_compartment_rule
+	currentVal := ""
+	if resource != nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
+		currentVal = resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Rule
+	}
+	return CodeSelect("rule", currentVal, optionsValueSet)
 }

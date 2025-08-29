@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/EvidenceVariable
 type EvidenceVariable struct {
@@ -92,4 +93,43 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 		OtherEvidenceVariable: OtherEvidenceVariable(r),
 		ResourceType:          "EvidenceVariable",
 	})
+}
+func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
+	optionsValueSet := VSPublication_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicCombination() templ.Component {
+	optionsValueSet := VSCharacteristic_combination
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.CharacteristicCombination
+	}
+	return CodeSelect("characteristicCombination", currentVal, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
+	optionsValueSet := VSVariable_handling
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Handling
+	}
+	return CodeSelect("handling", currentVal, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicGroupMeasure(numCharacteristic int) templ.Component {
+	optionsValueSet := VSGroup_measure
+	currentVal := ""
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		currentVal = *resource.Characteristic[numCharacteristic].GroupMeasure
+	}
+	return CodeSelect("groupMeasure", currentVal, optionsValueSet)
 }

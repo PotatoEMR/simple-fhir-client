@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Endpoint
 type Endpoint struct {
@@ -40,4 +41,26 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 		OtherEndpoint: OtherEndpoint(r),
 		ResourceType:  "Endpoint",
 	})
+}
+func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Endpoint) EndpointStatus() templ.Component {
+	optionsValueSet := VSEndpoint_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Endpoint) EndpointPayloadMimeType(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.PayloadMimeType[0]
+	}
+	return CodeSelect("payloadMimeType", currentVal, optionsValueSet)
 }

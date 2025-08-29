@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/ClaimResponse
 type ClaimResponse struct {
@@ -260,4 +261,35 @@ func (r ClaimResponse) MarshalJSON() ([]byte, error) {
 		OtherClaimResponse: OtherClaimResponse(r),
 		ResourceType:       "ClaimResponse",
 	})
+}
+func (resource *ClaimResponse) ClaimResponseLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseStatus() templ.Component {
+	optionsValueSet := VSFm_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseUse() templ.Component {
+	optionsValueSet := VSClaim_use
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Use
+	}
+	return CodeSelect("use", currentVal, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseOutcome() templ.Component {
+	optionsValueSet := VSClaim_outcome
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Outcome
+	}
+	return CodeSelect("outcome", currentVal, optionsValueSet)
 }

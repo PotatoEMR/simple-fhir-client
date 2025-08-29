@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/DeviceDefinition
 type DeviceDefinition struct {
@@ -223,4 +224,43 @@ func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 		OtherDeviceDefinition: OtherDeviceDefinition(r),
 		ResourceType:          "DeviceDefinition",
 	})
+}
+func (resource *DeviceDefinition) DeviceDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *DeviceDefinition) DeviceDefinitionProductionIdentifierInUDI() templ.Component {
+	optionsValueSet := VSDevice_productidentifierinudi
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.ProductionIdentifierInUDI[0]
+	}
+	return CodeSelect("productionIdentifierInUDI", currentVal, optionsValueSet)
+}
+func (resource *DeviceDefinition) DeviceDefinitionRegulatoryIdentifierType(numRegulatoryIdentifier int) templ.Component {
+	optionsValueSet := VSDevicedefinition_regulatory_identifier_type
+	currentVal := ""
+	if resource != nil && len(resource.RegulatoryIdentifier) >= numRegulatoryIdentifier {
+		currentVal = resource.RegulatoryIdentifier[numRegulatoryIdentifier].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *DeviceDefinition) DeviceDefinitionDeviceNameType(numDeviceName int) templ.Component {
+	optionsValueSet := VSDevice_nametype
+	currentVal := ""
+	if resource != nil && len(resource.DeviceName) >= numDeviceName {
+		currentVal = resource.DeviceName[numDeviceName].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *DeviceDefinition) DeviceDefinitionCorrectiveActionScope() templ.Component {
+	optionsValueSet := VSDevice_correctiveactionscope
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.CorrectiveAction.Scope
+	}
+	return CodeSelect("scope", currentVal, optionsValueSet)
 }

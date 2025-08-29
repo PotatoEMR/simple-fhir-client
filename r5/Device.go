@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/Device
 type Device struct {
@@ -120,4 +121,35 @@ func (r Device) MarshalJSON() ([]byte, error) {
 		OtherDevice:  OtherDevice(r),
 		ResourceType: "Device",
 	})
+}
+func (resource *Device) DeviceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *Device) DeviceStatus() templ.Component {
+	optionsValueSet := VSDevice_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *Device) DeviceUdiCarrierEntryType(numUdiCarrier int) templ.Component {
+	optionsValueSet := VSUdi_entry_type
+	currentVal := ""
+	if resource != nil && len(resource.UdiCarrier) >= numUdiCarrier {
+		currentVal = *resource.UdiCarrier[numUdiCarrier].EntryType
+	}
+	return CodeSelect("entryType", currentVal, optionsValueSet)
+}
+func (resource *Device) DeviceNameType(numName int) templ.Component {
+	optionsValueSet := VSDevice_nametype
+	currentVal := ""
+	if resource != nil && len(resource.Name) >= numName {
+		currentVal = resource.Name[numName].Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
 }

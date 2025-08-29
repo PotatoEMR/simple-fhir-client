@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/ImagingSelection
 type ImagingSelection struct {
@@ -86,4 +87,35 @@ func (r ImagingSelection) MarshalJSON() ([]byte, error) {
 		OtherImagingSelection: OtherImagingSelection(r),
 		ResourceType:          "ImagingSelection",
 	})
+}
+func (resource *ImagingSelection) ImagingSelectionLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *ImagingSelection) ImagingSelectionStatus() templ.Component {
+	optionsValueSet := VSImagingselection_status
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Status
+	}
+	return CodeSelect("status", currentVal, optionsValueSet)
+}
+func (resource *ImagingSelection) ImagingSelectionInstanceImageRegion2DRegionType(numInstance int, numImageRegion2D int) templ.Component {
+	optionsValueSet := VSImagingselection_2dgraphictype
+	currentVal := ""
+	if resource != nil && len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D {
+		currentVal = resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].RegionType
+	}
+	return CodeSelect("regionType", currentVal, optionsValueSet)
+}
+func (resource *ImagingSelection) ImagingSelectionInstanceImageRegion3DRegionType(numInstance int, numImageRegion3D int) templ.Component {
+	optionsValueSet := VSImagingselection_3dgraphictype
+	currentVal := ""
+	if resource != nil && len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D {
+		currentVal = resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].RegionType
+	}
+	return CodeSelect("regionType", currentVal, optionsValueSet)
 }

@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r5
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r5/StructureDefinition/MolecularSequence
 type MolecularSequence struct {
@@ -78,4 +79,35 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 		OtherMolecularSequence: OtherMolecularSequence(r),
 		ResourceType:           "MolecularSequence",
 	})
+}
+func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
+	optionsValueSet := VSSequence_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceOrientation(numRelative int) templ.Component {
+	optionsValueSet := VSOrientation_type
+	currentVal := ""
+	if resource != nil && len(resource.Relative) >= numRelative {
+		currentVal = *resource.Relative[numRelative].StartingSequence.Orientation
+	}
+	return CodeSelect("orientation", currentVal, optionsValueSet)
+}
+func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceStrand(numRelative int) templ.Component {
+	optionsValueSet := VSStrand_type
+	currentVal := ""
+	if resource != nil && len(resource.Relative) >= numRelative {
+		currentVal = *resource.Relative[numRelative].StartingSequence.Strand
+	}
+	return CodeSelect("strand", currentVal, optionsValueSet)
 }

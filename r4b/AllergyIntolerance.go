@@ -1,10 +1,11 @@
-//generated August 18 2025 with command go run ./bultaoreune
-//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json]
-//for details see https://github.com/PotatoEMR/simple-fhir-client
-
 package r4b
 
+//generated August 28 2025 with command go run ./bultaoreune -nodownload
+//inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
+//for details see https://github.com/PotatoEMR/simple-fhir-client
+
 import "encoding/json"
+import "github.com/a-h/templ"
 
 // http://hl7.org/fhir/r4b/StructureDefinition/AllergyIntolerance
 type AllergyIntolerance struct {
@@ -63,4 +64,43 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 		OtherAllergyIntolerance: OtherAllergyIntolerance(r),
 		ResourceType:            "AllergyIntolerance",
 	})
+}
+func (resource *AllergyIntolerance) AllergyIntoleranceLanguage(optionsValueSet []Coding) templ.Component {
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Language
+	}
+	return CodeSelect("language", currentVal, optionsValueSet)
+}
+func (resource *AllergyIntolerance) AllergyIntoleranceType() templ.Component {
+	optionsValueSet := VSAllergy_intolerance_type
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Type
+	}
+	return CodeSelect("type", currentVal, optionsValueSet)
+}
+func (resource *AllergyIntolerance) AllergyIntoleranceCategory() templ.Component {
+	optionsValueSet := VSAllergy_intolerance_category
+	currentVal := ""
+	if resource != nil {
+		currentVal = resource.Category[0]
+	}
+	return CodeSelect("category", currentVal, optionsValueSet)
+}
+func (resource *AllergyIntolerance) AllergyIntoleranceCriticality() templ.Component {
+	optionsValueSet := VSAllergy_intolerance_criticality
+	currentVal := ""
+	if resource != nil {
+		currentVal = *resource.Criticality
+	}
+	return CodeSelect("criticality", currentVal, optionsValueSet)
+}
+func (resource *AllergyIntolerance) AllergyIntoleranceReactionSeverity(numReaction int) templ.Component {
+	optionsValueSet := VSReaction_event_severity
+	currentVal := ""
+	if resource != nil && len(resource.Reaction) >= numReaction {
+		currentVal = *resource.Reaction[numReaction].Severity
+	}
+	return CodeSelect("severity", currentVal, optionsValueSet)
 }
