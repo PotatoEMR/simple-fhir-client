@@ -120,10 +120,10 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 	var sb strings.Builder
 	sb.WriteString("package " + fhirVersion + "\n\n")
 
-	// Maps to track string variables
-	stringVars := make(map[string]string) // system or code or display -> variable name
+	// Maps to track string variables: Go variable name -> original FHIR value
+	stringVars := make(map[string]string)
 
-	var haveVsAlready []string //for now just ignoring valuesets that use a codesystem...
+	var haveVsAlready []string
 
 	// First pass: collect all unique strings and create variables
 	for _, entry := range bundle.Entry {
@@ -133,21 +133,19 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 			var cs CodeSystem
 			json.Unmarshal(entry.Resource, &cs)
 			if cs.Url != nil && len(cs.Concept) > 0 {
-				// Add system variable
-				varname := "s" + urlToVarname(*cs.Url)
+				var varname = "s" + urlToVarname(*cs.Url)
 				if _, exists := stringVars[varname]; !exists {
-					stringVars[varname] = varname
+					stringVars[varname] = *cs.Url
 				}
-				// Add code and display variables
 				for _, concept := range cs.Concept {
 					cname := sanitizeVarName(concept.Code)
 					if _, exists := stringVars[cname]; !exists {
-						stringVars[cname] = cname
+						stringVars[cname] = concept.Code
 					}
 					if concept.Display != nil {
 						dname := sanitizeVarName(*concept.Display)
 						if _, exists := stringVars[dname]; !exists {
-							stringVars[dname] = dname
+							stringVars[dname] = *concept.Display
 						}
 					}
 				}
@@ -156,24 +154,22 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 			var vs ValueSet
 			json.Unmarshal(entry.Resource, &vs)
 			if vs.Compose != nil && len(vs.Compose.Include) > 0 && len(vs.Compose.Include[0].Concept) > 0 {
-				// Add system variable for ValueSet URL
-				varname := "s" + urlToVarname(*vs.Url)
 				if vs.Url != nil {
+					var varname = "s" + urlToVarname(*vs.Url)
 					if _, exists := stringVars[varname]; !exists {
-						stringVars[varname] = varname
+						stringVars[varname] = *vs.Url
 					}
 				}
-				// Add code and display variables
 				for _, inc := range vs.Compose.Include {
 					for _, concept := range inc.Concept {
 						cname := sanitizeVarName(concept.Code)
 						if _, exists := stringVars[cname]; !exists {
-							stringVars[cname] = cname
+							stringVars[cname] = concept.Code
 						}
 						if concept.Display != nil {
 							dname := sanitizeVarName(*concept.Display)
 							if _, exists := stringVars[dname]; !exists {
-								stringVars[dname] = dname
+								stringVars[dname] = *concept.Display
 							}
 						}
 					}
@@ -183,8 +179,10 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 	}
 
 	// Write string variables
-	for _, varName := range stringVars {
-		sb.WriteString("var " + varName + " = \"" + varName[1:] + "\"\n")
+	for varName, originalValue := range stringVars {
+		escaped := strings.ReplaceAll(originalValue, `"`, `\"`)
+		escaped = strings.ReplaceAll(escaped, "\n", " ")
+		sb.WriteString("var " + varName + " = \"" + escaped + "\"\n")
 	}
 	sb.WriteString("\n")
 
@@ -204,13 +202,10 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 				for _, concept := range cs.Concept {
 					if cs.Name != nil && cs.Url != nil {
 						systemVar := varname
-						codeVar := stringVars[sanitizeVarName(concept.Code)]
-						if codeVar == "" {
-							fmt.Println("not found", sanitizeVarName(concept.Code))
-						}
+						codeVar := sanitizeVarName(concept.Code)
 						displayRef := "nil"
 						if concept.Display != nil {
-							displayVar := stringVars[sanitizeVarName(*concept.Display)]
+							displayVar := sanitizeVarName(*concept.Display)
 							displayRef = "&" + displayVar
 						}
 						sb.WriteString(`	{
@@ -228,17 +223,16 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 			json.Unmarshal(entry.Resource, &vs)
 			if vs.Compose != nil && len(vs.Compose.Include) > 0 && len(vs.Compose.Include[0].Concept) > 0 {
 				varname := "s" + urlToVarname(*vs.Url)
-				//really in this case should expand the valueset using codesystem + other values, but whatever
 				if !slices.Contains(haveVsAlready, varname) {
 					created = append(created, varname[1:])
 					sb.WriteString("var VS" + varname[1:] + " = []Coding{\n")
 					for _, inc := range vs.Compose.Include {
 						for _, concept := range inc.Concept {
-							systemVar := stringVars[varname]
-							codeVar := stringVars[sanitizeVarName(concept.Code)]
+							systemVar := varname
+							codeVar := sanitizeVarName(concept.Code)
 							displayRef := "nil"
 							if concept.Display != nil {
-								displayVar := stringVars[sanitizeVarName(*concept.Display)]
+								displayVar := sanitizeVarName(*concept.Display)
 								displayRef = "&" + displayVar
 							}
 							sb.WriteString(`	{
@@ -248,15 +242,13 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 	},
 `)
 						}
-						// if inc.System != nil {
-						// 	fmt.Println(*inc.System)
-						// }
 					}
 					sb.WriteString("}\n\n")
 				}
 			}
 		}
 	}
+
 	searchParamFile, _ := os.Create(path.Join(generateVSDirVer, "zzzValueSets.go"))
 	fmt.Fprint(searchParamFile, sb.String())
 	searchParamFile.Close()

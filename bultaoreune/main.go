@@ -25,7 +25,6 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
-	"time"
 )
 
 var (
@@ -70,10 +69,9 @@ func main() {
 		os.RemoveAll(extractDir)
 	}
 
-	today := time.Now()
 	for _, fhirVersion := range fhirVersions {
 		var header strings.Builder
-		header.WriteString(fmt.Sprintf("//generated %s %d %d with command go run ./bultaoreune %s\n", today.Month(), today.Day(), today.Year(), strings.Join(os.Args[1:], " ")))
+		header.WriteString(fmt.Sprintf("//generated with command go run ./bultaoreune %s\n", strings.Join(os.Args[1:], " ")))
 		header.WriteString(fmt.Sprintf("//inputs %s/[%s]\n", fhirURL+"/"+fhirVersion, strings.Join(zipFileNames, " ")))
 		header.WriteString("//for details see https://github.com/PotatoEMR/simple-fhir-client\n\n")
 
