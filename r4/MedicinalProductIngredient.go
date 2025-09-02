@@ -85,63 +85,63 @@ func (r MedicinalProductIngredient) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientRole(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Role, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceCode(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
+	if resource == nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.SpecifiedSubstance[numSpecifiedSubstance].Code, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceGroup(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
+	if resource == nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
 		return CodeableConceptSelect("group", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("group", &resource.SpecifiedSubstance[numSpecifiedSubstance].Group, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceConfidentiality(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
+	if resource == nil && len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
 		return CodeableConceptSelect("confidentiality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("confidentiality", resource.SpecifiedSubstance[numSpecifiedSubstance].Confidentiality, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceStrengthCountry(numSpecifiedSubstance int, numStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength {
+	if resource == nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Country[0], optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSubstance(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
+	if resource == nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
 		return CodeableConceptSelect("substance", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("substance", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Substance, optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthCountry(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
+	if resource == nil && len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[0], optionsValueSet)
 }
 func (resource *MedicinalProductIngredient) MedicinalProductIngredientSubstanceCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Substance.Code, optionsValueSet)

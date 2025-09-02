@@ -200,7 +200,7 @@ func (r Transport) MarshalJSON() ([]byte, error) {
 
 func (resource *Transport) TransportLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -208,14 +208,14 @@ func (resource *Transport) TransportLanguage(optionsValueSet []Coding) templ.Com
 func (resource *Transport) TransportStatus() templ.Component {
 	optionsValueSet := VSTransport_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *Transport) TransportStatusReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
@@ -223,7 +223,7 @@ func (resource *Transport) TransportStatusReason(optionsValueSet []Coding) templ
 func (resource *Transport) TransportIntent() templ.Component {
 	optionsValueSet := VSTransport_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
@@ -231,35 +231,35 @@ func (resource *Transport) TransportIntent() templ.Component {
 func (resource *Transport) TransportPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *Transport) TransportCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *Transport) TransportPerformerType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", &resource.PerformerType[0], optionsValueSet)
 }
 func (resource *Transport) TransportInputType(numInput int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Input) >= numInput {
+	if resource == nil && len(resource.Input) >= numInput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Input[numInput].Type, optionsValueSet)
 }
 func (resource *Transport) TransportOutputType(numOutput int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Output) >= numOutput {
+	if resource == nil && len(resource.Output) >= numOutput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Output[numOutput].Type, optionsValueSet)

@@ -100,7 +100,7 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 
 func (resource *Patient) PatientLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -108,21 +108,21 @@ func (resource *Patient) PatientLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Patient) PatientGender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("gender", nil, optionsValueSet)
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
 func (resource *Patient) PatientMaritalStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("maritalStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet)
 }
 func (resource *Patient) PatientContactRelationship(numContact int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Contact) >= numContact {
+	if resource == nil && len(resource.Contact) >= numContact {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Contact[numContact].Relationship[0], optionsValueSet)
@@ -130,14 +130,14 @@ func (resource *Patient) PatientContactRelationship(numContact int, optionsValue
 func (resource *Patient) PatientContactGender(numContact int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource != nil && len(resource.Contact) >= numContact {
+	if resource == nil && len(resource.Contact) >= numContact {
 		return CodeSelect("gender", nil, optionsValueSet)
 	}
 	return CodeSelect("gender", resource.Contact[numContact].Gender, optionsValueSet)
 }
 func (resource *Patient) PatientCommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Communication) >= numCommunication {
+	if resource == nil && len(resource.Communication) >= numCommunication {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", &resource.Communication[numCommunication].Language, optionsValueSet)
@@ -145,7 +145,7 @@ func (resource *Patient) PatientCommunicationLanguage(numCommunication int, opti
 func (resource *Patient) PatientLinkType(numLink int) templ.Component {
 	optionsValueSet := VSLink_type
 
-	if resource != nil && len(resource.Link) >= numLink {
+	if resource == nil && len(resource.Link) >= numLink {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Link[numLink].Type, optionsValueSet)

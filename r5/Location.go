@@ -62,7 +62,7 @@ func (r Location) MarshalJSON() ([]byte, error) {
 
 func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -70,14 +70,14 @@ func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *Location) LocationStatus() templ.Component {
 	optionsValueSet := VSLocation_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodingSelect("operationalStatus", nil, optionsValueSet)
 	}
 	return CodingSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
@@ -85,28 +85,28 @@ func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) te
 func (resource *Location) LocationMode() templ.Component {
 	optionsValueSet := VSLocation_mode
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", resource.Mode, optionsValueSet)
 }
 func (resource *Location) LocationType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *Location) LocationForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet)
 }
 func (resource *Location) LocationCharacteristic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)

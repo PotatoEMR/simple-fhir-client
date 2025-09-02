@@ -16,6 +16,9 @@ type Coding struct {
 }
 
 func (c *Coding) String() string {
+	if c == nil {
+		return ""
+	}
 	if c.Display != nil {
 		return *c.Display
 	} else if c.Code != nil {

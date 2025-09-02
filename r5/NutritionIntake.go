@@ -88,7 +88,7 @@ func (r NutritionIntake) MarshalJSON() ([]byte, error) {
 
 func (resource *NutritionIntake) NutritionIntakeLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -96,42 +96,42 @@ func (resource *NutritionIntake) NutritionIntakeLanguage(optionsValueSet []Codin
 func (resource *NutritionIntake) NutritionIntakeStatus() templ.Component {
 	optionsValueSet := VSEvent_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *NutritionIntake) NutritionIntakeStatusReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
 }
 func (resource *NutritionIntake) NutritionIntakeCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *NutritionIntake) NutritionIntakeConsumedItemType(numConsumedItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ConsumedItem) >= numConsumedItem {
+	if resource == nil && len(resource.ConsumedItem) >= numConsumedItem {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.ConsumedItem[numConsumedItem].Type, optionsValueSet)
 }
 func (resource *NutritionIntake) NutritionIntakeConsumedItemNotConsumedReason(numConsumedItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ConsumedItem) >= numConsumedItem {
+	if resource == nil && len(resource.ConsumedItem) >= numConsumedItem {
 		return CodeableConceptSelect("notConsumedReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("notConsumedReason", resource.ConsumedItem[numConsumedItem].NotConsumedReason, optionsValueSet)
 }
 func (resource *NutritionIntake) NutritionIntakePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Performer) >= numPerformer {
+	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)

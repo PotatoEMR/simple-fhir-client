@@ -68,7 +68,7 @@ func (r Appointment) MarshalJSON() ([]byte, error) {
 
 func (resource *Appointment) AppointmentLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -76,56 +76,56 @@ func (resource *Appointment) AppointmentLanguage(optionsValueSet []Coding) templ
 func (resource *Appointment) AppointmentStatus() templ.Component {
 	optionsValueSet := VSAppointmentstatus
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Appointment) AppointmentCancelationReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("cancelationReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("cancelationReason", resource.CancelationReason, optionsValueSet)
 }
 func (resource *Appointment) AppointmentServiceCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentServiceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("serviceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceType", &resource.ServiceType[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentSpecialty(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentAppointmentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("appointmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet)
 }
 func (resource *Appointment) AppointmentReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentParticipantType(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Participant[numParticipant].Type[0], optionsValueSet)
@@ -133,7 +133,7 @@ func (resource *Appointment) AppointmentParticipantType(numParticipant int, opti
 func (resource *Appointment) AppointmentParticipantRequired(numParticipant int) templ.Component {
 	optionsValueSet := VSParticipantrequired
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeSelect("required", nil, optionsValueSet)
 	}
 	return CodeSelect("required", resource.Participant[numParticipant].Required, optionsValueSet)
@@ -141,7 +141,7 @@ func (resource *Appointment) AppointmentParticipantRequired(numParticipant int) 
 func (resource *Appointment) AppointmentParticipantStatus(numParticipant int) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Participant[numParticipant].Status, optionsValueSet)

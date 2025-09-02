@@ -141,7 +141,7 @@ func (r InsurancePlan) MarshalJSON() ([]byte, error) {
 
 func (resource *InsurancePlan) InsurancePlanLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -149,77 +149,77 @@ func (resource *InsurancePlan) InsurancePlanLanguage(optionsValueSet []Coding) t
 func (resource *InsurancePlan) InsurancePlanStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanContactPurpose(numContact int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Contact) >= numContact {
+	if resource == nil && len(resource.Contact) >= numContact {
 		return CodeableConceptSelect("purpose", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("purpose", resource.Contact[numContact].Purpose, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanCoverageType(numCoverage int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Coverage) >= numCoverage {
+	if resource == nil && len(resource.Coverage) >= numCoverage {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Coverage[numCoverage].Type, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanCoverageBenefitType(numCoverage int, numBenefit int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Coverage[numCoverage].Benefit) >= numBenefit {
+	if resource == nil && len(resource.Coverage[numCoverage].Benefit) >= numBenefit {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Coverage[numCoverage].Benefit[numBenefit].Type, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanCoverageBenefitLimitCode(numCoverage int, numBenefit int, numLimit int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Coverage[numCoverage].Benefit[numBenefit].Limit) >= numLimit {
+	if resource == nil && len(resource.Coverage[numCoverage].Benefit[numBenefit].Limit) >= numLimit {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Coverage[numCoverage].Benefit[numBenefit].Limit[numLimit].Code, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanType(numPlan int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan) >= numPlan {
+	if resource == nil && len(resource.Plan) >= numPlan {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Plan[numPlan].Type, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanGeneralCostType(numPlan int, numGeneralCost int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan[numPlan].GeneralCost) >= numGeneralCost {
+	if resource == nil && len(resource.Plan[numPlan].GeneralCost) >= numGeneralCost {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Plan[numPlan].GeneralCost[numGeneralCost].Type, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanSpecificCostCategory(numPlan int, numSpecificCost int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan[numPlan].SpecificCost) >= numSpecificCost {
+	if resource == nil && len(resource.Plan[numPlan].SpecificCost) >= numSpecificCost {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Plan[numPlan].SpecificCost[numSpecificCost].Category, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanSpecificCostBenefitType(numPlan int, numSpecificCost int, numBenefit int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit) >= numBenefit {
+	if resource == nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit) >= numBenefit {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Type, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanSpecificCostBenefitCostType(numPlan int, numSpecificCost int, numBenefit int, numCost int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
+	if resource == nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost[numCost].Type, optionsValueSet)
@@ -227,14 +227,14 @@ func (resource *InsurancePlan) InsurancePlanPlanSpecificCostBenefitCostType(numP
 func (resource *InsurancePlan) InsurancePlanPlanSpecificCostBenefitCostApplicability(numPlan int, numSpecificCost int, numBenefit int, numCost int) templ.Component {
 	optionsValueSet := VSInsuranceplan_applicability
 
-	if resource != nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
+	if resource == nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
 		return CodeableConceptSelect("applicability", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("applicability", resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost[numCost].Applicability, optionsValueSet)
 }
 func (resource *InsurancePlan) InsurancePlanPlanSpecificCostBenefitCostQualifiers(numPlan int, numSpecificCost int, numBenefit int, numCost int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
+	if resource == nil && len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) >= numCost {
 		return CodeableConceptSelect("qualifiers", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("qualifiers", &resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost[numCost].Qualifiers[0], optionsValueSet)

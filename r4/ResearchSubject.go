@@ -42,7 +42,7 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 
 func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -50,7 +50,7 @@ func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Codin
 func (resource *ResearchSubject) ResearchSubjectStatus() templ.Component {
 	optionsValueSet := VSResearch_subject_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)

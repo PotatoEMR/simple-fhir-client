@@ -91,7 +91,7 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 
 func (resource *ImagingStudy) ImagingStudyLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -99,42 +99,42 @@ func (resource *ImagingStudy) ImagingStudyLanguage(optionsValueSet []Coding) tem
 func (resource *ImagingStudy) ImagingStudyStatus() templ.Component {
 	optionsValueSet := VSImagingstudy_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ImagingStudy) ImagingStudyModality(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Modality[0], optionsValueSet)
 }
 func (resource *ImagingStudy) ImagingStudySeriesModality(numSeries int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Series) >= numSeries {
+	if resource == nil && len(resource.Series) >= numSeries {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Series[numSeries].Modality, optionsValueSet)
 }
 func (resource *ImagingStudy) ImagingStudySeriesLaterality(numSeries int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Series) >= numSeries {
+	if resource == nil && len(resource.Series) >= numSeries {
 		return CodeableConceptSelect("laterality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("laterality", resource.Series[numSeries].Laterality, optionsValueSet)
 }
 func (resource *ImagingStudy) ImagingStudySeriesPerformerFunction(numSeries int, numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Series[numSeries].Performer) >= numPerformer {
+	if resource == nil && len(resource.Series[numSeries].Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Series[numSeries].Performer[numPerformer].Function, optionsValueSet)
 }
 func (resource *ImagingStudy) ImagingStudySeriesInstanceSopClass(numSeries int, numInstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Series[numSeries].Instance) >= numInstance {
+	if resource == nil && len(resource.Series[numSeries].Instance) >= numInstance {
 		return CodingSelect("sopClass", nil, optionsValueSet)
 	}
 	return CodingSelect("sopClass", &resource.Series[numSeries].Instance[numInstance].SopClass, optionsValueSet)

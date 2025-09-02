@@ -101,7 +101,7 @@ func (r MedicationRequest) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicationRequest) MedicationRequestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -109,14 +109,14 @@ func (resource *MedicationRequest) MedicationRequestLanguage(optionsValueSet []C
 func (resource *MedicationRequest) MedicationRequestStatus() templ.Component {
 	optionsValueSet := VSMedicationrequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestStatusReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
@@ -124,14 +124,14 @@ func (resource *MedicationRequest) MedicationRequestStatusReason(optionsValueSet
 func (resource *MedicationRequest) MedicationRequestIntent() templ.Component {
 	optionsValueSet := VSMedicationrequest_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
@@ -139,35 +139,35 @@ func (resource *MedicationRequest) MedicationRequestCategory(optionsValueSet []C
 func (resource *MedicationRequest) MedicationRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestPerformerType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestCourseOfTherapyType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("courseOfTherapyType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("courseOfTherapyType", resource.CourseOfTherapyType, optionsValueSet)
 }
 func (resource *MedicationRequest) MedicationRequestSubstitutionReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", resource.Substitution.Reason, optionsValueSet)

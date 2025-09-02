@@ -19,14 +19,14 @@ type Binary struct {
 
 func (resource *Binary) BinaryLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Binary) BinaryContentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", &resource.ContentType, optionsValueSet)

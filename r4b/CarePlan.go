@@ -96,7 +96,7 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 
 func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -104,7 +104,7 @@ func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *CarePlan) CarePlanStatus() templ.Component {
 	optionsValueSet := VSRequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -112,21 +112,21 @@ func (resource *CarePlan) CarePlanStatus() templ.Component {
 func (resource *CarePlan) CarePlanIntent() templ.Component {
 	optionsValueSet := VSCare_plan_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *CarePlan) CarePlanActivityOutcomeCodeableConcept(numActivity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeableConceptSelect("outcomeCodeableConcept", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcomeCodeableConcept", &resource.Activity[numActivity].OutcomeCodeableConcept[0], optionsValueSet)
@@ -134,21 +134,21 @@ func (resource *CarePlan) CarePlanActivityOutcomeCodeableConcept(numActivity int
 func (resource *CarePlan) CarePlanActivityDetailKind(numActivity int) templ.Component {
 	optionsValueSet := VSCare_plan_activity_kind
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", resource.Activity[numActivity].Detail.Kind, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanActivityDetailCode(numActivity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Activity[numActivity].Detail.Code, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanActivityDetailReasonCode(numActivity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.Activity[numActivity].Detail.ReasonCode[0], optionsValueSet)
@@ -156,14 +156,14 @@ func (resource *CarePlan) CarePlanActivityDetailReasonCode(numActivity int, opti
 func (resource *CarePlan) CarePlanActivityDetailStatus(numActivity int) templ.Component {
 	optionsValueSet := VSCare_plan_activity_status
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Activity[numActivity].Detail.Status, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanActivityDetailStatusReason(numActivity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Activity) >= numActivity {
+	if resource == nil && len(resource.Activity) >= numActivity {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.Activity[numActivity].Detail.StatusReason, optionsValueSet)

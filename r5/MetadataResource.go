@@ -61,7 +61,7 @@ func (r MetadataResource) MarshalJSON() ([]byte, error) {
 
 func (resource *MetadataResource) MetadataResourceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -69,21 +69,21 @@ func (resource *MetadataResource) MetadataResourceLanguage(optionsValueSet []Cod
 func (resource *MetadataResource) MetadataResourceStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MetadataResource) MetadataResourceJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *MetadataResource) MetadataResourceTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)

@@ -91,7 +91,7 @@ func (r ImagingSelection) MarshalJSON() ([]byte, error) {
 
 func (resource *ImagingSelection) ImagingSelectionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -99,35 +99,35 @@ func (resource *ImagingSelection) ImagingSelectionLanguage(optionsValueSet []Cod
 func (resource *ImagingSelection) ImagingSelectionStatus() templ.Component {
 	optionsValueSet := VSImagingselection_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ImagingSelection) ImagingSelectionCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *ImagingSelection) ImagingSelectionCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
 func (resource *ImagingSelection) ImagingSelectionPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Performer) >= numPerformer {
+	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
 func (resource *ImagingSelection) ImagingSelectionInstanceSopClass(numInstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Instance) >= numInstance {
+	if resource == nil && len(resource.Instance) >= numInstance {
 		return CodingSelect("sopClass", nil, optionsValueSet)
 	}
 	return CodingSelect("sopClass", resource.Instance[numInstance].SopClass, optionsValueSet)
@@ -135,7 +135,7 @@ func (resource *ImagingSelection) ImagingSelectionInstanceSopClass(numInstance i
 func (resource *ImagingSelection) ImagingSelectionInstanceImageRegion2DRegionType(numInstance int, numImageRegion2D int) templ.Component {
 	optionsValueSet := VSImagingselection_2dgraphictype
 
-	if resource != nil && len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D {
+	if resource == nil && len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D {
 		return CodeSelect("regionType", nil, optionsValueSet)
 	}
 	return CodeSelect("regionType", &resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].RegionType, optionsValueSet)
@@ -143,7 +143,7 @@ func (resource *ImagingSelection) ImagingSelectionInstanceImageRegion2DRegionTyp
 func (resource *ImagingSelection) ImagingSelectionInstanceImageRegion3DRegionType(numInstance int, numImageRegion3D int) templ.Component {
 	optionsValueSet := VSImagingselection_3dgraphictype
 
-	if resource != nil && len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D {
+	if resource == nil && len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D {
 		return CodeSelect("regionType", nil, optionsValueSet)
 	}
 	return CodeSelect("regionType", &resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].RegionType, optionsValueSet)

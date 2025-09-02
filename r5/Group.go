@@ -70,7 +70,7 @@ func (r Group) MarshalJSON() ([]byte, error) {
 
 func (resource *Group) GroupLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -78,7 +78,7 @@ func (resource *Group) GroupLanguage(optionsValueSet []Coding) templ.Component {
 func (resource *Group) GroupType() templ.Component {
 	optionsValueSet := VSGroup_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
@@ -86,21 +86,21 @@ func (resource *Group) GroupType() templ.Component {
 func (resource *Group) GroupMembership() templ.Component {
 	optionsValueSet := VSGroup_membership_basis
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("membership", nil, optionsValueSet)
 	}
 	return CodeSelect("membership", &resource.Membership, optionsValueSet)
 }
 func (resource *Group) GroupCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *Group) GroupCharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet)

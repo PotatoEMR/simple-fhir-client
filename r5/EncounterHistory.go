@@ -56,7 +56,7 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 
 func (resource *EncounterHistory) EncounterHistoryLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -64,35 +64,35 @@ func (resource *EncounterHistory) EncounterHistoryLanguage(optionsValueSet []Cod
 func (resource *EncounterHistory) EncounterHistoryStatus() templ.Component {
 	optionsValueSet := VSEncounter_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *EncounterHistory) EncounterHistoryClass(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("class", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("class", &resource.Class, optionsValueSet)
 }
 func (resource *EncounterHistory) EncounterHistoryType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *EncounterHistory) EncounterHistorySubjectStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet)
 }
 func (resource *EncounterHistory) EncounterHistoryLocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Location) >= numLocation {
+	if resource == nil && len(resource.Location) >= numLocation {
 		return CodeableConceptSelect("form", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("form", resource.Location[numLocation].Form, optionsValueSet)

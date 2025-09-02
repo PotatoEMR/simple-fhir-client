@@ -57,7 +57,7 @@ func (r ActorDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *ActorDefinition) ActorDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -65,14 +65,14 @@ func (resource *ActorDefinition) ActorDefinitionLanguage(optionsValueSet []Codin
 func (resource *ActorDefinition) ActorDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ActorDefinition) ActorDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -80,7 +80,7 @@ func (resource *ActorDefinition) ActorDefinitionJurisdiction(optionsValueSet []C
 func (resource *ActorDefinition) ActorDefinitionType() templ.Component {
 	optionsValueSet := VSExamplescenario_actor_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)

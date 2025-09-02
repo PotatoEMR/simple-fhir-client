@@ -75,7 +75,7 @@ func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 
 func (resource *FamilyMemberHistory) FamilyMemberHistoryLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -83,49 +83,49 @@ func (resource *FamilyMemberHistory) FamilyMemberHistoryLanguage(optionsValueSet
 func (resource *FamilyMemberHistory) FamilyMemberHistoryStatus() templ.Component {
 	optionsValueSet := VSHistory_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistoryDataAbsentReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("dataAbsentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistoryRelationship(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Relationship, optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistorySex(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("sex", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sex", resource.Sex, optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistoryReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistoryConditionCode(numCondition int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Condition) >= numCondition {
+	if resource == nil && len(resource.Condition) >= numCondition {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Condition[numCondition].Code, optionsValueSet)
 }
 func (resource *FamilyMemberHistory) FamilyMemberHistoryConditionOutcome(numCondition int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Condition) >= numCondition {
+	if resource == nil && len(resource.Condition) >= numCondition {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcome", resource.Condition[numCondition].Outcome, optionsValueSet)

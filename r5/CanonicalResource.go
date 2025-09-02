@@ -52,7 +52,7 @@ func (r CanonicalResource) MarshalJSON() ([]byte, error) {
 
 func (resource *CanonicalResource) CanonicalResourceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -60,14 +60,14 @@ func (resource *CanonicalResource) CanonicalResourceLanguage(optionsValueSet []C
 func (resource *CanonicalResource) CanonicalResourceStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *CanonicalResource) CanonicalResourceJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)

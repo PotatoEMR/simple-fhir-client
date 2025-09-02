@@ -2,113 +2,113 @@ package r5
 
 //html Select for code, from valueset list
 templ CodeSelect(fieldname string, current *string, valueset []Coding) {
-	<select name={ fieldname }>
-		<option value="">--</option>
-		for _, c := range valueset {
-			if c.Code != nil {
-				<option
-					value={ *c.Code }
-					if current != nil && *c.Code == *current {
-						selected
-					}
-				>
-					if c.Display == nil {
-						{ *c.Code }
-					} else {
-						{ *c.Display }
-					}
-				</option>
+		<select name={ fieldname }>
+			<option value="">--</option>
+			for _, c := range valueset {
+				if c.Code != nil {
+					<option
+						value={ *c.Code }
+						if current != nil && *c.Code == *current {
+							selected
+						}
+					>
+						if c.Display == nil {
+							{ *c.Code }
+						} else {
+							{ *c.Display }
+						}
+					</option>
+				}
 			}
-		}
-	</select>
+		</select>
 }
 
-
 templ CodingSelect(fieldname string, current *Coding, valueset []Coding) {
-	<select
-		name={ fieldname + ".display" }
-		onblur="setCodingFromOptions(this)"
-	>
-		<option value="">--</option>
-		for _, c := range valueset {
-			if c.Code != nil {
-				<option
-					fhir-code={ *c.Code }
-					fhir-system={ *c.System }
-					fhir-display={ *c.Display }
-					if current != nil && *c.Code == *current.Code {
-						selected
-					}
-				>
-					if c.Display == nil {
-						{ *c.Code }
-					} else {
-						{ *c.Display }
-					}
-				</option>
+		<select
+			name={ fieldname + ".display" }
+			onblur="setCodingFromOptions(this)"
+		>
+			<option value="">--</option>
+			for _, c := range valueset {
+				if c.Code != nil {
+					<option
+						fhir-code={ *c.Code }
+						fhir-system={ *c.System }
+						fhir-display={ *c.Display }
+						if current != nil && *c.Code == *current.Code {
+							selected
+						}
+					>
+						if c.Display == nil {
+							{ *c.Code }
+						} else {
+							{ *c.Display }
+						}
+					</option>
+				}
 			}
+		</select>
+		if current != nil && current.Code != nil {
+			<input name={ fieldname + ".code" } type="hidden" value={ *current.Code }/>
+		} else {
+			<input name={ fieldname + ".code" } type="hidden" value=""/>
 		}
-	</select>
-	if current != nil && current.Code != nil {
-		<input name={ fieldname + ".code" } type="hidden" value={ *current.Code }/>
-	} else {
-		<input name={ fieldname + ".code" } type="hidden" value=""/>
-	}
-	if current != nil && current.System != nil {
-		<input name={ fieldname + ".system" } type="hidden" value={ *current.System }/>
-	} else {
-		<input name={ fieldname + ".system" } type="hidden" value=""/>
-	}
-	if current != nil && current.Display != nil {
-		<input name={ fieldname + ".display" } type="hidden" value={ *current.Display }/>
-	} else {
-		<input name={ fieldname + ".display" } type="hidden" value=""/>
-	}
+		if current != nil && current.System != nil {
+			<input name={ fieldname + ".system" } type="hidden" value={ *current.System }/>
+		} else {
+			<input name={ fieldname + ".system" } type="hidden" value=""/>
+		}
+		if current != nil && current.Display != nil {
+			<input name={ fieldname + ".display" } type="hidden" value={ *current.Display }/>
+		} else {
+			<input name={ fieldname + ".display" } type="hidden" value=""/>
+		}
 }
 
 templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding) {
-	<select
-		name={ fieldname + ".display" }
-		onblur="setCodingFromOptions(this)"
-	>
-		<option value="">--</option>
-		for _, c := range valueset {
-			if c.Code != nil {
-				<option
-					fhir-code={ *c.Code }
-					fhir-system={ *c.System }
-					fhir-display={ *c.Display }
-					if *c.Code == *current.Coding[0].Code {
-						selected
-					}
-				>
-					if c.Display == nil {
-						{ *c.Code }
-					} else {
-						{ *c.Display }
-					}
-				</option>
+		{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
+		<select
+			name={ fieldname + ".display" }
+			onblur="setCodingFromOptions(this)"
+		>
+			<option value="">--</option>
+			for _, c := range valueset {
+				if c.Code != nil && c.System != nil && c.Display != nil{
+					<option
+						fhir-code={ *c.Code }
+						fhir-system={ *c.System }
+						fhir-display={ *c.Display }
+						if hasOneCoding && *c.Code == *current.Coding[0].Code {
+							selected
+						}
+					>
+						if c.Display == nil {
+							{ *c.Code }
+						} else {
+							{ *c.Display }
+						}
+					</option>
+				}
 			}
+		</select>
+		if hasOneCoding && current.Coding[0].Code != nil {
+			<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code }/>
+		} else {
+			<input name={ fieldname + ".coding[0].code" } type="hidden" value=""/>
 		}
-	</select>
-	if current.Coding[0].Code != nil {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code }/>
-	} else {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value=""/>
-	}
-	if current.Coding[0].System != nil {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System }/>
-	} else {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value=""/>
-	}
-	if current.Coding[0].Display != nil {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display }/>
-	} else {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value=""/>
-	}
+		if hasOneCoding && current.Coding[0].System != nil {
+			<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System }/>
+		} else {
+			<input name={ fieldname + ".coding[0].system" } type="hidden" value=""/>
+		}
+		if hasOneCoding && current.Coding[0].Display != nil {
+			<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display }/>
+		} else {
+			<input name={ fieldname + ".coding[0].display" } type="hidden" value=""/>
+		}
 }
 
-templ StringInput(fieldname, current string){
-	<input name={fieldname} value={current}/>
+templ StringInput(fieldname, current string) {
+		<input name={ fieldname } value={ current }/>
 }
 

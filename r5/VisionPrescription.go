@@ -72,7 +72,7 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 
 func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -80,14 +80,14 @@ func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet [
 func (resource *VisionPrescription) VisionPrescriptionStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *VisionPrescription) VisionPrescriptionLensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.LensSpecification) >= numLensSpecification {
+	if resource == nil && len(resource.LensSpecification) >= numLensSpecification {
 		return CodeableConceptSelect("product", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("product", &resource.LensSpecification[numLensSpecification].Product, optionsValueSet)
@@ -95,7 +95,7 @@ func (resource *VisionPrescription) VisionPrescriptionLensSpecificationProduct(n
 func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLensSpecification int) templ.Component {
 	optionsValueSet := VSVision_eye_codes
 
-	if resource != nil && len(resource.LensSpecification) >= numLensSpecification {
+	if resource == nil && len(resource.LensSpecification) >= numLensSpecification {
 		return CodeSelect("eye", nil, optionsValueSet)
 	}
 	return CodeSelect("eye", &resource.LensSpecification[numLensSpecification].Eye, optionsValueSet)
@@ -103,7 +103,7 @@ func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLe
 func (resource *VisionPrescription) VisionPrescriptionLensSpecificationPrismBase(numLensSpecification int, numPrism int) templ.Component {
 	optionsValueSet := VSVision_base_codes
 
-	if resource != nil && len(resource.LensSpecification[numLensSpecification].Prism) >= numPrism {
+	if resource == nil && len(resource.LensSpecification[numLensSpecification].Prism) >= numPrism {
 		return CodeSelect("base", nil, optionsValueSet)
 	}
 	return CodeSelect("base", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Base, optionsValueSet)

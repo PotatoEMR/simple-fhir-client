@@ -49,7 +49,7 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 
 func (resource *DeviceUseStatement) DeviceUseStatementLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -57,21 +57,21 @@ func (resource *DeviceUseStatement) DeviceUseStatementLanguage(optionsValueSet [
 func (resource *DeviceUseStatement) DeviceUseStatementStatus() templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *DeviceUseStatement) DeviceUseStatementReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *DeviceUseStatement) DeviceUseStatementBodySite(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)

@@ -125,7 +125,7 @@ func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 
 func (resource *AdverseEvent) AdverseEventLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -133,7 +133,7 @@ func (resource *AdverseEvent) AdverseEventLanguage(optionsValueSet []Coding) tem
 func (resource *AdverseEvent) AdverseEventStatus() templ.Component {
 	optionsValueSet := VSAdverse_event_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -141,56 +141,56 @@ func (resource *AdverseEvent) AdverseEventStatus() templ.Component {
 func (resource *AdverseEvent) AdverseEventActuality() templ.Component {
 	optionsValueSet := VSAdverse_event_actuality
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("actuality", nil, optionsValueSet)
 	}
 	return CodeSelect("actuality", &resource.Actuality, optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventSeriousness(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("seriousness", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("seriousness", resource.Seriousness, optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventOutcome(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcome", &resource.Outcome[0], optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Participant[numParticipant].Function, optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventSuspectEntityCausalityAssessmentMethod(numSuspectEntity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SuspectEntity) >= numSuspectEntity {
+	if resource == nil && len(resource.SuspectEntity) >= numSuspectEntity {
 		return CodeableConceptSelect("assessmentMethod", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("assessmentMethod", resource.SuspectEntity[numSuspectEntity].Causality.AssessmentMethod, optionsValueSet)
 }
 func (resource *AdverseEvent) AdverseEventSuspectEntityCausalityEntityRelatedness(numSuspectEntity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SuspectEntity) >= numSuspectEntity {
+	if resource == nil && len(resource.SuspectEntity) >= numSuspectEntity {
 		return CodeableConceptSelect("entityRelatedness", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("entityRelatedness", resource.SuspectEntity[numSuspectEntity].Causality.EntityRelatedness, optionsValueSet)

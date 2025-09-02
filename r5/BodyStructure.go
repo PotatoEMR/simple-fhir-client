@@ -73,56 +73,56 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 
 func (resource *BodyStructure) BodyStructureLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureMorphology(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("morphology", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("morphology", resource.Morphology, optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureStructure(numIncludedStructure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure) >= numIncludedStructure {
+	if resource == nil && len(resource.IncludedStructure) >= numIncludedStructure {
 		return CodeableConceptSelect("structure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("structure", &resource.IncludedStructure[numIncludedStructure].Structure, optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureLaterality(numIncludedStructure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure) >= numIncludedStructure {
+	if resource == nil && len(resource.IncludedStructure) >= numIncludedStructure {
 		return CodeableConceptSelect("laterality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("laterality", resource.IncludedStructure[numIncludedStructure].Laterality, optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureQualifier(numIncludedStructure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure) >= numIncludedStructure {
+	if resource == nil && len(resource.IncludedStructure) >= numIncludedStructure {
 		return CodeableConceptSelect("qualifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("qualifier", &resource.IncludedStructure[numIncludedStructure].Qualifier[0], optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureBodyLandmarkOrientationLandmarkDescription(numIncludedStructure int, numBodyLandmarkOrientation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
+	if resource == nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
 		return CodeableConceptSelect("landmarkDescription", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("landmarkDescription", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].LandmarkDescription[0], optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureBodyLandmarkOrientationClockFacePosition(numIncludedStructure int, numBodyLandmarkOrientation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
+	if resource == nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
 		return CodeableConceptSelect("clockFacePosition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("clockFacePosition", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].ClockFacePosition[0], optionsValueSet)
 }
 func (resource *BodyStructure) BodyStructureIncludedStructureBodyLandmarkOrientationSurfaceOrientation(numIncludedStructure int, numBodyLandmarkOrientation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
+	if resource == nil && len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) >= numBodyLandmarkOrientation {
 		return CodeableConceptSelect("surfaceOrientation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("surfaceOrientation", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].SurfaceOrientation[0], optionsValueSet)

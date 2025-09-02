@@ -129,7 +129,7 @@ func (r Measure) MarshalJSON() ([]byte, error) {
 
 func (resource *Measure) MeasureLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -137,42 +137,42 @@ func (resource *Measure) MeasureLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Measure) MeasureStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Measure) MeasureJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *Measure) MeasureTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *Measure) MeasureScoring(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("scoring", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("scoring", resource.Scoring, optionsValueSet)
 }
 func (resource *Measure) MeasureCompositeScoring(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("compositeScoring", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("compositeScoring", resource.CompositeScoring, optionsValueSet)
 }
 func (resource *Measure) MeasureType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
@@ -180,49 +180,49 @@ func (resource *Measure) MeasureType(optionsValueSet []Coding) templ.Component {
 func (resource *Measure) MeasureImprovementNotation() templ.Component {
 	optionsValueSet := VSMeasure_improvement_notation
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("improvementNotation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("improvementNotation", resource.ImprovementNotation, optionsValueSet)
 }
 func (resource *Measure) MeasureGroupCode(numGroup int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group) >= numGroup {
+	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Group[numGroup].Code, optionsValueSet)
 }
 func (resource *Measure) MeasureGroupPopulationCode(numGroup int, numPopulation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group[numGroup].Population) >= numPopulation {
+	if resource == nil && len(resource.Group[numGroup].Population) >= numPopulation {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Group[numGroup].Population[numPopulation].Code, optionsValueSet)
 }
 func (resource *Measure) MeasureGroupStratifierCode(numGroup int, numStratifier int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group[numGroup].Stratifier) >= numStratifier {
+	if resource == nil && len(resource.Group[numGroup].Stratifier) >= numStratifier {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Group[numGroup].Stratifier[numStratifier].Code, optionsValueSet)
 }
 func (resource *Measure) MeasureGroupStratifierComponentCode(numGroup int, numStratifier int, numComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group[numGroup].Stratifier[numStratifier].Component) >= numComponent {
+	if resource == nil && len(resource.Group[numGroup].Stratifier[numStratifier].Component) >= numComponent {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Code, optionsValueSet)
 }
 func (resource *Measure) MeasureSupplementalDataCode(numSupplementalData int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SupplementalData) >= numSupplementalData {
+	if resource == nil && len(resource.SupplementalData) >= numSupplementalData {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.SupplementalData[numSupplementalData].Code, optionsValueSet)
 }
 func (resource *Measure) MeasureSupplementalDataUsage(numSupplementalData int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SupplementalData) >= numSupplementalData {
+	if resource == nil && len(resource.SupplementalData) >= numSupplementalData {
 		return CodeableConceptSelect("usage", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("usage", &resource.SupplementalData[numSupplementalData].Usage[0], optionsValueSet)

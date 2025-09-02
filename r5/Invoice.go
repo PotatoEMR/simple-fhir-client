@@ -75,7 +75,7 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 
 func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -83,21 +83,21 @@ func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Invoice) InvoiceStatus() templ.Component {
 	optionsValueSet := VSInvoice_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Invoice) InvoiceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *Invoice) InvoiceParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)

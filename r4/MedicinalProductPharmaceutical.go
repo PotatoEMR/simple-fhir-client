@@ -83,56 +83,56 @@ func (r MedicinalProductPharmaceutical) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalAdministrableDoseForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("administrableDoseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("administrableDoseForm", &resource.AdministrableDoseForm, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalUnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalCharacteristicsCode(numCharacteristics int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Characteristics) >= numCharacteristics {
+	if resource == nil && len(resource.Characteristics) >= numCharacteristics {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Characteristics[numCharacteristics].Code, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalCharacteristicsStatus(numCharacteristics int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Characteristics) >= numCharacteristics {
+	if resource == nil && len(resource.Characteristics) >= numCharacteristics {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.Characteristics[numCharacteristics].Status, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RouteOfAdministration) >= numRouteOfAdministration {
+	if resource == nil && len(resource.RouteOfAdministration) >= numRouteOfAdministration {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].Code, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) >= numTargetSpecies {
+	if resource == nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) >= numTargetSpecies {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].Code, optionsValueSet)
 }
 func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) >= numWithdrawalPeriod {
+	if resource == nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) >= numWithdrawalPeriod {
 		return CodeableConceptSelect("tissue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("tissue", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Tissue, optionsValueSet)

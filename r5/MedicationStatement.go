@@ -62,7 +62,7 @@ func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicationStatement) MedicationStatementLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -70,28 +70,28 @@ func (resource *MedicationStatement) MedicationStatementLanguage(optionsValueSet
 func (resource *MedicationStatement) MedicationStatementStatus() templ.Component {
 	optionsValueSet := VSMedication_statement_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MedicationStatement) MedicationStatementCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *MedicationStatement) MedicationStatementAdherenceCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Adherence.Code, optionsValueSet)
 }
 func (resource *MedicationStatement) MedicationStatementAdherenceReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", resource.Adherence.Reason, optionsValueSet)

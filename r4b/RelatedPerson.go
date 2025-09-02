@@ -55,14 +55,14 @@ func (r RelatedPerson) MarshalJSON() ([]byte, error) {
 
 func (resource *RelatedPerson) RelatedPersonLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *RelatedPerson) RelatedPersonRelationship(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Relationship[0], optionsValueSet)
@@ -70,14 +70,14 @@ func (resource *RelatedPerson) RelatedPersonRelationship(optionsValueSet []Codin
 func (resource *RelatedPerson) RelatedPersonGender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("gender", nil, optionsValueSet)
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
 func (resource *RelatedPerson) RelatedPersonCommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Communication) >= numCommunication {
+	if resource == nil && len(resource.Communication) >= numCommunication {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", &resource.Communication[numCommunication].Language, optionsValueSet)

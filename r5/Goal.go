@@ -68,7 +68,7 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 
 func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -76,42 +76,42 @@ func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
 func (resource *Goal) GoalLifecycleStatus() templ.Component {
 	optionsValueSet := VSGoal_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("lifecycleStatus", nil, optionsValueSet)
 	}
 	return CodeSelect("lifecycleStatus", &resource.LifecycleStatus, optionsValueSet)
 }
 func (resource *Goal) GoalAchievementStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("achievementStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("achievementStatus", resource.AchievementStatus, optionsValueSet)
 }
 func (resource *Goal) GoalCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *Goal) GoalPriority(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *Goal) GoalDescription(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("description", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("description", &resource.Description, optionsValueSet)
 }
 func (resource *Goal) GoalTargetMeasure(numTarget int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Target) >= numTarget {
+	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("measure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("measure", resource.Target[numTarget].Measure, optionsValueSet)

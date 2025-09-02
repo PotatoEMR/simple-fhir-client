@@ -46,7 +46,7 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 
 func (resource *Linkage) LinkageLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -54,7 +54,7 @@ func (resource *Linkage) LinkageLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Linkage) LinkageItemType(numItem int) templ.Component {
 	optionsValueSet := VSLinkage_type
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Item[numItem].Type, optionsValueSet)

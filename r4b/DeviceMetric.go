@@ -54,21 +54,21 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 
 func (resource *DeviceMetric) DeviceMetricLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceMetric) DeviceMetricType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *DeviceMetric) DeviceMetricUnit(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.Unit, optionsValueSet)
@@ -76,7 +76,7 @@ func (resource *DeviceMetric) DeviceMetricUnit(optionsValueSet []Coding) templ.C
 func (resource *DeviceMetric) DeviceMetricOperationalStatus() templ.Component {
 	optionsValueSet := VSMetric_operational_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("operationalStatus", nil, optionsValueSet)
 	}
 	return CodeSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
@@ -84,7 +84,7 @@ func (resource *DeviceMetric) DeviceMetricOperationalStatus() templ.Component {
 func (resource *DeviceMetric) DeviceMetricColor() templ.Component {
 	optionsValueSet := VSMetric_color
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("color", nil, optionsValueSet)
 	}
 	return CodeSelect("color", resource.Color, optionsValueSet)
@@ -92,7 +92,7 @@ func (resource *DeviceMetric) DeviceMetricColor() templ.Component {
 func (resource *DeviceMetric) DeviceMetricCategory() templ.Component {
 	optionsValueSet := VSMetric_category
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("category", nil, optionsValueSet)
 	}
 	return CodeSelect("category", &resource.Category, optionsValueSet)
@@ -100,7 +100,7 @@ func (resource *DeviceMetric) DeviceMetricCategory() templ.Component {
 func (resource *DeviceMetric) DeviceMetricCalibrationType(numCalibration int) templ.Component {
 	optionsValueSet := VSMetric_calibration_type
 
-	if resource != nil && len(resource.Calibration) >= numCalibration {
+	if resource == nil && len(resource.Calibration) >= numCalibration {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.Calibration[numCalibration].Type, optionsValueSet)
@@ -108,7 +108,7 @@ func (resource *DeviceMetric) DeviceMetricCalibrationType(numCalibration int) te
 func (resource *DeviceMetric) DeviceMetricCalibrationState(numCalibration int) templ.Component {
 	optionsValueSet := VSMetric_calibration_state
 
-	if resource != nil && len(resource.Calibration) >= numCalibration {
+	if resource == nil && len(resource.Calibration) >= numCalibration {
 		return CodeSelect("state", nil, optionsValueSet)
 	}
 	return CodeSelect("state", resource.Calibration[numCalibration].State, optionsValueSet)

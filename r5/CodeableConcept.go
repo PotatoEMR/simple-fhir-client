@@ -15,6 +15,9 @@ type CodeableConcept struct {
 }
 
 func (cc *CodeableConcept) String() string {
+	if cc == nil {
+		return ""
+	}
 	if cc.Text != nil {
 		return *cc.Text
 	}

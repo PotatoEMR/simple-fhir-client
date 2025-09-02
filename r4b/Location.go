@@ -72,7 +72,7 @@ func (r Location) MarshalJSON() ([]byte, error) {
 
 func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -80,14 +80,14 @@ func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *Location) LocationStatus() templ.Component {
 	optionsValueSet := VSLocation_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodingSelect("operationalStatus", nil, optionsValueSet)
 	}
 	return CodingSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
@@ -95,21 +95,21 @@ func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) te
 func (resource *Location) LocationMode() templ.Component {
 	optionsValueSet := VSLocation_mode
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", resource.Mode, optionsValueSet)
 }
 func (resource *Location) LocationType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *Location) LocationPhysicalType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("physicalType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("physicalType", resource.PhysicalType, optionsValueSet)
@@ -117,7 +117,7 @@ func (resource *Location) LocationPhysicalType(optionsValueSet []Coding) templ.C
 func (resource *Location) LocationHoursOfOperationDaysOfWeek(numHoursOfOperation int) templ.Component {
 	optionsValueSet := VSDays_of_week
 
-	if resource != nil && len(resource.HoursOfOperation) >= numHoursOfOperation {
+	if resource == nil && len(resource.HoursOfOperation) >= numHoursOfOperation {
 		return CodeSelect("daysOfWeek", nil, optionsValueSet)
 	}
 	return CodeSelect("daysOfWeek", &resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek[0], optionsValueSet)

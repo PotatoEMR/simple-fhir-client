@@ -63,7 +63,7 @@ func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *CompartmentDefinition) CompartmentDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -71,7 +71,7 @@ func (resource *CompartmentDefinition) CompartmentDefinitionLanguage(optionsValu
 func (resource *CompartmentDefinition) CompartmentDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -79,7 +79,7 @@ func (resource *CompartmentDefinition) CompartmentDefinitionStatus() templ.Compo
 func (resource *CompartmentDefinition) CompartmentDefinitionCode() templ.Component {
 	optionsValueSet := VSCompartment_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Code, optionsValueSet)
@@ -87,7 +87,7 @@ func (resource *CompartmentDefinition) CompartmentDefinitionCode() templ.Compone
 func (resource *CompartmentDefinition) CompartmentDefinitionResourceCode(numResource int) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil && len(resource.Resource) >= numResource {
+	if resource == nil && len(resource.Resource) >= numResource {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Resource[numResource].Code, optionsValueSet)

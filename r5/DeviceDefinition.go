@@ -228,21 +228,21 @@ func (r DeviceDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *DeviceDefinition) DeviceDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionSafety(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("safety", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("safety", &resource.Safety[0], optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionLanguageCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("languageCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("languageCode", &resource.LanguageCode[0], optionsValueSet)
@@ -250,7 +250,7 @@ func (resource *DeviceDefinition) DeviceDefinitionLanguageCode(optionsValueSet [
 func (resource *DeviceDefinition) DeviceDefinitionProductionIdentifierInUDI() templ.Component {
 	optionsValueSet := VSDevice_productidentifierinudi
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("productionIdentifierInUDI", nil, optionsValueSet)
 	}
 	return CodeSelect("productionIdentifierInUDI", &resource.ProductionIdentifierInUDI[0], optionsValueSet)
@@ -258,7 +258,7 @@ func (resource *DeviceDefinition) DeviceDefinitionProductionIdentifierInUDI() te
 func (resource *DeviceDefinition) DeviceDefinitionRegulatoryIdentifierType(numRegulatoryIdentifier int) templ.Component {
 	optionsValueSet := VSDevicedefinition_regulatory_identifier_type
 
-	if resource != nil && len(resource.RegulatoryIdentifier) >= numRegulatoryIdentifier {
+	if resource == nil && len(resource.RegulatoryIdentifier) >= numRegulatoryIdentifier {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.RegulatoryIdentifier[numRegulatoryIdentifier].Type, optionsValueSet)
@@ -266,84 +266,84 @@ func (resource *DeviceDefinition) DeviceDefinitionRegulatoryIdentifierType(numRe
 func (resource *DeviceDefinition) DeviceDefinitionDeviceNameType(numDeviceName int) templ.Component {
 	optionsValueSet := VSDevice_nametype
 
-	if resource != nil && len(resource.DeviceName) >= numDeviceName {
+	if resource == nil && len(resource.DeviceName) >= numDeviceName {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.DeviceName[numDeviceName].Type, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionClassificationType(numClassification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Classification) >= numClassification {
+	if resource == nil && len(resource.Classification) >= numClassification {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Classification[numClassification].Type, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionConformsToCategory(numConformsTo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ConformsTo) >= numConformsTo {
+	if resource == nil && len(resource.ConformsTo) >= numConformsTo {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.ConformsTo[numConformsTo].Category, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionConformsToSpecification(numConformsTo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ConformsTo) >= numConformsTo {
+	if resource == nil && len(resource.ConformsTo) >= numConformsTo {
 		return CodeableConceptSelect("specification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specification", &resource.ConformsTo[numConformsTo].Specification, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionPackagingType(numPackaging int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Packaging) >= numPackaging {
+	if resource == nil && len(resource.Packaging) >= numPackaging {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Packaging[numPackaging].Type, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionVersionType(numVersion int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Version) >= numVersion {
+	if resource == nil && len(resource.Version) >= numVersion {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Version[numVersion].Type, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Property) >= numProperty {
+	if resource == nil && len(resource.Property) >= numProperty {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionLinkRelation(numLink int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Link) >= numLink {
+	if resource == nil && len(resource.Link) >= numLink {
 		return CodingSelect("relation", nil, optionsValueSet)
 	}
 	return CodingSelect("relation", &resource.Link[numLink].Relation, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionMaterialSubstance(numMaterial int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Material) >= numMaterial {
+	if resource == nil && len(resource.Material) >= numMaterial {
 		return CodeableConceptSelect("substance", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("substance", &resource.Material[numMaterial].Substance, optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionGuidelineIndication(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("indication", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("indication", &resource.Guideline.Indication[0], optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionGuidelineContraindication(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("contraindication", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("contraindication", &resource.Guideline.Contraindication[0], optionsValueSet)
 }
 func (resource *DeviceDefinition) DeviceDefinitionGuidelineWarning(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("warning", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("warning", &resource.Guideline.Warning[0], optionsValueSet)
@@ -351,7 +351,7 @@ func (resource *DeviceDefinition) DeviceDefinitionGuidelineWarning(optionsValueS
 func (resource *DeviceDefinition) DeviceDefinitionCorrectiveActionScope() templ.Component {
 	optionsValueSet := VSDevice_correctiveactionscope
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("scope", nil, optionsValueSet)
 	}
 	return CodeSelect("scope", resource.CorrectiveAction.Scope, optionsValueSet)

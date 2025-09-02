@@ -112,133 +112,133 @@ func (r SubstanceSourceMaterial) MarshalJSON() ([]byte, error) {
 
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialSourceMaterialClass(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("sourceMaterialClass", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sourceMaterialClass", resource.SourceMaterialClass, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialSourceMaterialType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("sourceMaterialType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sourceMaterialType", resource.SourceMaterialType, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialSourceMaterialState(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("sourceMaterialState", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sourceMaterialState", resource.SourceMaterialState, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialCountryOfOrigin(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("countryOfOrigin", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("countryOfOrigin", &resource.CountryOfOrigin[0], optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialDevelopmentStage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("developmentStage", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("developmentStage", resource.DevelopmentStage, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialFractionDescriptionMaterialType(numFractionDescription int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.FractionDescription) >= numFractionDescription {
+	if resource == nil && len(resource.FractionDescription) >= numFractionDescription {
 		return CodeableConceptSelect("materialType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("materialType", resource.FractionDescription[numFractionDescription].MaterialType, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismFamily(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("family", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("family", resource.Organism.Family, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismGenus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("genus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("genus", resource.Organism.Genus, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismSpecies(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("species", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("species", resource.Organism.Species, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismIntraspecificType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("intraspecificType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intraspecificType", resource.Organism.IntraspecificType, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismAuthorAuthorType(numAuthor int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Organism.Author) >= numAuthor {
+	if resource == nil && len(resource.Organism.Author) >= numAuthor {
 		return CodeableConceptSelect("authorType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorType", resource.Organism.Author[numAuthor].AuthorType, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismHybridHybridType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("hybridType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("hybridType", resource.Organism.Hybrid.HybridType, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismOrganismGeneralKingdom(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("kingdom", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("kingdom", resource.Organism.OrganismGeneral.Kingdom, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismOrganismGeneralPhylum(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("phylum", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phylum", resource.Organism.OrganismGeneral.Phylum, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismOrganismGeneralClass(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("class", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("class", resource.Organism.OrganismGeneral.Class, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialOrganismOrganismGeneralOrder(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("order", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("order", resource.Organism.OrganismGeneral.Order, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialPartDescriptionPart(numPartDescription int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.PartDescription) >= numPartDescription {
+	if resource == nil && len(resource.PartDescription) >= numPartDescription {
 		return CodeableConceptSelect("part", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("part", resource.PartDescription[numPartDescription].Part, optionsValueSet)
 }
 func (resource *SubstanceSourceMaterial) SubstanceSourceMaterialPartDescriptionPartLocation(numPartDescription int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.PartDescription) >= numPartDescription {
+	if resource == nil && len(resource.PartDescription) >= numPartDescription {
 		return CodeableConceptSelect("partLocation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("partLocation", resource.PartDescription[numPartDescription].PartLocation, optionsValueSet)

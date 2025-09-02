@@ -94,7 +94,7 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *GraphDefinition) GraphDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -102,21 +102,21 @@ func (resource *GraphDefinition) GraphDefinitionLanguage(optionsValueSet []Codin
 func (resource *GraphDefinition) GraphDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *GraphDefinition) GraphDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *GraphDefinition) GraphDefinitionNodeType(numNode int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Node) >= numNode {
+	if resource == nil && len(resource.Node) >= numNode {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Node[numNode].Type, optionsValueSet)
@@ -124,7 +124,7 @@ func (resource *GraphDefinition) GraphDefinitionNodeType(numNode int, optionsVal
 func (resource *GraphDefinition) GraphDefinitionLinkCompartmentUse(numLink int, numCompartment int) templ.Component {
 	optionsValueSet := VSGraph_compartment_use
 
-	if resource != nil && len(resource.Link[numLink].Compartment) >= numCompartment {
+	if resource == nil && len(resource.Link[numLink].Compartment) >= numCompartment {
 		return CodeSelect("use", nil, optionsValueSet)
 	}
 	return CodeSelect("use", &resource.Link[numLink].Compartment[numCompartment].Use, optionsValueSet)
@@ -132,7 +132,7 @@ func (resource *GraphDefinition) GraphDefinitionLinkCompartmentUse(numLink int, 
 func (resource *GraphDefinition) GraphDefinitionLinkCompartmentRule(numLink int, numCompartment int) templ.Component {
 	optionsValueSet := VSGraph_compartment_rule
 
-	if resource != nil && len(resource.Link[numLink].Compartment) >= numCompartment {
+	if resource == nil && len(resource.Link[numLink].Compartment) >= numCompartment {
 		return CodeSelect("rule", nil, optionsValueSet)
 	}
 	return CodeSelect("rule", &resource.Link[numLink].Compartment[numCompartment].Rule, optionsValueSet)
@@ -140,7 +140,7 @@ func (resource *GraphDefinition) GraphDefinitionLinkCompartmentRule(numLink int,
 func (resource *GraphDefinition) GraphDefinitionLinkCompartmentCode(numLink int, numCompartment int) templ.Component {
 	optionsValueSet := VSCompartment_type
 
-	if resource != nil && len(resource.Link[numLink].Compartment) >= numCompartment {
+	if resource == nil && len(resource.Link[numLink].Compartment) >= numCompartment {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Link[numLink].Compartment[numCompartment].Code, optionsValueSet)

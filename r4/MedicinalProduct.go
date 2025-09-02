@@ -111,126 +111,126 @@ func (r MedicinalProduct) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicinalProduct) MedicinalProductLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductDomain(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodingSelect("domain", nil, optionsValueSet)
 	}
 	return CodingSelect("domain", resource.Domain, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductCombinedPharmaceuticalDoseForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("combinedPharmaceuticalDoseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("combinedPharmaceuticalDoseForm", resource.CombinedPharmaceuticalDoseForm, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductLegalStatusOfSupply(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductAdditionalMonitoringIndicator(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("additionalMonitoringIndicator", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("additionalMonitoringIndicator", resource.AdditionalMonitoringIndicator, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductPaediatricUseIndicator(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("paediatricUseIndicator", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("paediatricUseIndicator", resource.PaediatricUseIndicator, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductProductClassification(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("productClassification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productClassification", &resource.ProductClassification[0], optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductNameNamePartType(numName int, numNamePart int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Name[numName].NamePart) >= numNamePart {
+	if resource == nil && len(resource.Name[numName].NamePart) >= numNamePart {
 		return CodingSelect("type", nil, optionsValueSet)
 	}
 	return CodingSelect("type", &resource.Name[numName].NamePart[numNamePart].Type, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductNameCountryLanguageCountry(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.Name[numName].CountryLanguage[numCountryLanguage].Country, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductNameCountryLanguageJurisdiction(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", resource.Name[numName].CountryLanguage[numCountryLanguage].Jurisdiction, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductNameCountryLanguageLanguage(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", &resource.Name[numName].CountryLanguage[numCountryLanguage].Language, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductManufacturingBusinessOperationOperationType(numManufacturingBusinessOperation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+	if resource == nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
 		return CodeableConceptSelect("operationType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("operationType", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].OperationType, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductManufacturingBusinessOperationConfidentialityIndicator(numManufacturingBusinessOperation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+	if resource == nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
 		return CodeableConceptSelect("confidentialityIndicator", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("confidentialityIndicator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].ConfidentialityIndicator, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductSpecialDesignationType(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
+	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.SpecialDesignation[numSpecialDesignation].Type, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductSpecialDesignationIntendedUse(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
+	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
 		return CodeableConceptSelect("intendedUse", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intendedUse", resource.SpecialDesignation[numSpecialDesignation].IntendedUse, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductSpecialDesignationStatus(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
+	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.SpecialDesignation[numSpecialDesignation].Status, optionsValueSet)
 }
 func (resource *MedicinalProduct) MedicinalProductSpecialDesignationSpecies(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
+	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
 		return CodeableConceptSelect("species", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("species", resource.SpecialDesignation[numSpecialDesignation].Species, optionsValueSet)

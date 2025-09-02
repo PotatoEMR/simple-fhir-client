@@ -79,7 +79,7 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *MessageDefinition) MessageDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -87,14 +87,14 @@ func (resource *MessageDefinition) MessageDefinitionLanguage(optionsValueSet []C
 func (resource *MessageDefinition) MessageDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MessageDefinition) MessageDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -102,7 +102,7 @@ func (resource *MessageDefinition) MessageDefinitionJurisdiction(optionsValueSet
 func (resource *MessageDefinition) MessageDefinitionCategory() templ.Component {
 	optionsValueSet := VSMessage_significance_category
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("category", nil, optionsValueSet)
 	}
 	return CodeSelect("category", resource.Category, optionsValueSet)
@@ -110,7 +110,7 @@ func (resource *MessageDefinition) MessageDefinitionCategory() templ.Component {
 func (resource *MessageDefinition) MessageDefinitionResponseRequired() templ.Component {
 	optionsValueSet := VSMessageheader_response_request
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("responseRequired", nil, optionsValueSet)
 	}
 	return CodeSelect("responseRequired", resource.ResponseRequired, optionsValueSet)
@@ -118,7 +118,7 @@ func (resource *MessageDefinition) MessageDefinitionResponseRequired() templ.Com
 func (resource *MessageDefinition) MessageDefinitionFocusCode(numFocus int) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil && len(resource.Focus) >= numFocus {
+	if resource == nil && len(resource.Focus) >= numFocus {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Focus[numFocus].Code, optionsValueSet)

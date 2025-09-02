@@ -56,21 +56,21 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 
 func (resource *CatalogEntry) CatalogEntryLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *CatalogEntry) CatalogEntryType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *CatalogEntry) CatalogEntryClassification(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", &resource.Classification[0], optionsValueSet)
@@ -78,21 +78,21 @@ func (resource *CatalogEntry) CatalogEntryClassification(optionsValueSet []Codin
 func (resource *CatalogEntry) CatalogEntryStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *CatalogEntry) CatalogEntryAdditionalCharacteristic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("additionalCharacteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("additionalCharacteristic", &resource.AdditionalCharacteristic[0], optionsValueSet)
 }
 func (resource *CatalogEntry) CatalogEntryAdditionalClassification(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("additionalClassification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("additionalClassification", &resource.AdditionalClassification[0], optionsValueSet)
@@ -100,7 +100,7 @@ func (resource *CatalogEntry) CatalogEntryAdditionalClassification(optionsValueS
 func (resource *CatalogEntry) CatalogEntryRelatedEntryRelationtype(numRelatedEntry int) templ.Component {
 	optionsValueSet := VSRelation_type
 
-	if resource != nil && len(resource.RelatedEntry) >= numRelatedEntry {
+	if resource == nil && len(resource.RelatedEntry) >= numRelatedEntry {
 		return CodeSelect("relationtype", nil, optionsValueSet)
 	}
 	return CodeSelect("relationtype", &resource.RelatedEntry[numRelatedEntry].Relationtype, optionsValueSet)

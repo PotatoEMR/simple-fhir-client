@@ -79,7 +79,7 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 
 func (resource *NamingSystem) NamingSystemLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -87,7 +87,7 @@ func (resource *NamingSystem) NamingSystemLanguage(optionsValueSet []Coding) tem
 func (resource *NamingSystem) NamingSystemStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -95,28 +95,28 @@ func (resource *NamingSystem) NamingSystemStatus() templ.Component {
 func (resource *NamingSystem) NamingSystemKind() templ.Component {
 	optionsValueSet := VSNamingsystem_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
@@ -124,7 +124,7 @@ func (resource *NamingSystem) NamingSystemTopic(optionsValueSet []Coding) templ.
 func (resource *NamingSystem) NamingSystemUniqueIdType(numUniqueId int) templ.Component {
 	optionsValueSet := VSNamingsystem_identifier_type
 
-	if resource != nil && len(resource.UniqueId) >= numUniqueId {
+	if resource == nil && len(resource.UniqueId) >= numUniqueId {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.UniqueId[numUniqueId].Type, optionsValueSet)

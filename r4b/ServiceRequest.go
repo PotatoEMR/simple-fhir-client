@@ -72,7 +72,7 @@ func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 
 func (resource *ServiceRequest) ServiceRequestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -80,7 +80,7 @@ func (resource *ServiceRequest) ServiceRequestLanguage(optionsValueSet []Coding)
 func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
 	optionsValueSet := VSRequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -88,14 +88,14 @@ func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
 func (resource *ServiceRequest) ServiceRequestIntent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
@@ -103,49 +103,49 @@ func (resource *ServiceRequest) ServiceRequestCategory(optionsValueSet []Coding)
 func (resource *ServiceRequest) ServiceRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestOrderDetail(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("orderDetail", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderDetail", &resource.OrderDetail[0], optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestPerformerType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestLocationCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("locationCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("locationCode", &resource.LocationCode[0], optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *ServiceRequest) ServiceRequestBodySite(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)

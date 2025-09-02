@@ -80,7 +80,7 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 
 func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -88,21 +88,21 @@ func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Invoice) InvoiceStatus() templ.Component {
 	optionsValueSet := VSInvoice_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Invoice) InvoiceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *Invoice) InvoiceParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)
@@ -110,14 +110,14 @@ func (resource *Invoice) InvoiceParticipantRole(numParticipant int, optionsValue
 func (resource *Invoice) InvoiceLineItemPriceComponentType(numLineItem int, numPriceComponent int) templ.Component {
 	optionsValueSet := VSInvoice_priceComponentType
 
-	if resource != nil && len(resource.LineItem[numLineItem].PriceComponent) >= numPriceComponent {
+	if resource == nil && len(resource.LineItem[numLineItem].PriceComponent) >= numPriceComponent {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Type, optionsValueSet)
 }
 func (resource *Invoice) InvoiceLineItemPriceComponentCode(numLineItem int, numPriceComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.LineItem[numLineItem].PriceComponent) >= numPriceComponent {
+	if resource == nil && len(resource.LineItem[numLineItem].PriceComponent) >= numPriceComponent {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Code, optionsValueSet)

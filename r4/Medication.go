@@ -62,14 +62,14 @@ func (r Medication) MarshalJSON() ([]byte, error) {
 
 func (resource *Medication) MedicationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Medication) MedicationCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
@@ -77,14 +77,14 @@ func (resource *Medication) MedicationCode(optionsValueSet []Coding) templ.Compo
 func (resource *Medication) MedicationStatus() templ.Component {
 	optionsValueSet := VSMedication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *Medication) MedicationForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet)

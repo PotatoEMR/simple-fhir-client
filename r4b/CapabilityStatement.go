@@ -205,7 +205,7 @@ func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
 
 func (resource *CapabilityStatement) CapabilityStatementLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -213,14 +213,14 @@ func (resource *CapabilityStatement) CapabilityStatementLanguage(optionsValueSet
 func (resource *CapabilityStatement) CapabilityStatementStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *CapabilityStatement) CapabilityStatementJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -228,7 +228,7 @@ func (resource *CapabilityStatement) CapabilityStatementJurisdiction(optionsValu
 func (resource *CapabilityStatement) CapabilityStatementKind() templ.Component {
 	optionsValueSet := VSCapability_statement_kind
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
@@ -236,21 +236,21 @@ func (resource *CapabilityStatement) CapabilityStatementKind() templ.Component {
 func (resource *CapabilityStatement) CapabilityStatementFhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
 	return CodeSelect("fhirVersion", &resource.FhirVersion, optionsValueSet)
 }
 func (resource *CapabilityStatement) CapabilityStatementFormat(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("format", nil, optionsValueSet)
 	}
 	return CodeSelect("format", &resource.Format[0], optionsValueSet)
 }
 func (resource *CapabilityStatement) CapabilityStatementPatchFormat(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("patchFormat", nil, optionsValueSet)
 	}
 	return CodeSelect("patchFormat", &resource.PatchFormat[0], optionsValueSet)
@@ -258,14 +258,14 @@ func (resource *CapabilityStatement) CapabilityStatementPatchFormat(optionsValue
 func (resource *CapabilityStatement) CapabilityStatementRestMode(numRest int) templ.Component {
 	optionsValueSet := VSRestful_capability_mode
 
-	if resource != nil && len(resource.Rest) >= numRest {
+	if resource == nil && len(resource.Rest) >= numRest {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Rest[numRest].Mode, optionsValueSet)
 }
 func (resource *CapabilityStatement) CapabilityStatementRestSecurityService(numRest int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Rest) >= numRest {
+	if resource == nil && len(resource.Rest) >= numRest {
 		return CodeableConceptSelect("service", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("service", &resource.Rest[numRest].Security.Service[0], optionsValueSet)
@@ -273,7 +273,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestSecurityService(numR
 func (resource *CapabilityStatement) CapabilityStatementRestResourceType(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil && len(resource.Rest[numRest].Resource) >= numResource {
+	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Rest[numRest].Resource[numResource].Type, optionsValueSet)
@@ -281,7 +281,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceType(numRest
 func (resource *CapabilityStatement) CapabilityStatementRestResourceVersioning(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSVersioning_policy
 
-	if resource != nil && len(resource.Rest[numRest].Resource) >= numResource {
+	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
 		return CodeSelect("versioning", nil, optionsValueSet)
 	}
 	return CodeSelect("versioning", resource.Rest[numRest].Resource[numResource].Versioning, optionsValueSet)
@@ -289,7 +289,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceVersioning(n
 func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalRead(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSConditional_read_status
 
-	if resource != nil && len(resource.Rest[numRest].Resource) >= numResource {
+	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
 		return CodeSelect("conditionalRead", nil, optionsValueSet)
 	}
 	return CodeSelect("conditionalRead", resource.Rest[numRest].Resource[numResource].ConditionalRead, optionsValueSet)
@@ -297,7 +297,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalR
 func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalDelete(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSConditional_delete_status
 
-	if resource != nil && len(resource.Rest[numRest].Resource) >= numResource {
+	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
 		return CodeSelect("conditionalDelete", nil, optionsValueSet)
 	}
 	return CodeSelect("conditionalDelete", resource.Rest[numRest].Resource[numResource].ConditionalDelete, optionsValueSet)
@@ -305,7 +305,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalD
 func (resource *CapabilityStatement) CapabilityStatementRestResourceReferencePolicy(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSReference_handling_policy
 
-	if resource != nil && len(resource.Rest[numRest].Resource) >= numResource {
+	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
 		return CodeSelect("referencePolicy", nil, optionsValueSet)
 	}
 	return CodeSelect("referencePolicy", &resource.Rest[numRest].Resource[numResource].ReferencePolicy[0], optionsValueSet)
@@ -313,7 +313,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceReferencePol
 func (resource *CapabilityStatement) CapabilityStatementRestResourceInteractionCode(numRest int, numResource int, numInteraction int) templ.Component {
 	optionsValueSet := VSType_restful_interaction
 
-	if resource != nil && len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
+	if resource == nil && len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Code, optionsValueSet)
@@ -321,7 +321,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceInteractionC
 func (resource *CapabilityStatement) CapabilityStatementRestResourceSearchParamType(numRest int, numResource int, numSearchParam int) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
-	if resource != nil && len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
+	if resource == nil && len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Type, optionsValueSet)
@@ -329,14 +329,14 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceSearchParamT
 func (resource *CapabilityStatement) CapabilityStatementRestInteractionCode(numRest int, numInteraction int) templ.Component {
 	optionsValueSet := VSSystem_restful_interaction
 
-	if resource != nil && len(resource.Rest[numRest].Interaction) >= numInteraction {
+	if resource == nil && len(resource.Rest[numRest].Interaction) >= numInteraction {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Rest[numRest].Interaction[numInteraction].Code, optionsValueSet)
 }
 func (resource *CapabilityStatement) CapabilityStatementMessagingEndpointProtocol(numMessaging int, numEndpoint int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
+	if resource == nil && len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
 		return CodingSelect("protocol", nil, optionsValueSet)
 	}
 	return CodingSelect("protocol", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Protocol, optionsValueSet)
@@ -344,7 +344,7 @@ func (resource *CapabilityStatement) CapabilityStatementMessagingEndpointProtoco
 func (resource *CapabilityStatement) CapabilityStatementMessagingSupportedMessageMode(numMessaging int, numSupportedMessage int) templ.Component {
 	optionsValueSet := VSEvent_capability_mode
 
-	if resource != nil && len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
+	if resource == nil && len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Mode, optionsValueSet)
@@ -352,7 +352,7 @@ func (resource *CapabilityStatement) CapabilityStatementMessagingSupportedMessag
 func (resource *CapabilityStatement) CapabilityStatementDocumentMode(numDocument int) templ.Component {
 	optionsValueSet := VSDocument_mode
 
-	if resource != nil && len(resource.Document) >= numDocument {
+	if resource == nil && len(resource.Document) >= numDocument {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Document[numDocument].Mode, optionsValueSet)

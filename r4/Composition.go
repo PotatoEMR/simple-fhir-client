@@ -95,7 +95,7 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 
 func (resource *Composition) CompositionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -103,28 +103,28 @@ func (resource *Composition) CompositionLanguage(optionsValueSet []Coding) templ
 func (resource *Composition) CompositionStatus() templ.Component {
 	optionsValueSet := VSComposition_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Composition) CompositionType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *Composition) CompositionCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *Composition) CompositionConfidentiality(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("confidentiality", nil, optionsValueSet)
 	}
 	return CodeSelect("confidentiality", resource.Confidentiality, optionsValueSet)
@@ -132,7 +132,7 @@ func (resource *Composition) CompositionConfidentiality(optionsValueSet []Coding
 func (resource *Composition) CompositionAttesterMode(numAttester int) templ.Component {
 	optionsValueSet := VSComposition_attestation_mode
 
-	if resource != nil && len(resource.Attester) >= numAttester {
+	if resource == nil && len(resource.Attester) >= numAttester {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Attester[numAttester].Mode, optionsValueSet)
@@ -140,21 +140,21 @@ func (resource *Composition) CompositionAttesterMode(numAttester int) templ.Comp
 func (resource *Composition) CompositionRelatesToCode(numRelatesTo int) templ.Component {
 	optionsValueSet := VSDocument_relationship_type
 
-	if resource != nil && len(resource.RelatesTo) >= numRelatesTo {
+	if resource == nil && len(resource.RelatesTo) >= numRelatesTo {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)
 }
 func (resource *Composition) CompositionEventCode(numEvent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Event) >= numEvent {
+	if resource == nil && len(resource.Event) >= numEvent {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Event[numEvent].Code[0], optionsValueSet)
 }
 func (resource *Composition) CompositionSectionCode(numSection int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Section) >= numSection {
+	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Section[numSection].Code, optionsValueSet)
@@ -162,21 +162,21 @@ func (resource *Composition) CompositionSectionCode(numSection int, optionsValue
 func (resource *Composition) CompositionSectionMode(numSection int) templ.Component {
 	optionsValueSet := VSList_mode
 
-	if resource != nil && len(resource.Section) >= numSection {
+	if resource == nil && len(resource.Section) >= numSection {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", resource.Section[numSection].Mode, optionsValueSet)
 }
 func (resource *Composition) CompositionSectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Section) >= numSection {
+	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderedBy", resource.Section[numSection].OrderedBy, optionsValueSet)
 }
 func (resource *Composition) CompositionSectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Section) >= numSection {
+	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("emptyReason", resource.Section[numSection].EmptyReason, optionsValueSet)

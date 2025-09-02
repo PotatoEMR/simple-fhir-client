@@ -95,7 +95,7 @@ func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
 
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -103,14 +103,14 @@ func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestLanguage(o
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPriority(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
@@ -118,28 +118,28 @@ func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPriority(o
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPurpose() templ.Component {
 	optionsValueSet := VSEligibilityrequest_purpose
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("purpose", nil, optionsValueSet)
 	}
 	return CodeSelect("purpose", &resource.Purpose[0], optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Item[numItem].Category, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemModifier(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.Item[numItem].Modifier[0], optionsValueSet)

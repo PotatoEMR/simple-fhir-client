@@ -153,7 +153,7 @@ func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -161,14 +161,14 @@ func (resource *TerminologyCapabilities) TerminologyCapabilitiesLanguage(options
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -176,7 +176,7 @@ func (resource *TerminologyCapabilities) TerminologyCapabilitiesJurisdiction(opt
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesKind() templ.Component {
 	optionsValueSet := VSCapability_statement_kind
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
@@ -184,42 +184,42 @@ func (resource *TerminologyCapabilities) TerminologyCapabilitiesKind() templ.Com
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSearch() templ.Component {
 	optionsValueSet := VSCode_search_support
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("codeSearch", nil, optionsValueSet)
 	}
 	return CodeSelect("codeSearch", resource.CodeSearch, optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionLanguage(numCodeSystem int, numVersion int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
+	if resource == nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", &resource.CodeSystem[numCodeSystem].Version[numVersion].Language[0], optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionProperty(numCodeSystem int, numVersion int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
+	if resource == nil && len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
 		return CodeSelect("property", nil, optionsValueSet)
 	}
 	return CodeSelect("property", &resource.CodeSystem[numCodeSystem].Version[numVersion].Property[0], optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionFilterCode(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
+	if resource == nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Code, optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesCodeSystemVersionFilterOp(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
+	if resource == nil && len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
 		return CodeSelect("op", nil, optionsValueSet)
 	}
 	return CodeSelect("op", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op[0], optionsValueSet)
 }
 func (resource *TerminologyCapabilities) TerminologyCapabilitiesExpansionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Expansion.Parameter) >= numParameter {
+	if resource == nil && len(resource.Expansion.Parameter) >= numParameter {
 		return CodeSelect("name", nil, optionsValueSet)
 	}
 	return CodeSelect("name", &resource.Expansion.Parameter[numParameter].Name, optionsValueSet)

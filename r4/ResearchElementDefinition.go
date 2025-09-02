@@ -96,7 +96,7 @@ func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *ResearchElementDefinition) ResearchElementDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -104,21 +104,21 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionLanguage(opt
 func (resource *ResearchElementDefinition) ResearchElementDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
@@ -126,7 +126,7 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionTopic(option
 func (resource *ResearchElementDefinition) ResearchElementDefinitionType() templ.Component {
 	optionsValueSet := VSResearch_element_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
@@ -134,14 +134,14 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionType() templ
 func (resource *ResearchElementDefinition) ResearchElementDefinitionVariableType() templ.Component {
 	optionsValueSet := VSVariable_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("variableType", nil, optionsValueSet)
 	}
 	return CodeSelect("variableType", resource.VariableType, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicUnitOfMeasure(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfMeasure", resource.Characteristic[numCharacteristic].UnitOfMeasure, optionsValueSet)
@@ -149,7 +149,7 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacterist
 func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicStudyEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
-	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeSelect("studyEffectiveGroupMeasure", nil, optionsValueSet)
 	}
 	return CodeSelect("studyEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure, optionsValueSet)
@@ -157,7 +157,7 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacterist
 func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicParticipantEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
-	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeSelect("participantEffectiveGroupMeasure", nil, optionsValueSet)
 	}
 	return CodeSelect("participantEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].ParticipantEffectiveGroupMeasure, optionsValueSet)

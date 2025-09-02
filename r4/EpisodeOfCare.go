@@ -65,7 +65,7 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 
 func (resource *EpisodeOfCare) EpisodeOfCareLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -73,14 +73,14 @@ func (resource *EpisodeOfCare) EpisodeOfCareLanguage(optionsValueSet []Coding) t
 func (resource *EpisodeOfCare) EpisodeOfCareStatus() templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *EpisodeOfCare) EpisodeOfCareType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
@@ -88,14 +88,14 @@ func (resource *EpisodeOfCare) EpisodeOfCareType(optionsValueSet []Coding) templ
 func (resource *EpisodeOfCare) EpisodeOfCareStatusHistoryStatus(numStatusHistory int) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
-	if resource != nil && len(resource.StatusHistory) >= numStatusHistory {
+	if resource == nil && len(resource.StatusHistory) >= numStatusHistory {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet)
 }
 func (resource *EpisodeOfCare) EpisodeOfCareDiagnosisRole(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Diagnosis[numDiagnosis].Role, optionsValueSet)

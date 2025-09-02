@@ -45,35 +45,35 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 
 func (resource *Slot) SlotLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Slot) SlotServiceCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
 }
 func (resource *Slot) SlotServiceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("serviceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceType", &resource.ServiceType[0], optionsValueSet)
 }
 func (resource *Slot) SlotSpecialty(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
 func (resource *Slot) SlotAppointmentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("appointmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet)
@@ -81,7 +81,7 @@ func (resource *Slot) SlotAppointmentType(optionsValueSet []Coding) templ.Compon
 func (resource *Slot) SlotStatus() templ.Component {
 	optionsValueSet := VSSlotstatus
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)

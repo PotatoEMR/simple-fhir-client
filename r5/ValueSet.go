@@ -213,7 +213,7 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 
 func (resource *ValueSet) ValueSetLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -221,56 +221,56 @@ func (resource *ValueSet) ValueSetLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *ValueSet) ValueSetStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *ValueSet) ValueSetTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *ValueSet) ValueSetComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Concept) >= numConcept {
+	if resource == nil && len(resource.Compose.Include[numInclude].Concept) >= numConcept {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Compose.Include[numInclude].Concept[numConcept].Code, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationLanguage(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
+	if resource == nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
+	if resource == nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
 		return CodingSelect("use", nil, optionsValueSet)
 	}
 	return CodingSelect("use", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationAdditionalUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
+	if resource == nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
 		return CodingSelect("additionalUse", nil, optionsValueSet)
 	}
 	return CodingSelect("additionalUse", &resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].AdditionalUse[0], optionsValueSet)
 }
 func (resource *ValueSet) ValueSetComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
+	if resource == nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
 		return CodeSelect("property", nil, optionsValueSet)
 	}
 	return CodeSelect("property", &resource.Compose.Include[numInclude].Filter[numFilter].Property, optionsValueSet)
@@ -278,35 +278,35 @@ func (resource *ValueSet) ValueSetComposeIncludeFilterProperty(numInclude int, n
 func (resource *ValueSet) ValueSetComposeIncludeFilterOp(numInclude int, numFilter int) templ.Component {
 	optionsValueSet := VSFilter_operator
 
-	if resource != nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
+	if resource == nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
 		return CodeSelect("op", nil, optionsValueSet)
 	}
 	return CodeSelect("op", &resource.Compose.Include[numInclude].Filter[numFilter].Op, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetExpansionPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Expansion.Property) >= numProperty {
+	if resource == nil && len(resource.Expansion.Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Expansion.Property[numProperty].Code, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetExpansionContainsCode(numContains int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Expansion.Contains) >= numContains {
+	if resource == nil && len(resource.Expansion.Contains) >= numContains {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Expansion.Contains[numContains].Code, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetExpansionContainsPropertyCode(numContains int, numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Expansion.Contains[numContains].Property) >= numProperty {
+	if resource == nil && len(resource.Expansion.Contains[numContains].Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Expansion.Contains[numContains].Property[numProperty].Code, optionsValueSet)
 }
 func (resource *ValueSet) ValueSetExpansionContainsPropertySubPropertyCode(numContains int, numProperty int, numSubProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Expansion.Contains[numContains].Property[numProperty].SubProperty) >= numSubProperty {
+	if resource == nil && len(resource.Expansion.Contains[numContains].Property[numProperty].SubProperty) >= numSubProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Expansion.Contains[numContains].Property[numProperty].SubProperty[numSubProperty].Code, optionsValueSet)

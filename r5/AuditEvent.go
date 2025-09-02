@@ -116,21 +116,21 @@ func (r AuditEvent) MarshalJSON() ([]byte, error) {
 
 func (resource *AuditEvent) AuditEventLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
@@ -138,7 +138,7 @@ func (resource *AuditEvent) AuditEventCode(optionsValueSet []Coding) templ.Compo
 func (resource *AuditEvent) AuditEventAction() templ.Component {
 	optionsValueSet := VSAudit_event_action
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("action", nil, optionsValueSet)
 	}
 	return CodeSelect("action", resource.Action, optionsValueSet)
@@ -146,77 +146,77 @@ func (resource *AuditEvent) AuditEventAction() templ.Component {
 func (resource *AuditEvent) AuditEventSeverity() templ.Component {
 	optionsValueSet := VSAudit_event_severity
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("severity", nil, optionsValueSet)
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventAuthorization(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("authorization", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorization", &resource.Authorization[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventOutcomeCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Outcome.Code, optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventOutcomeDetail(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("detail", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("detail", &resource.Outcome.Detail[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventAgentType(numAgent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Agent) >= numAgent {
+	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Agent[numAgent].Type, optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventAgentRole(numAgent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Agent) >= numAgent {
+	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Agent[numAgent].Role[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventAgentAuthorization(numAgent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Agent) >= numAgent {
+	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("authorization", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorization", &resource.Agent[numAgent].Authorization[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventSourceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Source.Type[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventEntityRole(numEntity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Entity) >= numEntity {
+	if resource == nil && len(resource.Entity) >= numEntity {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Entity[numEntity].Role, optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventEntitySecurityLabel(numEntity int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Entity) >= numEntity {
+	if resource == nil && len(resource.Entity) >= numEntity {
 		return CodeableConceptSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("securityLabel", &resource.Entity[numEntity].SecurityLabel[0], optionsValueSet)
 }
 func (resource *AuditEvent) AuditEventEntityDetailType(numEntity int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Entity[numEntity].Detail) >= numDetail {
+	if resource == nil && len(resource.Entity[numEntity].Detail) >= numDetail {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Entity[numEntity].Detail[numDetail].Type, optionsValueSet)

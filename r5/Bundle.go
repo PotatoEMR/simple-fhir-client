@@ -85,7 +85,7 @@ type BundleEntryResponse struct {
 
 func (resource *Bundle) BundleLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -93,7 +93,7 @@ func (resource *Bundle) BundleLanguage(optionsValueSet []Coding) templ.Component
 func (resource *Bundle) BundleType() templ.Component {
 	optionsValueSet := VSBundle_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
@@ -101,7 +101,7 @@ func (resource *Bundle) BundleType() templ.Component {
 func (resource *Bundle) BundleLinkRelation(numLink int) templ.Component {
 	optionsValueSet := VSIana_link_relations
 
-	if resource != nil && len(resource.Link) >= numLink {
+	if resource == nil && len(resource.Link) >= numLink {
 		return CodeSelect("relation", nil, optionsValueSet)
 	}
 	return CodeSelect("relation", &resource.Link[numLink].Relation, optionsValueSet)
@@ -109,7 +109,7 @@ func (resource *Bundle) BundleLinkRelation(numLink int) templ.Component {
 func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
 	optionsValueSet := VSSearch_entry_mode
 
-	if resource != nil && len(resource.Entry) >= numEntry {
+	if resource == nil && len(resource.Entry) >= numEntry {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", resource.Entry[numEntry].Search.Mode, optionsValueSet)
@@ -117,7 +117,7 @@ func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
 func (resource *Bundle) BundleEntryRequestMethod(numEntry int) templ.Component {
 	optionsValueSet := VSHttp_verb
 
-	if resource != nil && len(resource.Entry) >= numEntry {
+	if resource == nil && len(resource.Entry) >= numEntry {
 		return CodeSelect("method", nil, optionsValueSet)
 	}
 	return CodeSelect("method", &resource.Entry[numEntry].Request.Method, optionsValueSet)

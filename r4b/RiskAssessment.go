@@ -67,7 +67,7 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 
 func (resource *RiskAssessment) RiskAssessmentLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -75,42 +75,42 @@ func (resource *RiskAssessment) RiskAssessmentLanguage(optionsValueSet []Coding)
 func (resource *RiskAssessment) RiskAssessmentStatus() templ.Component {
 	optionsValueSet := VSObservation_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentMethod(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentPredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Prediction) >= numPrediction {
+	if resource == nil && len(resource.Prediction) >= numPrediction {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentPredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Prediction) >= numPrediction {
+	if resource == nil && len(resource.Prediction) >= numPrediction {
 		return CodeableConceptSelect("qualitativeRisk", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("qualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet)

@@ -77,7 +77,7 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 
 func (resource *ResearchStudy) ResearchStudyLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -85,77 +85,77 @@ func (resource *ResearchStudy) ResearchStudyLanguage(optionsValueSet []Coding) t
 func (resource *ResearchStudy) ResearchStudyStatus() templ.Component {
 	optionsValueSet := VSResearch_study_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyPrimaryPurposeType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("primaryPurposeType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("primaryPurposeType", resource.PrimaryPurposeType, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyPhase(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("phase", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phase", resource.Phase, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyFocus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("focus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("focus", &resource.Focus[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyCondition(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyKeyword(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("keyword", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("keyword", &resource.Keyword[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyLocation(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("location", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("location", &resource.Location[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyReasonStopped(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonStopped", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonStopped", resource.ReasonStopped, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyArmType(numArm int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Arm) >= numArm {
+	if resource == nil && len(resource.Arm) >= numArm {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Arm[numArm].Type, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyObjectiveType(numObjective int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Objective) >= numObjective {
+	if resource == nil && len(resource.Objective) >= numObjective {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Objective[numObjective].Type, optionsValueSet)

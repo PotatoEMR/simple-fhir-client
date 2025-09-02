@@ -48,35 +48,35 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 
 func (resource *PractitionerRole) PractitionerRoleLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleSpecialty(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleCharacteristic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleCommunication(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("communication", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("communication", &resource.Communication[0], optionsValueSet)

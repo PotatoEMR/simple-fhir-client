@@ -64,7 +64,7 @@ func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 
 func (resource *SupplyRequest) SupplyRequestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -72,14 +72,14 @@ func (resource *SupplyRequest) SupplyRequestLanguage(optionsValueSet []Coding) t
 func (resource *SupplyRequest) SupplyRequestStatus() templ.Component {
 	optionsValueSet := VSSupplyrequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *SupplyRequest) SupplyRequestCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Category, optionsValueSet)
@@ -87,21 +87,21 @@ func (resource *SupplyRequest) SupplyRequestCategory(optionsValueSet []Coding) t
 func (resource *SupplyRequest) SupplyRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *SupplyRequest) SupplyRequestReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
 func (resource *SupplyRequest) SupplyRequestParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Parameter) >= numParameter {
+	if resource == nil && len(resource.Parameter) >= numParameter {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Parameter[numParameter].Code, optionsValueSet)

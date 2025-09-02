@@ -272,7 +272,7 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 
 func (resource *TestScript) TestScriptLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -280,63 +280,63 @@ func (resource *TestScript) TestScriptLanguage(optionsValueSet []Coding) templ.C
 func (resource *TestScript) TestScriptStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *TestScript) TestScriptJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *TestScript) TestScriptOriginProfile(numOrigin int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Origin) >= numOrigin {
+	if resource == nil && len(resource.Origin) >= numOrigin {
 		return CodingSelect("profile", nil, optionsValueSet)
 	}
 	return CodingSelect("profile", &resource.Origin[numOrigin].Profile, optionsValueSet)
 }
 func (resource *TestScript) TestScriptDestinationProfile(numDestination int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Destination) >= numDestination {
+	if resource == nil && len(resource.Destination) >= numDestination {
 		return CodingSelect("profile", nil, optionsValueSet)
 	}
 	return CodingSelect("profile", &resource.Destination[numDestination].Profile, optionsValueSet)
 }
 func (resource *TestScript) TestScriptScopeConformance(numScope int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Scope) >= numScope {
+	if resource == nil && len(resource.Scope) >= numScope {
 		return CodeableConceptSelect("conformance", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("conformance", resource.Scope[numScope].Conformance, optionsValueSet)
 }
 func (resource *TestScript) TestScriptScopePhase(numScope int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Scope) >= numScope {
+	if resource == nil && len(resource.Scope) >= numScope {
 		return CodeableConceptSelect("phase", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phase", resource.Scope[numScope].Phase, optionsValueSet)
 }
 func (resource *TestScript) TestScriptSetupActionOperationType(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodingSelect("type", nil, optionsValueSet)
 	}
 	return CodingSelect("type", resource.Setup.Action[numAction].Operation.Type, optionsValueSet)
 }
 func (resource *TestScript) TestScriptSetupActionOperationAccept(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("accept", nil, optionsValueSet)
 	}
 	return CodeSelect("accept", resource.Setup.Action[numAction].Operation.Accept, optionsValueSet)
 }
 func (resource *TestScript) TestScriptSetupActionOperationContentType(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", resource.Setup.Action[numAction].Operation.ContentType, optionsValueSet)
@@ -344,7 +344,7 @@ func (resource *TestScript) TestScriptSetupActionOperationContentType(numAction 
 func (resource *TestScript) TestScriptSetupActionOperationMethod(numAction int) templ.Component {
 	optionsValueSet := VSHttp_operations
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("method", nil, optionsValueSet)
 	}
 	return CodeSelect("method", resource.Setup.Action[numAction].Operation.Method, optionsValueSet)
@@ -352,14 +352,14 @@ func (resource *TestScript) TestScriptSetupActionOperationMethod(numAction int) 
 func (resource *TestScript) TestScriptSetupActionAssertDirection(numAction int) templ.Component {
 	optionsValueSet := VSAssert_direction_codes
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("direction", nil, optionsValueSet)
 	}
 	return CodeSelect("direction", resource.Setup.Action[numAction].Assert.Direction, optionsValueSet)
 }
 func (resource *TestScript) TestScriptSetupActionAssertContentType(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", resource.Setup.Action[numAction].Assert.ContentType, optionsValueSet)
@@ -367,7 +367,7 @@ func (resource *TestScript) TestScriptSetupActionAssertContentType(numAction int
 func (resource *TestScript) TestScriptSetupActionAssertDefaultManualCompletion(numAction int) templ.Component {
 	optionsValueSet := VSAssert_manual_completion_codes
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("defaultManualCompletion", nil, optionsValueSet)
 	}
 	return CodeSelect("defaultManualCompletion", resource.Setup.Action[numAction].Assert.DefaultManualCompletion, optionsValueSet)
@@ -375,7 +375,7 @@ func (resource *TestScript) TestScriptSetupActionAssertDefaultManualCompletion(n
 func (resource *TestScript) TestScriptSetupActionAssertOperator(numAction int) templ.Component {
 	optionsValueSet := VSAssert_operator_codes
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("operator", nil, optionsValueSet)
 	}
 	return CodeSelect("operator", resource.Setup.Action[numAction].Assert.Operator, optionsValueSet)
@@ -383,7 +383,7 @@ func (resource *TestScript) TestScriptSetupActionAssertOperator(numAction int) t
 func (resource *TestScript) TestScriptSetupActionAssertRequestMethod(numAction int) templ.Component {
 	optionsValueSet := VSHttp_operations
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("requestMethod", nil, optionsValueSet)
 	}
 	return CodeSelect("requestMethod", resource.Setup.Action[numAction].Assert.RequestMethod, optionsValueSet)
@@ -391,7 +391,7 @@ func (resource *TestScript) TestScriptSetupActionAssertRequestMethod(numAction i
 func (resource *TestScript) TestScriptSetupActionAssertResponse(numAction int) templ.Component {
 	optionsValueSet := VSAssert_response_code_types
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("response", nil, optionsValueSet)
 	}
 	return CodeSelect("response", resource.Setup.Action[numAction].Assert.Response, optionsValueSet)

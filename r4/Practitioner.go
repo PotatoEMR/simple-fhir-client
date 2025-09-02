@@ -55,7 +55,7 @@ func (r Practitioner) MarshalJSON() ([]byte, error) {
 
 func (resource *Practitioner) PractitionerLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -63,21 +63,21 @@ func (resource *Practitioner) PractitionerLanguage(optionsValueSet []Coding) tem
 func (resource *Practitioner) PractitionerGender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("gender", nil, optionsValueSet)
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
 func (resource *Practitioner) PractitionerCommunication(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("communication", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("communication", &resource.Communication[0], optionsValueSet)
 }
 func (resource *Practitioner) PractitionerQualificationCode(numQualification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Qualification) >= numQualification {
+	if resource == nil && len(resource.Qualification) >= numQualification {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Qualification[numQualification].Code, optionsValueSet)

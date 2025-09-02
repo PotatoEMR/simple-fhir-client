@@ -286,7 +286,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				//take a break from structs to write form methods...kind of mixed up with structs
 				if len(elt.Type) == 1 {
 					//if fhirPrimitive_to_GolangType[elt.Type[0].Code] != "" {
-					fmt.Println("primitive", elt.Path, elt.Type[0].Code)
+					//fmt.Println("primitive", elt.Path, elt.Type[0].Code)
 					//}
 					if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
 						caps := []string{}
@@ -323,7 +323,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						}
 						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ")" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
 							` + vsReq + `
-							if resource != nil ` + bbCheck + `{`)
+							if resource == nil ` + bbCheck + `{`)
 						var fieldVal string
 						if elt.Max == "*" {
 							fieldVal = "&" + backbonePath + fieldName + `[0]`

@@ -94,14 +94,14 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 
 func (resource *PaymentReconciliation) PaymentReconciliationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
@@ -109,21 +109,21 @@ func (resource *PaymentReconciliation) PaymentReconciliationType(optionsValueSet
 func (resource *PaymentReconciliation) PaymentReconciliationStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationKind(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("kind", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("kind", resource.Kind, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationIssuerType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("issuerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("issuerType", resource.IssuerType, optionsValueSet)
@@ -131,28 +131,28 @@ func (resource *PaymentReconciliation) PaymentReconciliationIssuerType(optionsVa
 func (resource *PaymentReconciliation) PaymentReconciliationOutcome() templ.Component {
 	optionsValueSet := VSPayment_outcome
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeSelect("outcome", resource.Outcome, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationMethod(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationFormCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("formCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationAllocationType(numAllocation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Allocation) >= numAllocation {
+	if resource == nil && len(resource.Allocation) >= numAllocation {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Allocation[numAllocation].Type, optionsValueSet)
@@ -160,7 +160,7 @@ func (resource *PaymentReconciliation) PaymentReconciliationAllocationType(numAl
 func (resource *PaymentReconciliation) PaymentReconciliationProcessNoteType(numProcessNote int) templ.Component {
 	optionsValueSet := VSNote_type
 
-	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+	if resource == nil && len(resource.ProcessNote) >= numProcessNote {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.ProcessNote[numProcessNote].Type, optionsValueSet)

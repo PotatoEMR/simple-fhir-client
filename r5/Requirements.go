@@ -73,7 +73,7 @@ func (r Requirements) MarshalJSON() ([]byte, error) {
 
 func (resource *Requirements) RequirementsLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -81,14 +81,14 @@ func (resource *Requirements) RequirementsLanguage(optionsValueSet []Coding) tem
 func (resource *Requirements) RequirementsStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Requirements) RequirementsJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -96,7 +96,7 @@ func (resource *Requirements) RequirementsJurisdiction(optionsValueSet []Coding)
 func (resource *Requirements) RequirementsStatementConformance(numStatement int) templ.Component {
 	optionsValueSet := VSConformance_expectation
 
-	if resource != nil && len(resource.Statement) >= numStatement {
+	if resource == nil && len(resource.Statement) >= numStatement {
 		return CodeSelect("conformance", nil, optionsValueSet)
 	}
 	return CodeSelect("conformance", &resource.Statement[numStatement].Conformance[0], optionsValueSet)

@@ -95,7 +95,7 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 
 func (resource *DocumentReference) DocumentReferenceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -103,7 +103,7 @@ func (resource *DocumentReference) DocumentReferenceLanguage(optionsValueSet []C
 func (resource *DocumentReference) DocumentReferenceStatus() templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -111,63 +111,63 @@ func (resource *DocumentReference) DocumentReferenceStatus() templ.Component {
 func (resource *DocumentReference) DocumentReferenceDocStatus() templ.Component {
 	optionsValueSet := VSComposition_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("docStatus", nil, optionsValueSet)
 	}
 	return CodeSelect("docStatus", resource.DocStatus, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceModality(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Modality[0], optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceFacilityType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("facilityType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("facilityType", resource.FacilityType, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferencePracticeSetting(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("practiceSetting", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("practiceSetting", resource.PracticeSetting, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceSecurityLabel(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("securityLabel", &resource.SecurityLabel[0], optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceAttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Attester) >= numAttester {
+	if resource == nil && len(resource.Attester) >= numAttester {
 		return CodeableConceptSelect("mode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("mode", &resource.Attester[numAttester].Mode, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceRelatesToCode(numRelatesTo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RelatesTo) >= numRelatesTo {
+	if resource == nil && len(resource.RelatesTo) >= numRelatesTo {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)

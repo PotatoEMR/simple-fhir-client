@@ -41,28 +41,28 @@ func (r MedicinalProductManufactured) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicinalProductManufactured) MedicinalProductManufacturedLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductManufactured) MedicinalProductManufacturedManufacturedDoseForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
 }
 func (resource *MedicinalProductManufactured) MedicinalProductManufacturedUnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
 func (resource *MedicinalProductManufactured) MedicinalProductManufacturedOtherCharacteristics(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("otherCharacteristics", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("otherCharacteristics", &resource.OtherCharacteristics[0], optionsValueSet)

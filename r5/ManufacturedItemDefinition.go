@@ -81,7 +81,7 @@ func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -89,63 +89,63 @@ func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionLanguage(o
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionManufacturedDoseForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionUnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionIngredient(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("ingredient", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("ingredient", &resource.Ingredient[0], optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Property) >= numProperty {
+	if resource == nil && len(resource.Property) >= numProperty {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionComponentType(numComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Component) >= numComponent {
+	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Component[numComponent].Type, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionComponentFunction(numComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Component) >= numComponent {
+	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", &resource.Component[numComponent].Function[0], optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionComponentConstituentLocation(numComponent int, numConstituent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
+	if resource == nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
 		return CodeableConceptSelect("location", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("location", &resource.Component[numComponent].Constituent[numConstituent].Location[0], optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) ManufacturedItemDefinitionComponentConstituentFunction(numComponent int, numConstituent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
+	if resource == nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", &resource.Component[numComponent].Constituent[numConstituent].Function[0], optionsValueSet)

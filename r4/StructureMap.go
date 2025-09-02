@@ -202,7 +202,7 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 
 func (resource *StructureMap) StructureMapLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -210,14 +210,14 @@ func (resource *StructureMap) StructureMapLanguage(optionsValueSet []Coding) tem
 func (resource *StructureMap) StructureMapStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *StructureMap) StructureMapJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -225,7 +225,7 @@ func (resource *StructureMap) StructureMapJurisdiction(optionsValueSet []Coding)
 func (resource *StructureMap) StructureMapStructureMode(numStructure int) templ.Component {
 	optionsValueSet := VSMap_model_mode
 
-	if resource != nil && len(resource.Structure) >= numStructure {
+	if resource == nil && len(resource.Structure) >= numStructure {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Structure[numStructure].Mode, optionsValueSet)
@@ -233,7 +233,7 @@ func (resource *StructureMap) StructureMapStructureMode(numStructure int) templ.
 func (resource *StructureMap) StructureMapGroupTypeMode(numGroup int) templ.Component {
 	optionsValueSet := VSMap_group_type_mode
 
-	if resource != nil && len(resource.Group) >= numGroup {
+	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeSelect("typeMode", nil, optionsValueSet)
 	}
 	return CodeSelect("typeMode", &resource.Group[numGroup].TypeMode, optionsValueSet)
@@ -241,7 +241,7 @@ func (resource *StructureMap) StructureMapGroupTypeMode(numGroup int) templ.Comp
 func (resource *StructureMap) StructureMapGroupInputMode(numGroup int, numInput int) templ.Component {
 	optionsValueSet := VSMap_input_mode
 
-	if resource != nil && len(resource.Group[numGroup].Input) >= numInput {
+	if resource == nil && len(resource.Group[numGroup].Input) >= numInput {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet)
@@ -249,7 +249,7 @@ func (resource *StructureMap) StructureMapGroupInputMode(numGroup int, numInput 
 func (resource *StructureMap) StructureMapGroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
 	optionsValueSet := VSMap_source_list_mode
 
-	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
 		return CodeSelect("listMode", nil, optionsValueSet)
 	}
 	return CodeSelect("listMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet)
@@ -257,7 +257,7 @@ func (resource *StructureMap) StructureMapGroupRuleSourceListMode(numGroup int, 
 func (resource *StructureMap) StructureMapGroupRuleTargetContextType(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_context_type
 
-	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
 		return CodeSelect("contextType", nil, optionsValueSet)
 	}
 	return CodeSelect("contextType", resource.Group[numGroup].Rule[numRule].Target[numTarget].ContextType, optionsValueSet)
@@ -265,7 +265,7 @@ func (resource *StructureMap) StructureMapGroupRuleTargetContextType(numGroup in
 func (resource *StructureMap) StructureMapGroupRuleTargetListMode(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_target_list_mode
 
-	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
 		return CodeSelect("listMode", nil, optionsValueSet)
 	}
 	return CodeSelect("listMode", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[0], optionsValueSet)
@@ -273,7 +273,7 @@ func (resource *StructureMap) StructureMapGroupRuleTargetListMode(numGroup int, 
 func (resource *StructureMap) StructureMapGroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_transform
 
-	if resource != nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
 		return CodeSelect("transform", nil, optionsValueSet)
 	}
 	return CodeSelect("transform", resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform, optionsValueSet)

@@ -116,7 +116,7 @@ func (r Account) MarshalJSON() ([]byte, error) {
 
 func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -124,77 +124,77 @@ func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Account) AccountStatus() templ.Component {
 	optionsValueSet := VSAccount_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Account) AccountBillingStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("billingStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("billingStatus", resource.BillingStatus, optionsValueSet)
 }
 func (resource *Account) AccountType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *Account) AccountCurrency(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("currency", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("currency", resource.Currency, optionsValueSet)
 }
 func (resource *Account) AccountDiagnosisType(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Diagnosis[numDiagnosis].Type[0], optionsValueSet)
 }
 func (resource *Account) AccountDiagnosisPackageCode(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("packageCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("packageCode", &resource.Diagnosis[numDiagnosis].PackageCode[0], optionsValueSet)
 }
 func (resource *Account) AccountProcedureType(numProcedure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Procedure) >= numProcedure {
+	if resource == nil && len(resource.Procedure) >= numProcedure {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Procedure[numProcedure].Type[0], optionsValueSet)
 }
 func (resource *Account) AccountProcedurePackageCode(numProcedure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Procedure) >= numProcedure {
+	if resource == nil && len(resource.Procedure) >= numProcedure {
 		return CodeableConceptSelect("packageCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("packageCode", &resource.Procedure[numProcedure].PackageCode[0], optionsValueSet)
 }
 func (resource *Account) AccountRelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RelatedAccount) >= numRelatedAccount {
+	if resource == nil && len(resource.RelatedAccount) >= numRelatedAccount {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", resource.RelatedAccount[numRelatedAccount].Relationship, optionsValueSet)
 }
 func (resource *Account) AccountBalanceAggregate(numBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Balance) >= numBalance {
+	if resource == nil && len(resource.Balance) >= numBalance {
 		return CodeableConceptSelect("aggregate", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("aggregate", resource.Balance[numBalance].Aggregate, optionsValueSet)
 }
 func (resource *Account) AccountBalanceTerm(numBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Balance) >= numBalance {
+	if resource == nil && len(resource.Balance) >= numBalance {
 		return CodeableConceptSelect("term", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("term", resource.Balance[numBalance].Term, optionsValueSet)

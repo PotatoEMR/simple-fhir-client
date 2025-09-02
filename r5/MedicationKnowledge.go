@@ -240,14 +240,14 @@ func (r MedicationKnowledge) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicationKnowledge) MedicationKnowledgeLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
@@ -255,140 +255,140 @@ func (resource *MedicationKnowledge) MedicationKnowledgeCode(optionsValueSet []C
 func (resource *MedicationKnowledge) MedicationKnowledgeStatus() templ.Component {
 	optionsValueSet := VSMedicationknowledge_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeIntendedJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("intendedJurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intendedJurisdiction", &resource.IntendedJurisdiction[0], optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeProductType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("productType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productType", &resource.ProductType[0], optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeRelatedMedicationKnowledgeType(numRelatedMedicationKnowledge int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RelatedMedicationKnowledge) >= numRelatedMedicationKnowledge {
+	if resource == nil && len(resource.RelatedMedicationKnowledge) >= numRelatedMedicationKnowledge {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.RelatedMedicationKnowledge[numRelatedMedicationKnowledge].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeMonographType(numMonograph int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Monograph) >= numMonograph {
+	if resource == nil && len(resource.Monograph) >= numMonograph {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Monograph[numMonograph].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeCostType(numCost int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Cost) >= numCost {
+	if resource == nil && len(resource.Cost) >= numCost {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Cost[numCost].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeMonitoringProgramType(numMonitoringProgram int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.MonitoringProgram) >= numMonitoringProgram {
+	if resource == nil && len(resource.MonitoringProgram) >= numMonitoringProgram {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.MonitoringProgram[numMonitoringProgram].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeIndicationGuidelineDosingGuidelineTreatmentIntent(numIndicationGuideline int, numDosingGuideline int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) >= numDosingGuideline {
+	if resource == nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) >= numDosingGuideline {
 		return CodeableConceptSelect("treatmentIntent", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("treatmentIntent", resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].TreatmentIntent, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeIndicationGuidelineDosingGuidelineAdministrationTreatment(numIndicationGuideline int, numDosingGuideline int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) >= numDosingGuideline {
+	if resource == nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) >= numDosingGuideline {
 		return CodeableConceptSelect("administrationTreatment", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("administrationTreatment", resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].AdministrationTreatment, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageType(numIndicationGuideline int, numDosingGuideline int, numDosage int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].Dosage) >= numDosage {
+	if resource == nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].Dosage) >= numDosage {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].Dosage[numDosage].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicType(numIndicationGuideline int, numDosingGuideline int, numPatientCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic) >= numPatientCharacteristic {
+	if resource == nil && len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic) >= numPatientCharacteristic {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic[numPatientCharacteristic].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeMedicineClassificationType(numMedicineClassification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.MedicineClassification) >= numMedicineClassification {
+	if resource == nil && len(resource.MedicineClassification) >= numMedicineClassification {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.MedicineClassification[numMedicineClassification].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeMedicineClassificationClassification(numMedicineClassification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.MedicineClassification) >= numMedicineClassification {
+	if resource == nil && len(resource.MedicineClassification) >= numMedicineClassification {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", &resource.MedicineClassification[numMedicineClassification].Classification[0], optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeStorageGuidelineEnvironmentalSettingType(numStorageGuideline int, numEnvironmentalSetting int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) >= numEnvironmentalSetting {
+	if resource == nil && len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) >= numEnvironmentalSetting {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting[numEnvironmentalSetting].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeRegulatorySchedule(numRegulatory int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Regulatory) >= numRegulatory {
+	if resource == nil && len(resource.Regulatory) >= numRegulatory {
 		return CodeableConceptSelect("schedule", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("schedule", &resource.Regulatory[numRegulatory].Schedule[0], optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeRegulatorySubstitutionType(numRegulatory int, numSubstitution int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Regulatory[numRegulatory].Substitution) >= numSubstitution {
+	if resource == nil && len(resource.Regulatory[numRegulatory].Substitution) >= numSubstitution {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Regulatory[numRegulatory].Substitution[numSubstitution].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeDefinitionalDoseForm(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("doseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("doseForm", resource.Definitional.DoseForm, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeDefinitionalIntendedRoute(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("intendedRoute", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intendedRoute", &resource.Definitional.IntendedRoute[0], optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeDefinitionalIngredientType(numIngredient int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Definitional.Ingredient) >= numIngredient {
+	if resource == nil && len(resource.Definitional.Ingredient) >= numIngredient {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Definitional.Ingredient[numIngredient].Type, optionsValueSet)
 }
 func (resource *MedicationKnowledge) MedicationKnowledgeDefinitionalDrugCharacteristicType(numDrugCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Definitional.DrugCharacteristic) >= numDrugCharacteristic {
+	if resource == nil && len(resource.Definitional.DrugCharacteristic) >= numDrugCharacteristic {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Definitional.DrugCharacteristic[numDrugCharacteristic].Type, optionsValueSet)

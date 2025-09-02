@@ -64,7 +64,7 @@ func (r Account) MarshalJSON() ([]byte, error) {
 
 func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -72,14 +72,14 @@ func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Account) AccountStatus() templ.Component {
 	optionsValueSet := VSAccount_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Account) AccountType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)

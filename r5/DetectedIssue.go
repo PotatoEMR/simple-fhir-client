@@ -69,7 +69,7 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 
 func (resource *DetectedIssue) DetectedIssueLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -77,21 +77,21 @@ func (resource *DetectedIssue) DetectedIssueLanguage(optionsValueSet []Coding) t
 func (resource *DetectedIssue) DetectedIssueStatus() templ.Component {
 	optionsValueSet := VSDetectedissue_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *DetectedIssue) DetectedIssueCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *DetectedIssue) DetectedIssueCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
@@ -99,21 +99,21 @@ func (resource *DetectedIssue) DetectedIssueCode(optionsValueSet []Coding) templ
 func (resource *DetectedIssue) DetectedIssueSeverity() templ.Component {
 	optionsValueSet := VSDetectedissue_severity
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("severity", nil, optionsValueSet)
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet)
 }
 func (resource *DetectedIssue) DetectedIssueEvidenceCode(numEvidence int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Evidence) >= numEvidence {
+	if resource == nil && len(resource.Evidence) >= numEvidence {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Evidence[numEvidence].Code[0], optionsValueSet)
 }
 func (resource *DetectedIssue) DetectedIssueMitigationAction(numMitigation int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Mitigation) >= numMitigation {
+	if resource == nil && len(resource.Mitigation) >= numMitigation {
 		return CodeableConceptSelect("action", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("action", &resource.Mitigation[numMitigation].Action, optionsValueSet)

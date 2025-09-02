@@ -80,7 +80,7 @@ type ParametersParameter struct {
 
 func (resource *Parameters) ParametersLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)

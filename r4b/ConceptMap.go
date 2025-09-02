@@ -111,7 +111,7 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 
 func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -119,28 +119,28 @@ func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.C
 func (resource *ConceptMap) ConceptMapStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group[numGroup].Element) >= numElement {
+	if resource == nil && len(resource.Group[numGroup].Element) >= numElement {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
+	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet)
@@ -148,7 +148,7 @@ func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numEl
 func (resource *ConceptMap) ConceptMapGroupElementTargetEquivalence(numGroup int, numElement int, numTarget int) templ.Component {
 	optionsValueSet := VSConcept_map_equivalence
 
-	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
+	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
 		return CodeSelect("equivalence", nil, optionsValueSet)
 	}
 	return CodeSelect("equivalence", &resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence, optionsValueSet)
@@ -156,14 +156,14 @@ func (resource *ConceptMap) ConceptMapGroupElementTargetEquivalence(numGroup int
 func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
 
-	if resource != nil && len(resource.Group) >= numGroup {
+	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeSelect("mode", nil, optionsValueSet)
 	}
 	return CodeSelect("mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Group) >= numGroup {
+	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Unmapped.Code, optionsValueSet)

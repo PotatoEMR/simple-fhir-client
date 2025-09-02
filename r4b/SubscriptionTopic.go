@@ -112,7 +112,7 @@ func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 
 func (resource *SubscriptionTopic) SubscriptionTopicLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -120,14 +120,14 @@ func (resource *SubscriptionTopic) SubscriptionTopicLanguage(optionsValueSet []C
 func (resource *SubscriptionTopic) SubscriptionTopicStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -135,7 +135,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicJurisdiction(optionsValueSet
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInteraction(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSInteraction_trigger
 
-	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
 		return CodeSelect("supportedInteraction", nil, optionsValueSet)
 	}
 	return CodeSelect("supportedInteraction", &resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[0], optionsValueSet)
@@ -143,7 +143,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInte
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
-	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
 		return CodeSelect("resultForCreate", nil, optionsValueSet)
 	}
 	return CodeSelect("resultForCreate", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate, optionsValueSet)
@@ -151,14 +151,14 @@ func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteria
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
-	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
+	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
 		return CodeSelect("resultForDelete", nil, optionsValueSet)
 	}
 	return CodeSelect("resultForDelete", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete, optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicEventTriggerEvent(numEventTrigger int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.EventTrigger) >= numEventTrigger {
+	if resource == nil && len(resource.EventTrigger) >= numEventTrigger {
 		return CodeableConceptSelect("event", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("event", &resource.EventTrigger[numEventTrigger].Event, optionsValueSet)
@@ -166,7 +166,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicEventTriggerEvent(numEventTr
 func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByModifier(numCanFilterBy int) templ.Component {
 	optionsValueSet := VSSubscription_search_modifier
 
-	if resource != nil && len(resource.CanFilterBy) >= numCanFilterBy {
+	if resource == nil && len(resource.CanFilterBy) >= numCanFilterBy {
 		return CodeSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeSelect("modifier", &resource.CanFilterBy[numCanFilterBy].Modifier[0], optionsValueSet)

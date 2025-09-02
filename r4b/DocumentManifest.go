@@ -55,7 +55,7 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 
 func (resource *DocumentManifest) DocumentManifestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -63,14 +63,14 @@ func (resource *DocumentManifest) DocumentManifestLanguage(optionsValueSet []Cod
 func (resource *DocumentManifest) DocumentManifestStatus() templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *DocumentManifest) DocumentManifestType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)

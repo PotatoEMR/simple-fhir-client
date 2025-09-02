@@ -179,7 +179,7 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 
 func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -187,14 +187,14 @@ func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet
 func (resource *ImplementationGuide) ImplementationGuideStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -202,7 +202,7 @@ func (resource *ImplementationGuide) ImplementationGuideJurisdiction(optionsValu
 func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Component {
 	optionsValueSet := VSSpdx_license
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("license", nil, optionsValueSet)
 	}
 	return CodeSelect("license", resource.License, optionsValueSet)
@@ -210,7 +210,7 @@ func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Componen
 func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
 	return CodeSelect("fhirVersion", &resource.FhirVersion[0], optionsValueSet)
@@ -218,7 +218,7 @@ func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Comp
 func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil && len(resource.Global) >= numGlobal {
+	if resource == nil && len(resource.Global) >= numGlobal {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Global[numGlobal].Type, optionsValueSet)
@@ -226,7 +226,7 @@ func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int
 func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVersion(numResource int) templ.Component {
 	optionsValueSet := VSFHIR_version
 
-	if resource != nil && len(resource.Definition.Resource) >= numResource {
+	if resource == nil && len(resource.Definition.Resource) >= numResource {
 		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
 	return CodeSelect("fhirVersion", &resource.Definition.Resource[numResource].FhirVersion[0], optionsValueSet)
@@ -234,21 +234,21 @@ func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVe
 func (resource *ImplementationGuide) ImplementationGuideDefinitionPageGeneration() templ.Component {
 	optionsValueSet := VSGuide_page_generation
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("generation", nil, optionsValueSet)
 	}
 	return CodeSelect("generation", &resource.Definition.Page.Generation, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Definition.Parameter) >= numParameter {
+	if resource == nil && len(resource.Definition.Parameter) >= numParameter {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Definition.Parameter[numParameter].Code, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Definition.Template) >= numTemplate {
+	if resource == nil && len(resource.Definition.Template) >= numTemplate {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Definition.Template[numTemplate].Code, optionsValueSet)

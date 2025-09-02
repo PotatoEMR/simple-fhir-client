@@ -88,7 +88,7 @@ func (r NutritionProduct) MarshalJSON() ([]byte, error) {
 
 func (resource *NutritionProduct) NutritionProductLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -96,28 +96,28 @@ func (resource *NutritionProduct) NutritionProductLanguage(optionsValueSet []Cod
 func (resource *NutritionProduct) NutritionProductStatus() templ.Component {
 	optionsValueSet := VSNutritionproduct_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *NutritionProduct) NutritionProductCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *NutritionProduct) NutritionProductCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *NutritionProduct) NutritionProductProductCharacteristicType(numProductCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ProductCharacteristic) >= numProductCharacteristic {
+	if resource == nil && len(resource.ProductCharacteristic) >= numProductCharacteristic {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.ProductCharacteristic[numProductCharacteristic].Type, optionsValueSet)

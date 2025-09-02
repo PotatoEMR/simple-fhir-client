@@ -129,7 +129,7 @@ func (r TestPlan) MarshalJSON() ([]byte, error) {
 
 func (resource *TestPlan) TestPlanLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -137,42 +137,42 @@ func (resource *TestPlan) TestPlanLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *TestPlan) TestPlanStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *TestPlan) TestPlanJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *TestPlan) TestPlanCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *TestPlan) TestPlanTestCaseTestRunScriptLanguage(numTestCase int, numTestRun int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.TestCase[numTestCase].TestRun) >= numTestRun {
+	if resource == nil && len(resource.TestCase[numTestCase].TestRun) >= numTestRun {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", resource.TestCase[numTestCase].TestRun[numTestRun].Script.Language, optionsValueSet)
 }
 func (resource *TestPlan) TestPlanTestCaseTestDataType(numTestCase int, numTestData int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.TestCase[numTestCase].TestData) >= numTestData {
+	if resource == nil && len(resource.TestCase[numTestCase].TestData) >= numTestData {
 		return CodingSelect("type", nil, optionsValueSet)
 	}
 	return CodingSelect("type", &resource.TestCase[numTestCase].TestData[numTestData].Type, optionsValueSet)
 }
 func (resource *TestPlan) TestPlanTestCaseAssertionType(numTestCase int, numAssertion int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.TestCase[numTestCase].Assertion) >= numAssertion {
+	if resource == nil && len(resource.TestCase[numTestCase].Assertion) >= numAssertion {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.TestCase[numTestCase].Assertion[numAssertion].Type[0], optionsValueSet)

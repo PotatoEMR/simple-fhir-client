@@ -66,7 +66,7 @@ func (r Person) MarshalJSON() ([]byte, error) {
 
 func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -74,21 +74,21 @@ func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component
 func (resource *Person) PersonGender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("gender", nil, optionsValueSet)
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
 func (resource *Person) PersonMaritalStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("maritalStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet)
 }
 func (resource *Person) PersonCommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Communication) >= numCommunication {
+	if resource == nil && len(resource.Communication) >= numCommunication {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", &resource.Communication[numCommunication].Language, optionsValueSet)
@@ -96,7 +96,7 @@ func (resource *Person) PersonCommunicationLanguage(numCommunication int, option
 func (resource *Person) PersonLinkAssurance(numLink int) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
-	if resource != nil && len(resource.Link) >= numLink {
+	if resource == nil && len(resource.Link) >= numLink {
 		return CodeSelect("assurance", nil, optionsValueSet)
 	}
 	return CodeSelect("assurance", resource.Link[numLink].Assurance, optionsValueSet)

@@ -142,7 +142,7 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 
 func (resource *ResearchStudy) ResearchStudyLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -150,112 +150,112 @@ func (resource *ResearchStudy) ResearchStudyLanguage(optionsValueSet []Coding) t
 func (resource *ResearchStudy) ResearchStudyStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyPrimaryPurposeType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("primaryPurposeType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("primaryPurposeType", resource.PrimaryPurposeType, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyPhase(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("phase", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phase", resource.Phase, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyStudyDesign(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("studyDesign", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("studyDesign", &resource.StudyDesign[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyCondition(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyKeyword(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("keyword", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("keyword", &resource.Keyword[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyRegion(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("region", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("region", &resource.Region[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyClassifier(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("classifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classifier", &resource.Classifier[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyWhyStopped(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("whyStopped", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("whyStopped", resource.WhyStopped, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyLabelType(numLabel int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Label) >= numLabel {
+	if resource == nil && len(resource.Label) >= numLabel {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Label[numLabel].Type, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyAssociatedPartyRole(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AssociatedParty) >= numAssociatedParty {
+	if resource == nil && len(resource.AssociatedParty) >= numAssociatedParty {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.AssociatedParty[numAssociatedParty].Role, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyAssociatedPartyClassifier(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AssociatedParty) >= numAssociatedParty {
+	if resource == nil && len(resource.AssociatedParty) >= numAssociatedParty {
 		return CodeableConceptSelect("classifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classifier", &resource.AssociatedParty[numAssociatedParty].Classifier[0], optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyProgressStatusState(numProgressStatus int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ProgressStatus) >= numProgressStatus {
+	if resource == nil && len(resource.ProgressStatus) >= numProgressStatus {
 		return CodeableConceptSelect("state", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("state", &resource.ProgressStatus[numProgressStatus].State, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyComparisonGroupType(numComparisonGroup int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ComparisonGroup) >= numComparisonGroup {
+	if resource == nil && len(resource.ComparisonGroup) >= numComparisonGroup {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.ComparisonGroup[numComparisonGroup].Type, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyObjectiveType(numObjective int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Objective) >= numObjective {
+	if resource == nil && len(resource.Objective) >= numObjective {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Objective[numObjective].Type, optionsValueSet)
 }
 func (resource *ResearchStudy) ResearchStudyOutcomeMeasureType(numOutcomeMeasure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.OutcomeMeasure) >= numOutcomeMeasure {
+	if resource == nil && len(resource.OutcomeMeasure) >= numOutcomeMeasure {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.OutcomeMeasure[numOutcomeMeasure].Type[0], optionsValueSet)

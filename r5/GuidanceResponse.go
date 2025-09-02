@@ -50,7 +50,7 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 
 func (resource *GuidanceResponse) GuidanceResponseLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -58,7 +58,7 @@ func (resource *GuidanceResponse) GuidanceResponseLanguage(optionsValueSet []Cod
 func (resource *GuidanceResponse) GuidanceResponseStatus() templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)

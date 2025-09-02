@@ -130,7 +130,7 @@ func (r Questionnaire) MarshalJSON() ([]byte, error) {
 
 func (resource *Questionnaire) QuestionnaireLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -138,7 +138,7 @@ func (resource *Questionnaire) QuestionnaireLanguage(optionsValueSet []Coding) t
 func (resource *Questionnaire) QuestionnaireStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -146,28 +146,28 @@ func (resource *Questionnaire) QuestionnaireStatus() templ.Component {
 func (resource *Questionnaire) QuestionnaireSubjectType() templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("subjectType", nil, optionsValueSet)
 	}
 	return CodeSelect("subjectType", &resource.SubjectType[0], optionsValueSet)
 }
 func (resource *Questionnaire) QuestionnaireJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *Questionnaire) QuestionnaireCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Code[0], optionsValueSet)
 }
 func (resource *Questionnaire) QuestionnaireItemCode(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Item[numItem].Code[0], optionsValueSet)
@@ -175,7 +175,7 @@ func (resource *Questionnaire) QuestionnaireItemCode(numItem int, optionsValueSe
 func (resource *Questionnaire) QuestionnaireItemType(numItem int) templ.Component {
 	optionsValueSet := VSItem_type
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Item[numItem].Type, optionsValueSet)
@@ -183,7 +183,7 @@ func (resource *Questionnaire) QuestionnaireItemType(numItem int) templ.Componen
 func (resource *Questionnaire) QuestionnaireItemEnableBehavior(numItem int) templ.Component {
 	optionsValueSet := VSQuestionnaire_enable_behavior
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeSelect("enableBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("enableBehavior", resource.Item[numItem].EnableBehavior, optionsValueSet)
@@ -191,7 +191,7 @@ func (resource *Questionnaire) QuestionnaireItemEnableBehavior(numItem int) temp
 func (resource *Questionnaire) QuestionnaireItemEnableWhenOperator(numItem int, numEnableWhen int) templ.Component {
 	optionsValueSet := VSQuestionnaire_enable_operator
 
-	if resource != nil && len(resource.Item[numItem].EnableWhen) >= numEnableWhen {
+	if resource == nil && len(resource.Item[numItem].EnableWhen) >= numEnableWhen {
 		return CodeSelect("operator", nil, optionsValueSet)
 	}
 	return CodeSelect("operator", &resource.Item[numItem].EnableWhen[numEnableWhen].Operator, optionsValueSet)

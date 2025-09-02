@@ -42,14 +42,14 @@ func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 
 func (resource *AppointmentResponse) AppointmentResponseLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *AppointmentResponse) AppointmentResponseParticipantType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("participantType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("participantType", &resource.ParticipantType[0], optionsValueSet)
@@ -57,7 +57,7 @@ func (resource *AppointmentResponse) AppointmentResponseParticipantType(optionsV
 func (resource *AppointmentResponse) AppointmentResponseParticipantStatus() templ.Component {
 	optionsValueSet := VSParticipationstatus
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("participantStatus", nil, optionsValueSet)
 	}
 	return CodeSelect("participantStatus", &resource.ParticipantStatus, optionsValueSet)

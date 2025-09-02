@@ -109,7 +109,7 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 
 func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -117,21 +117,21 @@ func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Compone
 func (resource *Consent) ConsentStatus() templ.Component {
 	optionsValueSet := VSConsent_state_codes
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Consent) ConsentCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *Consent) ConsentRegulatoryBasis(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("regulatoryBasis", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("regulatoryBasis", &resource.RegulatoryBasis[0], optionsValueSet)
@@ -139,63 +139,63 @@ func (resource *Consent) ConsentRegulatoryBasis(optionsValueSet []Coding) templ.
 func (resource *Consent) ConsentDecision() templ.Component {
 	optionsValueSet := VSConsent_provision_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("decision", nil, optionsValueSet)
 	}
 	return CodeSelect("decision", resource.Decision, optionsValueSet)
 }
 func (resource *Consent) ConsentVerificationVerificationType(numVerification int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Verification) >= numVerification {
+	if resource == nil && len(resource.Verification) >= numVerification {
 		return CodeableConceptSelect("verificationType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("verificationType", resource.Verification[numVerification].VerificationType, optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionAction(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodeableConceptSelect("action", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("action", &resource.Provision[numProvision].Action[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionSecurityLabel(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodingSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodingSelect("securityLabel", &resource.Provision[numProvision].SecurityLabel[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionPurpose(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodingSelect("purpose", nil, optionsValueSet)
 	}
 	return CodingSelect("purpose", &resource.Provision[numProvision].Purpose[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionDocumentType(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodingSelect("documentType", nil, optionsValueSet)
 	}
 	return CodingSelect("documentType", &resource.Provision[numProvision].DocumentType[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionResourceType(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodingSelect("resourceType", nil, optionsValueSet)
 	}
 	return CodingSelect("resourceType", &resource.Provision[numProvision].ResourceType[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionCode(numProvision int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision) >= numProvision {
+	if resource == nil && len(resource.Provision) >= numProvision {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Provision[numProvision].Code[0], optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionActorRole(numProvision int, numActor int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Provision[numProvision].Actor) >= numActor {
+	if resource == nil && len(resource.Provision[numProvision].Actor) >= numActor {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Provision[numProvision].Actor[numActor].Role, optionsValueSet)
@@ -203,7 +203,7 @@ func (resource *Consent) ConsentProvisionActorRole(numProvision int, numActor in
 func (resource *Consent) ConsentProvisionDataMeaning(numProvision int, numData int) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
-	if resource != nil && len(resource.Provision[numProvision].Data) >= numData {
+	if resource == nil && len(resource.Provision[numProvision].Data) >= numData {
 		return CodeSelect("meaning", nil, optionsValueSet)
 	}
 	return CodeSelect("meaning", &resource.Provision[numProvision].Data[numData].Meaning, optionsValueSet)

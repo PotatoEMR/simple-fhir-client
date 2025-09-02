@@ -37,14 +37,14 @@ func (r FormularyItem) MarshalJSON() ([]byte, error) {
 
 func (resource *FormularyItem) FormularyItemLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *FormularyItem) FormularyItemCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
@@ -52,7 +52,7 @@ func (resource *FormularyItem) FormularyItemCode(optionsValueSet []Coding) templ
 func (resource *FormularyItem) FormularyItemStatus() templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)

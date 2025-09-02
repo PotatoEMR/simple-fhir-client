@@ -445,7 +445,7 @@ func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
 
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -453,21 +453,21 @@ func (resource *ExplanationOfBenefit) ExplanationOfBenefitLanguage(optionsValueS
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitStatus() templ.Component {
 	optionsValueSet := VSExplanationofbenefit_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitSubType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("subType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subType", resource.SubType, optionsValueSet)
@@ -475,28 +475,28 @@ func (resource *ExplanationOfBenefit) ExplanationOfBenefitSubType(optionsValueSe
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitUse() templ.Component {
 	optionsValueSet := VSClaim_use
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("use", nil, optionsValueSet)
 	}
 	return CodeSelect("use", &resource.Use, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitPriority(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitFundsReserveRequested(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("fundsReserveRequested", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("fundsReserveRequested", resource.FundsReserveRequested, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitFundsReserve(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("fundsReserve", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("fundsReserve", resource.FundsReserve, optionsValueSet)
@@ -504,441 +504,441 @@ func (resource *ExplanationOfBenefit) ExplanationOfBenefitFundsReserve(optionsVa
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitOutcome() templ.Component {
 	optionsValueSet := VSClaim_outcome
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeSelect("outcome", &resource.Outcome, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitDecision(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("decision", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("decision", resource.Decision, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitDiagnosisRelatedGroup(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("diagnosisRelatedGroup", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("diagnosisRelatedGroup", resource.DiagnosisRelatedGroup, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitFormCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("formCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitRelatedRelationship(numRelated int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Related) >= numRelated {
+	if resource == nil && len(resource.Related) >= numRelated {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", resource.Related[numRelated].Relationship, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitEventType(numEvent int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Event) >= numEvent {
+	if resource == nil && len(resource.Event) >= numEvent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Event[numEvent].Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitPayeeType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Payee.Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitCareTeamRole(numCareTeam int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CareTeam) >= numCareTeam {
+	if resource == nil && len(resource.CareTeam) >= numCareTeam {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.CareTeam[numCareTeam].Role, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitCareTeamSpecialty(numCareTeam int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.CareTeam) >= numCareTeam {
+	if resource == nil && len(resource.CareTeam) >= numCareTeam {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", resource.CareTeam[numCareTeam].Specialty, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitSupportingInfoCategory(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SupportingInfo) >= numSupportingInfo {
+	if resource == nil && len(resource.SupportingInfo) >= numSupportingInfo {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.SupportingInfo[numSupportingInfo].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitSupportingInfoCode(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SupportingInfo) >= numSupportingInfo {
+	if resource == nil && len(resource.SupportingInfo) >= numSupportingInfo {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.SupportingInfo[numSupportingInfo].Code, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitSupportingInfoReason(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.SupportingInfo) >= numSupportingInfo {
+	if resource == nil && len(resource.SupportingInfo) >= numSupportingInfo {
 		return CodingSelect("reason", nil, optionsValueSet)
 	}
 	return CodingSelect("reason", resource.SupportingInfo[numSupportingInfo].Reason, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitDiagnosisType(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Diagnosis[numDiagnosis].Type[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitDiagnosisOnAdmission(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("onAdmission", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("onAdmission", resource.Diagnosis[numDiagnosis].OnAdmission, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitProcedureType(numProcedure int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Procedure) >= numProcedure {
+	if resource == nil && len(resource.Procedure) >= numProcedure {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Procedure[numProcedure].Type[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAccidentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Accident.Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemRevenue(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.Item[numItem].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Item[numItem].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemProductOrServiceEnd(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.Item[numItem].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemModifier(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.Item[numItem].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemProgramCode(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("programCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("programCode", &resource.Item[numItem].ProgramCode[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemBodySiteSubSite(numItem int, numBodySite int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].BodySite) >= numBodySite {
+	if resource == nil && len(resource.Item[numItem].BodySite) >= numBodySite {
 		return CodeableConceptSelect("subSite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subSite", &resource.Item[numItem].BodySite[numBodySite].SubSite[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemReviewOutcomeDecision(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("decision", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("decision", resource.Item[numItem].ReviewOutcome.Decision, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemReviewOutcomeReason(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item) >= numItem {
+	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", &resource.Item[numItem].ReviewOutcome.Reason[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemAdjudicationCategory(numItem int, numAdjudication int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
+	if resource == nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Item[numItem].Adjudication[numAdjudication].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemAdjudicationReason(numItem int, numAdjudication int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
+	if resource == nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", resource.Item[numItem].Adjudication[numAdjudication].Reason, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailRevenue(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.Item[numItem].Detail[numDetail].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailCategory(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Item[numItem].Detail[numDetail].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailProductOrService(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Item[numItem].Detail[numDetail].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailProductOrServiceEnd(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.Item[numItem].Detail[numDetail].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailModifier(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.Item[numItem].Detail[numDetail].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailProgramCode(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail) >= numDetail {
+	if resource == nil && len(resource.Item[numItem].Detail) >= numDetail {
 		return CodeableConceptSelect("programCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("programCode", &resource.Item[numItem].Detail[numDetail].ProgramCode[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailRevenue(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailCategory(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailProductOrService(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailProductOrServiceEnd(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailModifier(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitItemDetailSubDetailProgramCode(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("programCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("programCode", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemRevenue(numAddItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem) >= numAddItem {
+	if resource == nil && len(resource.AddItem) >= numAddItem {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemProductOrService(numAddItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem) >= numAddItem {
+	if resource == nil && len(resource.AddItem) >= numAddItem {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemProductOrServiceEnd(numAddItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem) >= numAddItem {
+	if resource == nil && len(resource.AddItem) >= numAddItem {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemModifier(numAddItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem) >= numAddItem {
+	if resource == nil && len(resource.AddItem) >= numAddItem {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemProgramCode(numAddItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem) >= numAddItem {
+	if resource == nil && len(resource.AddItem) >= numAddItem {
 		return CodeableConceptSelect("programCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("programCode", &resource.AddItem[numAddItem].ProgramCode[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemBodySiteSubSite(numAddItem int, numBodySite int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].BodySite) >= numBodySite {
+	if resource == nil && len(resource.AddItem[numAddItem].BodySite) >= numBodySite {
 		return CodeableConceptSelect("subSite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subSite", &resource.AddItem[numAddItem].BodySite[numBodySite].SubSite[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailRevenue(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Detail[numDetail].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailProductOrService(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].Detail[numDetail].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailProductOrServiceEnd(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].Detail[numDetail].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailModifier(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Detail[numDetail].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailSubDetailRevenue(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("revenue", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Revenue, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailSubDetailProductOrService(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrService, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailSubDetailProductOrServiceEnd(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrServiceEnd, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitAddItemDetailSubDetailModifier(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+	if resource == nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[0], optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitTotalCategory(numTotal int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Total) >= numTotal {
+	if resource == nil && len(resource.Total) >= numTotal {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Total[numTotal].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitPaymentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Payment.Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitPaymentAdjustmentReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("adjustmentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("adjustmentReason", resource.Payment.AdjustmentReason, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitProcessNoteType(numProcessNote int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+	if resource == nil && len(resource.ProcessNote) >= numProcessNote {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.ProcessNote[numProcessNote].Type, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitProcessNoteLanguage(numProcessNote int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+	if resource == nil && len(resource.ProcessNote) >= numProcessNote {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", resource.ProcessNote[numProcessNote].Language, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitBenefitBalanceCategory(numBenefitBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.BenefitBalance) >= numBenefitBalance {
+	if resource == nil && len(resource.BenefitBalance) >= numBenefitBalance {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.BenefitBalance[numBenefitBalance].Category, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitBenefitBalanceNetwork(numBenefitBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.BenefitBalance) >= numBenefitBalance {
+	if resource == nil && len(resource.BenefitBalance) >= numBenefitBalance {
 		return CodeableConceptSelect("network", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("network", resource.BenefitBalance[numBenefitBalance].Network, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitBenefitBalanceUnit(numBenefitBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.BenefitBalance) >= numBenefitBalance {
+	if resource == nil && len(resource.BenefitBalance) >= numBenefitBalance {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.BenefitBalance[numBenefitBalance].Unit, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitBenefitBalanceTerm(numBenefitBalance int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.BenefitBalance) >= numBenefitBalance {
+	if resource == nil && len(resource.BenefitBalance) >= numBenefitBalance {
 		return CodeableConceptSelect("term", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("term", resource.BenefitBalance[numBenefitBalance].Term, optionsValueSet)
 }
 func (resource *ExplanationOfBenefit) ExplanationOfBenefitBenefitBalanceFinancialType(numBenefitBalance int, numFinancial int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.BenefitBalance[numBenefitBalance].Financial) >= numFinancial {
+	if resource == nil && len(resource.BenefitBalance[numBenefitBalance].Financial) >= numFinancial {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.BenefitBalance[numBenefitBalance].Financial[numFinancial].Type, optionsValueSet)

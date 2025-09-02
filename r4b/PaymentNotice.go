@@ -46,7 +46,7 @@ func (r PaymentNotice) MarshalJSON() ([]byte, error) {
 
 func (resource *PaymentNotice) PaymentNoticeLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -54,14 +54,14 @@ func (resource *PaymentNotice) PaymentNoticeLanguage(optionsValueSet []Coding) t
 func (resource *PaymentNotice) PaymentNoticeStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *PaymentNotice) PaymentNoticePaymentStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("paymentStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("paymentStatus", resource.PaymentStatus, optionsValueSet)

@@ -106,7 +106,7 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 
 func (resource *ActivityDefinition) ActivityDefinitionLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -114,21 +114,21 @@ func (resource *ActivityDefinition) ActivityDefinitionLanguage(optionsValueSet [
 func (resource *ActivityDefinition) ActivityDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ActivityDefinition) ActivityDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *ActivityDefinition) ActivityDefinitionTopic(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
@@ -136,14 +136,14 @@ func (resource *ActivityDefinition) ActivityDefinitionTopic(optionsValueSet []Co
 func (resource *ActivityDefinition) ActivityDefinitionKind() templ.Component {
 	optionsValueSet := VSRequest_resource_types
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", resource.Kind, optionsValueSet)
 }
 func (resource *ActivityDefinition) ActivityDefinitionCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
@@ -151,7 +151,7 @@ func (resource *ActivityDefinition) ActivityDefinitionCode(optionsValueSet []Cod
 func (resource *ActivityDefinition) ActivityDefinitionIntent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", resource.Intent, optionsValueSet)
@@ -159,14 +159,14 @@ func (resource *ActivityDefinition) ActivityDefinitionIntent() templ.Component {
 func (resource *ActivityDefinition) ActivityDefinitionPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *ActivityDefinition) ActivityDefinitionBodySite(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
@@ -174,14 +174,14 @@ func (resource *ActivityDefinition) ActivityDefinitionBodySite(optionsValueSet [
 func (resource *ActivityDefinition) ActivityDefinitionParticipantType(numParticipant int) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Participant[numParticipant].Type, optionsValueSet)
 }
 func (resource *ActivityDefinition) ActivityDefinitionParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)

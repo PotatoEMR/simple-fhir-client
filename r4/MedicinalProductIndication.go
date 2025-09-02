@@ -53,42 +53,42 @@ func (r MedicinalProductIndication) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicinalProductIndication) MedicinalProductIndicationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductIndication) MedicinalProductIndicationDiseaseSymptomProcedure(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("diseaseSymptomProcedure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("diseaseSymptomProcedure", resource.DiseaseSymptomProcedure, optionsValueSet)
 }
 func (resource *MedicinalProductIndication) MedicinalProductIndicationDiseaseStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("diseaseStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("diseaseStatus", resource.DiseaseStatus, optionsValueSet)
 }
 func (resource *MedicinalProductIndication) MedicinalProductIndicationComorbidity(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("comorbidity", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("comorbidity", &resource.Comorbidity[0], optionsValueSet)
 }
 func (resource *MedicinalProductIndication) MedicinalProductIndicationIntendedEffect(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("intendedEffect", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intendedEffect", resource.IntendedEffect, optionsValueSet)
 }
 func (resource *MedicinalProductIndication) MedicinalProductIndicationOtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.OtherTherapy) >= numOtherTherapy {
+	if resource == nil && len(resource.OtherTherapy) >= numOtherTherapy {
 		return CodeableConceptSelect("therapyRelationshipType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("therapyRelationshipType", &resource.OtherTherapy[numOtherTherapy].TherapyRelationshipType, optionsValueSet)

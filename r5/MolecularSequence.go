@@ -83,7 +83,7 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 
 func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -91,28 +91,28 @@ func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []C
 func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
 	optionsValueSet := VSSequence_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceRelativeCoordinateSystem(numRelative int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Relative) >= numRelative {
+	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("coordinateSystem", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("coordinateSystem", &resource.Relative[numRelative].CoordinateSystem, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceGenomeAssembly(numRelative int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Relative) >= numRelative {
+	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("genomeAssembly", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("genomeAssembly", resource.Relative[numRelative].StartingSequence.GenomeAssembly, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceChromosome(numRelative int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Relative) >= numRelative {
+	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("chromosome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("chromosome", resource.Relative[numRelative].StartingSequence.Chromosome, optionsValueSet)
@@ -120,7 +120,7 @@ func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceChro
 func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceOrientation(numRelative int) templ.Component {
 	optionsValueSet := VSOrientation_type
 
-	if resource != nil && len(resource.Relative) >= numRelative {
+	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeSelect("orientation", nil, optionsValueSet)
 	}
 	return CodeSelect("orientation", resource.Relative[numRelative].StartingSequence.Orientation, optionsValueSet)
@@ -128,7 +128,7 @@ func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceOrie
 func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceStrand(numRelative int) templ.Component {
 	optionsValueSet := VSStrand_type
 
-	if resource != nil && len(resource.Relative) >= numRelative {
+	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeSelect("strand", nil, optionsValueSet)
 	}
 	return CodeSelect("strand", resource.Relative[numRelative].StartingSequence.Strand, optionsValueSet)

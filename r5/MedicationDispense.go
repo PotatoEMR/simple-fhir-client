@@ -81,7 +81,7 @@ func (r MedicationDispense) MarshalJSON() ([]byte, error) {
 
 func (resource *MedicationDispense) MedicationDispenseLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -89,42 +89,42 @@ func (resource *MedicationDispense) MedicationDispenseLanguage(optionsValueSet [
 func (resource *MedicationDispense) MedicationDispenseStatus() templ.Component {
 	optionsValueSet := VSMedicationdispense_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MedicationDispense) MedicationDispenseCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *MedicationDispense) MedicationDispenseType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *MedicationDispense) MedicationDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Performer) >= numPerformer {
+	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
 func (resource *MedicationDispense) MedicationDispenseSubstitutionType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Substitution.Type, optionsValueSet)
 }
 func (resource *MedicationDispense) MedicationDispenseSubstitutionReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", &resource.Substitution.Reason[0], optionsValueSet)

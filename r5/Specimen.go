@@ -99,7 +99,7 @@ func (r Specimen) MarshalJSON() ([]byte, error) {
 
 func (resource *Specimen) SpecimenLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -107,14 +107,14 @@ func (resource *Specimen) SpecimenLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *Specimen) SpecimenStatus() templ.Component {
 	optionsValueSet := VSSpecimen_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *Specimen) SpecimenType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
@@ -122,42 +122,42 @@ func (resource *Specimen) SpecimenType(optionsValueSet []Coding) templ.Component
 func (resource *Specimen) SpecimenCombined() templ.Component {
 	optionsValueSet := VSSpecimen_combined
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("combined", nil, optionsValueSet)
 	}
 	return CodeSelect("combined", resource.Combined, optionsValueSet)
 }
 func (resource *Specimen) SpecimenRole(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Role[0], optionsValueSet)
 }
 func (resource *Specimen) SpecimenCondition(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
 func (resource *Specimen) SpecimenFeatureType(numFeature int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Feature) >= numFeature {
+	if resource == nil && len(resource.Feature) >= numFeature {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Feature[numFeature].Type, optionsValueSet)
 }
 func (resource *Specimen) SpecimenCollectionMethod(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Collection.Method, optionsValueSet)
 }
 func (resource *Specimen) SpecimenProcessingMethod(numProcessing int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Processing) >= numProcessing {
+	if resource == nil && len(resource.Processing) >= numProcessing {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Processing[numProcessing].Method, optionsValueSet)

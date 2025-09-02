@@ -158,7 +158,7 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 
 func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -166,14 +166,14 @@ func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []C
 func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
 	optionsValueSet := VSSequence_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceReferenceSeqChromosome(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("chromosome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("chromosome", resource.ReferenceSeq.Chromosome, optionsValueSet)
@@ -181,14 +181,14 @@ func (resource *MolecularSequence) MolecularSequenceReferenceSeqChromosome(optio
 func (resource *MolecularSequence) MolecularSequenceReferenceSeqOrientation() templ.Component {
 	optionsValueSet := VSOrientation_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("orientation", nil, optionsValueSet)
 	}
 	return CodeSelect("orientation", resource.ReferenceSeq.Orientation, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceReferenceSeqReferenceSeqId(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("referenceSeqId", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("referenceSeqId", resource.ReferenceSeq.ReferenceSeqId, optionsValueSet)
@@ -196,7 +196,7 @@ func (resource *MolecularSequence) MolecularSequenceReferenceSeqReferenceSeqId(o
 func (resource *MolecularSequence) MolecularSequenceReferenceSeqStrand() templ.Component {
 	optionsValueSet := VSStrand_type
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("strand", nil, optionsValueSet)
 	}
 	return CodeSelect("strand", resource.ReferenceSeq.Strand, optionsValueSet)
@@ -204,21 +204,21 @@ func (resource *MolecularSequence) MolecularSequenceReferenceSeqStrand() templ.C
 func (resource *MolecularSequence) MolecularSequenceQualityType(numQuality int) templ.Component {
 	optionsValueSet := VSQuality_type
 
-	if resource != nil && len(resource.Quality) >= numQuality {
+	if resource == nil && len(resource.Quality) >= numQuality {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Quality[numQuality].Type, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceQualityStandardSequence(numQuality int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Quality) >= numQuality {
+	if resource == nil && len(resource.Quality) >= numQuality {
 		return CodeableConceptSelect("standardSequence", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("standardSequence", resource.Quality[numQuality].StandardSequence, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceQualityMethod(numQuality int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Quality) >= numQuality {
+	if resource == nil && len(resource.Quality) >= numQuality {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Quality[numQuality].Method, optionsValueSet)
@@ -226,14 +226,14 @@ func (resource *MolecularSequence) MolecularSequenceQualityMethod(numQuality int
 func (resource *MolecularSequence) MolecularSequenceRepositoryType(numRepository int) templ.Component {
 	optionsValueSet := VSRepository_type
 
-	if resource != nil && len(resource.Repository) >= numRepository {
+	if resource == nil && len(resource.Repository) >= numRepository {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Repository[numRepository].Type, optionsValueSet)
 }
 func (resource *MolecularSequence) MolecularSequenceStructureVariantVariantType(numStructureVariant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.StructureVariant) >= numStructureVariant {
+	if resource == nil && len(resource.StructureVariant) >= numStructureVariant {
 		return CodeableConceptSelect("variantType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("variantType", resource.StructureVariant[numStructureVariant].VariantType, optionsValueSet)

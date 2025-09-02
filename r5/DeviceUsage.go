@@ -62,7 +62,7 @@ func (r DeviceUsage) MarshalJSON() ([]byte, error) {
 
 func (resource *DeviceUsage) DeviceUsageLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -70,14 +70,14 @@ func (resource *DeviceUsage) DeviceUsageLanguage(optionsValueSet []Coding) templ
 func (resource *DeviceUsage) DeviceUsageStatus() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *DeviceUsage) DeviceUsageCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
@@ -85,28 +85,28 @@ func (resource *DeviceUsage) DeviceUsageCategory(optionsValueSet []Coding) templ
 func (resource *DeviceUsage) DeviceUsageUsageStatus() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("usageStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("usageStatus", resource.UsageStatus, optionsValueSet)
 }
 func (resource *DeviceUsage) DeviceUsageUsageReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("usageReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("usageReason", &resource.UsageReason[0], optionsValueSet)
 }
 func (resource *DeviceUsage) DeviceUsageAdherenceCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Adherence.Code, optionsValueSet)
 }
 func (resource *DeviceUsage) DeviceUsageAdherenceReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", &resource.Adherence.Reason[0], optionsValueSet)

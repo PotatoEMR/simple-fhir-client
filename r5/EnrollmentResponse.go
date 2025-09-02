@@ -42,7 +42,7 @@ func (r EnrollmentResponse) MarshalJSON() ([]byte, error) {
 
 func (resource *EnrollmentResponse) EnrollmentResponseLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -50,7 +50,7 @@ func (resource *EnrollmentResponse) EnrollmentResponseLanguage(optionsValueSet [
 func (resource *EnrollmentResponse) EnrollmentResponseStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
@@ -58,7 +58,7 @@ func (resource *EnrollmentResponse) EnrollmentResponseStatus() templ.Component {
 func (resource *EnrollmentResponse) EnrollmentResponseOutcome() templ.Component {
 	optionsValueSet := VSEnrollment_outcome
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeSelect("outcome", resource.Outcome, optionsValueSet)

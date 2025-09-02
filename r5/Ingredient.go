@@ -96,7 +96,7 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 
 func (resource *Ingredient) IngredientLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -104,28 +104,28 @@ func (resource *Ingredient) IngredientLanguage(optionsValueSet []Coding) templ.C
 func (resource *Ingredient) IngredientStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Ingredient) IngredientRole(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Role, optionsValueSet)
 }
 func (resource *Ingredient) IngredientFunction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", &resource.Function[0], optionsValueSet)
 }
 func (resource *Ingredient) IngredientGroup(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("group", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("group", resource.Group, optionsValueSet)
@@ -133,28 +133,28 @@ func (resource *Ingredient) IngredientGroup(optionsValueSet []Coding) templ.Comp
 func (resource *Ingredient) IngredientManufacturerRole(numManufacturer int) templ.Component {
 	optionsValueSet := VSIngredient_manufacturer_role
 
-	if resource != nil && len(resource.Manufacturer) >= numManufacturer {
+	if resource == nil && len(resource.Manufacturer) >= numManufacturer {
 		return CodeSelect("role", nil, optionsValueSet)
 	}
 	return CodeSelect("role", resource.Manufacturer[numManufacturer].Role, optionsValueSet)
 }
 func (resource *Ingredient) IngredientSubstanceStrengthBasis(numStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Substance.Strength) >= numStrength {
+	if resource == nil && len(resource.Substance.Strength) >= numStrength {
 		return CodeableConceptSelect("basis", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("basis", resource.Substance.Strength[numStrength].Basis, optionsValueSet)
 }
 func (resource *Ingredient) IngredientSubstanceStrengthCountry(numStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Substance.Strength) >= numStrength {
+	if resource == nil && len(resource.Substance.Strength) >= numStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.Substance.Strength[numStrength].Country[0], optionsValueSet)
 }
 func (resource *Ingredient) IngredientSubstanceStrengthReferenceStrengthCountry(numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
+	if resource == nil && len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[0], optionsValueSet)

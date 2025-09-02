@@ -129,7 +129,7 @@ func (r Appointment) MarshalJSON() ([]byte, error) {
 
 func (resource *Appointment) AppointmentLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -137,56 +137,56 @@ func (resource *Appointment) AppointmentLanguage(optionsValueSet []Coding) templ
 func (resource *Appointment) AppointmentStatus() templ.Component {
 	optionsValueSet := VSAppointmentstatus
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Appointment) AppointmentCancellationReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("cancellationReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("cancellationReason", resource.CancellationReason, optionsValueSet)
 }
 func (resource *Appointment) AppointmentClass(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("class", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("class", &resource.Class[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentServiceCategory(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentSpecialty(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
 func (resource *Appointment) AppointmentAppointmentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("appointmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet)
 }
 func (resource *Appointment) AppointmentPriority(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *Appointment) AppointmentParticipantType(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Participant[numParticipant].Type[0], optionsValueSet)
@@ -194,21 +194,21 @@ func (resource *Appointment) AppointmentParticipantType(numParticipant int, opti
 func (resource *Appointment) AppointmentParticipantStatus(numParticipant int) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Participant[numParticipant].Status, optionsValueSet)
 }
 func (resource *Appointment) AppointmentRecurrenceTemplateTimezone(numRecurrenceTemplate int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
+	if resource == nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
 		return CodeableConceptSelect("timezone", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("timezone", resource.RecurrenceTemplate[numRecurrenceTemplate].Timezone, optionsValueSet)
 }
 func (resource *Appointment) AppointmentRecurrenceTemplateRecurrenceType(numRecurrenceTemplate int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
+	if resource == nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
 		return CodeableConceptSelect("recurrenceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("recurrenceType", &resource.RecurrenceTemplate[numRecurrenceTemplate].RecurrenceType, optionsValueSet)
@@ -216,7 +216,7 @@ func (resource *Appointment) AppointmentRecurrenceTemplateRecurrenceType(numRecu
 func (resource *Appointment) AppointmentRecurrenceTemplateMonthlyTemplateNthWeekOfMonth(numRecurrenceTemplate int) templ.Component {
 	optionsValueSet := VSWeek_of_month
 
-	if resource != nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
+	if resource == nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
 		return CodingSelect("nthWeekOfMonth", nil, optionsValueSet)
 	}
 	return CodingSelect("nthWeekOfMonth", resource.RecurrenceTemplate[numRecurrenceTemplate].MonthlyTemplate.NthWeekOfMonth, optionsValueSet)
@@ -224,7 +224,7 @@ func (resource *Appointment) AppointmentRecurrenceTemplateMonthlyTemplateNthWeek
 func (resource *Appointment) AppointmentRecurrenceTemplateMonthlyTemplateDayOfWeek(numRecurrenceTemplate int) templ.Component {
 	optionsValueSet := VSDays_of_week
 
-	if resource != nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
+	if resource == nil && len(resource.RecurrenceTemplate) >= numRecurrenceTemplate {
 		return CodingSelect("dayOfWeek", nil, optionsValueSet)
 	}
 	return CodingSelect("dayOfWeek", resource.RecurrenceTemplate[numRecurrenceTemplate].MonthlyTemplate.DayOfWeek, optionsValueSet)

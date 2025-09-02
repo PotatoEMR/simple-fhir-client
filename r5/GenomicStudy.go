@@ -112,7 +112,7 @@ func (r GenomicStudy) MarshalJSON() ([]byte, error) {
 
 func (resource *GenomicStudy) GenomicStudyLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -120,63 +120,63 @@ func (resource *GenomicStudy) GenomicStudyLanguage(optionsValueSet []Coding) tem
 func (resource *GenomicStudy) GenomicStudyStatus() templ.Component {
 	optionsValueSet := VSGenomicstudy_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisMethodType(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis) >= numAnalysis {
+	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("methodType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("methodType", &resource.Analysis[numAnalysis].MethodType[0], optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisChangeType(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis) >= numAnalysis {
+	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("changeType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("changeType", &resource.Analysis[numAnalysis].ChangeType[0], optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisGenomeBuild(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis) >= numAnalysis {
+	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("genomeBuild", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("genomeBuild", resource.Analysis[numAnalysis].GenomeBuild, optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisInputType(numAnalysis int, numInput int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis[numAnalysis].Input) >= numInput {
+	if resource == nil && len(resource.Analysis[numAnalysis].Input) >= numInput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Analysis[numAnalysis].Input[numInput].Type, optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisOutputType(numAnalysis int, numOutput int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis[numAnalysis].Output) >= numOutput {
+	if resource == nil && len(resource.Analysis[numAnalysis].Output) >= numOutput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Analysis[numAnalysis].Output[numOutput].Type, optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisPerformerRole(numAnalysis int, numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis[numAnalysis].Performer) >= numPerformer {
+	if resource == nil && len(resource.Analysis[numAnalysis].Performer) >= numPerformer {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Analysis[numAnalysis].Performer[numPerformer].Role, optionsValueSet)
 }
 func (resource *GenomicStudy) GenomicStudyAnalysisDeviceFunction(numAnalysis int, numDevice int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Analysis[numAnalysis].Device) >= numDevice {
+	if resource == nil && len(resource.Analysis[numAnalysis].Device) >= numDevice {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Analysis[numAnalysis].Device[numDevice].Function, optionsValueSet)

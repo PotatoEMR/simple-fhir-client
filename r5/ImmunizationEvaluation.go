@@ -47,7 +47,7 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -55,28 +55,28 @@ func (resource *ImmunizationEvaluation) ImmunizationEvaluationLanguage(optionsVa
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationStatus() templ.Component {
 	optionsValueSet := VSImmunization_evaluation_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationTargetDisease(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("targetDisease", &resource.TargetDisease, optionsValueSet)
 }
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationDoseStatus(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("doseStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("doseStatus", &resource.DoseStatus, optionsValueSet)
 }
 func (resource *ImmunizationEvaluation) ImmunizationEvaluationDoseStatusReason(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("doseStatusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("doseStatusReason", &resource.DoseStatusReason[0], optionsValueSet)

@@ -55,7 +55,7 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 
 func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -63,35 +63,35 @@ func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Compo
 func (resource *Endpoint) EndpointStatus() templ.Component {
 	optionsValueSet := VSEndpoint_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Endpoint) EndpointConnectionType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("connectionType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("connectionType", &resource.ConnectionType[0], optionsValueSet)
 }
 func (resource *Endpoint) EndpointEnvironmentType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("environmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("environmentType", &resource.EnvironmentType[0], optionsValueSet)
 }
 func (resource *Endpoint) EndpointPayloadType(numPayload int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Payload) >= numPayload {
+	if resource == nil && len(resource.Payload) >= numPayload {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Payload[numPayload].Type[0], optionsValueSet)
 }
 func (resource *Endpoint) EndpointPayloadMimeType(numPayload int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Payload) >= numPayload {
+	if resource == nil && len(resource.Payload) >= numPayload {
 		return CodeSelect("mimeType", nil, optionsValueSet)
 	}
 	return CodeSelect("mimeType", &resource.Payload[numPayload].MimeType[0], optionsValueSet)

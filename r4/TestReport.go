@@ -125,7 +125,7 @@ func (r TestReport) MarshalJSON() ([]byte, error) {
 
 func (resource *TestReport) TestReportLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -133,7 +133,7 @@ func (resource *TestReport) TestReportLanguage(optionsValueSet []Coding) templ.C
 func (resource *TestReport) TestReportStatus() templ.Component {
 	optionsValueSet := VSReport_status_codes
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -141,7 +141,7 @@ func (resource *TestReport) TestReportStatus() templ.Component {
 func (resource *TestReport) TestReportResult() templ.Component {
 	optionsValueSet := VSReport_result_codes
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("result", nil, optionsValueSet)
 	}
 	return CodeSelect("result", &resource.Result, optionsValueSet)
@@ -149,7 +149,7 @@ func (resource *TestReport) TestReportResult() templ.Component {
 func (resource *TestReport) TestReportParticipantType(numParticipant int) templ.Component {
 	optionsValueSet := VSReport_participant_type
 
-	if resource != nil && len(resource.Participant) >= numParticipant {
+	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Participant[numParticipant].Type, optionsValueSet)
@@ -157,7 +157,7 @@ func (resource *TestReport) TestReportParticipantType(numParticipant int) templ.
 func (resource *TestReport) TestReportSetupActionOperationResult(numAction int) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("result", nil, optionsValueSet)
 	}
 	return CodeSelect("result", &resource.Setup.Action[numAction].Operation.Result, optionsValueSet)
@@ -165,7 +165,7 @@ func (resource *TestReport) TestReportSetupActionOperationResult(numAction int) 
 func (resource *TestReport) TestReportSetupActionAssertResult(numAction int) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
-	if resource != nil && len(resource.Setup.Action) >= numAction {
+	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("result", nil, optionsValueSet)
 	}
 	return CodeSelect("result", &resource.Setup.Action[numAction].Assert.Result, optionsValueSet)

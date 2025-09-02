@@ -75,7 +75,7 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 
 func (resource *PaymentReconciliation) PaymentReconciliationLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -83,7 +83,7 @@ func (resource *PaymentReconciliation) PaymentReconciliationLanguage(optionsValu
 func (resource *PaymentReconciliation) PaymentReconciliationStatus() templ.Component {
 	optionsValueSet := VSFm_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -91,21 +91,21 @@ func (resource *PaymentReconciliation) PaymentReconciliationStatus() templ.Compo
 func (resource *PaymentReconciliation) PaymentReconciliationOutcome() templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeSelect("outcome", resource.Outcome, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationFormCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("formCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet)
 }
 func (resource *PaymentReconciliation) PaymentReconciliationDetailType(numDetail int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Detail) >= numDetail {
+	if resource == nil && len(resource.Detail) >= numDetail {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Detail[numDetail].Type, optionsValueSet)
@@ -113,7 +113,7 @@ func (resource *PaymentReconciliation) PaymentReconciliationDetailType(numDetail
 func (resource *PaymentReconciliation) PaymentReconciliationProcessNoteType(numProcessNote int) templ.Component {
 	optionsValueSet := VSNote_type
 
-	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+	if resource == nil && len(resource.ProcessNote) >= numProcessNote {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.ProcessNote[numProcessNote].Type, optionsValueSet)

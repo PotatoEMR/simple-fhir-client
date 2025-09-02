@@ -75,35 +75,35 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSequenceType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("sequenceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sequenceType", resource.SequenceType, optionsValueSet)
 }
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidOligoNucleotideType(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("oligoNucleotideType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("oligoNucleotideType", resource.OligoNucleotideType, optionsValueSet)
 }
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSubunitFivePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Subunit) >= numSubunit {
+	if resource == nil && len(resource.Subunit) >= numSubunit {
 		return CodeableConceptSelect("fivePrime", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("fivePrime", resource.Subunit[numSubunit].FivePrime, optionsValueSet)
 }
 func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSubunitThreePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Subunit) >= numSubunit {
+	if resource == nil && len(resource.Subunit) >= numSubunit {
 		return CodeableConceptSelect("threePrime", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("threePrime", resource.Subunit[numSubunit].ThreePrime, optionsValueSet)

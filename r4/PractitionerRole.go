@@ -68,21 +68,21 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 
 func (resource *PractitionerRole) PractitionerRoleLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
 }
 func (resource *PractitionerRole) PractitionerRoleSpecialty(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
@@ -90,7 +90,7 @@ func (resource *PractitionerRole) PractitionerRoleSpecialty(optionsValueSet []Co
 func (resource *PractitionerRole) PractitionerRoleAvailableTimeDaysOfWeek(numAvailableTime int) templ.Component {
 	optionsValueSet := VSDays_of_week
 
-	if resource != nil && len(resource.AvailableTime) >= numAvailableTime {
+	if resource == nil && len(resource.AvailableTime) >= numAvailableTime {
 		return CodeSelect("daysOfWeek", nil, optionsValueSet)
 	}
 	return CodeSelect("daysOfWeek", &resource.AvailableTime[numAvailableTime].DaysOfWeek[0], optionsValueSet)

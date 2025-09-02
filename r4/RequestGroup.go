@@ -102,7 +102,7 @@ func (r RequestGroup) MarshalJSON() ([]byte, error) {
 
 func (resource *RequestGroup) RequestGroupLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -110,7 +110,7 @@ func (resource *RequestGroup) RequestGroupLanguage(optionsValueSet []Coding) tem
 func (resource *RequestGroup) RequestGroupStatus() templ.Component {
 	optionsValueSet := VSRequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
@@ -118,7 +118,7 @@ func (resource *RequestGroup) RequestGroupStatus() templ.Component {
 func (resource *RequestGroup) RequestGroupIntent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
@@ -126,21 +126,21 @@ func (resource *RequestGroup) RequestGroupIntent() templ.Component {
 func (resource *RequestGroup) RequestGroupPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *RequestGroup) RequestGroupCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *RequestGroup) RequestGroupReasonCode(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
@@ -148,21 +148,21 @@ func (resource *RequestGroup) RequestGroupReasonCode(optionsValueSet []Coding) t
 func (resource *RequestGroup) RequestGroupActionPriority(numAction int) templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Action[numAction].Priority, optionsValueSet)
 }
 func (resource *RequestGroup) RequestGroupActionCode(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Action[numAction].Code[0], optionsValueSet)
 }
 func (resource *RequestGroup) RequestGroupActionType(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Action[numAction].Type, optionsValueSet)
@@ -170,7 +170,7 @@ func (resource *RequestGroup) RequestGroupActionType(numAction int, optionsValue
 func (resource *RequestGroup) RequestGroupActionGroupingBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_grouping_behavior
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("groupingBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("groupingBehavior", resource.Action[numAction].GroupingBehavior, optionsValueSet)
@@ -178,7 +178,7 @@ func (resource *RequestGroup) RequestGroupActionGroupingBehavior(numAction int) 
 func (resource *RequestGroup) RequestGroupActionSelectionBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_selection_behavior
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("selectionBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("selectionBehavior", resource.Action[numAction].SelectionBehavior, optionsValueSet)
@@ -186,7 +186,7 @@ func (resource *RequestGroup) RequestGroupActionSelectionBehavior(numAction int)
 func (resource *RequestGroup) RequestGroupActionRequiredBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_required_behavior
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("requiredBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("requiredBehavior", resource.Action[numAction].RequiredBehavior, optionsValueSet)
@@ -194,7 +194,7 @@ func (resource *RequestGroup) RequestGroupActionRequiredBehavior(numAction int) 
 func (resource *RequestGroup) RequestGroupActionPrecheckBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_precheck_behavior
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("precheckBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("precheckBehavior", resource.Action[numAction].PrecheckBehavior, optionsValueSet)
@@ -202,7 +202,7 @@ func (resource *RequestGroup) RequestGroupActionPrecheckBehavior(numAction int) 
 func (resource *RequestGroup) RequestGroupActionCardinalityBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_cardinality_behavior
 
-	if resource != nil && len(resource.Action) >= numAction {
+	if resource == nil && len(resource.Action) >= numAction {
 		return CodeSelect("cardinalityBehavior", nil, optionsValueSet)
 	}
 	return CodeSelect("cardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet)
@@ -210,7 +210,7 @@ func (resource *RequestGroup) RequestGroupActionCardinalityBehavior(numAction in
 func (resource *RequestGroup) RequestGroupActionConditionKind(numAction int, numCondition int) templ.Component {
 	optionsValueSet := VSAction_condition_kind
 
-	if resource != nil && len(resource.Action[numAction].Condition) >= numCondition {
+	if resource == nil && len(resource.Action[numAction].Condition) >= numCondition {
 		return CodeSelect("kind", nil, optionsValueSet)
 	}
 	return CodeSelect("kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet)
@@ -218,7 +218,7 @@ func (resource *RequestGroup) RequestGroupActionConditionKind(numAction int, num
 func (resource *RequestGroup) RequestGroupActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
-	if resource != nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
+	if resource == nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
 		return CodeSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeSelect("relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet)

@@ -57,7 +57,7 @@ func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 
 func (resource *SupplyDelivery) SupplyDeliveryLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -65,7 +65,7 @@ func (resource *SupplyDelivery) SupplyDeliveryLanguage(optionsValueSet []Coding)
 func (resource *SupplyDelivery) SupplyDeliveryStatus() templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
@@ -73,7 +73,7 @@ func (resource *SupplyDelivery) SupplyDeliveryStatus() templ.Component {
 func (resource *SupplyDelivery) SupplyDeliveryType() templ.Component {
 	optionsValueSet := VSSupplydelivery_supplyitemtype
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)

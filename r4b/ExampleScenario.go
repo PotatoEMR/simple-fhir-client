@@ -139,7 +139,7 @@ func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 
 func (resource *ExampleScenario) ExampleScenarioLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -147,14 +147,14 @@ func (resource *ExampleScenario) ExampleScenarioLanguage(optionsValueSet []Codin
 func (resource *ExampleScenario) ExampleScenarioStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ExampleScenario) ExampleScenarioJurisdiction(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
@@ -162,7 +162,7 @@ func (resource *ExampleScenario) ExampleScenarioJurisdiction(optionsValueSet []C
 func (resource *ExampleScenario) ExampleScenarioActorType(numActor int) templ.Component {
 	optionsValueSet := VSExamplescenario_actor_type
 
-	if resource != nil && len(resource.Actor) >= numActor {
+	if resource == nil && len(resource.Actor) >= numActor {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", &resource.Actor[numActor].Type, optionsValueSet)
@@ -170,7 +170,7 @@ func (resource *ExampleScenario) ExampleScenarioActorType(numActor int) templ.Co
 func (resource *ExampleScenario) ExampleScenarioInstanceResourceType(numInstance int) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource != nil && len(resource.Instance) >= numInstance {
+	if resource == nil && len(resource.Instance) >= numInstance {
 		return CodeSelect("resourceType", nil, optionsValueSet)
 	}
 	return CodeSelect("resourceType", &resource.Instance[numInstance].ResourceType, optionsValueSet)

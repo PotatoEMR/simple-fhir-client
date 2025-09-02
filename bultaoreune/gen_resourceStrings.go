@@ -8,7 +8,10 @@ func ResourceStrings() (map[string]string, []string) {
 
 	ri = append(ri, "CodeableConcept")
 	rs["CodeableConcept"] = `
-	func (cc *CodeableConcept) String() string {
+		func (cc *CodeableConcept) String() string {
+		if cc == nil {
+			return ""
+		}
 		if cc.Text != nil {
 			return *cc.Text
 		}
@@ -28,7 +31,10 @@ func ResourceStrings() (map[string]string, []string) {
 
 	//don't need strings
 	rs["Coding"] = `
-		func (c *Coding) String() string {
+	func (c *Coding) String() string {
+		if c == nil {
+			return ""
+		}
 		if c.Display != nil {
 			return *c.Display
 		} else if c.Code != nil {

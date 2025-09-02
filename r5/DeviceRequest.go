@@ -74,7 +74,7 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 
 func (resource *DeviceRequest) DeviceRequestLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -82,7 +82,7 @@ func (resource *DeviceRequest) DeviceRequestLanguage(optionsValueSet []Coding) t
 func (resource *DeviceRequest) DeviceRequestStatus() templ.Component {
 	optionsValueSet := VSRequest_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
@@ -90,7 +90,7 @@ func (resource *DeviceRequest) DeviceRequestStatus() templ.Component {
 func (resource *DeviceRequest) DeviceRequestIntent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("intent", nil, optionsValueSet)
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
@@ -98,21 +98,21 @@ func (resource *DeviceRequest) DeviceRequestIntent() templ.Component {
 func (resource *DeviceRequest) DeviceRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("priority", nil, optionsValueSet)
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
 func (resource *DeviceRequest) DeviceRequestAsNeededFor(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeableConceptSelect("asNeededFor", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("asNeededFor", resource.AsNeededFor, optionsValueSet)
 }
 func (resource *DeviceRequest) DeviceRequestParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Parameter) >= numParameter {
+	if resource == nil && len(resource.Parameter) >= numParameter {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Parameter[numParameter].Code, optionsValueSet)

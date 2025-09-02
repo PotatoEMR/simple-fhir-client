@@ -56,7 +56,7 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 
 func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Coding) templ.Component {
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
@@ -64,35 +64,35 @@ func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Codin
 func (resource *ResearchSubject) ResearchSubjectStatus() templ.Component {
 	optionsValueSet := VSPublication_status
 
-	if resource != nil {
+	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *ResearchSubject) ResearchSubjectProgressType(numProgress int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Progress) >= numProgress {
+	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Progress[numProgress].Type, optionsValueSet)
 }
 func (resource *ResearchSubject) ResearchSubjectProgressSubjectState(numProgress int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Progress) >= numProgress {
+	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("subjectState", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subjectState", resource.Progress[numProgress].SubjectState, optionsValueSet)
 }
 func (resource *ResearchSubject) ResearchSubjectProgressMilestone(numProgress int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Progress) >= numProgress {
+	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("milestone", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("milestone", resource.Progress[numProgress].Milestone, optionsValueSet)
 }
 func (resource *ResearchSubject) ResearchSubjectProgressReason(numProgress int, optionsValueSet []Coding) templ.Component {
 
-	if resource != nil && len(resource.Progress) >= numProgress {
+	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", resource.Progress[numProgress].Reason, optionsValueSet)
