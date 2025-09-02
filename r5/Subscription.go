@@ -71,48 +71,55 @@ func (r Subscription) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Subscription) SubscriptionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Subscription) SubscriptionStatus() templ.Component {
 	optionsValueSet := VSSubscription_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Subscription) SubscriptionChannelType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("channelType", nil, optionsValueSet)
+	}
+	return CodingSelect("channelType", &resource.ChannelType, optionsValueSet)
 }
 func (resource *Subscription) SubscriptionContentType(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.ContentType
+		return CodeSelect("contentType", nil, optionsValueSet)
 	}
-	return CodeSelect("contentType", currentVal, optionsValueSet)
+	return CodeSelect("contentType", resource.ContentType, optionsValueSet)
 }
 func (resource *Subscription) SubscriptionContent() templ.Component {
 	optionsValueSet := VSSubscription_payload_content
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Content
+		return CodeSelect("content", nil, optionsValueSet)
 	}
-	return CodeSelect("content", currentVal, optionsValueSet)
+	return CodeSelect("content", resource.Content, optionsValueSet)
 }
 func (resource *Subscription) SubscriptionFilterByComparator(numFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_comparator
-	currentVal := ""
+
 	if resource != nil && len(resource.FilterBy) >= numFilterBy {
-		currentVal = *resource.FilterBy[numFilterBy].Comparator
+		return CodeSelect("comparator", nil, optionsValueSet)
 	}
-	return CodeSelect("comparator", currentVal, optionsValueSet)
+	return CodeSelect("comparator", resource.FilterBy[numFilterBy].Comparator, optionsValueSet)
 }
 func (resource *Subscription) SubscriptionFilterByModifier(numFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
-	currentVal := ""
+
 	if resource != nil && len(resource.FilterBy) >= numFilterBy {
-		currentVal = *resource.FilterBy[numFilterBy].Modifier
+		return CodeSelect("modifier", nil, optionsValueSet)
 	}
-	return CodeSelect("modifier", currentVal, optionsValueSet)
+	return CodeSelect("modifier", resource.FilterBy[numFilterBy].Modifier, optionsValueSet)
 }

@@ -57,25 +57,53 @@ func (r List) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *List) ListLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *List) ListStatus() templ.Component {
 	optionsValueSet := VSList_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *List) ListMode() templ.Component {
 	optionsValueSet := VSList_mode
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Mode
+		return CodeSelect("mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", currentVal, optionsValueSet)
+	return CodeSelect("mode", &resource.Mode, optionsValueSet)
+}
+func (resource *List) ListCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+}
+func (resource *List) ListOrderedBy(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("orderedBy", resource.OrderedBy, optionsValueSet)
+}
+func (resource *List) ListEmptyReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("emptyReason", resource.EmptyReason, optionsValueSet)
+}
+func (resource *List) ListEntryFlag(numEntry int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Entry) >= numEntry {
+		return CodeableConceptSelect("flag", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("flag", resource.Entry[numEntry].Flag, optionsValueSet)
 }

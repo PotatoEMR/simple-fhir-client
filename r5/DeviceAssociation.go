@@ -52,9 +52,39 @@ func (r DeviceAssociation) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *DeviceAssociation) DeviceAssociationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *DeviceAssociation) DeviceAssociationCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *DeviceAssociation) DeviceAssociationStatus() templ.Component {
+	optionsValueSet := VSDeviceassociation_status
+
+	if resource != nil {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *DeviceAssociation) DeviceAssociationStatusReason() templ.Component {
+	optionsValueSet := VSDeviceassociation_status_reason
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
+}
+func (resource *DeviceAssociation) DeviceAssociationOperationStatus(numOperation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Operation) >= numOperation {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", &resource.Operation[numOperation].Status, optionsValueSet)
 }

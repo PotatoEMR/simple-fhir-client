@@ -68,72 +68,79 @@ func (r SearchParameter) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SearchParameter) SearchParameterLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *SearchParameter) SearchParameterJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterCode(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Code, optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterBase() templ.Component {
 	optionsValueSet := VSResource_types
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Base[0]
+		return CodeSelect("base", nil, optionsValueSet)
 	}
-	return CodeSelect("base", currentVal, optionsValueSet)
+	return CodeSelect("base", &resource.Base[0], optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterType() templ.Component {
 	optionsValueSet := VSSearch_param_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterXpathUsage() templ.Component {
 	optionsValueSet := VSSearch_xpath_usage
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.XpathUsage
+		return CodeSelect("xpathUsage", nil, optionsValueSet)
 	}
-	return CodeSelect("xpathUsage", currentVal, optionsValueSet)
+	return CodeSelect("xpathUsage", resource.XpathUsage, optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterTarget() templ.Component {
 	optionsValueSet := VSResource_types
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Target[0]
+		return CodeSelect("target", nil, optionsValueSet)
 	}
-	return CodeSelect("target", currentVal, optionsValueSet)
+	return CodeSelect("target", &resource.Target[0], optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterComparator() templ.Component {
 	optionsValueSet := VSSearch_comparator
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Comparator[0]
+		return CodeSelect("comparator", nil, optionsValueSet)
 	}
-	return CodeSelect("comparator", currentVal, optionsValueSet)
+	return CodeSelect("comparator", &resource.Comparator[0], optionsValueSet)
 }
 func (resource *SearchParameter) SearchParameterModifier() templ.Component {
 	optionsValueSet := VSSearch_modifier_code
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Modifier[0]
+		return CodeSelect("modifier", nil, optionsValueSet)
 	}
-	return CodeSelect("modifier", currentVal, optionsValueSet)
+	return CodeSelect("modifier", &resource.Modifier[0], optionsValueSet)
 }

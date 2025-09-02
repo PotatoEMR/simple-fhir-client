@@ -43,8 +43,7 @@ func main() {
 	for _, v := range fhirVersions {
 		os.RemoveAll(v)
 		os.RemoveAll(v + "Client")
-		os.RemoveAll(v + "ValueSets")
-		os.RemoveAll(v + "Forms")
+		os.RemoveAll(v + "AllValueSets")
 	}
 
 	//get spec json file from fhir site, if run without -nodownload
@@ -95,10 +94,15 @@ func main() {
 		}
 		generateDirVer := path.Join(generateDir, fhirVersion)
 		generateClientDirVer := path.Join(generateDir, fhirVersion+"Client")
+		generateAllVSDirVer := path.Join(generateDir, fhirVersion+"AllValueSets")
 		os.MkdirAll(generateDirVer, 0755)
 		os.MkdirAll(generateClientDirVer, 0755)
+		os.MkdirAll(generateAllVSDirVer, 0755)
 		//endregion
 
+		//these are all valuesets, regardless of if field binding is required or just example
+		//maybe bad for compile time to include in resources package?
+		//so the full list goes into their own package, required stay in resources for use in form
 		valueset_list := GenValuesets(path.Join(extractDirVer, "valuesets.json"), generateDirVer, fhirVersion)
 
 		//write structs
@@ -279,9 +283,12 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				fieldName_lower := parts[len(parts)-1]
 				fieldName := strings.Title(fieldName_lower)
 
-				//taking a break to write forms...kind of mixed up with structs
+				//take a break from structs to write form methods...kind of mixed up with structs
 				if len(elt.Type) == 1 {
-					if elt.Type[0].Code == "code" {
+					//if fhirPrimitive_to_GolangType[elt.Type[0].Code] != "" {
+					fmt.Println("primitive", elt.Path, elt.Type[0].Code)
+					//}
+					if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
 						caps := []string{}
 						for _, s := range parts {
 							caps = append(caps, strings.Title(s))
@@ -293,10 +300,10 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						vsParam := ""
 						vsReq := ""
 						varname := urlToVarname(elt.Binding.ValueSet)
-						if elt.Binding.Strength != "required" || !slices.Contains(valueset_list, varname) {
-							vsParam = "optionsValueSet []Coding"
-						} else {
+						if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
 							vsReq = "optionsValueSet := " + "VS" + varname + "\n"
+						} else {
+							vsParam = "optionsValueSet []Coding"
 						}
 
 						for i, p := range parts {
@@ -309,26 +316,33 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 									bbCheck = " && len(" + backbonePath + pUpper + ") >= " + pUpperNum
 									backbonePath = backbonePath + pUpper + "[" + pUpperNum + "]."
 								} else {
+									//might not work if nil in nested backbone element path?
 									backbonePath = backbonePath + pUpper + "."
 								}
 							}
 						}
 						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ")" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
-							` + vsReq + `currentVal := ""
+							` + vsReq + `
 							if resource != nil ` + bbCheck + `{`)
+						var fieldVal string
 						if elt.Max == "*" {
-							formFuncs.WriteString(`currentVal = ` + backbonePath + fieldName + `[0]`)
+							fieldVal = "&" + backbonePath + fieldName + `[0]`
 						} else if elt.Min == 0 {
-							formFuncs.WriteString(`currentVal = *` + backbonePath + fieldName)
+							fieldVal = backbonePath + fieldName
 						} else if elt.Min == 1 {
-							formFuncs.WriteString(`currentVal = ` + backbonePath + fieldName)
+							fieldVal = "&" + backbonePath + fieldName
 						}
-						formFuncs.WriteString(`	}
-							return CodeSelect("` + fieldName_lower + `", currentVal, optionsValueSet)
+						selectType := strings.Title(elt.Type[0].Code + "Select")
+						formFuncs.WriteString(`
+								return ` + selectType + `("` + fieldName_lower + `", nil, optionsValueSet)
+								}
+							return ` + selectType + `("` + fieldName_lower + `", ` + fieldVal + `, optionsValueSet)
 							}
 							`)
 					}
 				}
+
+				//done with form methods, back to writing struct fields
 
 				if len(elt.Type) < 1 {
 					//some fields eg AuditEvent.entity.agent have no type

@@ -69,9 +69,44 @@ func (r MedicinalProductPackaged) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicinalProductPackaged) MedicinalProductPackagedLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductPackaged) MedicinalProductPackagedLegalStatusOfSupply(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
+}
+func (resource *MedicinalProductPackaged) MedicinalProductPackagedPackageItemType(numPackageItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.PackageItem) >= numPackageItem {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.PackageItem[numPackageItem].Type, optionsValueSet)
+}
+func (resource *MedicinalProductPackaged) MedicinalProductPackagedPackageItemMaterial(numPackageItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.PackageItem) >= numPackageItem {
+		return CodeableConceptSelect("material", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("material", &resource.PackageItem[numPackageItem].Material[0], optionsValueSet)
+}
+func (resource *MedicinalProductPackaged) MedicinalProductPackagedPackageItemAlternateMaterial(numPackageItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.PackageItem) >= numPackageItem {
+		return CodeableConceptSelect("alternateMaterial", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("alternateMaterial", &resource.PackageItem[numPackageItem].AlternateMaterial[0], optionsValueSet)
+}
+func (resource *MedicinalProductPackaged) MedicinalProductPackagedPackageItemOtherCharacteristics(numPackageItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.PackageItem) >= numPackageItem {
+		return CodeableConceptSelect("otherCharacteristics", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("otherCharacteristics", &resource.PackageItem[numPackageItem].OtherCharacteristics[0], optionsValueSet)
 }

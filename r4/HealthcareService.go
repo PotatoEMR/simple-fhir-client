@@ -86,17 +86,80 @@ func (r HealthcareService) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *HealthcareService) HealthcareServiceLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceSpecialty(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("specialty", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceServiceProvisionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("serviceProvisionCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("serviceProvisionCode", &resource.ServiceProvisionCode[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceProgram(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("program", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("program", &resource.Program[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceCharacteristic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceCommunication(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("communication", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("communication", &resource.Communication[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceReferralMethod(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("referralMethod", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("referralMethod", &resource.ReferralMethod[0], optionsValueSet)
+}
+func (resource *HealthcareService) HealthcareServiceEligibilityCode(numEligibility int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Eligibility) >= numEligibility {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Eligibility[numEligibility].Code, optionsValueSet)
 }
 func (resource *HealthcareService) HealthcareServiceAvailableTimeDaysOfWeek(numAvailableTime int) templ.Component {
 	optionsValueSet := VSDays_of_week
-	currentVal := ""
+
 	if resource != nil && len(resource.AvailableTime) >= numAvailableTime {
-		currentVal = resource.AvailableTime[numAvailableTime].DaysOfWeek[0]
+		return CodeSelect("daysOfWeek", nil, optionsValueSet)
 	}
-	return CodeSelect("daysOfWeek", currentVal, optionsValueSet)
+	return CodeSelect("daysOfWeek", &resource.AvailableTime[numAvailableTime].DaysOfWeek[0], optionsValueSet)
 }

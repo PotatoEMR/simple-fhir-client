@@ -66,9 +66,51 @@ func (r ImmunizationRecommendation) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ImmunizationRecommendation) ImmunizationRecommendationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationVaccineCode(numRecommendation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation) >= numRecommendation {
+		return CodeableConceptSelect("vaccineCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("vaccineCode", &resource.Recommendation[numRecommendation].VaccineCode[0], optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationTargetDisease(numRecommendation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation) >= numRecommendation {
+		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("targetDisease", &resource.Recommendation[numRecommendation].TargetDisease[0], optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationContraindicatedVaccineCode(numRecommendation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation) >= numRecommendation {
+		return CodeableConceptSelect("contraindicatedVaccineCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("contraindicatedVaccineCode", &resource.Recommendation[numRecommendation].ContraindicatedVaccineCode[0], optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationForecastStatus(numRecommendation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation) >= numRecommendation {
+		return CodeableConceptSelect("forecastStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("forecastStatus", &resource.Recommendation[numRecommendation].ForecastStatus, optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationForecastReason(numRecommendation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation) >= numRecommendation {
+		return CodeableConceptSelect("forecastReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("forecastReason", &resource.Recommendation[numRecommendation].ForecastReason[0], optionsValueSet)
+}
+func (resource *ImmunizationRecommendation) ImmunizationRecommendationRecommendationDateCriterionCode(numRecommendation int, numDateCriterion int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Recommendation[numRecommendation].DateCriterion) >= numDateCriterion {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Recommendation[numRecommendation].DateCriterion[numDateCriterion].Code, optionsValueSet)
 }

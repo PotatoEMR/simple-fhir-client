@@ -118,33 +118,89 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *InventoryItem) InventoryItemLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *InventoryItem) InventoryItemStatus() templ.Component {
 	optionsValueSet := VSInventoryitem_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemInventoryStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("inventoryStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("inventoryStatus", &resource.InventoryStatus[0], optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemBaseUnit(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("baseUnit", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("baseUnit", resource.BaseUnit, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemNameNameType(numName int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name) >= numName {
+		return CodingSelect("nameType", nil, optionsValueSet)
+	}
+	return CodingSelect("nameType", &resource.Name[numName].NameType, optionsValueSet)
 }
 func (resource *InventoryItem) InventoryItemNameLanguage(numName int) templ.Component {
 	optionsValueSet := VSLanguages
-	currentVal := ""
+
 	if resource != nil && len(resource.Name) >= numName {
-		currentVal = resource.Name[numName].Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", &resource.Name[numName].Language, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemResponsibleOrganizationRole(numResponsibleOrganization int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ResponsibleOrganization) >= numResponsibleOrganization {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", &resource.ResponsibleOrganization[numResponsibleOrganization].Role, optionsValueSet)
 }
 func (resource *InventoryItem) InventoryItemDescriptionLanguage() templ.Component {
 	optionsValueSet := VSLanguages
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Description.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Description.Language, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemAssociationAssociationType(numAssociation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Association) >= numAssociation {
+		return CodeableConceptSelect("associationType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("associationType", &resource.Association[numAssociation].AssociationType, optionsValueSet)
+}
+func (resource *InventoryItem) InventoryItemCharacteristicCharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("characteristicType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("characteristicType", &resource.Characteristic[numCharacteristic].CharacteristicType, optionsValueSet)
 }

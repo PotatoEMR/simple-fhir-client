@@ -264,33 +264,257 @@ func (r ClaimResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ClaimResponse) ClaimResponseLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ClaimResponse) ClaimResponseStatus() templ.Component {
 	optionsValueSet := VSFm_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseSubType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subType", resource.SubType, optionsValueSet)
 }
 func (resource *ClaimResponse) ClaimResponseUse() templ.Component {
 	optionsValueSet := VSClaim_use
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Use
+		return CodeSelect("use", nil, optionsValueSet)
 	}
-	return CodeSelect("use", currentVal, optionsValueSet)
+	return CodeSelect("use", &resource.Use, optionsValueSet)
 }
 func (resource *ClaimResponse) ClaimResponseOutcome() templ.Component {
 	optionsValueSet := VSClaim_outcome
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Outcome
+		return CodeSelect("outcome", nil, optionsValueSet)
 	}
-	return CodeSelect("outcome", currentVal, optionsValueSet)
+	return CodeSelect("outcome", &resource.Outcome, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseDecision(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("decision", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("decision", resource.Decision, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponsePayeeType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("payeeType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("payeeType", resource.PayeeType, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseDiagnosisRelatedGroup(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("diagnosisRelatedGroup", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("diagnosisRelatedGroup", resource.DiagnosisRelatedGroup, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseFundsReserve(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("fundsReserve", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("fundsReserve", resource.FundsReserve, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseFormCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("formCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseEventType(numEvent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Event) >= numEvent {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Event[numEvent].Type, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseItemReviewOutcomeDecision(numItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Item) >= numItem {
+		return CodeableConceptSelect("decision", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("decision", resource.Item[numItem].ReviewOutcome.Decision, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseItemReviewOutcomeReason(numItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Item) >= numItem {
+		return CodeableConceptSelect("reason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reason", &resource.Item[numItem].ReviewOutcome.Reason[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseItemAdjudicationCategory(numItem int, numAdjudication int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Item[numItem].Adjudication[numAdjudication].Category, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseItemAdjudicationReason(numItem int, numAdjudication int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Item[numItem].Adjudication) >= numAdjudication {
+		return CodeableConceptSelect("reason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reason", resource.Item[numItem].Adjudication[numAdjudication].Reason, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemRevenue(numAddItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem) >= numAddItem {
+		return CodeableConceptSelect("revenue", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Revenue, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemProductOrService(numAddItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem) >= numAddItem {
+		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].ProductOrService, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemProductOrServiceEnd(numAddItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem) >= numAddItem {
+		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].ProductOrServiceEnd, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemModifier(numAddItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem) >= numAddItem {
+		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Modifier[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemProgramCode(numAddItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem) >= numAddItem {
+		return CodeableConceptSelect("programCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("programCode", &resource.AddItem[numAddItem].ProgramCode[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemBodySiteSubSite(numAddItem int, numBodySite int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].BodySite) >= numBodySite {
+		return CodeableConceptSelect("subSite", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subSite", &resource.AddItem[numAddItem].BodySite[numBodySite].SubSite[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailRevenue(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+		return CodeableConceptSelect("revenue", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Detail[numDetail].Revenue, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailProductOrService(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].Detail[numDetail].ProductOrService, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailProductOrServiceEnd(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].Detail[numDetail].ProductOrServiceEnd, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailModifier(numAddItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail) >= numDetail {
+		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Detail[numDetail].Modifier[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailSubDetailRevenue(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+		return CodeableConceptSelect("revenue", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("revenue", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Revenue, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailSubDetailProductOrService(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrService", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrService, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailSubDetailProductOrServiceEnd(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+		return CodeableConceptSelect("productOrServiceEnd", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productOrServiceEnd", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrServiceEnd, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseAddItemDetailSubDetailModifier(numAddItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) >= numSubDetail {
+		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modifier", &resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[0], optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseTotalCategory(numTotal int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Total) >= numTotal {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Total[numTotal].Category, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponsePaymentType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Payment.Type, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponsePaymentAdjustmentReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("adjustmentReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("adjustmentReason", resource.Payment.AdjustmentReason, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseProcessNoteType(numProcessNote int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.ProcessNote[numProcessNote].Type, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseProcessNoteLanguage(numProcessNote int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ProcessNote) >= numProcessNote {
+		return CodeableConceptSelect("language", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("language", resource.ProcessNote[numProcessNote].Language, optionsValueSet)
+}
+func (resource *ClaimResponse) ClaimResponseErrorCode(numError int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Error) >= numError {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Error[numError].Code, optionsValueSet)
 }

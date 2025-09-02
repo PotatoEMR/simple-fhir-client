@@ -105,9 +105,86 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *PackagedProductDefinition) PackagedProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionCharacteristic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Code, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyJurisdiction(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Jurisdiction, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Package.Type, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageMaterial(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("material", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("material", &resource.Package.Material[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageAlternateMaterial(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("alternateMaterial", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("alternateMaterial", &resource.Package.AlternateMaterial[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageShelfLifeStorageType(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Package.ShelfLifeStorage) >= numShelfLifeStorage {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Package.ShelfLifeStorage[numShelfLifeStorage].Type, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageShelfLifeStorageSpecialPrecautionsForStorage(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Package.ShelfLifeStorage) >= numShelfLifeStorage {
+		return CodeableConceptSelect("specialPrecautionsForStorage", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialPrecautionsForStorage", &resource.Package.ShelfLifeStorage[numShelfLifeStorage].SpecialPrecautionsForStorage[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagePropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Package.Property) >= numProperty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Package.Property[numProperty].Type, optionsValueSet)
 }

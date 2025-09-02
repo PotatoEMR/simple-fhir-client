@@ -49,9 +49,37 @@ func (r MedicinalProductInteraction) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicinalProductInteraction) MedicinalProductInteractionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) MedicinalProductInteractionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) MedicinalProductInteractionEffect(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("effect", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("effect", resource.Effect, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) MedicinalProductInteractionIncidence(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("incidence", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("incidence", resource.Incidence, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) MedicinalProductInteractionManagement(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("management", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("management", resource.Management, optionsValueSet)
 }

@@ -83,35 +83,35 @@ type BundleEntryResponse struct {
 }
 
 func (resource *Bundle) BundleLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Bundle) BundleType() templ.Component {
 	optionsValueSet := VSBundle_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
 	optionsValueSet := VSSearch_entry_mode
-	currentVal := ""
+
 	if resource != nil && len(resource.Entry) >= numEntry {
-		currentVal = *resource.Entry[numEntry].Search.Mode
+		return CodeSelect("mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", currentVal, optionsValueSet)
+	return CodeSelect("mode", resource.Entry[numEntry].Search.Mode, optionsValueSet)
 }
 func (resource *Bundle) BundleEntryRequestMethod(numEntry int) templ.Component {
 	optionsValueSet := VSHttp_verb
-	currentVal := ""
+
 	if resource != nil && len(resource.Entry) >= numEntry {
-		currentVal = resource.Entry[numEntry].Request.Method
+		return CodeSelect("method", nil, optionsValueSet)
 	}
-	return CodeSelect("method", currentVal, optionsValueSet)
+	return CodeSelect("method", &resource.Entry[numEntry].Request.Method, optionsValueSet)
 }
 
 type OtherBundle Bundle

@@ -52,9 +52,16 @@ func (r SubstanceProtein) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SubstanceProtein) SubstanceProteinLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *SubstanceProtein) SubstanceProteinSequenceType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("sequenceType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("sequenceType", resource.SequenceType, optionsValueSet)
 }

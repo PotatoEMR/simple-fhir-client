@@ -90,17 +90,74 @@ func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *AdministrableProductDefinition) AdministrableProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *AdministrableProductDefinition) AdministrableProductDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionAdministrableDoseForm(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("administrableDoseForm", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("administrableDoseForm", resource.AdministrableDoseForm, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionUnitOfPresentation(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionIngredient(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("ingredient", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ingredient", &resource.Ingredient[0], optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionPropertyStatus(numProperty int) templ.Component {
+	optionsValueSet := VSPublication_status
+
+	if resource != nil && len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", resource.Property[numProperty].Status, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionRouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.RouteOfAdministration) >= numRouteOfAdministration {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].Code, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) >= numTargetSpecies {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].Code, optionsValueSet)
+}
+func (resource *AdministrableProductDefinition) AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) >= numWithdrawalPeriod {
+		return CodeableConceptSelect("tissue", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("tissue", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Tissue, optionsValueSet)
 }

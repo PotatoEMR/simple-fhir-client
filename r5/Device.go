@@ -124,33 +124,96 @@ func (r Device) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Device) DeviceLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Device) DeviceStatus() templ.Component {
 	optionsValueSet := VSDevice_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *Device) DeviceAvailabilityStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("availabilityStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("availabilityStatus", resource.AvailabilityStatus, optionsValueSet)
+}
+func (resource *Device) DeviceCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *Device) DeviceType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+}
+func (resource *Device) DeviceMode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("mode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("mode", resource.Mode, optionsValueSet)
+}
+func (resource *Device) DeviceSafety(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("safety", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("safety", &resource.Safety[0], optionsValueSet)
 }
 func (resource *Device) DeviceUdiCarrierEntryType(numUdiCarrier int) templ.Component {
 	optionsValueSet := VSUdi_entry_type
-	currentVal := ""
+
 	if resource != nil && len(resource.UdiCarrier) >= numUdiCarrier {
-		currentVal = *resource.UdiCarrier[numUdiCarrier].EntryType
+		return CodeSelect("entryType", nil, optionsValueSet)
 	}
-	return CodeSelect("entryType", currentVal, optionsValueSet)
+	return CodeSelect("entryType", resource.UdiCarrier[numUdiCarrier].EntryType, optionsValueSet)
 }
 func (resource *Device) DeviceNameType(numName int) templ.Component {
 	optionsValueSet := VSDevice_nametype
-	currentVal := ""
+
 	if resource != nil && len(resource.Name) >= numName {
-		currentVal = resource.Name[numName].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Name[numName].Type, optionsValueSet)
+}
+func (resource *Device) DeviceVersionType(numVersion int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Version) >= numVersion {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Version[numVersion].Type, optionsValueSet)
+}
+func (resource *Device) DeviceConformsToCategory(numConformsTo int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ConformsTo) >= numConformsTo {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.ConformsTo[numConformsTo].Category, optionsValueSet)
+}
+func (resource *Device) DeviceConformsToSpecification(numConformsTo int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ConformsTo) >= numConformsTo {
+		return CodeableConceptSelect("specification", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specification", &resource.ConformsTo[numConformsTo].Specification, optionsValueSet)
+}
+func (resource *Device) DevicePropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }

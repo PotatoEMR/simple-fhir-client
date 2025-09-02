@@ -52,25 +52,25 @@ func (r Person) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Person) PersonGender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Gender
+		return CodeSelect("gender", nil, optionsValueSet)
 	}
-	return CodeSelect("gender", currentVal, optionsValueSet)
+	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
 func (resource *Person) PersonLinkAssurance(numLink int) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
-	currentVal := ""
+
 	if resource != nil && len(resource.Link) >= numLink {
-		currentVal = *resource.Link[numLink].Assurance
+		return CodeSelect("assurance", nil, optionsValueSet)
 	}
-	return CodeSelect("assurance", currentVal, optionsValueSet)
+	return CodeSelect("assurance", resource.Link[numLink].Assurance, optionsValueSet)
 }

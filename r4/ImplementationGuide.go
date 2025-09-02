@@ -170,72 +170,79 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ImplementationGuide) ImplementationGuideJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Component {
 	optionsValueSet := VSSpdx_license
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.License
+		return CodeSelect("license", nil, optionsValueSet)
 	}
-	return CodeSelect("license", currentVal, optionsValueSet)
+	return CodeSelect("license", resource.License, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.FhirVersion[0]
+		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
-	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+	return CodeSelect("fhirVersion", &resource.FhirVersion[0], optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int) templ.Component {
 	optionsValueSet := VSResource_types
-	currentVal := ""
+
 	if resource != nil && len(resource.Global) >= numGlobal {
-		currentVal = resource.Global[numGlobal].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Global[numGlobal].Type, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVersion(numResource int) templ.Component {
 	optionsValueSet := VSFHIR_version
-	currentVal := ""
+
 	if resource != nil && len(resource.Definition.Resource) >= numResource {
-		currentVal = resource.Definition.Resource[numResource].FhirVersion[0]
+		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
-	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+	return CodeSelect("fhirVersion", &resource.Definition.Resource[numResource].FhirVersion[0], optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionPageGeneration() templ.Component {
 	optionsValueSet := VSGuide_page_generation
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Definition.Page.Generation
+		return CodeSelect("generation", nil, optionsValueSet)
 	}
-	return CodeSelect("generation", currentVal, optionsValueSet)
+	return CodeSelect("generation", &resource.Definition.Page.Generation, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionParameterCode(numParameter int) templ.Component {
 	optionsValueSet := VSGuide_parameter_code
-	currentVal := ""
+
 	if resource != nil && len(resource.Definition.Parameter) >= numParameter {
-		currentVal = resource.Definition.Parameter[numParameter].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Definition.Parameter[numParameter].Code, optionsValueSet)
 }
 func (resource *ImplementationGuide) ImplementationGuideDefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Definition.Template) >= numTemplate {
-		currentVal = resource.Definition.Template[numTemplate].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Definition.Template[numTemplate].Code, optionsValueSet)
 }

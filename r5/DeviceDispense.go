@@ -63,17 +63,38 @@ func (r DeviceDispense) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *DeviceDispense) DeviceDispenseLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceDispense) DeviceDispenseStatus() templ.Component {
 	optionsValueSet := VSDevicedispense_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *DeviceDispense) DeviceDispenseCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *DeviceDispense) DeviceDispenseType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *DeviceDispense) DeviceDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }

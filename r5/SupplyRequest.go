@@ -63,25 +63,39 @@ func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SupplyRequest) SupplyRequestLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SupplyRequest) SupplyRequestStatus() templ.Component {
 	optionsValueSet := VSSupplyrequest_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *SupplyRequest) SupplyRequestCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.Category, optionsValueSet)
 }
 func (resource *SupplyRequest) SupplyRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Priority
+		return CodeSelect("priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", currentVal, optionsValueSet)
+	return CodeSelect("priority", resource.Priority, optionsValueSet)
+}
+func (resource *SupplyRequest) SupplyRequestParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Parameter) >= numParameter {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Parameter[numParameter].Code, optionsValueSet)
 }

@@ -82,33 +82,47 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableTopic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("topic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableType() templ.Component {
 	optionsValueSet := VSVariable_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", resource.Type, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableCharacteristicGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
-	currentVal := ""
+
 	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
-		currentVal = *resource.Characteristic[numCharacteristic].GroupMeasure
+		return CodeSelect("groupMeasure", nil, optionsValueSet)
 	}
-	return CodeSelect("groupMeasure", currentVal, optionsValueSet)
+	return CodeSelect("groupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet)
 }

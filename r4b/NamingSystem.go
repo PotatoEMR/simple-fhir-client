@@ -58,33 +58,47 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *NamingSystem) NamingSystemLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemKind() templ.Component {
 	optionsValueSet := VSNamingsystem_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Kind
+		return CodeSelect("kind", nil, optionsValueSet)
 	}
-	return CodeSelect("kind", currentVal, optionsValueSet)
+	return CodeSelect("kind", &resource.Kind, optionsValueSet)
+}
+func (resource *NamingSystem) NamingSystemType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *NamingSystem) NamingSystemJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *NamingSystem) NamingSystemUniqueIdType(numUniqueId int) templ.Component {
 	optionsValueSet := VSNamingsystem_identifier_type
-	currentVal := ""
+
 	if resource != nil && len(resource.UniqueId) >= numUniqueId {
-		currentVal = resource.UniqueId[numUniqueId].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.UniqueId[numUniqueId].Type, optionsValueSet)
 }

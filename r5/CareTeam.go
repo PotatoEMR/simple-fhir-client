@@ -56,17 +56,31 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *CareTeam) CareTeamLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *CareTeam) CareTeamStatus() templ.Component {
 	optionsValueSet := VSCare_team_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *CareTeam) CareTeamCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *CareTeam) CareTeamParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Participant) >= numParticipant {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)
 }

@@ -65,17 +65,45 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *RiskAssessment) RiskAssessmentLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *RiskAssessment) RiskAssessmentStatus() templ.Component {
 	optionsValueSet := VSObservation_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *RiskAssessment) RiskAssessmentMethod(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("method", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
+}
+func (resource *RiskAssessment) RiskAssessmentCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+}
+func (resource *RiskAssessment) RiskAssessmentPredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Prediction) >= numPrediction {
+		return CodeableConceptSelect("outcome", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
+}
+func (resource *RiskAssessment) RiskAssessmentPredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Prediction) >= numPrediction {
+		return CodeableConceptSelect("qualitativeRisk", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("qualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet)
 }

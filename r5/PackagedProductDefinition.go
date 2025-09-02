@@ -95,9 +95,65 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *PackagedProductDefinition) PackagedProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Code, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyJurisdiction(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Jurisdiction, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagingType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Packaging.Type, optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagingMaterial(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("material", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("material", &resource.Packaging.Material[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagingAlternateMaterial(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("alternateMaterial", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("alternateMaterial", &resource.Packaging.AlternateMaterial[0], optionsValueSet)
+}
+func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagingPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Packaging.Property) >= numProperty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Packaging.Property[numProperty].Type, optionsValueSet)
 }

@@ -69,25 +69,32 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *OperationOutcome) OperationOutcomeLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *OperationOutcome) OperationOutcomeIssueSeverity(numIssue int) templ.Component {
 	optionsValueSet := VSIssue_severity
-	currentVal := ""
+
 	if resource != nil && len(resource.Issue) >= numIssue {
-		currentVal = resource.Issue[numIssue].Severity
+		return CodeSelect("severity", nil, optionsValueSet)
 	}
-	return CodeSelect("severity", currentVal, optionsValueSet)
+	return CodeSelect("severity", &resource.Issue[numIssue].Severity, optionsValueSet)
 }
 func (resource *OperationOutcome) OperationOutcomeIssueCode(numIssue int) templ.Component {
 	optionsValueSet := VSIssue_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Issue) >= numIssue {
-		currentVal = resource.Issue[numIssue].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Issue[numIssue].Code, optionsValueSet)
+}
+func (resource *OperationOutcome) OperationOutcomeIssueDetails(numIssue int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Issue) >= numIssue {
+		return CodeableConceptSelect("details", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("details", resource.Issue[numIssue].Details, optionsValueSet)
 }

@@ -88,33 +88,47 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCategory() templ.Component {
 	optionsValueSet := VSProduct_category
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.ProductCategory
+		return CodeSelect("productCategory", nil, optionsValueSet)
 	}
-	return CodeSelect("productCategory", currentVal, optionsValueSet)
+	return CodeSelect("productCategory", resource.ProductCategory, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("productCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductStatus() templ.Component {
 	optionsValueSet := VSProduct_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProcessingProcedure(numProcessing int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Processing) >= numProcessing {
+		return CodeableConceptSelect("procedure", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("procedure", resource.Processing[numProcessing].Procedure, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductStorageScale(numStorage int) templ.Component {
 	optionsValueSet := VSProduct_storage_scale
-	currentVal := ""
+
 	if resource != nil && len(resource.Storage) >= numStorage {
-		currentVal = *resource.Storage[numStorage].Scale
+		return CodeSelect("scale", nil, optionsValueSet)
 	}
-	return CodeSelect("scale", currentVal, optionsValueSet)
+	return CodeSelect("scale", resource.Storage[numStorage].Scale, optionsValueSet)
 }

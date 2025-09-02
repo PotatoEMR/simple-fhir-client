@@ -44,24 +44,38 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Endpoint) EndpointStatus() templ.Component {
 	optionsValueSet := VSEndpoint_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Endpoint) EndpointConnectionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("connectionType", nil, optionsValueSet)
+	}
+	return CodingSelect("connectionType", &resource.ConnectionType, optionsValueSet)
+}
+func (resource *Endpoint) EndpointPayloadType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("payloadType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("payloadType", &resource.PayloadType[0], optionsValueSet)
 }
 func (resource *Endpoint) EndpointPayloadMimeType(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.PayloadMimeType[0]
+		return CodeSelect("payloadMimeType", nil, optionsValueSet)
 	}
-	return CodeSelect("payloadMimeType", currentVal, optionsValueSet)
+	return CodeSelect("payloadMimeType", &resource.PayloadMimeType[0], optionsValueSet)
 }

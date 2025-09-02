@@ -120,25 +120,102 @@ func (r NutritionOrder) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *NutritionOrder) NutritionOrderLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *NutritionOrder) NutritionOrderStatus() templ.Component {
 	optionsValueSet := VSRequest_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *NutritionOrder) NutritionOrderIntent() templ.Component {
 	optionsValueSet := VSRequest_intent
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Intent
+		return CodeSelect("intent", nil, optionsValueSet)
 	}
-	return CodeSelect("intent", currentVal, optionsValueSet)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderFoodPreferenceModifier(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("foodPreferenceModifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("foodPreferenceModifier", &resource.FoodPreferenceModifier[0], optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderExcludeFoodModifier(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("excludeFoodModifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("excludeFoodModifier", &resource.ExcludeFoodModifier[0], optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderOralDietType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.OralDiet.Type[0], optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderOralDietFluidConsistencyType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("fluidConsistencyType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("fluidConsistencyType", &resource.OralDiet.FluidConsistencyType[0], optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderOralDietNutrientModifier(numNutrient int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.OralDiet.Nutrient) >= numNutrient {
+		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modifier", resource.OralDiet.Nutrient[numNutrient].Modifier, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderOralDietTextureModifier(numTexture int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.OralDiet.Texture) >= numTexture {
+		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modifier", resource.OralDiet.Texture[numTexture].Modifier, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderOralDietTextureFoodType(numTexture int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.OralDiet.Texture) >= numTexture {
+		return CodeableConceptSelect("foodType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("foodType", resource.OralDiet.Texture[numTexture].FoodType, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderSupplementType(numSupplement int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Supplement) >= numSupplement {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Supplement[numSupplement].Type, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderEnteralFormulaBaseFormulaType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("baseFormulaType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("baseFormulaType", resource.EnteralFormula.BaseFormulaType, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderEnteralFormulaAdditiveType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("additiveType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("additiveType", resource.EnteralFormula.AdditiveType, optionsValueSet)
+}
+func (resource *NutritionOrder) NutritionOrderEnteralFormulaRouteofAdministration(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("routeofAdministration", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("routeofAdministration", resource.EnteralFormula.RouteofAdministration, optionsValueSet)
 }

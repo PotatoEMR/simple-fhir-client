@@ -95,49 +95,70 @@ func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ResearchElementDefinition) ResearchElementDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ResearchElementDefinition) ResearchElementDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *ResearchElementDefinition) ResearchElementDefinitionTopic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("topic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionType() templ.Component {
 	optionsValueSet := VSResearch_element_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionVariableType() templ.Component {
 	optionsValueSet := VSVariable_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.VariableType
+		return CodeSelect("variableType", nil, optionsValueSet)
 	}
-	return CodeSelect("variableType", currentVal, optionsValueSet)
+	return CodeSelect("variableType", resource.VariableType, optionsValueSet)
+}
+func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicUnitOfMeasure(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("unitOfMeasure", resource.Characteristic[numCharacteristic].UnitOfMeasure, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicStudyEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
-	currentVal := ""
+
 	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
-		currentVal = *resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure
+		return CodeSelect("studyEffectiveGroupMeasure", nil, optionsValueSet)
 	}
-	return CodeSelect("studyEffectiveGroupMeasure", currentVal, optionsValueSet)
+	return CodeSelect("studyEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure, optionsValueSet)
 }
 func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicParticipantEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
-	currentVal := ""
+
 	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
-		currentVal = *resource.Characteristic[numCharacteristic].ParticipantEffectiveGroupMeasure
+		return CodeSelect("participantEffectiveGroupMeasure", nil, optionsValueSet)
 	}
-	return CodeSelect("participantEffectiveGroupMeasure", currentVal, optionsValueSet)
+	return CodeSelect("participantEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].ParticipantEffectiveGroupMeasure, optionsValueSet)
 }

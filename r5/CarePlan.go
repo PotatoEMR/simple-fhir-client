@@ -66,25 +66,32 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanStatus() templ.Component {
 	optionsValueSet := VSRequest_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *CarePlan) CarePlanIntent() templ.Component {
 	optionsValueSet := VSCare_plan_intent
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Intent
+		return CodeSelect("intent", nil, optionsValueSet)
 	}
-	return CodeSelect("intent", currentVal, optionsValueSet)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet)
+}
+func (resource *CarePlan) CarePlanCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }

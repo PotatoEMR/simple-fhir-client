@@ -96,41 +96,48 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableCharacteristicCombination() templ.Component {
 	optionsValueSet := VSCharacteristic_combination
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.CharacteristicCombination
+		return CodeSelect("characteristicCombination", nil, optionsValueSet)
 	}
-	return CodeSelect("characteristicCombination", currentVal, optionsValueSet)
+	return CodeSelect("characteristicCombination", resource.CharacteristicCombination, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
 	optionsValueSet := VSVariable_handling
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Handling
+		return CodeSelect("handling", nil, optionsValueSet)
 	}
-	return CodeSelect("handling", currentVal, optionsValueSet)
+	return CodeSelect("handling", resource.Handling, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("method", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("method", resource.Characteristic[numCharacteristic].Method, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableCharacteristicGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
-	currentVal := ""
+
 	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
-		currentVal = *resource.Characteristic[numCharacteristic].GroupMeasure
+		return CodeSelect("groupMeasure", nil, optionsValueSet)
 	}
-	return CodeSelect("groupMeasure", currentVal, optionsValueSet)
+	return CodeSelect("groupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet)
 }

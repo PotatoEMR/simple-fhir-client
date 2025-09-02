@@ -76,9 +76,72 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Condition) ConditionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *Condition) ConditionClinicalStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("clinicalStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("clinicalStatus", &resource.ClinicalStatus, optionsValueSet)
+}
+func (resource *Condition) ConditionVerificationStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("verificationStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("verificationStatus", resource.VerificationStatus, optionsValueSet)
+}
+func (resource *Condition) ConditionCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *Condition) ConditionSeverity(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("severity", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet)
+}
+func (resource *Condition) ConditionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+}
+func (resource *Condition) ConditionBodySite(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
+}
+func (resource *Condition) ConditionParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Participant) >= numParticipant {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Participant[numParticipant].Function, optionsValueSet)
+}
+func (resource *Condition) ConditionStageSummary(numStage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Stage) >= numStage {
+		return CodeableConceptSelect("summary", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("summary", resource.Stage[numStage].Summary, optionsValueSet)
+}
+func (resource *Condition) ConditionStageType(numStage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Stage) >= numStage {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Stage[numStage].Type, optionsValueSet)
 }

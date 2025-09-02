@@ -169,106 +169,120 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *ConceptMap) ConceptMapTopic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("topic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Property) >= numProperty {
-		currentVal = resource.Property[numProperty].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Property[numProperty].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapPropertyType(numProperty int) templ.Component {
 	optionsValueSet := VSConceptmap_property_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Property) >= numProperty {
-		currentVal = resource.Property[numProperty].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapAdditionalAttributeCode(numAdditionalAttribute int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.AdditionalAttribute) >= numAdditionalAttribute {
-		currentVal = resource.AdditionalAttribute[numAdditionalAttribute].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.AdditionalAttribute[numAdditionalAttribute].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapAdditionalAttributeType(numAdditionalAttribute int) templ.Component {
 	optionsValueSet := VSConceptmap_attribute_type
-	currentVal := ""
+
 	if resource != nil && len(resource.AdditionalAttribute) >= numAdditionalAttribute {
-		currentVal = resource.AdditionalAttribute[numAdditionalAttribute].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.AdditionalAttribute[numAdditionalAttribute].Type, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Group[numGroup].Element) >= numElement {
-		currentVal = *resource.Group[numGroup].Element[numElement].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		currentVal = *resource.Group[numGroup].Element[numElement].Target[numTarget].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementTargetRelationship(numGroup int, numElement int, numTarget int) templ.Component {
 	optionsValueSet := VSConcept_map_relationship
-	currentVal := ""
+
 	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		currentVal = resource.Group[numGroup].Element[numElement].Target[numTarget].Relationship
+		return CodeSelect("relationship", nil, optionsValueSet)
 	}
-	return CodeSelect("relationship", currentVal, optionsValueSet)
+	return CodeSelect("relationship", &resource.Group[numGroup].Element[numElement].Target[numTarget].Relationship, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementTargetPropertyCode(numGroup int, numElement int, numTarget int, numProperty int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target[numTarget].Property) >= numProperty {
-		currentVal = resource.Group[numGroup].Element[numElement].Target[numTarget].Property[numProperty].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Group[numGroup].Element[numElement].Target[numTarget].Property[numProperty].Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupElementTargetDependsOnAttribute(numGroup int, numElement int, numTarget int, numDependsOn int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		currentVal = resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Attribute
+		return CodeSelect("attribute", nil, optionsValueSet)
 	}
-	return CodeSelect("attribute", currentVal, optionsValueSet)
+	return CodeSelect("attribute", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Attribute, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
-	currentVal := ""
+
 	if resource != nil && len(resource.Group) >= numGroup {
-		currentVal = resource.Group[numGroup].Unmapped.Mode
+		return CodeSelect("mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", currentVal, optionsValueSet)
+	return CodeSelect("mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Group) >= numGroup {
-		currentVal = *resource.Group[numGroup].Unmapped.Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", resource.Group[numGroup].Unmapped.Code, optionsValueSet)
 }
 func (resource *ConceptMap) ConceptMapGroupUnmappedRelationship(numGroup int) templ.Component {
 	optionsValueSet := VSConcept_map_relationship
-	currentVal := ""
+
 	if resource != nil && len(resource.Group) >= numGroup {
-		currentVal = *resource.Group[numGroup].Unmapped.Relationship
+		return CodeSelect("relationship", nil, optionsValueSet)
 	}
-	return CodeSelect("relationship", currentVal, optionsValueSet)
+	return CodeSelect("relationship", resource.Group[numGroup].Unmapped.Relationship, optionsValueSet)
 }

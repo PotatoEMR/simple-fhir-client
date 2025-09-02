@@ -7,6 +7,7 @@ import (
 	"path"
 	"regexp"
 	"slices"
+	"sort"
 	"strings"
 )
 
@@ -178,8 +179,15 @@ func GenValuesets(spec_vs, generateVSDirVer, fhirVersion string) []string {
 		}
 	}
 
-	// Write string variables
-	for varName, originalValue := range stringVars {
+	// sorted order maybe needed to avoid random git diff or not idk
+	keys := make([]string, 0, len(stringVars))
+	for k := range stringVars {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, varName := range keys {
+		originalValue := stringVars[varName]
 		escaped := strings.ReplaceAll(originalValue, `"`, `\"`)
 		escaped = strings.ReplaceAll(escaped, "\n", " ")
 		sb.WriteString("var " + varName + " = \"" + escaped + "\"\n")

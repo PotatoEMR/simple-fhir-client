@@ -110,94 +110,101 @@ func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *OperationDefinition) OperationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionKind() templ.Component {
 	optionsValueSet := VSOperation_kind
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Kind
+		return CodeSelect("kind", nil, optionsValueSet)
 	}
-	return CodeSelect("kind", currentVal, optionsValueSet)
+	return CodeSelect("kind", &resource.Kind, optionsValueSet)
+}
+func (resource *OperationDefinition) OperationDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionCode(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Code, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionResource(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Resource[0]
+		return CodeSelect("resource", nil, optionsValueSet)
 	}
-	return CodeSelect("resource", currentVal, optionsValueSet)
+	return CodeSelect("resource", &resource.Resource[0], optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = resource.Parameter[numParameter].Name
+		return CodeSelect("name", nil, optionsValueSet)
 	}
-	return CodeSelect("name", currentVal, optionsValueSet)
+	return CodeSelect("name", &resource.Parameter[numParameter].Name, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterUse(numParameter int) templ.Component {
 	optionsValueSet := VSOperation_parameter_use
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = resource.Parameter[numParameter].Use
+		return CodeSelect("use", nil, optionsValueSet)
 	}
-	return CodeSelect("use", currentVal, optionsValueSet)
+	return CodeSelect("use", &resource.Parameter[numParameter].Use, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterScope(numParameter int) templ.Component {
 	optionsValueSet := VSOperation_parameter_scope
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = resource.Parameter[numParameter].Scope[0]
+		return CodeSelect("scope", nil, optionsValueSet)
 	}
-	return CodeSelect("scope", currentVal, optionsValueSet)
+	return CodeSelect("scope", &resource.Parameter[numParameter].Scope[0], optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterType(numParameter int) templ.Component {
 	optionsValueSet := VSFhir_types
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = *resource.Parameter[numParameter].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", resource.Parameter[numParameter].Type, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterAllowedType(numParameter int) templ.Component {
 	optionsValueSet := VSFhir_types
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = resource.Parameter[numParameter].AllowedType[0]
+		return CodeSelect("allowedType", nil, optionsValueSet)
 	}
-	return CodeSelect("allowedType", currentVal, optionsValueSet)
+	return CodeSelect("allowedType", &resource.Parameter[numParameter].AllowedType[0], optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterSearchType(numParameter int) templ.Component {
 	optionsValueSet := VSSearch_param_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = *resource.Parameter[numParameter].SearchType
+		return CodeSelect("searchType", nil, optionsValueSet)
 	}
-	return CodeSelect("searchType", currentVal, optionsValueSet)
+	return CodeSelect("searchType", resource.Parameter[numParameter].SearchType, optionsValueSet)
 }
 func (resource *OperationDefinition) OperationDefinitionParameterBindingStrength(numParameter int) templ.Component {
 	optionsValueSet := VSBinding_strength
-	currentVal := ""
+
 	if resource != nil && len(resource.Parameter) >= numParameter {
-		currentVal = resource.Parameter[numParameter].Binding.Strength
+		return CodeSelect("strength", nil, optionsValueSet)
 	}
-	return CodeSelect("strength", currentVal, optionsValueSet)
+	return CodeSelect("strength", &resource.Parameter[numParameter].Binding.Strength, optionsValueSet)
 }

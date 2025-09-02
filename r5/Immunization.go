@@ -102,17 +102,87 @@ func (r Immunization) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Immunization) ImmunizationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Immunization) ImmunizationStatus() templ.Component {
 	optionsValueSet := VSImmunization_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationStatusReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationVaccineCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("vaccineCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("vaccineCode", &resource.VaccineCode, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationSite(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("site", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("site", resource.Site, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationRoute(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("route", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("route", resource.Route, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationSubpotentReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subpotentReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subpotentReason", &resource.SubpotentReason[0], optionsValueSet)
+}
+func (resource *Immunization) ImmunizationFundingSource(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("fundingSource", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("fundingSource", resource.FundingSource, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationProgramEligibilityProgram(numProgramEligibility int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ProgramEligibility) >= numProgramEligibility {
+		return CodeableConceptSelect("program", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("program", &resource.ProgramEligibility[numProgramEligibility].Program, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationProgramEligibilityProgramStatus(numProgramEligibility int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ProgramEligibility) >= numProgramEligibility {
+		return CodeableConceptSelect("programStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("programStatus", &resource.ProgramEligibility[numProgramEligibility].ProgramStatus, optionsValueSet)
+}
+func (resource *Immunization) ImmunizationProtocolAppliedTargetDisease(numProtocolApplied int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ProtocolApplied) >= numProtocolApplied {
+		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("targetDisease", &resource.ProtocolApplied[numProtocolApplied].TargetDisease[0], optionsValueSet)
 }

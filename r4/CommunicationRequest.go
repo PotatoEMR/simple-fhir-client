@@ -66,25 +66,53 @@ func (r CommunicationRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *CommunicationRequest) CommunicationRequestLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *CommunicationRequest) CommunicationRequestStatus() templ.Component {
 	optionsValueSet := VSRequest_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *CommunicationRequest) CommunicationRequestStatusReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *CommunicationRequest) CommunicationRequestCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
 func (resource *CommunicationRequest) CommunicationRequestPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Priority
+		return CodeSelect("priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", currentVal, optionsValueSet)
+	return CodeSelect("priority", resource.Priority, optionsValueSet)
+}
+func (resource *CommunicationRequest) CommunicationRequestMedium(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("medium", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("medium", &resource.Medium[0], optionsValueSet)
+}
+func (resource *CommunicationRequest) CommunicationRequestReasonCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }

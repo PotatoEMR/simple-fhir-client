@@ -62,17 +62,38 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ClinicalImpression) ClinicalImpressionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ClinicalImpression) ClinicalImpressionStatus() templ.Component {
 	optionsValueSet := VSEvent_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionStatusReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionChangePattern(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("changePattern", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("changePattern", resource.ChangePattern, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionPrognosisCodeableConcept(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("prognosisCodeableConcept", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("prognosisCodeableConcept", &resource.PrognosisCodeableConcept[0], optionsValueSet)
 }

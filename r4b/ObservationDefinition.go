@@ -72,33 +72,82 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ObservationDefinition) ObservationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
 func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() templ.Component {
 	optionsValueSet := VSPermitted_data_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.PermittedDataType[0]
+		return CodeSelect("permittedDataType", nil, optionsValueSet)
 	}
-	return CodeSelect("permittedDataType", currentVal, optionsValueSet)
+	return CodeSelect("permittedDataType", &resource.PermittedDataType[0], optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionMethod(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("method", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQuantitativeDetailsCustomaryUnit(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("customaryUnit", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("customaryUnit", resource.QuantitativeDetails.CustomaryUnit, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQuantitativeDetailsUnit(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("unit", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("unit", resource.QuantitativeDetails.Unit, optionsValueSet)
 }
 func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalCategory(numQualifiedInterval int) templ.Component {
 	optionsValueSet := VSObservation_range_category
-	currentVal := ""
+
 	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
-		currentVal = *resource.QualifiedInterval[numQualifiedInterval].Category
+		return CodeSelect("category", nil, optionsValueSet)
 	}
-	return CodeSelect("category", currentVal, optionsValueSet)
+	return CodeSelect("category", resource.QualifiedInterval[numQualifiedInterval].Category, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalContext(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
+		return CodeableConceptSelect("context", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("context", resource.QualifiedInterval[numQualifiedInterval].Context, optionsValueSet)
+}
+func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalAppliesTo(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
+		return CodeableConceptSelect("appliesTo", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("appliesTo", &resource.QualifiedInterval[numQualifiedInterval].AppliesTo[0], optionsValueSet)
 }
 func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalGender(numQualifiedInterval int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
-	currentVal := ""
+
 	if resource != nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
-		currentVal = *resource.QualifiedInterval[numQualifiedInterval].Gender
+		return CodeSelect("gender", nil, optionsValueSet)
 	}
-	return CodeSelect("gender", currentVal, optionsValueSet)
+	return CodeSelect("gender", resource.QualifiedInterval[numQualifiedInterval].Gender, optionsValueSet)
 }

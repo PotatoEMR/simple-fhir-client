@@ -148,25 +148,102 @@ func (r Evidence) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Evidence) EvidenceLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Evidence) EvidenceStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Evidence) EvidenceSynthesisType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("synthesisType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStudyType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("studyType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet)
+}
+func (resource *Evidence) EvidenceVariableDefinitionVariableRole(numVariableDefinition int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.VariableDefinition) >= numVariableDefinition {
+		return CodeableConceptSelect("variableRole", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("variableRole", &resource.VariableDefinition[numVariableDefinition].VariableRole, optionsValueSet)
+}
+func (resource *Evidence) EvidenceVariableDefinitionDirectnessMatch(numVariableDefinition int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.VariableDefinition) >= numVariableDefinition {
+		return CodeableConceptSelect("directnessMatch", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("directnessMatch", resource.VariableDefinition[numVariableDefinition].DirectnessMatch, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticStatisticType(numStatistic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Statistic) >= numStatistic {
+		return CodeableConceptSelect("statisticType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statisticType", resource.Statistic[numStatistic].StatisticType, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticCategory(numStatistic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Statistic) >= numStatistic {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.Statistic[numStatistic].Category, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticAttributeEstimateType(numStatistic int, numAttributeEstimate int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Statistic[numStatistic].AttributeEstimate) >= numAttributeEstimate {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Type, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticModelCharacteristicCode(numStatistic int, numModelCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Statistic[numStatistic].ModelCharacteristic) >= numModelCharacteristic {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Code, optionsValueSet)
 }
 func (resource *Evidence) EvidenceStatisticModelCharacteristicVariableHandling(numStatistic int, numModelCharacteristic int, numVariable int) templ.Component {
 	optionsValueSet := VSVariable_handling
-	currentVal := ""
+
 	if resource != nil && len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable) >= numVariable {
-		currentVal = *resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].Handling
+		return CodeSelect("handling", nil, optionsValueSet)
 	}
-	return CodeSelect("handling", currentVal, optionsValueSet)
+	return CodeSelect("handling", resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].Handling, optionsValueSet)
+}
+func (resource *Evidence) EvidenceStatisticModelCharacteristicVariableValueCategory(numStatistic int, numModelCharacteristic int, numVariable int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable) >= numVariable {
+		return CodeableConceptSelect("valueCategory", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("valueCategory", &resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].ValueCategory[0], optionsValueSet)
+}
+func (resource *Evidence) EvidenceCertaintyType(numCertainty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Certainty) >= numCertainty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Certainty[numCertainty].Type, optionsValueSet)
+}
+func (resource *Evidence) EvidenceCertaintyRating(numCertainty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Certainty) >= numCertainty {
+		return CodeableConceptSelect("rating", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("rating", resource.Certainty[numCertainty].Rating, optionsValueSet)
 }

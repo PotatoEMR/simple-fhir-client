@@ -38,9 +38,30 @@ func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectSymptomConditionEffect(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("symptomConditionEffect", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("symptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet)
+}
+func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectClassification(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("classification", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("classification", resource.Classification, optionsValueSet)
+}
+func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectFrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("frequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet)
 }

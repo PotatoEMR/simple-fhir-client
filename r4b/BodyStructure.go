@@ -41,9 +41,30 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *BodyStructure) BodyStructureLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *BodyStructure) BodyStructureMorphology(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("morphology", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("morphology", resource.Morphology, optionsValueSet)
+}
+func (resource *BodyStructure) BodyStructureLocation(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("location", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("location", resource.Location, optionsValueSet)
+}
+func (resource *BodyStructure) BodyStructureLocationQualifier(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("locationQualifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("locationQualifier", &resource.LocationQualifier[0], optionsValueSet)
 }

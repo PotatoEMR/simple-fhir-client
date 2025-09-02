@@ -131,84 +131,112 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *CodeSystem) CodeSystemLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemTopic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("topic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemHierarchyMeaning() templ.Component {
 	optionsValueSet := VSCodesystem_hierarchy_meaning
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.HierarchyMeaning
+		return CodeSelect("hierarchyMeaning", nil, optionsValueSet)
 	}
-	return CodeSelect("hierarchyMeaning", currentVal, optionsValueSet)
+	return CodeSelect("hierarchyMeaning", resource.HierarchyMeaning, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemContent() templ.Component {
 	optionsValueSet := VSCodesystem_content_mode
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Content
+		return CodeSelect("content", nil, optionsValueSet)
 	}
-	return CodeSelect("content", currentVal, optionsValueSet)
+	return CodeSelect("content", &resource.Content, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemFilterCode(numFilter int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Filter) >= numFilter {
-		currentVal = resource.Filter[numFilter].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Filter[numFilter].Code, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemFilterOperator(numFilter int) templ.Component {
 	optionsValueSet := VSFilter_operator
-	currentVal := ""
+
 	if resource != nil && len(resource.Filter) >= numFilter {
-		currentVal = resource.Filter[numFilter].Operator[0]
+		return CodeSelect("operator", nil, optionsValueSet)
 	}
-	return CodeSelect("operator", currentVal, optionsValueSet)
+	return CodeSelect("operator", &resource.Filter[numFilter].Operator[0], optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Property) >= numProperty {
-		currentVal = resource.Property[numProperty].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Property[numProperty].Code, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemPropertyType(numProperty int) templ.Component {
 	optionsValueSet := VSConcept_property_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Property) >= numProperty {
-		currentVal = resource.Property[numProperty].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemConceptCode(numConcept int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Concept) >= numConcept {
-		currentVal = resource.Concept[numConcept].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Concept[numConcept].Code, optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemConceptDesignationLanguage(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
-		currentVal = *resource.Concept[numConcept].Designation[numDesignation].Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemConceptDesignationUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return CodingSelect("use", nil, optionsValueSet)
+	}
+	return CodingSelect("use", resource.Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
+}
+func (resource *CodeSystem) CodeSystemConceptDesignationAdditionalUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return CodingSelect("additionalUse", nil, optionsValueSet)
+	}
+	return CodingSelect("additionalUse", &resource.Concept[numConcept].Designation[numDesignation].AdditionalUse[0], optionsValueSet)
 }
 func (resource *CodeSystem) CodeSystemConceptPropertyCode(numConcept int, numProperty int, optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil && len(resource.Concept[numConcept].Property) >= numProperty {
-		currentVal = resource.Concept[numConcept].Property[numProperty].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Concept[numConcept].Property[numProperty].Code, optionsValueSet)
 }

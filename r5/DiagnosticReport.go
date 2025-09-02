@@ -73,17 +73,45 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *DiagnosticReport) DiagnosticReportLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *DiagnosticReport) DiagnosticReportStatus() templ.Component {
 	optionsValueSet := VSDiagnostic_report_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *DiagnosticReport) DiagnosticReportCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *DiagnosticReport) DiagnosticReportCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+}
+func (resource *DiagnosticReport) DiagnosticReportConclusionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("conclusionCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("conclusionCode", &resource.ConclusionCode[0], optionsValueSet)
+}
+func (resource *DiagnosticReport) DiagnosticReportSupportingInfoType(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.SupportingInfo) >= numSupportingInfo {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.SupportingInfo[numSupportingInfo].Type, optionsValueSet)
 }

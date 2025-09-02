@@ -101,33 +101,96 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Consent) ConsentStatus() templ.Component {
 	optionsValueSet := VSConsent_state_codes
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Consent) ConsentScope(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("scope", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("scope", &resource.Scope, optionsValueSet)
+}
+func (resource *Consent) ConsentCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *Consent) ConsentPolicyRule(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("policyRule", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("policyRule", resource.PolicyRule, optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionType() templ.Component {
 	optionsValueSet := VSConsent_provision_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Provision.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", resource.Provision.Type, optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionAction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("action", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("action", &resource.Provision.Action[0], optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionSecurityLabel(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("securityLabel", nil, optionsValueSet)
+	}
+	return CodingSelect("securityLabel", &resource.Provision.SecurityLabel[0], optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionPurpose(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("purpose", nil, optionsValueSet)
+	}
+	return CodingSelect("purpose", &resource.Provision.Purpose[0], optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionClass(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("class", nil, optionsValueSet)
+	}
+	return CodingSelect("class", &resource.Provision.Class[0], optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Provision.Code[0], optionsValueSet)
+}
+func (resource *Consent) ConsentProvisionActorRole(numActor int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Provision.Actor) >= numActor {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", &resource.Provision.Actor[numActor].Role, optionsValueSet)
 }
 func (resource *Consent) ConsentProvisionDataMeaning(numData int) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
-	currentVal := ""
+
 	if resource != nil && len(resource.Provision.Data) >= numData {
-		currentVal = resource.Provision.Data[numData].Meaning
+		return CodeSelect("meaning", nil, optionsValueSet)
 	}
-	return CodeSelect("meaning", currentVal, optionsValueSet)
+	return CodeSelect("meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet)
 }

@@ -51,25 +51,32 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SubscriptionStatus) SubscriptionStatusLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SubscriptionStatus) SubscriptionStatusStatus() templ.Component {
 	optionsValueSet := VSSubscription_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
 }
 func (resource *SubscriptionStatus) SubscriptionStatusType() templ.Component {
 	optionsValueSet := VSSubscription_notification_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Type, optionsValueSet)
+}
+func (resource *SubscriptionStatus) SubscriptionStatusError(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("error", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("error", &resource.Error[0], optionsValueSet)
 }

@@ -63,33 +63,47 @@ func (r ArtifactAssessment) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ArtifactAssessment) ArtifactAssessmentLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ArtifactAssessment) ArtifactAssessmentWorkflowStatus() templ.Component {
 	optionsValueSet := VSArtifactassessment_workflow_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.WorkflowStatus
+		return CodeSelect("workflowStatus", nil, optionsValueSet)
 	}
-	return CodeSelect("workflowStatus", currentVal, optionsValueSet)
+	return CodeSelect("workflowStatus", resource.WorkflowStatus, optionsValueSet)
 }
 func (resource *ArtifactAssessment) ArtifactAssessmentDisposition() templ.Component {
 	optionsValueSet := VSArtifactassessment_disposition
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Disposition
+		return CodeSelect("disposition", nil, optionsValueSet)
 	}
-	return CodeSelect("disposition", currentVal, optionsValueSet)
+	return CodeSelect("disposition", resource.Disposition, optionsValueSet)
 }
 func (resource *ArtifactAssessment) ArtifactAssessmentContentInformationType(numContent int) templ.Component {
 	optionsValueSet := VSArtifactassessment_information_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Content) >= numContent {
-		currentVal = *resource.Content[numContent].InformationType
+		return CodeSelect("informationType", nil, optionsValueSet)
 	}
-	return CodeSelect("informationType", currentVal, optionsValueSet)
+	return CodeSelect("informationType", resource.Content[numContent].InformationType, optionsValueSet)
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentContentType(numContent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Content) >= numContent {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Content[numContent].Type, optionsValueSet)
+}
+func (resource *ArtifactAssessment) ArtifactAssessmentContentClassifier(numContent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Content) >= numContent {
+		return CodeableConceptSelect("classifier", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("classifier", &resource.Content[numContent].Classifier[0], optionsValueSet)
 }

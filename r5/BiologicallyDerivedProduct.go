@@ -74,9 +74,37 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("productCategory", nil, optionsValueSet)
+	}
+	return CodingSelect("productCategory", resource.ProductCategory, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("productCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("productStatus", nil, optionsValueSet)
+	}
+	return CodingSelect("productStatus", resource.ProductStatus, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }

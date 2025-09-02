@@ -58,17 +58,38 @@ func (r BiologicallyDerivedProductDispense) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseStatus() templ.Component {
 	optionsValueSet := VSBiologicallyderivedproductdispense_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseOriginRelationshipType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("originRelationshipType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("originRelationshipType", resource.OriginRelationshipType, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseMatchStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("matchStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("matchStatus", resource.MatchStatus, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }

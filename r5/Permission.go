@@ -90,41 +90,76 @@ func (r Permission) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Permission) PermissionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Permission) PermissionStatus() templ.Component {
 	optionsValueSet := VSPermission_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *Permission) PermissionCombining() templ.Component {
 	optionsValueSet := VSPermission_rule_combining
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Combining
+		return CodeSelect("combining", nil, optionsValueSet)
 	}
-	return CodeSelect("combining", currentVal, optionsValueSet)
+	return CodeSelect("combining", &resource.Combining, optionsValueSet)
+}
+func (resource *Permission) PermissionJustificationBasis(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("basis", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("basis", &resource.Justification.Basis[0], optionsValueSet)
 }
 func (resource *Permission) PermissionRuleType(numRule int) templ.Component {
 	optionsValueSet := VSConsent_provision_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Rule) >= numRule {
-		currentVal = *resource.Rule[numRule].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", resource.Rule[numRule].Type, optionsValueSet)
+}
+func (resource *Permission) PermissionRuleLimit(numRule int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Rule) >= numRule {
+		return CodeableConceptSelect("limit", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("limit", &resource.Rule[numRule].Limit[0], optionsValueSet)
+}
+func (resource *Permission) PermissionRuleDataSecurity(numRule int, numData int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Rule[numRule].Data) >= numData {
+		return CodingSelect("security", nil, optionsValueSet)
+	}
+	return CodingSelect("security", &resource.Rule[numRule].Data[numData].Security[0], optionsValueSet)
 }
 func (resource *Permission) PermissionRuleDataResourceMeaning(numRule int, numData int, numResource int) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
-	currentVal := ""
+
 	if resource != nil && len(resource.Rule[numRule].Data[numData].Resource) >= numResource {
-		currentVal = resource.Rule[numRule].Data[numData].Resource[numResource].Meaning
+		return CodeSelect("meaning", nil, optionsValueSet)
 	}
-	return CodeSelect("meaning", currentVal, optionsValueSet)
+	return CodeSelect("meaning", &resource.Rule[numRule].Data[numData].Resource[numResource].Meaning, optionsValueSet)
+}
+func (resource *Permission) PermissionRuleActivityAction(numRule int, numActivity int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Rule[numRule].Activity) >= numActivity {
+		return CodeableConceptSelect("action", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("action", &resource.Rule[numRule].Activity[numActivity].Action[0], optionsValueSet)
+}
+func (resource *Permission) PermissionRuleActivityPurpose(numRule int, numActivity int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Rule[numRule].Activity) >= numActivity {
+		return CodeableConceptSelect("purpose", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("purpose", &resource.Rule[numRule].Activity[numActivity].Purpose[0], optionsValueSet)
 }

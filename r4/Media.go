@@ -56,17 +56,52 @@ func (r Media) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Media) MediaLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Media) MediaStatus() templ.Component {
 	optionsValueSet := VSEvent_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Media) MediaType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *Media) MediaModality(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("modality", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("modality", resource.Modality, optionsValueSet)
+}
+func (resource *Media) MediaView(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("view", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("view", resource.View, optionsValueSet)
+}
+func (resource *Media) MediaReasonCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
+}
+func (resource *Media) MediaBodySite(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
 }

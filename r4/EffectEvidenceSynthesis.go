@@ -131,25 +131,109 @@ func (r EffectEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisTopic(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("topic", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisSynthesisType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("synthesisType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisStudyType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("studyType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisResultsByExposureExposureState(numResultsByExposure int) templ.Component {
 	optionsValueSet := VSExposure_state
-	currentVal := ""
+
 	if resource != nil && len(resource.ResultsByExposure) >= numResultsByExposure {
-		currentVal = *resource.ResultsByExposure[numResultsByExposure].ExposureState
+		return CodeSelect("exposureState", nil, optionsValueSet)
 	}
-	return CodeSelect("exposureState", currentVal, optionsValueSet)
+	return CodeSelect("exposureState", resource.ResultsByExposure[numResultsByExposure].ExposureState, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisResultsByExposureVariantState(numResultsByExposure int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.ResultsByExposure) >= numResultsByExposure {
+		return CodeableConceptSelect("variantState", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("variantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisEffectEstimateType(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.EffectEstimate[numEffectEstimate].Type, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisEffectEstimateVariantState(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("variantState", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("variantState", resource.EffectEstimate[numEffectEstimate].VariantState, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisEffectEstimateUnitOfMeasure(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("unitOfMeasure", resource.EffectEstimate[numEffectEstimate].UnitOfMeasure, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisEffectEstimatePrecisionEstimateType(numEffectEstimate int, numPrecisionEstimate int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisCertaintyRating(numCertainty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Certainty) >= numCertainty {
+		return CodeableConceptSelect("rating", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("rating", &resource.Certainty[numCertainty].Rating[0], optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisCertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) EffectEvidenceSynthesisCertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
+		return CodeableConceptSelect("rating", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("rating", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[0], optionsValueSet)
 }

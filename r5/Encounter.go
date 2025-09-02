@@ -113,25 +113,123 @@ func (r Encounter) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Encounter) EncounterLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Encounter) EncounterStatus() templ.Component {
 	optionsValueSet := VSEncounter_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Encounter) EncounterClass(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("class", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("class", &resource.Class[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterPriority(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("priority", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
+}
+func (resource *Encounter) EncounterType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterSubjectStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet)
+}
+func (resource *Encounter) EncounterDietPreference(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("dietPreference", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("dietPreference", &resource.DietPreference[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterSpecialArrangement(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("specialArrangement", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialArrangement", &resource.SpecialArrangement[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterSpecialCourtesy(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("specialCourtesy", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialCourtesy", &resource.SpecialCourtesy[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterParticipantType(numParticipant int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Participant) >= numParticipant {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Participant[numParticipant].Type[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterReasonUse(numReason int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Reason) >= numReason {
+		return CodeableConceptSelect("use", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("use", &resource.Reason[numReason].Use[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterDiagnosisUse(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+		return CodeableConceptSelect("use", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("use", &resource.Diagnosis[numDiagnosis].Use[0], optionsValueSet)
+}
+func (resource *Encounter) EncounterAdmissionAdmitSource(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("admitSource", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("admitSource", resource.Admission.AdmitSource, optionsValueSet)
+}
+func (resource *Encounter) EncounterAdmissionReAdmission(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("reAdmission", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reAdmission", resource.Admission.ReAdmission, optionsValueSet)
+}
+func (resource *Encounter) EncounterAdmissionDischargeDisposition(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("dischargeDisposition", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("dischargeDisposition", resource.Admission.DischargeDisposition, optionsValueSet)
 }
 func (resource *Encounter) EncounterLocationStatus(numLocation int) templ.Component {
 	optionsValueSet := VSEncounter_location_status
-	currentVal := ""
+
 	if resource != nil && len(resource.Location) >= numLocation {
-		currentVal = *resource.Location[numLocation].Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Location[numLocation].Status, optionsValueSet)
+}
+func (resource *Encounter) EncounterLocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Location) >= numLocation {
+		return CodeableConceptSelect("form", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("form", resource.Location[numLocation].Form, optionsValueSet)
 }

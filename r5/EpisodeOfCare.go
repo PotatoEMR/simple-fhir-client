@@ -73,25 +73,46 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *EpisodeOfCare) EpisodeOfCareLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *EpisodeOfCare) EpisodeOfCareStatus() templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *EpisodeOfCare) EpisodeOfCareType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
 func (resource *EpisodeOfCare) EpisodeOfCareStatusHistoryStatus(numStatusHistory int) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
-	currentVal := ""
+
 	if resource != nil && len(resource.StatusHistory) >= numStatusHistory {
-		currentVal = resource.StatusHistory[numStatusHistory].Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet)
+}
+func (resource *EpisodeOfCare) EpisodeOfCareReasonUse(numReason int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Reason) >= numReason {
+		return CodeableConceptSelect("use", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("use", resource.Reason[numReason].Use, optionsValueSet)
+}
+func (resource *EpisodeOfCare) EpisodeOfCareDiagnosisUse(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Diagnosis) >= numDiagnosis {
+		return CodeableConceptSelect("use", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("use", resource.Diagnosis[numDiagnosis].Use, optionsValueSet)
 }

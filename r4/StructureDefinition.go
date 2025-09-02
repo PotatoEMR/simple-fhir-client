@@ -96,49 +96,63 @@ func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *StructureDefinition) StructureDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *StructureDefinition) StructureDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *StructureDefinition) StructureDefinitionKeyword(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("keyword", nil, optionsValueSet)
+	}
+	return CodingSelect("keyword", &resource.Keyword[0], optionsValueSet)
 }
 func (resource *StructureDefinition) StructureDefinitionFhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.FhirVersion
+		return CodeSelect("fhirVersion", nil, optionsValueSet)
 	}
-	return CodeSelect("fhirVersion", currentVal, optionsValueSet)
+	return CodeSelect("fhirVersion", resource.FhirVersion, optionsValueSet)
 }
 func (resource *StructureDefinition) StructureDefinitionKind() templ.Component {
 	optionsValueSet := VSStructure_definition_kind
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Kind
+		return CodeSelect("kind", nil, optionsValueSet)
 	}
-	return CodeSelect("kind", currentVal, optionsValueSet)
+	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
 func (resource *StructureDefinition) StructureDefinitionDerivation() templ.Component {
 	optionsValueSet := VSType_derivation_rule
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Derivation
+		return CodeSelect("derivation", nil, optionsValueSet)
 	}
-	return CodeSelect("derivation", currentVal, optionsValueSet)
+	return CodeSelect("derivation", resource.Derivation, optionsValueSet)
 }
 func (resource *StructureDefinition) StructureDefinitionContextType(numContext int) templ.Component {
 	optionsValueSet := VSExtension_context_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Context) >= numContext {
-		currentVal = resource.Context[numContext].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Context[numContext].Type, optionsValueSet)
 }

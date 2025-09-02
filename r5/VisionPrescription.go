@@ -71,33 +71,40 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *VisionPrescription) VisionPrescriptionStatus() templ.Component {
 	optionsValueSet := VSFm_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *VisionPrescription) VisionPrescriptionLensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.LensSpecification) >= numLensSpecification {
+		return CodeableConceptSelect("product", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("product", &resource.LensSpecification[numLensSpecification].Product, optionsValueSet)
 }
 func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLensSpecification int) templ.Component {
 	optionsValueSet := VSVision_eye_codes
-	currentVal := ""
+
 	if resource != nil && len(resource.LensSpecification) >= numLensSpecification {
-		currentVal = resource.LensSpecification[numLensSpecification].Eye
+		return CodeSelect("eye", nil, optionsValueSet)
 	}
-	return CodeSelect("eye", currentVal, optionsValueSet)
+	return CodeSelect("eye", &resource.LensSpecification[numLensSpecification].Eye, optionsValueSet)
 }
 func (resource *VisionPrescription) VisionPrescriptionLensSpecificationPrismBase(numLensSpecification int, numPrism int) templ.Component {
 	optionsValueSet := VSVision_base_codes
-	currentVal := ""
+
 	if resource != nil && len(resource.LensSpecification[numLensSpecification].Prism) >= numPrism {
-		currentVal = resource.LensSpecification[numLensSpecification].Prism[numPrism].Base
+		return CodeSelect("base", nil, optionsValueSet)
 	}
-	return CodeSelect("base", currentVal, optionsValueSet)
+	return CodeSelect("base", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Base, optionsValueSet)
 }

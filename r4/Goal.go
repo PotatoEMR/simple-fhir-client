@@ -67,17 +67,59 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Goal) GoalLifecycleStatus() templ.Component {
 	optionsValueSet := VSGoal_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.LifecycleStatus
+		return CodeSelect("lifecycleStatus", nil, optionsValueSet)
 	}
-	return CodeSelect("lifecycleStatus", currentVal, optionsValueSet)
+	return CodeSelect("lifecycleStatus", &resource.LifecycleStatus, optionsValueSet)
+}
+func (resource *Goal) GoalAchievementStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("achievementStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("achievementStatus", resource.AchievementStatus, optionsValueSet)
+}
+func (resource *Goal) GoalCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *Goal) GoalPriority(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("priority", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
+}
+func (resource *Goal) GoalDescription(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("description", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("description", &resource.Description, optionsValueSet)
+}
+func (resource *Goal) GoalOutcomeCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("outcomeCode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("outcomeCode", &resource.OutcomeCode[0], optionsValueSet)
+}
+func (resource *Goal) GoalTargetMeasure(numTarget int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Target) >= numTarget {
+		return CodeableConceptSelect("measure", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("measure", resource.Target[numTarget].Measure, optionsValueSet)
 }

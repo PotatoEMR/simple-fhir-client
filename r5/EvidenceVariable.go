@@ -139,33 +139,61 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
 	optionsValueSet := VSVariable_handling
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Handling
+		return CodeSelect("handling", nil, optionsValueSet)
 	}
-	return CodeSelect("handling", currentVal, optionsValueSet)
+	return CodeSelect("handling", resource.Handling, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("definitionCodeableConcept", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("definitionCodeableConcept", resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Type, optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("method", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("method", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Method[0], optionsValueSet)
+}
+func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueOffset(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("offset", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("offset", resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Offset, optionsValueSet)
 }
 func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByCombinationCode(numCharacteristic int) templ.Component {
 	optionsValueSet := VSCharacteristic_combination
-	currentVal := ""
+
 	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
-		currentVal = resource.Characteristic[numCharacteristic].DefinitionByCombination.Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Characteristic[numCharacteristic].DefinitionByCombination.Code, optionsValueSet)
 }

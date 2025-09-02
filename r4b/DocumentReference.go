@@ -81,33 +81,82 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *DocumentReference) DocumentReferenceLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceStatus() templ.Component {
 	optionsValueSet := VSDocument_reference_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceDocStatus() templ.Component {
 	optionsValueSet := VSComposition_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.DocStatus
+		return CodeSelect("docStatus", nil, optionsValueSet)
 	}
-	return CodeSelect("docStatus", currentVal, optionsValueSet)
+	return CodeSelect("docStatus", resource.DocStatus, optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceSecurityLabel(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("securityLabel", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("securityLabel", &resource.SecurityLabel[0], optionsValueSet)
 }
 func (resource *DocumentReference) DocumentReferenceRelatesToCode(numRelatesTo int) templ.Component {
 	optionsValueSet := VSDocument_relationship_type
-	currentVal := ""
+
 	if resource != nil && len(resource.RelatesTo) >= numRelatesTo {
-		currentVal = resource.RelatesTo[numRelatesTo].Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceContentFormat(numContent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Content) >= numContent {
+		return CodingSelect("format", nil, optionsValueSet)
+	}
+	return CodingSelect("format", resource.Content[numContent].Format, optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceContextEvent(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("event", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("event", &resource.Context.Event[0], optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceContextFacilityType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("facilityType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("facilityType", resource.Context.FacilityType, optionsValueSet)
+}
+func (resource *DocumentReference) DocumentReferenceContextPracticeSetting(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("practiceSetting", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("practiceSetting", resource.Context.PracticeSetting, optionsValueSet)
 }

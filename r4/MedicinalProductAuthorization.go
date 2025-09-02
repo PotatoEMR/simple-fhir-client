@@ -72,9 +72,65 @@ func (r MedicinalProductAuthorization) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationCountry(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("country", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("country", &resource.Country[0], optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationLegalBasis(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("legalBasis", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("legalBasis", resource.LegalBasis, optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationJurisdictionalAuthorizationCountry(numJurisdictionalAuthorization int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
+		return CodeableConceptSelect("country", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("country", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Country, optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationJurisdictionalAuthorizationJurisdiction(numJurisdictionalAuthorization int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Jurisdiction[0], optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationJurisdictionalAuthorizationLegalStatusOfSupply(numJurisdictionalAuthorization int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
+		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("legalStatusOfSupply", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].LegalStatusOfSupply, optionsValueSet)
+}
+func (resource *MedicinalProductAuthorization) MedicinalProductAuthorizationProcedureType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Procedure.Type, optionsValueSet)
 }

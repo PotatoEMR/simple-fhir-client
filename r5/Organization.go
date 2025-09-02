@@ -54,9 +54,23 @@ func (r Organization) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Organization) OrganizationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *Organization) OrganizationType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+}
+func (resource *Organization) OrganizationQualificationCode(numQualification int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Qualification) >= numQualification {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Qualification[numQualification].Code, optionsValueSet)
 }

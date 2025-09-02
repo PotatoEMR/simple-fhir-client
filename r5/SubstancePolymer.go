@@ -104,9 +104,86 @@ func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SubstancePolymer) SubstancePolymerLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerClass(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("class", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("class", resource.Class, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerGeometry(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("geometry", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("geometry", resource.Geometry, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerCopolymerConnectivity(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("copolymerConnectivity", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("copolymerConnectivity", &resource.CopolymerConnectivity[0], optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerMonomerSetRatioType(numMonomerSet int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.MonomerSet) >= numMonomerSet {
+		return CodeableConceptSelect("ratioType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ratioType", resource.MonomerSet[numMonomerSet].RatioType, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerMonomerSetStartingMaterialCode(numMonomerSet int, numStartingMaterial int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.MonomerSet[numMonomerSet].StartingMaterial) >= numStartingMaterial {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Code, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerMonomerSetStartingMaterialCategory(numMonomerSet int, numStartingMaterial int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.MonomerSet[numMonomerSet].StartingMaterial) >= numStartingMaterial {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Category, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerRepeatRepeatUnitAmountType(numRepeat int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Repeat) >= numRepeat {
+		return CodeableConceptSelect("repeatUnitAmountType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("repeatUnitAmountType", resource.Repeat[numRepeat].RepeatUnitAmountType, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerRepeatRepeatUnitOrientation(numRepeat int, numRepeatUnit int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Repeat[numRepeat].RepeatUnit) >= numRepeatUnit {
+		return CodeableConceptSelect("orientation", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("orientation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].Orientation, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationType(numRepeat int, numRepeatUnit int, numDegreeOfPolymerisation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation) >= numDegreeOfPolymerisation {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation[numDegreeOfPolymerisation].Type, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerRepeatRepeatUnitStructuralRepresentationType(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) >= numStructuralRepresentation {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Type, optionsValueSet)
+}
+func (resource *SubstancePolymer) SubstancePolymerRepeatRepeatUnitStructuralRepresentationFormat(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) >= numStructuralRepresentation {
+		return CodeableConceptSelect("format", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("format", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Format, optionsValueSet)
 }

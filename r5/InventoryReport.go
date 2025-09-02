@@ -64,25 +64,53 @@ func (r InventoryReport) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *InventoryReport) InventoryReportLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *InventoryReport) InventoryReportStatus() templ.Component {
 	optionsValueSet := VSInventoryreport_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *InventoryReport) InventoryReportCountType() templ.Component {
 	optionsValueSet := VSInventoryreport_counttype
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.CountType
+		return CodeSelect("countType", nil, optionsValueSet)
 	}
-	return CodeSelect("countType", currentVal, optionsValueSet)
+	return CodeSelect("countType", &resource.CountType, optionsValueSet)
+}
+func (resource *InventoryReport) InventoryReportOperationType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("operationType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("operationType", resource.OperationType, optionsValueSet)
+}
+func (resource *InventoryReport) InventoryReportOperationTypeReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("operationTypeReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("operationTypeReason", resource.OperationTypeReason, optionsValueSet)
+}
+func (resource *InventoryReport) InventoryReportInventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.InventoryListing) >= numInventoryListing {
+		return CodeableConceptSelect("itemStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("itemStatus", resource.InventoryListing[numInventoryListing].ItemStatus, optionsValueSet)
+}
+func (resource *InventoryReport) InventoryReportInventoryListingItemCategory(numInventoryListing int, numItem int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.InventoryListing[numInventoryListing].Item) >= numItem {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.InventoryListing[numInventoryListing].Item[numItem].Category, optionsValueSet)
 }

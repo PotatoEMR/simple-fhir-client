@@ -41,9 +41,30 @@ func (r Schedule) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Schedule) ScheduleLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *Schedule) ScheduleServiceCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
+}
+func (resource *Schedule) ScheduleServiceType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("serviceType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("serviceType", &resource.ServiceType[0], optionsValueSet)
+}
+func (resource *Schedule) ScheduleSpecialty(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("specialty", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }

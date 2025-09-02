@@ -110,33 +110,110 @@ func (r ConditionDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ConditionDefinition) ConditionDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ConditionDefinition) ConditionDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionSeverity(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("severity", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionBodySite(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionStage(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("stage", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("stage", resource.Stage, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionObservationCategory(numObservation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Observation) >= numObservation {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.Observation[numObservation].Category, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionObservationCode(numObservation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Observation) >= numObservation {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Observation[numObservation].Code, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionMedicationCategory(numMedication int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Medication) >= numMedication {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", resource.Medication[numMedication].Category, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionMedicationCode(numMedication int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Medication) >= numMedication {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Medication[numMedication].Code, optionsValueSet)
 }
 func (resource *ConditionDefinition) ConditionDefinitionPreconditionType(numPrecondition int) templ.Component {
 	optionsValueSet := VSCondition_precondition_type
-	currentVal := ""
+
 	if resource != nil && len(resource.Precondition) >= numPrecondition {
-		currentVal = resource.Precondition[numPrecondition].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Precondition[numPrecondition].Type, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionPreconditionCode(numPrecondition int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Precondition) >= numPrecondition {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Precondition[numPrecondition].Code, optionsValueSet)
 }
 func (resource *ConditionDefinition) ConditionDefinitionQuestionnairePurpose(numQuestionnaire int) templ.Component {
 	optionsValueSet := VSCondition_questionnaire_purpose
-	currentVal := ""
+
 	if resource != nil && len(resource.Questionnaire) >= numQuestionnaire {
-		currentVal = resource.Questionnaire[numQuestionnaire].Purpose
+		return CodeSelect("purpose", nil, optionsValueSet)
 	}
-	return CodeSelect("purpose", currentVal, optionsValueSet)
+	return CodeSelect("purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet)
+}
+func (resource *ConditionDefinition) ConditionDefinitionPlanRole(numPlan int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Plan) >= numPlan {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", resource.Plan[numPlan].Role, optionsValueSet)
 }

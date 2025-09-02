@@ -209,33 +209,68 @@ func (r Task) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Task) TaskLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Task) TaskStatus() templ.Component {
 	optionsValueSet := VSTask_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *Task) TaskBusinessStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("businessStatus", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("businessStatus", resource.BusinessStatus, optionsValueSet)
 }
 func (resource *Task) TaskIntent() templ.Component {
 	optionsValueSet := VSTask_intent
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Intent
+		return CodeSelect("intent", nil, optionsValueSet)
 	}
-	return CodeSelect("intent", currentVal, optionsValueSet)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
 func (resource *Task) TaskPriority() templ.Component {
 	optionsValueSet := VSRequest_priority
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Priority
+		return CodeSelect("priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", currentVal, optionsValueSet)
+	return CodeSelect("priority", resource.Priority, optionsValueSet)
+}
+func (resource *Task) TaskCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+}
+func (resource *Task) TaskPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+}
+func (resource *Task) TaskInputType(numInput int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Input) >= numInput {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Input[numInput].Type, optionsValueSet)
+}
+func (resource *Task) TaskOutputType(numOutput int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Output) >= numOutput {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Output[numOutput].Type, optionsValueSet)
 }

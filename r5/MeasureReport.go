@@ -138,33 +138,82 @@ func (r MeasureReport) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MeasureReport) MeasureReportLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MeasureReport) MeasureReportStatus() templ.Component {
 	optionsValueSet := VSMeasure_report_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
 func (resource *MeasureReport) MeasureReportType() templ.Component {
 	optionsValueSet := VSMeasure_report_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
 func (resource *MeasureReport) MeasureReportDataUpdateType() templ.Component {
 	optionsValueSet := VSSubmit_data_update_type
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.DataUpdateType
+		return CodeSelect("dataUpdateType", nil, optionsValueSet)
 	}
-	return CodeSelect("dataUpdateType", currentVal, optionsValueSet)
+	return CodeSelect("dataUpdateType", resource.DataUpdateType, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportScoring(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("scoring", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("scoring", resource.Scoring, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportImprovementNotation(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("improvementNotation", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("improvementNotation", resource.ImprovementNotation, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportGroupCode(numGroup int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Group) >= numGroup {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Group[numGroup].Code, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportGroupPopulationCode(numGroup int, numPopulation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Group[numGroup].Population) >= numPopulation {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Group[numGroup].Population[numPopulation].Code, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportGroupStratifierCode(numGroup int, numStratifier int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Group[numGroup].Stratifier) >= numStratifier {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Group[numGroup].Stratifier[numStratifier].Code, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportGroupStratifierStratumComponentCode(numGroup int, numStratifier int, numStratum int, numComponent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component) >= numComponent {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component[numComponent].Code, optionsValueSet)
+}
+func (resource *MeasureReport) MeasureReportGroupStratifierStratumPopulationCode(numGroup int, numStratifier int, numStratum int, numPopulation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Population) >= numPopulation {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Population[numPopulation].Code, optionsValueSet)
 }

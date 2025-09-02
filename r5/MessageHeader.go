@@ -79,17 +79,24 @@ func (r MessageHeader) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MessageHeader) MessageHeaderLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MessageHeader) MessageHeaderReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("reason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reason", resource.Reason, optionsValueSet)
 }
 func (resource *MessageHeader) MessageHeaderResponseCode() templ.Component {
 	optionsValueSet := VSResponse_code
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Response.Code
+		return CodeSelect("code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", currentVal, optionsValueSet)
+	return CodeSelect("code", &resource.Response.Code, optionsValueSet)
 }

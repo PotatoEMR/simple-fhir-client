@@ -73,17 +73,52 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ClinicalImpression) ClinicalImpressionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ClinicalImpression) ClinicalImpressionStatus() templ.Component {
 	optionsValueSet := VSClinicalimpression_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionStatusReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionPrognosisCodeableConcept(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("prognosisCodeableConcept", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("prognosisCodeableConcept", &resource.PrognosisCodeableConcept[0], optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionInvestigationCode(numInvestigation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Investigation) >= numInvestigation {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Investigation[numInvestigation].Code, optionsValueSet)
+}
+func (resource *ClinicalImpression) ClinicalImpressionFindingItemCodeableConcept(numFinding int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Finding) >= numFinding {
+		return CodeableConceptSelect("itemCodeableConcept", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("itemCodeableConcept", resource.Finding[numFinding].ItemCodeableConcept, optionsValueSet)
 }

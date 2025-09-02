@@ -116,57 +116,71 @@ func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *SubscriptionTopic) SubscriptionTopicLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInteraction(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSInteraction_trigger
-	currentVal := ""
+
 	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
-		currentVal = resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[0]
+		return CodeSelect("supportedInteraction", nil, optionsValueSet)
 	}
-	return CodeSelect("supportedInteraction", currentVal, optionsValueSet)
+	return CodeSelect("supportedInteraction", &resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[0], optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
-	currentVal := ""
+
 	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
-		currentVal = *resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate
+		return CodeSelect("resultForCreate", nil, optionsValueSet)
 	}
-	return CodeSelect("resultForCreate", currentVal, optionsValueSet)
+	return CodeSelect("resultForCreate", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate, optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
-	currentVal := ""
+
 	if resource != nil && len(resource.ResourceTrigger) >= numResourceTrigger {
-		currentVal = *resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete
+		return CodeSelect("resultForDelete", nil, optionsValueSet)
 	}
-	return CodeSelect("resultForDelete", currentVal, optionsValueSet)
+	return CodeSelect("resultForDelete", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete, optionsValueSet)
+}
+func (resource *SubscriptionTopic) SubscriptionTopicEventTriggerEvent(numEventTrigger int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.EventTrigger) >= numEventTrigger {
+		return CodeableConceptSelect("event", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("event", &resource.EventTrigger[numEventTrigger].Event, optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByComparator(numCanFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_comparator
-	currentVal := ""
+
 	if resource != nil && len(resource.CanFilterBy) >= numCanFilterBy {
-		currentVal = resource.CanFilterBy[numCanFilterBy].Comparator[0]
+		return CodeSelect("comparator", nil, optionsValueSet)
 	}
-	return CodeSelect("comparator", currentVal, optionsValueSet)
+	return CodeSelect("comparator", &resource.CanFilterBy[numCanFilterBy].Comparator[0], optionsValueSet)
 }
 func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByModifier(numCanFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
-	currentVal := ""
+
 	if resource != nil && len(resource.CanFilterBy) >= numCanFilterBy {
-		currentVal = resource.CanFilterBy[numCanFilterBy].Modifier[0]
+		return CodeSelect("modifier", nil, optionsValueSet)
 	}
-	return CodeSelect("modifier", currentVal, optionsValueSet)
+	return CodeSelect("modifier", &resource.CanFilterBy[numCanFilterBy].Modifier[0], optionsValueSet)
 }

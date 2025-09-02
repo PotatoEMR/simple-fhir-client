@@ -85,25 +85,46 @@ func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *ChargeItemDefinition) ChargeItemDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *ChargeItemDefinition) ChargeItemDefinitionStatus() templ.Component {
 	optionsValueSet := VSPublication_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *ChargeItemDefinition) ChargeItemDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+}
+func (resource *ChargeItemDefinition) ChargeItemDefinitionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
 func (resource *ChargeItemDefinition) ChargeItemDefinitionPropertyGroupPriceComponentType(numPropertyGroup int, numPriceComponent int) templ.Component {
 	optionsValueSet := VSInvoice_priceComponentType
-	currentVal := ""
+
 	if resource != nil && len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
-		currentVal = resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Type
+		return CodeSelect("type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", currentVal, optionsValueSet)
+	return CodeSelect("type", &resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Type, optionsValueSet)
+}
+func (resource *ChargeItemDefinition) ChargeItemDefinitionPropertyGroupPriceComponentCode(numPropertyGroup int, numPriceComponent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Code, optionsValueSet)
 }

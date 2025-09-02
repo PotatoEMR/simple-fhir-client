@@ -283,25 +283,235 @@ func (r Contract) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Contract) ContractLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *Contract) ContractStatus() templ.Component {
 	optionsValueSet := VSContract_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *Contract) ContractLegalState(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("legalState", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("legalState", resource.LegalState, optionsValueSet)
+}
+func (resource *Contract) ContractContentDerivative(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("contentDerivative", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("contentDerivative", resource.ContentDerivative, optionsValueSet)
+}
+func (resource *Contract) ContractExpirationType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("expirationType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("expirationType", resource.ExpirationType, optionsValueSet)
+}
+func (resource *Contract) ContractScope(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("scope", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("scope", resource.Scope, optionsValueSet)
+}
+func (resource *Contract) ContractType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *Contract) ContractSubType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subType", &resource.SubType[0], optionsValueSet)
+}
+func (resource *Contract) ContractContentDefinitionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.ContentDefinition.Type, optionsValueSet)
+}
+func (resource *Contract) ContractContentDefinitionSubType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subType", resource.ContentDefinition.SubType, optionsValueSet)
 }
 func (resource *Contract) ContractContentDefinitionPublicationStatus() templ.Component {
 	optionsValueSet := VSContract_publicationstatus
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.ContentDefinition.PublicationStatus
+		return CodeSelect("publicationStatus", nil, optionsValueSet)
 	}
-	return CodeSelect("publicationStatus", currentVal, optionsValueSet)
+	return CodeSelect("publicationStatus", &resource.ContentDefinition.PublicationStatus, optionsValueSet)
+}
+func (resource *Contract) ContractTermType(numTerm int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term) >= numTerm {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Term[numTerm].Type, optionsValueSet)
+}
+func (resource *Contract) ContractTermSubType(numTerm int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term) >= numTerm {
+		return CodeableConceptSelect("subType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subType", resource.Term[numTerm].SubType, optionsValueSet)
+}
+func (resource *Contract) ContractTermSecurityLabelClassification(numTerm int, numSecurityLabel int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].SecurityLabel) >= numSecurityLabel {
+		return CodingSelect("classification", nil, optionsValueSet)
+	}
+	return CodingSelect("classification", &resource.Term[numTerm].SecurityLabel[numSecurityLabel].Classification, optionsValueSet)
+}
+func (resource *Contract) ContractTermSecurityLabelCategory(numTerm int, numSecurityLabel int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].SecurityLabel) >= numSecurityLabel {
+		return CodingSelect("category", nil, optionsValueSet)
+	}
+	return CodingSelect("category", &resource.Term[numTerm].SecurityLabel[numSecurityLabel].Category[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermSecurityLabelControl(numTerm int, numSecurityLabel int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].SecurityLabel) >= numSecurityLabel {
+		return CodingSelect("control", nil, optionsValueSet)
+	}
+	return CodingSelect("control", &resource.Term[numTerm].SecurityLabel[numSecurityLabel].Control[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermOfferType(numTerm int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term) >= numTerm {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Term[numTerm].Offer.Type, optionsValueSet)
+}
+func (resource *Contract) ContractTermOfferDecision(numTerm int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term) >= numTerm {
+		return CodeableConceptSelect("decision", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("decision", resource.Term[numTerm].Offer.Decision, optionsValueSet)
+}
+func (resource *Contract) ContractTermOfferDecisionMode(numTerm int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term) >= numTerm {
+		return CodeableConceptSelect("decisionMode", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("decisionMode", &resource.Term[numTerm].Offer.DecisionMode[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermOfferPartyRole(numTerm int, numParty int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Offer.Party) >= numParty {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", &resource.Term[numTerm].Offer.Party[numParty].Role, optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetScope(numTerm int, numAsset int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset) >= numAsset {
+		return CodeableConceptSelect("scope", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("scope", resource.Term[numTerm].Asset[numAsset].Scope, optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetType(numTerm int, numAsset int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset) >= numAsset {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Term[numTerm].Asset[numAsset].Type[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetSubtype(numTerm int, numAsset int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset) >= numAsset {
+		return CodeableConceptSelect("subtype", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subtype", &resource.Term[numTerm].Asset[numAsset].Subtype[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetRelationship(numTerm int, numAsset int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset) >= numAsset {
+		return CodingSelect("relationship", nil, optionsValueSet)
+	}
+	return CodingSelect("relationship", resource.Term[numTerm].Asset[numAsset].Relationship, optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetPeriodType(numTerm int, numAsset int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset) >= numAsset {
+		return CodeableConceptSelect("periodType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("periodType", &resource.Term[numTerm].Asset[numAsset].PeriodType[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermAssetContextCode(numTerm int, numAsset int, numContext int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Asset[numAsset].Context) >= numContext {
+		return CodeableConceptSelect("code", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("code", &resource.Term[numTerm].Asset[numAsset].Context[numContext].Code[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermActionType(numTerm int, numAction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action) >= numAction {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Term[numTerm].Action[numAction].Type, optionsValueSet)
+}
+func (resource *Contract) ContractTermActionIntent(numTerm int, numAction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action) >= numAction {
+		return CodeableConceptSelect("intent", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("intent", &resource.Term[numTerm].Action[numAction].Intent, optionsValueSet)
+}
+func (resource *Contract) ContractTermActionStatus(numTerm int, numAction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action) >= numAction {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", &resource.Term[numTerm].Action[numAction].Status, optionsValueSet)
+}
+func (resource *Contract) ContractTermActionPerformerType(numTerm int, numAction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action) >= numAction {
+		return CodeableConceptSelect("performerType", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("performerType", &resource.Term[numTerm].Action[numAction].PerformerType[0], optionsValueSet)
+}
+func (resource *Contract) ContractTermActionPerformerRole(numTerm int, numAction int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action) >= numAction {
+		return CodeableConceptSelect("performerRole", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("performerRole", resource.Term[numTerm].Action[numAction].PerformerRole, optionsValueSet)
+}
+func (resource *Contract) ContractTermActionSubjectRole(numTerm int, numAction int, numSubject int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Term[numTerm].Action[numAction].Subject) >= numSubject {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", resource.Term[numTerm].Action[numAction].Subject[numSubject].Role, optionsValueSet)
+}
+func (resource *Contract) ContractSignerType(numSigner int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Signer) >= numSigner {
+		return CodingSelect("type", nil, optionsValueSet)
+	}
+	return CodingSelect("type", &resource.Signer[numSigner].Type, optionsValueSet)
 }

@@ -64,17 +64,45 @@ func (r Provenance) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *Provenance) ProvenanceLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *Provenance) ProvenanceReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("reason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("reason", &resource.Reason[0], optionsValueSet)
+}
+func (resource *Provenance) ProvenanceActivity(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("activity", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("activity", resource.Activity, optionsValueSet)
+}
+func (resource *Provenance) ProvenanceAgentType(numAgent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Agent) >= numAgent {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Agent[numAgent].Type, optionsValueSet)
+}
+func (resource *Provenance) ProvenanceAgentRole(numAgent int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Agent) >= numAgent {
+		return CodeableConceptSelect("role", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("role", &resource.Agent[numAgent].Role[0], optionsValueSet)
 }
 func (resource *Provenance) ProvenanceEntityRole(numEntity int) templ.Component {
 	optionsValueSet := VSProvenance_entity_role
-	currentVal := ""
+
 	if resource != nil && len(resource.Entity) >= numEntity {
-		currentVal = resource.Entity[numEntity].Role
+		return CodeSelect("role", nil, optionsValueSet)
 	}
-	return CodeSelect("role", currentVal, optionsValueSet)
+	return CodeSelect("role", &resource.Entity[numEntity].Role, optionsValueSet)
 }

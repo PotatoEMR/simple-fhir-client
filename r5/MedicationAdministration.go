@@ -79,17 +79,66 @@ func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicationAdministration) MedicationAdministrationLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
 }
 func (resource *MedicationAdministration) MedicationAdministrationStatus() templ.Component {
 	optionsValueSet := VSMedication_admin_status
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = resource.Status
+		return CodeSelect("status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", currentVal, optionsValueSet)
+	return CodeSelect("status", &resource.Status, optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationStatusReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationCategory(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("category", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationSubPotentReason(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("subPotentReason", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("subPotentReason", &resource.SubPotentReason[0], optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("function", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationDosageSite(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("site", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("site", resource.Dosage.Site, optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationDosageRoute(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("route", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("route", resource.Dosage.Route, optionsValueSet)
+}
+func (resource *MedicationAdministration) MedicationAdministrationDosageMethod(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("method", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("method", resource.Dosage.Method, optionsValueSet)
 }

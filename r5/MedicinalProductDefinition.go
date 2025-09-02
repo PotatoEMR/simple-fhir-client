@@ -136,9 +136,163 @@ func (r MedicinalProductDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (resource *MedicinalProductDefinition) MedicinalProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
-	currentVal := ""
+
 	if resource != nil {
-		currentVal = *resource.Language
+		return CodeSelect("language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", currentVal, optionsValueSet)
+	return CodeSelect("language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionType(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionDomain(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("domain", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("domain", resource.Domain, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionStatus(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("status", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionCombinedPharmaceuticalDoseForm(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("combinedPharmaceuticalDoseForm", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("combinedPharmaceuticalDoseForm", resource.CombinedPharmaceuticalDoseForm, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionRoute(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("route", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("route", &resource.Route[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionLegalStatusOfSupply(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionAdditionalMonitoringIndicator(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("additionalMonitoringIndicator", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("additionalMonitoringIndicator", resource.AdditionalMonitoringIndicator, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionSpecialMeasures(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("specialMeasures", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("specialMeasures", &resource.SpecialMeasures[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionPediatricUseIndicator(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("pediatricUseIndicator", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("pediatricUseIndicator", resource.PediatricUseIndicator, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionClassification(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("classification", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("classification", &resource.Classification[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionPackagedMedicinalProduct(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("packagedMedicinalProduct", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("packagedMedicinalProduct", &resource.PackagedMedicinalProduct[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionIngredient(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodeableConceptSelect("ingredient", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ingredient", &resource.Ingredient[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionCode(optionsValueSet []Coding) templ.Component {
+
+	if resource != nil {
+		return CodingSelect("code", nil, optionsValueSet)
+	}
+	return CodingSelect("code", &resource.Code[0], optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionContactType(numContact int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Contact) >= numContact {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Contact[numContact].Type, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionNameType(numName int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name) >= numName {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.Name[numName].Type, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionNamePartType(numName int, numPart int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name[numName].Part) >= numPart {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Name[numName].Part[numPart].Type, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionNameUsageCountry(numName int, numUsage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name[numName].Usage) >= numUsage {
+		return CodeableConceptSelect("country", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("country", &resource.Name[numName].Usage[numUsage].Country, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionNameUsageJurisdiction(numName int, numUsage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name[numName].Usage) >= numUsage {
+		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("jurisdiction", resource.Name[numName].Usage[numUsage].Jurisdiction, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionNameUsageLanguage(numName int, numUsage int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Name[numName].Usage) >= numUsage {
+		return CodeableConceptSelect("language", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("language", &resource.Name[numName].Usage[numUsage].Language, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionCrossReferenceType(numCrossReference int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.CrossReference) >= numCrossReference {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", resource.CrossReference[numCrossReference].Type, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionOperationConfidentialityIndicator(numOperation int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Operation) >= numOperation {
+		return CodeableConceptSelect("confidentialityIndicator", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("confidentialityIndicator", resource.Operation[numOperation].ConfidentialityIndicator, optionsValueSet)
+}
+func (resource *MedicinalProductDefinition) MedicinalProductDefinitionCharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource != nil && len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("type", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("type", &resource.Characteristic[numCharacteristic].Type, optionsValueSet)
 }
