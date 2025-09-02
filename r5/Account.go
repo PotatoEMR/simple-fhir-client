@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -114,14 +114,14 @@ func (r Account) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Account) AccountStatus() templ.Component {
+func (resource *Account) T_Status() templ.Component {
 	optionsValueSet := VSAccount_status
 
 	if resource == nil {
@@ -129,70 +129,70 @@ func (resource *Account) AccountStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Account) AccountBillingStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_BillingStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("billingStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("billingStatus", resource.BillingStatus, optionsValueSet)
 }
-func (resource *Account) AccountType(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Account) AccountCurrency(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_Currency(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("currency", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("currency", resource.Currency, optionsValueSet)
 }
-func (resource *Account) AccountDiagnosisType(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_DiagnosisType(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Diagnosis[numDiagnosis].Type[0], optionsValueSet)
 }
-func (resource *Account) AccountDiagnosisPackageCode(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_DiagnosisPackageCode(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("packageCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("packageCode", &resource.Diagnosis[numDiagnosis].PackageCode[0], optionsValueSet)
 }
-func (resource *Account) AccountProcedureType(numProcedure int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_ProcedureType(numProcedure int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Procedure) >= numProcedure {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Procedure[numProcedure].Type[0], optionsValueSet)
 }
-func (resource *Account) AccountProcedurePackageCode(numProcedure int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_ProcedurePackageCode(numProcedure int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Procedure) >= numProcedure {
 		return CodeableConceptSelect("packageCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("packageCode", &resource.Procedure[numProcedure].PackageCode[0], optionsValueSet)
 }
-func (resource *Account) AccountRelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_RelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RelatedAccount) >= numRelatedAccount {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", resource.RelatedAccount[numRelatedAccount].Relationship, optionsValueSet)
 }
-func (resource *Account) AccountBalanceAggregate(numBalance int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_BalanceAggregate(numBalance int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Balance) >= numBalance {
 		return CodeableConceptSelect("aggregate", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("aggregate", resource.Balance[numBalance].Aggregate, optionsValueSet)
 }
-func (resource *Account) AccountBalanceTerm(numBalance int, optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_BalanceTerm(numBalance int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Balance) >= numBalance {
 		return CodeableConceptSelect("term", nil, optionsValueSet)

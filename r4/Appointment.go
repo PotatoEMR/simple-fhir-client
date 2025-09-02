@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -66,14 +66,14 @@ func (r Appointment) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Appointment) AppointmentLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Appointment) AppointmentStatus() templ.Component {
+func (resource *Appointment) T_Status() templ.Component {
 	optionsValueSet := VSAppointmentstatus
 
 	if resource == nil {
@@ -81,56 +81,56 @@ func (resource *Appointment) AppointmentStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Appointment) AppointmentCancelationReason(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_CancelationReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("cancelationReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("cancelationReason", resource.CancelationReason, optionsValueSet)
 }
-func (resource *Appointment) AppointmentServiceCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ServiceCategory(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
 }
-func (resource *Appointment) AppointmentServiceType(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ServiceType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("serviceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceType", &resource.ServiceType[0], optionsValueSet)
 }
-func (resource *Appointment) AppointmentSpecialty(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_Specialty(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
-func (resource *Appointment) AppointmentAppointmentType(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_AppointmentType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("appointmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet)
 }
-func (resource *Appointment) AppointmentReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *Appointment) AppointmentParticipantType(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ParticipantType(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Participant[numParticipant].Type[0], optionsValueSet)
 }
-func (resource *Appointment) AppointmentParticipantRequired(numParticipant int) templ.Component {
+func (resource *Appointment) T_ParticipantRequired(numParticipant int) templ.Component {
 	optionsValueSet := VSParticipantrequired
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
@@ -138,7 +138,7 @@ func (resource *Appointment) AppointmentParticipantRequired(numParticipant int) 
 	}
 	return CodeSelect("required", resource.Participant[numParticipant].Required, optionsValueSet)
 }
-func (resource *Appointment) AppointmentParticipantStatus(numParticipant int) templ.Component {
+func (resource *Appointment) T_ParticipantStatus(numParticipant int) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
 	if resource == nil && len(resource.Participant) >= numParticipant {

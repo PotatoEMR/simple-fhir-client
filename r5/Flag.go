@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -40,14 +40,14 @@ func (r Flag) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Flag) FlagLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Flag) FlagStatus() templ.Component {
+func (resource *Flag) T_Status() templ.Component {
 	optionsValueSet := VSFlag_status
 
 	if resource == nil {
@@ -55,14 +55,14 @@ func (resource *Flag) FlagStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Flag) FlagCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Flag) FlagCode(optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

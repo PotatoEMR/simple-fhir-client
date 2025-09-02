@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -44,14 +44,14 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Linkage) LinkageLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Linkage) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Linkage) LinkageItemType(numItem int) templ.Component {
+func (resource *Linkage) T_ItemType(numItem int) templ.Component {
 	optionsValueSet := VSLinkage_type
 
 	if resource == nil && len(resource.Item) >= numItem {

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -226,21 +226,21 @@ func (r PlanDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *PlanDefinition) PlanDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionType(optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionStatus() templ.Component {
+func (resource *PlanDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -248,63 +248,63 @@ func (resource *PlanDefinition) PlanDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionTopic(optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalCategory(numGoal int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalCategory(numGoal int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal) >= numGoal {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Goal[numGoal].Category, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalDescription(numGoal int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalDescription(numGoal int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal) >= numGoal {
 		return CodeableConceptSelect("description", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("description", &resource.Goal[numGoal].Description, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalPriority(numGoal int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalPriority(numGoal int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal) >= numGoal {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Goal[numGoal].Priority, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalStart(numGoal int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalStart(numGoal int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal) >= numGoal {
 		return CodeableConceptSelect("start", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("start", resource.Goal[numGoal].Start, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalAddresses(numGoal int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalAddresses(numGoal int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal) >= numGoal {
 		return CodeableConceptSelect("addresses", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("addresses", &resource.Goal[numGoal].Addresses[0], optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionGoalTargetMeasure(numGoal int, numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_GoalTargetMeasure(numGoal int, numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Goal[numGoal].Target) >= numTarget {
 		return CodeableConceptSelect("measure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("measure", resource.Goal[numGoal].Target[numTarget].Measure, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActorOptionType(numActor int, numOption int) templ.Component {
+func (resource *PlanDefinition) T_ActorOptionType(numActor int, numOption int) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
 	if resource == nil && len(resource.Actor[numActor].Option) >= numOption {
@@ -312,14 +312,14 @@ func (resource *PlanDefinition) PlanDefinitionActorOptionType(numActor int, numO
 	}
 	return CodeSelect("type", resource.Actor[numActor].Option[numOption].Type, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActorOptionRole(numActor int, numOption int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActorOptionRole(numActor int, numOption int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Actor[numActor].Option) >= numOption {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Actor[numActor].Option[numOption].Role, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionPriority(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionPriority(numAction int) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -327,28 +327,28 @@ func (resource *PlanDefinition) PlanDefinitionActionPriority(numAction int) temp
 	}
 	return CodeSelect("priority", resource.Action[numAction].Priority, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionCode(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActionCode(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Action[numAction].Code, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionReason(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActionReason(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", &resource.Action[numAction].Reason[0], optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActionType(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Action[numAction].Type, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionGroupingBehavior(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionGroupingBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_grouping_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -356,7 +356,7 @@ func (resource *PlanDefinition) PlanDefinitionActionGroupingBehavior(numAction i
 	}
 	return CodeSelect("groupingBehavior", resource.Action[numAction].GroupingBehavior, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionSelectionBehavior(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionSelectionBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_selection_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -364,7 +364,7 @@ func (resource *PlanDefinition) PlanDefinitionActionSelectionBehavior(numAction 
 	}
 	return CodeSelect("selectionBehavior", resource.Action[numAction].SelectionBehavior, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionRequiredBehavior(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionRequiredBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_required_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -372,7 +372,7 @@ func (resource *PlanDefinition) PlanDefinitionActionRequiredBehavior(numAction i
 	}
 	return CodeSelect("requiredBehavior", resource.Action[numAction].RequiredBehavior, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionPrecheckBehavior(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionPrecheckBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_precheck_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -380,7 +380,7 @@ func (resource *PlanDefinition) PlanDefinitionActionPrecheckBehavior(numAction i
 	}
 	return CodeSelect("precheckBehavior", resource.Action[numAction].PrecheckBehavior, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionCardinalityBehavior(numAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionCardinalityBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_cardinality_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -388,7 +388,7 @@ func (resource *PlanDefinition) PlanDefinitionActionCardinalityBehavior(numActio
 	}
 	return CodeSelect("cardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionConditionKind(numAction int, numCondition int) templ.Component {
+func (resource *PlanDefinition) T_ActionConditionKind(numAction int, numCondition int) templ.Component {
 	optionsValueSet := VSAction_condition_kind
 
 	if resource == nil && len(resource.Action[numAction].Condition) >= numCondition {
@@ -396,7 +396,7 @@ func (resource *PlanDefinition) PlanDefinitionActionConditionKind(numAction int,
 	}
 	return CodeSelect("kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
 	if resource == nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
@@ -404,7 +404,7 @@ func (resource *PlanDefinition) PlanDefinitionActionRelatedActionRelationship(nu
 	}
 	return CodeSelect("relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionRelatedActionEndRelationship(numAction int, numRelatedAction int) templ.Component {
+func (resource *PlanDefinition) T_ActionRelatedActionEndRelationship(numAction int, numRelatedAction int) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
 	if resource == nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
@@ -412,7 +412,7 @@ func (resource *PlanDefinition) PlanDefinitionActionRelatedActionEndRelationship
 	}
 	return CodeSelect("endRelationship", resource.Action[numAction].RelatedAction[numRelatedAction].EndRelationship, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionParticipantType(numAction int, numParticipant int) templ.Component {
+func (resource *PlanDefinition) T_ActionParticipantType(numAction int, numParticipant int) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
@@ -420,14 +420,14 @@ func (resource *PlanDefinition) PlanDefinitionActionParticipantType(numAction in
 	}
 	return CodeSelect("type", resource.Action[numAction].Participant[numParticipant].Type, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Action[numAction].Participant[numParticipant].Role, optionsValueSet)
 }
-func (resource *PlanDefinition) PlanDefinitionActionParticipantFunction(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *PlanDefinition) T_ActionParticipantFunction(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

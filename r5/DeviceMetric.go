@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -51,28 +51,28 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceMetric) DeviceMetricLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceMetric) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricType(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceMetric) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricUnit(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.Unit, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricOperationalStatus() templ.Component {
+func (resource *DeviceMetric) T_OperationalStatus() templ.Component {
 	optionsValueSet := VSMetric_operational_status
 
 	if resource == nil {
@@ -80,14 +80,14 @@ func (resource *DeviceMetric) DeviceMetricOperationalStatus() templ.Component {
 	}
 	return CodeSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricColor(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceMetric) T_Color(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("color", nil, optionsValueSet)
 	}
 	return CodeSelect("color", resource.Color, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricCategory() templ.Component {
+func (resource *DeviceMetric) T_Category() templ.Component {
 	optionsValueSet := VSMetric_category
 
 	if resource == nil {
@@ -95,7 +95,7 @@ func (resource *DeviceMetric) DeviceMetricCategory() templ.Component {
 	}
 	return CodeSelect("category", &resource.Category, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricCalibrationType(numCalibration int) templ.Component {
+func (resource *DeviceMetric) T_CalibrationType(numCalibration int) templ.Component {
 	optionsValueSet := VSMetric_calibration_type
 
 	if resource == nil && len(resource.Calibration) >= numCalibration {
@@ -103,7 +103,7 @@ func (resource *DeviceMetric) DeviceMetricCalibrationType(numCalibration int) te
 	}
 	return CodeSelect("type", resource.Calibration[numCalibration].Type, optionsValueSet)
 }
-func (resource *DeviceMetric) DeviceMetricCalibrationState(numCalibration int) templ.Component {
+func (resource *DeviceMetric) T_CalibrationState(numCalibration int) templ.Component {
 	optionsValueSet := VSMetric_calibration_state
 
 	if resource == nil && len(resource.Calibration) >= numCalibration {

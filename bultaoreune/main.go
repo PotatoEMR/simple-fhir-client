@@ -290,7 +290,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 					//}
 					if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
 						caps := []string{}
-						for _, s := range parts {
+						for _, s := range parts[1:] {
 							caps = append(caps, strings.Title(s))
 						}
 						backbonePath := "resource." //this one actually used in field
@@ -321,7 +321,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								}
 							}
 						}
-						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ")" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
+						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
 							` + vsReq + `
 							if resource == nil ` + bbCheck + `{`)
 						var fieldVal string

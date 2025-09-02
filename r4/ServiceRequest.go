@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,14 +70,14 @@ func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ServiceRequest) ServiceRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
+func (resource *ServiceRequest) T_Status() templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -85,7 +85,7 @@ func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestIntent() templ.Component {
+func (resource *ServiceRequest) T_Intent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -93,14 +93,14 @@ func (resource *ServiceRequest) ServiceRequestIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestCategory(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestPriority() templ.Component {
+func (resource *ServiceRequest) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -108,42 +108,42 @@ func (resource *ServiceRequest) ServiceRequestPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestCode(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestOrderDetail(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_OrderDetail(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("orderDetail", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderDetail", &resource.OrderDetail[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestLocationCode(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_LocationCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("locationCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("locationCode", &resource.LocationCode[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)

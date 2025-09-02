@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -47,14 +47,14 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceUseStatement) DeviceUseStatementLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUseStatement) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceUseStatement) DeviceUseStatementStatus() templ.Component {
+func (resource *DeviceUseStatement) T_Status() templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
 	if resource == nil {
@@ -62,14 +62,14 @@ func (resource *DeviceUseStatement) DeviceUseStatementStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceUseStatement) DeviceUseStatementReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUseStatement) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *DeviceUseStatement) DeviceUseStatementBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)

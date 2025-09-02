@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -78,14 +78,14 @@ func (r MedicationDispense) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicationDispense) MedicationDispenseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispenseStatus() templ.Component {
+func (resource *MedicationDispense) T_Status() templ.Component {
 	optionsValueSet := VSMedicationdispense_status
 
 	if resource == nil {
@@ -93,35 +93,35 @@ func (resource *MedicationDispense) MedicationDispenseStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispenseCategory(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Category, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispenseType(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispenseSubstitutionType(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_SubstitutionType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Substitution.Type, optionsValueSet)
 }
-func (resource *MedicationDispense) MedicationDispenseSubstitutionReason(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationDispense) T_SubstitutionReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)

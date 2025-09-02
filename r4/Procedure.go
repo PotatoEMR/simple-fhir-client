@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -83,14 +83,14 @@ func (r Procedure) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Procedure) ProcedureLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Procedure) ProcedureStatus() templ.Component {
+func (resource *Procedure) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -98,77 +98,77 @@ func (resource *Procedure) ProcedureStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Procedure) ProcedureStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Procedure) ProcedureCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Category, optionsValueSet)
 }
-func (resource *Procedure) ProcedureCode(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *Procedure) ProcedureReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *Procedure) ProcedureBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
 }
-func (resource *Procedure) ProcedureOutcome(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Outcome(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcome", resource.Outcome, optionsValueSet)
 }
-func (resource *Procedure) ProcedureComplication(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Complication(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("complication", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("complication", &resource.Complication[0], optionsValueSet)
 }
-func (resource *Procedure) ProcedureFollowUp(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_FollowUp(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("followUp", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("followUp", &resource.FollowUp[0], optionsValueSet)
 }
-func (resource *Procedure) ProcedureUsedCode(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_UsedCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("usedCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("usedCode", &resource.UsedCode[0], optionsValueSet)
 }
-func (resource *Procedure) ProcedurePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
-func (resource *Procedure) ProcedureFocalDeviceAction(numFocalDevice int, optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_FocalDeviceAction(numFocalDevice int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.FocalDevice) >= numFocalDevice {
 		return CodeableConceptSelect("action", nil, optionsValueSet)

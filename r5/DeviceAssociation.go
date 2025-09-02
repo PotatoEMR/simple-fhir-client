@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -51,21 +51,21 @@ func (r DeviceAssociation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceAssociation) DeviceAssociationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceAssociation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceAssociation) DeviceAssociationCategory(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceAssociation) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *DeviceAssociation) DeviceAssociationStatus() templ.Component {
+func (resource *DeviceAssociation) T_Status() templ.Component {
 	optionsValueSet := VSDeviceassociation_status
 
 	if resource == nil {
@@ -73,7 +73,7 @@ func (resource *DeviceAssociation) DeviceAssociationStatus() templ.Component {
 	}
 	return CodeableConceptSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceAssociation) DeviceAssociationStatusReason() templ.Component {
+func (resource *DeviceAssociation) T_StatusReason() templ.Component {
 	optionsValueSet := VSDeviceassociation_status_reason
 
 	if resource == nil {
@@ -81,7 +81,7 @@ func (resource *DeviceAssociation) DeviceAssociationStatusReason() templ.Compone
 	}
 	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
 }
-func (resource *DeviceAssociation) DeviceAssociationOperationStatus(numOperation int, optionsValueSet []Coding) templ.Component {
+func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Operation) >= numOperation {
 		return CodeableConceptSelect("status", nil, optionsValueSet)

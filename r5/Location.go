@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -60,14 +60,14 @@ func (r Location) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Location) LocationStatus() templ.Component {
+func (resource *Location) T_Status() templ.Component {
 	optionsValueSet := VSLocation_status
 
 	if resource == nil {
@@ -75,14 +75,14 @@ func (resource *Location) LocationStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_OperationalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("operationalStatus", nil, optionsValueSet)
 	}
 	return CodingSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
 }
-func (resource *Location) LocationMode() templ.Component {
+func (resource *Location) T_Mode() templ.Component {
 	optionsValueSet := VSLocation_mode
 
 	if resource == nil {
@@ -90,21 +90,21 @@ func (resource *Location) LocationMode() templ.Component {
 	}
 	return CodeSelect("mode", resource.Mode, optionsValueSet)
 }
-func (resource *Location) LocationType(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *Location) LocationForm(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Form(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet)
 }
-func (resource *Location) LocationCharacteristic(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Characteristic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("characteristic", nil, optionsValueSet)

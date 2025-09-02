@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -115,14 +115,14 @@ func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SpecimenDefinition) SpecimenDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionStatus() templ.Component {
+func (resource *SpecimenDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -130,42 +130,42 @@ func (resource *SpecimenDefinition) SpecimenDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeCollected(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeCollected(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("typeCollected", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("typeCollected", resource.TypeCollected, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionPatientPreparation(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_PatientPreparation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("patientPreparation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("patientPreparation", &resource.PatientPreparation[0], optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionCollection(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_Collection(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("collection", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("collection", &resource.Collection[0], optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedType(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedType(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.TypeTested[numTypeTested].Type, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedPreference(numTypeTested int) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedPreference(numTypeTested int) templ.Component {
 	optionsValueSet := VSSpecimen_contained_preference
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
@@ -173,42 +173,42 @@ func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedPreference(numTy
 	}
 	return CodeSelect("preference", &resource.TypeTested[numTypeTested].Preference, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedRejectionCriterion(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedRejectionCriterion(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("rejectionCriterion", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("rejectionCriterion", &resource.TypeTested[numTypeTested].RejectionCriterion[0], optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedTestingDestination(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedTestingDestination(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("testingDestination", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("testingDestination", &resource.TypeTested[numTypeTested].TestingDestination[0], optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedContainerMaterial(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedContainerMaterial(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("material", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("material", resource.TypeTested[numTypeTested].Container.Material, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedContainerType(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedContainerType(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.TypeTested[numTypeTested].Container.Type, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedContainerCap(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedContainerCap(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested) >= numTypeTested {
 		return CodeableConceptSelect("cap", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("cap", resource.TypeTested[numTypeTested].Container.Cap, optionsValueSet)
 }
-func (resource *SpecimenDefinition) SpecimenDefinitionTypeTestedHandlingTemperatureQualifier(numTypeTested int, numHandling int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedHandlingTemperatureQualifier(numTypeTested int, numHandling int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TypeTested[numTypeTested].Handling) >= numHandling {
 		return CodeableConceptSelect("temperatureQualifier", nil, optionsValueSet)

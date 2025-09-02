@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -123,14 +123,14 @@ func (r TestReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *TestReport) TestReportLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *TestReport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *TestReport) TestReportStatus() templ.Component {
+func (resource *TestReport) T_Status() templ.Component {
 	optionsValueSet := VSReport_status_codes
 
 	if resource == nil {
@@ -138,7 +138,7 @@ func (resource *TestReport) TestReportStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *TestReport) TestReportResult() templ.Component {
+func (resource *TestReport) T_Result() templ.Component {
 	optionsValueSet := VSReport_result_codes
 
 	if resource == nil {
@@ -146,7 +146,7 @@ func (resource *TestReport) TestReportResult() templ.Component {
 	}
 	return CodeSelect("result", &resource.Result, optionsValueSet)
 }
-func (resource *TestReport) TestReportParticipantType(numParticipant int) templ.Component {
+func (resource *TestReport) T_ParticipantType(numParticipant int) templ.Component {
 	optionsValueSet := VSReport_participant_type
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
@@ -154,7 +154,7 @@ func (resource *TestReport) TestReportParticipantType(numParticipant int) templ.
 	}
 	return CodeSelect("type", &resource.Participant[numParticipant].Type, optionsValueSet)
 }
-func (resource *TestReport) TestReportSetupActionOperationResult(numAction int) templ.Component {
+func (resource *TestReport) T_SetupActionOperationResult(numAction int) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -162,7 +162,7 @@ func (resource *TestReport) TestReportSetupActionOperationResult(numAction int) 
 	}
 	return CodeSelect("result", &resource.Setup.Action[numAction].Operation.Result, optionsValueSet)
 }
-func (resource *TestReport) TestReportSetupActionAssertResult(numAction int) templ.Component {
+func (resource *TestReport) T_SetupActionAssertResult(numAction int) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {

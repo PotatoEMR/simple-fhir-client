@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -77,14 +77,14 @@ func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ChargeItemDefinition) ChargeItemDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItemDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ChargeItemDefinition) ChargeItemDefinitionStatus() templ.Component {
+func (resource *ChargeItemDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -92,14 +92,14 @@ func (resource *ChargeItemDefinition) ChargeItemDefinitionStatus() templ.Compone
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ChargeItemDefinition) ChargeItemDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItemDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ChargeItemDefinition) ChargeItemDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItemDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

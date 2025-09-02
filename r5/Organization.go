@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -53,21 +53,21 @@ func (r Organization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Organization) OrganizationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Organization) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Organization) OrganizationType(optionsValueSet []Coding) templ.Component {
+func (resource *Organization) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *Organization) OrganizationQualificationCode(numQualification int, optionsValueSet []Coding) templ.Component {
+func (resource *Organization) T_QualificationCode(numQualification int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Qualification) >= numQualification {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

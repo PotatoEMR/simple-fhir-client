@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -110,14 +110,14 @@ func (r GenomicStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *GenomicStudy) GenomicStudyLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyStatus() templ.Component {
+func (resource *GenomicStudy) T_Status() templ.Component {
 	optionsValueSet := VSGenomicstudy_status
 
 	if resource == nil {
@@ -125,56 +125,56 @@ func (resource *GenomicStudy) GenomicStudyStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyType(optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisMethodType(numAnalysis int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisMethodType(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("methodType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("methodType", &resource.Analysis[numAnalysis].MethodType[0], optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisChangeType(numAnalysis int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisChangeType(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("changeType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("changeType", &resource.Analysis[numAnalysis].ChangeType[0], optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisGenomeBuild(numAnalysis int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisGenomeBuild(numAnalysis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis) >= numAnalysis {
 		return CodeableConceptSelect("genomeBuild", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("genomeBuild", resource.Analysis[numAnalysis].GenomeBuild, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisInputType(numAnalysis int, numInput int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisInputType(numAnalysis int, numInput int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis[numAnalysis].Input) >= numInput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Analysis[numAnalysis].Input[numInput].Type, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisOutputType(numAnalysis int, numOutput int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisOutputType(numAnalysis int, numOutput int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis[numAnalysis].Output) >= numOutput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Analysis[numAnalysis].Output[numOutput].Type, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisPerformerRole(numAnalysis int, numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisPerformerRole(numAnalysis int, numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis[numAnalysis].Performer) >= numPerformer {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Analysis[numAnalysis].Performer[numPerformer].Role, optionsValueSet)
 }
-func (resource *GenomicStudy) GenomicStudyAnalysisDeviceFunction(numAnalysis int, numDevice int, optionsValueSet []Coding) templ.Component {
+func (resource *GenomicStudy) T_AnalysisDeviceFunction(numAnalysis int, numDevice int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Analysis[numAnalysis].Device) >= numDevice {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

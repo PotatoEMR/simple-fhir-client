@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -85,84 +85,84 @@ func (r VerificationResult) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *VerificationResult) VerificationResultLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultNeed(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_Need(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("need", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("need", resource.Need, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultStatus(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("status", nil, optionsValueSet)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultValidationType(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_ValidationType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("validationType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("validationType", resource.ValidationType, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultValidationProcess(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_ValidationProcess(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("validationProcess", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("validationProcess", &resource.ValidationProcess[0], optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultFailureAction(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_FailureAction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("failureAction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("failureAction", resource.FailureAction, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultPrimarySourceType(numPrimarySource int, optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_PrimarySourceType(numPrimarySource int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.PrimarySource) >= numPrimarySource {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.PrimarySource[numPrimarySource].Type[0], optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultPrimarySourceCommunicationMethod(numPrimarySource int, optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_PrimarySourceCommunicationMethod(numPrimarySource int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.PrimarySource) >= numPrimarySource {
 		return CodeableConceptSelect("communicationMethod", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("communicationMethod", &resource.PrimarySource[numPrimarySource].CommunicationMethod[0], optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultPrimarySourceValidationStatus(numPrimarySource int, optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_PrimarySourceValidationStatus(numPrimarySource int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.PrimarySource) >= numPrimarySource {
 		return CodeableConceptSelect("validationStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("validationStatus", resource.PrimarySource[numPrimarySource].ValidationStatus, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultPrimarySourceCanPushUpdates(numPrimarySource int, optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_PrimarySourceCanPushUpdates(numPrimarySource int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.PrimarySource) >= numPrimarySource {
 		return CodeableConceptSelect("canPushUpdates", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("canPushUpdates", resource.PrimarySource[numPrimarySource].CanPushUpdates, optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultPrimarySourcePushTypeAvailable(numPrimarySource int, optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_PrimarySourcePushTypeAvailable(numPrimarySource int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.PrimarySource) >= numPrimarySource {
 		return CodeableConceptSelect("pushTypeAvailable", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("pushTypeAvailable", &resource.PrimarySource[numPrimarySource].PushTypeAvailable[0], optionsValueSet)
 }
-func (resource *VerificationResult) VerificationResultAttestationCommunicationMethod(optionsValueSet []Coding) templ.Component {
+func (resource *VerificationResult) T_AttestationCommunicationMethod(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("communicationMethod", nil, optionsValueSet)

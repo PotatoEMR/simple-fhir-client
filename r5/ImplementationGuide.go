@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -177,14 +177,14 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ImplementationGuide) ImplementationGuideLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideStatus() templ.Component {
+func (resource *ImplementationGuide) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -192,14 +192,14 @@ func (resource *ImplementationGuide) ImplementationGuideStatus() templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Component {
+func (resource *ImplementationGuide) T_License() templ.Component {
 	optionsValueSet := VSSpdx_license
 
 	if resource == nil {
@@ -207,7 +207,7 @@ func (resource *ImplementationGuide) ImplementationGuideLicense() templ.Componen
 	}
 	return CodeSelect("license", resource.License, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Component {
+func (resource *ImplementationGuide) T_FhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil {
@@ -215,7 +215,7 @@ func (resource *ImplementationGuide) ImplementationGuideFhirVersion() templ.Comp
 	}
 	return CodeSelect("fhirVersion", &resource.FhirVersion[0], optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int) templ.Component {
+func (resource *ImplementationGuide) T_GlobalType(numGlobal int) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil && len(resource.Global) >= numGlobal {
@@ -223,7 +223,7 @@ func (resource *ImplementationGuide) ImplementationGuideGlobalType(numGlobal int
 	}
 	return CodeSelect("type", &resource.Global[numGlobal].Type, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVersion(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceFhirVersion(numResource int) templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil && len(resource.Definition.Resource) >= numResource {
@@ -231,7 +231,7 @@ func (resource *ImplementationGuide) ImplementationGuideDefinitionResourceFhirVe
 	}
 	return CodeSelect("fhirVersion", &resource.Definition.Resource[numResource].FhirVersion[0], optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideDefinitionPageGeneration() templ.Component {
+func (resource *ImplementationGuide) T_DefinitionPageGeneration() templ.Component {
 	optionsValueSet := VSGuide_page_generation
 
 	if resource == nil {
@@ -239,14 +239,14 @@ func (resource *ImplementationGuide) ImplementationGuideDefinitionPageGeneration
 	}
 	return CodeSelect("generation", &resource.Definition.Page.Generation, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideDefinitionParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Definition.Parameter) >= numParameter {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Definition.Parameter[numParameter].Code, optionsValueSet)
 }
-func (resource *ImplementationGuide) ImplementationGuideDefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Definition.Template) >= numTemplate {
 		return CodeSelect("code", nil, optionsValueSet)

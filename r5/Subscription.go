@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,14 +70,14 @@ func (r Subscription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Subscription) SubscriptionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Subscription) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionStatus() templ.Component {
+func (resource *Subscription) T_Status() templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
@@ -85,21 +85,21 @@ func (resource *Subscription) SubscriptionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionChannelType(optionsValueSet []Coding) templ.Component {
+func (resource *Subscription) T_ChannelType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("channelType", nil, optionsValueSet)
 	}
 	return CodingSelect("channelType", &resource.ChannelType, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionContentType(optionsValueSet []Coding) templ.Component {
+func (resource *Subscription) T_ContentType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", resource.ContentType, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionContent() templ.Component {
+func (resource *Subscription) T_Content() templ.Component {
 	optionsValueSet := VSSubscription_payload_content
 
 	if resource == nil {
@@ -107,7 +107,7 @@ func (resource *Subscription) SubscriptionContent() templ.Component {
 	}
 	return CodeSelect("content", resource.Content, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionFilterByComparator(numFilterBy int) templ.Component {
+func (resource *Subscription) T_FilterByComparator(numFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_comparator
 
 	if resource == nil && len(resource.FilterBy) >= numFilterBy {
@@ -115,7 +115,7 @@ func (resource *Subscription) SubscriptionFilterByComparator(numFilterBy int) te
 	}
 	return CodeSelect("comparator", resource.FilterBy[numFilterBy].Comparator, optionsValueSet)
 }
-func (resource *Subscription) SubscriptionFilterByModifier(numFilterBy int) templ.Component {
+func (resource *Subscription) T_FilterByModifier(numFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
 
 	if resource == nil && len(resource.FilterBy) >= numFilterBy {

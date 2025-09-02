@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -67,14 +67,14 @@ func (r SearchParameter) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SearchParameter) SearchParameterLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SearchParameter) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterStatus() templ.Component {
+func (resource *SearchParameter) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -82,21 +82,21 @@ func (resource *SearchParameter) SearchParameterStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *SearchParameter) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterCode(optionsValueSet []Coding) templ.Component {
+func (resource *SearchParameter) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterBase() templ.Component {
+func (resource *SearchParameter) T_Base() templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil {
@@ -104,7 +104,7 @@ func (resource *SearchParameter) SearchParameterBase() templ.Component {
 	}
 	return CodeSelect("base", &resource.Base[0], optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterType() templ.Component {
+func (resource *SearchParameter) T_Type() templ.Component {
 	optionsValueSet := VSSearch_param_type
 
 	if resource == nil {
@@ -112,7 +112,7 @@ func (resource *SearchParameter) SearchParameterType() templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterXpathUsage() templ.Component {
+func (resource *SearchParameter) T_XpathUsage() templ.Component {
 	optionsValueSet := VSSearch_xpath_usage
 
 	if resource == nil {
@@ -120,7 +120,7 @@ func (resource *SearchParameter) SearchParameterXpathUsage() templ.Component {
 	}
 	return CodeSelect("xpathUsage", resource.XpathUsage, optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterTarget() templ.Component {
+func (resource *SearchParameter) T_Target() templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil {
@@ -128,7 +128,7 @@ func (resource *SearchParameter) SearchParameterTarget() templ.Component {
 	}
 	return CodeSelect("target", &resource.Target[0], optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterComparator() templ.Component {
+func (resource *SearchParameter) T_Comparator() templ.Component {
 	optionsValueSet := VSSearch_comparator
 
 	if resource == nil {
@@ -136,7 +136,7 @@ func (resource *SearchParameter) SearchParameterComparator() templ.Component {
 	}
 	return CodeSelect("comparator", &resource.Comparator[0], optionsValueSet)
 }
-func (resource *SearchParameter) SearchParameterModifier() templ.Component {
+func (resource *SearchParameter) T_Modifier() templ.Component {
 	optionsValueSet := VSSearch_modifier_code
 
 	if resource == nil {

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -165,14 +165,14 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *StructureMap) StructureMapLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *StructureMap) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapStatus() templ.Component {
+func (resource *StructureMap) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -180,14 +180,14 @@ func (resource *StructureMap) StructureMapStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *StructureMap) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *StructureMap) StructureMapStructureMode(numStructure int) templ.Component {
+func (resource *StructureMap) T_StructureMode(numStructure int) templ.Component {
 	optionsValueSet := VSMap_model_mode
 
 	if resource == nil && len(resource.Structure) >= numStructure {
@@ -195,7 +195,7 @@ func (resource *StructureMap) StructureMapStructureMode(numStructure int) templ.
 	}
 	return CodeSelect("mode", &resource.Structure[numStructure].Mode, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapGroupTypeMode(numGroup int) templ.Component {
+func (resource *StructureMap) T_GroupTypeMode(numGroup int) templ.Component {
 	optionsValueSet := VSMap_group_type_mode
 
 	if resource == nil && len(resource.Group) >= numGroup {
@@ -203,7 +203,7 @@ func (resource *StructureMap) StructureMapGroupTypeMode(numGroup int) templ.Comp
 	}
 	return CodeSelect("typeMode", resource.Group[numGroup].TypeMode, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapGroupInputMode(numGroup int, numInput int) templ.Component {
+func (resource *StructureMap) T_GroupInputMode(numGroup int, numInput int) templ.Component {
 	optionsValueSet := VSMap_input_mode
 
 	if resource == nil && len(resource.Group[numGroup].Input) >= numInput {
@@ -211,7 +211,7 @@ func (resource *StructureMap) StructureMapGroupInputMode(numGroup int, numInput 
 	}
 	return CodeSelect("mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapGroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
 	optionsValueSet := VSMap_source_list_mode
 
 	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
@@ -219,7 +219,7 @@ func (resource *StructureMap) StructureMapGroupRuleSourceListMode(numGroup int, 
 	}
 	return CodeSelect("listMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet)
 }
-func (resource *StructureMap) StructureMapGroupRuleTargetListMode(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetListMode(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_target_list_mode
 
 	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
@@ -227,7 +227,7 @@ func (resource *StructureMap) StructureMapGroupRuleTargetListMode(numGroup int, 
 	}
 	return CodeSelect("listMode", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[0], optionsValueSet)
 }
-func (resource *StructureMap) StructureMapGroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_transform
 
 	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {

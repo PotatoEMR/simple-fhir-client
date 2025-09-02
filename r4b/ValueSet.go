@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -143,14 +143,14 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ValueSet) ValueSetLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetStatus() templ.Component {
+func (resource *ValueSet) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -158,42 +158,42 @@ func (resource *ValueSet) ValueSetStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ValueSet) ValueSetComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Compose.Include[numInclude].Concept) >= numConcept {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Compose.Include[numInclude].Concept[numConcept].Code, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationLanguage(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptDesignationLanguage(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetComposeIncludeConceptDesignationUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptDesignationUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
 		return CodingSelect("use", nil, optionsValueSet)
 	}
 	return CodingSelect("use", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
 		return CodeSelect("property", nil, optionsValueSet)
 	}
 	return CodeSelect("property", &resource.Compose.Include[numInclude].Filter[numFilter].Property, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetComposeIncludeFilterOp(numInclude int, numFilter int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeFilterOp(numInclude int, numFilter int) templ.Component {
 	optionsValueSet := VSFilter_operator
 
 	if resource == nil && len(resource.Compose.Include[numInclude].Filter) >= numFilter {
@@ -201,7 +201,7 @@ func (resource *ValueSet) ValueSetComposeIncludeFilterOp(numInclude int, numFilt
 	}
 	return CodeSelect("op", &resource.Compose.Include[numInclude].Filter[numFilter].Op, optionsValueSet)
 }
-func (resource *ValueSet) ValueSetExpansionContainsCode(numContains int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ExpansionContainsCode(numContains int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Expansion.Contains) >= numContains {
 		return CodeSelect("code", nil, optionsValueSet)

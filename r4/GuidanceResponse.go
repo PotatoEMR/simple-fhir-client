@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -49,14 +49,14 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *GuidanceResponse) GuidanceResponseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *GuidanceResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *GuidanceResponse) GuidanceResponseStatus() templ.Component {
+func (resource *GuidanceResponse) T_Status() templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
@@ -64,7 +64,7 @@ func (resource *GuidanceResponse) GuidanceResponseStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *GuidanceResponse) GuidanceResponseReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *GuidanceResponse) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)

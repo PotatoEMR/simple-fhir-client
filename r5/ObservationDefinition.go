@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -99,14 +99,14 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ObservationDefinition) ObservationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionStatus() templ.Component {
+func (resource *ObservationDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -114,42 +114,42 @@ func (resource *ObservationDefinition) ObservationDefinitionStatus() templ.Compo
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionSubject(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Subject(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("subject", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subject", &resource.Subject[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionCategory(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() templ.Component {
+func (resource *ObservationDefinition) T_PermittedDataType() templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
 	if resource == nil {
@@ -157,42 +157,42 @@ func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() 
 	}
 	return CodeSelect("permittedDataType", &resource.PermittedDataType[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionMethod(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionPermittedUnit(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_PermittedUnit(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("permittedUnit", nil, optionsValueSet)
 	}
 	return CodingSelect("permittedUnit", &resource.PermittedUnit[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.QualifiedValue) >= numQualifiedValue {
 		return CodeableConceptSelect("context", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("context", resource.QualifiedValue[numQualifiedValue].Context, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueAppliesTo(numQualifiedValue int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueAppliesTo(numQualifiedValue int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.QualifiedValue) >= numQualifiedValue {
 		return CodeableConceptSelect("appliesTo", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appliesTo", &resource.QualifiedValue[numQualifiedValue].AppliesTo[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueGender(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueGender(numQualifiedValue int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil && len(resource.QualifiedValue) >= numQualifiedValue {
@@ -200,7 +200,7 @@ func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueGender
 	}
 	return CodeSelect("gender", resource.QualifiedValue[numQualifiedValue].Gender, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueRangeCategory(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueRangeCategory(numQualifiedValue int) templ.Component {
 	optionsValueSet := VSObservation_range_category
 
 	if resource == nil && len(resource.QualifiedValue) >= numQualifiedValue {
@@ -208,14 +208,14 @@ func (resource *ObservationDefinition) ObservationDefinitionQualifiedValueRangeC
 	}
 	return CodeSelect("rangeCategory", resource.QualifiedValue[numQualifiedValue].RangeCategory, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionComponentCode(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_ComponentCode(numComponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Component[numComponent].Code, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionComponentPermittedDataType(numComponent int) templ.Component {
+func (resource *ObservationDefinition) T_ComponentPermittedDataType(numComponent int) templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
 	if resource == nil && len(resource.Component) >= numComponent {
@@ -223,7 +223,7 @@ func (resource *ObservationDefinition) ObservationDefinitionComponentPermittedDa
 	}
 	return CodeSelect("permittedDataType", &resource.Component[numComponent].PermittedDataType[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionComponentPermittedUnit(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_ComponentPermittedUnit(numComponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Component) >= numComponent {
 		return CodingSelect("permittedUnit", nil, optionsValueSet)

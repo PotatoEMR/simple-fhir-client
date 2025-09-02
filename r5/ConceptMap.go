@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -168,14 +168,14 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapStatus() templ.Component {
+func (resource *ConceptMap) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -183,28 +183,28 @@ func (resource *ConceptMap) ConceptMapStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapTopic(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_PropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Property[numProperty].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapPropertyType(numProperty int) templ.Component {
+func (resource *ConceptMap) T_PropertyType(numProperty int) templ.Component {
 	optionsValueSet := VSConceptmap_property_type
 
 	if resource == nil && len(resource.Property) >= numProperty {
@@ -212,14 +212,14 @@ func (resource *ConceptMap) ConceptMapPropertyType(numProperty int) templ.Compon
 	}
 	return CodeSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapAdditionalAttributeCode(numAdditionalAttribute int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_AdditionalAttributeCode(numAdditionalAttribute int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.AdditionalAttribute) >= numAdditionalAttribute {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.AdditionalAttribute[numAdditionalAttribute].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapAdditionalAttributeType(numAdditionalAttribute int) templ.Component {
+func (resource *ConceptMap) T_AdditionalAttributeType(numAdditionalAttribute int) templ.Component {
 	optionsValueSet := VSConceptmap_attribute_type
 
 	if resource == nil && len(resource.AdditionalAttribute) >= numAdditionalAttribute {
@@ -227,21 +227,21 @@ func (resource *ConceptMap) ConceptMapAdditionalAttributeType(numAdditionalAttri
 	}
 	return CodeSelect("type", &resource.AdditionalAttribute[numAdditionalAttribute].Type, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element) >= numElement {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetRelationship(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetRelationship(numGroup int, numElement int, numTarget int) templ.Component {
 	optionsValueSet := VSConcept_map_relationship
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
@@ -249,21 +249,21 @@ func (resource *ConceptMap) ConceptMapGroupElementTargetRelationship(numGroup in
 	}
 	return CodeSelect("relationship", &resource.Group[numGroup].Element[numElement].Target[numTarget].Relationship, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetPropertyCode(numGroup int, numElement int, numTarget int, numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetPropertyCode(numGroup int, numElement int, numTarget int, numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target[numTarget].Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Group[numGroup].Element[numElement].Target[numTarget].Property[numProperty].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetDependsOnAttribute(numGroup int, numElement int, numTarget int, numDependsOn int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnAttribute(numGroup int, numElement int, numTarget int, numDependsOn int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
 		return CodeSelect("attribute", nil, optionsValueSet)
 	}
 	return CodeSelect("attribute", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Attribute, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
 
 	if resource == nil && len(resource.Group) >= numGroup {
@@ -271,14 +271,14 @@ func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Comp
 	}
 	return CodeSelect("mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Unmapped.Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupUnmappedRelationship(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedRelationship(numGroup int) templ.Component {
 	optionsValueSet := VSConcept_map_relationship
 
 	if resource == nil && len(resource.Group) >= numGroup {

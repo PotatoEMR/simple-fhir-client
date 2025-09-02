@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -74,35 +74,35 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *AllergyIntolerance) AllergyIntoleranceLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceClinicalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_ClinicalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("clinicalStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("clinicalStatus", resource.ClinicalStatus, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceVerificationStatus(optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_VerificationStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("verificationStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("verificationStatus", resource.VerificationStatus, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceType(optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceCategory() templ.Component {
+func (resource *AllergyIntolerance) T_Category() templ.Component {
 	optionsValueSet := VSAllergy_intolerance_category
 
 	if resource == nil {
@@ -110,7 +110,7 @@ func (resource *AllergyIntolerance) AllergyIntoleranceCategory() templ.Component
 	}
 	return CodeSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceCriticality() templ.Component {
+func (resource *AllergyIntolerance) T_Criticality() templ.Component {
 	optionsValueSet := VSAllergy_intolerance_criticality
 
 	if resource == nil {
@@ -118,28 +118,28 @@ func (resource *AllergyIntolerance) AllergyIntoleranceCriticality() templ.Compon
 	}
 	return CodeSelect("criticality", resource.Criticality, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceCode(optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Participant[numParticipant].Function, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceReactionSubstance(numReaction int, optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_ReactionSubstance(numReaction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Reaction) >= numReaction {
 		return CodeableConceptSelect("substance", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("substance", resource.Reaction[numReaction].Substance, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceReactionSeverity(numReaction int) templ.Component {
+func (resource *AllergyIntolerance) T_ReactionSeverity(numReaction int) templ.Component {
 	optionsValueSet := VSReaction_event_severity
 
 	if resource == nil && len(resource.Reaction) >= numReaction {
@@ -147,7 +147,7 @@ func (resource *AllergyIntolerance) AllergyIntoleranceReactionSeverity(numReacti
 	}
 	return CodeSelect("severity", resource.Reaction[numReaction].Severity, optionsValueSet)
 }
-func (resource *AllergyIntolerance) AllergyIntoleranceReactionExposureRoute(numReaction int, optionsValueSet []Coding) templ.Component {
+func (resource *AllergyIntolerance) T_ReactionExposureRoute(numReaction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Reaction) >= numReaction {
 		return CodeableConceptSelect("exposureRoute", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -35,21 +35,21 @@ func (r FormularyItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *FormularyItem) FormularyItemLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *FormularyItem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *FormularyItem) FormularyItemCode(optionsValueSet []Coding) templ.Component {
+func (resource *FormularyItem) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *FormularyItem) FormularyItemStatus() templ.Component {
+func (resource *FormularyItem) T_Status() templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
 	if resource == nil {

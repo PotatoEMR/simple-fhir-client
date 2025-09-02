@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,14 +73,14 @@ func (r QuestionnaireResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *QuestionnaireResponse) QuestionnaireResponseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *QuestionnaireResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *QuestionnaireResponse) QuestionnaireResponseStatus() templ.Component {
+func (resource *QuestionnaireResponse) T_Status() templ.Component {
 	optionsValueSet := VSQuestionnaire_answers_status
 
 	if resource == nil {

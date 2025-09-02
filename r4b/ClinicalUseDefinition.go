@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -118,14 +118,14 @@ func (r ClinicalUseDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionType() templ.Component {
+func (resource *ClinicalUseDefinition) T_Type() templ.Component {
 	optionsValueSet := VSClinical_use_definition_type
 
 	if resource == nil {
@@ -133,63 +133,63 @@ func (resource *ClinicalUseDefinition) ClinicalUseDefinitionType() templ.Compone
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionCategory(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionStatus(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionContraindicationOtherTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_ContraindicationOtherTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Contraindication.OtherTherapy) >= numOtherTherapy {
 		return CodeableConceptSelect("relationshipType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationshipType", &resource.Contraindication.OtherTherapy[numOtherTherapy].RelationshipType, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionInteractionType(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_InteractionType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Interaction.Type, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionInteractionIncidence(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_InteractionIncidence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("incidence", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("incidence", resource.Interaction.Incidence, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionInteractionManagement(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_InteractionManagement(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("management", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("management", &resource.Interaction.Management[0], optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionUndesirableEffectClassification(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_UndesirableEffectClassification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", resource.UndesirableEffect.Classification, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionUndesirableEffectFrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_UndesirableEffectFrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("frequencyOfOccurrence", resource.UndesirableEffect.FrequencyOfOccurrence, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) ClinicalUseDefinitionWarningCode(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_WarningCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

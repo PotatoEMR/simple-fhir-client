@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -46,35 +46,35 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *PractitionerRole) PractitionerRoleLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleCode(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleSpecialty(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Specialty(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleCharacteristic(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Characteristic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleCommunication(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Communication(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("communication", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -99,14 +99,14 @@ func (r MedicationRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicationRequest) MedicationRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestStatus() templ.Component {
+func (resource *MedicationRequest) T_Status() templ.Component {
 	optionsValueSet := VSMedicationrequest_status
 
 	if resource == nil {
@@ -114,14 +114,14 @@ func (resource *MedicationRequest) MedicationRequestStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestIntent() templ.Component {
+func (resource *MedicationRequest) T_Intent() templ.Component {
 	optionsValueSet := VSMedicationrequest_intent
 
 	if resource == nil {
@@ -129,14 +129,14 @@ func (resource *MedicationRequest) MedicationRequestIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestCategory(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestPriority() templ.Component {
+func (resource *MedicationRequest) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -144,28 +144,28 @@ func (resource *MedicationRequest) MedicationRequestPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestCourseOfTherapyType(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_CourseOfTherapyType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("courseOfTherapyType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("courseOfTherapyType", resource.CourseOfTherapyType, optionsValueSet)
 }
-func (resource *MedicationRequest) MedicationRequestSubstitutionReason(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_SubstitutionReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)

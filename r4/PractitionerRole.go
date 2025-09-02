@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -66,28 +66,28 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *PractitionerRole) PractitionerRoleLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleCode(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleSpecialty(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Specialty(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
-func (resource *PractitionerRole) PractitionerRoleAvailableTimeDaysOfWeek(numAvailableTime int) templ.Component {
+func (resource *PractitionerRole) T_AvailableTimeDaysOfWeek(numAvailableTime int) templ.Component {
 	optionsValueSet := VSDays_of_week
 
 	if resource == nil && len(resource.AvailableTime) >= numAvailableTime {

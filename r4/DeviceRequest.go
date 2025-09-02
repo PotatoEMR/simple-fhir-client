@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -71,14 +71,14 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceRequest) DeviceRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestStatus() templ.Component {
+func (resource *DeviceRequest) T_Status() templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -86,7 +86,7 @@ func (resource *DeviceRequest) DeviceRequestStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestIntent() templ.Component {
+func (resource *DeviceRequest) T_Intent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -94,7 +94,7 @@ func (resource *DeviceRequest) DeviceRequestIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestPriority() templ.Component {
+func (resource *DeviceRequest) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -102,21 +102,21 @@ func (resource *DeviceRequest) DeviceRequestPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceRequest) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceRequest) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *DeviceRequest) DeviceRequestParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *DeviceRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Parameter) >= numParameter {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

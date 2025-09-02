@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -94,14 +94,14 @@ func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ResearchElementDefinition) ResearchElementDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchElementDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionStatus() templ.Component {
+func (resource *ResearchElementDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -109,21 +109,21 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionStatus() tem
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchElementDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionTopic(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchElementDefinition) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionType() templ.Component {
+func (resource *ResearchElementDefinition) T_Type() templ.Component {
 	optionsValueSet := VSResearch_element_type
 
 	if resource == nil {
@@ -131,7 +131,7 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionType() templ
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionVariableType() templ.Component {
+func (resource *ResearchElementDefinition) T_VariableType() templ.Component {
 	optionsValueSet := VSVariable_type
 
 	if resource == nil {
@@ -139,14 +139,14 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionVariableType
 	}
 	return CodeSelect("variableType", resource.VariableType, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicUnitOfMeasure(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchElementDefinition) T_CharacteristicUnitOfMeasure(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfMeasure", resource.Characteristic[numCharacteristic].UnitOfMeasure, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicStudyEffectiveGroupMeasure(numCharacteristic int) templ.Component {
+func (resource *ResearchElementDefinition) T_CharacteristicStudyEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
@@ -154,7 +154,7 @@ func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacterist
 	}
 	return CodeSelect("studyEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure, optionsValueSet)
 }
-func (resource *ResearchElementDefinition) ResearchElementDefinitionCharacteristicParticipantEffectiveGroupMeasure(numCharacteristic int) templ.Component {
+func (resource *ResearchElementDefinition) T_CharacteristicParticipantEffectiveGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {

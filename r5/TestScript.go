@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -270,14 +270,14 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *TestScript) TestScriptLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *TestScript) TestScriptStatus() templ.Component {
+func (resource *TestScript) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -285,63 +285,63 @@ func (resource *TestScript) TestScriptStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *TestScript) TestScriptJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *TestScript) TestScriptOriginProfile(numOrigin int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_OriginProfile(numOrigin int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Origin) >= numOrigin {
 		return CodingSelect("profile", nil, optionsValueSet)
 	}
 	return CodingSelect("profile", &resource.Origin[numOrigin].Profile, optionsValueSet)
 }
-func (resource *TestScript) TestScriptDestinationProfile(numDestination int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_DestinationProfile(numDestination int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Destination) >= numDestination {
 		return CodingSelect("profile", nil, optionsValueSet)
 	}
 	return CodingSelect("profile", &resource.Destination[numDestination].Profile, optionsValueSet)
 }
-func (resource *TestScript) TestScriptScopeConformance(numScope int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_ScopeConformance(numScope int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Scope) >= numScope {
 		return CodeableConceptSelect("conformance", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("conformance", resource.Scope[numScope].Conformance, optionsValueSet)
 }
-func (resource *TestScript) TestScriptScopePhase(numScope int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_ScopePhase(numScope int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Scope) >= numScope {
 		return CodeableConceptSelect("phase", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phase", resource.Scope[numScope].Phase, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionOperationType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationType(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodingSelect("type", nil, optionsValueSet)
 	}
 	return CodingSelect("type", resource.Setup.Action[numAction].Operation.Type, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionOperationAccept(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationAccept(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("accept", nil, optionsValueSet)
 	}
 	return CodeSelect("accept", resource.Setup.Action[numAction].Operation.Accept, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionOperationContentType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationContentType(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", resource.Setup.Action[numAction].Operation.ContentType, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionOperationMethod(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationMethod(numAction int) templ.Component {
 	optionsValueSet := VSHttp_operations
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -349,7 +349,7 @@ func (resource *TestScript) TestScriptSetupActionOperationMethod(numAction int) 
 	}
 	return CodeSelect("method", resource.Setup.Action[numAction].Operation.Method, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertDirection(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertDirection(numAction int) templ.Component {
 	optionsValueSet := VSAssert_direction_codes
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -357,14 +357,14 @@ func (resource *TestScript) TestScriptSetupActionAssertDirection(numAction int) 
 	}
 	return CodeSelect("direction", resource.Setup.Action[numAction].Assert.Direction, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertContentType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionAssertContentType(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
 		return CodeSelect("contentType", nil, optionsValueSet)
 	}
 	return CodeSelect("contentType", resource.Setup.Action[numAction].Assert.ContentType, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertDefaultManualCompletion(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertDefaultManualCompletion(numAction int) templ.Component {
 	optionsValueSet := VSAssert_manual_completion_codes
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -372,7 +372,7 @@ func (resource *TestScript) TestScriptSetupActionAssertDefaultManualCompletion(n
 	}
 	return CodeSelect("defaultManualCompletion", resource.Setup.Action[numAction].Assert.DefaultManualCompletion, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertOperator(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertOperator(numAction int) templ.Component {
 	optionsValueSet := VSAssert_operator_codes
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -380,7 +380,7 @@ func (resource *TestScript) TestScriptSetupActionAssertOperator(numAction int) t
 	}
 	return CodeSelect("operator", resource.Setup.Action[numAction].Assert.Operator, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertRequestMethod(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertRequestMethod(numAction int) templ.Component {
 	optionsValueSet := VSHttp_operations
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {
@@ -388,7 +388,7 @@ func (resource *TestScript) TestScriptSetupActionAssertRequestMethod(numAction i
 	}
 	return CodeSelect("requestMethod", resource.Setup.Action[numAction].Assert.RequestMethod, optionsValueSet)
 }
-func (resource *TestScript) TestScriptSetupActionAssertResponse(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertResponse(numAction int) templ.Component {
 	optionsValueSet := VSAssert_response_code_types
 
 	if resource == nil && len(resource.Setup.Action) >= numAction {

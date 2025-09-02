@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -62,21 +62,21 @@ func (r Medication) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Medication) MedicationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Medication) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Medication) MedicationCode(optionsValueSet []Coding) templ.Component {
+func (resource *Medication) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *Medication) MedicationStatus() templ.Component {
+func (resource *Medication) T_Status() templ.Component {
 	optionsValueSet := VSMedication_status
 
 	if resource == nil {
@@ -84,7 +84,7 @@ func (resource *Medication) MedicationStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Medication) MedicationDoseForm(optionsValueSet []Coding) templ.Component {
+func (resource *Medication) T_DoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("doseForm", nil, optionsValueSet)

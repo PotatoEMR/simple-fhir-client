@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -114,14 +114,14 @@ func (r CoverageEligibilityResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseStatus() templ.Component {
+func (resource *CoverageEligibilityResponse) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -129,7 +129,7 @@ func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseStatus()
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponsePurpose() templ.Component {
+func (resource *CoverageEligibilityResponse) T_Purpose() templ.Component {
 	optionsValueSet := VSEligibilityresponse_purpose
 
 	if resource == nil {
@@ -137,7 +137,7 @@ func (resource *CoverageEligibilityResponse) CoverageEligibilityResponsePurpose(
 	}
 	return CodeSelect("purpose", &resource.Purpose[0], optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseOutcome() templ.Component {
+func (resource *CoverageEligibilityResponse) T_Outcome() templ.Component {
 	optionsValueSet := VSEligibility_outcome
 
 	if resource == nil {
@@ -145,77 +145,77 @@ func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseOutcome(
 	}
 	return CodeSelect("outcome", &resource.Outcome, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseForm(optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_Form(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseEventType(numEvent int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_EventType(numEvent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Event) >= numEvent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Event[numEvent].Type, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemCategory(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemCategory(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Insurance[numInsurance].Item[numItem].Category, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemProductOrService(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemProductOrService(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Insurance[numInsurance].Item[numItem].ProductOrService, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemModifier(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemModifier(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modifier", &resource.Insurance[numInsurance].Item[numItem].Modifier[0], optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemNetwork(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemNetwork(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("network", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("network", resource.Insurance[numInsurance].Item[numItem].Network, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemUnit(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemUnit(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.Insurance[numInsurance].Item[numItem].Unit, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemTerm(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemTerm(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("term", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("term", resource.Insurance[numInsurance].Item[numItem].Term, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemAuthorizationSupporting(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemAuthorizationSupporting(numInsurance int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item) >= numItem {
 		return CodeableConceptSelect("authorizationSupporting", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorizationSupporting", &resource.Insurance[numInsurance].Item[numItem].AuthorizationSupporting[0], optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseInsuranceItemBenefitType(numInsurance int, numItem int, numBenefit int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitType(numInsurance int, numItem int, numBenefit int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Insurance[numInsurance].Item[numItem].Benefit) >= numBenefit {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].Type, optionsValueSet)
 }
-func (resource *CoverageEligibilityResponse) CoverageEligibilityResponseErrorCode(numError int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityResponse) T_ErrorCode(numError int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Error) >= numError {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

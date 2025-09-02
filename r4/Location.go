@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,14 +70,14 @@ func (r Location) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Location) LocationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Location) LocationStatus() templ.Component {
+func (resource *Location) T_Status() templ.Component {
 	optionsValueSet := VSLocation_status
 
 	if resource == nil {
@@ -85,14 +85,14 @@ func (resource *Location) LocationStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Location) LocationOperationalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_OperationalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("operationalStatus", nil, optionsValueSet)
 	}
 	return CodingSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
 }
-func (resource *Location) LocationMode() templ.Component {
+func (resource *Location) T_Mode() templ.Component {
 	optionsValueSet := VSLocation_mode
 
 	if resource == nil {
@@ -100,21 +100,21 @@ func (resource *Location) LocationMode() templ.Component {
 	}
 	return CodeSelect("mode", resource.Mode, optionsValueSet)
 }
-func (resource *Location) LocationType(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *Location) LocationPhysicalType(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_PhysicalType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("physicalType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("physicalType", resource.PhysicalType, optionsValueSet)
 }
-func (resource *Location) LocationHoursOfOperationDaysOfWeek(numHoursOfOperation int) templ.Component {
+func (resource *Location) T_HoursOfOperationDaysOfWeek(numHoursOfOperation int) templ.Component {
 	optionsValueSet := VSDays_of_week
 
 	if resource == nil && len(resource.HoursOfOperation) >= numHoursOfOperation {

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -104,84 +104,84 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *PackagedProductDefinition) PackagedProductDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionType(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionStatus(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionCharacteristic(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_Characteristic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_LegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Code, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionLegalStatusOfSupplyJurisdiction(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_LegalStatusOfSupplyJurisdiction(numLegalStatusOfSupply int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.LegalStatusOfSupply) >= numLegalStatusOfSupply {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Jurisdiction, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageType(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Package.Type, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageMaterial(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageMaterial(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("material", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("material", &resource.Package.Material[0], optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageAlternateMaterial(optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageAlternateMaterial(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("alternateMaterial", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("alternateMaterial", &resource.Package.AlternateMaterial[0], optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageShelfLifeStorageType(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageShelfLifeStorageType(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Package.ShelfLifeStorage) >= numShelfLifeStorage {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Package.ShelfLifeStorage[numShelfLifeStorage].Type, optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackageShelfLifeStorageSpecialPrecautionsForStorage(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageShelfLifeStorageSpecialPrecautionsForStorage(numShelfLifeStorage int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Package.ShelfLifeStorage) >= numShelfLifeStorage {
 		return CodeableConceptSelect("specialPrecautionsForStorage", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialPrecautionsForStorage", &resource.Package.ShelfLifeStorage[numShelfLifeStorage].SpecialPrecautionsForStorage[0], optionsValueSet)
 }
-func (resource *PackagedProductDefinition) PackagedProductDefinitionPackagePropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *PackagedProductDefinition) T_PackagePropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Package.Property) >= numProperty {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

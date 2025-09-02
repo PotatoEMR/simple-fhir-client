@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -109,14 +109,14 @@ func (r ConditionDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ConditionDefinition) ConditionDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionStatus() templ.Component {
+func (resource *ConditionDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -124,70 +124,70 @@ func (resource *ConditionDefinition) ConditionDefinitionStatus() templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionSeverity(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Severity(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("severity", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionStage(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Stage(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("stage", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("stage", resource.Stage, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionObservationCategory(numObservation int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_ObservationCategory(numObservation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Observation) >= numObservation {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Observation[numObservation].Category, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionObservationCode(numObservation int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_ObservationCode(numObservation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Observation) >= numObservation {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Observation[numObservation].Code, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionMedicationCategory(numMedication int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_MedicationCategory(numMedication int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Medication) >= numMedication {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Medication[numMedication].Category, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionMedicationCode(numMedication int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_MedicationCode(numMedication int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Medication) >= numMedication {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Medication[numMedication].Code, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionPreconditionType(numPrecondition int) templ.Component {
+func (resource *ConditionDefinition) T_PreconditionType(numPrecondition int) templ.Component {
 	optionsValueSet := VSCondition_precondition_type
 
 	if resource == nil && len(resource.Precondition) >= numPrecondition {
@@ -195,14 +195,14 @@ func (resource *ConditionDefinition) ConditionDefinitionPreconditionType(numPrec
 	}
 	return CodeSelect("type", &resource.Precondition[numPrecondition].Type, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionPreconditionCode(numPrecondition int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_PreconditionCode(numPrecondition int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Precondition) >= numPrecondition {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Precondition[numPrecondition].Code, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionQuestionnairePurpose(numQuestionnaire int) templ.Component {
+func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int) templ.Component {
 	optionsValueSet := VSCondition_questionnaire_purpose
 
 	if resource == nil && len(resource.Questionnaire) >= numQuestionnaire {
@@ -210,7 +210,7 @@ func (resource *ConditionDefinition) ConditionDefinitionQuestionnairePurpose(num
 	}
 	return CodeSelect("purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet)
 }
-func (resource *ConditionDefinition) ConditionDefinitionPlanRole(numPlan int, optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_PlanRole(numPlan int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Plan) >= numPlan {
 		return CodeableConceptSelect("role", nil, optionsValueSet)

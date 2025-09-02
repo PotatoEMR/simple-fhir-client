@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -63,14 +63,14 @@ func (r InventoryReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *InventoryReport) InventoryReportLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryReport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportStatus() templ.Component {
+func (resource *InventoryReport) T_Status() templ.Component {
 	optionsValueSet := VSInventoryreport_status
 
 	if resource == nil {
@@ -78,7 +78,7 @@ func (resource *InventoryReport) InventoryReportStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportCountType() templ.Component {
+func (resource *InventoryReport) T_CountType() templ.Component {
 	optionsValueSet := VSInventoryreport_counttype
 
 	if resource == nil {
@@ -86,28 +86,28 @@ func (resource *InventoryReport) InventoryReportCountType() templ.Component {
 	}
 	return CodeSelect("countType", &resource.CountType, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportOperationType(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryReport) T_OperationType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("operationType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("operationType", resource.OperationType, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportOperationTypeReason(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryReport) T_OperationTypeReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("operationTypeReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("operationTypeReason", resource.OperationTypeReason, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportInventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding) templ.Component {
+func (resource *InventoryReport) T_InventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.InventoryListing) >= numInventoryListing {
 		return CodeableConceptSelect("itemStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("itemStatus", resource.InventoryListing[numInventoryListing].ItemStatus, optionsValueSet)
 }
-func (resource *InventoryReport) InventoryReportInventoryListingItemCategory(numInventoryListing int, numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *InventoryReport) T_InventoryListingItemCategory(numInventoryListing int, numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.InventoryListing[numInventoryListing].Item) >= numItem {
 		return CodeableConceptSelect("category", nil, optionsValueSet)

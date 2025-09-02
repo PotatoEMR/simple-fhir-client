@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -62,14 +62,14 @@ func (r DeviceDispense) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceDispense) DeviceDispenseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceDispense) DeviceDispenseStatus() templ.Component {
+func (resource *DeviceDispense) T_Status() templ.Component {
 	optionsValueSet := VSDevicedispense_status
 
 	if resource == nil {
@@ -77,21 +77,21 @@ func (resource *DeviceDispense) DeviceDispenseStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceDispense) DeviceDispenseCategory(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *DeviceDispense) DeviceDispenseType(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *DeviceDispense) DeviceDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

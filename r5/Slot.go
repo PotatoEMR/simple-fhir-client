@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -43,35 +43,35 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Slot) SlotLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Slot) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Slot) SlotServiceCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Slot) T_ServiceCategory(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
 }
-func (resource *Slot) SlotSpecialty(optionsValueSet []Coding) templ.Component {
+func (resource *Slot) T_Specialty(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("specialty", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
 }
-func (resource *Slot) SlotAppointmentType(optionsValueSet []Coding) templ.Component {
+func (resource *Slot) T_AppointmentType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("appointmentType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appointmentType", &resource.AppointmentType[0], optionsValueSet)
 }
-func (resource *Slot) SlotStatus() templ.Component {
+func (resource *Slot) T_Status() templ.Component {
 	optionsValueSet := VSSlotstatus
 
 	if resource == nil {

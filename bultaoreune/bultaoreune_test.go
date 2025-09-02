@@ -51,10 +51,10 @@ func TestAllergy_r4(t *testing.T) {
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
 	fmt.Println("does criticality look right? should be set to low")
-	allergyCritField := a2.AllergyIntoleranceCriticality()
+	allergyCritField := a2.T_Criticality()
 	allergyCritField.Render(context.Background(), os.Stdout)
 	fmt.Println("does verification look right? should be set to --")
-	allergyVerificationField := a2.AllergyIntoleranceVerificationStatus()
+	allergyVerificationField := a2.T_VerificationStatus()
 	allergyVerificationField.Render(context.Background(), os.Stdout)
 }
 

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -76,14 +76,14 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Condition) ConditionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Condition) ConditionClinicalStatus() templ.Component {
+func (resource *Condition) T_ClinicalStatus() templ.Component {
 	optionsValueSet := VSCondition_clinical
 
 	if resource == nil {
@@ -91,7 +91,7 @@ func (resource *Condition) ConditionClinicalStatus() templ.Component {
 	}
 	return CodeableConceptSelect("clinicalStatus", resource.ClinicalStatus, optionsValueSet)
 }
-func (resource *Condition) ConditionVerificationStatus() templ.Component {
+func (resource *Condition) T_VerificationStatus() templ.Component {
 	optionsValueSet := VSCondition_ver_status
 
 	if resource == nil {
@@ -99,49 +99,49 @@ func (resource *Condition) ConditionVerificationStatus() templ.Component {
 	}
 	return CodeableConceptSelect("verificationStatus", resource.VerificationStatus, optionsValueSet)
 }
-func (resource *Condition) ConditionCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Condition) ConditionSeverity(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Severity(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("severity", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet)
 }
-func (resource *Condition) ConditionCode(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *Condition) ConditionBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
 }
-func (resource *Condition) ConditionStageSummary(numStage int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Stage) >= numStage {
 		return CodeableConceptSelect("summary", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("summary", resource.Stage[numStage].Summary, optionsValueSet)
 }
-func (resource *Condition) ConditionStageType(numStage int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Stage) >= numStage {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Stage[numStage].Type, optionsValueSet)
 }
-func (resource *Condition) ConditionEvidenceCode(numEvidence int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_EvidenceCode(numEvidence int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Evidence) >= numEvidence {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

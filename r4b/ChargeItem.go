@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,14 +70,14 @@ func (r ChargeItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ChargeItem) ChargeItemLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ChargeItem) ChargeItemStatus() templ.Component {
+func (resource *ChargeItem) T_Status() templ.Component {
 	optionsValueSet := VSChargeitem_status
 
 	if resource == nil {
@@ -85,28 +85,28 @@ func (resource *ChargeItem) ChargeItemStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ChargeItem) ChargeItemCode(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *ChargeItem) ChargeItemBodysite(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_Bodysite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodysite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodysite", &resource.Bodysite[0], optionsValueSet)
 }
-func (resource *ChargeItem) ChargeItemReason(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_Reason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reason", &resource.Reason[0], optionsValueSet)
 }
-func (resource *ChargeItem) ChargeItemPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

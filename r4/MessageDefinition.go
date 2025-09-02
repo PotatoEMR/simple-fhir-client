@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -77,14 +77,14 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MessageDefinition) MessageDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MessageDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MessageDefinition) MessageDefinitionStatus() templ.Component {
+func (resource *MessageDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -92,14 +92,14 @@ func (resource *MessageDefinition) MessageDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *MessageDefinition) MessageDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *MessageDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *MessageDefinition) MessageDefinitionCategory() templ.Component {
+func (resource *MessageDefinition) T_Category() templ.Component {
 	optionsValueSet := VSMessage_significance_category
 
 	if resource == nil {
@@ -107,7 +107,7 @@ func (resource *MessageDefinition) MessageDefinitionCategory() templ.Component {
 	}
 	return CodeSelect("category", resource.Category, optionsValueSet)
 }
-func (resource *MessageDefinition) MessageDefinitionResponseRequired() templ.Component {
+func (resource *MessageDefinition) T_ResponseRequired() templ.Component {
 	optionsValueSet := VSMessageheader_response_request
 
 	if resource == nil {
@@ -115,7 +115,7 @@ func (resource *MessageDefinition) MessageDefinitionResponseRequired() templ.Com
 	}
 	return CodeSelect("responseRequired", resource.ResponseRequired, optionsValueSet)
 }
-func (resource *MessageDefinition) MessageDefinitionFocusCode(numFocus int) templ.Component {
+func (resource *MessageDefinition) T_FocusCode(numFocus int) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil && len(resource.Focus) >= numFocus {

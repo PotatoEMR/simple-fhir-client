@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,14 +70,14 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *VisionPrescription) VisionPrescriptionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *VisionPrescription) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *VisionPrescription) VisionPrescriptionStatus() templ.Component {
+func (resource *VisionPrescription) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -85,14 +85,14 @@ func (resource *VisionPrescription) VisionPrescriptionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *VisionPrescription) VisionPrescriptionLensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding) templ.Component {
+func (resource *VisionPrescription) T_LensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.LensSpecification) >= numLensSpecification {
 		return CodeableConceptSelect("product", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("product", &resource.LensSpecification[numLensSpecification].Product, optionsValueSet)
 }
-func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLensSpecification int) templ.Component {
+func (resource *VisionPrescription) T_LensSpecificationEye(numLensSpecification int) templ.Component {
 	optionsValueSet := VSVision_eye_codes
 
 	if resource == nil && len(resource.LensSpecification) >= numLensSpecification {
@@ -100,7 +100,7 @@ func (resource *VisionPrescription) VisionPrescriptionLensSpecificationEye(numLe
 	}
 	return CodeSelect("eye", &resource.LensSpecification[numLensSpecification].Eye, optionsValueSet)
 }
-func (resource *VisionPrescription) VisionPrescriptionLensSpecificationPrismBase(numLensSpecification int, numPrism int) templ.Component {
+func (resource *VisionPrescription) T_LensSpecificationPrismBase(numLensSpecification int, numPrism int) templ.Component {
 	optionsValueSet := VSVision_base_codes
 
 	if resource == nil && len(resource.LensSpecification[numLensSpecification].Prism) >= numPrism {

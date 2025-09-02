@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -203,14 +203,14 @@ func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CapabilityStatement) CapabilityStatementLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementStatus() templ.Component {
+func (resource *CapabilityStatement) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -218,14 +218,14 @@ func (resource *CapabilityStatement) CapabilityStatementStatus() templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementKind() templ.Component {
+func (resource *CapabilityStatement) T_Kind() templ.Component {
 	optionsValueSet := VSCapability_statement_kind
 
 	if resource == nil {
@@ -233,7 +233,7 @@ func (resource *CapabilityStatement) CapabilityStatementKind() templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementFhirVersion() templ.Component {
+func (resource *CapabilityStatement) T_FhirVersion() templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil {
@@ -241,21 +241,21 @@ func (resource *CapabilityStatement) CapabilityStatementFhirVersion() templ.Comp
 	}
 	return CodeSelect("fhirVersion", &resource.FhirVersion, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementFormat(optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_Format(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("format", nil, optionsValueSet)
 	}
 	return CodeSelect("format", &resource.Format[0], optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementPatchFormat(optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_PatchFormat(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("patchFormat", nil, optionsValueSet)
 	}
 	return CodeSelect("patchFormat", &resource.PatchFormat[0], optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestMode(numRest int) templ.Component {
+func (resource *CapabilityStatement) T_RestMode(numRest int) templ.Component {
 	optionsValueSet := VSRestful_capability_mode
 
 	if resource == nil && len(resource.Rest) >= numRest {
@@ -263,14 +263,14 @@ func (resource *CapabilityStatement) CapabilityStatementRestMode(numRest int) te
 	}
 	return CodeSelect("mode", &resource.Rest[numRest].Mode, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestSecurityService(numRest int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_RestSecurityService(numRest int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Rest) >= numRest {
 		return CodeableConceptSelect("service", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("service", &resource.Rest[numRest].Security.Service[0], optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceType(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceType(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
@@ -278,7 +278,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceType(numRest
 	}
 	return CodeSelect("type", &resource.Rest[numRest].Resource[numResource].Type, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceVersioning(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceVersioning(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSVersioning_policy
 
 	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
@@ -286,7 +286,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceVersioning(n
 	}
 	return CodeSelect("versioning", resource.Rest[numRest].Resource[numResource].Versioning, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalRead(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalRead(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSConditional_read_status
 
 	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
@@ -294,7 +294,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalR
 	}
 	return CodeSelect("conditionalRead", resource.Rest[numRest].Resource[numResource].ConditionalRead, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalDelete(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalDelete(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSConditional_delete_status
 
 	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
@@ -302,7 +302,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceConditionalD
 	}
 	return CodeSelect("conditionalDelete", resource.Rest[numRest].Resource[numResource].ConditionalDelete, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceReferencePolicy(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceReferencePolicy(numRest int, numResource int) templ.Component {
 	optionsValueSet := VSReference_handling_policy
 
 	if resource == nil && len(resource.Rest[numRest].Resource) >= numResource {
@@ -310,7 +310,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceReferencePol
 	}
 	return CodeSelect("referencePolicy", &resource.Rest[numRest].Resource[numResource].ReferencePolicy[0], optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceInteractionCode(numRest int, numResource int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceInteractionCode(numRest int, numResource int, numInteraction int) templ.Component {
 	optionsValueSet := VSType_restful_interaction
 
 	if resource == nil && len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
@@ -318,7 +318,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceInteractionC
 	}
 	return CodeSelect("code", &resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Code, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestResourceSearchParamType(numRest int, numResource int, numSearchParam int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchParamType(numRest int, numResource int, numSearchParam int) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
 	if resource == nil && len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
@@ -326,7 +326,7 @@ func (resource *CapabilityStatement) CapabilityStatementRestResourceSearchParamT
 	}
 	return CodeSelect("type", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Type, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementRestInteractionCode(numRest int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestInteractionCode(numRest int, numInteraction int) templ.Component {
 	optionsValueSet := VSSystem_restful_interaction
 
 	if resource == nil && len(resource.Rest[numRest].Interaction) >= numInteraction {
@@ -334,14 +334,14 @@ func (resource *CapabilityStatement) CapabilityStatementRestInteractionCode(numR
 	}
 	return CodeSelect("code", &resource.Rest[numRest].Interaction[numInteraction].Code, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementMessagingEndpointProtocol(numMessaging int, numEndpoint int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_MessagingEndpointProtocol(numMessaging int, numEndpoint int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
 		return CodingSelect("protocol", nil, optionsValueSet)
 	}
 	return CodingSelect("protocol", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Protocol, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementMessagingSupportedMessageMode(numMessaging int, numSupportedMessage int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingSupportedMessageMode(numMessaging int, numSupportedMessage int) templ.Component {
 	optionsValueSet := VSEvent_capability_mode
 
 	if resource == nil && len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
@@ -349,7 +349,7 @@ func (resource *CapabilityStatement) CapabilityStatementMessagingSupportedMessag
 	}
 	return CodeSelect("mode", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Mode, optionsValueSet)
 }
-func (resource *CapabilityStatement) CapabilityStatementDocumentMode(numDocument int) templ.Component {
+func (resource *CapabilityStatement) T_DocumentMode(numDocument int) templ.Component {
 	optionsValueSet := VSDocument_mode
 
 	if resource == nil && len(resource.Document) >= numDocument {

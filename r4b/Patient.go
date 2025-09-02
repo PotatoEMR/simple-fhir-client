@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -98,14 +98,14 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Patient) PatientLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Patient) PatientGender() templ.Component {
+func (resource *Patient) T_Gender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
@@ -113,21 +113,21 @@ func (resource *Patient) PatientGender() templ.Component {
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
-func (resource *Patient) PatientMaritalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_MaritalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("maritalStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet)
 }
-func (resource *Patient) PatientContactRelationship(numContact int, optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_ContactRelationship(numContact int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Contact) >= numContact {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Contact[numContact].Relationship[0], optionsValueSet)
 }
-func (resource *Patient) PatientContactGender(numContact int) templ.Component {
+func (resource *Patient) T_ContactGender(numContact int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil && len(resource.Contact) >= numContact {
@@ -135,14 +135,14 @@ func (resource *Patient) PatientContactGender(numContact int) templ.Component {
 	}
 	return CodeSelect("gender", resource.Contact[numContact].Gender, optionsValueSet)
 }
-func (resource *Patient) PatientCommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Communication) >= numCommunication {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", &resource.Communication[numCommunication].Language, optionsValueSet)
 }
-func (resource *Patient) PatientLinkType(numLink int) templ.Component {
+func (resource *Patient) T_LinkType(numLink int) templ.Component {
 	optionsValueSet := VSLink_type
 
 	if resource == nil && len(resource.Link) >= numLink {

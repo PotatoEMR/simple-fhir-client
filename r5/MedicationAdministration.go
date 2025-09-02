@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -78,14 +78,14 @@ func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicationAdministration) MedicationAdministrationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationStatus() templ.Component {
+func (resource *MedicationAdministration) T_Status() templ.Component {
 	optionsValueSet := VSMedication_admin_status
 
 	if resource == nil {
@@ -93,49 +93,49 @@ func (resource *MedicationAdministration) MedicationAdministrationStatus() templ
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationCategory(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationSubPotentReason(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_SubPotentReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("subPotentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subPotentReason", &resource.SubPotentReason[0], optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationDosageSite(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_DosageSite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("site", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("site", resource.Dosage.Site, optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationDosageRoute(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_DosageRoute(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("route", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("route", resource.Dosage.Route, optionsValueSet)
 }
-func (resource *MedicationAdministration) MedicationAdministrationDosageMethod(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationAdministration) T_DosageMethod(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -49,35 +49,35 @@ func (r MedicinalProductContraindication) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicinalProductContraindication) MedicinalProductContraindicationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicinalProductContraindication) MedicinalProductContraindicationDisease(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_Disease(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("disease", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("disease", resource.Disease, optionsValueSet)
 }
-func (resource *MedicinalProductContraindication) MedicinalProductContraindicationDiseaseStatus(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_DiseaseStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("diseaseStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("diseaseStatus", resource.DiseaseStatus, optionsValueSet)
 }
-func (resource *MedicinalProductContraindication) MedicinalProductContraindicationComorbidity(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_Comorbidity(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("comorbidity", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("comorbidity", &resource.Comorbidity[0], optionsValueSet)
 }
-func (resource *MedicinalProductContraindication) MedicinalProductContraindicationOtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.OtherTherapy) >= numOtherTherapy {
 		return CodeableConceptSelect("therapyRelationshipType", nil, optionsValueSet)

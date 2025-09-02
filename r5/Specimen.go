@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -97,14 +97,14 @@ func (r Specimen) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Specimen) SpecimenLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Specimen) SpecimenStatus() templ.Component {
+func (resource *Specimen) T_Status() templ.Component {
 	optionsValueSet := VSSpecimen_status
 
 	if resource == nil {
@@ -112,14 +112,14 @@ func (resource *Specimen) SpecimenStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Specimen) SpecimenType(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Specimen) SpecimenCombined() templ.Component {
+func (resource *Specimen) T_Combined() templ.Component {
 	optionsValueSet := VSSpecimen_combined
 
 	if resource == nil {
@@ -127,35 +127,35 @@ func (resource *Specimen) SpecimenCombined() templ.Component {
 	}
 	return CodeSelect("combined", resource.Combined, optionsValueSet)
 }
-func (resource *Specimen) SpecimenRole(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Role(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Role[0], optionsValueSet)
 }
-func (resource *Specimen) SpecimenCondition(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Condition(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
-func (resource *Specimen) SpecimenFeatureType(numFeature int, optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_FeatureType(numFeature int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Feature) >= numFeature {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Feature[numFeature].Type, optionsValueSet)
 }
-func (resource *Specimen) SpecimenCollectionMethod(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_CollectionMethod(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Collection.Method, optionsValueSet)
 }
-func (resource *Specimen) SpecimenProcessingMethod(numProcessing int, optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_ProcessingMethod(numProcessing int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Processing) >= numProcessing {
 		return CodeableConceptSelect("method", nil, optionsValueSet)

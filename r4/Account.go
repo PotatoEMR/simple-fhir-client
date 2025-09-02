@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -62,14 +62,14 @@ func (r Account) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Account) AccountLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Account) AccountStatus() templ.Component {
+func (resource *Account) T_Status() templ.Component {
 	optionsValueSet := VSAccount_status
 
 	if resource == nil {
@@ -77,7 +77,7 @@ func (resource *Account) AccountStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Account) AccountType(optionsValueSet []Coding) templ.Component {
+func (resource *Account) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

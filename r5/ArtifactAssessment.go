@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -62,14 +62,14 @@ func (r ArtifactAssessment) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ArtifactAssessment) ArtifactAssessmentLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ArtifactAssessment) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ArtifactAssessment) ArtifactAssessmentWorkflowStatus() templ.Component {
+func (resource *ArtifactAssessment) T_WorkflowStatus() templ.Component {
 	optionsValueSet := VSArtifactassessment_workflow_status
 
 	if resource == nil {
@@ -77,7 +77,7 @@ func (resource *ArtifactAssessment) ArtifactAssessmentWorkflowStatus() templ.Com
 	}
 	return CodeSelect("workflowStatus", resource.WorkflowStatus, optionsValueSet)
 }
-func (resource *ArtifactAssessment) ArtifactAssessmentDisposition() templ.Component {
+func (resource *ArtifactAssessment) T_Disposition() templ.Component {
 	optionsValueSet := VSArtifactassessment_disposition
 
 	if resource == nil {
@@ -85,7 +85,7 @@ func (resource *ArtifactAssessment) ArtifactAssessmentDisposition() templ.Compon
 	}
 	return CodeSelect("disposition", resource.Disposition, optionsValueSet)
 }
-func (resource *ArtifactAssessment) ArtifactAssessmentContentInformationType(numContent int) templ.Component {
+func (resource *ArtifactAssessment) T_ContentInformationType(numContent int) templ.Component {
 	optionsValueSet := VSArtifactassessment_information_type
 
 	if resource == nil && len(resource.Content) >= numContent {
@@ -93,14 +93,14 @@ func (resource *ArtifactAssessment) ArtifactAssessmentContentInformationType(num
 	}
 	return CodeSelect("informationType", resource.Content[numContent].InformationType, optionsValueSet)
 }
-func (resource *ArtifactAssessment) ArtifactAssessmentContentType(numContent int, optionsValueSet []Coding) templ.Component {
+func (resource *ArtifactAssessment) T_ContentType(numContent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Content) >= numContent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Content[numContent].Type, optionsValueSet)
 }
-func (resource *ArtifactAssessment) ArtifactAssessmentContentClassifier(numContent int, optionsValueSet []Coding) templ.Component {
+func (resource *ArtifactAssessment) T_ContentClassifier(numContent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Content) >= numContent {
 		return CodeableConceptSelect("classifier", nil, optionsValueSet)

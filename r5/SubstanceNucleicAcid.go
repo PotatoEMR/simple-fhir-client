@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,35 +73,35 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceNucleicAcid) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSequenceType(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceNucleicAcid) T_SequenceType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("sequenceType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sequenceType", resource.SequenceType, optionsValueSet)
 }
-func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidOligoNucleotideType(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceNucleicAcid) T_OligoNucleotideType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("oligoNucleotideType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("oligoNucleotideType", resource.OligoNucleotideType, optionsValueSet)
 }
-func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSubunitFivePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceNucleicAcid) T_SubunitFivePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Subunit) >= numSubunit {
 		return CodeableConceptSelect("fivePrime", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("fivePrime", resource.Subunit[numSubunit].FivePrime, optionsValueSet)
 }
-func (resource *SubstanceNucleicAcid) SubstanceNucleicAcidSubunitThreePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceNucleicAcid) T_SubunitThreePrime(numSubunit int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Subunit) >= numSubunit {
 		return CodeableConceptSelect("threePrime", nil, optionsValueSet)

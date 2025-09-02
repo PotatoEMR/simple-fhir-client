@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -56,14 +56,14 @@ func (r List) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *List) ListLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *List) ListStatus() templ.Component {
+func (resource *List) T_Status() templ.Component {
 	optionsValueSet := VSList_status
 
 	if resource == nil {
@@ -71,7 +71,7 @@ func (resource *List) ListStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *List) ListMode() templ.Component {
+func (resource *List) T_Mode() templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil {
@@ -79,28 +79,28 @@ func (resource *List) ListMode() templ.Component {
 	}
 	return CodeSelect("mode", &resource.Mode, optionsValueSet)
 }
-func (resource *List) ListCode(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *List) ListOrderedBy(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_OrderedBy(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderedBy", resource.OrderedBy, optionsValueSet)
 }
-func (resource *List) ListEmptyReason(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_EmptyReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("emptyReason", resource.EmptyReason, optionsValueSet)
 }
-func (resource *List) ListEntryFlag(numEntry int, optionsValueSet []Coding) templ.Component {
+func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Entry) >= numEntry {
 		return CodeableConceptSelect("flag", nil, optionsValueSet)

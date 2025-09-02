@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -114,28 +114,28 @@ func (r AuditEvent) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *AuditEvent) AuditEventLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventCategory(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventCode(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventAction() templ.Component {
+func (resource *AuditEvent) T_Action() templ.Component {
 	optionsValueSet := VSAudit_event_action
 
 	if resource == nil {
@@ -143,7 +143,7 @@ func (resource *AuditEvent) AuditEventAction() templ.Component {
 	}
 	return CodeSelect("action", resource.Action, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventSeverity() templ.Component {
+func (resource *AuditEvent) T_Severity() templ.Component {
 	optionsValueSet := VSAudit_event_severity
 
 	if resource == nil {
@@ -151,70 +151,70 @@ func (resource *AuditEvent) AuditEventSeverity() templ.Component {
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventAuthorization(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_Authorization(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("authorization", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorization", &resource.Authorization[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventOutcomeCode(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_OutcomeCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("code", nil, optionsValueSet)
 	}
 	return CodingSelect("code", &resource.Outcome.Code, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventOutcomeDetail(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_OutcomeDetail(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("detail", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("detail", &resource.Outcome.Detail[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventAgentType(numAgent int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentType(numAgent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Agent[numAgent].Type, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventAgentRole(numAgent int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentRole(numAgent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Agent[numAgent].Role[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventAgentAuthorization(numAgent int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentAuthorization(numAgent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Agent) >= numAgent {
 		return CodeableConceptSelect("authorization", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("authorization", &resource.Agent[numAgent].Authorization[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventSourceType(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_SourceType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Source.Type[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventEntityRole(numEntity int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntityRole(numEntity int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Entity) >= numEntity {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Entity[numEntity].Role, optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventEntitySecurityLabel(numEntity int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntitySecurityLabel(numEntity int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Entity) >= numEntity {
 		return CodeableConceptSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("securityLabel", &resource.Entity[numEntity].SecurityLabel[0], optionsValueSet)
 }
-func (resource *AuditEvent) AuditEventEntityDetailType(numEntity int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntityDetailType(numEntity int, numDetail int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Entity[numEntity].Detail) >= numDetail {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

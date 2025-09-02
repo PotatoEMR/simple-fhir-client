@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -81,14 +81,14 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MolecularSequence) MolecularSequenceLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
+func (resource *MolecularSequence) T_Type() templ.Component {
 	optionsValueSet := VSSequence_type
 
 	if resource == nil {
@@ -96,28 +96,28 @@ func (resource *MolecularSequence) MolecularSequenceType() templ.Component {
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceRelativeCoordinateSystem(numRelative int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_RelativeCoordinateSystem(numRelative int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("coordinateSystem", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("coordinateSystem", &resource.Relative[numRelative].CoordinateSystem, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceGenomeAssembly(numRelative int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_RelativeStartingSequenceGenomeAssembly(numRelative int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("genomeAssembly", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("genomeAssembly", resource.Relative[numRelative].StartingSequence.GenomeAssembly, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceChromosome(numRelative int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_RelativeStartingSequenceChromosome(numRelative int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Relative) >= numRelative {
 		return CodeableConceptSelect("chromosome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("chromosome", resource.Relative[numRelative].StartingSequence.Chromosome, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceOrientation(numRelative int) templ.Component {
+func (resource *MolecularSequence) T_RelativeStartingSequenceOrientation(numRelative int) templ.Component {
 	optionsValueSet := VSOrientation_type
 
 	if resource == nil && len(resource.Relative) >= numRelative {
@@ -125,7 +125,7 @@ func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceOrie
 	}
 	return CodeSelect("orientation", resource.Relative[numRelative].StartingSequence.Orientation, optionsValueSet)
 }
-func (resource *MolecularSequence) MolecularSequenceRelativeStartingSequenceStrand(numRelative int) templ.Component {
+func (resource *MolecularSequence) T_RelativeStartingSequenceStrand(numRelative int) templ.Component {
 	optionsValueSet := VSStrand_type
 
 	if resource == nil && len(resource.Relative) >= numRelative {

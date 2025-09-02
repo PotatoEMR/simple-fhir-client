@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -87,14 +87,14 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCategory() templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCategory() templ.Component {
 	optionsValueSet := VSProduct_category
 
 	if resource == nil {
@@ -102,14 +102,14 @@ func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCat
 	}
 	return CodeSelect("productCategory", resource.ProductCategory, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCode(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("productCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductStatus() templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Status() templ.Component {
 	optionsValueSet := VSProduct_status
 
 	if resource == nil {
@@ -117,14 +117,14 @@ func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductStatus() t
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProcessingProcedure(numProcessing int, optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Processing) >= numProcessing {
 		return CodeableConceptSelect("procedure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("procedure", resource.Processing[numProcessing].Procedure, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductStorageScale(numStorage int) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_StorageScale(numStorage int) templ.Component {
 	optionsValueSet := VSProduct_storage_scale
 
 	if resource == nil && len(resource.Storage) >= numStorage {

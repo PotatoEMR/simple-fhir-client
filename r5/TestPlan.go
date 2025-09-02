@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -127,14 +127,14 @@ func (r TestPlan) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *TestPlan) TestPlanLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *TestPlan) TestPlanStatus() templ.Component {
+func (resource *TestPlan) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -142,35 +142,35 @@ func (resource *TestPlan) TestPlanStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *TestPlan) TestPlanJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *TestPlan) TestPlanCategory(optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *TestPlan) TestPlanTestCaseTestRunScriptLanguage(numTestCase int, numTestRun int, optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_TestCaseTestRunScriptLanguage(numTestCase int, numTestRun int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TestCase[numTestCase].TestRun) >= numTestRun {
 		return CodeableConceptSelect("language", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("language", resource.TestCase[numTestCase].TestRun[numTestRun].Script.Language, optionsValueSet)
 }
-func (resource *TestPlan) TestPlanTestCaseTestDataType(numTestCase int, numTestData int, optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_TestCaseTestDataType(numTestCase int, numTestData int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TestCase[numTestCase].TestData) >= numTestData {
 		return CodingSelect("type", nil, optionsValueSet)
 	}
 	return CodingSelect("type", &resource.TestCase[numTestCase].TestData[numTestData].Type, optionsValueSet)
 }
-func (resource *TestPlan) TestPlanTestCaseAssertionType(numTestCase int, numAssertion int, optionsValueSet []Coding) templ.Component {
+func (resource *TestPlan) T_TestCaseAssertionType(numTestCase int, numAssertion int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.TestCase[numTestCase].Assertion) >= numAssertion {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

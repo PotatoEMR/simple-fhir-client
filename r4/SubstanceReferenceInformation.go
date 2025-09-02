@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -85,84 +85,84 @@ func (r SubstanceReferenceInformation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationGeneGeneSequenceOrigin(numGene int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_GeneGeneSequenceOrigin(numGene int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Gene) >= numGene {
 		return CodeableConceptSelect("geneSequenceOrigin", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("geneSequenceOrigin", resource.Gene[numGene].GeneSequenceOrigin, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationGeneGene(numGene int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_GeneGene(numGene int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Gene) >= numGene {
 		return CodeableConceptSelect("gene", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("gene", resource.Gene[numGene].Gene, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationGeneElementType(numGeneElement int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_GeneElementType(numGeneElement int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.GeneElement) >= numGeneElement {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.GeneElement[numGeneElement].Type, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationClassificationDomain(numClassification int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_ClassificationDomain(numClassification int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Classification) >= numClassification {
 		return CodeableConceptSelect("domain", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("domain", resource.Classification[numClassification].Domain, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationClassificationClassification(numClassification int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_ClassificationClassification(numClassification int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Classification) >= numClassification {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", resource.Classification[numClassification].Classification, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationClassificationSubtype(numClassification int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_ClassificationSubtype(numClassification int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Classification) >= numClassification {
 		return CodeableConceptSelect("subtype", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subtype", &resource.Classification[numClassification].Subtype[0], optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationTargetType(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_TargetType(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Target[numTarget].Type, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationTargetInteraction(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_TargetInteraction(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("interaction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("interaction", resource.Target[numTarget].Interaction, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationTargetOrganism(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_TargetOrganism(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("organism", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("organism", resource.Target[numTarget].Organism, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationTargetOrganismType(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_TargetOrganismType(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("organismType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("organismType", resource.Target[numTarget].OrganismType, optionsValueSet)
 }
-func (resource *SubstanceReferenceInformation) SubstanceReferenceInformationTargetAmountType(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceReferenceInformation) T_TargetAmountType(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("amountType", nil, optionsValueSet)

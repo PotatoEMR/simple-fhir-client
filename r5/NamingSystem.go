@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -77,14 +77,14 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *NamingSystem) NamingSystemLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *NamingSystem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemStatus() templ.Component {
+func (resource *NamingSystem) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -92,7 +92,7 @@ func (resource *NamingSystem) NamingSystemStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemKind() templ.Component {
+func (resource *NamingSystem) T_Kind() templ.Component {
 	optionsValueSet := VSNamingsystem_type
 
 	if resource == nil {
@@ -100,28 +100,28 @@ func (resource *NamingSystem) NamingSystemKind() templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemType(optionsValueSet []Coding) templ.Component {
+func (resource *NamingSystem) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *NamingSystem) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemTopic(optionsValueSet []Coding) templ.Component {
+func (resource *NamingSystem) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *NamingSystem) NamingSystemUniqueIdType(numUniqueId int) templ.Component {
+func (resource *NamingSystem) T_UniqueIdType(numUniqueId int) templ.Component {
 	optionsValueSet := VSNamingsystem_identifier_type
 
 	if resource == nil && len(resource.UniqueId) >= numUniqueId {

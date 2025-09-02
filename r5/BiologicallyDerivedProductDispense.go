@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -57,14 +57,14 @@ func (r BiologicallyDerivedProductDispense) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseStatus() templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Status() templ.Component {
 	optionsValueSet := VSBiologicallyderivedproductdispense_status
 
 	if resource == nil {
@@ -72,21 +72,21 @@ func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDi
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseOriginRelationshipType(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_OriginRelationshipType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("originRelationshipType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("originRelationshipType", resource.OriginRelationshipType, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispenseMatchStatus(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("matchStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("matchStatus", resource.MatchStatus, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProductDispense) BiologicallyDerivedProductDispensePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

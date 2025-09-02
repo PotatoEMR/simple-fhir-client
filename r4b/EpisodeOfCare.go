@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -63,14 +63,14 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EpisodeOfCare) EpisodeOfCareLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EpisodeOfCare) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EpisodeOfCare) EpisodeOfCareStatus() templ.Component {
+func (resource *EpisodeOfCare) T_Status() templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil {
@@ -78,14 +78,14 @@ func (resource *EpisodeOfCare) EpisodeOfCareStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EpisodeOfCare) EpisodeOfCareType(optionsValueSet []Coding) templ.Component {
+func (resource *EpisodeOfCare) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *EpisodeOfCare) EpisodeOfCareStatusHistoryStatus(numStatusHistory int) templ.Component {
+func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil && len(resource.StatusHistory) >= numStatusHistory {
@@ -93,7 +93,7 @@ func (resource *EpisodeOfCare) EpisodeOfCareStatusHistoryStatus(numStatusHistory
 	}
 	return CodeSelect("status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet)
 }
-func (resource *EpisodeOfCare) EpisodeOfCareDiagnosisRole(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+func (resource *EpisodeOfCare) T_DiagnosisRole(numDiagnosis int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Diagnosis) >= numDiagnosis {
 		return CodeableConceptSelect("role", nil, optionsValueSet)

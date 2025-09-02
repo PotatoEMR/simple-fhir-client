@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -103,14 +103,14 @@ func (r Observation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Observation) ObservationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Observation) ObservationStatus() templ.Component {
+func (resource *Observation) T_Status() templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
@@ -118,77 +118,77 @@ func (resource *Observation) ObservationStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Observation) ObservationCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Observation) ObservationCode(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *Observation) ObservationDataAbsentReason(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_DataAbsentReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("dataAbsentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet)
 }
-func (resource *Observation) ObservationInterpretation(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_Interpretation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("interpretation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("interpretation", &resource.Interpretation[0], optionsValueSet)
 }
-func (resource *Observation) ObservationBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
 }
-func (resource *Observation) ObservationMethod(optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_Method(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
-func (resource *Observation) ObservationReferenceRangeType(numReferenceRange int, optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_ReferenceRangeType(numReferenceRange int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ReferenceRange) >= numReferenceRange {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.ReferenceRange[numReferenceRange].Type, optionsValueSet)
 }
-func (resource *Observation) ObservationReferenceRangeAppliesTo(numReferenceRange int, optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_ReferenceRangeAppliesTo(numReferenceRange int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ReferenceRange) >= numReferenceRange {
 		return CodeableConceptSelect("appliesTo", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appliesTo", &resource.ReferenceRange[numReferenceRange].AppliesTo[0], optionsValueSet)
 }
-func (resource *Observation) ObservationComponentCode(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_ComponentCode(numComponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Component[numComponent].Code, optionsValueSet)
 }
-func (resource *Observation) ObservationComponentDataAbsentReason(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_ComponentDataAbsentReason(numComponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("dataAbsentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.Component[numComponent].DataAbsentReason, optionsValueSet)
 }
-func (resource *Observation) ObservationComponentInterpretation(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *Observation) T_ComponentInterpretation(numComponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Component) >= numComponent {
 		return CodeableConceptSelect("interpretation", nil, optionsValueSet)

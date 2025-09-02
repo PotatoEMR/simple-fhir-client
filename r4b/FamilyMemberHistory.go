@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,14 +73,14 @@ func (r FamilyMemberHistory) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *FamilyMemberHistory) FamilyMemberHistoryLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryStatus() templ.Component {
+func (resource *FamilyMemberHistory) T_Status() templ.Component {
 	optionsValueSet := VSHistory_status
 
 	if resource == nil {
@@ -88,42 +88,42 @@ func (resource *FamilyMemberHistory) FamilyMemberHistoryStatus() templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryDataAbsentReason(optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_DataAbsentReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("dataAbsentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryRelationship(optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_Relationship(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Relationship, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistorySex(optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_Sex(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("sex", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("sex", resource.Sex, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryConditionCode(numCondition int, optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_ConditionCode(numCondition int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Condition) >= numCondition {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Condition[numCondition].Code, optionsValueSet)
 }
-func (resource *FamilyMemberHistory) FamilyMemberHistoryConditionOutcome(numCondition int, optionsValueSet []Coding) templ.Component {
+func (resource *FamilyMemberHistory) T_ConditionOutcome(numCondition int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Condition) >= numCondition {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)

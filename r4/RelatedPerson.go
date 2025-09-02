@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -53,21 +53,21 @@ func (r RelatedPerson) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *RelatedPerson) RelatedPersonLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *RelatedPerson) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *RelatedPerson) RelatedPersonRelationship(optionsValueSet []Coding) templ.Component {
+func (resource *RelatedPerson) T_Relationship(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", &resource.Relationship[0], optionsValueSet)
 }
-func (resource *RelatedPerson) RelatedPersonGender() templ.Component {
+func (resource *RelatedPerson) T_Gender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
@@ -75,7 +75,7 @@ func (resource *RelatedPerson) RelatedPersonGender() templ.Component {
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
-func (resource *RelatedPerson) RelatedPersonCommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
+func (resource *RelatedPerson) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Communication) >= numCommunication {
 		return CodeableConceptSelect("language", nil, optionsValueSet)

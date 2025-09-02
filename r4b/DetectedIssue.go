@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -64,14 +64,14 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DetectedIssue) DetectedIssueLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DetectedIssue) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DetectedIssue) DetectedIssueStatus() templ.Component {
+func (resource *DetectedIssue) T_Status() templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
@@ -79,14 +79,14 @@ func (resource *DetectedIssue) DetectedIssueStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DetectedIssue) DetectedIssueCode(optionsValueSet []Coding) templ.Component {
+func (resource *DetectedIssue) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *DetectedIssue) DetectedIssueSeverity() templ.Component {
+func (resource *DetectedIssue) T_Severity() templ.Component {
 	optionsValueSet := VSDetectedissue_severity
 
 	if resource == nil {
@@ -94,14 +94,14 @@ func (resource *DetectedIssue) DetectedIssueSeverity() templ.Component {
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet)
 }
-func (resource *DetectedIssue) DetectedIssueEvidenceCode(numEvidence int, optionsValueSet []Coding) templ.Component {
+func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Evidence) >= numEvidence {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Evidence[numEvidence].Code[0], optionsValueSet)
 }
-func (resource *DetectedIssue) DetectedIssueMitigationAction(numMitigation int, optionsValueSet []Coding) templ.Component {
+func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Mitigation) >= numMitigation {
 		return CodeableConceptSelect("action", nil, optionsValueSet)

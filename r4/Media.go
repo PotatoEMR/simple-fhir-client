@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -55,14 +55,14 @@ func (r Media) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Media) MediaLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Media) MediaStatus() templ.Component {
+func (resource *Media) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -70,35 +70,35 @@ func (resource *Media) MediaStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Media) MediaType(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Media) MediaModality(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_Modality(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", resource.Modality, optionsValueSet)
 }
-func (resource *Media) MediaView(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_View(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("view", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("view", resource.View, optionsValueSet)
 }
-func (resource *Media) MediaReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *Media) MediaBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Media) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -48,35 +48,35 @@ func (r MedicinalProductInteraction) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicinalProductInteraction) MedicinalProductInteractionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductInteraction) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicinalProductInteraction) MedicinalProductInteractionType(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductInteraction) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *MedicinalProductInteraction) MedicinalProductInteractionEffect(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductInteraction) T_Effect(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("effect", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("effect", resource.Effect, optionsValueSet)
 }
-func (resource *MedicinalProductInteraction) MedicinalProductInteractionIncidence(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductInteraction) T_Incidence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("incidence", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("incidence", resource.Incidence, optionsValueSet)
 }
-func (resource *MedicinalProductInteraction) MedicinalProductInteractionManagement(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductInteraction) T_Management(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("management", nil, optionsValueSet)

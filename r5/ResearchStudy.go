@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -140,14 +140,14 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ResearchStudy) ResearchStudyLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyStatus() templ.Component {
+func (resource *ResearchStudy) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -155,105 +155,105 @@ func (resource *ResearchStudy) ResearchStudyStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyPrimaryPurposeType(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_PrimaryPurposeType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("primaryPurposeType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("primaryPurposeType", resource.PrimaryPurposeType, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyPhase(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Phase(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("phase", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("phase", resource.Phase, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyStudyDesign(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_StudyDesign(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("studyDesign", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("studyDesign", &resource.StudyDesign[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyCondition(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Condition(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyKeyword(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Keyword(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("keyword", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("keyword", &resource.Keyword[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyRegion(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Region(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("region", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("region", &resource.Region[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyClassifier(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Classifier(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("classifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classifier", &resource.Classifier[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyWhyStopped(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_WhyStopped(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("whyStopped", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("whyStopped", resource.WhyStopped, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyLabelType(numLabel int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_LabelType(numLabel int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Label) >= numLabel {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Label[numLabel].Type, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyAssociatedPartyRole(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_AssociatedPartyRole(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.AssociatedParty) >= numAssociatedParty {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.AssociatedParty[numAssociatedParty].Role, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyAssociatedPartyClassifier(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_AssociatedPartyClassifier(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.AssociatedParty) >= numAssociatedParty {
 		return CodeableConceptSelect("classifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classifier", &resource.AssociatedParty[numAssociatedParty].Classifier[0], optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyProgressStatusState(numProgressStatus int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_ProgressStatusState(numProgressStatus int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ProgressStatus) >= numProgressStatus {
 		return CodeableConceptSelect("state", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("state", &resource.ProgressStatus[numProgressStatus].State, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyComparisonGroupType(numComparisonGroup int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupType(numComparisonGroup int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ComparisonGroup) >= numComparisonGroup {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.ComparisonGroup[numComparisonGroup].Type, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyObjectiveType(numObjective int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_ObjectiveType(numObjective int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Objective) >= numObjective {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Objective[numObjective].Type, optionsValueSet)
 }
-func (resource *ResearchStudy) ResearchStudyOutcomeMeasureType(numOutcomeMeasure int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_OutcomeMeasureType(numOutcomeMeasure int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.OutcomeMeasure) >= numOutcomeMeasure {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

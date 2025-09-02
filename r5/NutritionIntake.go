@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -86,14 +86,14 @@ func (r NutritionIntake) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *NutritionIntake) NutritionIntakeLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakeStatus() templ.Component {
+func (resource *NutritionIntake) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -101,35 +101,35 @@ func (resource *NutritionIntake) NutritionIntakeStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakeStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakeCode(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakeConsumedItemType(numConsumedItem int, optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_ConsumedItemType(numConsumedItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ConsumedItem) >= numConsumedItem {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.ConsumedItem[numConsumedItem].Type, optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakeConsumedItemNotConsumedReason(numConsumedItem int, optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_ConsumedItemNotConsumedReason(numConsumedItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ConsumedItem) >= numConsumedItem {
 		return CodeableConceptSelect("notConsumedReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("notConsumedReason", resource.ConsumedItem[numConsumedItem].NotConsumedReason, optionsValueSet)
 }
-func (resource *NutritionIntake) NutritionIntakePerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *NutritionIntake) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -71,14 +71,14 @@ func (r Requirements) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Requirements) RequirementsLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Requirements) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Requirements) RequirementsStatus() templ.Component {
+func (resource *Requirements) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -86,14 +86,14 @@ func (resource *Requirements) RequirementsStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Requirements) RequirementsJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *Requirements) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *Requirements) RequirementsStatementConformance(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementConformance(numStatement int) templ.Component {
 	optionsValueSet := VSConformance_expectation
 
 	if resource == nil && len(resource.Statement) >= numStatement {

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -105,14 +105,14 @@ func (r Immunization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Immunization) ImmunizationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationStatus() templ.Component {
+func (resource *Immunization) T_Status() templ.Component {
 	optionsValueSet := VSImmunization_status
 
 	if resource == nil {
@@ -120,77 +120,77 @@ func (resource *Immunization) ImmunizationStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationVaccineCode(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_VaccineCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("vaccineCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("vaccineCode", &resource.VaccineCode, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationReportOrigin(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_ReportOrigin(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reportOrigin", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reportOrigin", resource.ReportOrigin, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationSite(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_Site(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("site", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("site", resource.Site, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationRoute(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_Route(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("route", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("route", resource.Route, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *Immunization) ImmunizationSubpotentReason(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_SubpotentReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("subpotentReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subpotentReason", &resource.SubpotentReason[0], optionsValueSet)
 }
-func (resource *Immunization) ImmunizationProgramEligibility(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_ProgramEligibility(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("programEligibility", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("programEligibility", &resource.ProgramEligibility[0], optionsValueSet)
 }
-func (resource *Immunization) ImmunizationFundingSource(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_FundingSource(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("fundingSource", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("fundingSource", resource.FundingSource, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationPerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
 }
-func (resource *Immunization) ImmunizationProtocolAppliedTargetDisease(numProtocolApplied int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedTargetDisease(numProtocolApplied int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.ProtocolApplied) >= numProtocolApplied {
 		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,14 +73,14 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Invoice) InvoiceLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Invoice) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Invoice) InvoiceStatus() templ.Component {
+func (resource *Invoice) T_Status() templ.Component {
 	optionsValueSet := VSInvoice_status
 
 	if resource == nil {
@@ -88,14 +88,14 @@ func (resource *Invoice) InvoiceStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Invoice) InvoiceType(optionsValueSet []Coding) templ.Component {
+func (resource *Invoice) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Invoice) InvoiceParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *Invoice) T_ParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)

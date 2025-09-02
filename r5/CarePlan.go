@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -65,14 +65,14 @@ func (r CarePlan) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CarePlan) CarePlanLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CarePlan) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CarePlan) CarePlanStatus() templ.Component {
+func (resource *CarePlan) T_Status() templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -80,7 +80,7 @@ func (resource *CarePlan) CarePlanStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CarePlan) CarePlanIntent() templ.Component {
+func (resource *CarePlan) T_Intent() templ.Component {
 	optionsValueSet := VSCare_plan_intent
 
 	if resource == nil {
@@ -88,7 +88,7 @@ func (resource *CarePlan) CarePlanIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *CarePlan) CarePlanCategory(optionsValueSet []Coding) templ.Component {
+func (resource *CarePlan) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)

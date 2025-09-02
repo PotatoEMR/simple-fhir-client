@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -198,14 +198,14 @@ func (r Transport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Transport) TransportLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Transport) TransportStatus() templ.Component {
+func (resource *Transport) T_Status() templ.Component {
 	optionsValueSet := VSTransport_status
 
 	if resource == nil {
@@ -213,14 +213,14 @@ func (resource *Transport) TransportStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Transport) TransportStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Transport) TransportIntent() templ.Component {
+func (resource *Transport) T_Intent() templ.Component {
 	optionsValueSet := VSTransport_intent
 
 	if resource == nil {
@@ -228,7 +228,7 @@ func (resource *Transport) TransportIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *Transport) TransportPriority() templ.Component {
+func (resource *Transport) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -236,28 +236,28 @@ func (resource *Transport) TransportPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *Transport) TransportCode(optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *Transport) TransportPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", &resource.PerformerType[0], optionsValueSet)
 }
-func (resource *Transport) TransportInputType(numInput int, optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_InputType(numInput int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Input) >= numInput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Input[numInput].Type, optionsValueSet)
 }
-func (resource *Transport) TransportOutputType(numOutput int, optionsValueSet []Coding) templ.Component {
+func (resource *Transport) T_OutputType(numOutput int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Output) >= numOutput {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

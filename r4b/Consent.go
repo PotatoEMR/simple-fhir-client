@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -100,14 +100,14 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Consent) ConsentLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Consent) ConsentStatus() templ.Component {
+func (resource *Consent) T_Status() templ.Component {
 	optionsValueSet := VSConsent_state_codes
 
 	if resource == nil {
@@ -115,28 +115,28 @@ func (resource *Consent) ConsentStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Consent) ConsentScope(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_Scope(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("scope", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("scope", &resource.Scope, optionsValueSet)
 }
-func (resource *Consent) ConsentCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Consent) ConsentPolicyRule(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_PolicyRule(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("policyRule", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("policyRule", resource.PolicyRule, optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionType() templ.Component {
+func (resource *Consent) T_ProvisionType() templ.Component {
 	optionsValueSet := VSConsent_provision_type
 
 	if resource == nil {
@@ -144,49 +144,49 @@ func (resource *Consent) ConsentProvisionType() templ.Component {
 	}
 	return CodeSelect("type", resource.Provision.Type, optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionAction(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionAction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("action", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("action", &resource.Provision.Action[0], optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionSecurityLabel(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionSecurityLabel(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodingSelect("securityLabel", &resource.Provision.SecurityLabel[0], optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionPurpose(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionPurpose(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("purpose", nil, optionsValueSet)
 	}
 	return CodingSelect("purpose", &resource.Provision.Purpose[0], optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionClass(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionClass(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("class", nil, optionsValueSet)
 	}
 	return CodingSelect("class", &resource.Provision.Class[0], optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionCode(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Provision.Code[0], optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionActorRole(numActor int, optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionActorRole(numActor int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Provision.Actor) >= numActor {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Provision.Actor[numActor].Role, optionsValueSet)
 }
-func (resource *Consent) ConsentProvisionDataMeaning(numData int) templ.Component {
+func (resource *Consent) T_ProvisionDataMeaning(numData int) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
 	if resource == nil && len(resource.Provision.Data) >= numData {

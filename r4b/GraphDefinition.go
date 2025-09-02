@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -83,14 +83,14 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *GraphDefinition) GraphDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *GraphDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionStatus() templ.Component {
+func (resource *GraphDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -98,14 +98,14 @@ func (resource *GraphDefinition) GraphDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *GraphDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionStart() templ.Component {
+func (resource *GraphDefinition) T_Start() templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil {
@@ -113,7 +113,7 @@ func (resource *GraphDefinition) GraphDefinitionStart() templ.Component {
 	}
 	return CodeSelect("start", &resource.Start, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionLinkTargetType(numLink int, numTarget int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetType(numLink int, numTarget int) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil && len(resource.Link[numLink].Target) >= numTarget {
@@ -121,7 +121,7 @@ func (resource *GraphDefinition) GraphDefinitionLinkTargetType(numLink int, numT
 	}
 	return CodeSelect("type", &resource.Link[numLink].Target[numTarget].Type, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentUse(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentUse(numLink int, numTarget int, numCompartment int) templ.Component {
 	optionsValueSet := VSGraph_compartment_use
 
 	if resource == nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
@@ -129,7 +129,7 @@ func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentUse(numLink
 	}
 	return CodeSelect("use", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Use, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentCode(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentCode(numLink int, numTarget int, numCompartment int) templ.Component {
 	optionsValueSet := VSCompartment_type
 
 	if resource == nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
@@ -137,7 +137,7 @@ func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentCode(numLin
 	}
 	return CodeSelect("code", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Code, optionsValueSet)
 }
-func (resource *GraphDefinition) GraphDefinitionLinkTargetCompartmentRule(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentRule(numLink int, numTarget int, numCompartment int) templ.Component {
 	optionsValueSet := VSGraph_compartment_rule
 
 	if resource == nil && len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {

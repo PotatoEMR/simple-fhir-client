@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -47,14 +47,14 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ImmunizationEvaluation) ImmunizationEvaluationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ImmunizationEvaluation) ImmunizationEvaluationStatus() templ.Component {
+func (resource *ImmunizationEvaluation) T_Status() templ.Component {
 	optionsValueSet := VSImmunization_evaluation_status
 
 	if resource == nil {
@@ -62,21 +62,21 @@ func (resource *ImmunizationEvaluation) ImmunizationEvaluationStatus() templ.Com
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ImmunizationEvaluation) ImmunizationEvaluationTargetDisease(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("targetDisease", &resource.TargetDisease, optionsValueSet)
 }
-func (resource *ImmunizationEvaluation) ImmunizationEvaluationDoseStatus(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("doseStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("doseStatus", &resource.DoseStatus, optionsValueSet)
 }
-func (resource *ImmunizationEvaluation) ImmunizationEvaluationDoseStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_DoseStatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("doseStatusReason", nil, optionsValueSet)

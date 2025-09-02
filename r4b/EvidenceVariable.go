@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -95,14 +95,14 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
+func (resource *EvidenceVariable) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -110,7 +110,7 @@ func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicCombination() templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicCombination() templ.Component {
 	optionsValueSet := VSCharacteristic_combination
 
 	if resource == nil {
@@ -118,7 +118,7 @@ func (resource *EvidenceVariable) EvidenceVariableCharacteristicCombination() te
 	}
 	return CodeSelect("characteristicCombination", resource.CharacteristicCombination, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
+func (resource *EvidenceVariable) T_Handling() templ.Component {
 	optionsValueSet := VSVariable_handling
 
 	if resource == nil {
@@ -126,14 +126,14 @@ func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
 	}
 	return CodeSelect("handling", resource.Handling, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Characteristic[numCharacteristic].Method, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicGroupMeasure(numCharacteristic int) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {

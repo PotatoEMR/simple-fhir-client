@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -109,14 +109,14 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ConceptMap) ConceptMapLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapStatus() templ.Component {
+func (resource *ConceptMap) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -124,28 +124,28 @@ func (resource *ConceptMap) ConceptMapStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element) >= numElement {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupElementTargetEquivalence(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numElement int, numTarget int) templ.Component {
 	optionsValueSet := VSConcept_map_equivalence
 
 	if resource == nil && len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
@@ -153,7 +153,7 @@ func (resource *ConceptMap) ConceptMapGroupElementTargetEquivalence(numGroup int
 	}
 	return CodeSelect("equivalence", &resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
 
 	if resource == nil && len(resource.Group) >= numGroup {
@@ -161,7 +161,7 @@ func (resource *ConceptMap) ConceptMapGroupUnmappedMode(numGroup int) templ.Comp
 	}
 	return CodeSelect("mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet)
 }
-func (resource *ConceptMap) ConceptMapGroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Group) >= numGroup {
 		return CodeSelect("code", nil, optionsValueSet)

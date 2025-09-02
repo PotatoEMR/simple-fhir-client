@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -89,14 +89,14 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ImagingStudy) ImagingStudyLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudyStatus() templ.Component {
+func (resource *ImagingStudy) T_Status() templ.Component {
 	optionsValueSet := VSImagingstudy_status
 
 	if resource == nil {
@@ -104,35 +104,35 @@ func (resource *ImagingStudy) ImagingStudyStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudyModality(optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_Modality(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Modality[0], optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudySeriesModality(numSeries int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_SeriesModality(numSeries int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Series) >= numSeries {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Series[numSeries].Modality, optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudySeriesLaterality(numSeries int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_SeriesLaterality(numSeries int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Series) >= numSeries {
 		return CodeableConceptSelect("laterality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("laterality", resource.Series[numSeries].Laterality, optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudySeriesPerformerFunction(numSeries int, numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_SeriesPerformerFunction(numSeries int, numPerformer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Series[numSeries].Performer) >= numPerformer {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", resource.Series[numSeries].Performer[numPerformer].Function, optionsValueSet)
 }
-func (resource *ImagingStudy) ImagingStudySeriesInstanceSopClass(numSeries int, numInstance int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_SeriesInstanceSopClass(numSeries int, numInstance int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Series[numSeries].Instance) >= numInstance {
 		return CodingSelect("sopClass", nil, optionsValueSet)

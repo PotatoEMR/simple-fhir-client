@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -85,14 +85,14 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Composition) CompositionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Composition) CompositionStatus() templ.Component {
+func (resource *Composition) T_Status() templ.Component {
 	optionsValueSet := VSComposition_status
 
 	if resource == nil {
@@ -100,42 +100,42 @@ func (resource *Composition) CompositionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Composition) CompositionType(optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *Composition) CompositionCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Composition) CompositionAttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_AttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Attester) >= numAttester {
 		return CodeableConceptSelect("mode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("mode", &resource.Attester[numAttester].Mode, optionsValueSet)
 }
-func (resource *Composition) CompositionSectionCode(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionCode(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Section[numSection].Code, optionsValueSet)
 }
-func (resource *Composition) CompositionSectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderedBy", resource.Section[numSection].OrderedBy, optionsValueSet)
 }
-func (resource *Composition) CompositionSectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)

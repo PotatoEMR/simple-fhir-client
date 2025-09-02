@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -103,14 +103,14 @@ func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ServiceRequest) ServiceRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
+func (resource *ServiceRequest) T_Status() templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -118,7 +118,7 @@ func (resource *ServiceRequest) ServiceRequestStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestIntent() templ.Component {
+func (resource *ServiceRequest) T_Intent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -126,14 +126,14 @@ func (resource *ServiceRequest) ServiceRequestIntent() templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestCategory(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestPriority() templ.Component {
+func (resource *ServiceRequest) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -141,21 +141,21 @@ func (resource *ServiceRequest) ServiceRequestPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestPerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("performerType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
 }
-func (resource *ServiceRequest) ServiceRequestOrderDetailParameterCode(numOrderDetail int, numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *ServiceRequest) T_OrderDetailParameterCode(numOrderDetail int, numParameter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.OrderDetail[numOrderDetail].Parameter) >= numParameter {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

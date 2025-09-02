@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -54,14 +54,14 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EncounterHistory) EncounterHistoryLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EncounterHistory) EncounterHistoryStatus() templ.Component {
+func (resource *EncounterHistory) T_Status() templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
@@ -69,28 +69,28 @@ func (resource *EncounterHistory) EncounterHistoryStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EncounterHistory) EncounterHistoryClass(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Class(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("class", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("class", &resource.Class, optionsValueSet)
 }
-func (resource *EncounterHistory) EncounterHistoryType(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
 }
-func (resource *EncounterHistory) EncounterHistorySubjectStatus(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet)
 }
-func (resource *EncounterHistory) EncounterHistoryLocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Location) >= numLocation {
 		return CodeableConceptSelect("form", nil, optionsValueSet)

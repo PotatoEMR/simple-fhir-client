@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -117,14 +117,14 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CodeSystem) CodeSystemLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemStatus() templ.Component {
+func (resource *CodeSystem) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -132,14 +132,14 @@ func (resource *CodeSystem) CodeSystemStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemHierarchyMeaning() templ.Component {
+func (resource *CodeSystem) T_HierarchyMeaning() templ.Component {
 	optionsValueSet := VSCodesystem_hierarchy_meaning
 
 	if resource == nil {
@@ -147,7 +147,7 @@ func (resource *CodeSystem) CodeSystemHierarchyMeaning() templ.Component {
 	}
 	return CodeSelect("hierarchyMeaning", resource.HierarchyMeaning, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemContent() templ.Component {
+func (resource *CodeSystem) T_Content() templ.Component {
 	optionsValueSet := VSCodesystem_content_mode
 
 	if resource == nil {
@@ -155,14 +155,14 @@ func (resource *CodeSystem) CodeSystemContent() templ.Component {
 	}
 	return CodeSelect("content", &resource.Content, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemFilterCode(numFilter int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_FilterCode(numFilter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Filter) >= numFilter {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Filter[numFilter].Code, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemFilterOperator(numFilter int) templ.Component {
+func (resource *CodeSystem) T_FilterOperator(numFilter int) templ.Component {
 	optionsValueSet := VSFilter_operator
 
 	if resource == nil && len(resource.Filter) >= numFilter {
@@ -170,14 +170,14 @@ func (resource *CodeSystem) CodeSystemFilterOperator(numFilter int) templ.Compon
 	}
 	return CodeSelect("operator", &resource.Filter[numFilter].Operator[0], optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemPropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_PropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Property[numProperty].Code, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemPropertyType(numProperty int) templ.Component {
+func (resource *CodeSystem) T_PropertyType(numProperty int) templ.Component {
 	optionsValueSet := VSConcept_property_type
 
 	if resource == nil && len(resource.Property) >= numProperty {
@@ -185,28 +185,28 @@ func (resource *CodeSystem) CodeSystemPropertyType(numProperty int) templ.Compon
 	}
 	return CodeSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemConceptCode(numConcept int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_ConceptCode(numConcept int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Concept) >= numConcept {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Concept[numConcept].Code, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemConceptDesignationLanguage(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_ConceptDesignationLanguage(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemConceptDesignationUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_ConceptDesignationUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
 		return CodingSelect("use", nil, optionsValueSet)
 	}
 	return CodingSelect("use", resource.Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
 }
-func (resource *CodeSystem) CodeSystemConceptPropertyCode(numConcept int, numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_ConceptPropertyCode(numConcept int, numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Concept[numConcept].Property) >= numProperty {
 		return CodeSelect("code", nil, optionsValueSet)

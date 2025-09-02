@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -66,14 +66,14 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Goal) GoalLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Goal) GoalLifecycleStatus() templ.Component {
+func (resource *Goal) T_LifecycleStatus() templ.Component {
 	optionsValueSet := VSGoal_status
 
 	if resource == nil {
@@ -81,42 +81,42 @@ func (resource *Goal) GoalLifecycleStatus() templ.Component {
 	}
 	return CodeSelect("lifecycleStatus", &resource.LifecycleStatus, optionsValueSet)
 }
-func (resource *Goal) GoalAchievementStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_AchievementStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("achievementStatus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("achievementStatus", resource.AchievementStatus, optionsValueSet)
 }
-func (resource *Goal) GoalCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Goal) GoalPriority(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Priority(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *Goal) GoalDescription(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Description(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("description", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("description", &resource.Description, optionsValueSet)
 }
-func (resource *Goal) GoalOutcomeCode(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_OutcomeCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("outcomeCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcomeCode", &resource.OutcomeCode[0], optionsValueSet)
 }
-func (resource *Goal) GoalTargetMeasure(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_TargetMeasure(numTarget int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Target) >= numTarget {
 		return CodeableConceptSelect("measure", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -17,14 +17,14 @@ type Binary struct {
 	Data            *string    `json:"data,omitempty"`
 }
 
-func (resource *Binary) BinaryLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Binary) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Binary) BinaryContentType(optionsValueSet []Coding) templ.Component {
+func (resource *Binary) T_ContentType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet)

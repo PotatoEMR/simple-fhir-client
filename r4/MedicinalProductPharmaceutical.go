@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -81,56 +81,56 @@ func (r MedicinalProductPharmaceutical) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalAdministrableDoseForm(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_AdministrableDoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("administrableDoseForm", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("administrableDoseForm", &resource.AdministrableDoseForm, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalUnitOfPresentation(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_UnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalCharacteristicsCode(numCharacteristics int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_CharacteristicsCode(numCharacteristics int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristics) >= numCharacteristics {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Characteristics[numCharacteristics].Code, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalCharacteristicsStatus(numCharacteristics int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_CharacteristicsStatus(numCharacteristics int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristics) >= numCharacteristics {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.Characteristics[numCharacteristics].Status, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RouteOfAdministration) >= numRouteOfAdministration {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].Code, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) >= numTargetSpecies {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].Code, optionsValueSet)
 }
-func (resource *MedicinalProductPharmaceutical) MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) >= numWithdrawalPeriod {
 		return CodeableConceptSelect("tissue", nil, optionsValueSet)

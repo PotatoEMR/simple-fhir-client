@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -113,14 +113,14 @@ func (r EvidenceReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EvidenceReport) EvidenceReportLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportStatus() templ.Component {
+func (resource *EvidenceReport) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -128,21 +128,21 @@ func (resource *EvidenceReport) EvidenceReportStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportType(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSubjectCharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_SubjectCharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Subject.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Subject.Characteristic[numCharacteristic].Code, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportRelatesToCode(numRelatesTo int) templ.Component {
+func (resource *EvidenceReport) T_RelatesToCode(numRelatesTo int) templ.Component {
 	optionsValueSet := VSReport_relation_type
 
 	if resource == nil && len(resource.RelatesTo) >= numRelatesTo {
@@ -150,14 +150,14 @@ func (resource *EvidenceReport) EvidenceReportRelatesToCode(numRelatesTo int) te
 	}
 	return CodeSelect("code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSectionFocus(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_SectionFocus(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("focus", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("focus", resource.Section[numSection].Focus, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSectionMode(numSection int) templ.Component {
+func (resource *EvidenceReport) T_SectionMode(numSection int) templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil && len(resource.Section) >= numSection {
@@ -165,21 +165,21 @@ func (resource *EvidenceReport) EvidenceReportSectionMode(numSection int) templ.
 	}
 	return CodeSelect("mode", resource.Section[numSection].Mode, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_SectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("orderedBy", resource.Section[numSection].OrderedBy, optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSectionEntryClassifier(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_SectionEntryClassifier(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("entryClassifier", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("entryClassifier", &resource.Section[numSection].EntryClassifier[0], optionsValueSet)
 }
-func (resource *EvidenceReport) EvidenceReportSectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceReport) T_SectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Section) >= numSection {
 		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)

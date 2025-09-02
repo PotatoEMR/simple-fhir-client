@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -59,56 +59,56 @@ func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *RegulatedAuthorization) RegulatedAuthorizationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationType(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationRegion(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Region(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("region", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("region", &resource.Region[0], optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationStatus(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("status", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationIntendedUse(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_IntendedUse(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("intendedUse", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("intendedUse", resource.IntendedUse, optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationBasis(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Basis(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("basis", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("basis", &resource.Basis[0], optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationCaseType(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_CaseType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Case.Type, optionsValueSet)
 }
-func (resource *RegulatedAuthorization) RegulatedAuthorizationCaseStatus(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_CaseStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("status", nil, optionsValueSet)

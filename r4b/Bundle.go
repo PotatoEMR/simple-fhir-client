@@ -1,7 +1,7 @@
 // Note: Bundle is special case in gen_bundle.go, to handle entry resources with types
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -82,14 +82,14 @@ type BundleEntryResponse struct {
 	Outcome           *Resource   `json:"outcome,omitempty"`
 }
 
-func (resource *Bundle) BundleLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Bundle) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Bundle) BundleType() templ.Component {
+func (resource *Bundle) T_Type() templ.Component {
 	optionsValueSet := VSBundle_type
 
 	if resource == nil {
@@ -97,7 +97,7 @@ func (resource *Bundle) BundleType() templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
+func (resource *Bundle) T_EntrySearchMode(numEntry int) templ.Component {
 	optionsValueSet := VSSearch_entry_mode
 
 	if resource == nil && len(resource.Entry) >= numEntry {
@@ -105,7 +105,7 @@ func (resource *Bundle) BundleEntrySearchMode(numEntry int) templ.Component {
 	}
 	return CodeSelect("mode", resource.Entry[numEntry].Search.Mode, optionsValueSet)
 }
-func (resource *Bundle) BundleEntryRequestMethod(numEntry int) templ.Component {
+func (resource *Bundle) T_EntryRequestMethod(numEntry int) templ.Component {
 	optionsValueSet := VSHttp_verb
 
 	if resource == nil && len(resource.Entry) >= numEntry {

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -138,14 +138,14 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
+func (resource *EvidenceVariable) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -153,7 +153,7 @@ func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
+func (resource *EvidenceVariable) T_Handling() templ.Component {
 	optionsValueSet := VSVariable_handling
 
 	if resource == nil {
@@ -161,35 +161,35 @@ func (resource *EvidenceVariable) EvidenceVariableHandling() templ.Component {
 	}
 	return CodeSelect("handling", resource.Handling, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("definitionCodeableConcept", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("definitionCodeableConcept", resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Type, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Method[0], optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByTypeAndValueOffset(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueOffset(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("offset", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("offset", resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Offset, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicDefinitionByCombinationCode(numCharacteristic int) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByCombinationCode(numCharacteristic int) templ.Component {
 	optionsValueSet := VSCharacteristic_combination
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {

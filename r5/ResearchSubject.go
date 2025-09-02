@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -54,14 +54,14 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectStatus() templ.Component {
+func (resource *ResearchSubject) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -69,28 +69,28 @@ func (resource *ResearchSubject) ResearchSubjectStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectProgressType(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Progress[numProgress].Type, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectProgressSubjectState(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressSubjectState(numProgress int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("subjectState", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("subjectState", resource.Progress[numProgress].SubjectState, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectProgressMilestone(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressMilestone(numProgress int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("milestone", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("milestone", resource.Progress[numProgress].Milestone, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectProgressReason(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Progress) >= numProgress {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)

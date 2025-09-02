@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -54,28 +54,28 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CatalogEntry) CatalogEntryLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryType(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryClassification(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_Classification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", &resource.Classification[0], optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryStatus() templ.Component {
+func (resource *CatalogEntry) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -83,21 +83,21 @@ func (resource *CatalogEntry) CatalogEntryStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryAdditionalCharacteristic(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_AdditionalCharacteristic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("additionalCharacteristic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("additionalCharacteristic", &resource.AdditionalCharacteristic[0], optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryAdditionalClassification(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_AdditionalClassification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("additionalClassification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("additionalClassification", &resource.AdditionalClassification[0], optionsValueSet)
 }
-func (resource *CatalogEntry) CatalogEntryRelatedEntryRelationtype(numRelatedEntry int) templ.Component {
+func (resource *CatalogEntry) T_RelatedEntryRelationtype(numRelatedEntry int) templ.Component {
 	optionsValueSet := VSRelation_type
 
 	if resource == nil && len(resource.RelatedEntry) >= numRelatedEntry {

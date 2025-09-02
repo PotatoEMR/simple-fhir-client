@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -110,14 +110,14 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ActivityDefinition) ActivityDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionStatus() templ.Component {
+func (resource *ActivityDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -125,21 +125,21 @@ func (resource *ActivityDefinition) ActivityDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionTopic(optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionKind() templ.Component {
+func (resource *ActivityDefinition) T_Kind() templ.Component {
 	optionsValueSet := VSRequest_resource_types
 
 	if resource == nil {
@@ -147,14 +147,14 @@ func (resource *ActivityDefinition) ActivityDefinitionKind() templ.Component {
 	}
 	return CodeSelect("kind", resource.Kind, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionIntent() templ.Component {
+func (resource *ActivityDefinition) T_Intent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -162,7 +162,7 @@ func (resource *ActivityDefinition) ActivityDefinitionIntent() templ.Component {
 	}
 	return CodeSelect("intent", resource.Intent, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionPriority() templ.Component {
+func (resource *ActivityDefinition) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -170,14 +170,14 @@ func (resource *ActivityDefinition) ActivityDefinitionPriority() templ.Component
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionParticipantType(numParticipant int) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantType(numParticipant int) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
@@ -185,14 +185,14 @@ func (resource *ActivityDefinition) ActivityDefinitionParticipantType(numPartici
 	}
 	return CodeSelect("type", resource.Participant[numParticipant].Type, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)
 }
-func (resource *ActivityDefinition) ActivityDefinitionParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

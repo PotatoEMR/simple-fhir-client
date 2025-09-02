@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -95,14 +95,14 @@ func (r Coverage) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Coverage) CoverageLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Coverage) CoverageStatus() templ.Component {
+func (resource *Coverage) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -110,7 +110,7 @@ func (resource *Coverage) CoverageStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Coverage) CoverageKind() templ.Component {
+func (resource *Coverage) T_Kind() templ.Component {
 	optionsValueSet := VSCoverage_kind
 
 	if resource == nil {
@@ -118,63 +118,63 @@ func (resource *Coverage) CoverageKind() templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
-func (resource *Coverage) CoverageType(optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Coverage) CoverageRelationship(optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_Relationship(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("relationship", resource.Relationship, optionsValueSet)
 }
-func (resource *Coverage) CoverageClassType(numClass int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_ClassType(numClass int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Class) >= numClass {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Class[numClass].Type, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryType(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryType(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary) >= numCostToBeneficiary {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.CostToBeneficiary[numCostToBeneficiary].Type, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryCategory(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryCategory(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary) >= numCostToBeneficiary {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.CostToBeneficiary[numCostToBeneficiary].Category, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryNetwork(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryNetwork(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary) >= numCostToBeneficiary {
 		return CodeableConceptSelect("network", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("network", resource.CostToBeneficiary[numCostToBeneficiary].Network, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryUnit(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryUnit(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary) >= numCostToBeneficiary {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.CostToBeneficiary[numCostToBeneficiary].Unit, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryTerm(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryTerm(numCostToBeneficiary int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary) >= numCostToBeneficiary {
 		return CodeableConceptSelect("term", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("term", resource.CostToBeneficiary[numCostToBeneficiary].Term, optionsValueSet)
 }
-func (resource *Coverage) CoverageCostToBeneficiaryExceptionType(numCostToBeneficiary int, numException int, optionsValueSet []Coding) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryExceptionType(numCostToBeneficiary int, numException int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.CostToBeneficiary[numCostToBeneficiary].Exception) >= numException {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

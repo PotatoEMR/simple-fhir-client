@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -68,14 +68,14 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *OperationOutcome) OperationOutcomeLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *OperationOutcome) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *OperationOutcome) OperationOutcomeIssueSeverity(numIssue int) templ.Component {
+func (resource *OperationOutcome) T_IssueSeverity(numIssue int) templ.Component {
 	optionsValueSet := VSIssue_severity
 
 	if resource == nil && len(resource.Issue) >= numIssue {
@@ -83,7 +83,7 @@ func (resource *OperationOutcome) OperationOutcomeIssueSeverity(numIssue int) te
 	}
 	return CodeSelect("severity", &resource.Issue[numIssue].Severity, optionsValueSet)
 }
-func (resource *OperationOutcome) OperationOutcomeIssueCode(numIssue int) templ.Component {
+func (resource *OperationOutcome) T_IssueCode(numIssue int) templ.Component {
 	optionsValueSet := VSIssue_type
 
 	if resource == nil && len(resource.Issue) >= numIssue {
@@ -91,7 +91,7 @@ func (resource *OperationOutcome) OperationOutcomeIssueCode(numIssue int) templ.
 	}
 	return CodeSelect("code", &resource.Issue[numIssue].Code, optionsValueSet)
 }
-func (resource *OperationOutcome) OperationOutcomeIssueDetails(numIssue int, optionsValueSet []Coding) templ.Component {
+func (resource *OperationOutcome) T_IssueDetails(numIssue int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Issue) >= numIssue {
 		return CodeableConceptSelect("details", nil, optionsValueSet)

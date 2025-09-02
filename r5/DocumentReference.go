@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -93,14 +93,14 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DocumentReference) DocumentReferenceLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceStatus() templ.Component {
+func (resource *DocumentReference) T_Status() templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
@@ -108,7 +108,7 @@ func (resource *DocumentReference) DocumentReferenceStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceDocStatus() templ.Component {
+func (resource *DocumentReference) T_DocStatus() templ.Component {
 	optionsValueSet := VSComposition_status
 
 	if resource == nil {
@@ -116,56 +116,56 @@ func (resource *DocumentReference) DocumentReferenceDocStatus() templ.Component 
 	}
 	return CodeSelect("docStatus", resource.DocStatus, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceModality(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Modality(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("modality", &resource.Modality[0], optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceType(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceCategory(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceFacilityType(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_FacilityType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("facilityType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("facilityType", resource.FacilityType, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferencePracticeSetting(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_PracticeSetting(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("practiceSetting", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("practiceSetting", resource.PracticeSetting, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceSecurityLabel(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_SecurityLabel(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("securityLabel", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("securityLabel", &resource.SecurityLabel[0], optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceAttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_AttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Attester) >= numAttester {
 		return CodeableConceptSelect("mode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("mode", &resource.Attester[numAttester].Mode, optionsValueSet)
 }
-func (resource *DocumentReference) DocumentReferenceRelatesToCode(numRelatesTo int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_RelatesToCode(numRelatesTo int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RelatesTo) >= numRelatesTo {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

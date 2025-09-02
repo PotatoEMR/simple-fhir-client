@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -87,14 +87,14 @@ func (r Specimen) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Specimen) SpecimenLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Specimen) SpecimenStatus() templ.Component {
+func (resource *Specimen) T_Status() templ.Component {
 	optionsValueSet := VSSpecimen_status
 
 	if resource == nil {
@@ -102,42 +102,42 @@ func (resource *Specimen) SpecimenStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *Specimen) SpecimenType(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *Specimen) SpecimenCondition(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_Condition(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("condition", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("condition", &resource.Condition[0], optionsValueSet)
 }
-func (resource *Specimen) SpecimenCollectionMethod(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_CollectionMethod(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Collection.Method, optionsValueSet)
 }
-func (resource *Specimen) SpecimenCollectionBodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_CollectionBodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("bodySite", resource.Collection.BodySite, optionsValueSet)
 }
-func (resource *Specimen) SpecimenProcessingProcedure(numProcessing int, optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Processing) >= numProcessing {
 		return CodeableConceptSelect("procedure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("procedure", resource.Processing[numProcessing].Procedure, optionsValueSet)
 }
-func (resource *Specimen) SpecimenContainerType(numContainer int, optionsValueSet []Coding) templ.Component {
+func (resource *Specimen) T_ContainerType(numContainer int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Container) >= numContainer {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

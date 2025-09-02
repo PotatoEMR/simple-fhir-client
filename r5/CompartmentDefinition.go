@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -61,14 +61,14 @@ func (r CompartmentDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CompartmentDefinition) CompartmentDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CompartmentDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CompartmentDefinition) CompartmentDefinitionStatus() templ.Component {
+func (resource *CompartmentDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -76,7 +76,7 @@ func (resource *CompartmentDefinition) CompartmentDefinitionStatus() templ.Compo
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CompartmentDefinition) CompartmentDefinitionCode() templ.Component {
+func (resource *CompartmentDefinition) T_Code() templ.Component {
 	optionsValueSet := VSCompartment_type
 
 	if resource == nil {
@@ -84,7 +84,7 @@ func (resource *CompartmentDefinition) CompartmentDefinitionCode() templ.Compone
 	}
 	return CodeSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *CompartmentDefinition) CompartmentDefinitionResourceCode(numResource int) templ.Component {
+func (resource *CompartmentDefinition) T_ResourceCode(numResource int) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil && len(resource.Resource) >= numResource {

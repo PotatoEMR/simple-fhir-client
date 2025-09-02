@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -51,14 +51,14 @@ func (r Person) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Person) PersonLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Person) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Person) PersonGender() templ.Component {
+func (resource *Person) T_Gender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
@@ -66,7 +66,7 @@ func (resource *Person) PersonGender() templ.Component {
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet)
 }
-func (resource *Person) PersonLinkAssurance(numLink int) templ.Component {
+func (resource *Person) T_LinkAssurance(numLink int) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
 	if resource == nil && len(resource.Link) >= numLink {

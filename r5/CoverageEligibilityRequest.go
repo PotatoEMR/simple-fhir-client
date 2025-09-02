@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -104,14 +104,14 @@ func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestStatus() templ.Component {
+func (resource *CoverageEligibilityRequest) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -119,14 +119,14 @@ func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestStatus() t
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPriority(optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Priority(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPurpose() templ.Component {
+func (resource *CoverageEligibilityRequest) T_Purpose() templ.Component {
 	optionsValueSet := VSEligibilityrequest_purpose
 
 	if resource == nil {
@@ -134,28 +134,28 @@ func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestPurpose() 
 	}
 	return CodeSelect("purpose", &resource.Purpose[0], optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestEventType(numEvent int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_EventType(numEvent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Event) >= numEvent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Event[numEvent].Type, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", resource.Item[numItem].Category, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) CoverageEligibilityRequestItemModifier(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemModifier(numItem int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Item) >= numItem {
 		return CodeableConceptSelect("modifier", nil, optionsValueSet)

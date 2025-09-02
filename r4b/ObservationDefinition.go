@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -71,28 +71,28 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ObservationDefinition) ObservationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionCategory(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() templ.Component {
+func (resource *ObservationDefinition) T_PermittedDataType() templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
 	if resource == nil {
@@ -100,28 +100,28 @@ func (resource *ObservationDefinition) ObservationDefinitionPermittedDataType() 
 	}
 	return CodeSelect("permittedDataType", &resource.PermittedDataType[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionMethod(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQuantitativeDetailsCustomaryUnit(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsCustomaryUnit(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("customaryUnit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("customaryUnit", resource.QuantitativeDetails.CustomaryUnit, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQuantitativeDetailsUnit(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsUnit(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("unit", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unit", resource.QuantitativeDetails.Unit, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalCategory(numQualifiedInterval int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalCategory(numQualifiedInterval int) templ.Component {
 	optionsValueSet := VSObservation_range_category
 
 	if resource == nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
@@ -129,21 +129,21 @@ func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalCat
 	}
 	return CodeSelect("category", resource.QualifiedInterval[numQualifiedInterval].Category, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalContext(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalContext(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
 		return CodeableConceptSelect("context", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("context", resource.QualifiedInterval[numQualifiedInterval].Context, optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalAppliesTo(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalAppliesTo(numQualifiedInterval int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.QualifiedInterval) >= numQualifiedInterval {
 		return CodeableConceptSelect("appliesTo", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("appliesTo", &resource.QualifiedInterval[numQualifiedInterval].AppliesTo[0], optionsValueSet)
 }
-func (resource *ObservationDefinition) ObservationDefinitionQualifiedIntervalGender(numQualifiedInterval int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalGender(numQualifiedInterval int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil && len(resource.QualifiedInterval) >= numQualifiedInterval {

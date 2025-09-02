@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -68,14 +68,14 @@ func (r Group) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Group) GroupLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Group) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Group) GroupType() templ.Component {
+func (resource *Group) T_Type() templ.Component {
 	optionsValueSet := VSGroup_type
 
 	if resource == nil {
@@ -83,7 +83,7 @@ func (resource *Group) GroupType() templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *Group) GroupMembership() templ.Component {
+func (resource *Group) T_Membership() templ.Component {
 	optionsValueSet := VSGroup_membership_basis
 
 	if resource == nil {
@@ -91,14 +91,14 @@ func (resource *Group) GroupMembership() templ.Component {
 	}
 	return CodeSelect("membership", &resource.Membership, optionsValueSet)
 }
-func (resource *Group) GroupCode(optionsValueSet []Coding) templ.Component {
+func (resource *Group) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *Group) GroupCharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("code", nil, optionsValueSet)

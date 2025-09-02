@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -153,14 +153,14 @@ func (r RequestOrchestration) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *RequestOrchestration) RequestOrchestrationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationStatus() templ.Component {
+func (resource *RequestOrchestration) T_Status() templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -168,7 +168,7 @@ func (resource *RequestOrchestration) RequestOrchestrationStatus() templ.Compone
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationIntent() templ.Component {
+func (resource *RequestOrchestration) T_Intent() templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -176,7 +176,7 @@ func (resource *RequestOrchestration) RequestOrchestrationIntent() templ.Compone
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationPriority() templ.Component {
+func (resource *RequestOrchestration) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -184,14 +184,14 @@ func (resource *RequestOrchestration) RequestOrchestrationPriority() templ.Compo
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationCode(optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionPriority(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionPriority(numAction int) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -199,21 +199,21 @@ func (resource *RequestOrchestration) RequestOrchestrationActionPriority(numActi
 	}
 	return CodeSelect("priority", resource.Action[numAction].Priority, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionCode(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_ActionCode(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Action[numAction].Code[0], optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_ActionType(numAction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action) >= numAction {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Action[numAction].Type, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionGroupingBehavior(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionGroupingBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_grouping_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -221,7 +221,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionGroupingBehavior
 	}
 	return CodeSelect("groupingBehavior", resource.Action[numAction].GroupingBehavior, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionSelectionBehavior(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionSelectionBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_selection_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -229,7 +229,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionSelectionBehavio
 	}
 	return CodeSelect("selectionBehavior", resource.Action[numAction].SelectionBehavior, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionRequiredBehavior(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionRequiredBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_required_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -237,7 +237,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionRequiredBehavior
 	}
 	return CodeSelect("requiredBehavior", resource.Action[numAction].RequiredBehavior, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionPrecheckBehavior(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionPrecheckBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_precheck_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -245,7 +245,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionPrecheckBehavior
 	}
 	return CodeSelect("precheckBehavior", resource.Action[numAction].PrecheckBehavior, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionCardinalityBehavior(numAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionCardinalityBehavior(numAction int) templ.Component {
 	optionsValueSet := VSAction_cardinality_behavior
 
 	if resource == nil && len(resource.Action) >= numAction {
@@ -253,7 +253,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionCardinalityBehav
 	}
 	return CodeSelect("cardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionConditionKind(numAction int, numCondition int) templ.Component {
+func (resource *RequestOrchestration) T_ActionConditionKind(numAction int, numCondition int) templ.Component {
 	optionsValueSet := VSAction_condition_kind
 
 	if resource == nil && len(resource.Action[numAction].Condition) >= numCondition {
@@ -261,7 +261,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionConditionKind(nu
 	}
 	return CodeSelect("kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
 	if resource == nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
@@ -269,7 +269,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionRelatedActionRel
 	}
 	return CodeSelect("relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionRelatedActionEndRelationship(numAction int, numRelatedAction int) templ.Component {
+func (resource *RequestOrchestration) T_ActionRelatedActionEndRelationship(numAction int, numRelatedAction int) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
 	if resource == nil && len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
@@ -277,7 +277,7 @@ func (resource *RequestOrchestration) RequestOrchestrationActionRelatedActionEnd
 	}
 	return CodeSelect("endRelationship", resource.Action[numAction].RelatedAction[numRelatedAction].EndRelationship, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionParticipantType(numAction int, numParticipant int) templ.Component {
+func (resource *RequestOrchestration) T_ActionParticipantType(numAction int, numParticipant int) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
@@ -285,14 +285,14 @@ func (resource *RequestOrchestration) RequestOrchestrationActionParticipantType(
 	}
 	return CodeSelect("type", resource.Action[numAction].Participant[numParticipant].Type, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_ActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", resource.Action[numAction].Participant[numParticipant].Role, optionsValueSet)
 }
-func (resource *RequestOrchestration) RequestOrchestrationActionParticipantFunction(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestOrchestration) T_ActionParticipantFunction(numAction int, numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Action[numAction].Participant) >= numParticipant {
 		return CodeableConceptSelect("function", nil, optionsValueSet)

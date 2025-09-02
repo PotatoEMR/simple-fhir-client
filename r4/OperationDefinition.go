@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -102,14 +102,14 @@ func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *OperationDefinition) OperationDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *OperationDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionStatus() templ.Component {
+func (resource *OperationDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -117,7 +117,7 @@ func (resource *OperationDefinition) OperationDefinitionStatus() templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionKind() templ.Component {
+func (resource *OperationDefinition) T_Kind() templ.Component {
 	optionsValueSet := VSOperation_kind
 
 	if resource == nil {
@@ -125,21 +125,21 @@ func (resource *OperationDefinition) OperationDefinitionKind() templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *OperationDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionCode(optionsValueSet []Coding) templ.Component {
+func (resource *OperationDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("code", nil, optionsValueSet)
 	}
 	return CodeSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionResource() templ.Component {
+func (resource *OperationDefinition) T_Resource() templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil {
@@ -147,14 +147,14 @@ func (resource *OperationDefinition) OperationDefinitionResource() templ.Compone
 	}
 	return CodeSelect("resource", &resource.Resource[0], optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *OperationDefinition) T_ParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Parameter) >= numParameter {
 		return CodeSelect("name", nil, optionsValueSet)
 	}
 	return CodeSelect("name", &resource.Parameter[numParameter].Name, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionParameterUse(numParameter int) templ.Component {
+func (resource *OperationDefinition) T_ParameterUse(numParameter int) templ.Component {
 	optionsValueSet := VSOperation_parameter_use
 
 	if resource == nil && len(resource.Parameter) >= numParameter {
@@ -162,14 +162,14 @@ func (resource *OperationDefinition) OperationDefinitionParameterUse(numParamete
 	}
 	return CodeSelect("use", &resource.Parameter[numParameter].Use, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionParameterType(numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *OperationDefinition) T_ParameterType(numParameter int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Parameter) >= numParameter {
 		return CodeSelect("type", nil, optionsValueSet)
 	}
 	return CodeSelect("type", resource.Parameter[numParameter].Type, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionParameterSearchType(numParameter int) templ.Component {
+func (resource *OperationDefinition) T_ParameterSearchType(numParameter int) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
 	if resource == nil && len(resource.Parameter) >= numParameter {
@@ -177,7 +177,7 @@ func (resource *OperationDefinition) OperationDefinitionParameterSearchType(numP
 	}
 	return CodeSelect("searchType", resource.Parameter[numParameter].SearchType, optionsValueSet)
 }
-func (resource *OperationDefinition) OperationDefinitionParameterBindingStrength(numParameter int) templ.Component {
+func (resource *OperationDefinition) T_ParameterBindingStrength(numParameter int) templ.Component {
 	optionsValueSet := VSBinding_strength
 
 	if resource == nil && len(resource.Parameter) >= numParameter {

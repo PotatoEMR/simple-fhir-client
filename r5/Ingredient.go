@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -94,14 +94,14 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Ingredient) IngredientLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Ingredient) IngredientStatus() templ.Component {
+func (resource *Ingredient) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -109,28 +109,28 @@ func (resource *Ingredient) IngredientStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Ingredient) IngredientRole(optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_Role(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("role", &resource.Role, optionsValueSet)
 }
-func (resource *Ingredient) IngredientFunction(optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_Function(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("function", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("function", &resource.Function[0], optionsValueSet)
 }
-func (resource *Ingredient) IngredientGroup(optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_Group(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("group", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("group", resource.Group, optionsValueSet)
 }
-func (resource *Ingredient) IngredientManufacturerRole(numManufacturer int) templ.Component {
+func (resource *Ingredient) T_ManufacturerRole(numManufacturer int) templ.Component {
 	optionsValueSet := VSIngredient_manufacturer_role
 
 	if resource == nil && len(resource.Manufacturer) >= numManufacturer {
@@ -138,21 +138,21 @@ func (resource *Ingredient) IngredientManufacturerRole(numManufacturer int) temp
 	}
 	return CodeSelect("role", resource.Manufacturer[numManufacturer].Role, optionsValueSet)
 }
-func (resource *Ingredient) IngredientSubstanceStrengthBasis(numStrength int, optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_SubstanceStrengthBasis(numStrength int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Substance.Strength) >= numStrength {
 		return CodeableConceptSelect("basis", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("basis", resource.Substance.Strength[numStrength].Basis, optionsValueSet)
 }
-func (resource *Ingredient) IngredientSubstanceStrengthCountry(numStrength int, optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_SubstanceStrengthCountry(numStrength int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Substance.Strength) >= numStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("country", &resource.Substance.Strength[numStrength].Country[0], optionsValueSet)
 }
-func (resource *Ingredient) IngredientSubstanceStrengthReferenceStrengthCountry(numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthCountry(numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
 		return CodeableConceptSelect("country", nil, optionsValueSet)

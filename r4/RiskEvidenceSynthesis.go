@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -118,14 +118,14 @@ func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisStatus() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -133,70 +133,70 @@ func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisStatus() templ.Compo
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisTopic(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisSynthesisType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_SynthesisType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("synthesisType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisStudyType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_StudyType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("studyType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisRiskEstimateType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.RiskEstimate.Type, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisRiskEstimateUnitOfMeasure(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateUnitOfMeasure(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("unitOfMeasure", resource.RiskEstimate.UnitOfMeasure, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisRiskEstimatePrecisionEstimateType(numPrecisionEstimate int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateType(numPrecisionEstimate int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisCertaintyRating(numCertainty int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyRating(numCertainty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Certainty) >= numCertainty {
 		return CodeableConceptSelect("rating", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("rating", &resource.Certainty[numCertainty].Rating[0], optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisCertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet)
 }
-func (resource *RiskEvidenceSynthesis) RiskEvidenceSynthesisCertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
 		return CodeableConceptSelect("rating", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -55,14 +55,14 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *CareTeam) CareTeamLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *CareTeam) CareTeamStatus() templ.Component {
+func (resource *CareTeam) T_Status() templ.Component {
 	optionsValueSet := VSCare_team_status
 
 	if resource == nil {
@@ -70,14 +70,14 @@ func (resource *CareTeam) CareTeamStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *CareTeam) CareTeamCategory(optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *CareTeam) CareTeamParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_ParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Participant) >= numParticipant {
 		return CodeableConceptSelect("role", nil, optionsValueSet)

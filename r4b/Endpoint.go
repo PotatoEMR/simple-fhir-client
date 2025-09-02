@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -43,14 +43,14 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Endpoint) EndpointLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Endpoint) EndpointStatus() templ.Component {
+func (resource *Endpoint) T_Status() templ.Component {
 	optionsValueSet := VSEndpoint_status
 
 	if resource == nil {
@@ -58,21 +58,21 @@ func (resource *Endpoint) EndpointStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Endpoint) EndpointConnectionType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_ConnectionType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("connectionType", nil, optionsValueSet)
 	}
 	return CodingSelect("connectionType", &resource.ConnectionType, optionsValueSet)
 }
-func (resource *Endpoint) EndpointPayloadType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_PayloadType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("payloadType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("payloadType", &resource.PayloadType[0], optionsValueSet)
 }
-func (resource *Endpoint) EndpointPayloadMimeType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_PayloadMimeType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("payloadMimeType", nil, optionsValueSet)

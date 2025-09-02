@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,14 +73,14 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *PaymentReconciliation) PaymentReconciliationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *PaymentReconciliation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *PaymentReconciliation) PaymentReconciliationStatus() templ.Component {
+func (resource *PaymentReconciliation) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -88,7 +88,7 @@ func (resource *PaymentReconciliation) PaymentReconciliationStatus() templ.Compo
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *PaymentReconciliation) PaymentReconciliationOutcome() templ.Component {
+func (resource *PaymentReconciliation) T_Outcome() templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
@@ -96,21 +96,21 @@ func (resource *PaymentReconciliation) PaymentReconciliationOutcome() templ.Comp
 	}
 	return CodeSelect("outcome", resource.Outcome, optionsValueSet)
 }
-func (resource *PaymentReconciliation) PaymentReconciliationFormCode(optionsValueSet []Coding) templ.Component {
+func (resource *PaymentReconciliation) T_FormCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("formCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet)
 }
-func (resource *PaymentReconciliation) PaymentReconciliationDetailType(numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *PaymentReconciliation) T_DetailType(numDetail int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Detail) >= numDetail {
 		return CodeableConceptSelect("type", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("type", &resource.Detail[numDetail].Type, optionsValueSet)
 }
-func (resource *PaymentReconciliation) PaymentReconciliationProcessNoteType(numProcessNote int) templ.Component {
+func (resource *PaymentReconciliation) T_ProcessNoteType(numProcessNote int) templ.Component {
 	optionsValueSet := VSNote_type
 
 	if resource == nil && len(resource.ProcessNote) >= numProcessNote {

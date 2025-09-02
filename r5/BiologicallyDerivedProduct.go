@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,35 +73,35 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCategory(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCategory(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("productCategory", nil, optionsValueSet)
 	}
 	return CodingSelect("productCategory", resource.ProductCategory, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductCode(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("productCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductProductStatus(optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodingSelect("productStatus", nil, optionsValueSet)
 	}
 	return CodingSelect("productStatus", resource.ProductStatus, optionsValueSet)
 }
-func (resource *BiologicallyDerivedProduct) BiologicallyDerivedProductPropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_PropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Property) >= numProperty {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

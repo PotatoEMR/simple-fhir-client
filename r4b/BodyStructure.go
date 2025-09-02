@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -40,28 +40,28 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *BodyStructure) BodyStructureLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *BodyStructure) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *BodyStructure) BodyStructureMorphology(optionsValueSet []Coding) templ.Component {
+func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("morphology", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("morphology", resource.Morphology, optionsValueSet)
 }
-func (resource *BodyStructure) BodyStructureLocation(optionsValueSet []Coding) templ.Component {
+func (resource *BodyStructure) T_Location(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("location", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("location", resource.Location, optionsValueSet)
 }
-func (resource *BodyStructure) BodyStructureLocationQualifier(optionsValueSet []Coding) templ.Component {
+func (resource *BodyStructure) T_LocationQualifier(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("locationQualifier", nil, optionsValueSet)

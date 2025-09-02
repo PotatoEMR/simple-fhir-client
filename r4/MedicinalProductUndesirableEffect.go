@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -37,28 +37,28 @@ func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductUndesirableEffect) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectSymptomConditionEffect(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductUndesirableEffect) T_SymptomConditionEffect(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("symptomConditionEffect", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("symptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet)
 }
-func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectClassification(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductUndesirableEffect) T_Classification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("classification", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("classification", resource.Classification, optionsValueSet)
 }
-func (resource *MedicinalProductUndesirableEffect) MedicinalProductUndesirableEffectFrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductUndesirableEffect) T_FrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet)

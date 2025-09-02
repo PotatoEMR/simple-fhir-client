@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -39,14 +39,14 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EnrollmentRequest) EnrollmentRequestLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EnrollmentRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EnrollmentRequest) EnrollmentRequestStatus() templ.Component {
+func (resource *EnrollmentRequest) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {

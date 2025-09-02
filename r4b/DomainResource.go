@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -18,7 +18,7 @@ type DomainResource struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 }
 
-func (resource *DomainResource) DomainResourceLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DomainResource) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)

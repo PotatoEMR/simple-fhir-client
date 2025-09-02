@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -61,14 +61,14 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ClinicalImpression) ClinicalImpressionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalImpression) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ClinicalImpression) ClinicalImpressionStatus() templ.Component {
+func (resource *ClinicalImpression) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -76,21 +76,21 @@ func (resource *ClinicalImpression) ClinicalImpressionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *ClinicalImpression) ClinicalImpressionStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalImpression) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *ClinicalImpression) ClinicalImpressionChangePattern(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalImpression) T_ChangePattern(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("changePattern", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("changePattern", resource.ChangePattern, optionsValueSet)
 }
-func (resource *ClinicalImpression) ClinicalImpressionPrognosisCodeableConcept(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalImpression) T_PrognosisCodeableConcept(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("prognosisCodeableConcept", nil, optionsValueSet)

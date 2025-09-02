@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -115,14 +115,14 @@ func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SubscriptionTopic) SubscriptionTopicLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionTopic) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicStatus() templ.Component {
+func (resource *SubscriptionTopic) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -130,14 +130,14 @@ func (resource *SubscriptionTopic) SubscriptionTopicStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionTopic) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInteraction(numResourceTrigger int) templ.Component {
+func (resource *SubscriptionTopic) T_ResourceTriggerSupportedInteraction(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSInteraction_trigger
 
 	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
@@ -145,7 +145,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerSupportedInte
 	}
 	return CodeSelect("supportedInteraction", &resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[0], optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int) templ.Component {
+func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
 	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
@@ -153,7 +153,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteria
 	}
 	return CodeSelect("resultForCreate", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate, optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int) templ.Component {
+func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
 	if resource == nil && len(resource.ResourceTrigger) >= numResourceTrigger {
@@ -161,14 +161,14 @@ func (resource *SubscriptionTopic) SubscriptionTopicResourceTriggerQueryCriteria
 	}
 	return CodeSelect("resultForDelete", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete, optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicEventTriggerEvent(numEventTrigger int, optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionTopic) T_EventTriggerEvent(numEventTrigger int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.EventTrigger) >= numEventTrigger {
 		return CodeableConceptSelect("event", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("event", &resource.EventTrigger[numEventTrigger].Event, optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByComparator(numCanFilterBy int) templ.Component {
+func (resource *SubscriptionTopic) T_CanFilterByComparator(numCanFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_comparator
 
 	if resource == nil && len(resource.CanFilterBy) >= numCanFilterBy {
@@ -176,7 +176,7 @@ func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByComparator(numCan
 	}
 	return CodeSelect("comparator", &resource.CanFilterBy[numCanFilterBy].Comparator[0], optionsValueSet)
 }
-func (resource *SubscriptionTopic) SubscriptionTopicCanFilterByModifier(numCanFilterBy int) templ.Component {
+func (resource *SubscriptionTopic) T_CanFilterByModifier(numCanFilterBy int) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
 
 	if resource == nil && len(resource.CanFilterBy) >= numCanFilterBy {

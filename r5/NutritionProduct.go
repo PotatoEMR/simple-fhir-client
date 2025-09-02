@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -88,21 +88,21 @@ func (r NutritionProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *NutritionProduct) NutritionProductLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionProduct) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *NutritionProduct) NutritionProductCode(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionProduct) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *NutritionProduct) NutritionProductStatus() templ.Component {
+func (resource *NutritionProduct) T_Status() templ.Component {
 	optionsValueSet := VSNutritionproduct_status
 
 	if resource == nil {
@@ -110,14 +110,14 @@ func (resource *NutritionProduct) NutritionProductStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *NutritionProduct) NutritionProductCategory(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionProduct) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *NutritionProduct) NutritionProductCharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *NutritionProduct) T_CharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
 		return CodeableConceptSelect("type", nil, optionsValueSet)

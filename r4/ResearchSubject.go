@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -40,14 +40,14 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *ResearchSubject) ResearchSubjectLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *ResearchSubject) ResearchSubjectStatus() templ.Component {
+func (resource *ResearchSubject) T_Status() templ.Component {
 	optionsValueSet := VSResearch_subject_status
 
 	if resource == nil {

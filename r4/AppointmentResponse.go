@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -40,21 +40,21 @@ func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *AppointmentResponse) AppointmentResponseLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *AppointmentResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *AppointmentResponse) AppointmentResponseParticipantType(optionsValueSet []Coding) templ.Component {
+func (resource *AppointmentResponse) T_ParticipantType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("participantType", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("participantType", &resource.ParticipantType[0], optionsValueSet)
 }
-func (resource *AppointmentResponse) AppointmentResponseParticipantStatus() templ.Component {
+func (resource *AppointmentResponse) T_ParticipantStatus() templ.Component {
 	optionsValueSet := VSParticipationstatus
 
 	if resource == nil {

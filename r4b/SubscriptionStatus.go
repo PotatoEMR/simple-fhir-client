@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -50,14 +50,14 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *SubscriptionStatus) SubscriptionStatusLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionStatus) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *SubscriptionStatus) SubscriptionStatusStatus() templ.Component {
+func (resource *SubscriptionStatus) T_Status() templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
@@ -65,7 +65,7 @@ func (resource *SubscriptionStatus) SubscriptionStatusStatus() templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet)
 }
-func (resource *SubscriptionStatus) SubscriptionStatusType() templ.Component {
+func (resource *SubscriptionStatus) T_Type() templ.Component {
 	optionsValueSet := VSSubscription_notification_type
 
 	if resource == nil {
@@ -73,7 +73,7 @@ func (resource *SubscriptionStatus) SubscriptionStatusType() templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet)
 }
-func (resource *SubscriptionStatus) SubscriptionStatusError(optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionStatus) T_Error(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("error", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -60,14 +60,14 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DiagnosticReport) DiagnosticReportLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DiagnosticReport) DiagnosticReportStatus() templ.Component {
+func (resource *DiagnosticReport) T_Status() templ.Component {
 	optionsValueSet := VSDiagnostic_report_status
 
 	if resource == nil {
@@ -75,21 +75,21 @@ func (resource *DiagnosticReport) DiagnosticReportStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DiagnosticReport) DiagnosticReportCategory(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *DiagnosticReport) DiagnosticReportCode(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
 }
-func (resource *DiagnosticReport) DiagnosticReportConclusionCode(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_ConclusionCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("conclusionCode", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -61,14 +61,14 @@ func (r EventDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EventDefinition) EventDefinitionLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EventDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EventDefinition) EventDefinitionStatus() templ.Component {
+func (resource *EventDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -76,14 +76,14 @@ func (resource *EventDefinition) EventDefinitionStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EventDefinition) EventDefinitionJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *EventDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *EventDefinition) EventDefinitionTopic(optionsValueSet []Coding) templ.Component {
+func (resource *EventDefinition) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)

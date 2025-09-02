@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -60,14 +60,14 @@ func (r DeviceUsage) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *DeviceUsage) DeviceUsageLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageStatus() templ.Component {
+func (resource *DeviceUsage) T_Status() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
@@ -75,14 +75,14 @@ func (resource *DeviceUsage) DeviceUsageStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageCategory(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageUsageStatus() templ.Component {
+func (resource *DeviceUsage) T_UsageStatus() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
@@ -90,21 +90,21 @@ func (resource *DeviceUsage) DeviceUsageUsageStatus() templ.Component {
 	}
 	return CodeableConceptSelect("usageStatus", resource.UsageStatus, optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageUsageReason(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_UsageReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("usageReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("usageReason", &resource.UsageReason[0], optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageAdherenceCode(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_AdherenceCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", &resource.Adherence.Code, optionsValueSet)
 }
-func (resource *DeviceUsage) DeviceUsageAdherenceReason(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_AdherenceReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet)

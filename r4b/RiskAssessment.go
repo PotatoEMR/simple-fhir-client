@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -65,14 +65,14 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *RiskAssessment) RiskAssessmentLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentStatus() templ.Component {
+func (resource *RiskAssessment) T_Status() templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
@@ -80,35 +80,35 @@ func (resource *RiskAssessment) RiskAssessmentStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentMethod(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Method(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentCode(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentPredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_PredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Prediction) >= numPrediction {
 		return CodeableConceptSelect("outcome", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
 }
-func (resource *RiskAssessment) RiskAssessmentPredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_PredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
 
 	if resource == nil && len(resource.Prediction) >= numPrediction {
 		return CodeableConceptSelect("qualitativeRisk", nil, optionsValueSet)

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -64,14 +64,14 @@ func (r Communication) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *Communication) CommunicationLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *Communication) CommunicationStatus() templ.Component {
+func (resource *Communication) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -79,21 +79,21 @@ func (resource *Communication) CommunicationStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *Communication) CommunicationStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Communication) CommunicationCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Category(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
 }
-func (resource *Communication) CommunicationPriority() templ.Component {
+func (resource *Communication) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -101,14 +101,14 @@ func (resource *Communication) CommunicationPriority() templ.Component {
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet)
 }
-func (resource *Communication) CommunicationMedium(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Medium(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("medium", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("medium", &resource.Medium[0], optionsValueSet)
 }
-func (resource *Communication) CommunicationTopic(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)

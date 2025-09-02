@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -81,14 +81,14 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func (resource *EvidenceVariable) EvidenceVariableLanguage(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeSelect("language", nil, optionsValueSet)
 	}
 	return CodeSelect("language", resource.Language, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
+func (resource *EvidenceVariable) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -96,21 +96,21 @@ func (resource *EvidenceVariable) EvidenceVariableStatus() templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableJurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableTopic(optionsValueSet []Coding) templ.Component {
+func (resource *EvidenceVariable) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet)
 	}
 	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableType() templ.Component {
+func (resource *EvidenceVariable) T_Type() templ.Component {
 	optionsValueSet := VSVariable_type
 
 	if resource == nil {
@@ -118,7 +118,7 @@ func (resource *EvidenceVariable) EvidenceVariableType() templ.Component {
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet)
 }
-func (resource *EvidenceVariable) EvidenceVariableCharacteristicGroupMeasure(numCharacteristic int) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
