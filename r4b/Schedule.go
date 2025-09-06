@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Schedule
 type Schedule struct {
@@ -40,31 +44,59 @@ func (r Schedule) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Schedule) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Schedule.Id", nil)
+	}
+	return StringInput("Schedule.Id", resource.Id)
+}
+func (resource *Schedule) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Schedule.ImplicitRules", nil)
+	}
+	return StringInput("Schedule.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Schedule) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Schedule.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Schedule.Language", resource.Language, optionsValueSet)
 }
-func (resource *Schedule) T_ServiceCategory(optionsValueSet []Coding) templ.Component {
+func (resource *Schedule) T_Active() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("serviceCategory", nil, optionsValueSet)
+		return BoolInput("Schedule.Active", nil)
 	}
-	return CodeableConceptSelect("serviceCategory", &resource.ServiceCategory[0], optionsValueSet)
+	return BoolInput("Schedule.Active", resource.Active)
 }
-func (resource *Schedule) T_ServiceType(optionsValueSet []Coding) templ.Component {
+func (resource *Schedule) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ServiceCategory) >= numServiceCategory {
+		return CodeableConceptSelect("Schedule.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Schedule.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet)
+}
+func (resource *Schedule) T_ServiceType(numServiceType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ServiceType) >= numServiceType {
+		return CodeableConceptSelect("Schedule.ServiceType["+strconv.Itoa(numServiceType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Schedule.ServiceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], optionsValueSet)
+}
+func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Specialty) >= numSpecialty {
+		return CodeableConceptSelect("Schedule.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Schedule.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
+}
+func (resource *Schedule) T_Comment() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("serviceType", nil, optionsValueSet)
+		return StringInput("Schedule.Comment", nil)
 	}
-	return CodeableConceptSelect("serviceType", &resource.ServiceType[0], optionsValueSet)
-}
-func (resource *Schedule) T_Specialty(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("specialty", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
+	return StringInput("Schedule.Comment", resource.Comment)
 }

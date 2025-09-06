@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/MedicinalProduct
 type MedicinalProduct struct {
@@ -89,8 +93,8 @@ type MedicinalProductSpecialDesignation struct {
 	Identifier                []Identifier     `json:"identifier,omitempty"`
 	Type                      *CodeableConcept `json:"type,omitempty"`
 	IntendedUse               *CodeableConcept `json:"intendedUse,omitempty"`
-	IndicationCodeableConcept *CodeableConcept `json:"indicationCodeableConcept"`
-	IndicationReference       *Reference       `json:"indicationReference"`
+	IndicationCodeableConcept *CodeableConcept `json:"indicationCodeableConcept,omitempty"`
+	IndicationReference       *Reference       `json:"indicationReference,omitempty"`
 	Status                    *CodeableConcept `json:"status,omitempty"`
 	Date                      *string          `json:"date,omitempty"`
 	Species                   *CodeableConcept `json:"species,omitempty"`
@@ -109,129 +113,213 @@ func (r MedicinalProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicinalProduct) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProduct.Id", nil)
+	}
+	return StringInput("MedicinalProduct.Id", resource.Id)
+}
+func (resource *MedicinalProduct) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProduct.ImplicitRules", nil)
+	}
+	return StringInput("MedicinalProduct.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicinalProduct) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicinalProduct.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicinalProduct.Language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProduct.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.Type", resource.Type, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_Domain(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodingSelect("domain", nil, optionsValueSet)
+		return CodingSelect("MedicinalProduct.Domain", nil, optionsValueSet)
 	}
-	return CodingSelect("domain", resource.Domain, optionsValueSet)
+	return CodingSelect("MedicinalProduct.Domain", resource.Domain, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_CombinedPharmaceuticalDoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("combinedPharmaceuticalDoseForm", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProduct.CombinedPharmaceuticalDoseForm", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("combinedPharmaceuticalDoseForm", resource.CombinedPharmaceuticalDoseForm, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.CombinedPharmaceuticalDoseForm", resource.CombinedPharmaceuticalDoseForm, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_LegalStatusOfSupply(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProduct.LegalStatusOfSupply", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.LegalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_AdditionalMonitoringIndicator(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("additionalMonitoringIndicator", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProduct.AdditionalMonitoringIndicator", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("additionalMonitoringIndicator", resource.AdditionalMonitoringIndicator, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.AdditionalMonitoringIndicator", resource.AdditionalMonitoringIndicator, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_SpecialMeasures(numSpecialMeasures int) templ.Component {
+
+	if resource == nil || len(resource.SpecialMeasures) >= numSpecialMeasures {
+		return StringInput("MedicinalProduct.SpecialMeasures["+strconv.Itoa(numSpecialMeasures)+"]", nil)
+	}
+	return StringInput("MedicinalProduct.SpecialMeasures["+strconv.Itoa(numSpecialMeasures)+"]", &resource.SpecialMeasures[numSpecialMeasures])
 }
 func (resource *MedicinalProduct) T_PaediatricUseIndicator(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("paediatricUseIndicator", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProduct.PaediatricUseIndicator", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("paediatricUseIndicator", resource.PaediatricUseIndicator, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.PaediatricUseIndicator", resource.PaediatricUseIndicator, optionsValueSet)
 }
-func (resource *MedicinalProduct) T_ProductClassification(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProduct) T_ProductClassification(numProductClassification int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("productClassification", nil, optionsValueSet)
+	if resource == nil || len(resource.ProductClassification) >= numProductClassification {
+		return CodeableConceptSelect("MedicinalProduct.ProductClassification["+strconv.Itoa(numProductClassification)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("productClassification", &resource.ProductClassification[0], optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.ProductClassification["+strconv.Itoa(numProductClassification)+"]", &resource.ProductClassification[numProductClassification], optionsValueSet)
+}
+func (resource *MedicinalProduct) T_NameId(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].Id", nil)
+	}
+	return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].Id", resource.Name[numName].Id)
+}
+func (resource *MedicinalProduct) T_NameProductName(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].ProductName", nil)
+	}
+	return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].ProductName", &resource.Name[numName].ProductName)
+}
+func (resource *MedicinalProduct) T_NameNamePartId(numName int, numNamePart int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].NamePart) >= numNamePart {
+		return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Id", nil)
+	}
+	return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Id", resource.Name[numName].NamePart[numNamePart].Id)
+}
+func (resource *MedicinalProduct) T_NameNamePartPart(numName int, numNamePart int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].NamePart) >= numNamePart {
+		return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Part", nil)
+	}
+	return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Part", &resource.Name[numName].NamePart[numNamePart].Part)
 }
 func (resource *MedicinalProduct) T_NameNamePartType(numName int, numNamePart int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].NamePart) >= numNamePart {
-		return CodingSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].NamePart) >= numNamePart {
+		return CodingSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Type", nil, optionsValueSet)
 	}
-	return CodingSelect("type", &resource.Name[numName].NamePart[numNamePart].Type, optionsValueSet)
+	return CodingSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].NamePart["+strconv.Itoa(numNamePart)+"].Type", &resource.Name[numName].NamePart[numNamePart].Type, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_NameCountryLanguageId(numName int, numCountryLanguage int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+		return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Id", nil)
+	}
+	return StringInput("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Id", resource.Name[numName].CountryLanguage[numCountryLanguage].Id)
 }
 func (resource *MedicinalProduct) T_NameCountryLanguageCountry(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
-		return CodeableConceptSelect("country", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+		return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Country", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("country", &resource.Name[numName].CountryLanguage[numCountryLanguage].Country, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Country", &resource.Name[numName].CountryLanguage[numCountryLanguage].Country, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_NameCountryLanguageJurisdiction(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+		return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Jurisdiction", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("jurisdiction", resource.Name[numName].CountryLanguage[numCountryLanguage].Jurisdiction, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Jurisdiction", resource.Name[numName].CountryLanguage[numCountryLanguage].Jurisdiction, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_NameCountryLanguageLanguage(numName int, numCountryLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
-		return CodeableConceptSelect("language", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].CountryLanguage) >= numCountryLanguage {
+		return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Language", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("language", &resource.Name[numName].CountryLanguage[numCountryLanguage].Language, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.Name["+strconv.Itoa(numName)+"].CountryLanguage["+strconv.Itoa(numCountryLanguage)+"].Language", &resource.Name[numName].CountryLanguage[numCountryLanguage].Language, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationId(numManufacturingBusinessOperation int) templ.Component {
+
+	if resource == nil || len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+		return StringInput("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].Id", nil)
+	}
+	return StringInput("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].Id", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Id)
 }
 func (resource *MedicinalProduct) T_ManufacturingBusinessOperationOperationType(numManufacturingBusinessOperation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
-		return CodeableConceptSelect("operationType", nil, optionsValueSet)
+	if resource == nil || len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+		return CodeableConceptSelect("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].OperationType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("operationType", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].OperationType, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].OperationType", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].OperationType, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationEffectiveDate(numManufacturingBusinessOperation int) templ.Component {
+
+	if resource == nil || len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+		return StringInput("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].EffectiveDate", nil)
+	}
+	return StringInput("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].EffectiveDate", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].EffectiveDate)
 }
 func (resource *MedicinalProduct) T_ManufacturingBusinessOperationConfidentialityIndicator(numManufacturingBusinessOperation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
-		return CodeableConceptSelect("confidentialityIndicator", nil, optionsValueSet)
+	if resource == nil || len(resource.ManufacturingBusinessOperation) >= numManufacturingBusinessOperation {
+		return CodeableConceptSelect("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].ConfidentialityIndicator", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("confidentialityIndicator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].ConfidentialityIndicator, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.ManufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].ConfidentialityIndicator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].ConfidentialityIndicator, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_SpecialDesignationId(numSpecialDesignation int) templ.Component {
+
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return StringInput("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Id", nil)
+	}
+	return StringInput("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Id", resource.SpecialDesignation[numSpecialDesignation].Id)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationType(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.SpecialDesignation[numSpecialDesignation].Type, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Type", resource.SpecialDesignation[numSpecialDesignation].Type, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationIntendedUse(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
-		return CodeableConceptSelect("intendedUse", nil, optionsValueSet)
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].IntendedUse", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("intendedUse", resource.SpecialDesignation[numSpecialDesignation].IntendedUse, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].IntendedUse", resource.SpecialDesignation[numSpecialDesignation].IntendedUse, optionsValueSet)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationStatus(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.SpecialDesignation[numSpecialDesignation].Status, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Status", resource.SpecialDesignation[numSpecialDesignation].Status, optionsValueSet)
+}
+func (resource *MedicinalProduct) T_SpecialDesignationDate(numSpecialDesignation int) templ.Component {
+
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return StringInput("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Date", nil)
+	}
+	return StringInput("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Date", resource.SpecialDesignation[numSpecialDesignation].Date)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationSpecies(numSpecialDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.SpecialDesignation) >= numSpecialDesignation {
-		return CodeableConceptSelect("species", nil, optionsValueSet)
+	if resource == nil || len(resource.SpecialDesignation) >= numSpecialDesignation {
+		return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Species", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("species", resource.SpecialDesignation[numSpecialDesignation].Species, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProduct.SpecialDesignation["+strconv.Itoa(numSpecialDesignation)+"].Species", resource.SpecialDesignation[numSpecialDesignation].Species, optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/ImagingStudy
 type ImagingStudy struct {
@@ -89,53 +93,172 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ImagingStudy) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImagingStudy.Id", nil)
+	}
+	return StringInput("ImagingStudy.Id", resource.Id)
+}
+func (resource *ImagingStudy) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImagingStudy.ImplicitRules", nil)
+	}
+	return StringInput("ImagingStudy.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ImagingStudy) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ImagingStudy.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ImagingStudy.Language", resource.Language, optionsValueSet)
 }
 func (resource *ImagingStudy) T_Status() templ.Component {
 	optionsValueSet := VSImagingstudy_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ImagingStudy.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ImagingStudy.Status", &resource.Status, optionsValueSet)
 }
-func (resource *ImagingStudy) T_Modality(optionsValueSet []Coding) templ.Component {
+func (resource *ImagingStudy) T_Modality(numModality int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Modality) >= numModality {
+		return CodeableConceptSelect("ImagingStudy.Modality["+strconv.Itoa(numModality)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ImagingStudy.Modality["+strconv.Itoa(numModality)+"]", &resource.Modality[numModality], optionsValueSet)
+}
+func (resource *ImagingStudy) T_Started() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("modality", nil, optionsValueSet)
+		return StringInput("ImagingStudy.Started", nil)
 	}
-	return CodeableConceptSelect("modality", &resource.Modality[0], optionsValueSet)
+	return StringInput("ImagingStudy.Started", resource.Started)
+}
+func (resource *ImagingStudy) T_NumberOfSeries() templ.Component {
+
+	if resource == nil {
+		return IntInput("ImagingStudy.NumberOfSeries", nil)
+	}
+	return IntInput("ImagingStudy.NumberOfSeries", resource.NumberOfSeries)
+}
+func (resource *ImagingStudy) T_NumberOfInstances() templ.Component {
+
+	if resource == nil {
+		return IntInput("ImagingStudy.NumberOfInstances", nil)
+	}
+	return IntInput("ImagingStudy.NumberOfInstances", resource.NumberOfInstances)
+}
+func (resource *ImagingStudy) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImagingStudy.Description", nil)
+	}
+	return StringInput("ImagingStudy.Description", resource.Description)
+}
+func (resource *ImagingStudy) T_SeriesId(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Id", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Id", resource.Series[numSeries].Id)
+}
+func (resource *ImagingStudy) T_SeriesUid(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Uid", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Uid", &resource.Series[numSeries].Uid)
+}
+func (resource *ImagingStudy) T_SeriesNumber(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Number", nil)
+	}
+	return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Number", resource.Series[numSeries].Number)
 }
 func (resource *ImagingStudy) T_SeriesModality(numSeries int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Series) >= numSeries {
-		return CodeableConceptSelect("modality", nil, optionsValueSet)
+	if resource == nil || len(resource.Series) >= numSeries {
+		return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Modality", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("modality", &resource.Series[numSeries].Modality, optionsValueSet)
+	return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Modality", &resource.Series[numSeries].Modality, optionsValueSet)
+}
+func (resource *ImagingStudy) T_SeriesDescription(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Description", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Description", resource.Series[numSeries].Description)
+}
+func (resource *ImagingStudy) T_SeriesNumberOfInstances(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].NumberOfInstances", nil)
+	}
+	return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].NumberOfInstances", resource.Series[numSeries].NumberOfInstances)
 }
 func (resource *ImagingStudy) T_SeriesLaterality(numSeries int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Series) >= numSeries {
-		return CodeableConceptSelect("laterality", nil, optionsValueSet)
+	if resource == nil || len(resource.Series) >= numSeries {
+		return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Laterality", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("laterality", resource.Series[numSeries].Laterality, optionsValueSet)
+	return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Laterality", resource.Series[numSeries].Laterality, optionsValueSet)
+}
+func (resource *ImagingStudy) T_SeriesStarted(numSeries int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Started", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Started", resource.Series[numSeries].Started)
+}
+func (resource *ImagingStudy) T_SeriesPerformerId(numSeries int, numPerformer int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Performer) >= numPerformer {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Series[numSeries].Performer[numPerformer].Id)
 }
 func (resource *ImagingStudy) T_SeriesPerformerFunction(numSeries int, numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Series[numSeries].Performer) >= numPerformer {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Performer) >= numPerformer {
+		return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", resource.Series[numSeries].Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Series[numSeries].Performer[numPerformer].Function, optionsValueSet)
+}
+func (resource *ImagingStudy) T_SeriesInstanceId(numSeries int, numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Instance) >= numInstance {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Id", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Id", resource.Series[numSeries].Instance[numInstance].Id)
+}
+func (resource *ImagingStudy) T_SeriesInstanceUid(numSeries int, numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Instance) >= numInstance {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Uid", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Uid", &resource.Series[numSeries].Instance[numInstance].Uid)
 }
 func (resource *ImagingStudy) T_SeriesInstanceSopClass(numSeries int, numInstance int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Series[numSeries].Instance) >= numInstance {
-		return CodingSelect("sopClass", nil, optionsValueSet)
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Instance) >= numInstance {
+		return CodingSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].SopClass", nil, optionsValueSet)
 	}
-	return CodingSelect("sopClass", &resource.Series[numSeries].Instance[numInstance].SopClass, optionsValueSet)
+	return CodingSelect("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].SopClass", &resource.Series[numSeries].Instance[numInstance].SopClass, optionsValueSet)
+}
+func (resource *ImagingStudy) T_SeriesInstanceNumber(numSeries int, numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Instance) >= numInstance {
+		return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Number", nil)
+	}
+	return IntInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Number", resource.Series[numSeries].Instance[numInstance].Number)
+}
+func (resource *ImagingStudy) T_SeriesInstanceTitle(numSeries int, numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Series) >= numSeries || len(resource.Series[numSeries].Instance) >= numInstance {
+		return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Title", nil)
+	}
+	return StringInput("ImagingStudy.Series["+strconv.Itoa(numSeries)+"].Instance["+strconv.Itoa(numInstance)+"].Title", resource.Series[numSeries].Instance[numInstance].Title)
 }

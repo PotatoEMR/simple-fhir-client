@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/DeviceUseStatement
 type DeviceUseStatement struct {
@@ -22,9 +26,9 @@ type DeviceUseStatement struct {
 	Status            string            `json:"status"`
 	Subject           Reference         `json:"subject"`
 	DerivedFrom       []Reference       `json:"derivedFrom,omitempty"`
-	TimingTiming      *Timing           `json:"timingTiming"`
-	TimingPeriod      *Period           `json:"timingPeriod"`
-	TimingDateTime    *string           `json:"timingDateTime"`
+	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
+	TimingPeriod      *Period           `json:"timingPeriod,omitempty"`
+	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
 	RecordedOn        *string           `json:"recordedOn,omitempty"`
 	Source            *Reference        `json:"source,omitempty"`
 	Device            Reference         `json:"device"`
@@ -47,32 +51,53 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DeviceUseStatement) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceUseStatement.Id", nil)
+	}
+	return StringInput("DeviceUseStatement.Id", resource.Id)
+}
+func (resource *DeviceUseStatement) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceUseStatement.ImplicitRules", nil)
+	}
+	return StringInput("DeviceUseStatement.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DeviceUseStatement) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DeviceUseStatement.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DeviceUseStatement.Language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceUseStatement) T_Status() templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("DeviceUseStatement.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("DeviceUseStatement.Status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceUseStatement) T_ReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUseStatement) T_RecordedOn() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
+		return StringInput("DeviceUseStatement.RecordedOn", nil)
 	}
-	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
+	return StringInput("DeviceUseStatement.RecordedOn", resource.RecordedOn)
+}
+func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
+		return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
 }
 func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+		return CodeableConceptSelect("DeviceUseStatement.BodySite", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
+	return CodeableConceptSelect("DeviceUseStatement.BodySite", resource.BodySite, optionsValueSet)
 }

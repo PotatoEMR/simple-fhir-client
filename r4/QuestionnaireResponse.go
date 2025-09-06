@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/QuestionnaireResponse
 type QuestionnaireResponse struct {
@@ -46,18 +50,18 @@ type QuestionnaireResponseItemAnswer struct {
 	Id                *string     `json:"id,omitempty"`
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueBoolean      *bool       `json:"valueBoolean"`
-	ValueDecimal      *float64    `json:"valueDecimal"`
-	ValueInteger      *int        `json:"valueInteger"`
-	ValueDate         *string     `json:"valueDate"`
-	ValueDateTime     *string     `json:"valueDateTime"`
-	ValueTime         *string     `json:"valueTime"`
-	ValueString       *string     `json:"valueString"`
-	ValueUri          *string     `json:"valueUri"`
-	ValueAttachment   *Attachment `json:"valueAttachment"`
-	ValueCoding       *Coding     `json:"valueCoding"`
-	ValueQuantity     *Quantity   `json:"valueQuantity"`
-	ValueReference    *Reference  `json:"valueReference"`
+	ValueBoolean      *bool       `json:"valueBoolean,omitempty"`
+	ValueDecimal      *float64    `json:"valueDecimal,omitempty"`
+	ValueInteger      *int        `json:"valueInteger,omitempty"`
+	ValueDate         *string     `json:"valueDate,omitempty"`
+	ValueDateTime     *string     `json:"valueDateTime,omitempty"`
+	ValueTime         *string     `json:"valueTime,omitempty"`
+	ValueString       *string     `json:"valueString,omitempty"`
+	ValueUri          *string     `json:"valueUri,omitempty"`
+	ValueAttachment   *Attachment `json:"valueAttachment,omitempty"`
+	ValueCoding       *Coding     `json:"valueCoding,omitempty"`
+	ValueQuantity     *Quantity   `json:"valueQuantity,omitempty"`
+	ValueReference    *Reference  `json:"valueReference,omitempty"`
 }
 
 type OtherQuestionnaireResponse QuestionnaireResponse
@@ -73,18 +77,81 @@ func (r QuestionnaireResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *QuestionnaireResponse) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("QuestionnaireResponse.Id", nil)
+	}
+	return StringInput("QuestionnaireResponse.Id", resource.Id)
+}
+func (resource *QuestionnaireResponse) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("QuestionnaireResponse.ImplicitRules", nil)
+	}
+	return StringInput("QuestionnaireResponse.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *QuestionnaireResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("QuestionnaireResponse.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("QuestionnaireResponse.Language", resource.Language, optionsValueSet)
+}
+func (resource *QuestionnaireResponse) T_Questionnaire() templ.Component {
+
+	if resource == nil {
+		return StringInput("QuestionnaireResponse.Questionnaire", nil)
+	}
+	return StringInput("QuestionnaireResponse.Questionnaire", resource.Questionnaire)
 }
 func (resource *QuestionnaireResponse) T_Status() templ.Component {
 	optionsValueSet := VSQuestionnaire_answers_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("QuestionnaireResponse.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("QuestionnaireResponse.Status", &resource.Status, optionsValueSet)
+}
+func (resource *QuestionnaireResponse) T_Authored() templ.Component {
+
+	if resource == nil {
+		return StringInput("QuestionnaireResponse.Authored", nil)
+	}
+	return StringInput("QuestionnaireResponse.Authored", resource.Authored)
+}
+func (resource *QuestionnaireResponse) T_ItemId(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Id", nil)
+	}
+	return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Id", resource.Item[numItem].Id)
+}
+func (resource *QuestionnaireResponse) T_ItemLinkId(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].LinkId", nil)
+	}
+	return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].LinkId", &resource.Item[numItem].LinkId)
+}
+func (resource *QuestionnaireResponse) T_ItemDefinition(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Definition", nil)
+	}
+	return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Definition", resource.Item[numItem].Definition)
+}
+func (resource *QuestionnaireResponse) T_ItemText(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Text", nil)
+	}
+	return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Text", resource.Item[numItem].Text)
+}
+func (resource *QuestionnaireResponse) T_ItemAnswerId(numItem int, numAnswer int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Answer) >= numAnswer {
+		return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Answer["+strconv.Itoa(numAnswer)+"].Id", nil)
+	}
+	return StringInput("QuestionnaireResponse.Item["+strconv.Itoa(numItem)+"].Answer["+strconv.Itoa(numAnswer)+"].Id", resource.Item[numItem].Answer[numAnswer].Id)
 }

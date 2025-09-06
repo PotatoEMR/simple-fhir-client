@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/Account
 type Account struct {
@@ -62,25 +66,81 @@ func (r Account) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Account) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Account.Id", nil)
+	}
+	return StringInput("Account.Id", resource.Id)
+}
+func (resource *Account) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Account.ImplicitRules", nil)
+	}
+	return StringInput("Account.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Account) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Account.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Account.Language", resource.Language, optionsValueSet)
 }
 func (resource *Account) T_Status() templ.Component {
 	optionsValueSet := VSAccount_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Account.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Account.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Account) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("Account.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("Account.Type", resource.Type, optionsValueSet)
+}
+func (resource *Account) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("Account.Name", nil)
+	}
+	return StringInput("Account.Name", resource.Name)
+}
+func (resource *Account) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("Account.Description", nil)
+	}
+	return StringInput("Account.Description", resource.Description)
+}
+func (resource *Account) T_CoverageId(numCoverage int) templ.Component {
+
+	if resource == nil || len(resource.Coverage) >= numCoverage {
+		return StringInput("Account.Coverage["+strconv.Itoa(numCoverage)+"].Id", nil)
+	}
+	return StringInput("Account.Coverage["+strconv.Itoa(numCoverage)+"].Id", resource.Coverage[numCoverage].Id)
+}
+func (resource *Account) T_CoveragePriority(numCoverage int) templ.Component {
+
+	if resource == nil || len(resource.Coverage) >= numCoverage {
+		return IntInput("Account.Coverage["+strconv.Itoa(numCoverage)+"].Priority", nil)
+	}
+	return IntInput("Account.Coverage["+strconv.Itoa(numCoverage)+"].Priority", resource.Coverage[numCoverage].Priority)
+}
+func (resource *Account) T_GuarantorId(numGuarantor int) templ.Component {
+
+	if resource == nil || len(resource.Guarantor) >= numGuarantor {
+		return StringInput("Account.Guarantor["+strconv.Itoa(numGuarantor)+"].Id", nil)
+	}
+	return StringInput("Account.Guarantor["+strconv.Itoa(numGuarantor)+"].Id", resource.Guarantor[numGuarantor].Id)
+}
+func (resource *Account) T_GuarantorOnHold(numGuarantor int) templ.Component {
+
+	if resource == nil || len(resource.Guarantor) >= numGuarantor {
+		return BoolInput("Account.Guarantor["+strconv.Itoa(numGuarantor)+"].OnHold", nil)
+	}
+	return BoolInput("Account.Guarantor["+strconv.Itoa(numGuarantor)+"].OnHold", resource.Guarantor[numGuarantor].OnHold)
 }

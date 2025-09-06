@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Endpoint
 type Endpoint struct {
@@ -43,39 +47,74 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Endpoint) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Endpoint.Id", nil)
+	}
+	return StringInput("Endpoint.Id", resource.Id)
+}
+func (resource *Endpoint) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Endpoint.ImplicitRules", nil)
+	}
+	return StringInput("Endpoint.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Endpoint) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Endpoint.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Endpoint.Language", resource.Language, optionsValueSet)
 }
 func (resource *Endpoint) T_Status() templ.Component {
 	optionsValueSet := VSEndpoint_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Endpoint.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Endpoint.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Endpoint) T_ConnectionType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodingSelect("connectionType", nil, optionsValueSet)
+		return CodingSelect("Endpoint.ConnectionType", nil, optionsValueSet)
 	}
-	return CodingSelect("connectionType", &resource.ConnectionType, optionsValueSet)
+	return CodingSelect("Endpoint.ConnectionType", &resource.ConnectionType, optionsValueSet)
 }
-func (resource *Endpoint) T_PayloadType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_Name() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("payloadType", nil, optionsValueSet)
+		return StringInput("Endpoint.Name", nil)
 	}
-	return CodeableConceptSelect("payloadType", &resource.PayloadType[0], optionsValueSet)
+	return StringInput("Endpoint.Name", resource.Name)
 }
-func (resource *Endpoint) T_PayloadMimeType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_PayloadType(numPayloadType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.PayloadType) >= numPayloadType {
+		return CodeableConceptSelect("Endpoint.PayloadType["+strconv.Itoa(numPayloadType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Endpoint.PayloadType["+strconv.Itoa(numPayloadType)+"]", &resource.PayloadType[numPayloadType], optionsValueSet)
+}
+func (resource *Endpoint) T_PayloadMimeType(numPayloadMimeType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.PayloadMimeType) >= numPayloadMimeType {
+		return CodeSelect("Endpoint.PayloadMimeType["+strconv.Itoa(numPayloadMimeType)+"]", nil, optionsValueSet)
+	}
+	return CodeSelect("Endpoint.PayloadMimeType["+strconv.Itoa(numPayloadMimeType)+"]", &resource.PayloadMimeType[numPayloadMimeType], optionsValueSet)
+}
+func (resource *Endpoint) T_Address() templ.Component {
 
 	if resource == nil {
-		return CodeSelect("payloadMimeType", nil, optionsValueSet)
+		return StringInput("Endpoint.Address", nil)
 	}
-	return CodeSelect("payloadMimeType", &resource.PayloadMimeType[0], optionsValueSet)
+	return StringInput("Endpoint.Address", &resource.Address)
+}
+func (resource *Endpoint) T_Header(numHeader int) templ.Component {
+
+	if resource == nil || len(resource.Header) >= numHeader {
+		return StringInput("Endpoint.Header["+strconv.Itoa(numHeader)+"]", nil)
+	}
+	return StringInput("Endpoint.Header["+strconv.Itoa(numHeader)+"]", &resource.Header[numHeader])
 }

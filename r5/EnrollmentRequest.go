@@ -1,11 +1,14 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/EnrollmentRequest
 type EnrollmentRequest struct {
@@ -39,18 +42,39 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *EnrollmentRequest) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentRequest.Id", nil)
+	}
+	return StringInput("EnrollmentRequest.Id", resource.Id)
+}
+func (resource *EnrollmentRequest) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentRequest.ImplicitRules", nil)
+	}
+	return StringInput("EnrollmentRequest.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *EnrollmentRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("EnrollmentRequest.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("EnrollmentRequest.Language", resource.Language, optionsValueSet)
 }
 func (resource *EnrollmentRequest) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("EnrollmentRequest.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("EnrollmentRequest.Status", resource.Status, optionsValueSet)
+}
+func (resource *EnrollmentRequest) T_Created() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentRequest.Created", nil)
+	}
+	return StringInput("EnrollmentRequest.Created", resource.Created)
 }

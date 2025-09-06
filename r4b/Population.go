@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -9,8 +9,8 @@ type Population struct {
 	Id                     *string          `json:"id,omitempty"`
 	Extension              []Extension      `json:"extension,omitempty"`
 	ModifierExtension      []Extension      `json:"modifierExtension,omitempty"`
-	AgeRange               *Range           `json:"ageRange"`
-	AgeCodeableConcept     *CodeableConcept `json:"ageCodeableConcept"`
+	AgeRange               *Range           `json:"ageRange,omitempty"`
+	AgeCodeableConcept     *CodeableConcept `json:"ageCodeableConcept,omitempty"`
 	Gender                 *CodeableConcept `json:"gender,omitempty"`
 	Race                   *CodeableConcept `json:"race,omitempty"`
 	PhysiologicalCondition *CodeableConcept `json:"physiologicalCondition,omitempty"`

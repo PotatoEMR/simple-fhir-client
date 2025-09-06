@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/ConditionDefinition
 type ConditionDefinition struct {
@@ -20,8 +24,8 @@ type ConditionDefinition struct {
 	Url                    *string                            `json:"url,omitempty"`
 	Identifier             []Identifier                       `json:"identifier,omitempty"`
 	Version                *string                            `json:"version,omitempty"`
-	VersionAlgorithmString *string                            `json:"versionAlgorithmString"`
-	VersionAlgorithmCoding *Coding                            `json:"versionAlgorithmCoding"`
+	VersionAlgorithmString *string                            `json:"versionAlgorithmString,omitempty"`
+	VersionAlgorithmCoding *Coding                            `json:"versionAlgorithmCoding,omitempty"`
 	Name                   *string                            `json:"name,omitempty"`
 	Title                  *string                            `json:"title,omitempty"`
 	Subtitle               *string                            `json:"subtitle,omitempty"`
@@ -74,8 +78,8 @@ type ConditionDefinitionPrecondition struct {
 	ModifierExtension    []Extension      `json:"modifierExtension,omitempty"`
 	Type                 string           `json:"type"`
 	Code                 CodeableConcept  `json:"code"`
-	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept"`
-	ValueQuantity        *Quantity        `json:"valueQuantity"`
+	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
+	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/ConditionDefinition
@@ -109,111 +113,251 @@ func (r ConditionDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ConditionDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Id", nil)
+	}
+	return StringInput("ConditionDefinition.Id", resource.Id)
+}
+func (resource *ConditionDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ConditionDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ConditionDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ConditionDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ConditionDefinition.Language", resource.Language, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Url", nil)
+	}
+	return StringInput("ConditionDefinition.Url", resource.Url)
+}
+func (resource *ConditionDefinition) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Version", nil)
+	}
+	return StringInput("ConditionDefinition.Version", resource.Version)
+}
+func (resource *ConditionDefinition) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Name", nil)
+	}
+	return StringInput("ConditionDefinition.Name", resource.Name)
+}
+func (resource *ConditionDefinition) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Title", nil)
+	}
+	return StringInput("ConditionDefinition.Title", resource.Title)
+}
+func (resource *ConditionDefinition) T_Subtitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Subtitle", nil)
+	}
+	return StringInput("ConditionDefinition.Subtitle", resource.Subtitle)
 }
 func (resource *ConditionDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ConditionDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ConditionDefinition.Status", &resource.Status, optionsValueSet)
 }
-func (resource *ConditionDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ConditionDefinition) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("ConditionDefinition.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("ConditionDefinition.Experimental", resource.Experimental)
+}
+func (resource *ConditionDefinition) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Date", nil)
+	}
+	return StringInput("ConditionDefinition.Date", resource.Date)
+}
+func (resource *ConditionDefinition) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Publisher", nil)
+	}
+	return StringInput("ConditionDefinition.Publisher", resource.Publisher)
+}
+func (resource *ConditionDefinition) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("ConditionDefinition.Description", nil)
+	}
+	return StringInput("ConditionDefinition.Description", resource.Description)
+}
+func (resource *ConditionDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("ConditionDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ConditionDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
 }
 func (resource *ConditionDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("ConditionDefinition.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Code", &resource.Code, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_Severity(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("severity", nil, optionsValueSet)
+		return CodeableConceptSelect("ConditionDefinition.Severity", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Severity", resource.Severity, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_BodySite(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+		return CodeableConceptSelect("ConditionDefinition.BodySite", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.BodySite", resource.BodySite, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_Stage(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("stage", nil, optionsValueSet)
+		return CodeableConceptSelect("ConditionDefinition.Stage", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("stage", resource.Stage, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Stage", resource.Stage, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_HasSeverity() templ.Component {
+
+	if resource == nil {
+		return BoolInput("ConditionDefinition.HasSeverity", nil)
+	}
+	return BoolInput("ConditionDefinition.HasSeverity", resource.HasSeverity)
+}
+func (resource *ConditionDefinition) T_HasBodySite() templ.Component {
+
+	if resource == nil {
+		return BoolInput("ConditionDefinition.HasBodySite", nil)
+	}
+	return BoolInput("ConditionDefinition.HasBodySite", resource.HasBodySite)
+}
+func (resource *ConditionDefinition) T_HasStage() templ.Component {
+
+	if resource == nil {
+		return BoolInput("ConditionDefinition.HasStage", nil)
+	}
+	return BoolInput("ConditionDefinition.HasStage", resource.HasStage)
+}
+func (resource *ConditionDefinition) T_Definition(numDefinition int) templ.Component {
+
+	if resource == nil || len(resource.Definition) >= numDefinition {
+		return StringInput("ConditionDefinition.Definition["+strconv.Itoa(numDefinition)+"]", nil)
+	}
+	return StringInput("ConditionDefinition.Definition["+strconv.Itoa(numDefinition)+"]", &resource.Definition[numDefinition])
+}
+func (resource *ConditionDefinition) T_ObservationId(numObservation int) templ.Component {
+
+	if resource == nil || len(resource.Observation) >= numObservation {
+		return StringInput("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Id", nil)
+	}
+	return StringInput("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Id", resource.Observation[numObservation].Id)
 }
 func (resource *ConditionDefinition) T_ObservationCategory(numObservation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Observation) >= numObservation {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Observation) >= numObservation {
+		return CodeableConceptSelect("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Category", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", resource.Observation[numObservation].Category, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Category", resource.Observation[numObservation].Category, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_ObservationCode(numObservation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Observation) >= numObservation {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Observation) >= numObservation {
+		return CodeableConceptSelect("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Observation[numObservation].Code, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Observation["+strconv.Itoa(numObservation)+"].Code", resource.Observation[numObservation].Code, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_MedicationId(numMedication int) templ.Component {
+
+	if resource == nil || len(resource.Medication) >= numMedication {
+		return StringInput("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Id", nil)
+	}
+	return StringInput("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Id", resource.Medication[numMedication].Id)
 }
 func (resource *ConditionDefinition) T_MedicationCategory(numMedication int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Medication) >= numMedication {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Medication) >= numMedication {
+		return CodeableConceptSelect("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Category", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", resource.Medication[numMedication].Category, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Category", resource.Medication[numMedication].Category, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_MedicationCode(numMedication int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Medication) >= numMedication {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Medication) >= numMedication {
+		return CodeableConceptSelect("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Medication[numMedication].Code, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Medication["+strconv.Itoa(numMedication)+"].Code", resource.Medication[numMedication].Code, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_PreconditionId(numPrecondition int) templ.Component {
+
+	if resource == nil || len(resource.Precondition) >= numPrecondition {
+		return StringInput("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Id", nil)
+	}
+	return StringInput("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Id", resource.Precondition[numPrecondition].Id)
 }
 func (resource *ConditionDefinition) T_PreconditionType(numPrecondition int) templ.Component {
 	optionsValueSet := VSCondition_precondition_type
 
-	if resource == nil && len(resource.Precondition) >= numPrecondition {
-		return CodeSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Precondition) >= numPrecondition {
+		return CodeSelect("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Precondition[numPrecondition].Type, optionsValueSet)
+	return CodeSelect("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Type", &resource.Precondition[numPrecondition].Type, optionsValueSet)
 }
 func (resource *ConditionDefinition) T_PreconditionCode(numPrecondition int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Precondition) >= numPrecondition {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Precondition) >= numPrecondition {
+		return CodeableConceptSelect("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Precondition[numPrecondition].Code, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Precondition["+strconv.Itoa(numPrecondition)+"].Code", &resource.Precondition[numPrecondition].Code, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_QuestionnaireId(numQuestionnaire int) templ.Component {
+
+	if resource == nil || len(resource.Questionnaire) >= numQuestionnaire {
+		return StringInput("ConditionDefinition.Questionnaire["+strconv.Itoa(numQuestionnaire)+"].Id", nil)
+	}
+	return StringInput("ConditionDefinition.Questionnaire["+strconv.Itoa(numQuestionnaire)+"].Id", resource.Questionnaire[numQuestionnaire].Id)
 }
 func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int) templ.Component {
 	optionsValueSet := VSCondition_questionnaire_purpose
 
-	if resource == nil && len(resource.Questionnaire) >= numQuestionnaire {
-		return CodeSelect("purpose", nil, optionsValueSet)
+	if resource == nil || len(resource.Questionnaire) >= numQuestionnaire {
+		return CodeSelect("ConditionDefinition.Questionnaire["+strconv.Itoa(numQuestionnaire)+"].Purpose", nil, optionsValueSet)
 	}
-	return CodeSelect("purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet)
+	return CodeSelect("ConditionDefinition.Questionnaire["+strconv.Itoa(numQuestionnaire)+"].Purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet)
+}
+func (resource *ConditionDefinition) T_PlanId(numPlan int) templ.Component {
+
+	if resource == nil || len(resource.Plan) >= numPlan {
+		return StringInput("ConditionDefinition.Plan["+strconv.Itoa(numPlan)+"].Id", nil)
+	}
+	return StringInput("ConditionDefinition.Plan["+strconv.Itoa(numPlan)+"].Id", resource.Plan[numPlan].Id)
 }
 func (resource *ConditionDefinition) T_PlanRole(numPlan int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Plan) >= numPlan {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.Plan) >= numPlan {
+		return CodeableConceptSelect("ConditionDefinition.Plan["+strconv.Itoa(numPlan)+"].Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", resource.Plan[numPlan].Role, optionsValueSet)
+	return CodeableConceptSelect("ConditionDefinition.Plan["+strconv.Itoa(numPlan)+"].Role", resource.Plan[numPlan].Role, optionsValueSet)
 }

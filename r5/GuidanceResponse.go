@@ -1,11 +1,14 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/GuidanceResponse
 type GuidanceResponse struct {
@@ -48,18 +51,39 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *GuidanceResponse) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("GuidanceResponse.Id", nil)
+	}
+	return StringInput("GuidanceResponse.Id", resource.Id)
+}
+func (resource *GuidanceResponse) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("GuidanceResponse.ImplicitRules", nil)
+	}
+	return StringInput("GuidanceResponse.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *GuidanceResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("GuidanceResponse.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("GuidanceResponse.Language", resource.Language, optionsValueSet)
 }
 func (resource *GuidanceResponse) T_Status() templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("GuidanceResponse.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("GuidanceResponse.Status", &resource.Status, optionsValueSet)
+}
+func (resource *GuidanceResponse) T_OccurrenceDateTime() templ.Component {
+
+	if resource == nil {
+		return StringInput("GuidanceResponse.OccurrenceDateTime", nil)
+	}
+	return StringInput("GuidanceResponse.OccurrenceDateTime", resource.OccurrenceDateTime)
 }

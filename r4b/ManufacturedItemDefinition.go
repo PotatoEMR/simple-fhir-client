@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/ManufacturedItemDefinition
 type ManufacturedItemDefinition struct {
@@ -32,11 +36,11 @@ type ManufacturedItemDefinitionProperty struct {
 	Extension            []Extension      `json:"extension,omitempty"`
 	ModifierExtension    []Extension      `json:"modifierExtension,omitempty"`
 	Type                 CodeableConcept  `json:"type"`
-	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept"`
-	ValueQuantity        *Quantity        `json:"valueQuantity"`
-	ValueDate            *string          `json:"valueDate"`
-	ValueBoolean         *bool            `json:"valueBoolean"`
-	ValueAttachment      *Attachment      `json:"valueAttachment"`
+	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
+	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
+	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
+	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }
 
 type OtherManufacturedItemDefinition ManufacturedItemDefinition
@@ -52,46 +56,67 @@ func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ManufacturedItemDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ManufacturedItemDefinition.Id", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Id", resource.Id)
+}
+func (resource *ManufacturedItemDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ManufacturedItemDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ManufacturedItemDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ManufacturedItemDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ManufacturedItemDefinition.Language", resource.Language, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ManufacturedItemDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ManufacturedItemDefinition.Status", &resource.Status, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) T_ManufacturedDoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet)
+		return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) T_UnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
+		return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
-func (resource *ManufacturedItemDefinition) T_Ingredient(optionsValueSet []Coding) templ.Component {
+func (resource *ManufacturedItemDefinition) T_Ingredient(numIngredient int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("ingredient", nil, optionsValueSet)
+	if resource == nil || len(resource.Ingredient) >= numIngredient {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient["+strconv.Itoa(numIngredient)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("ingredient", &resource.Ingredient[0], optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], optionsValueSet)
+}
+func (resource *ManufacturedItemDefinition) T_PropertyId(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Id", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Id", resource.Property[numProperty].Id)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Property) >= numProperty {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Property[numProperty].Type, optionsValueSet)
 }

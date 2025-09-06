@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/DeviceDispense
 type DeviceDispense struct {
@@ -62,39 +66,81 @@ func (r DeviceDispense) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DeviceDispense) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceDispense.Id", nil)
+	}
+	return StringInput("DeviceDispense.Id", resource.Id)
+}
+func (resource *DeviceDispense) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceDispense.ImplicitRules", nil)
+	}
+	return StringInput("DeviceDispense.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DeviceDispense) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DeviceDispense.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DeviceDispense.Language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceDispense) T_Status() templ.Component {
 	optionsValueSet := VSDevicedispense_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("DeviceDispense.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("DeviceDispense.Status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceDispense) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("DeviceDispense.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("DeviceDispense.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *DeviceDispense) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("DeviceDispense.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("DeviceDispense.Type", resource.Type, optionsValueSet)
+}
+func (resource *DeviceDispense) T_PreparedDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceDispense.PreparedDate", nil)
+	}
+	return StringInput("DeviceDispense.PreparedDate", resource.PreparedDate)
+}
+func (resource *DeviceDispense) T_WhenHandedOver() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceDispense.WhenHandedOver", nil)
+	}
+	return StringInput("DeviceDispense.WhenHandedOver", resource.WhenHandedOver)
+}
+func (resource *DeviceDispense) T_UsageInstruction() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceDispense.UsageInstruction", nil)
+	}
+	return StringInput("DeviceDispense.UsageInstruction", resource.UsageInstruction)
+}
+func (resource *DeviceDispense) T_PerformerId(numPerformer int) templ.Component {
+
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return StringInput("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	}
+	return StringInput("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
 }
 func (resource *DeviceDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
 }

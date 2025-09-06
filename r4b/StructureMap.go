@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/StructureMap
 type StructureMap struct {
@@ -93,56 +97,56 @@ type StructureMapGroupRuleSource struct {
 	Min                             *int                 `json:"min,omitempty"`
 	Max                             *string              `json:"max,omitempty"`
 	Type                            *string              `json:"type,omitempty"`
-	DefaultValueBase64Binary        *string              `json:"defaultValueBase64Binary"`
-	DefaultValueBoolean             *bool                `json:"defaultValueBoolean"`
-	DefaultValueCanonical           *string              `json:"defaultValueCanonical"`
-	DefaultValueCode                *string              `json:"defaultValueCode"`
-	DefaultValueDate                *string              `json:"defaultValueDate"`
-	DefaultValueDateTime            *string              `json:"defaultValueDateTime"`
-	DefaultValueDecimal             *float64             `json:"defaultValueDecimal"`
-	DefaultValueId                  *string              `json:"defaultValueId"`
-	DefaultValueInstant             *string              `json:"defaultValueInstant"`
-	DefaultValueInteger             *int                 `json:"defaultValueInteger"`
-	DefaultValueMarkdown            *string              `json:"defaultValueMarkdown"`
-	DefaultValueOid                 *string              `json:"defaultValueOid"`
-	DefaultValuePositiveInt         *int                 `json:"defaultValuePositiveInt"`
-	DefaultValueString              *string              `json:"defaultValueString"`
-	DefaultValueTime                *string              `json:"defaultValueTime"`
-	DefaultValueUnsignedInt         *int                 `json:"defaultValueUnsignedInt"`
-	DefaultValueUri                 *string              `json:"defaultValueUri"`
-	DefaultValueUrl                 *string              `json:"defaultValueUrl"`
-	DefaultValueUuid                *string              `json:"defaultValueUuid"`
-	DefaultValueAddress             *Address             `json:"defaultValueAddress"`
-	DefaultValueAge                 *Age                 `json:"defaultValueAge"`
-	DefaultValueAnnotation          *Annotation          `json:"defaultValueAnnotation"`
-	DefaultValueAttachment          *Attachment          `json:"defaultValueAttachment"`
-	DefaultValueCodeableConcept     *CodeableConcept     `json:"defaultValueCodeableConcept"`
-	DefaultValueCoding              *Coding              `json:"defaultValueCoding"`
-	DefaultValueContactPoint        *ContactPoint        `json:"defaultValueContactPoint"`
-	DefaultValueCount               *Count               `json:"defaultValueCount"`
-	DefaultValueDistance            *Distance            `json:"defaultValueDistance"`
-	DefaultValueDuration            *Duration            `json:"defaultValueDuration"`
-	DefaultValueHumanName           *HumanName           `json:"defaultValueHumanName"`
-	DefaultValueIdentifier          *Identifier          `json:"defaultValueIdentifier"`
-	DefaultValueMoney               *Money               `json:"defaultValueMoney"`
-	DefaultValuePeriod              *Period              `json:"defaultValuePeriod"`
-	DefaultValueQuantity            *Quantity            `json:"defaultValueQuantity"`
-	DefaultValueRange               *Range               `json:"defaultValueRange"`
-	DefaultValueRatio               *Ratio               `json:"defaultValueRatio"`
-	DefaultValueReference           *Reference           `json:"defaultValueReference"`
-	DefaultValueSampledData         *SampledData         `json:"defaultValueSampledData"`
-	DefaultValueSignature           *Signature           `json:"defaultValueSignature"`
-	DefaultValueTiming              *Timing              `json:"defaultValueTiming"`
-	DefaultValueContactDetail       *ContactDetail       `json:"defaultValueContactDetail"`
-	DefaultValueContributor         *Contributor         `json:"defaultValueContributor"`
-	DefaultValueDataRequirement     *DataRequirement     `json:"defaultValueDataRequirement"`
-	DefaultValueExpression          *Expression          `json:"defaultValueExpression"`
-	DefaultValueParameterDefinition *ParameterDefinition `json:"defaultValueParameterDefinition"`
-	DefaultValueRelatedArtifact     *RelatedArtifact     `json:"defaultValueRelatedArtifact"`
-	DefaultValueTriggerDefinition   *TriggerDefinition   `json:"defaultValueTriggerDefinition"`
-	DefaultValueUsageContext        *UsageContext        `json:"defaultValueUsageContext"`
-	DefaultValueDosage              *Dosage              `json:"defaultValueDosage"`
-	DefaultValueMeta                *Meta                `json:"defaultValueMeta"`
+	DefaultValueBase64Binary        *string              `json:"defaultValueBase64Binary,omitempty"`
+	DefaultValueBoolean             *bool                `json:"defaultValueBoolean,omitempty"`
+	DefaultValueCanonical           *string              `json:"defaultValueCanonical,omitempty"`
+	DefaultValueCode                *string              `json:"defaultValueCode,omitempty"`
+	DefaultValueDate                *string              `json:"defaultValueDate,omitempty"`
+	DefaultValueDateTime            *string              `json:"defaultValueDateTime,omitempty"`
+	DefaultValueDecimal             *float64             `json:"defaultValueDecimal,omitempty"`
+	DefaultValueId                  *string              `json:"defaultValueId,omitempty"`
+	DefaultValueInstant             *string              `json:"defaultValueInstant,omitempty"`
+	DefaultValueInteger             *int                 `json:"defaultValueInteger,omitempty"`
+	DefaultValueMarkdown            *string              `json:"defaultValueMarkdown,omitempty"`
+	DefaultValueOid                 *string              `json:"defaultValueOid,omitempty"`
+	DefaultValuePositiveInt         *int                 `json:"defaultValuePositiveInt,omitempty"`
+	DefaultValueString              *string              `json:"defaultValueString,omitempty"`
+	DefaultValueTime                *string              `json:"defaultValueTime,omitempty"`
+	DefaultValueUnsignedInt         *int                 `json:"defaultValueUnsignedInt,omitempty"`
+	DefaultValueUri                 *string              `json:"defaultValueUri,omitempty"`
+	DefaultValueUrl                 *string              `json:"defaultValueUrl,omitempty"`
+	DefaultValueUuid                *string              `json:"defaultValueUuid,omitempty"`
+	DefaultValueAddress             *Address             `json:"defaultValueAddress,omitempty"`
+	DefaultValueAge                 *Age                 `json:"defaultValueAge,omitempty"`
+	DefaultValueAnnotation          *Annotation          `json:"defaultValueAnnotation,omitempty"`
+	DefaultValueAttachment          *Attachment          `json:"defaultValueAttachment,omitempty"`
+	DefaultValueCodeableConcept     *CodeableConcept     `json:"defaultValueCodeableConcept,omitempty"`
+	DefaultValueCoding              *Coding              `json:"defaultValueCoding,omitempty"`
+	DefaultValueContactPoint        *ContactPoint        `json:"defaultValueContactPoint,omitempty"`
+	DefaultValueCount               *Count               `json:"defaultValueCount,omitempty"`
+	DefaultValueDistance            *Distance            `json:"defaultValueDistance,omitempty"`
+	DefaultValueDuration            *Duration            `json:"defaultValueDuration,omitempty"`
+	DefaultValueHumanName           *HumanName           `json:"defaultValueHumanName,omitempty"`
+	DefaultValueIdentifier          *Identifier          `json:"defaultValueIdentifier,omitempty"`
+	DefaultValueMoney               *Money               `json:"defaultValueMoney,omitempty"`
+	DefaultValuePeriod              *Period              `json:"defaultValuePeriod,omitempty"`
+	DefaultValueQuantity            *Quantity            `json:"defaultValueQuantity,omitempty"`
+	DefaultValueRange               *Range               `json:"defaultValueRange,omitempty"`
+	DefaultValueRatio               *Ratio               `json:"defaultValueRatio,omitempty"`
+	DefaultValueReference           *Reference           `json:"defaultValueReference,omitempty"`
+	DefaultValueSampledData         *SampledData         `json:"defaultValueSampledData,omitempty"`
+	DefaultValueSignature           *Signature           `json:"defaultValueSignature,omitempty"`
+	DefaultValueTiming              *Timing              `json:"defaultValueTiming,omitempty"`
+	DefaultValueContactDetail       *ContactDetail       `json:"defaultValueContactDetail,omitempty"`
+	DefaultValueContributor         *Contributor         `json:"defaultValueContributor,omitempty"`
+	DefaultValueDataRequirement     *DataRequirement     `json:"defaultValueDataRequirement,omitempty"`
+	DefaultValueExpression          *Expression          `json:"defaultValueExpression,omitempty"`
+	DefaultValueParameterDefinition *ParameterDefinition `json:"defaultValueParameterDefinition,omitempty"`
+	DefaultValueRelatedArtifact     *RelatedArtifact     `json:"defaultValueRelatedArtifact,omitempty"`
+	DefaultValueTriggerDefinition   *TriggerDefinition   `json:"defaultValueTriggerDefinition,omitempty"`
+	DefaultValueUsageContext        *UsageContext        `json:"defaultValueUsageContext,omitempty"`
+	DefaultValueDosage              *Dosage              `json:"defaultValueDosage,omitempty"`
+	DefaultValueMeta                *Meta                `json:"defaultValueMeta,omitempty"`
 	Element                         *string              `json:"element,omitempty"`
 	ListMode                        *string              `json:"listMode,omitempty"`
 	Variable                        *string              `json:"variable,omitempty"`
@@ -200,81 +204,410 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *StructureMap) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Id", nil)
+	}
+	return StringInput("StructureMap.Id", resource.Id)
+}
+func (resource *StructureMap) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.ImplicitRules", nil)
+	}
+	return StringInput("StructureMap.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *StructureMap) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("StructureMap.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("StructureMap.Language", resource.Language, optionsValueSet)
+}
+func (resource *StructureMap) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Url", nil)
+	}
+	return StringInput("StructureMap.Url", &resource.Url)
+}
+func (resource *StructureMap) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Version", nil)
+	}
+	return StringInput("StructureMap.Version", resource.Version)
+}
+func (resource *StructureMap) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Name", nil)
+	}
+	return StringInput("StructureMap.Name", &resource.Name)
+}
+func (resource *StructureMap) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Title", nil)
+	}
+	return StringInput("StructureMap.Title", resource.Title)
 }
 func (resource *StructureMap) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("StructureMap.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("StructureMap.Status", &resource.Status, optionsValueSet)
 }
-func (resource *StructureMap) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *StructureMap) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("StructureMap.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("StructureMap.Experimental", resource.Experimental)
+}
+func (resource *StructureMap) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Date", nil)
+	}
+	return StringInput("StructureMap.Date", resource.Date)
+}
+func (resource *StructureMap) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Publisher", nil)
+	}
+	return StringInput("StructureMap.Publisher", resource.Publisher)
+}
+func (resource *StructureMap) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Description", nil)
+	}
+	return StringInput("StructureMap.Description", resource.Description)
+}
+func (resource *StructureMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("StructureMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("StructureMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *StructureMap) T_Purpose() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Purpose", nil)
+	}
+	return StringInput("StructureMap.Purpose", resource.Purpose)
+}
+func (resource *StructureMap) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("StructureMap.Copyright", nil)
+	}
+	return StringInput("StructureMap.Copyright", resource.Copyright)
+}
+func (resource *StructureMap) T_Import(numImport int) templ.Component {
+
+	if resource == nil || len(resource.Import) >= numImport {
+		return StringInput("StructureMap.Import["+strconv.Itoa(numImport)+"]", nil)
+	}
+	return StringInput("StructureMap.Import["+strconv.Itoa(numImport)+"]", &resource.Import[numImport])
+}
+func (resource *StructureMap) T_StructureId(numStructure int) templ.Component {
+
+	if resource == nil || len(resource.Structure) >= numStructure {
+		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Id", resource.Structure[numStructure].Id)
+}
+func (resource *StructureMap) T_StructureUrl(numStructure int) templ.Component {
+
+	if resource == nil || len(resource.Structure) >= numStructure {
+		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Url", nil)
+	}
+	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Url", &resource.Structure[numStructure].Url)
 }
 func (resource *StructureMap) T_StructureMode(numStructure int) templ.Component {
 	optionsValueSet := VSMap_model_mode
 
-	if resource == nil && len(resource.Structure) >= numStructure {
-		return CodeSelect("mode", nil, optionsValueSet)
+	if resource == nil || len(resource.Structure) >= numStructure {
+		return CodeSelect("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", &resource.Structure[numStructure].Mode, optionsValueSet)
+	return CodeSelect("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Mode", &resource.Structure[numStructure].Mode, optionsValueSet)
+}
+func (resource *StructureMap) T_StructureAlias(numStructure int) templ.Component {
+
+	if resource == nil || len(resource.Structure) >= numStructure {
+		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Alias", nil)
+	}
+	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Alias", resource.Structure[numStructure].Alias)
+}
+func (resource *StructureMap) T_StructureDocumentation(numStructure int) templ.Component {
+
+	if resource == nil || len(resource.Structure) >= numStructure {
+		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Documentation", nil)
+	}
+	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Documentation", resource.Structure[numStructure].Documentation)
+}
+func (resource *StructureMap) T_GroupId(numGroup int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Id", resource.Group[numGroup].Id)
+}
+func (resource *StructureMap) T_GroupName(numGroup int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Name", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Name", &resource.Group[numGroup].Name)
+}
+func (resource *StructureMap) T_GroupExtends(numGroup int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Extends", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Extends", resource.Group[numGroup].Extends)
 }
 func (resource *StructureMap) T_GroupTypeMode(numGroup int) templ.Component {
 	optionsValueSet := VSMap_group_type_mode
 
-	if resource == nil && len(resource.Group) >= numGroup {
-		return CodeSelect("typeMode", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].TypeMode", nil, optionsValueSet)
 	}
-	return CodeSelect("typeMode", &resource.Group[numGroup].TypeMode, optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].TypeMode", &resource.Group[numGroup].TypeMode, optionsValueSet)
+}
+func (resource *StructureMap) T_GroupDocumentation(numGroup int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Documentation", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Documentation", resource.Group[numGroup].Documentation)
+}
+func (resource *StructureMap) T_GroupInputId(numGroup int, numInput int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Id", resource.Group[numGroup].Input[numInput].Id)
+}
+func (resource *StructureMap) T_GroupInputName(numGroup int, numInput int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Name", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Name", &resource.Group[numGroup].Input[numInput].Name)
+}
+func (resource *StructureMap) T_GroupInputType(numGroup int, numInput int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Type", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Type", resource.Group[numGroup].Input[numInput].Type)
 }
 func (resource *StructureMap) T_GroupInputMode(numGroup int, numInput int) templ.Component {
 	optionsValueSet := VSMap_input_mode
 
-	if resource == nil && len(resource.Group[numGroup].Input) >= numInput {
-		return CodeSelect("mode", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet)
+}
+func (resource *StructureMap) T_GroupInputDocumentation(numGroup int, numInput int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Documentation", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Documentation", resource.Group[numGroup].Input[numInput].Documentation)
+}
+func (resource *StructureMap) T_GroupRuleId(numGroup int, numRule int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Id", resource.Group[numGroup].Rule[numRule].Id)
+}
+func (resource *StructureMap) T_GroupRuleName(numGroup int, numRule int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Name", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Name", &resource.Group[numGroup].Rule[numRule].Name)
+}
+func (resource *StructureMap) T_GroupRuleDocumentation(numGroup int, numRule int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Documentation", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Documentation", resource.Group[numGroup].Rule[numRule].Documentation)
+}
+func (resource *StructureMap) T_GroupRuleSourceId(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Id", resource.Group[numGroup].Rule[numRule].Source[numSource].Id)
+}
+func (resource *StructureMap) T_GroupRuleSourceContext(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Context", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Context", &resource.Group[numGroup].Rule[numRule].Source[numSource].Context)
+}
+func (resource *StructureMap) T_GroupRuleSourceMin(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return IntInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Min", nil)
+	}
+	return IntInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Min", resource.Group[numGroup].Rule[numRule].Source[numSource].Min)
+}
+func (resource *StructureMap) T_GroupRuleSourceMax(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Max", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Max", resource.Group[numGroup].Rule[numRule].Source[numSource].Max)
+}
+func (resource *StructureMap) T_GroupRuleSourceType(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Type", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Type", resource.Group[numGroup].Rule[numRule].Source[numSource].Type)
+}
+func (resource *StructureMap) T_GroupRuleSourceElement(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Element", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Element", resource.Group[numGroup].Rule[numRule].Source[numSource].Element)
 }
 func (resource *StructureMap) T_GroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
 	optionsValueSet := VSMap_source_list_mode
 
-	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return CodeSelect("listMode", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].ListMode", nil, optionsValueSet)
 	}
-	return CodeSelect("listMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].ListMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet)
+}
+func (resource *StructureMap) T_GroupRuleSourceVariable(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Variable", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Variable", resource.Group[numGroup].Rule[numRule].Source[numSource].Variable)
+}
+func (resource *StructureMap) T_GroupRuleSourceCondition(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Condition", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Condition", resource.Group[numGroup].Rule[numRule].Source[numSource].Condition)
+}
+func (resource *StructureMap) T_GroupRuleSourceCheck(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Check", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Check", resource.Group[numGroup].Rule[numRule].Source[numSource].Check)
+}
+func (resource *StructureMap) T_GroupRuleSourceLogMessage(numGroup int, numRule int, numSource int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].LogMessage", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].LogMessage", resource.Group[numGroup].Rule[numRule].Source[numSource].LogMessage)
+}
+func (resource *StructureMap) T_GroupRuleTargetId(numGroup int, numRule int, numTarget int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Id", resource.Group[numGroup].Rule[numRule].Target[numTarget].Id)
+}
+func (resource *StructureMap) T_GroupRuleTargetContext(numGroup int, numRule int, numTarget int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Context", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Context", resource.Group[numGroup].Rule[numRule].Target[numTarget].Context)
 }
 func (resource *StructureMap) T_GroupRuleTargetContextType(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_context_type
 
-	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return CodeSelect("contextType", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ContextType", nil, optionsValueSet)
 	}
-	return CodeSelect("contextType", resource.Group[numGroup].Rule[numRule].Target[numTarget].ContextType, optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ContextType", resource.Group[numGroup].Rule[numRule].Target[numTarget].ContextType, optionsValueSet)
 }
-func (resource *StructureMap) T_GroupRuleTargetListMode(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetElement(numGroup int, numRule int, numTarget int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Element", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Element", resource.Group[numGroup].Rule[numRule].Target[numTarget].Element)
+}
+func (resource *StructureMap) T_GroupRuleTargetVariable(numGroup int, numRule int, numTarget int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Variable", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Variable", resource.Group[numGroup].Rule[numRule].Target[numTarget].Variable)
+}
+func (resource *StructureMap) T_GroupRuleTargetListMode(numGroup int, numRule int, numTarget int, numListMode int) templ.Component {
 	optionsValueSet := VSMap_target_list_mode
 
-	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return CodeSelect("listMode", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget || len(resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode) >= numListMode {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListMode["+strconv.Itoa(numListMode)+"]", nil, optionsValueSet)
 	}
-	return CodeSelect("listMode", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[0], optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListMode["+strconv.Itoa(numListMode)+"]", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[numListMode], optionsValueSet)
+}
+func (resource *StructureMap) T_GroupRuleTargetListRuleId(numGroup int, numRule int, numTarget int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListRuleId", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListRuleId", resource.Group[numGroup].Rule[numRule].Target[numTarget].ListRuleId)
 }
 func (resource *StructureMap) T_GroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
 	optionsValueSet := VSMap_transform
 
-	if resource == nil && len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return CodeSelect("transform", nil, optionsValueSet)
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
+		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Transform", nil, optionsValueSet)
 	}
-	return CodeSelect("transform", resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform, optionsValueSet)
+	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Transform", resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform, optionsValueSet)
+}
+func (resource *StructureMap) T_GroupRuleTargetParameterId(numGroup int, numRule int, numTarget int, numParameter int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget || len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) >= numParameter {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].Id)
+}
+func (resource *StructureMap) T_GroupRuleDependentId(numGroup int, numRule int, numDependent int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Id", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Id", resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Id)
+}
+func (resource *StructureMap) T_GroupRuleDependentName(numGroup int, numRule int, numDependent int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Name", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Name", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Name)
+}
+func (resource *StructureMap) T_GroupRuleDependentVariable(numGroup int, numRule int, numDependent int, numVariable int) templ.Component {
+
+	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent || len(resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable) >= numVariable {
+		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Variable["+strconv.Itoa(numVariable)+"]", nil)
+	}
+	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Variable["+strconv.Itoa(numVariable)+"]", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable[numVariable])
 }

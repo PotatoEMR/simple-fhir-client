@@ -1,11 +1,14 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/Basic
 type Basic struct {
@@ -37,17 +40,38 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Basic) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Basic.Id", nil)
+	}
+	return StringInput("Basic.Id", resource.Id)
+}
+func (resource *Basic) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Basic.ImplicitRules", nil)
+	}
+	return StringInput("Basic.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Basic) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Basic.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Basic.Language", resource.Language, optionsValueSet)
 }
 func (resource *Basic) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Basic.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Basic.Code", &resource.Code, optionsValueSet)
+}
+func (resource *Basic) T_Created() templ.Component {
+
+	if resource == nil {
+		return StringInput("Basic.Created", nil)
+	}
+	return StringInput("Basic.Created", resource.Created)
 }

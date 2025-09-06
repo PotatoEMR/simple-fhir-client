@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Group
 type Group struct {
@@ -67,32 +71,102 @@ func (r Group) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Group) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Group.Id", nil)
+	}
+	return StringInput("Group.Id", resource.Id)
+}
+func (resource *Group) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Group.ImplicitRules", nil)
+	}
+	return StringInput("Group.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Group) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Group.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Group.Language", resource.Language, optionsValueSet)
+}
+func (resource *Group) T_Active() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Group.Active", nil)
+	}
+	return BoolInput("Group.Active", resource.Active)
 }
 func (resource *Group) T_Type() templ.Component {
 	optionsValueSet := VSGroup_type
 
 	if resource == nil {
-		return CodeSelect("type", nil, optionsValueSet)
+		return CodeSelect("Group.Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Type, optionsValueSet)
+	return CodeSelect("Group.Type", &resource.Type, optionsValueSet)
+}
+func (resource *Group) T_Actual() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Group.Actual", nil)
+	}
+	return BoolInput("Group.Actual", &resource.Actual)
 }
 func (resource *Group) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Group.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Group.Code", resource.Code, optionsValueSet)
+}
+func (resource *Group) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("Group.Name", nil)
+	}
+	return StringInput("Group.Name", resource.Name)
+}
+func (resource *Group) T_Quantity() templ.Component {
+
+	if resource == nil {
+		return IntInput("Group.Quantity", nil)
+	}
+	return IntInput("Group.Quantity", resource.Quantity)
+}
+func (resource *Group) T_CharacteristicId(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", nil)
+	}
+	return StringInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", resource.Characteristic[numCharacteristic].Id)
 }
 func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet)
+	return CodeableConceptSelect("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet)
+}
+func (resource *Group) T_CharacteristicExclude(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return BoolInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", nil)
+	}
+	return BoolInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", &resource.Characteristic[numCharacteristic].Exclude)
+}
+func (resource *Group) T_MemberId(numMember int) templ.Component {
+
+	if resource == nil || len(resource.Member) >= numMember {
+		return StringInput("Group.Member["+strconv.Itoa(numMember)+"].Id", nil)
+	}
+	return StringInput("Group.Member["+strconv.Itoa(numMember)+"].Id", resource.Member[numMember].Id)
+}
+func (resource *Group) T_MemberInactive(numMember int) templ.Component {
+
+	if resource == nil || len(resource.Member) >= numMember {
+		return BoolInput("Group.Member["+strconv.Itoa(numMember)+"].Inactive", nil)
+	}
+	return BoolInput("Group.Member["+strconv.Itoa(numMember)+"].Inactive", resource.Member[numMember].Inactive)
 }

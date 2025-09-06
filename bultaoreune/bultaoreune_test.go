@@ -50,12 +50,12 @@ func TestAllergy_r4(t *testing.T) {
 	if a2.Note[0].Text != "it's burning up" || a2.Note[1].Text != "fhir!" {
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
-	fmt.Println("does criticality look right? should be set to low")
+	fmt.Println("does criticality look right? selected should be low")
 	allergyCritField := a2.T_Criticality()
 	allergyCritField.Render(context.Background(), os.Stdout)
-	fmt.Println("does verification look right? should be set to --")
-	allergyVerificationField := a2.T_VerificationStatus()
-	allergyVerificationField.Render(context.Background(), os.Stdout)
+	fmt.Println("does reaction[0].severity look right? it was never set, should be no selected")
+	allergyReactionSeverityField := a2.T_ReactionSeverity(0)
+	allergyReactionSeverityField.Render(context.Background(), os.Stdout)
 }
 
 func TestAllergy_r4b(t *testing.T) {

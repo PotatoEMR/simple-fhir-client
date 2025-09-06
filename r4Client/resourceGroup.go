@@ -1,7 +1,10 @@
 package r4Client
 
-import r4 "github.com/PotatoEMR/simple-fhir-client/r4"
-import "errors"
+import (
+	"errors"
+
+	r4 "github.com/PotatoEMR/simple-fhir-client/r4"
+)
 
 type ResourceGroup struct {
 	Accounts                           []*r4.Account

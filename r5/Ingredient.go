@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Ingredient
 type Ingredient struct {
@@ -52,15 +56,15 @@ type IngredientSubstanceStrength struct {
 	Id                           *string                                        `json:"id,omitempty"`
 	Extension                    []Extension                                    `json:"extension,omitempty"`
 	ModifierExtension            []Extension                                    `json:"modifierExtension,omitempty"`
-	PresentationRatio            *Ratio                                         `json:"presentationRatio"`
-	PresentationRatioRange       *RatioRange                                    `json:"presentationRatioRange"`
-	PresentationCodeableConcept  *CodeableConcept                               `json:"presentationCodeableConcept"`
-	PresentationQuantity         *Quantity                                      `json:"presentationQuantity"`
+	PresentationRatio            *Ratio                                         `json:"presentationRatio,omitempty"`
+	PresentationRatioRange       *RatioRange                                    `json:"presentationRatioRange,omitempty"`
+	PresentationCodeableConcept  *CodeableConcept                               `json:"presentationCodeableConcept,omitempty"`
+	PresentationQuantity         *Quantity                                      `json:"presentationQuantity,omitempty"`
 	TextPresentation             *string                                        `json:"textPresentation,omitempty"`
-	ConcentrationRatio           *Ratio                                         `json:"concentrationRatio"`
-	ConcentrationRatioRange      *RatioRange                                    `json:"concentrationRatioRange"`
-	ConcentrationCodeableConcept *CodeableConcept                               `json:"concentrationCodeableConcept"`
-	ConcentrationQuantity        *Quantity                                      `json:"concentrationQuantity"`
+	ConcentrationRatio           *Ratio                                         `json:"concentrationRatio,omitempty"`
+	ConcentrationRatioRange      *RatioRange                                    `json:"concentrationRatioRange,omitempty"`
+	ConcentrationCodeableConcept *CodeableConcept                               `json:"concentrationCodeableConcept,omitempty"`
+	ConcentrationQuantity        *Quantity                                      `json:"concentrationQuantity,omitempty"`
 	TextConcentration            *string                                        `json:"textConcentration,omitempty"`
 	Basis                        *CodeableConcept                               `json:"basis,omitempty"`
 	MeasurementPoint             *string                                        `json:"measurementPoint,omitempty"`
@@ -94,68 +98,152 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Ingredient) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Ingredient.Id", nil)
+	}
+	return StringInput("Ingredient.Id", resource.Id)
+}
+func (resource *Ingredient) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Ingredient.ImplicitRules", nil)
+	}
+	return StringInput("Ingredient.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Ingredient) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Ingredient.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Ingredient.Language", resource.Language, optionsValueSet)
 }
 func (resource *Ingredient) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Ingredient.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Ingredient.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Ingredient) T_Role(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+		return CodeableConceptSelect("Ingredient.Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", &resource.Role, optionsValueSet)
+	return CodeableConceptSelect("Ingredient.Role", &resource.Role, optionsValueSet)
 }
-func (resource *Ingredient) T_Function(optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_Function(numFunction int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Function) >= numFunction {
+		return CodeableConceptSelect("Ingredient.Function["+strconv.Itoa(numFunction)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", &resource.Function[0], optionsValueSet)
+	return CodeableConceptSelect("Ingredient.Function["+strconv.Itoa(numFunction)+"]", &resource.Function[numFunction], optionsValueSet)
 }
 func (resource *Ingredient) T_Group(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("group", nil, optionsValueSet)
+		return CodeableConceptSelect("Ingredient.Group", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("group", resource.Group, optionsValueSet)
+	return CodeableConceptSelect("Ingredient.Group", resource.Group, optionsValueSet)
+}
+func (resource *Ingredient) T_AllergenicIndicator() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Ingredient.AllergenicIndicator", nil)
+	}
+	return BoolInput("Ingredient.AllergenicIndicator", resource.AllergenicIndicator)
+}
+func (resource *Ingredient) T_Comment() templ.Component {
+
+	if resource == nil {
+		return StringInput("Ingredient.Comment", nil)
+	}
+	return StringInput("Ingredient.Comment", resource.Comment)
+}
+func (resource *Ingredient) T_ManufacturerId(numManufacturer int) templ.Component {
+
+	if resource == nil || len(resource.Manufacturer) >= numManufacturer {
+		return StringInput("Ingredient.Manufacturer["+strconv.Itoa(numManufacturer)+"].Id", nil)
+	}
+	return StringInput("Ingredient.Manufacturer["+strconv.Itoa(numManufacturer)+"].Id", resource.Manufacturer[numManufacturer].Id)
 }
 func (resource *Ingredient) T_ManufacturerRole(numManufacturer int) templ.Component {
 	optionsValueSet := VSIngredient_manufacturer_role
 
-	if resource == nil && len(resource.Manufacturer) >= numManufacturer {
-		return CodeSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.Manufacturer) >= numManufacturer {
+		return CodeSelect("Ingredient.Manufacturer["+strconv.Itoa(numManufacturer)+"].Role", nil, optionsValueSet)
 	}
-	return CodeSelect("role", resource.Manufacturer[numManufacturer].Role, optionsValueSet)
+	return CodeSelect("Ingredient.Manufacturer["+strconv.Itoa(numManufacturer)+"].Role", resource.Manufacturer[numManufacturer].Role, optionsValueSet)
+}
+func (resource *Ingredient) T_SubstanceId() templ.Component {
+
+	if resource == nil {
+		return StringInput("Ingredient.Substance.Id", nil)
+	}
+	return StringInput("Ingredient.Substance.Id", resource.Substance.Id)
+}
+func (resource *Ingredient) T_SubstanceStrengthId(numStrength int) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Id", nil)
+	}
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Id", resource.Substance.Strength[numStrength].Id)
+}
+func (resource *Ingredient) T_SubstanceStrengthTextPresentation(numStrength int) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].TextPresentation", nil)
+	}
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].TextPresentation", resource.Substance.Strength[numStrength].TextPresentation)
+}
+func (resource *Ingredient) T_SubstanceStrengthTextConcentration(numStrength int) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].TextConcentration", nil)
+	}
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].TextConcentration", resource.Substance.Strength[numStrength].TextConcentration)
 }
 func (resource *Ingredient) T_SubstanceStrengthBasis(numStrength int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Substance.Strength) >= numStrength {
-		return CodeableConceptSelect("basis", nil, optionsValueSet)
+	if resource == nil || len(resource.Substance.Strength) >= numStrength {
+		return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Basis", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("basis", resource.Substance.Strength[numStrength].Basis, optionsValueSet)
+	return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Basis", resource.Substance.Strength[numStrength].Basis, optionsValueSet)
 }
-func (resource *Ingredient) T_SubstanceStrengthCountry(numStrength int, optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_SubstanceStrengthMeasurementPoint(numStrength int) templ.Component {
 
-	if resource == nil && len(resource.Substance.Strength) >= numStrength {
-		return CodeableConceptSelect("country", nil, optionsValueSet)
+	if resource == nil || len(resource.Substance.Strength) >= numStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].MeasurementPoint", nil)
 	}
-	return CodeableConceptSelect("country", &resource.Substance.Strength[numStrength].Country[0], optionsValueSet)
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].MeasurementPoint", resource.Substance.Strength[numStrength].MeasurementPoint)
 }
-func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthCountry(numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
+func (resource *Ingredient) T_SubstanceStrengthCountry(numStrength int, numCountry int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
-		return CodeableConceptSelect("country", nil, optionsValueSet)
+	if resource == nil || len(resource.Substance.Strength) >= numStrength || len(resource.Substance.Strength[numStrength].Country) >= numCountry {
+		return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("country", &resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[0], optionsValueSet)
+	return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].Country["+strconv.Itoa(numCountry)+"]", &resource.Substance.Strength[numStrength].Country[numCountry], optionsValueSet)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthId(numStrength int, numReferenceStrength int) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength || len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Id", nil)
+	}
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Id", resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Id)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthMeasurementPoint(numStrength int, numReferenceStrength int) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength || len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
+		return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].MeasurementPoint", nil)
+	}
+	return StringInput("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].MeasurementPoint", resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].MeasurementPoint)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthCountry(numStrength int, numReferenceStrength int, numCountry int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Substance.Strength) >= numStrength || len(resource.Substance.Strength[numStrength].ReferenceStrength) >= numReferenceStrength || len(resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Country) >= numCountry {
+		return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Ingredient.Substance.Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Country["+strconv.Itoa(numCountry)+"]", &resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[numCountry], optionsValueSet)
 }

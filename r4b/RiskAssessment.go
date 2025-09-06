@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/RiskAssessment
 type RiskAssessment struct {
@@ -25,8 +29,8 @@ type RiskAssessment struct {
 	Code               *CodeableConcept           `json:"code,omitempty"`
 	Subject            Reference                  `json:"subject"`
 	Encounter          *Reference                 `json:"encounter,omitempty"`
-	OccurrenceDateTime *string                    `json:"occurrenceDateTime"`
-	OccurrencePeriod   *Period                    `json:"occurrencePeriod"`
+	OccurrenceDateTime *string                    `json:"occurrenceDateTime,omitempty"`
+	OccurrencePeriod   *Period                    `json:"occurrencePeriod,omitempty"`
 	Condition          *Reference                 `json:"condition,omitempty"`
 	Performer          *Reference                 `json:"performer,omitempty"`
 	ReasonCode         []CodeableConcept          `json:"reasonCode,omitempty"`
@@ -43,12 +47,12 @@ type RiskAssessmentPrediction struct {
 	Extension          []Extension      `json:"extension,omitempty"`
 	ModifierExtension  []Extension      `json:"modifierExtension,omitempty"`
 	Outcome            *CodeableConcept `json:"outcome,omitempty"`
-	ProbabilityDecimal *float64         `json:"probabilityDecimal"`
-	ProbabilityRange   *Range           `json:"probabilityRange"`
+	ProbabilityDecimal *float64         `json:"probabilityDecimal,omitempty"`
+	ProbabilityRange   *Range           `json:"probabilityRange,omitempty"`
 	QualitativeRisk    *CodeableConcept `json:"qualitativeRisk,omitempty"`
 	RelativeRisk       *float64         `json:"relativeRisk,omitempty"`
-	WhenPeriod         *Period          `json:"whenPeriod"`
-	WhenRange          *Range           `json:"whenRange"`
+	WhenPeriod         *Period          `json:"whenPeriod,omitempty"`
+	WhenRange          *Range           `json:"whenRange,omitempty"`
 	Rationale          *string          `json:"rationale,omitempty"`
 }
 
@@ -65,53 +69,95 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *RiskAssessment) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("RiskAssessment.Id", nil)
+	}
+	return StringInput("RiskAssessment.Id", resource.Id)
+}
+func (resource *RiskAssessment) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("RiskAssessment.ImplicitRules", nil)
+	}
+	return StringInput("RiskAssessment.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *RiskAssessment) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("RiskAssessment.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("RiskAssessment.Language", resource.Language, optionsValueSet)
 }
 func (resource *RiskAssessment) T_Status() templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("RiskAssessment.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("RiskAssessment.Status", &resource.Status, optionsValueSet)
 }
 func (resource *RiskAssessment) T_Method(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("method", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskAssessment.Method", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("method", resource.Method, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Method", resource.Method, optionsValueSet)
 }
 func (resource *RiskAssessment) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskAssessment.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Code", resource.Code, optionsValueSet)
 }
-func (resource *RiskAssessment) T_ReasonCode(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
+		return CodeableConceptSelect("RiskAssessment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("RiskAssessment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
+}
+func (resource *RiskAssessment) T_Mitigation() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
+		return StringInput("RiskAssessment.Mitigation", nil)
 	}
-	return CodeableConceptSelect("reasonCode", &resource.ReasonCode[0], optionsValueSet)
+	return StringInput("RiskAssessment.Mitigation", resource.Mitigation)
+}
+func (resource *RiskAssessment) T_PredictionId(numPrediction int) templ.Component {
+
+	if resource == nil || len(resource.Prediction) >= numPrediction {
+		return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Id", nil)
+	}
+	return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Id", resource.Prediction[numPrediction].Id)
 }
 func (resource *RiskAssessment) T_PredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Prediction) >= numPrediction {
-		return CodeableConceptSelect("outcome", nil, optionsValueSet)
+	if resource == nil || len(resource.Prediction) >= numPrediction {
+		return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Outcome", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
 }
 func (resource *RiskAssessment) T_PredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Prediction) >= numPrediction {
-		return CodeableConceptSelect("qualitativeRisk", nil, optionsValueSet)
+	if resource == nil || len(resource.Prediction) >= numPrediction {
+		return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].QualitativeRisk", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("qualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].QualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet)
+}
+func (resource *RiskAssessment) T_PredictionRelativeRisk(numPrediction int) templ.Component {
+
+	if resource == nil || len(resource.Prediction) >= numPrediction {
+		return Float64Input("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].RelativeRisk", nil)
+	}
+	return Float64Input("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].RelativeRisk", resource.Prediction[numPrediction].RelativeRisk)
+}
+func (resource *RiskAssessment) T_PredictionRationale(numPrediction int) templ.Component {
+
+	if resource == nil || len(resource.Prediction) >= numPrediction {
+		return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Rationale", nil)
+	}
+	return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Rationale", resource.Prediction[numPrediction].Rationale)
 }

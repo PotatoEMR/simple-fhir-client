@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/CareTeam
 type CareTeam struct {
@@ -38,8 +42,8 @@ type CareTeamParticipant struct {
 	Role              *CodeableConcept `json:"role,omitempty"`
 	Member            *Reference       `json:"member,omitempty"`
 	OnBehalfOf        *Reference       `json:"onBehalfOf,omitempty"`
-	CoveragePeriod    *Period          `json:"coveragePeriod"`
-	CoverageTiming    *Timing          `json:"coverageTiming"`
+	CoveragePeriod    *Period          `json:"coveragePeriod,omitempty"`
+	CoverageTiming    *Timing          `json:"coverageTiming,omitempty"`
 }
 
 type OtherCareTeam CareTeam
@@ -55,32 +59,60 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *CareTeam) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("CareTeam.Id", nil)
+	}
+	return StringInput("CareTeam.Id", resource.Id)
+}
+func (resource *CareTeam) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("CareTeam.ImplicitRules", nil)
+	}
+	return StringInput("CareTeam.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *CareTeam) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("CareTeam.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("CareTeam.Language", resource.Language, optionsValueSet)
 }
 func (resource *CareTeam) T_Status() templ.Component {
 	optionsValueSet := VSCare_team_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("CareTeam.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("CareTeam.Status", resource.Status, optionsValueSet)
 }
-func (resource *CareTeam) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("CareTeam.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("CareTeam.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *CareTeam) T_Name() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+		return StringInput("CareTeam.Name", nil)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return StringInput("CareTeam.Name", resource.Name)
+}
+func (resource *CareTeam) T_ParticipantId(numParticipant int) templ.Component {
+
+	if resource == nil || len(resource.Participant) >= numParticipant {
+		return StringInput("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Id", nil)
+	}
+	return StringInput("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Id", resource.Participant[numParticipant].Id)
 }
 func (resource *CareTeam) T_ParticipantRole(numParticipant int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Participant) >= numParticipant {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.Participant) >= numParticipant {
+		return CodeableConceptSelect("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", resource.Participant[numParticipant].Role, optionsValueSet)
+	return CodeableConceptSelect("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Role", resource.Participant[numParticipant].Role, optionsValueSet)
 }

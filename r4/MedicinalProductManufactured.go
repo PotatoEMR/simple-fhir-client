@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/MedicinalProductManufactured
 type MedicinalProductManufactured struct {
@@ -39,31 +43,45 @@ func (r MedicinalProductManufactured) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicinalProductManufactured) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductManufactured.Id", nil)
+	}
+	return StringInput("MedicinalProductManufactured.Id", resource.Id)
+}
+func (resource *MedicinalProductManufactured) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductManufactured.ImplicitRules", nil)
+	}
+	return StringInput("MedicinalProductManufactured.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicinalProductManufactured) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicinalProductManufactured.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicinalProductManufactured.Language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductManufactured) T_ManufacturedDoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductManufactured.ManufacturedDoseForm", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductManufactured.ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
 }
 func (resource *MedicinalProductManufactured) T_UnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductManufactured.UnitOfPresentation", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductManufactured.UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
-func (resource *MedicinalProductManufactured) T_OtherCharacteristics(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductManufactured) T_OtherCharacteristics(numOtherCharacteristics int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("otherCharacteristics", nil, optionsValueSet)
+	if resource == nil || len(resource.OtherCharacteristics) >= numOtherCharacteristics {
+		return CodeableConceptSelect("MedicinalProductManufactured.OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("otherCharacteristics", &resource.OtherCharacteristics[0], optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductManufactured.OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", &resource.OtherCharacteristics[numOtherCharacteristics], optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Library
 type Library struct {
@@ -20,16 +24,16 @@ type Library struct {
 	Url                    *string               `json:"url,omitempty"`
 	Identifier             []Identifier          `json:"identifier,omitempty"`
 	Version                *string               `json:"version,omitempty"`
-	VersionAlgorithmString *string               `json:"versionAlgorithmString"`
-	VersionAlgorithmCoding *Coding               `json:"versionAlgorithmCoding"`
+	VersionAlgorithmString *string               `json:"versionAlgorithmString,omitempty"`
+	VersionAlgorithmCoding *Coding               `json:"versionAlgorithmCoding,omitempty"`
 	Name                   *string               `json:"name,omitempty"`
 	Title                  *string               `json:"title,omitempty"`
 	Subtitle               *string               `json:"subtitle,omitempty"`
 	Status                 string                `json:"status"`
 	Experimental           *bool                 `json:"experimental,omitempty"`
 	Type                   CodeableConcept       `json:"type"`
-	SubjectCodeableConcept *CodeableConcept      `json:"subjectCodeableConcept"`
-	SubjectReference       *Reference            `json:"subjectReference"`
+	SubjectCodeableConcept *CodeableConcept      `json:"subjectCodeableConcept,omitempty"`
+	SubjectReference       *Reference            `json:"subjectReference,omitempty"`
 	Date                   *string               `json:"date,omitempty"`
 	Publisher              *string               `json:"publisher,omitempty"`
 	Contact                []ContactDetail       `json:"contact,omitempty"`
@@ -67,39 +71,158 @@ func (r Library) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Library) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Id", nil)
+	}
+	return StringInput("Library.Id", resource.Id)
+}
+func (resource *Library) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.ImplicitRules", nil)
+	}
+	return StringInput("Library.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Library) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Library.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Library.Language", resource.Language, optionsValueSet)
+}
+func (resource *Library) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Url", nil)
+	}
+	return StringInput("Library.Url", resource.Url)
+}
+func (resource *Library) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Version", nil)
+	}
+	return StringInput("Library.Version", resource.Version)
+}
+func (resource *Library) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Name", nil)
+	}
+	return StringInput("Library.Name", resource.Name)
+}
+func (resource *Library) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Title", nil)
+	}
+	return StringInput("Library.Title", resource.Title)
+}
+func (resource *Library) T_Subtitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Subtitle", nil)
+	}
+	return StringInput("Library.Subtitle", resource.Subtitle)
 }
 func (resource *Library) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Library.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Library.Status", &resource.Status, optionsValueSet)
+}
+func (resource *Library) T_Experimental() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Library.Experimental", nil)
+	}
+	return BoolInput("Library.Experimental", resource.Experimental)
 }
 func (resource *Library) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("Library.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Type, optionsValueSet)
+	return CodeableConceptSelect("Library.Type", &resource.Type, optionsValueSet)
 }
-func (resource *Library) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *Library) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return StringInput("Library.Date", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return StringInput("Library.Date", resource.Date)
 }
-func (resource *Library) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *Library) T_Publisher() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("Library.Publisher", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("Library.Publisher", resource.Publisher)
+}
+func (resource *Library) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Description", nil)
+	}
+	return StringInput("Library.Description", resource.Description)
+}
+func (resource *Library) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("Library.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Library.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *Library) T_Purpose() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Purpose", nil)
+	}
+	return StringInput("Library.Purpose", resource.Purpose)
+}
+func (resource *Library) T_Usage() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Usage", nil)
+	}
+	return StringInput("Library.Usage", resource.Usage)
+}
+func (resource *Library) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.Copyright", nil)
+	}
+	return StringInput("Library.Copyright", resource.Copyright)
+}
+func (resource *Library) T_CopyrightLabel() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.CopyrightLabel", nil)
+	}
+	return StringInput("Library.CopyrightLabel", resource.CopyrightLabel)
+}
+func (resource *Library) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.ApprovalDate", nil)
+	}
+	return StringInput("Library.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *Library) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Library.LastReviewDate", nil)
+	}
+	return StringInput("Library.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *Library) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("Library.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Library.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
 }

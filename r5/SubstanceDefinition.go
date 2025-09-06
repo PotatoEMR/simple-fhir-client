@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/SubstanceDefinition
 type SubstanceDefinition struct {
@@ -54,8 +58,8 @@ type SubstanceDefinitionMoiety struct {
 	Stereochemistry   *CodeableConcept `json:"stereochemistry,omitempty"`
 	OpticalActivity   *CodeableConcept `json:"opticalActivity,omitempty"`
 	MolecularFormula  *string          `json:"molecularFormula,omitempty"`
-	AmountQuantity    *Quantity        `json:"amountQuantity"`
-	AmountString      *string          `json:"amountString"`
+	AmountQuantity    *Quantity        `json:"amountQuantity,omitempty"`
+	AmountString      *string          `json:"amountString,omitempty"`
 	MeasurementType   *CodeableConcept `json:"measurementType,omitempty"`
 }
 
@@ -76,11 +80,11 @@ type SubstanceDefinitionProperty struct {
 	Extension            []Extension      `json:"extension,omitempty"`
 	ModifierExtension    []Extension      `json:"modifierExtension,omitempty"`
 	Type                 CodeableConcept  `json:"type"`
-	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept"`
-	ValueQuantity        *Quantity        `json:"valueQuantity"`
-	ValueDate            *string          `json:"valueDate"`
-	ValueBoolean         *bool            `json:"valueBoolean"`
-	ValueAttachment      *Attachment      `json:"valueAttachment"`
+	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
+	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
+	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
+	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/SubstanceDefinition
@@ -161,13 +165,13 @@ type SubstanceDefinitionRelationship struct {
 	Id                                 *string          `json:"id,omitempty"`
 	Extension                          []Extension      `json:"extension,omitempty"`
 	ModifierExtension                  []Extension      `json:"modifierExtension,omitempty"`
-	SubstanceDefinitionReference       *Reference       `json:"substanceDefinitionReference"`
-	SubstanceDefinitionCodeableConcept *CodeableConcept `json:"substanceDefinitionCodeableConcept"`
+	SubstanceDefinitionReference       *Reference       `json:"substanceDefinitionReference,omitempty"`
+	SubstanceDefinitionCodeableConcept *CodeableConcept `json:"substanceDefinitionCodeableConcept,omitempty"`
 	Type                               CodeableConcept  `json:"type"`
 	IsDefining                         *bool            `json:"isDefining,omitempty"`
-	AmountQuantity                     *Quantity        `json:"amountQuantity"`
-	AmountRatio                        *Ratio           `json:"amountRatio"`
-	AmountString                       *string          `json:"amountString"`
+	AmountQuantity                     *Quantity        `json:"amountQuantity,omitempty"`
+	AmountRatio                        *Ratio           `json:"amountRatio,omitempty"`
+	AmountString                       *string          `json:"amountString,omitempty"`
 	RatioHighLimitAmount               *Ratio           `json:"ratioHighLimitAmount,omitempty"`
 	Comparator                         *CodeableConcept `json:"comparator,omitempty"`
 	Source                             []Reference      `json:"source,omitempty"`
@@ -198,248 +202,430 @@ func (r SubstanceDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *SubstanceDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Id", resource.Id)
+}
+func (resource *SubstanceDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.ImplicitRules", nil)
+	}
+	return StringInput("SubstanceDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *SubstanceDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("SubstanceDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("SubstanceDefinition.Language", resource.Language, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.Version", nil)
+	}
+	return StringInput("SubstanceDefinition.Version", resource.Version)
 }
 func (resource *SubstanceDefinition) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Status", resource.Status, optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_Classification(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_Classification(numClassification int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("classification", nil, optionsValueSet)
+	if resource == nil || len(resource.Classification) >= numClassification {
+		return CodeableConceptSelect("SubstanceDefinition.Classification["+strconv.Itoa(numClassification)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("classification", &resource.Classification[0], optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Classification["+strconv.Itoa(numClassification)+"]", &resource.Classification[numClassification], optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_Domain(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("domain", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.Domain", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("domain", resource.Domain, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Domain", resource.Domain, optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_Grade(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_Grade(numGrade int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Grade) >= numGrade {
+		return CodeableConceptSelect("SubstanceDefinition.Grade["+strconv.Itoa(numGrade)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SubstanceDefinition.Grade["+strconv.Itoa(numGrade)+"]", &resource.Grade[numGrade], optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_Description() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("grade", nil, optionsValueSet)
+		return StringInput("SubstanceDefinition.Description", nil)
 	}
-	return CodeableConceptSelect("grade", &resource.Grade[0], optionsValueSet)
+	return StringInput("SubstanceDefinition.Description", resource.Description)
+}
+func (resource *SubstanceDefinition) T_MoietyId(numMoiety int) templ.Component {
+
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Id", resource.Moiety[numMoiety].Id)
 }
 func (resource *SubstanceDefinition) T_MoietyRole(numMoiety int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Moiety) >= numMoiety {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", resource.Moiety[numMoiety].Role, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Role", resource.Moiety[numMoiety].Role, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_MoietyName(numMoiety int) templ.Component {
+
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Name", nil)
+	}
+	return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Name", resource.Moiety[numMoiety].Name)
 }
 func (resource *SubstanceDefinition) T_MoietyStereochemistry(numMoiety int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Moiety) >= numMoiety {
-		return CodeableConceptSelect("stereochemistry", nil, optionsValueSet)
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Stereochemistry", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("stereochemistry", resource.Moiety[numMoiety].Stereochemistry, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].Stereochemistry", resource.Moiety[numMoiety].Stereochemistry, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_MoietyOpticalActivity(numMoiety int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Moiety) >= numMoiety {
-		return CodeableConceptSelect("opticalActivity", nil, optionsValueSet)
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].OpticalActivity", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("opticalActivity", resource.Moiety[numMoiety].OpticalActivity, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].OpticalActivity", resource.Moiety[numMoiety].OpticalActivity, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_MoietyMolecularFormula(numMoiety int) templ.Component {
+
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].MolecularFormula", nil)
+	}
+	return StringInput("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].MolecularFormula", resource.Moiety[numMoiety].MolecularFormula)
 }
 func (resource *SubstanceDefinition) T_MoietyMeasurementType(numMoiety int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Moiety) >= numMoiety {
-		return CodeableConceptSelect("measurementType", nil, optionsValueSet)
+	if resource == nil || len(resource.Moiety) >= numMoiety {
+		return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].MeasurementType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("measurementType", resource.Moiety[numMoiety].MeasurementType, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Moiety["+strconv.Itoa(numMoiety)+"].MeasurementType", resource.Moiety[numMoiety].MeasurementType, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_CharacterizationId(numCharacterization int) templ.Component {
+
+	if resource == nil || len(resource.Characterization) >= numCharacterization {
+		return StringInput("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Id", resource.Characterization[numCharacterization].Id)
 }
 func (resource *SubstanceDefinition) T_CharacterizationTechnique(numCharacterization int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characterization) >= numCharacterization {
-		return CodeableConceptSelect("technique", nil, optionsValueSet)
+	if resource == nil || len(resource.Characterization) >= numCharacterization {
+		return CodeableConceptSelect("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Technique", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("technique", resource.Characterization[numCharacterization].Technique, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Technique", resource.Characterization[numCharacterization].Technique, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_CharacterizationForm(numCharacterization int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characterization) >= numCharacterization {
-		return CodeableConceptSelect("form", nil, optionsValueSet)
+	if resource == nil || len(resource.Characterization) >= numCharacterization {
+		return CodeableConceptSelect("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Form", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("form", resource.Characterization[numCharacterization].Form, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Form", resource.Characterization[numCharacterization].Form, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_CharacterizationDescription(numCharacterization int) templ.Component {
+
+	if resource == nil || len(resource.Characterization) >= numCharacterization {
+		return StringInput("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Description", nil)
+	}
+	return StringInput("SubstanceDefinition.Characterization["+strconv.Itoa(numCharacterization)+"].Description", resource.Characterization[numCharacterization].Description)
+}
+func (resource *SubstanceDefinition) T_PropertyId(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("SubstanceDefinition.Property["+strconv.Itoa(numProperty)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Property["+strconv.Itoa(numProperty)+"].Id", resource.Property[numProperty].Id)
 }
 func (resource *SubstanceDefinition) T_PropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Property) >= numProperty {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("SubstanceDefinition.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Property[numProperty].Type, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_MolecularWeightId(numMolecularWeight int) templ.Component {
+
+	if resource == nil || len(resource.MolecularWeight) >= numMolecularWeight {
+		return StringInput("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Id", resource.MolecularWeight[numMolecularWeight].Id)
 }
 func (resource *SubstanceDefinition) T_MolecularWeightMethod(numMolecularWeight int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.MolecularWeight) >= numMolecularWeight {
-		return CodeableConceptSelect("method", nil, optionsValueSet)
+	if resource == nil || len(resource.MolecularWeight) >= numMolecularWeight {
+		return CodeableConceptSelect("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Method", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("method", resource.MolecularWeight[numMolecularWeight].Method, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Method", resource.MolecularWeight[numMolecularWeight].Method, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_MolecularWeightType(numMolecularWeight int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.MolecularWeight) >= numMolecularWeight {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.MolecularWeight) >= numMolecularWeight {
+		return CodeableConceptSelect("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.MolecularWeight[numMolecularWeight].Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.MolecularWeight["+strconv.Itoa(numMolecularWeight)+"].Type", resource.MolecularWeight[numMolecularWeight].Type, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_StructureId() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.Structure.Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Structure.Id", resource.Structure.Id)
 }
 func (resource *SubstanceDefinition) T_StructureStereochemistry(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("stereochemistry", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.Structure.Stereochemistry", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("stereochemistry", resource.Structure.Stereochemistry, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Structure.Stereochemistry", resource.Structure.Stereochemistry, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_StructureOpticalActivity(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("opticalActivity", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.Structure.OpticalActivity", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("opticalActivity", resource.Structure.OpticalActivity, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Structure.OpticalActivity", resource.Structure.OpticalActivity, optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_StructureTechnique(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_StructureMolecularFormula() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("technique", nil, optionsValueSet)
+		return StringInput("SubstanceDefinition.Structure.MolecularFormula", nil)
 	}
-	return CodeableConceptSelect("technique", &resource.Structure.Technique[0], optionsValueSet)
+	return StringInput("SubstanceDefinition.Structure.MolecularFormula", resource.Structure.MolecularFormula)
+}
+func (resource *SubstanceDefinition) T_StructureMolecularFormulaByMoiety() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.Structure.MolecularFormulaByMoiety", nil)
+	}
+	return StringInput("SubstanceDefinition.Structure.MolecularFormulaByMoiety", resource.Structure.MolecularFormulaByMoiety)
+}
+func (resource *SubstanceDefinition) T_StructureTechnique(numTechnique int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Structure.Technique) >= numTechnique {
+		return CodeableConceptSelect("SubstanceDefinition.Structure.Technique["+strconv.Itoa(numTechnique)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SubstanceDefinition.Structure.Technique["+strconv.Itoa(numTechnique)+"]", &resource.Structure.Technique[numTechnique], optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_StructureRepresentationId(numRepresentation int) templ.Component {
+
+	if resource == nil || len(resource.Structure.Representation) >= numRepresentation {
+		return StringInput("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Id", resource.Structure.Representation[numRepresentation].Id)
 }
 func (resource *SubstanceDefinition) T_StructureRepresentationType(numRepresentation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Structure.Representation) >= numRepresentation {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Structure.Representation) >= numRepresentation {
+		return CodeableConceptSelect("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Structure.Representation[numRepresentation].Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Type", resource.Structure.Representation[numRepresentation].Type, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_StructureRepresentationRepresentation(numRepresentation int) templ.Component {
+
+	if resource == nil || len(resource.Structure.Representation) >= numRepresentation {
+		return StringInput("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Representation", nil)
+	}
+	return StringInput("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Representation", resource.Structure.Representation[numRepresentation].Representation)
 }
 func (resource *SubstanceDefinition) T_StructureRepresentationFormat(numRepresentation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Structure.Representation) >= numRepresentation {
-		return CodeableConceptSelect("format", nil, optionsValueSet)
+	if resource == nil || len(resource.Structure.Representation) >= numRepresentation {
+		return CodeableConceptSelect("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Format", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("format", resource.Structure.Representation[numRepresentation].Format, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Structure.Representation["+strconv.Itoa(numRepresentation)+"].Format", resource.Structure.Representation[numRepresentation].Format, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_CodeId(numCode int) templ.Component {
+
+	if resource == nil || len(resource.Code) >= numCode {
+		return StringInput("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Id", resource.Code[numCode].Id)
 }
 func (resource *SubstanceDefinition) T_CodeCode(numCode int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Code) >= numCode {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Code) >= numCode {
+		return CodeableConceptSelect("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code[numCode].Code, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Code", resource.Code[numCode].Code, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_CodeStatus(numCode int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Code) >= numCode {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+	if resource == nil || len(resource.Code) >= numCode {
+		return CodeableConceptSelect("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.Code[numCode].Status, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].Status", resource.Code[numCode].Status, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_CodeStatusDate(numCode int) templ.Component {
+
+	if resource == nil || len(resource.Code) >= numCode {
+		return StringInput("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].StatusDate", nil)
+	}
+	return StringInput("SubstanceDefinition.Code["+strconv.Itoa(numCode)+"].StatusDate", resource.Code[numCode].StatusDate)
+}
+func (resource *SubstanceDefinition) T_NameId(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Id", resource.Name[numName].Id)
+}
+func (resource *SubstanceDefinition) T_NameName(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Name", nil)
+	}
+	return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Name", &resource.Name[numName].Name)
 }
 func (resource *SubstanceDefinition) T_NameType(numName int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Name[numName].Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Type", resource.Name[numName].Type, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_NameStatus(numName int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.Name[numName].Status, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Status", resource.Name[numName].Status, optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_NameLanguage(numName int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_NamePreferred(numName int) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeableConceptSelect("language", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName {
+		return BoolInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Preferred", nil)
 	}
-	return CodeableConceptSelect("language", &resource.Name[numName].Language[0], optionsValueSet)
+	return BoolInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Preferred", resource.Name[numName].Preferred)
 }
-func (resource *SubstanceDefinition) T_NameDomain(numName int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_NameLanguage(numName int, numLanguage int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeableConceptSelect("domain", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Language) >= numLanguage {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Language["+strconv.Itoa(numLanguage)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("domain", &resource.Name[numName].Domain[0], optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Language["+strconv.Itoa(numLanguage)+"]", &resource.Name[numName].Language[numLanguage], optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_NameJurisdiction(numName int, optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_NameDomain(numName int, numDomain int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Domain) >= numDomain {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Domain["+strconv.Itoa(numDomain)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Name[numName].Jurisdiction[0], optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Domain["+strconv.Itoa(numDomain)+"]", &resource.Name[numName].Domain[numDomain], optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_NameJurisdiction(numName int, numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Name[numName].Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_NameOfficialId(numName int, numOfficial int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Official) >= numOfficial {
+		return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Id", resource.Name[numName].Official[numOfficial].Id)
 }
 func (resource *SubstanceDefinition) T_NameOfficialAuthority(numName int, numOfficial int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].Official) >= numOfficial {
-		return CodeableConceptSelect("authority", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Official) >= numOfficial {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Authority", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("authority", resource.Name[numName].Official[numOfficial].Authority, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Authority", resource.Name[numName].Official[numOfficial].Authority, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_NameOfficialStatus(numName int, numOfficial int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name[numName].Official) >= numOfficial {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Official) >= numOfficial {
+		return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.Name[numName].Official[numOfficial].Status, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Status", resource.Name[numName].Official[numOfficial].Status, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_NameOfficialDate(numName int, numOfficial int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName || len(resource.Name[numName].Official) >= numOfficial {
+		return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Date", nil)
+	}
+	return StringInput("SubstanceDefinition.Name["+strconv.Itoa(numName)+"].Official["+strconv.Itoa(numOfficial)+"].Date", resource.Name[numName].Official[numOfficial].Date)
+}
+func (resource *SubstanceDefinition) T_RelationshipId(numRelationship int) templ.Component {
+
+	if resource == nil || len(resource.Relationship) >= numRelationship {
+		return StringInput("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Id", nil)
+	}
+	return StringInput("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Id", resource.Relationship[numRelationship].Id)
 }
 func (resource *SubstanceDefinition) T_RelationshipType(numRelationship int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Relationship) >= numRelationship {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Relationship) >= numRelationship {
+		return CodeableConceptSelect("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Relationship[numRelationship].Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Type", &resource.Relationship[numRelationship].Type, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_RelationshipIsDefining(numRelationship int) templ.Component {
+
+	if resource == nil || len(resource.Relationship) >= numRelationship {
+		return BoolInput("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].IsDefining", nil)
+	}
+	return BoolInput("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].IsDefining", resource.Relationship[numRelationship].IsDefining)
 }
 func (resource *SubstanceDefinition) T_RelationshipComparator(numRelationship int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Relationship) >= numRelationship {
-		return CodeableConceptSelect("comparator", nil, optionsValueSet)
+	if resource == nil || len(resource.Relationship) >= numRelationship {
+		return CodeableConceptSelect("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Comparator", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("comparator", resource.Relationship[numRelationship].Comparator, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.Relationship["+strconv.Itoa(numRelationship)+"].Comparator", resource.Relationship[numRelationship].Comparator, optionsValueSet)
+}
+func (resource *SubstanceDefinition) T_SourceMaterialId() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubstanceDefinition.SourceMaterial.Id", nil)
+	}
+	return StringInput("SubstanceDefinition.SourceMaterial.Id", resource.SourceMaterial.Id)
 }
 func (resource *SubstanceDefinition) T_SourceMaterialType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.SourceMaterial.Type, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Type", resource.SourceMaterial.Type, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_SourceMaterialGenus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("genus", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Genus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("genus", resource.SourceMaterial.Genus, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Genus", resource.SourceMaterial.Genus, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_SourceMaterialSpecies(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("species", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Species", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("species", resource.SourceMaterial.Species, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Species", resource.SourceMaterial.Species, optionsValueSet)
 }
 func (resource *SubstanceDefinition) T_SourceMaterialPart(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("part", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Part", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("part", resource.SourceMaterial.Part, optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.Part", resource.SourceMaterial.Part, optionsValueSet)
 }
-func (resource *SubstanceDefinition) T_SourceMaterialCountryOfOrigin(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceDefinition) T_SourceMaterialCountryOfOrigin(numCountryOfOrigin int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("countryOfOrigin", nil, optionsValueSet)
+	if resource == nil || len(resource.SourceMaterial.CountryOfOrigin) >= numCountryOfOrigin {
+		return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.CountryOfOrigin["+strconv.Itoa(numCountryOfOrigin)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("countryOfOrigin", &resource.SourceMaterial.CountryOfOrigin[0], optionsValueSet)
+	return CodeableConceptSelect("SubstanceDefinition.SourceMaterial.CountryOfOrigin["+strconv.Itoa(numCountryOfOrigin)+"]", &resource.SourceMaterial.CountryOfOrigin[numCountryOfOrigin], optionsValueSet)
 }

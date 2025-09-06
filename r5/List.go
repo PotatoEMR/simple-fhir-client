@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/List
 type List struct {
@@ -56,54 +60,103 @@ func (r List) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *List) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("List.Id", nil)
+	}
+	return StringInput("List.Id", resource.Id)
+}
+func (resource *List) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("List.ImplicitRules", nil)
+	}
+	return StringInput("List.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *List) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("List.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("List.Language", resource.Language, optionsValueSet)
 }
 func (resource *List) T_Status() templ.Component {
 	optionsValueSet := VSList_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("List.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("List.Status", &resource.Status, optionsValueSet)
 }
 func (resource *List) T_Mode() templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil {
-		return CodeSelect("mode", nil, optionsValueSet)
+		return CodeSelect("List.Mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", &resource.Mode, optionsValueSet)
+	return CodeSelect("List.Mode", &resource.Mode, optionsValueSet)
+}
+func (resource *List) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("List.Title", nil)
+	}
+	return StringInput("List.Title", resource.Title)
 }
 func (resource *List) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("List.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("List.Code", resource.Code, optionsValueSet)
+}
+func (resource *List) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("List.Date", nil)
+	}
+	return StringInput("List.Date", resource.Date)
 }
 func (resource *List) T_OrderedBy(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("orderedBy", nil, optionsValueSet)
+		return CodeableConceptSelect("List.OrderedBy", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("orderedBy", resource.OrderedBy, optionsValueSet)
+	return CodeableConceptSelect("List.OrderedBy", resource.OrderedBy, optionsValueSet)
 }
 func (resource *List) T_EmptyReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("emptyReason", nil, optionsValueSet)
+		return CodeableConceptSelect("List.EmptyReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("emptyReason", resource.EmptyReason, optionsValueSet)
+	return CodeableConceptSelect("List.EmptyReason", resource.EmptyReason, optionsValueSet)
+}
+func (resource *List) T_EntryId(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Id", nil)
+	}
+	return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Id", resource.Entry[numEntry].Id)
 }
 func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Entry) >= numEntry {
-		return CodeableConceptSelect("flag", nil, optionsValueSet)
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("flag", resource.Entry[numEntry].Flag, optionsValueSet)
+	return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", resource.Entry[numEntry].Flag, optionsValueSet)
+}
+func (resource *List) T_EntryDeleted(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", nil)
+	}
+	return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", resource.Entry[numEntry].Deleted)
+}
+func (resource *List) T_EntryDate(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", nil)
+	}
+	return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", resource.Entry[numEntry].Date)
 }

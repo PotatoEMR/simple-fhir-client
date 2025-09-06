@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Flag
 type Flag struct {
@@ -40,32 +44,46 @@ func (r Flag) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Flag) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Flag.Id", nil)
+	}
+	return StringInput("Flag.Id", resource.Id)
+}
+func (resource *Flag) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Flag.ImplicitRules", nil)
+	}
+	return StringInput("Flag.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Flag) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Flag.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Flag.Language", resource.Language, optionsValueSet)
 }
 func (resource *Flag) T_Status() templ.Component {
 	optionsValueSet := VSFlag_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Flag.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Flag.Status", &resource.Status, optionsValueSet)
 }
-func (resource *Flag) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("Flag.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("Flag.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *Flag) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Flag.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Flag.Code", &resource.Code, optionsValueSet)
 }

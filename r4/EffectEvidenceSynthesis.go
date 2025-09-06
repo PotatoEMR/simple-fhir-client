@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/EffectEvidenceSynthesis
 type EffectEvidenceSynthesis struct {
@@ -130,110 +134,299 @@ func (r EffectEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *EffectEvidenceSynthesis) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Id", resource.Id)
+}
+func (resource *EffectEvidenceSynthesis) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.ImplicitRules", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *EffectEvidenceSynthesis) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("EffectEvidenceSynthesis.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("EffectEvidenceSynthesis.Language", resource.Language, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Url", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Url", resource.Url)
+}
+func (resource *EffectEvidenceSynthesis) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Version", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Version", resource.Version)
+}
+func (resource *EffectEvidenceSynthesis) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Name", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Name", resource.Name)
+}
+func (resource *EffectEvidenceSynthesis) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Title", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Title", resource.Title)
 }
 func (resource *EffectEvidenceSynthesis) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("EffectEvidenceSynthesis.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("EffectEvidenceSynthesis.Status", &resource.Status, optionsValueSet)
 }
-func (resource *EffectEvidenceSynthesis) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return StringInput("EffectEvidenceSynthesis.Date", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return StringInput("EffectEvidenceSynthesis.Date", resource.Date)
 }
-func (resource *EffectEvidenceSynthesis) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_Publisher() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("EffectEvidenceSynthesis.Publisher", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("EffectEvidenceSynthesis.Publisher", resource.Publisher)
+}
+func (resource *EffectEvidenceSynthesis) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Description", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Description", resource.Description)
+}
+func (resource *EffectEvidenceSynthesis) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("EffectEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.Copyright", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Copyright", resource.Copyright)
+}
+func (resource *EffectEvidenceSynthesis) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.ApprovalDate", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *EffectEvidenceSynthesis) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.LastReviewDate", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *EffectEvidenceSynthesis) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("EffectEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) T_SynthesisType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("synthesisType", nil, optionsValueSet)
+		return CodeableConceptSelect("EffectEvidenceSynthesis.SynthesisType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.SynthesisType", resource.SynthesisType, optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) T_StudyType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("studyType", nil, optionsValueSet)
+		return CodeableConceptSelect("EffectEvidenceSynthesis.StudyType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.StudyType", resource.StudyType, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_SampleSizeId() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.SampleSize.Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.SampleSize.Id", resource.SampleSize.Id)
+}
+func (resource *EffectEvidenceSynthesis) T_SampleSizeDescription() templ.Component {
+
+	if resource == nil {
+		return StringInput("EffectEvidenceSynthesis.SampleSize.Description", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.SampleSize.Description", resource.SampleSize.Description)
+}
+func (resource *EffectEvidenceSynthesis) T_SampleSizeNumberOfStudies() templ.Component {
+
+	if resource == nil {
+		return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfStudies", nil)
+	}
+	return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfStudies", resource.SampleSize.NumberOfStudies)
+}
+func (resource *EffectEvidenceSynthesis) T_SampleSizeNumberOfParticipants() templ.Component {
+
+	if resource == nil {
+		return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfParticipants", nil)
+	}
+	return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfParticipants", resource.SampleSize.NumberOfParticipants)
+}
+func (resource *EffectEvidenceSynthesis) T_ResultsByExposureId(numResultsByExposure int) templ.Component {
+
+	if resource == nil || len(resource.ResultsByExposure) >= numResultsByExposure {
+		return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Id", resource.ResultsByExposure[numResultsByExposure].Id)
+}
+func (resource *EffectEvidenceSynthesis) T_ResultsByExposureDescription(numResultsByExposure int) templ.Component {
+
+	if resource == nil || len(resource.ResultsByExposure) >= numResultsByExposure {
+		return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Description", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Description", resource.ResultsByExposure[numResultsByExposure].Description)
 }
 func (resource *EffectEvidenceSynthesis) T_ResultsByExposureExposureState(numResultsByExposure int) templ.Component {
 	optionsValueSet := VSExposure_state
 
-	if resource == nil && len(resource.ResultsByExposure) >= numResultsByExposure {
-		return CodeSelect("exposureState", nil, optionsValueSet)
+	if resource == nil || len(resource.ResultsByExposure) >= numResultsByExposure {
+		return CodeSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].ExposureState", nil, optionsValueSet)
 	}
-	return CodeSelect("exposureState", resource.ResultsByExposure[numResultsByExposure].ExposureState, optionsValueSet)
+	return CodeSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].ExposureState", resource.ResultsByExposure[numResultsByExposure].ExposureState, optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) T_ResultsByExposureVariantState(numResultsByExposure int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.ResultsByExposure) >= numResultsByExposure {
-		return CodeableConceptSelect("variantState", nil, optionsValueSet)
+	if resource == nil || len(resource.ResultsByExposure) >= numResultsByExposure {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].VariantState", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("variantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].VariantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimateId(numEffectEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Id", resource.EffectEstimate[numEffectEstimate].Id)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimateDescription(numEffectEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Description", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Description", resource.EffectEstimate[numEffectEstimate].Description)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateType(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.EffectEstimate) >= numEffectEstimate {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.EffectEstimate[numEffectEstimate].Type, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Type", resource.EffectEstimate[numEffectEstimate].Type, optionsValueSet)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateVariantState(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.EffectEstimate) >= numEffectEstimate {
-		return CodeableConceptSelect("variantState", nil, optionsValueSet)
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].VariantState", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("variantState", resource.EffectEstimate[numEffectEstimate].VariantState, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].VariantState", resource.EffectEstimate[numEffectEstimate].VariantState, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimateValue(numEffectEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Value", nil)
+	}
+	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Value", resource.EffectEstimate[numEffectEstimate].Value)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateUnitOfMeasure(numEffectEstimate int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.EffectEstimate) >= numEffectEstimate {
-		return CodeableConceptSelect("unitOfMeasure", nil, optionsValueSet)
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].UnitOfMeasure", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("unitOfMeasure", resource.EffectEstimate[numEffectEstimate].UnitOfMeasure, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].UnitOfMeasure", resource.EffectEstimate[numEffectEstimate].UnitOfMeasure, optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateId(numEffectEstimate int, numPrecisionEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate || len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Id", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Id)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateType(numEffectEstimate int, numPrecisionEstimate int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate || len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet)
 }
-func (resource *EffectEvidenceSynthesis) T_CertaintyRating(numCertainty int, optionsValueSet []Coding) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateLevel(numEffectEstimate int, numPrecisionEstimate int) templ.Component {
 
-	if resource == nil && len(resource.Certainty) >= numCertainty {
-		return CodeableConceptSelect("rating", nil, optionsValueSet)
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate || len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", nil)
 	}
-	return CodeableConceptSelect("rating", &resource.Certainty[numCertainty].Rating[0], optionsValueSet)
+	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Level)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateFrom(numEffectEstimate int, numPrecisionEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate || len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", nil)
+	}
+	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].From)
+}
+func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateTo(numEffectEstimate int, numPrecisionEstimate int) templ.Component {
+
+	if resource == nil || len(resource.EffectEstimate) >= numEffectEstimate || len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) >= numPrecisionEstimate {
+		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", nil)
+	}
+	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].To)
+}
+func (resource *EffectEvidenceSynthesis) T_CertaintyId(numCertainty int) templ.Component {
+
+	if resource == nil || len(resource.Certainty) >= numCertainty {
+		return StringInput("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Id", resource.Certainty[numCertainty].Id)
+}
+func (resource *EffectEvidenceSynthesis) T_CertaintyRating(numCertainty int, numRating int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].Rating) >= numRating {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].Rating[numRating], optionsValueSet)
+}
+func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentId(numCertainty int, numCertaintySubcomponent int) templ.Component {
+
+	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
+		return StringInput("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Id", nil)
+	}
+	return StringInput("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Id", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Id)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet)
 }
-func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, numRating int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
-		return CodeableConceptSelect("rating", nil, optionsValueSet)
+	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent || len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating) >= numRating {
+		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("rating", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[0], optionsValueSet)
+	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[numRating], optionsValueSet)
 }

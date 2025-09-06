@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/SpecimenDefinition
 type SpecimenDefinition struct {
@@ -50,8 +54,8 @@ type SpecimenDefinitionTypeTestedContainer struct {
 	Cap                   *CodeableConcept                                `json:"cap,omitempty"`
 	Description           *string                                         `json:"description,omitempty"`
 	Capacity              *Quantity                                       `json:"capacity,omitempty"`
-	MinimumVolumeQuantity *Quantity                                       `json:"minimumVolumeQuantity"`
-	MinimumVolumeString   *string                                         `json:"minimumVolumeString"`
+	MinimumVolumeQuantity *Quantity                                       `json:"minimumVolumeQuantity,omitempty"`
+	MinimumVolumeString   *string                                         `json:"minimumVolumeString,omitempty"`
 	Additive              []SpecimenDefinitionTypeTestedContainerAdditive `json:"additive,omitempty"`
 	Preparation           *string                                         `json:"preparation,omitempty"`
 }
@@ -89,81 +93,165 @@ func (r SpecimenDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *SpecimenDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("SpecimenDefinition.Id", nil)
+	}
+	return StringInput("SpecimenDefinition.Id", resource.Id)
+}
+func (resource *SpecimenDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("SpecimenDefinition.ImplicitRules", nil)
+	}
+	return StringInput("SpecimenDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *SpecimenDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("SpecimenDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("SpecimenDefinition.Language", resource.Language, optionsValueSet)
 }
 func (resource *SpecimenDefinition) T_TypeCollected(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("typeCollected", nil, optionsValueSet)
+		return CodeableConceptSelect("SpecimenDefinition.TypeCollected", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("typeCollected", resource.TypeCollected, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeCollected", resource.TypeCollected, optionsValueSet)
 }
-func (resource *SpecimenDefinition) T_PatientPreparation(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_PatientPreparation(numPatientPreparation int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.PatientPreparation) >= numPatientPreparation {
+		return CodeableConceptSelect("SpecimenDefinition.PatientPreparation["+strconv.Itoa(numPatientPreparation)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SpecimenDefinition.PatientPreparation["+strconv.Itoa(numPatientPreparation)+"]", &resource.PatientPreparation[numPatientPreparation], optionsValueSet)
+}
+func (resource *SpecimenDefinition) T_TimeAspect() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("patientPreparation", nil, optionsValueSet)
+		return StringInput("SpecimenDefinition.TimeAspect", nil)
 	}
-	return CodeableConceptSelect("patientPreparation", &resource.PatientPreparation[0], optionsValueSet)
+	return StringInput("SpecimenDefinition.TimeAspect", resource.TimeAspect)
 }
-func (resource *SpecimenDefinition) T_Collection(optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_Collection(numCollection int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("collection", nil, optionsValueSet)
+	if resource == nil || len(resource.Collection) >= numCollection {
+		return CodeableConceptSelect("SpecimenDefinition.Collection["+strconv.Itoa(numCollection)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("collection", &resource.Collection[0], optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.Collection["+strconv.Itoa(numCollection)+"]", &resource.Collection[numCollection], optionsValueSet)
+}
+func (resource *SpecimenDefinition) T_TypeTestedId(numTypeTested int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Id", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Id", resource.TypeTested[numTypeTested].Id)
+}
+func (resource *SpecimenDefinition) T_TypeTestedIsDerived(numTypeTested int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return BoolInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].IsDerived", nil)
+	}
+	return BoolInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].IsDerived", resource.TypeTested[numTypeTested].IsDerived)
 }
 func (resource *SpecimenDefinition) T_TypeTestedType(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.TypeTested[numTypeTested].Type, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Type", resource.TypeTested[numTypeTested].Type, optionsValueSet)
 }
 func (resource *SpecimenDefinition) T_TypeTestedPreference(numTypeTested int) templ.Component {
 	optionsValueSet := VSSpecimen_contained_preference
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeSelect("preference", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return CodeSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Preference", nil, optionsValueSet)
 	}
-	return CodeSelect("preference", &resource.TypeTested[numTypeTested].Preference, optionsValueSet)
+	return CodeSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Preference", &resource.TypeTested[numTypeTested].Preference, optionsValueSet)
 }
-func (resource *SpecimenDefinition) T_TypeTestedRejectionCriterion(numTypeTested int, optionsValueSet []Coding) templ.Component {
+func (resource *SpecimenDefinition) T_TypeTestedRequirement(numTypeTested int) templ.Component {
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeableConceptSelect("rejectionCriterion", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Requirement", nil)
 	}
-	return CodeableConceptSelect("rejectionCriterion", &resource.TypeTested[numTypeTested].RejectionCriterion[0], optionsValueSet)
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Requirement", resource.TypeTested[numTypeTested].Requirement)
+}
+func (resource *SpecimenDefinition) T_TypeTestedRejectionCriterion(numTypeTested int, numRejectionCriterion int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested || len(resource.TypeTested[numTypeTested].RejectionCriterion) >= numRejectionCriterion {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].RejectionCriterion["+strconv.Itoa(numRejectionCriterion)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].RejectionCriterion["+strconv.Itoa(numRejectionCriterion)+"]", &resource.TypeTested[numTypeTested].RejectionCriterion[numRejectionCriterion], optionsValueSet)
+}
+func (resource *SpecimenDefinition) T_TypeTestedContainerId(numTypeTested int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Id", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Id", resource.TypeTested[numTypeTested].Container.Id)
 }
 func (resource *SpecimenDefinition) T_TypeTestedContainerMaterial(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeableConceptSelect("material", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Material", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("material", resource.TypeTested[numTypeTested].Container.Material, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Material", resource.TypeTested[numTypeTested].Container.Material, optionsValueSet)
 }
 func (resource *SpecimenDefinition) T_TypeTestedContainerType(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.TypeTested[numTypeTested].Container.Type, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Type", resource.TypeTested[numTypeTested].Container.Type, optionsValueSet)
 }
 func (resource *SpecimenDefinition) T_TypeTestedContainerCap(numTypeTested int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.TypeTested) >= numTypeTested {
-		return CodeableConceptSelect("cap", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Cap", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("cap", resource.TypeTested[numTypeTested].Container.Cap, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Cap", resource.TypeTested[numTypeTested].Container.Cap, optionsValueSet)
+}
+func (resource *SpecimenDefinition) T_TypeTestedContainerDescription(numTypeTested int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Description", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Description", resource.TypeTested[numTypeTested].Container.Description)
+}
+func (resource *SpecimenDefinition) T_TypeTestedContainerPreparation(numTypeTested int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Preparation", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Preparation", resource.TypeTested[numTypeTested].Container.Preparation)
+}
+func (resource *SpecimenDefinition) T_TypeTestedContainerAdditiveId(numTypeTested int, numAdditive int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested || len(resource.TypeTested[numTypeTested].Container.Additive) >= numAdditive {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Additive["+strconv.Itoa(numAdditive)+"].Id", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Container.Additive["+strconv.Itoa(numAdditive)+"].Id", resource.TypeTested[numTypeTested].Container.Additive[numAdditive].Id)
+}
+func (resource *SpecimenDefinition) T_TypeTestedHandlingId(numTypeTested int, numHandling int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested || len(resource.TypeTested[numTypeTested].Handling) >= numHandling {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].Id", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].Id", resource.TypeTested[numTypeTested].Handling[numHandling].Id)
 }
 func (resource *SpecimenDefinition) T_TypeTestedHandlingTemperatureQualifier(numTypeTested int, numHandling int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.TypeTested[numTypeTested].Handling) >= numHandling {
-		return CodeableConceptSelect("temperatureQualifier", nil, optionsValueSet)
+	if resource == nil || len(resource.TypeTested) >= numTypeTested || len(resource.TypeTested[numTypeTested].Handling) >= numHandling {
+		return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].TemperatureQualifier", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("temperatureQualifier", resource.TypeTested[numTypeTested].Handling[numHandling].TemperatureQualifier, optionsValueSet)
+	return CodeableConceptSelect("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].TemperatureQualifier", resource.TypeTested[numTypeTested].Handling[numHandling].TemperatureQualifier, optionsValueSet)
+}
+func (resource *SpecimenDefinition) T_TypeTestedHandlingInstruction(numTypeTested int, numHandling int) templ.Component {
+
+	if resource == nil || len(resource.TypeTested) >= numTypeTested || len(resource.TypeTested[numTypeTested].Handling) >= numHandling {
+		return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].Instruction", nil)
+	}
+	return StringInput("SpecimenDefinition.TypeTested["+strconv.Itoa(numTypeTested)+"].Handling["+strconv.Itoa(numHandling)+"].Instruction", resource.TypeTested[numTypeTested].Handling[numHandling].Instruction)
 }

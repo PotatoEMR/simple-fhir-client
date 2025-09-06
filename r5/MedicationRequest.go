@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/MedicationRequest
 type MedicationRequest struct {
@@ -100,76 +104,153 @@ func (r MedicationRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicationRequest) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.Id", nil)
+	}
+	return StringInput("MedicationRequest.Id", resource.Id)
+}
+func (resource *MedicationRequest) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.ImplicitRules", nil)
+	}
+	return StringInput("MedicationRequest.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicationRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicationRequest.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicationRequest.Language", resource.Language, optionsValueSet)
 }
 func (resource *MedicationRequest) T_Status() templ.Component {
 	optionsValueSet := VSMedicationrequest_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("MedicationRequest.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("MedicationRequest.Status", &resource.Status, optionsValueSet)
 }
 func (resource *MedicationRequest) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationRequest.StatusReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.StatusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *MedicationRequest) T_StatusChanged() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.StatusChanged", nil)
+	}
+	return StringInput("MedicationRequest.StatusChanged", resource.StatusChanged)
 }
 func (resource *MedicationRequest) T_Intent() templ.Component {
 	optionsValueSet := VSMedicationrequest_intent
 
 	if resource == nil {
-		return CodeSelect("intent", nil, optionsValueSet)
+		return CodeSelect("MedicationRequest.Intent", nil, optionsValueSet)
 	}
-	return CodeSelect("intent", &resource.Intent, optionsValueSet)
+	return CodeSelect("MedicationRequest.Intent", &resource.Intent, optionsValueSet)
 }
-func (resource *MedicationRequest) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationRequest) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("MedicationRequest.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *MedicationRequest) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("priority", nil, optionsValueSet)
+		return CodeSelect("MedicationRequest.Priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", resource.Priority, optionsValueSet)
+	return CodeSelect("MedicationRequest.Priority", resource.Priority, optionsValueSet)
+}
+func (resource *MedicationRequest) T_DoNotPerform() templ.Component {
+
+	if resource == nil {
+		return BoolInput("MedicationRequest.DoNotPerform", nil)
+	}
+	return BoolInput("MedicationRequest.DoNotPerform", resource.DoNotPerform)
+}
+func (resource *MedicationRequest) T_AuthoredOn() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.AuthoredOn", nil)
+	}
+	return StringInput("MedicationRequest.AuthoredOn", resource.AuthoredOn)
+}
+func (resource *MedicationRequest) T_Reported() templ.Component {
+
+	if resource == nil {
+		return BoolInput("MedicationRequest.Reported", nil)
+	}
+	return BoolInput("MedicationRequest.Reported", resource.Reported)
 }
 func (resource *MedicationRequest) T_PerformerType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("performerType", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationRequest.PerformerType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.PerformerType", resource.PerformerType, optionsValueSet)
 }
 func (resource *MedicationRequest) T_CourseOfTherapyType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("courseOfTherapyType", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationRequest.CourseOfTherapyType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("courseOfTherapyType", resource.CourseOfTherapyType, optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.CourseOfTherapyType", resource.CourseOfTherapyType, optionsValueSet)
+}
+func (resource *MedicationRequest) T_RenderedDosageInstruction() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.RenderedDosageInstruction", nil)
+	}
+	return StringInput("MedicationRequest.RenderedDosageInstruction", resource.RenderedDosageInstruction)
+}
+func (resource *MedicationRequest) T_DispenseRequestId() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.DispenseRequest.Id", nil)
+	}
+	return StringInput("MedicationRequest.DispenseRequest.Id", resource.DispenseRequest.Id)
+}
+func (resource *MedicationRequest) T_DispenseRequestNumberOfRepeatsAllowed() templ.Component {
+
+	if resource == nil {
+		return IntInput("MedicationRequest.DispenseRequest.NumberOfRepeatsAllowed", nil)
+	}
+	return IntInput("MedicationRequest.DispenseRequest.NumberOfRepeatsAllowed", resource.DispenseRequest.NumberOfRepeatsAllowed)
 }
 func (resource *MedicationRequest) T_DispenseRequestDoseAdministrationAid(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("doseAdministrationAid", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationRequest.DispenseRequest.DoseAdministrationAid", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("doseAdministrationAid", resource.DispenseRequest.DoseAdministrationAid, optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.DispenseRequest.DoseAdministrationAid", resource.DispenseRequest.DoseAdministrationAid, optionsValueSet)
+}
+func (resource *MedicationRequest) T_DispenseRequestInitialFillId() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.DispenseRequest.InitialFill.Id", nil)
+	}
+	return StringInput("MedicationRequest.DispenseRequest.InitialFill.Id", resource.DispenseRequest.InitialFill.Id)
+}
+func (resource *MedicationRequest) T_SubstitutionId() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationRequest.Substitution.Id", nil)
+	}
+	return StringInput("MedicationRequest.Substitution.Id", resource.Substitution.Id)
 }
 func (resource *MedicationRequest) T_SubstitutionReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reason", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationRequest.Substitution.Reason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("reason", resource.Substitution.Reason, optionsValueSet)
+	return CodeableConceptSelect("MedicationRequest.Substitution.Reason", resource.Substitution.Reason, optionsValueSet)
 }

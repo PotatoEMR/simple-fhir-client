@@ -1,11 +1,14 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/MedicinalProductUndesirableEffect
 type MedicinalProductUndesirableEffect struct {
@@ -37,31 +40,45 @@ func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicinalProductUndesirableEffect) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductUndesirableEffect.Id", nil)
+	}
+	return StringInput("MedicinalProductUndesirableEffect.Id", resource.Id)
+}
+func (resource *MedicinalProductUndesirableEffect) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductUndesirableEffect.ImplicitRules", nil)
+	}
+	return StringInput("MedicinalProductUndesirableEffect.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicinalProductUndesirableEffect) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicinalProductUndesirableEffect.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicinalProductUndesirableEffect.Language", resource.Language, optionsValueSet)
 }
 func (resource *MedicinalProductUndesirableEffect) T_SymptomConditionEffect(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("symptomConditionEffect", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductUndesirableEffect.SymptomConditionEffect", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("symptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductUndesirableEffect.SymptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet)
 }
 func (resource *MedicinalProductUndesirableEffect) T_Classification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("classification", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductUndesirableEffect.Classification", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("classification", resource.Classification, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductUndesirableEffect.Classification", resource.Classification, optionsValueSet)
 }
 func (resource *MedicinalProductUndesirableEffect) T_FrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductUndesirableEffect.FrequencyOfOccurrence", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("frequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductUndesirableEffect.FrequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet)
 }

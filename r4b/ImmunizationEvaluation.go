@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/ImmunizationEvaluation
 type ImmunizationEvaluation struct {
@@ -28,10 +32,10 @@ type ImmunizationEvaluation struct {
 	DoseStatusReason       []CodeableConcept `json:"doseStatusReason,omitempty"`
 	Description            *string           `json:"description,omitempty"`
 	Series                 *string           `json:"series,omitempty"`
-	DoseNumberPositiveInt  *int              `json:"doseNumberPositiveInt"`
-	DoseNumberString       *string           `json:"doseNumberString"`
-	SeriesDosesPositiveInt *int              `json:"seriesDosesPositiveInt"`
-	SeriesDosesString      *string           `json:"seriesDosesString"`
+	DoseNumberPositiveInt  *int              `json:"doseNumberPositiveInt,omitempty"`
+	DoseNumberString       *string           `json:"doseNumberString,omitempty"`
+	SeriesDosesPositiveInt *int              `json:"seriesDosesPositiveInt,omitempty"`
+	SeriesDosesString      *string           `json:"seriesDosesString,omitempty"`
 }
 
 type OtherImmunizationEvaluation ImmunizationEvaluation
@@ -47,39 +51,74 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ImmunizationEvaluation) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.Id", nil)
+	}
+	return StringInput("ImmunizationEvaluation.Id", resource.Id)
+}
+func (resource *ImmunizationEvaluation) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.ImplicitRules", nil)
+	}
+	return StringInput("ImmunizationEvaluation.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ImmunizationEvaluation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ImmunizationEvaluation.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ImmunizationEvaluation.Language", resource.Language, optionsValueSet)
 }
 func (resource *ImmunizationEvaluation) T_Status() templ.Component {
 	optionsValueSet := VSImmunization_evaluation_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ImmunizationEvaluation.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ImmunizationEvaluation.Status", &resource.Status, optionsValueSet)
+}
+func (resource *ImmunizationEvaluation) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.Date", nil)
+	}
+	return StringInput("ImmunizationEvaluation.Date", resource.Date)
 }
 func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("targetDisease", nil, optionsValueSet)
+		return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("targetDisease", &resource.TargetDisease, optionsValueSet)
+	return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", &resource.TargetDisease, optionsValueSet)
 }
 func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("doseStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("doseStatus", &resource.DoseStatus, optionsValueSet)
+	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", &resource.DoseStatus, optionsValueSet)
 }
-func (resource *ImmunizationEvaluation) T_DoseStatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_DoseStatusReason(numDoseStatusReason int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.DoseStatusReason) >= numDoseStatusReason {
+		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", &resource.DoseStatusReason[numDoseStatusReason], optionsValueSet)
+}
+func (resource *ImmunizationEvaluation) T_Description() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("doseStatusReason", nil, optionsValueSet)
+		return StringInput("ImmunizationEvaluation.Description", nil)
 	}
-	return CodeableConceptSelect("doseStatusReason", &resource.DoseStatusReason[0], optionsValueSet)
+	return StringInput("ImmunizationEvaluation.Description", resource.Description)
+}
+func (resource *ImmunizationEvaluation) T_Series() templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.Series", nil)
+	}
+	return StringInput("ImmunizationEvaluation.Series", resource.Series)
 }

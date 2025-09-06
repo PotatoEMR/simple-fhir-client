@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/ChargeItem
 type ChargeItem struct {
@@ -25,9 +29,9 @@ type ChargeItem struct {
 	Code                   CodeableConcept       `json:"code"`
 	Subject                Reference             `json:"subject"`
 	Encounter              *Reference            `json:"encounter,omitempty"`
-	OccurrenceDateTime     *string               `json:"occurrenceDateTime"`
-	OccurrencePeriod       *Period               `json:"occurrencePeriod"`
-	OccurrenceTiming       *Timing               `json:"occurrenceTiming"`
+	OccurrenceDateTime     *string               `json:"occurrenceDateTime,omitempty"`
+	OccurrencePeriod       *Period               `json:"occurrencePeriod,omitempty"`
+	OccurrenceTiming       *Timing               `json:"occurrenceTiming,omitempty"`
 	Performer              []ChargeItemPerformer `json:"performer,omitempty"`
 	PerformingOrganization *Reference            `json:"performingOrganization,omitempty"`
 	RequestingOrganization *Reference            `json:"requestingOrganization,omitempty"`
@@ -69,53 +73,95 @@ func (r ChargeItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ChargeItem) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItem.Id", nil)
+	}
+	return StringInput("ChargeItem.Id", resource.Id)
+}
+func (resource *ChargeItem) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItem.ImplicitRules", nil)
+	}
+	return StringInput("ChargeItem.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ChargeItem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ChargeItem.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ChargeItem.Language", resource.Language, optionsValueSet)
+}
+func (resource *ChargeItem) T_DefinitionUri(numDefinitionUri int) templ.Component {
+
+	if resource == nil || len(resource.DefinitionUri) >= numDefinitionUri {
+		return StringInput("ChargeItem.DefinitionUri["+strconv.Itoa(numDefinitionUri)+"]", nil)
+	}
+	return StringInput("ChargeItem.DefinitionUri["+strconv.Itoa(numDefinitionUri)+"]", &resource.DefinitionUri[numDefinitionUri])
+}
+func (resource *ChargeItem) T_DefinitionCanonical(numDefinitionCanonical int) templ.Component {
+
+	if resource == nil || len(resource.DefinitionCanonical) >= numDefinitionCanonical {
+		return StringInput("ChargeItem.DefinitionCanonical["+strconv.Itoa(numDefinitionCanonical)+"]", nil)
+	}
+	return StringInput("ChargeItem.DefinitionCanonical["+strconv.Itoa(numDefinitionCanonical)+"]", &resource.DefinitionCanonical[numDefinitionCanonical])
 }
 func (resource *ChargeItem) T_Status() templ.Component {
 	optionsValueSet := VSChargeitem_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ChargeItem.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ChargeItem.Status", &resource.Status, optionsValueSet)
 }
 func (resource *ChargeItem) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("ChargeItem.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("ChargeItem.Code", &resource.Code, optionsValueSet)
 }
-func (resource *ChargeItem) T_Bodysite(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_Bodysite(numBodysite int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("bodysite", nil, optionsValueSet)
+	if resource == nil || len(resource.Bodysite) >= numBodysite {
+		return CodeableConceptSelect("ChargeItem.Bodysite["+strconv.Itoa(numBodysite)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("bodysite", &resource.Bodysite[0], optionsValueSet)
+	return CodeableConceptSelect("ChargeItem.Bodysite["+strconv.Itoa(numBodysite)+"]", &resource.Bodysite[numBodysite], optionsValueSet)
 }
 func (resource *ChargeItem) T_OverrideReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("overrideReason", nil, optionsValueSet)
+		return CodeableConceptSelect("ChargeItem.OverrideReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("overrideReason", resource.OverrideReason, optionsValueSet)
+	return CodeableConceptSelect("ChargeItem.OverrideReason", resource.OverrideReason, optionsValueSet)
 }
-func (resource *ChargeItem) T_Reason(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItem) T_EnteredDate() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reason", nil, optionsValueSet)
+		return StringInput("ChargeItem.EnteredDate", nil)
 	}
-	return CodeableConceptSelect("reason", &resource.Reason[0], optionsValueSet)
+	return StringInput("ChargeItem.EnteredDate", resource.EnteredDate)
+}
+func (resource *ChargeItem) T_Reason(numReason int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Reason) >= numReason {
+		return CodeableConceptSelect("ChargeItem.Reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ChargeItem.Reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], optionsValueSet)
+}
+func (resource *ChargeItem) T_PerformerId(numPerformer int) templ.Component {
+
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return StringInput("ChargeItem.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	}
+	return StringInput("ChargeItem.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
 }
 func (resource *ChargeItem) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("ChargeItem.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("ChargeItem.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
 }

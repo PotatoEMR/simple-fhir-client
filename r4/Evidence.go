@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/Evidence
 type Evidence struct {
@@ -60,32 +64,130 @@ func (r Evidence) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Evidence) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Id", nil)
+	}
+	return StringInput("Evidence.Id", resource.Id)
+}
+func (resource *Evidence) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.ImplicitRules", nil)
+	}
+	return StringInput("Evidence.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Evidence) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Evidence.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Evidence.Language", resource.Language, optionsValueSet)
+}
+func (resource *Evidence) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Url", nil)
+	}
+	return StringInput("Evidence.Url", resource.Url)
+}
+func (resource *Evidence) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Version", nil)
+	}
+	return StringInput("Evidence.Version", resource.Version)
+}
+func (resource *Evidence) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Name", nil)
+	}
+	return StringInput("Evidence.Name", resource.Name)
+}
+func (resource *Evidence) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Title", nil)
+	}
+	return StringInput("Evidence.Title", resource.Title)
+}
+func (resource *Evidence) T_ShortTitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.ShortTitle", nil)
+	}
+	return StringInput("Evidence.ShortTitle", resource.ShortTitle)
+}
+func (resource *Evidence) T_Subtitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Subtitle", nil)
+	}
+	return StringInput("Evidence.Subtitle", resource.Subtitle)
 }
 func (resource *Evidence) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Evidence.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Evidence.Status", &resource.Status, optionsValueSet)
 }
-func (resource *Evidence) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *Evidence) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return StringInput("Evidence.Date", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return StringInput("Evidence.Date", resource.Date)
 }
-func (resource *Evidence) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *Evidence) T_Publisher() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("Evidence.Publisher", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("Evidence.Publisher", resource.Publisher)
+}
+func (resource *Evidence) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Description", nil)
+	}
+	return StringInput("Evidence.Description", resource.Description)
+}
+func (resource *Evidence) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("Evidence.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Evidence.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *Evidence) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.Copyright", nil)
+	}
+	return StringInput("Evidence.Copyright", resource.Copyright)
+}
+func (resource *Evidence) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.ApprovalDate", nil)
+	}
+	return StringInput("Evidence.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *Evidence) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Evidence.LastReviewDate", nil)
+	}
+	return StringInput("Evidence.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *Evidence) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("Evidence.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Evidence.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/DeviceUsage
 type DeviceUsage struct {
@@ -24,9 +28,9 @@ type DeviceUsage struct {
 	Patient           Reference             `json:"patient"`
 	DerivedFrom       []Reference           `json:"derivedFrom,omitempty"`
 	Context           *Reference            `json:"context,omitempty"`
-	TimingTiming      *Timing               `json:"timingTiming"`
-	TimingPeriod      *Period               `json:"timingPeriod"`
-	TimingDateTime    *string               `json:"timingDateTime"`
+	TimingTiming      *Timing               `json:"timingTiming,omitempty"`
+	TimingPeriod      *Period               `json:"timingPeriod,omitempty"`
+	TimingDateTime    *string               `json:"timingDateTime,omitempty"`
 	DateAsserted      *string               `json:"dateAsserted,omitempty"`
 	UsageStatus       *CodeableConcept      `json:"usageStatus,omitempty"`
 	UsageReason       []CodeableConcept     `json:"usageReason,omitempty"`
@@ -60,54 +64,82 @@ func (r DeviceUsage) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DeviceUsage) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceUsage.Id", nil)
+	}
+	return StringInput("DeviceUsage.Id", resource.Id)
+}
+func (resource *DeviceUsage) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceUsage.ImplicitRules", nil)
+	}
+	return StringInput("DeviceUsage.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DeviceUsage) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DeviceUsage.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DeviceUsage.Language", resource.Language, optionsValueSet)
 }
 func (resource *DeviceUsage) T_Status() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("DeviceUsage.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("DeviceUsage.Status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceUsage) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("DeviceUsage.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("DeviceUsage.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *DeviceUsage) T_DateAsserted() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+		return StringInput("DeviceUsage.DateAsserted", nil)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return StringInput("DeviceUsage.DateAsserted", resource.DateAsserted)
 }
 func (resource *DeviceUsage) T_UsageStatus() templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
-		return CodeableConceptSelect("usageStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("DeviceUsage.UsageStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("usageStatus", resource.UsageStatus, optionsValueSet)
+	return CodeableConceptSelect("DeviceUsage.UsageStatus", resource.UsageStatus, optionsValueSet)
 }
-func (resource *DeviceUsage) T_UsageReason(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_UsageReason(numUsageReason int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.UsageReason) >= numUsageReason {
+		return CodeableConceptSelect("DeviceUsage.UsageReason["+strconv.Itoa(numUsageReason)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("DeviceUsage.UsageReason["+strconv.Itoa(numUsageReason)+"]", &resource.UsageReason[numUsageReason], optionsValueSet)
+}
+func (resource *DeviceUsage) T_AdherenceId() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("usageReason", nil, optionsValueSet)
+		return StringInput("DeviceUsage.Adherence.Id", nil)
 	}
-	return CodeableConceptSelect("usageReason", &resource.UsageReason[0], optionsValueSet)
+	return StringInput("DeviceUsage.Adherence.Id", resource.Adherence.Id)
 }
 func (resource *DeviceUsage) T_AdherenceCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("DeviceUsage.Adherence.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Adherence.Code, optionsValueSet)
+	return CodeableConceptSelect("DeviceUsage.Adherence.Code", &resource.Adherence.Code, optionsValueSet)
 }
-func (resource *DeviceUsage) T_AdherenceReason(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUsage) T_AdherenceReason(numReason int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("reason", nil, optionsValueSet)
+	if resource == nil || len(resource.Adherence.Reason) >= numReason {
+		return CodeableConceptSelect("DeviceUsage.Adherence.Reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("reason", &resource.Adherence.Reason[0], optionsValueSet)
+	return CodeableConceptSelect("DeviceUsage.Adherence.Reason["+strconv.Itoa(numReason)+"]", &resource.Adherence.Reason[numReason], optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/HealthcareService
 type HealthcareService struct {
@@ -64,73 +68,136 @@ func (r HealthcareService) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *HealthcareService) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("HealthcareService.Id", nil)
+	}
+	return StringInput("HealthcareService.Id", resource.Id)
+}
+func (resource *HealthcareService) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("HealthcareService.ImplicitRules", nil)
+	}
+	return StringInput("HealthcareService.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *HealthcareService) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("HealthcareService.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("HealthcareService.Language", resource.Language, optionsValueSet)
 }
-func (resource *HealthcareService) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_Active() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+		return BoolInput("HealthcareService.Active", nil)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return BoolInput("HealthcareService.Active", resource.Active)
 }
-func (resource *HealthcareService) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("HealthcareService.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *HealthcareService) T_Type(numType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Type) >= numType {
+		return CodeableConceptSelect("HealthcareService.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
+}
+func (resource *HealthcareService) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Specialty) >= numSpecialty {
+		return CodeableConceptSelect("HealthcareService.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
+}
+func (resource *HealthcareService) T_Name() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return StringInput("HealthcareService.Name", nil)
 	}
-	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+	return StringInput("HealthcareService.Name", resource.Name)
 }
-func (resource *HealthcareService) T_Specialty(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_Comment() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("specialty", nil, optionsValueSet)
+		return StringInput("HealthcareService.Comment", nil)
 	}
-	return CodeableConceptSelect("specialty", &resource.Specialty[0], optionsValueSet)
+	return StringInput("HealthcareService.Comment", resource.Comment)
 }
-func (resource *HealthcareService) T_ServiceProvisionCode(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_ExtraDetails() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("serviceProvisionCode", nil, optionsValueSet)
+		return StringInput("HealthcareService.ExtraDetails", nil)
 	}
-	return CodeableConceptSelect("serviceProvisionCode", &resource.ServiceProvisionCode[0], optionsValueSet)
+	return StringInput("HealthcareService.ExtraDetails", resource.ExtraDetails)
 }
-func (resource *HealthcareService) T_Program(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_ServiceProvisionCode(numServiceProvisionCode int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ServiceProvisionCode) >= numServiceProvisionCode {
+		return CodeableConceptSelect("HealthcareService.ServiceProvisionCode["+strconv.Itoa(numServiceProvisionCode)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.ServiceProvisionCode["+strconv.Itoa(numServiceProvisionCode)+"]", &resource.ServiceProvisionCode[numServiceProvisionCode], optionsValueSet)
+}
+func (resource *HealthcareService) T_Program(numProgram int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Program) >= numProgram {
+		return CodeableConceptSelect("HealthcareService.Program["+strconv.Itoa(numProgram)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Program["+strconv.Itoa(numProgram)+"]", &resource.Program[numProgram], optionsValueSet)
+}
+func (resource *HealthcareService) T_Characteristic(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("HealthcareService.Characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet)
+}
+func (resource *HealthcareService) T_Communication(numCommunication int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Communication) >= numCommunication {
+		return CodeableConceptSelect("HealthcareService.Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet)
+}
+func (resource *HealthcareService) T_ReferralMethod(numReferralMethod int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ReferralMethod) >= numReferralMethod {
+		return CodeableConceptSelect("HealthcareService.ReferralMethod["+strconv.Itoa(numReferralMethod)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("HealthcareService.ReferralMethod["+strconv.Itoa(numReferralMethod)+"]", &resource.ReferralMethod[numReferralMethod], optionsValueSet)
+}
+func (resource *HealthcareService) T_AppointmentRequired() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("program", nil, optionsValueSet)
+		return BoolInput("HealthcareService.AppointmentRequired", nil)
 	}
-	return CodeableConceptSelect("program", &resource.Program[0], optionsValueSet)
+	return BoolInput("HealthcareService.AppointmentRequired", resource.AppointmentRequired)
 }
-func (resource *HealthcareService) T_Characteristic(optionsValueSet []Coding) templ.Component {
+func (resource *HealthcareService) T_EligibilityId(numEligibility int) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
+	if resource == nil || len(resource.Eligibility) >= numEligibility {
+		return StringInput("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Id", nil)
 	}
-	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
-}
-func (resource *HealthcareService) T_Communication(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("communication", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("communication", &resource.Communication[0], optionsValueSet)
-}
-func (resource *HealthcareService) T_ReferralMethod(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("referralMethod", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("referralMethod", &resource.ReferralMethod[0], optionsValueSet)
+	return StringInput("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Id", resource.Eligibility[numEligibility].Id)
 }
 func (resource *HealthcareService) T_EligibilityCode(numEligibility int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Eligibility) >= numEligibility {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Eligibility) >= numEligibility {
+		return CodeableConceptSelect("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Eligibility[numEligibility].Code, optionsValueSet)
+	return CodeableConceptSelect("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Code", resource.Eligibility[numEligibility].Code, optionsValueSet)
+}
+func (resource *HealthcareService) T_EligibilityComment(numEligibility int) templ.Component {
+
+	if resource == nil || len(resource.Eligibility) >= numEligibility {
+		return StringInput("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Comment", nil)
+	}
+	return StringInput("HealthcareService.Eligibility["+strconv.Itoa(numEligibility)+"].Comment", resource.Eligibility[numEligibility].Comment)
 }

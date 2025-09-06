@@ -1,10 +1,10 @@
 package r5
 
-//generated with command go run ./bultaoreune
+import "strings"
+
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
-
-import "strings"
 
 // http://hl7.org/fhir/r5/StructureDefinition/CodeableConcept
 type CodeableConcept struct {

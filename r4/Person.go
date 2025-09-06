@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/Person
 type Person struct {
@@ -51,26 +55,61 @@ func (r Person) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Person) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Person.Id", nil)
+	}
+	return StringInput("Person.Id", resource.Id)
+}
+func (resource *Person) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Person.ImplicitRules", nil)
+	}
+	return StringInput("Person.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Person) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Person.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Person.Language", resource.Language, optionsValueSet)
 }
 func (resource *Person) T_Gender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("gender", nil, optionsValueSet)
+		return CodeSelect("Person.Gender", nil, optionsValueSet)
 	}
-	return CodeSelect("gender", resource.Gender, optionsValueSet)
+	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet)
+}
+func (resource *Person) T_BirthDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Person.BirthDate", nil)
+	}
+	return StringInput("Person.BirthDate", resource.BirthDate)
+}
+func (resource *Person) T_Active() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Person.Active", nil)
+	}
+	return BoolInput("Person.Active", resource.Active)
+}
+func (resource *Person) T_LinkId(numLink int) templ.Component {
+
+	if resource == nil || len(resource.Link) >= numLink {
+		return StringInput("Person.Link["+strconv.Itoa(numLink)+"].Id", nil)
+	}
+	return StringInput("Person.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
 }
 func (resource *Person) T_LinkAssurance(numLink int) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
-	if resource == nil && len(resource.Link) >= numLink {
-		return CodeSelect("assurance", nil, optionsValueSet)
+	if resource == nil || len(resource.Link) >= numLink {
+		return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", nil, optionsValueSet)
 	}
-	return CodeSelect("assurance", resource.Link[numLink].Assurance, optionsValueSet)
+	return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", resource.Link[numLink].Assurance, optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/ChargeItemDefinition
 type ChargeItemDefinition struct {
@@ -84,47 +88,201 @@ func (r ChargeItemDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ChargeItemDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Id", nil)
+	}
+	return StringInput("ChargeItemDefinition.Id", resource.Id)
+}
+func (resource *ChargeItemDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ChargeItemDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ChargeItemDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ChargeItemDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ChargeItemDefinition.Language", resource.Language, optionsValueSet)
+}
+func (resource *ChargeItemDefinition) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Url", nil)
+	}
+	return StringInput("ChargeItemDefinition.Url", &resource.Url)
+}
+func (resource *ChargeItemDefinition) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Version", nil)
+	}
+	return StringInput("ChargeItemDefinition.Version", resource.Version)
+}
+func (resource *ChargeItemDefinition) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Title", nil)
+	}
+	return StringInput("ChargeItemDefinition.Title", resource.Title)
+}
+func (resource *ChargeItemDefinition) T_DerivedFromUri(numDerivedFromUri int) templ.Component {
+
+	if resource == nil || len(resource.DerivedFromUri) >= numDerivedFromUri {
+		return StringInput("ChargeItemDefinition.DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", nil)
+	}
+	return StringInput("ChargeItemDefinition.DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", &resource.DerivedFromUri[numDerivedFromUri])
+}
+func (resource *ChargeItemDefinition) T_PartOf(numPartOf int) templ.Component {
+
+	if resource == nil || len(resource.PartOf) >= numPartOf {
+		return StringInput("ChargeItemDefinition.PartOf["+strconv.Itoa(numPartOf)+"]", nil)
+	}
+	return StringInput("ChargeItemDefinition.PartOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf])
+}
+func (resource *ChargeItemDefinition) T_Replaces(numReplaces int) templ.Component {
+
+	if resource == nil || len(resource.Replaces) >= numReplaces {
+		return StringInput("ChargeItemDefinition.Replaces["+strconv.Itoa(numReplaces)+"]", nil)
+	}
+	return StringInput("ChargeItemDefinition.Replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces])
 }
 func (resource *ChargeItemDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ChargeItemDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ChargeItemDefinition.Status", &resource.Status, optionsValueSet)
 }
-func (resource *ChargeItemDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ChargeItemDefinition) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("ChargeItemDefinition.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("ChargeItemDefinition.Experimental", resource.Experimental)
+}
+func (resource *ChargeItemDefinition) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Date", nil)
+	}
+	return StringInput("ChargeItemDefinition.Date", resource.Date)
+}
+func (resource *ChargeItemDefinition) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Publisher", nil)
+	}
+	return StringInput("ChargeItemDefinition.Publisher", resource.Publisher)
+}
+func (resource *ChargeItemDefinition) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Description", nil)
+	}
+	return StringInput("ChargeItemDefinition.Description", resource.Description)
+}
+func (resource *ChargeItemDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("ChargeItemDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ChargeItemDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *ChargeItemDefinition) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.Copyright", nil)
+	}
+	return StringInput("ChargeItemDefinition.Copyright", resource.Copyright)
+}
+func (resource *ChargeItemDefinition) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.ApprovalDate", nil)
+	}
+	return StringInput("ChargeItemDefinition.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *ChargeItemDefinition) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("ChargeItemDefinition.LastReviewDate", nil)
+	}
+	return StringInput("ChargeItemDefinition.LastReviewDate", resource.LastReviewDate)
 }
 func (resource *ChargeItemDefinition) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("ChargeItemDefinition.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("ChargeItemDefinition.Code", resource.Code, optionsValueSet)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityId(numApplicability int) templ.Component {
+
+	if resource == nil || len(resource.Applicability) >= numApplicability {
+		return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Id", nil)
+	}
+	return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Id", resource.Applicability[numApplicability].Id)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityDescription(numApplicability int) templ.Component {
+
+	if resource == nil || len(resource.Applicability) >= numApplicability {
+		return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Description", nil)
+	}
+	return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Description", resource.Applicability[numApplicability].Description)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityLanguage(numApplicability int) templ.Component {
+
+	if resource == nil || len(resource.Applicability) >= numApplicability {
+		return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Language", nil)
+	}
+	return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Language", resource.Applicability[numApplicability].Language)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityExpression(numApplicability int) templ.Component {
+
+	if resource == nil || len(resource.Applicability) >= numApplicability {
+		return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Expression", nil)
+	}
+	return StringInput("ChargeItemDefinition.Applicability["+strconv.Itoa(numApplicability)+"].Expression", resource.Applicability[numApplicability].Expression)
+}
+func (resource *ChargeItemDefinition) T_PropertyGroupId(numPropertyGroup int) templ.Component {
+
+	if resource == nil || len(resource.PropertyGroup) >= numPropertyGroup {
+		return StringInput("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].Id", nil)
+	}
+	return StringInput("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].Id", resource.PropertyGroup[numPropertyGroup].Id)
+}
+func (resource *ChargeItemDefinition) T_PropertyGroupPriceComponentId(numPropertyGroup int, numPriceComponent int) templ.Component {
+
+	if resource == nil || len(resource.PropertyGroup) >= numPropertyGroup || len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
+		return StringInput("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Id", nil)
+	}
+	return StringInput("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Id", resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Id)
 }
 func (resource *ChargeItemDefinition) T_PropertyGroupPriceComponentType(numPropertyGroup int, numPriceComponent int) templ.Component {
 	optionsValueSet := VSInvoice_priceComponentType
 
-	if resource == nil && len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
-		return CodeSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.PropertyGroup) >= numPropertyGroup || len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
+		return CodeSelect("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Type, optionsValueSet)
+	return CodeSelect("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Type", &resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Type, optionsValueSet)
 }
 func (resource *ChargeItemDefinition) T_PropertyGroupPriceComponentCode(numPropertyGroup int, numPriceComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.PropertyGroup) >= numPropertyGroup || len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
+		return CodeableConceptSelect("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Code, optionsValueSet)
+	return CodeableConceptSelect("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Code", resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Code, optionsValueSet)
+}
+func (resource *ChargeItemDefinition) T_PropertyGroupPriceComponentFactor(numPropertyGroup int, numPriceComponent int) templ.Component {
+
+	if resource == nil || len(resource.PropertyGroup) >= numPropertyGroup || len(resource.PropertyGroup[numPropertyGroup].PriceComponent) >= numPriceComponent {
+		return Float64Input("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Factor", nil)
+	}
+	return Float64Input("ChargeItemDefinition.PropertyGroup["+strconv.Itoa(numPropertyGroup)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Factor", resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent].Factor)
 }

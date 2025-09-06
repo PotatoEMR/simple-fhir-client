@@ -43,7 +43,6 @@ func main() {
 	for _, v := range fhirVersions {
 		os.RemoveAll(v)
 		os.RemoveAll(v + "Client")
-		os.RemoveAll(v + "AllValueSets")
 	}
 
 	//get spec json file from fhir site, if run without -nodownload
@@ -94,10 +93,8 @@ func main() {
 		}
 		generateDirVer := path.Join(generateDir, fhirVersion)
 		generateClientDirVer := path.Join(generateDir, fhirVersion+"Client")
-		generateAllVSDirVer := path.Join(generateDir, fhirVersion+"AllValueSets")
 		os.MkdirAll(generateDirVer, 0755)
 		os.MkdirAll(generateClientDirVer, 0755)
-		os.MkdirAll(generateAllVSDirVer, 0755)
 		//endregion
 
 		//these are all valuesets, regardless of if field binding is required or just example
@@ -125,8 +122,8 @@ func main() {
 	}
 	fmt.Println(string(out))
 
-	fmt.Println("finished writing files, running gofmt")
-	exec.Command("gofmt", "-w", ".").Run()
+	fmt.Println("finished writing files, formatting with goimports")
+	exec.Command("goimports", "-w", ".").Run()
 }
 
 // region Profiles Parsing
@@ -193,7 +190,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 		fmt.Printf("did not find %s, probably messed up download\n", spec_file)
 	}
 	defer spec.Close()
-	resStrs, resImports := ResourceStrings()
+	resStrs, _ := ResourceStrings()
 	var bundle Bundle
 	if err := json.NewDecoder(spec).Decode(&bundle); err != nil {
 		panic(err)
@@ -225,7 +222,11 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 			//also adding forms input field funcs as we go through
 		}
 
-		bbcard := make(map[string]string) //just for forms, to know if backbone elements in field path are [] or not
+		pathCard := make(map[string]string)
+		//just for forms, to know if backbone elements in field path are [] or not
+		for _, elt := range res.Snapshot.Element {
+			pathCard[elt.Path] = elt.Max
+		}
 
 		//map of structs -> fields needed to list out all the BackboneElements
 		//because they're subcomponents eg Allergy -> Reaction
@@ -244,7 +245,6 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 			fieldPath := fieldPathMinusLast + strings.Title(pathParts[len(pathParts)-1])
 			if len(elt.Type) > 0 && elt.Type[0].Code == "BackboneElement" {
 				structs[fieldPath] = []Element{}
-				bbcard[fieldPath] = elt.Max
 				structInsertionOrder = append(structInsertionOrder, fieldPath)
 				structs[fieldPathMinusLast] = append(structs[fieldPathMinusLast], elt)
 			} else {
@@ -255,22 +255,9 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 		var sb strings.Builder
 		// Generate go struct using parsed element fields
 
-		if isDomainResource {
-			sb.WriteString("import \"encoding/json\"\n")
-			//sb.WriteString(fmt.Sprintf("import \"net/url\"\n") //will need for encode search params
-		}
 		if isDR {
 			sb.WriteString("import \"github.com/a-h/templ\"\n")
 		} //there are 2 domain resource bools that do slightly different things or the same thing idk probably terrible either way will fix it later
-		if slices.Contains(resImports, res.Name) {
-			sb.WriteString("import \"strings\"\n")
-		}
-		if res.Name == "Bundle" {
-			sb.WriteString(`import (
-				"encoding/json"
-				"errors")`)
-			//bundle is not a domain resource but gets custom unmarshal to parse into typed resources
-		}
 		sb.WriteString("\n")
 
 		for _, s_name := range structInsertionOrder {
@@ -285,60 +272,77 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 
 				//take a break from structs to write form methods...kind of mixed up with structs
 				if len(elt.Type) == 1 {
-					//if fhirPrimitive_to_GolangType[elt.Type[0].Code] != "" {
-					//fmt.Println("primitive", elt.Path, elt.Type[0].Code)
-					//}
-					if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
+
+					eltGoType, ok := fhirPrimitive_to_GolangType[elt.Type[0].Code]
+					if ok || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
+						optionsValueSet := ""
+						vsParam := ""
+						vsReq := ""
+						if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
+							optionsValueSet = ", optionsValueSet"
+							varname := urlToVarname(elt.Binding.ValueSet)
+							if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
+								vsReq = "optionsValueSet := " + "VS" + varname + "\n"
+							} else {
+								vsParam = "optionsValueSet []Coding"
+							}
+						}
+						//forms
 						caps := []string{}
 						for _, s := range parts[1:] {
 							caps = append(caps, strings.Title(s))
 						}
-						backbonePath := "resource." //this one actually used in field
-						pathString := res.Name      //need to check if each backbone element along the way is cardinality * or not to make [n] or not
+						backbonePath := "resource" //this one actually used in field
 						intParams := ""
 						bbCheck := ""
-						vsParam := ""
-						vsReq := ""
-						varname := urlToVarname(elt.Binding.ValueSet)
-						if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
-							vsReq = "optionsValueSet := " + "VS" + varname + "\n"
-						} else {
-							vsParam = "optionsValueSet []Coding"
+						formName := res.Name
+
+						//need to check if each backbone element along the way is cardinality * or not to make [n] or not
+						pathString := res.Name
+						for _, p := range parts[1:len(parts)] {
+							pUpper := strings.Title(p)
+							pUpperNum := "num" + pUpper
+							pathString = pathString + "." + p
+							//fmt.Println("path", pathString)
+							if pathCard[pathString] == "*" {
+								fmt.Println("star", pathString)
+								intParams = intParams + pUpperNum + " int, "
+								bbCheck = bbCheck + " || len(" + backbonePath + "." + pUpper + ") >= " + pUpperNum
+								backbonePath = backbonePath + "." + pUpper + "[" + pUpperNum + "]"
+								formName = formName + "." + pUpper + "[\"+strconv.Itoa(" + pUpperNum + ")+\"]"
+							} else {
+								fmt.Println("normal", pathString)
+								backbonePath = backbonePath + "." + pUpper
+								formName = formName + "." + pUpper
+							}
 						}
 
-						for i, p := range parts {
-							if i > 0 && i < len(parts)-1 {
-								pUpper := strings.Title(p)
-								pUpperNum := "num" + pUpper
-								pathString = pathString + pUpper
-								if bbcard[pathString] == "*" {
-									intParams = intParams + pUpperNum + " int, "
-									bbCheck = " && len(" + backbonePath + pUpper + ") >= " + pUpperNum
-									backbonePath = backbonePath + pUpper + "[" + pUpperNum + "]."
-								} else {
-									//might not work if nil in nested backbone element path?
-									backbonePath = backbonePath + pUpper + "."
-								}
-							}
-						}
 						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
-							` + vsReq + `
-							if resource == nil ` + bbCheck + `{`)
-						var fieldVal string
+								        ` + vsReq + `
+								        if resource == nil ` + bbCheck + `{`)
 						if elt.Max == "*" {
-							fieldVal = "&" + backbonePath + fieldName + `[0]`
-						} else if elt.Min == 0 {
-							fieldVal = backbonePath + fieldName
+							backbonePath = "&" + backbonePath //+ `[num` + strings.Title(parts[len(parts)-1]) + `]`
+							fmt.Println(elt.Path, "max *")
 						} else if elt.Min == 1 {
-							fieldVal = "&" + backbonePath + fieldName
+							backbonePath = "&" + backbonePath
+							fmt.Println(elt.Path, "min 1")
 						}
-						selectType := strings.Title(elt.Type[0].Code + "Select")
+
+						inputType := "StringInput"
+						if eltGoType == "bool" {
+							inputType = "BoolInput"
+						} else if eltGoType == "float64" || eltGoType == "int" || eltGoType == "int64" {
+							inputType = strings.Title(eltGoType) + "Input"
+						} else if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
+							inputType = strings.Title(elt.Type[0].Code + "Select")
+						}
+
 						formFuncs.WriteString(`
-								return ` + selectType + `("` + fieldName_lower + `", nil, optionsValueSet)
-								}
-							return ` + selectType + `("` + fieldName_lower + `", ` + fieldVal + `, optionsValueSet)
-							}
-							`)
+					        return ` + inputType + `("` + formName + `", nil` + optionsValueSet + `)
+					        }
+					    return ` + inputType + `("` + formName + `", ` + backbonePath + optionsValueSet + `)
+					    }
+						`)
 					}
 				}
 
@@ -361,7 +365,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 					}
 				}
 				omitempty := ",omitempty"
-				if elt.Min == 1 || len(elt.Type) > 1 {
+				if elt.Min == 1 /*|| len(elt.Type) > 1*/ {
 					omitempty = ""
 				}
 				for _, t := range elt.Type {
@@ -591,3 +595,13 @@ func fileToClient(spec_file, generateDirVer, fhirVersion, generateClientDirVer, 
 }
 
 //endregion
+
+func generateIndexes(parts []string) string {
+	vars := []string{}
+	pathStr := ""
+	for _, p := range parts {
+		pathStr += strings.Title(p)
+		vars = append(vars, "num"+strings.Title(p))
+	}
+	return strings.Join(vars, ", ")
+}

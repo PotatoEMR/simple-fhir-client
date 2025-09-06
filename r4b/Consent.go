@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Consent
 type Consent struct {
@@ -25,8 +29,8 @@ type Consent struct {
 	DateTime          *string               `json:"dateTime,omitempty"`
 	Performer         []Reference           `json:"performer,omitempty"`
 	Organization      []Reference           `json:"organization,omitempty"`
-	SourceAttachment  *Attachment           `json:"sourceAttachment"`
-	SourceReference   *Reference            `json:"sourceReference"`
+	SourceAttachment  *Attachment           `json:"sourceAttachment,omitempty"`
+	SourceReference   *Reference            `json:"sourceReference,omitempty"`
 	Policy            []ConsentPolicy       `json:"policy,omitempty"`
 	PolicyRule        *CodeableConcept      `json:"policyRule,omitempty"`
 	Verification      []ConsentVerification `json:"verification,omitempty"`
@@ -100,97 +104,181 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Consent) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Consent.Id", nil)
+	}
+	return StringInput("Consent.Id", resource.Id)
+}
+func (resource *Consent) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Consent.ImplicitRules", nil)
+	}
+	return StringInput("Consent.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Consent) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Consent.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Consent.Language", resource.Language, optionsValueSet)
 }
 func (resource *Consent) T_Status() templ.Component {
 	optionsValueSet := VSConsent_state_codes
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Consent.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Consent.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Consent) T_Scope(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("scope", nil, optionsValueSet)
+		return CodeableConceptSelect("Consent.Scope", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("scope", &resource.Scope, optionsValueSet)
+	return CodeableConceptSelect("Consent.Scope", &resource.Scope, optionsValueSet)
 }
-func (resource *Consent) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("Consent.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Consent.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *Consent) T_DateTime() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+		return StringInput("Consent.DateTime", nil)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return StringInput("Consent.DateTime", resource.DateTime)
 }
 func (resource *Consent) T_PolicyRule(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("policyRule", nil, optionsValueSet)
+		return CodeableConceptSelect("Consent.PolicyRule", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("policyRule", resource.PolicyRule, optionsValueSet)
+	return CodeableConceptSelect("Consent.PolicyRule", resource.PolicyRule, optionsValueSet)
+}
+func (resource *Consent) T_PolicyId(numPolicy int) templ.Component {
+
+	if resource == nil || len(resource.Policy) >= numPolicy {
+		return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Id", nil)
+	}
+	return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Id", resource.Policy[numPolicy].Id)
+}
+func (resource *Consent) T_PolicyAuthority(numPolicy int) templ.Component {
+
+	if resource == nil || len(resource.Policy) >= numPolicy {
+		return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Authority", nil)
+	}
+	return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Authority", resource.Policy[numPolicy].Authority)
+}
+func (resource *Consent) T_PolicyUri(numPolicy int) templ.Component {
+
+	if resource == nil || len(resource.Policy) >= numPolicy {
+		return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Uri", nil)
+	}
+	return StringInput("Consent.Policy["+strconv.Itoa(numPolicy)+"].Uri", resource.Policy[numPolicy].Uri)
+}
+func (resource *Consent) T_VerificationId(numVerification int) templ.Component {
+
+	if resource == nil || len(resource.Verification) >= numVerification {
+		return StringInput("Consent.Verification["+strconv.Itoa(numVerification)+"].Id", nil)
+	}
+	return StringInput("Consent.Verification["+strconv.Itoa(numVerification)+"].Id", resource.Verification[numVerification].Id)
+}
+func (resource *Consent) T_VerificationVerified(numVerification int) templ.Component {
+
+	if resource == nil || len(resource.Verification) >= numVerification {
+		return BoolInput("Consent.Verification["+strconv.Itoa(numVerification)+"].Verified", nil)
+	}
+	return BoolInput("Consent.Verification["+strconv.Itoa(numVerification)+"].Verified", &resource.Verification[numVerification].Verified)
+}
+func (resource *Consent) T_VerificationVerificationDate(numVerification int) templ.Component {
+
+	if resource == nil || len(resource.Verification) >= numVerification {
+		return StringInput("Consent.Verification["+strconv.Itoa(numVerification)+"].VerificationDate", nil)
+	}
+	return StringInput("Consent.Verification["+strconv.Itoa(numVerification)+"].VerificationDate", resource.Verification[numVerification].VerificationDate)
+}
+func (resource *Consent) T_ProvisionId() templ.Component {
+
+	if resource == nil {
+		return StringInput("Consent.Provision.Id", nil)
+	}
+	return StringInput("Consent.Provision.Id", resource.Provision.Id)
 }
 func (resource *Consent) T_ProvisionType() templ.Component {
 	optionsValueSet := VSConsent_provision_type
 
 	if resource == nil {
-		return CodeSelect("type", nil, optionsValueSet)
+		return CodeSelect("Consent.Provision.Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", resource.Provision.Type, optionsValueSet)
+	return CodeSelect("Consent.Provision.Type", resource.Provision.Type, optionsValueSet)
 }
-func (resource *Consent) T_ProvisionAction(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionAction(numAction int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("action", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Action) >= numAction {
+		return CodeableConceptSelect("Consent.Provision.Action["+strconv.Itoa(numAction)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("action", &resource.Provision.Action[0], optionsValueSet)
+	return CodeableConceptSelect("Consent.Provision.Action["+strconv.Itoa(numAction)+"]", &resource.Provision.Action[numAction], optionsValueSet)
 }
-func (resource *Consent) T_ProvisionSecurityLabel(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionSecurityLabel(numSecurityLabel int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodingSelect("securityLabel", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.SecurityLabel) >= numSecurityLabel {
+		return CodingSelect("Consent.Provision.SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", nil, optionsValueSet)
 	}
-	return CodingSelect("securityLabel", &resource.Provision.SecurityLabel[0], optionsValueSet)
+	return CodingSelect("Consent.Provision.SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", &resource.Provision.SecurityLabel[numSecurityLabel], optionsValueSet)
 }
-func (resource *Consent) T_ProvisionPurpose(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionPurpose(numPurpose int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodingSelect("purpose", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Purpose) >= numPurpose {
+		return CodingSelect("Consent.Provision.Purpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet)
 	}
-	return CodingSelect("purpose", &resource.Provision.Purpose[0], optionsValueSet)
+	return CodingSelect("Consent.Provision.Purpose["+strconv.Itoa(numPurpose)+"]", &resource.Provision.Purpose[numPurpose], optionsValueSet)
 }
-func (resource *Consent) T_ProvisionClass(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionClass(numClass int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodingSelect("class", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Class) >= numClass {
+		return CodingSelect("Consent.Provision.Class["+strconv.Itoa(numClass)+"]", nil, optionsValueSet)
 	}
-	return CodingSelect("class", &resource.Provision.Class[0], optionsValueSet)
+	return CodingSelect("Consent.Provision.Class["+strconv.Itoa(numClass)+"]", &resource.Provision.Class[numClass], optionsValueSet)
 }
-func (resource *Consent) T_ProvisionCode(optionsValueSet []Coding) templ.Component {
+func (resource *Consent) T_ProvisionCode(numCode int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Code) >= numCode {
+		return CodeableConceptSelect("Consent.Provision.Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Provision.Code[0], optionsValueSet)
+	return CodeableConceptSelect("Consent.Provision.Code["+strconv.Itoa(numCode)+"]", &resource.Provision.Code[numCode], optionsValueSet)
+}
+func (resource *Consent) T_ProvisionActorId(numActor int) templ.Component {
+
+	if resource == nil || len(resource.Provision.Actor) >= numActor {
+		return StringInput("Consent.Provision.Actor["+strconv.Itoa(numActor)+"].Id", nil)
+	}
+	return StringInput("Consent.Provision.Actor["+strconv.Itoa(numActor)+"].Id", resource.Provision.Actor[numActor].Id)
 }
 func (resource *Consent) T_ProvisionActorRole(numActor int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Provision.Actor) >= numActor {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Actor) >= numActor {
+		return CodeableConceptSelect("Consent.Provision.Actor["+strconv.Itoa(numActor)+"].Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", &resource.Provision.Actor[numActor].Role, optionsValueSet)
+	return CodeableConceptSelect("Consent.Provision.Actor["+strconv.Itoa(numActor)+"].Role", &resource.Provision.Actor[numActor].Role, optionsValueSet)
+}
+func (resource *Consent) T_ProvisionDataId(numData int) templ.Component {
+
+	if resource == nil || len(resource.Provision.Data) >= numData {
+		return StringInput("Consent.Provision.Data["+strconv.Itoa(numData)+"].Id", nil)
+	}
+	return StringInput("Consent.Provision.Data["+strconv.Itoa(numData)+"].Id", resource.Provision.Data[numData].Id)
 }
 func (resource *Consent) T_ProvisionDataMeaning(numData int) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
-	if resource == nil && len(resource.Provision.Data) >= numData {
-		return CodeSelect("meaning", nil, optionsValueSet)
+	if resource == nil || len(resource.Provision.Data) >= numData {
+		return CodeSelect("Consent.Provision.Data["+strconv.Itoa(numData)+"].Meaning", nil, optionsValueSet)
 	}
-	return CodeSelect("meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet)
+	return CodeSelect("Consent.Provision.Data["+strconv.Itoa(numData)+"].Meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet)
 }

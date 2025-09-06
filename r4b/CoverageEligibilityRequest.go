@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/CoverageEligibilityRequest
 type CoverageEligibilityRequest struct {
@@ -22,8 +26,8 @@ type CoverageEligibilityRequest struct {
 	Priority          *CodeableConcept                           `json:"priority,omitempty"`
 	Purpose           []string                                   `json:"purpose"`
 	Patient           Reference                                  `json:"patient"`
-	ServicedDate      *string                                    `json:"servicedDate"`
-	ServicedPeriod    *Period                                    `json:"servicedPeriod"`
+	ServicedDate      *string                                    `json:"servicedDate,omitempty"`
+	ServicedPeriod    *Period                                    `json:"servicedPeriod,omitempty"`
 	Created           string                                     `json:"created"`
 	Enterer           *Reference                                 `json:"enterer,omitempty"`
 	Provider          *Reference                                 `json:"provider,omitempty"`
@@ -76,8 +80,8 @@ type CoverageEligibilityRequestItemDiagnosis struct {
 	Id                       *string          `json:"id,omitempty"`
 	Extension                []Extension      `json:"extension,omitempty"`
 	ModifierExtension        []Extension      `json:"modifierExtension,omitempty"`
-	DiagnosisCodeableConcept *CodeableConcept `json:"diagnosisCodeableConcept"`
-	DiagnosisReference       *Reference       `json:"diagnosisReference"`
+	DiagnosisCodeableConcept *CodeableConcept `json:"diagnosisCodeableConcept,omitempty"`
+	DiagnosisReference       *Reference       `json:"diagnosisReference,omitempty"`
 }
 
 type OtherCoverageEligibilityRequest CoverageEligibilityRequest
@@ -93,54 +97,138 @@ func (r CoverageEligibilityRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *CoverageEligibilityRequest) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("CoverageEligibilityRequest.Id", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Id", resource.Id)
+}
+func (resource *CoverageEligibilityRequest) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("CoverageEligibilityRequest.ImplicitRules", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *CoverageEligibilityRequest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("CoverageEligibilityRequest.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("CoverageEligibilityRequest.Language", resource.Language, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("CoverageEligibilityRequest.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("CoverageEligibilityRequest.Status", &resource.Status, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) T_Priority(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("priority", nil, optionsValueSet)
+		return CodeableConceptSelect("CoverageEligibilityRequest.Priority", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet)
+	return CodeableConceptSelect("CoverageEligibilityRequest.Priority", resource.Priority, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) T_Purpose() templ.Component {
+func (resource *CoverageEligibilityRequest) T_Purpose(numPurpose int) templ.Component {
 	optionsValueSet := VSEligibilityrequest_purpose
 
-	if resource == nil {
-		return CodeSelect("purpose", nil, optionsValueSet)
+	if resource == nil || len(resource.Purpose) >= numPurpose {
+		return CodeSelect("CoverageEligibilityRequest.Purpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet)
 	}
-	return CodeSelect("purpose", &resource.Purpose[0], optionsValueSet)
+	return CodeSelect("CoverageEligibilityRequest.Purpose["+strconv.Itoa(numPurpose)+"]", &resource.Purpose[numPurpose], optionsValueSet)
+}
+func (resource *CoverageEligibilityRequest) T_Created() templ.Component {
+
+	if resource == nil {
+		return StringInput("CoverageEligibilityRequest.Created", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Created", &resource.Created)
+}
+func (resource *CoverageEligibilityRequest) T_SupportingInfoId(numSupportingInfo int) templ.Component {
+
+	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
+		return StringInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Id", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Id", resource.SupportingInfo[numSupportingInfo].Id)
+}
+func (resource *CoverageEligibilityRequest) T_SupportingInfoSequence(numSupportingInfo int) templ.Component {
+
+	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
+		return IntInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Sequence", nil)
+	}
+	return IntInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Sequence", &resource.SupportingInfo[numSupportingInfo].Sequence)
+}
+func (resource *CoverageEligibilityRequest) T_SupportingInfoAppliesToAll(numSupportingInfo int) templ.Component {
+
+	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
+		return BoolInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].AppliesToAll", nil)
+	}
+	return BoolInput("CoverageEligibilityRequest.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].AppliesToAll", resource.SupportingInfo[numSupportingInfo].AppliesToAll)
+}
+func (resource *CoverageEligibilityRequest) T_InsuranceId(numInsurance int) templ.Component {
+
+	if resource == nil || len(resource.Insurance) >= numInsurance {
+		return StringInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].Id", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].Id", resource.Insurance[numInsurance].Id)
+}
+func (resource *CoverageEligibilityRequest) T_InsuranceFocal(numInsurance int) templ.Component {
+
+	if resource == nil || len(resource.Insurance) >= numInsurance {
+		return BoolInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].Focal", nil)
+	}
+	return BoolInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].Focal", resource.Insurance[numInsurance].Focal)
+}
+func (resource *CoverageEligibilityRequest) T_InsuranceBusinessArrangement(numInsurance int) templ.Component {
+
+	if resource == nil || len(resource.Insurance) >= numInsurance {
+		return StringInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].BusinessArrangement", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Insurance["+strconv.Itoa(numInsurance)+"].BusinessArrangement", resource.Insurance[numInsurance].BusinessArrangement)
+}
+func (resource *CoverageEligibilityRequest) T_ItemId(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Id", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Id", resource.Item[numItem].Id)
+}
+func (resource *CoverageEligibilityRequest) T_ItemSupportingInfoSequence(numItem int, numSupportingInfoSequence int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].SupportingInfoSequence) >= numSupportingInfoSequence {
+		return IntInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].SupportingInfoSequence["+strconv.Itoa(numSupportingInfoSequence)+"]", nil)
+	}
+	return IntInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].SupportingInfoSequence["+strconv.Itoa(numSupportingInfoSequence)+"]", &resource.Item[numItem].SupportingInfoSequence[numSupportingInfoSequence])
 }
 func (resource *CoverageEligibilityRequest) T_ItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Item) >= numItem {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Item) >= numItem {
+		return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Category", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", resource.Item[numItem].Category, optionsValueSet)
+	return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Category", resource.Item[numItem].Category, optionsValueSet)
 }
 func (resource *CoverageEligibilityRequest) T_ItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Item) >= numItem {
-		return CodeableConceptSelect("productOrService", nil, optionsValueSet)
+	if resource == nil || len(resource.Item) >= numItem {
+		return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].ProductOrService", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("productOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
+	return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].ProductOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
 }
-func (resource *CoverageEligibilityRequest) T_ItemModifier(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemModifier(numItem int, numModifier int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Item) >= numItem {
-		return CodeableConceptSelect("modifier", nil, optionsValueSet)
+	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Modifier) >= numModifier {
+		return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("modifier", &resource.Item[numItem].Modifier[0], optionsValueSet)
+	return CodeableConceptSelect("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.Item[numItem].Modifier[numModifier], optionsValueSet)
+}
+func (resource *CoverageEligibilityRequest) T_ItemDiagnosisId(numItem int, numDiagnosis int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Diagnosis) >= numDiagnosis {
+		return StringInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", nil)
+	}
+	return StringInput("CoverageEligibilityRequest.Item["+strconv.Itoa(numItem)+"].Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", resource.Item[numItem].Diagnosis[numDiagnosis].Id)
 }

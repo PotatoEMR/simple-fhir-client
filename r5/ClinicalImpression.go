@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/ClinicalImpression
 type ClinicalImpression struct {
@@ -23,8 +27,8 @@ type ClinicalImpression struct {
 	Description              *string                     `json:"description,omitempty"`
 	Subject                  Reference                   `json:"subject"`
 	Encounter                *Reference                  `json:"encounter,omitempty"`
-	EffectiveDateTime        *string                     `json:"effectiveDateTime"`
-	EffectivePeriod          *Period                     `json:"effectivePeriod"`
+	EffectiveDateTime        *string                     `json:"effectiveDateTime,omitempty"`
+	EffectivePeriod          *Period                     `json:"effectivePeriod,omitempty"`
 	Date                     *string                     `json:"date,omitempty"`
 	Performer                *Reference                  `json:"performer,omitempty"`
 	Previous                 *Reference                  `json:"previous,omitempty"`
@@ -61,39 +65,95 @@ func (r ClinicalImpression) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ClinicalImpression) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalImpression.Id", nil)
+	}
+	return StringInput("ClinicalImpression.Id", resource.Id)
+}
+func (resource *ClinicalImpression) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalImpression.ImplicitRules", nil)
+	}
+	return StringInput("ClinicalImpression.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ClinicalImpression) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ClinicalImpression.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ClinicalImpression.Language", resource.Language, optionsValueSet)
 }
 func (resource *ClinicalImpression) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ClinicalImpression.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ClinicalImpression.Status", &resource.Status, optionsValueSet)
 }
 func (resource *ClinicalImpression) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalImpression.StatusReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("ClinicalImpression.StatusReason", resource.StatusReason, optionsValueSet)
+}
+func (resource *ClinicalImpression) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalImpression.Description", nil)
+	}
+	return StringInput("ClinicalImpression.Description", resource.Description)
+}
+func (resource *ClinicalImpression) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalImpression.Date", nil)
+	}
+	return StringInput("ClinicalImpression.Date", resource.Date)
 }
 func (resource *ClinicalImpression) T_ChangePattern(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("changePattern", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalImpression.ChangePattern", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("changePattern", resource.ChangePattern, optionsValueSet)
+	return CodeableConceptSelect("ClinicalImpression.ChangePattern", resource.ChangePattern, optionsValueSet)
 }
-func (resource *ClinicalImpression) T_PrognosisCodeableConcept(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalImpression) T_Protocol(numProtocol int) templ.Component {
+
+	if resource == nil || len(resource.Protocol) >= numProtocol {
+		return StringInput("ClinicalImpression.Protocol["+strconv.Itoa(numProtocol)+"]", nil)
+	}
+	return StringInput("ClinicalImpression.Protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol])
+}
+func (resource *ClinicalImpression) T_Summary() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("prognosisCodeableConcept", nil, optionsValueSet)
+		return StringInput("ClinicalImpression.Summary", nil)
 	}
-	return CodeableConceptSelect("prognosisCodeableConcept", &resource.PrognosisCodeableConcept[0], optionsValueSet)
+	return StringInput("ClinicalImpression.Summary", resource.Summary)
+}
+func (resource *ClinicalImpression) T_PrognosisCodeableConcept(numPrognosisCodeableConcept int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.PrognosisCodeableConcept) >= numPrognosisCodeableConcept {
+		return CodeableConceptSelect("ClinicalImpression.PrognosisCodeableConcept["+strconv.Itoa(numPrognosisCodeableConcept)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ClinicalImpression.PrognosisCodeableConcept["+strconv.Itoa(numPrognosisCodeableConcept)+"]", &resource.PrognosisCodeableConcept[numPrognosisCodeableConcept], optionsValueSet)
+}
+func (resource *ClinicalImpression) T_FindingId(numFinding int) templ.Component {
+
+	if resource == nil || len(resource.Finding) >= numFinding {
+		return StringInput("ClinicalImpression.Finding["+strconv.Itoa(numFinding)+"].Id", nil)
+	}
+	return StringInput("ClinicalImpression.Finding["+strconv.Itoa(numFinding)+"].Id", resource.Finding[numFinding].Id)
+}
+func (resource *ClinicalImpression) T_FindingBasis(numFinding int) templ.Component {
+
+	if resource == nil || len(resource.Finding) >= numFinding {
+		return StringInput("ClinicalImpression.Finding["+strconv.Itoa(numFinding)+"].Basis", nil)
+	}
+	return StringInput("ClinicalImpression.Finding["+strconv.Itoa(numFinding)+"].Basis", resource.Finding[numFinding].Basis)
 }

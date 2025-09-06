@@ -1,12 +1,16 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
-import "strings"
+import (
+	"encoding/json"
+	"strconv"
+	"strings"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Patient
 type Patient struct {
@@ -24,12 +28,12 @@ type Patient struct {
 	Telecom              []ContactPoint         `json:"telecom,omitempty"`
 	Gender               *string                `json:"gender,omitempty"`
 	BirthDate            *string                `json:"birthDate,omitempty"`
-	DeceasedBoolean      *bool                  `json:"deceasedBoolean"`
-	DeceasedDateTime     *string                `json:"deceasedDateTime"`
+	DeceasedBoolean      *bool                  `json:"deceasedBoolean,omitempty"`
+	DeceasedDateTime     *string                `json:"deceasedDateTime,omitempty"`
 	Address              []Address              `json:"address,omitempty"`
 	MaritalStatus        *CodeableConcept       `json:"maritalStatus,omitempty"`
-	MultipleBirthBoolean *bool                  `json:"multipleBirthBoolean"`
-	MultipleBirthInteger *int                   `json:"multipleBirthInteger"`
+	MultipleBirthBoolean *bool                  `json:"multipleBirthBoolean,omitempty"`
+	MultipleBirthInteger *int                   `json:"multipleBirthInteger,omitempty"`
 	Photo                []Attachment           `json:"photo,omitempty"`
 	Contact              []PatientContact       `json:"contact,omitempty"`
 	Communication        []PatientCommunication `json:"communication,omitempty"`
@@ -98,55 +102,111 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Patient) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Patient.Id", nil)
+	}
+	return StringInput("Patient.Id", resource.Id)
+}
+func (resource *Patient) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Patient.ImplicitRules", nil)
+	}
+	return StringInput("Patient.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Patient) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Patient.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Patient.Language", resource.Language, optionsValueSet)
+}
+func (resource *Patient) T_Active() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Patient.Active", nil)
+	}
+	return BoolInput("Patient.Active", resource.Active)
 }
 func (resource *Patient) T_Gender() templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("gender", nil, optionsValueSet)
+		return CodeSelect("Patient.Gender", nil, optionsValueSet)
 	}
-	return CodeSelect("gender", resource.Gender, optionsValueSet)
+	return CodeSelect("Patient.Gender", resource.Gender, optionsValueSet)
+}
+func (resource *Patient) T_BirthDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Patient.BirthDate", nil)
+	}
+	return StringInput("Patient.BirthDate", resource.BirthDate)
 }
 func (resource *Patient) T_MaritalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("maritalStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Patient.MaritalStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet)
+	return CodeableConceptSelect("Patient.MaritalStatus", resource.MaritalStatus, optionsValueSet)
 }
-func (resource *Patient) T_ContactRelationship(numContact int, optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_ContactId(numContact int) templ.Component {
 
-	if resource == nil && len(resource.Contact) >= numContact {
-		return CodeableConceptSelect("relationship", nil, optionsValueSet)
+	if resource == nil || len(resource.Contact) >= numContact {
+		return StringInput("Patient.Contact["+strconv.Itoa(numContact)+"].Id", nil)
 	}
-	return CodeableConceptSelect("relationship", &resource.Contact[numContact].Relationship[0], optionsValueSet)
+	return StringInput("Patient.Contact["+strconv.Itoa(numContact)+"].Id", resource.Contact[numContact].Id)
+}
+func (resource *Patient) T_ContactRelationship(numContact int, numRelationship int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Contact) >= numContact || len(resource.Contact[numContact].Relationship) >= numRelationship {
+		return CodeableConceptSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Contact[numContact].Relationship[numRelationship], optionsValueSet)
 }
 func (resource *Patient) T_ContactGender(numContact int) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource == nil && len(resource.Contact) >= numContact {
-		return CodeSelect("gender", nil, optionsValueSet)
+	if resource == nil || len(resource.Contact) >= numContact {
+		return CodeSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Gender", nil, optionsValueSet)
 	}
-	return CodeSelect("gender", resource.Contact[numContact].Gender, optionsValueSet)
+	return CodeSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Gender", resource.Contact[numContact].Gender, optionsValueSet)
+}
+func (resource *Patient) T_CommunicationId(numCommunication int) templ.Component {
+
+	if resource == nil || len(resource.Communication) >= numCommunication {
+		return StringInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Id", nil)
+	}
+	return StringInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Id", resource.Communication[numCommunication].Id)
 }
 func (resource *Patient) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("language", nil, optionsValueSet)
+	if resource == nil || len(resource.Communication) >= numCommunication {
+		return CodeableConceptSelect("Patient.Communication["+strconv.Itoa(numCommunication)+"].Language", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("language", &resource.Communication[numCommunication].Language, optionsValueSet)
+	return CodeableConceptSelect("Patient.Communication["+strconv.Itoa(numCommunication)+"].Language", &resource.Communication[numCommunication].Language, optionsValueSet)
+}
+func (resource *Patient) T_CommunicationPreferred(numCommunication int) templ.Component {
+
+	if resource == nil || len(resource.Communication) >= numCommunication {
+		return BoolInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil)
+	}
+	return BoolInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred)
+}
+func (resource *Patient) T_LinkId(numLink int) templ.Component {
+
+	if resource == nil || len(resource.Link) >= numLink {
+		return StringInput("Patient.Link["+strconv.Itoa(numLink)+"].Id", nil)
+	}
+	return StringInput("Patient.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
 }
 func (resource *Patient) T_LinkType(numLink int) templ.Component {
 	optionsValueSet := VSLink_type
 
-	if resource == nil && len(resource.Link) >= numLink {
-		return CodeSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Link) >= numLink {
+		return CodeSelect("Patient.Link["+strconv.Itoa(numLink)+"].Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Link[numLink].Type, optionsValueSet)
+	return CodeSelect("Patient.Link["+strconv.Itoa(numLink)+"].Type", &resource.Link[numLink].Type, optionsValueSet)
 }

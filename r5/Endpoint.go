@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Endpoint
 type Endpoint struct {
@@ -53,46 +57,95 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Endpoint) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Endpoint.Id", nil)
+	}
+	return StringInput("Endpoint.Id", resource.Id)
+}
+func (resource *Endpoint) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Endpoint.ImplicitRules", nil)
+	}
+	return StringInput("Endpoint.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Endpoint) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Endpoint.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Endpoint.Language", resource.Language, optionsValueSet)
 }
 func (resource *Endpoint) T_Status() templ.Component {
 	optionsValueSet := VSEndpoint_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Endpoint.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Endpoint.Status", &resource.Status, optionsValueSet)
 }
-func (resource *Endpoint) T_ConnectionType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_ConnectionType(numConnectionType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ConnectionType) >= numConnectionType {
+		return CodeableConceptSelect("Endpoint.ConnectionType["+strconv.Itoa(numConnectionType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Endpoint.ConnectionType["+strconv.Itoa(numConnectionType)+"]", &resource.ConnectionType[numConnectionType], optionsValueSet)
+}
+func (resource *Endpoint) T_Name() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("connectionType", nil, optionsValueSet)
+		return StringInput("Endpoint.Name", nil)
 	}
-	return CodeableConceptSelect("connectionType", &resource.ConnectionType[0], optionsValueSet)
+	return StringInput("Endpoint.Name", resource.Name)
 }
-func (resource *Endpoint) T_EnvironmentType(optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_Description() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("environmentType", nil, optionsValueSet)
+		return StringInput("Endpoint.Description", nil)
 	}
-	return CodeableConceptSelect("environmentType", &resource.EnvironmentType[0], optionsValueSet)
+	return StringInput("Endpoint.Description", resource.Description)
 }
-func (resource *Endpoint) T_PayloadType(numPayload int, optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_EnvironmentType(numEnvironmentType int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Payload) >= numPayload {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.EnvironmentType) >= numEnvironmentType {
+		return CodeableConceptSelect("Endpoint.EnvironmentType["+strconv.Itoa(numEnvironmentType)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Payload[numPayload].Type[0], optionsValueSet)
+	return CodeableConceptSelect("Endpoint.EnvironmentType["+strconv.Itoa(numEnvironmentType)+"]", &resource.EnvironmentType[numEnvironmentType], optionsValueSet)
 }
-func (resource *Endpoint) T_PayloadMimeType(numPayload int, optionsValueSet []Coding) templ.Component {
+func (resource *Endpoint) T_Address() templ.Component {
 
-	if resource == nil && len(resource.Payload) >= numPayload {
-		return CodeSelect("mimeType", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("Endpoint.Address", nil)
 	}
-	return CodeSelect("mimeType", &resource.Payload[numPayload].MimeType[0], optionsValueSet)
+	return StringInput("Endpoint.Address", &resource.Address)
+}
+func (resource *Endpoint) T_Header(numHeader int) templ.Component {
+
+	if resource == nil || len(resource.Header) >= numHeader {
+		return StringInput("Endpoint.Header["+strconv.Itoa(numHeader)+"]", nil)
+	}
+	return StringInput("Endpoint.Header["+strconv.Itoa(numHeader)+"]", &resource.Header[numHeader])
+}
+func (resource *Endpoint) T_PayloadId(numPayload int) templ.Component {
+
+	if resource == nil || len(resource.Payload) >= numPayload {
+		return StringInput("Endpoint.Payload["+strconv.Itoa(numPayload)+"].Id", nil)
+	}
+	return StringInput("Endpoint.Payload["+strconv.Itoa(numPayload)+"].Id", resource.Payload[numPayload].Id)
+}
+func (resource *Endpoint) T_PayloadType(numPayload int, numType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Payload) >= numPayload || len(resource.Payload[numPayload].Type) >= numType {
+		return CodeableConceptSelect("Endpoint.Payload["+strconv.Itoa(numPayload)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Endpoint.Payload["+strconv.Itoa(numPayload)+"].Type["+strconv.Itoa(numType)+"]", &resource.Payload[numPayload].Type[numType], optionsValueSet)
+}
+func (resource *Endpoint) T_PayloadMimeType(numPayload int, numMimeType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Payload) >= numPayload || len(resource.Payload[numPayload].MimeType) >= numMimeType {
+		return CodeSelect("Endpoint.Payload["+strconv.Itoa(numPayload)+"].MimeType["+strconv.Itoa(numMimeType)+"]", nil, optionsValueSet)
+	}
+	return CodeSelect("Endpoint.Payload["+strconv.Itoa(numPayload)+"].MimeType["+strconv.Itoa(numMimeType)+"]", &resource.Payload[numPayload].MimeType[numMimeType], optionsValueSet)
 }

@@ -1,11 +1,14 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/FormularyItem
 type FormularyItem struct {
@@ -35,25 +38,39 @@ func (r FormularyItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *FormularyItem) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("FormularyItem.Id", nil)
+	}
+	return StringInput("FormularyItem.Id", resource.Id)
+}
+func (resource *FormularyItem) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("FormularyItem.ImplicitRules", nil)
+	}
+	return StringInput("FormularyItem.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *FormularyItem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("FormularyItem.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("FormularyItem.Language", resource.Language, optionsValueSet)
 }
 func (resource *FormularyItem) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("FormularyItem.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("FormularyItem.Code", resource.Code, optionsValueSet)
 }
 func (resource *FormularyItem) T_Status() templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("FormularyItem.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("FormularyItem.Status", resource.Status, optionsValueSet)
 }

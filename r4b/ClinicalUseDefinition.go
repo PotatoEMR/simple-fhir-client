@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/ClinicalUseDefinition
 type ClinicalUseDefinition struct {
@@ -60,8 +64,8 @@ type ClinicalUseDefinitionIndication struct {
 	DiseaseStatus           *CodeableReference  `json:"diseaseStatus,omitempty"`
 	Comorbidity             []CodeableReference `json:"comorbidity,omitempty"`
 	IntendedEffect          *CodeableReference  `json:"intendedEffect,omitempty"`
-	DurationRange           *Range              `json:"durationRange"`
-	DurationString          *string             `json:"durationString"`
+	DurationRange           *Range              `json:"durationRange,omitempty"`
+	DurationString          *string             `json:"durationString,omitempty"`
 	UndesirableEffect       []Reference         `json:"undesirableEffect,omitempty"`
 }
 
@@ -118,81 +122,151 @@ func (r ClinicalUseDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ClinicalUseDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Id", resource.Id)
+}
+func (resource *ClinicalUseDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ClinicalUseDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ClinicalUseDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ClinicalUseDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ClinicalUseDefinition.Language", resource.Language, optionsValueSet)
 }
 func (resource *ClinicalUseDefinition) T_Type() templ.Component {
 	optionsValueSet := VSClinical_use_definition_type
 
 	if resource == nil {
-		return CodeSelect("type", nil, optionsValueSet)
+		return CodeSelect("ClinicalUseDefinition.Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Type, optionsValueSet)
+	return CodeSelect("ClinicalUseDefinition.Type", &resource.Type, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("ClinicalUseDefinition.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *ClinicalUseDefinition) T_Status(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", resource.Status, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Status", resource.Status, optionsValueSet)
+}
+func (resource *ClinicalUseDefinition) T_ContraindicationId() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Contraindication.Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Contraindication.Id", resource.Contraindication.Id)
+}
+func (resource *ClinicalUseDefinition) T_ContraindicationOtherTherapyId(numOtherTherapy int) templ.Component {
+
+	if resource == nil || len(resource.Contraindication.OtherTherapy) >= numOtherTherapy {
+		return StringInput("ClinicalUseDefinition.Contraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Contraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].Id", resource.Contraindication.OtherTherapy[numOtherTherapy].Id)
 }
 func (resource *ClinicalUseDefinition) T_ContraindicationOtherTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Contraindication.OtherTherapy) >= numOtherTherapy {
-		return CodeableConceptSelect("relationshipType", nil, optionsValueSet)
+	if resource == nil || len(resource.Contraindication.OtherTherapy) >= numOtherTherapy {
+		return CodeableConceptSelect("ClinicalUseDefinition.Contraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].RelationshipType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("relationshipType", &resource.Contraindication.OtherTherapy[numOtherTherapy].RelationshipType, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Contraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].RelationshipType", &resource.Contraindication.OtherTherapy[numOtherTherapy].RelationshipType, optionsValueSet)
+}
+func (resource *ClinicalUseDefinition) T_IndicationId() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Indication.Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Indication.Id", resource.Indication.Id)
+}
+func (resource *ClinicalUseDefinition) T_InteractionId() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Interaction.Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Interaction.Id", resource.Interaction.Id)
 }
 func (resource *ClinicalUseDefinition) T_InteractionType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Interaction.Type, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Type", resource.Interaction.Type, optionsValueSet)
 }
 func (resource *ClinicalUseDefinition) T_InteractionIncidence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("incidence", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Incidence", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("incidence", resource.Interaction.Incidence, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Incidence", resource.Interaction.Incidence, optionsValueSet)
 }
-func (resource *ClinicalUseDefinition) T_InteractionManagement(optionsValueSet []Coding) templ.Component {
+func (resource *ClinicalUseDefinition) T_InteractionManagement(numManagement int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Interaction.Management) >= numManagement {
+		return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Management["+strconv.Itoa(numManagement)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ClinicalUseDefinition.Interaction.Management["+strconv.Itoa(numManagement)+"]", &resource.Interaction.Management[numManagement], optionsValueSet)
+}
+func (resource *ClinicalUseDefinition) T_InteractionInteractantId(numInteractant int) templ.Component {
+
+	if resource == nil || len(resource.Interaction.Interactant) >= numInteractant {
+		return StringInput("ClinicalUseDefinition.Interaction.Interactant["+strconv.Itoa(numInteractant)+"].Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Interaction.Interactant["+strconv.Itoa(numInteractant)+"].Id", resource.Interaction.Interactant[numInteractant].Id)
+}
+func (resource *ClinicalUseDefinition) T_UndesirableEffectId() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("management", nil, optionsValueSet)
+		return StringInput("ClinicalUseDefinition.UndesirableEffect.Id", nil)
 	}
-	return CodeableConceptSelect("management", &resource.Interaction.Management[0], optionsValueSet)
+	return StringInput("ClinicalUseDefinition.UndesirableEffect.Id", resource.UndesirableEffect.Id)
 }
 func (resource *ClinicalUseDefinition) T_UndesirableEffectClassification(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("classification", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.UndesirableEffect.Classification", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("classification", resource.UndesirableEffect.Classification, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.UndesirableEffect.Classification", resource.UndesirableEffect.Classification, optionsValueSet)
 }
 func (resource *ClinicalUseDefinition) T_UndesirableEffectFrequencyOfOccurrence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.UndesirableEffect.FrequencyOfOccurrence", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("frequencyOfOccurrence", resource.UndesirableEffect.FrequencyOfOccurrence, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.UndesirableEffect.FrequencyOfOccurrence", resource.UndesirableEffect.FrequencyOfOccurrence, optionsValueSet)
+}
+func (resource *ClinicalUseDefinition) T_WarningId() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Warning.Id", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Warning.Id", resource.Warning.Id)
+}
+func (resource *ClinicalUseDefinition) T_WarningDescription() templ.Component {
+
+	if resource == nil {
+		return StringInput("ClinicalUseDefinition.Warning.Description", nil)
+	}
+	return StringInput("ClinicalUseDefinition.Warning.Description", resource.Warning.Description)
 }
 func (resource *ClinicalUseDefinition) T_WarningCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("ClinicalUseDefinition.Warning.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Warning.Code, optionsValueSet)
+	return CodeableConceptSelect("ClinicalUseDefinition.Warning.Code", resource.Warning.Code, optionsValueSet)
 }

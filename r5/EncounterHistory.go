@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/EncounterHistory
 type EncounterHistory struct {
@@ -54,46 +58,81 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *EncounterHistory) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("EncounterHistory.Id", nil)
+	}
+	return StringInput("EncounterHistory.Id", resource.Id)
+}
+func (resource *EncounterHistory) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("EncounterHistory.ImplicitRules", nil)
+	}
+	return StringInput("EncounterHistory.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *EncounterHistory) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("EncounterHistory.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("EncounterHistory.Language", resource.Language, optionsValueSet)
 }
 func (resource *EncounterHistory) T_Status() templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("EncounterHistory.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("EncounterHistory.Status", &resource.Status, optionsValueSet)
 }
 func (resource *EncounterHistory) T_Class(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("class", nil, optionsValueSet)
+		return CodeableConceptSelect("EncounterHistory.Class", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("class", &resource.Class, optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Class", &resource.Class, optionsValueSet)
 }
-func (resource *EncounterHistory) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Type) >= numType {
+		return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
 }
 func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("EncounterHistory.SubjectStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.SubjectStatus", resource.SubjectStatus, optionsValueSet)
+}
+func (resource *EncounterHistory) T_PlannedStartDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("EncounterHistory.PlannedStartDate", nil)
+	}
+	return StringInput("EncounterHistory.PlannedStartDate", resource.PlannedStartDate)
+}
+func (resource *EncounterHistory) T_PlannedEndDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("EncounterHistory.PlannedEndDate", nil)
+	}
+	return StringInput("EncounterHistory.PlannedEndDate", resource.PlannedEndDate)
+}
+func (resource *EncounterHistory) T_LocationId(numLocation int) templ.Component {
+
+	if resource == nil || len(resource.Location) >= numLocation {
+		return StringInput("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Id", nil)
+	}
+	return StringInput("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Id", resource.Location[numLocation].Id)
 }
 func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Location) >= numLocation {
-		return CodeableConceptSelect("form", nil, optionsValueSet)
+	if resource == nil || len(resource.Location) >= numLocation {
+		return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("form", resource.Location[numLocation].Form, optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", resource.Location[numLocation].Form, optionsValueSet)
 }

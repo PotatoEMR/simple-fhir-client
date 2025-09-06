@@ -1,11 +1,14 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/EnrollmentResponse
 type EnrollmentResponse struct {
@@ -40,26 +43,54 @@ func (r EnrollmentResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *EnrollmentResponse) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentResponse.Id", nil)
+	}
+	return StringInput("EnrollmentResponse.Id", resource.Id)
+}
+func (resource *EnrollmentResponse) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentResponse.ImplicitRules", nil)
+	}
+	return StringInput("EnrollmentResponse.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *EnrollmentResponse) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("EnrollmentResponse.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("EnrollmentResponse.Language", resource.Language, optionsValueSet)
 }
 func (resource *EnrollmentResponse) T_Status() templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("EnrollmentResponse.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("EnrollmentResponse.Status", resource.Status, optionsValueSet)
 }
 func (resource *EnrollmentResponse) T_Outcome() templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
-		return CodeSelect("outcome", nil, optionsValueSet)
+		return CodeSelect("EnrollmentResponse.Outcome", nil, optionsValueSet)
 	}
-	return CodeSelect("outcome", resource.Outcome, optionsValueSet)
+	return CodeSelect("EnrollmentResponse.Outcome", resource.Outcome, optionsValueSet)
+}
+func (resource *EnrollmentResponse) T_Disposition() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentResponse.Disposition", nil)
+	}
+	return StringInput("EnrollmentResponse.Disposition", resource.Disposition)
+}
+func (resource *EnrollmentResponse) T_Created() templ.Component {
+
+	if resource == nil {
+		return StringInput("EnrollmentResponse.Created", nil)
+	}
+	return StringInput("EnrollmentResponse.Created", resource.Created)
 }

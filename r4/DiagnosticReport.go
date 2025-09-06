@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/DiagnosticReport
 type DiagnosticReport struct {
@@ -24,8 +28,8 @@ type DiagnosticReport struct {
 	Code               CodeableConcept         `json:"code"`
 	Subject            *Reference              `json:"subject,omitempty"`
 	Encounter          *Reference              `json:"encounter,omitempty"`
-	EffectiveDateTime  *string                 `json:"effectiveDateTime"`
-	EffectivePeriod    *Period                 `json:"effectivePeriod"`
+	EffectiveDateTime  *string                 `json:"effectiveDateTime,omitempty"`
+	EffectivePeriod    *Period                 `json:"effectivePeriod,omitempty"`
 	Issued             *string                 `json:"issued,omitempty"`
 	Performer          []Reference             `json:"performer,omitempty"`
 	ResultsInterpreter []Reference             `json:"resultsInterpreter,omitempty"`
@@ -60,39 +64,81 @@ func (r DiagnosticReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DiagnosticReport) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DiagnosticReport.Id", nil)
+	}
+	return StringInput("DiagnosticReport.Id", resource.Id)
+}
+func (resource *DiagnosticReport) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DiagnosticReport.ImplicitRules", nil)
+	}
+	return StringInput("DiagnosticReport.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DiagnosticReport) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DiagnosticReport.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DiagnosticReport.Language", resource.Language, optionsValueSet)
 }
 func (resource *DiagnosticReport) T_Status() templ.Component {
 	optionsValueSet := VSDiagnostic_report_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("DiagnosticReport.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("DiagnosticReport.Status", &resource.Status, optionsValueSet)
 }
-func (resource *DiagnosticReport) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("DiagnosticReport.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("DiagnosticReport.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *DiagnosticReport) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("DiagnosticReport.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("DiagnosticReport.Code", &resource.Code, optionsValueSet)
 }
-func (resource *DiagnosticReport) T_ConclusionCode(optionsValueSet []Coding) templ.Component {
+func (resource *DiagnosticReport) T_Issued() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("conclusionCode", nil, optionsValueSet)
+		return StringInput("DiagnosticReport.Issued", nil)
 	}
-	return CodeableConceptSelect("conclusionCode", &resource.ConclusionCode[0], optionsValueSet)
+	return StringInput("DiagnosticReport.Issued", resource.Issued)
+}
+func (resource *DiagnosticReport) T_Conclusion() templ.Component {
+
+	if resource == nil {
+		return StringInput("DiagnosticReport.Conclusion", nil)
+	}
+	return StringInput("DiagnosticReport.Conclusion", resource.Conclusion)
+}
+func (resource *DiagnosticReport) T_ConclusionCode(numConclusionCode int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.ConclusionCode) >= numConclusionCode {
+		return CodeableConceptSelect("DiagnosticReport.ConclusionCode["+strconv.Itoa(numConclusionCode)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("DiagnosticReport.ConclusionCode["+strconv.Itoa(numConclusionCode)+"]", &resource.ConclusionCode[numConclusionCode], optionsValueSet)
+}
+func (resource *DiagnosticReport) T_MediaId(numMedia int) templ.Component {
+
+	if resource == nil || len(resource.Media) >= numMedia {
+		return StringInput("DiagnosticReport.Media["+strconv.Itoa(numMedia)+"].Id", nil)
+	}
+	return StringInput("DiagnosticReport.Media["+strconv.Itoa(numMedia)+"].Id", resource.Media[numMedia].Id)
+}
+func (resource *DiagnosticReport) T_MediaComment(numMedia int) templ.Component {
+
+	if resource == nil || len(resource.Media) >= numMedia {
+		return StringInput("DiagnosticReport.Media["+strconv.Itoa(numMedia)+"].Comment", nil)
+	}
+	return StringInput("DiagnosticReport.Media["+strconv.Itoa(numMedia)+"].Comment", resource.Media[numMedia].Comment)
 }

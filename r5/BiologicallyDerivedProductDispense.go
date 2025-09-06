@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/BiologicallyDerivedProductDispense
 type BiologicallyDerivedProductDispense struct {
@@ -57,39 +61,81 @@ func (r BiologicallyDerivedProductDispense) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *BiologicallyDerivedProductDispense) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("BiologicallyDerivedProductDispense.Id", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.Id", resource.Id)
+}
+func (resource *BiologicallyDerivedProductDispense) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("BiologicallyDerivedProductDispense.ImplicitRules", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *BiologicallyDerivedProductDispense) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("BiologicallyDerivedProductDispense.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("BiologicallyDerivedProductDispense.Language", resource.Language, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProductDispense) T_Status() templ.Component {
 	optionsValueSet := VSBiologicallyderivedproductdispense_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("BiologicallyDerivedProductDispense.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("BiologicallyDerivedProductDispense.Status", &resource.Status, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProductDispense) T_OriginRelationshipType(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("originRelationshipType", nil, optionsValueSet)
+		return CodeableConceptSelect("BiologicallyDerivedProductDispense.OriginRelationshipType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("originRelationshipType", resource.OriginRelationshipType, optionsValueSet)
+	return CodeableConceptSelect("BiologicallyDerivedProductDispense.OriginRelationshipType", resource.OriginRelationshipType, optionsValueSet)
 }
 func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("matchStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("BiologicallyDerivedProductDispense.MatchStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("matchStatus", resource.MatchStatus, optionsValueSet)
+	return CodeableConceptSelect("BiologicallyDerivedProductDispense.MatchStatus", resource.MatchStatus, optionsValueSet)
+}
+func (resource *BiologicallyDerivedProductDispense) T_PreparedDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("BiologicallyDerivedProductDispense.PreparedDate", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.PreparedDate", resource.PreparedDate)
+}
+func (resource *BiologicallyDerivedProductDispense) T_WhenHandedOver() templ.Component {
+
+	if resource == nil {
+		return StringInput("BiologicallyDerivedProductDispense.WhenHandedOver", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.WhenHandedOver", resource.WhenHandedOver)
+}
+func (resource *BiologicallyDerivedProductDispense) T_UsageInstruction() templ.Component {
+
+	if resource == nil {
+		return StringInput("BiologicallyDerivedProductDispense.UsageInstruction", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.UsageInstruction", resource.UsageInstruction)
+}
+func (resource *BiologicallyDerivedProductDispense) T_PerformerId(numPerformer int) templ.Component {
+
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return StringInput("BiologicallyDerivedProductDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	}
+	return StringInput("BiologicallyDerivedProductDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
 }
 func (resource *BiologicallyDerivedProductDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("BiologicallyDerivedProductDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("BiologicallyDerivedProductDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
 }

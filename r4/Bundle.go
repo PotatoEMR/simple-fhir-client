@@ -1,14 +1,16 @@
 // Note: Bundle is special case in gen_bundle.go, to handle entry resources with types
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "github.com/a-h/templ"
 import (
 	"encoding/json"
 	"errors"
+	"strconv"
+
+	"github.com/a-h/templ"
 )
 
 // http://hl7.org/fhir/r4/StructureDefinition/Bundle
@@ -82,36 +84,190 @@ type BundleEntryResponse struct {
 	Outcome           *Resource   `json:"outcome,omitempty"`
 }
 
+func (resource *Bundle) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Bundle.Id", nil)
+	}
+	return StringInput("Bundle.Id", resource.Id)
+}
+func (resource *Bundle) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Bundle.ImplicitRules", nil)
+	}
+	return StringInput("Bundle.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Bundle) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Bundle.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Bundle.Language", resource.Language, optionsValueSet)
 }
 func (resource *Bundle) T_Type() templ.Component {
 	optionsValueSet := VSBundle_type
 
 	if resource == nil {
-		return CodeSelect("type", nil, optionsValueSet)
+		return CodeSelect("Bundle.Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Type, optionsValueSet)
+	return CodeSelect("Bundle.Type", &resource.Type, optionsValueSet)
+}
+func (resource *Bundle) T_Timestamp() templ.Component {
+
+	if resource == nil {
+		return StringInput("Bundle.Timestamp", nil)
+	}
+	return StringInput("Bundle.Timestamp", resource.Timestamp)
+}
+func (resource *Bundle) T_Total() templ.Component {
+
+	if resource == nil {
+		return IntInput("Bundle.Total", nil)
+	}
+	return IntInput("Bundle.Total", resource.Total)
+}
+func (resource *Bundle) T_LinkId(numLink int) templ.Component {
+
+	if resource == nil || len(resource.Link) >= numLink {
+		return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Id", nil)
+	}
+	return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
+}
+func (resource *Bundle) T_LinkRelation(numLink int) templ.Component {
+
+	if resource == nil || len(resource.Link) >= numLink {
+		return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Relation", nil)
+	}
+	return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Relation", &resource.Link[numLink].Relation)
+}
+func (resource *Bundle) T_LinkUrl(numLink int) templ.Component {
+
+	if resource == nil || len(resource.Link) >= numLink {
+		return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Url", nil)
+	}
+	return StringInput("Bundle.Link["+strconv.Itoa(numLink)+"].Url", &resource.Link[numLink].Url)
+}
+func (resource *Bundle) T_EntryId(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Id", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Id", resource.Entry[numEntry].Id)
+}
+func (resource *Bundle) T_EntryFullUrl(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].FullUrl", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].FullUrl", resource.Entry[numEntry].FullUrl)
+}
+func (resource *Bundle) T_EntrySearchId(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Id", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Id", resource.Entry[numEntry].Search.Id)
 }
 func (resource *Bundle) T_EntrySearchMode(numEntry int) templ.Component {
 	optionsValueSet := VSSearch_entry_mode
 
-	if resource == nil && len(resource.Entry) >= numEntry {
-		return CodeSelect("mode", nil, optionsValueSet)
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return CodeSelect("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", resource.Entry[numEntry].Search.Mode, optionsValueSet)
+	return CodeSelect("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Mode", resource.Entry[numEntry].Search.Mode, optionsValueSet)
+}
+func (resource *Bundle) T_EntrySearchScore(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return Float64Input("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Score", nil)
+	}
+	return Float64Input("Bundle.Entry["+strconv.Itoa(numEntry)+"].Search.Score", resource.Entry[numEntry].Search.Score)
+}
+func (resource *Bundle) T_EntryRequestId(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Id", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Id", resource.Entry[numEntry].Request.Id)
 }
 func (resource *Bundle) T_EntryRequestMethod(numEntry int) templ.Component {
 	optionsValueSet := VSHttp_verb
 
-	if resource == nil && len(resource.Entry) >= numEntry {
-		return CodeSelect("method", nil, optionsValueSet)
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return CodeSelect("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Method", nil, optionsValueSet)
 	}
-	return CodeSelect("method", &resource.Entry[numEntry].Request.Method, optionsValueSet)
+	return CodeSelect("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Method", &resource.Entry[numEntry].Request.Method, optionsValueSet)
+}
+func (resource *Bundle) T_EntryRequestUrl(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Url", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.Url", &resource.Entry[numEntry].Request.Url)
+}
+func (resource *Bundle) T_EntryRequestIfNoneMatch(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfNoneMatch", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfNoneMatch", resource.Entry[numEntry].Request.IfNoneMatch)
+}
+func (resource *Bundle) T_EntryRequestIfModifiedSince(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfModifiedSince", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfModifiedSince", resource.Entry[numEntry].Request.IfModifiedSince)
+}
+func (resource *Bundle) T_EntryRequestIfMatch(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfMatch", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfMatch", resource.Entry[numEntry].Request.IfMatch)
+}
+func (resource *Bundle) T_EntryRequestIfNoneExist(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfNoneExist", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Request.IfNoneExist", resource.Entry[numEntry].Request.IfNoneExist)
+}
+func (resource *Bundle) T_EntryResponseId(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Id", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Id", resource.Entry[numEntry].Response.Id)
+}
+func (resource *Bundle) T_EntryResponseStatus(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Status", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Status", &resource.Entry[numEntry].Response.Status)
+}
+func (resource *Bundle) T_EntryResponseLocation(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Location", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Location", resource.Entry[numEntry].Response.Location)
+}
+func (resource *Bundle) T_EntryResponseEtag(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Etag", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.Etag", resource.Entry[numEntry].Response.Etag)
+}
+func (resource *Bundle) T_EntryResponseLastModified(numEntry int) templ.Component {
+
+	if resource == nil || len(resource.Entry) >= numEntry {
+		return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.LastModified", nil)
+	}
+	return StringInput("Bundle.Entry["+strconv.Itoa(numEntry)+"].Response.LastModified", resource.Entry[numEntry].Response.LastModified)
 }
 
 type OtherBundle Bundle

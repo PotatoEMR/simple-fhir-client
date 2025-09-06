@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/SubscriptionStatus
 type SubscriptionStatus struct {
@@ -50,33 +54,82 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *SubscriptionStatus) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubscriptionStatus.Id", nil)
+	}
+	return StringInput("SubscriptionStatus.Id", resource.Id)
+}
+func (resource *SubscriptionStatus) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubscriptionStatus.ImplicitRules", nil)
+	}
+	return StringInput("SubscriptionStatus.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *SubscriptionStatus) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("SubscriptionStatus.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("SubscriptionStatus.Language", resource.Language, optionsValueSet)
 }
 func (resource *SubscriptionStatus) T_Status() templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("SubscriptionStatus.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("SubscriptionStatus.Status", resource.Status, optionsValueSet)
 }
 func (resource *SubscriptionStatus) T_Type() templ.Component {
 	optionsValueSet := VSSubscription_notification_type
 
 	if resource == nil {
-		return CodeSelect("type", nil, optionsValueSet)
+		return CodeSelect("SubscriptionStatus.Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Type, optionsValueSet)
+	return CodeSelect("SubscriptionStatus.Type", &resource.Type, optionsValueSet)
 }
-func (resource *SubscriptionStatus) T_Error(optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionStatus) T_EventsSinceSubscriptionStart() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("error", nil, optionsValueSet)
+		return Int64Input("SubscriptionStatus.EventsSinceSubscriptionStart", nil)
 	}
-	return CodeableConceptSelect("error", &resource.Error[0], optionsValueSet)
+	return Int64Input("SubscriptionStatus.EventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart)
+}
+func (resource *SubscriptionStatus) T_Topic() templ.Component {
+
+	if resource == nil {
+		return StringInput("SubscriptionStatus.Topic", nil)
+	}
+	return StringInput("SubscriptionStatus.Topic", resource.Topic)
+}
+func (resource *SubscriptionStatus) T_Error(numError int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Error) >= numError {
+		return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", &resource.Error[numError], optionsValueSet)
+}
+func (resource *SubscriptionStatus) T_NotificationEventId(numNotificationEvent int) templ.Component {
+
+	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
+		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Id", nil)
+	}
+	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Id", resource.NotificationEvent[numNotificationEvent].Id)
+}
+func (resource *SubscriptionStatus) T_NotificationEventEventNumber(numNotificationEvent int) templ.Component {
+
+	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
+		return Int64Input("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", nil)
+	}
+	return Int64Input("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", &resource.NotificationEvent[numNotificationEvent].EventNumber)
+}
+func (resource *SubscriptionStatus) T_NotificationEventTimestamp(numNotificationEvent int) templ.Component {
+
+	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
+		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", nil)
+	}
+	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp)
 }

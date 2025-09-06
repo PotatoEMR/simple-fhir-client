@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/CodeSystem
 type CodeSystem struct {
@@ -20,8 +24,8 @@ type CodeSystem struct {
 	Url                    *string              `json:"url,omitempty"`
 	Identifier             []Identifier         `json:"identifier,omitempty"`
 	Version                *string              `json:"version,omitempty"`
-	VersionAlgorithmString *string              `json:"versionAlgorithmString"`
-	VersionAlgorithmCoding *Coding              `json:"versionAlgorithmCoding"`
+	VersionAlgorithmString *string              `json:"versionAlgorithmString,omitempty"`
+	VersionAlgorithmCoding *Coding              `json:"versionAlgorithmCoding,omitempty"`
 	Name                   *string              `json:"name,omitempty"`
 	Title                  *string              `json:"title,omitempty"`
 	Status                 string               `json:"status"`
@@ -130,113 +134,344 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *CodeSystem) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Id", nil)
+	}
+	return StringInput("CodeSystem.Id", resource.Id)
+}
+func (resource *CodeSystem) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.ImplicitRules", nil)
+	}
+	return StringInput("CodeSystem.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *CodeSystem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("CodeSystem.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("CodeSystem.Language", resource.Language, optionsValueSet)
+}
+func (resource *CodeSystem) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Url", nil)
+	}
+	return StringInput("CodeSystem.Url", resource.Url)
+}
+func (resource *CodeSystem) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Version", nil)
+	}
+	return StringInput("CodeSystem.Version", resource.Version)
+}
+func (resource *CodeSystem) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Name", nil)
+	}
+	return StringInput("CodeSystem.Name", resource.Name)
+}
+func (resource *CodeSystem) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Title", nil)
+	}
+	return StringInput("CodeSystem.Title", resource.Title)
 }
 func (resource *CodeSystem) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("CodeSystem.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("CodeSystem.Status", &resource.Status, optionsValueSet)
 }
-func (resource *CodeSystem) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("CodeSystem.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("CodeSystem.Experimental", resource.Experimental)
 }
-func (resource *CodeSystem) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("CodeSystem.Date", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("CodeSystem.Date", resource.Date)
+}
+func (resource *CodeSystem) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Publisher", nil)
+	}
+	return StringInput("CodeSystem.Publisher", resource.Publisher)
+}
+func (resource *CodeSystem) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Description", nil)
+	}
+	return StringInput("CodeSystem.Description", resource.Description)
+}
+func (resource *CodeSystem) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("CodeSystem.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("CodeSystem.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *CodeSystem) T_Purpose() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Purpose", nil)
+	}
+	return StringInput("CodeSystem.Purpose", resource.Purpose)
+}
+func (resource *CodeSystem) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Copyright", nil)
+	}
+	return StringInput("CodeSystem.Copyright", resource.Copyright)
+}
+func (resource *CodeSystem) T_CopyrightLabel() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.CopyrightLabel", nil)
+	}
+	return StringInput("CodeSystem.CopyrightLabel", resource.CopyrightLabel)
+}
+func (resource *CodeSystem) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.ApprovalDate", nil)
+	}
+	return StringInput("CodeSystem.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *CodeSystem) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.LastReviewDate", nil)
+	}
+	return StringInput("CodeSystem.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *CodeSystem) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("CodeSystem.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("CodeSystem.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
+}
+func (resource *CodeSystem) T_CaseSensitive() templ.Component {
+
+	if resource == nil {
+		return BoolInput("CodeSystem.CaseSensitive", nil)
+	}
+	return BoolInput("CodeSystem.CaseSensitive", resource.CaseSensitive)
+}
+func (resource *CodeSystem) T_ValueSet() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.ValueSet", nil)
+	}
+	return StringInput("CodeSystem.ValueSet", resource.ValueSet)
 }
 func (resource *CodeSystem) T_HierarchyMeaning() templ.Component {
 	optionsValueSet := VSCodesystem_hierarchy_meaning
 
 	if resource == nil {
-		return CodeSelect("hierarchyMeaning", nil, optionsValueSet)
+		return CodeSelect("CodeSystem.HierarchyMeaning", nil, optionsValueSet)
 	}
-	return CodeSelect("hierarchyMeaning", resource.HierarchyMeaning, optionsValueSet)
+	return CodeSelect("CodeSystem.HierarchyMeaning", resource.HierarchyMeaning, optionsValueSet)
+}
+func (resource *CodeSystem) T_Compositional() templ.Component {
+
+	if resource == nil {
+		return BoolInput("CodeSystem.Compositional", nil)
+	}
+	return BoolInput("CodeSystem.Compositional", resource.Compositional)
+}
+func (resource *CodeSystem) T_VersionNeeded() templ.Component {
+
+	if resource == nil {
+		return BoolInput("CodeSystem.VersionNeeded", nil)
+	}
+	return BoolInput("CodeSystem.VersionNeeded", resource.VersionNeeded)
 }
 func (resource *CodeSystem) T_Content() templ.Component {
 	optionsValueSet := VSCodesystem_content_mode
 
 	if resource == nil {
-		return CodeSelect("content", nil, optionsValueSet)
+		return CodeSelect("CodeSystem.Content", nil, optionsValueSet)
 	}
-	return CodeSelect("content", &resource.Content, optionsValueSet)
+	return CodeSelect("CodeSystem.Content", &resource.Content, optionsValueSet)
+}
+func (resource *CodeSystem) T_Supplements() templ.Component {
+
+	if resource == nil {
+		return StringInput("CodeSystem.Supplements", nil)
+	}
+	return StringInput("CodeSystem.Supplements", resource.Supplements)
+}
+func (resource *CodeSystem) T_Count() templ.Component {
+
+	if resource == nil {
+		return IntInput("CodeSystem.Count", nil)
+	}
+	return IntInput("CodeSystem.Count", resource.Count)
+}
+func (resource *CodeSystem) T_FilterId(numFilter int) templ.Component {
+
+	if resource == nil || len(resource.Filter) >= numFilter {
+		return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Id", nil)
+	}
+	return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Id", resource.Filter[numFilter].Id)
 }
 func (resource *CodeSystem) T_FilterCode(numFilter int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Filter) >= numFilter {
-		return CodeSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Filter) >= numFilter {
+		return CodeSelect("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", &resource.Filter[numFilter].Code, optionsValueSet)
+	return CodeSelect("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Code", &resource.Filter[numFilter].Code, optionsValueSet)
 }
-func (resource *CodeSystem) T_FilterOperator(numFilter int) templ.Component {
+func (resource *CodeSystem) T_FilterDescription(numFilter int) templ.Component {
+
+	if resource == nil || len(resource.Filter) >= numFilter {
+		return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Description", nil)
+	}
+	return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Description", resource.Filter[numFilter].Description)
+}
+func (resource *CodeSystem) T_FilterOperator(numFilter int, numOperator int) templ.Component {
 	optionsValueSet := VSFilter_operator
 
-	if resource == nil && len(resource.Filter) >= numFilter {
-		return CodeSelect("operator", nil, optionsValueSet)
+	if resource == nil || len(resource.Filter) >= numFilter || len(resource.Filter[numFilter].Operator) >= numOperator {
+		return CodeSelect("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Operator["+strconv.Itoa(numOperator)+"]", nil, optionsValueSet)
 	}
-	return CodeSelect("operator", &resource.Filter[numFilter].Operator[0], optionsValueSet)
+	return CodeSelect("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Operator["+strconv.Itoa(numOperator)+"]", &resource.Filter[numFilter].Operator[numOperator], optionsValueSet)
+}
+func (resource *CodeSystem) T_FilterValue(numFilter int) templ.Component {
+
+	if resource == nil || len(resource.Filter) >= numFilter {
+		return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Value", nil)
+	}
+	return StringInput("CodeSystem.Filter["+strconv.Itoa(numFilter)+"].Value", &resource.Filter[numFilter].Value)
+}
+func (resource *CodeSystem) T_PropertyId(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Id", nil)
+	}
+	return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Id", resource.Property[numProperty].Id)
 }
 func (resource *CodeSystem) T_PropertyCode(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Property) >= numProperty {
-		return CodeSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Property) >= numProperty {
+		return CodeSelect("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", &resource.Property[numProperty].Code, optionsValueSet)
+	return CodeSelect("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Code", &resource.Property[numProperty].Code, optionsValueSet)
+}
+func (resource *CodeSystem) T_PropertyUri(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Uri", nil)
+	}
+	return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Uri", resource.Property[numProperty].Uri)
+}
+func (resource *CodeSystem) T_PropertyDescription(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Description", nil)
+	}
+	return StringInput("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Description", resource.Property[numProperty].Description)
 }
 func (resource *CodeSystem) T_PropertyType(numProperty int) templ.Component {
 	optionsValueSet := VSConcept_property_type
 
-	if resource == nil && len(resource.Property) >= numProperty {
-		return CodeSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Property) >= numProperty {
+		return CodeSelect("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
+	return CodeSelect("CodeSystem.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Property[numProperty].Type, optionsValueSet)
+}
+func (resource *CodeSystem) T_ConceptId(numConcept int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Id", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Id", resource.Concept[numConcept].Id)
 }
 func (resource *CodeSystem) T_ConceptCode(numConcept int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Concept) >= numConcept {
-		return CodeSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Concept) >= numConcept {
+		return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", &resource.Concept[numConcept].Code, optionsValueSet)
+	return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Code", &resource.Concept[numConcept].Code, optionsValueSet)
+}
+func (resource *CodeSystem) T_ConceptDisplay(numConcept int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Display", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Display", resource.Concept[numConcept].Display)
+}
+func (resource *CodeSystem) T_ConceptDefinition(numConcept int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Definition", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Definition", resource.Concept[numConcept].Definition)
+}
+func (resource *CodeSystem) T_ConceptDesignationId(numConcept int, numDesignation int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Id", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Id", resource.Concept[numConcept].Designation[numDesignation].Id)
 }
 func (resource *CodeSystem) T_ConceptDesignationLanguage(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
-		return CodeSelect("language", nil, optionsValueSet)
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
+	return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Language", resource.Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
 }
 func (resource *CodeSystem) T_ConceptDesignationUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
-		return CodingSelect("use", nil, optionsValueSet)
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return CodingSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Use", nil, optionsValueSet)
 	}
-	return CodingSelect("use", resource.Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
+	return CodingSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Use", resource.Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
 }
-func (resource *CodeSystem) T_ConceptDesignationAdditionalUse(numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
+func (resource *CodeSystem) T_ConceptDesignationAdditionalUse(numConcept int, numDesignation int, numAdditionalUse int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Concept[numConcept].Designation) >= numDesignation {
-		return CodingSelect("additionalUse", nil, optionsValueSet)
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Designation) >= numDesignation || len(resource.Concept[numConcept].Designation[numDesignation].AdditionalUse) >= numAdditionalUse {
+		return CodingSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].AdditionalUse["+strconv.Itoa(numAdditionalUse)+"]", nil, optionsValueSet)
 	}
-	return CodingSelect("additionalUse", &resource.Concept[numConcept].Designation[numDesignation].AdditionalUse[0], optionsValueSet)
+	return CodingSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].AdditionalUse["+strconv.Itoa(numAdditionalUse)+"]", &resource.Concept[numConcept].Designation[numDesignation].AdditionalUse[numAdditionalUse], optionsValueSet)
+}
+func (resource *CodeSystem) T_ConceptDesignationValue(numConcept int, numDesignation int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Designation) >= numDesignation {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Value", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Value", &resource.Concept[numConcept].Designation[numDesignation].Value)
+}
+func (resource *CodeSystem) T_ConceptPropertyId(numConcept int, numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Property) >= numProperty {
+		return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Property["+strconv.Itoa(numProperty)+"].Id", nil)
+	}
+	return StringInput("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Property["+strconv.Itoa(numProperty)+"].Id", resource.Concept[numConcept].Property[numProperty].Id)
 }
 func (resource *CodeSystem) T_ConceptPropertyCode(numConcept int, numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Concept[numConcept].Property) >= numProperty {
-		return CodeSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Concept) >= numConcept || len(resource.Concept[numConcept].Property) >= numProperty {
+		return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Property["+strconv.Itoa(numProperty)+"].Code", nil, optionsValueSet)
 	}
-	return CodeSelect("code", &resource.Concept[numConcept].Property[numProperty].Code, optionsValueSet)
+	return CodeSelect("CodeSystem.Concept["+strconv.Itoa(numConcept)+"].Property["+strconv.Itoa(numProperty)+"].Code", &resource.Concept[numConcept].Property[numProperty].Code, optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/MedicationStatement
 type MedicationStatement struct {
@@ -24,9 +28,9 @@ type MedicationStatement struct {
 	Medication                 CodeableReference             `json:"medication"`
 	Subject                    Reference                     `json:"subject"`
 	Encounter                  *Reference                    `json:"encounter,omitempty"`
-	EffectiveDateTime          *string                       `json:"effectiveDateTime"`
-	EffectivePeriod            *Period                       `json:"effectivePeriod"`
-	EffectiveTiming            *Timing                       `json:"effectiveTiming"`
+	EffectiveDateTime          *string                       `json:"effectiveDateTime,omitempty"`
+	EffectivePeriod            *Period                       `json:"effectivePeriod,omitempty"`
+	EffectiveTiming            *Timing                       `json:"effectiveTiming,omitempty"`
 	DateAsserted               *string                       `json:"dateAsserted,omitempty"`
 	InformationSource          []Reference                   `json:"informationSource,omitempty"`
 	DerivedFrom                []Reference                   `json:"derivedFrom,omitempty"`
@@ -60,39 +64,74 @@ func (r MedicationStatement) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicationStatement) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationStatement.Id", nil)
+	}
+	return StringInput("MedicationStatement.Id", resource.Id)
+}
+func (resource *MedicationStatement) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationStatement.ImplicitRules", nil)
+	}
+	return StringInput("MedicationStatement.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicationStatement) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicationStatement.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicationStatement.Language", resource.Language, optionsValueSet)
 }
 func (resource *MedicationStatement) T_Status() templ.Component {
 	optionsValueSet := VSMedication_statement_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("MedicationStatement.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("MedicationStatement.Status", &resource.Status, optionsValueSet)
 }
-func (resource *MedicationStatement) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *MedicationStatement) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("MedicationStatement.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("MedicationStatement.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *MedicationStatement) T_DateAsserted() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+		return StringInput("MedicationStatement.DateAsserted", nil)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return StringInput("MedicationStatement.DateAsserted", resource.DateAsserted)
+}
+func (resource *MedicationStatement) T_RenderedDosageInstruction() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationStatement.RenderedDosageInstruction", nil)
+	}
+	return StringInput("MedicationStatement.RenderedDosageInstruction", resource.RenderedDosageInstruction)
+}
+func (resource *MedicationStatement) T_AdherenceId() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicationStatement.Adherence.Id", nil)
+	}
+	return StringInput("MedicationStatement.Adherence.Id", resource.Adherence.Id)
 }
 func (resource *MedicationStatement) T_AdherenceCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationStatement.Adherence.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Adherence.Code, optionsValueSet)
+	return CodeableConceptSelect("MedicationStatement.Adherence.Code", &resource.Adherence.Code, optionsValueSet)
 }
 func (resource *MedicationStatement) T_AdherenceReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reason", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicationStatement.Adherence.Reason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("reason", resource.Adherence.Reason, optionsValueSet)
+	return CodeableConceptSelect("MedicationStatement.Adherence.Reason", resource.Adherence.Reason, optionsValueSet)
 }

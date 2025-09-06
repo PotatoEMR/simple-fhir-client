@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Medication
 type Medication struct {
@@ -35,9 +39,9 @@ type MedicationIngredient struct {
 	ModifierExtension       []Extension       `json:"modifierExtension,omitempty"`
 	Item                    CodeableReference `json:"item"`
 	IsActive                *bool             `json:"isActive,omitempty"`
-	StrengthRatio           *Ratio            `json:"strengthRatio"`
-	StrengthCodeableConcept *CodeableConcept  `json:"strengthCodeableConcept"`
-	StrengthQuantity        *Quantity         `json:"strengthQuantity"`
+	StrengthRatio           *Ratio            `json:"strengthRatio,omitempty"`
+	StrengthCodeableConcept *CodeableConcept  `json:"strengthCodeableConcept,omitempty"`
+	StrengthQuantity        *Quantity         `json:"strengthQuantity,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/Medication
@@ -62,32 +66,81 @@ func (r Medication) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Medication) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Medication.Id", nil)
+	}
+	return StringInput("Medication.Id", resource.Id)
+}
+func (resource *Medication) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Medication.ImplicitRules", nil)
+	}
+	return StringInput("Medication.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Medication) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Medication.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Medication.Language", resource.Language, optionsValueSet)
 }
 func (resource *Medication) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Medication.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Medication.Code", resource.Code, optionsValueSet)
 }
 func (resource *Medication) T_Status() templ.Component {
 	optionsValueSet := VSMedication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Medication.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("Medication.Status", resource.Status, optionsValueSet)
 }
 func (resource *Medication) T_DoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("doseForm", nil, optionsValueSet)
+		return CodeableConceptSelect("Medication.DoseForm", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("doseForm", resource.DoseForm, optionsValueSet)
+	return CodeableConceptSelect("Medication.DoseForm", resource.DoseForm, optionsValueSet)
+}
+func (resource *Medication) T_IngredientId(numIngredient int) templ.Component {
+
+	if resource == nil || len(resource.Ingredient) >= numIngredient {
+		return StringInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].Id", nil)
+	}
+	return StringInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].Id", resource.Ingredient[numIngredient].Id)
+}
+func (resource *Medication) T_IngredientIsActive(numIngredient int) templ.Component {
+
+	if resource == nil || len(resource.Ingredient) >= numIngredient {
+		return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", nil)
+	}
+	return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", resource.Ingredient[numIngredient].IsActive)
+}
+func (resource *Medication) T_BatchId() templ.Component {
+
+	if resource == nil {
+		return StringInput("Medication.Batch.Id", nil)
+	}
+	return StringInput("Medication.Batch.Id", resource.Batch.Id)
+}
+func (resource *Medication) T_BatchLotNumber() templ.Component {
+
+	if resource == nil {
+		return StringInput("Medication.Batch.LotNumber", nil)
+	}
+	return StringInput("Medication.Batch.LotNumber", resource.Batch.LotNumber)
+}
+func (resource *Medication) T_BatchExpirationDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("Medication.Batch.ExpirationDate", nil)
+	}
+	return StringInput("Medication.Batch.ExpirationDate", resource.Batch.ExpirationDate)
 }

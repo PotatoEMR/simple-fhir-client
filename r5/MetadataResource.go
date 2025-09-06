@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/MetadataResource
 type MetadataResource struct {
@@ -20,8 +24,8 @@ type MetadataResource struct {
 	Url                    *string           `json:"url,omitempty"`
 	Identifier             []Identifier      `json:"identifier,omitempty"`
 	Version                *string           `json:"version,omitempty"`
-	VersionAlgorithmString *string           `json:"versionAlgorithmString"`
-	VersionAlgorithmCoding *Coding           `json:"versionAlgorithmCoding"`
+	VersionAlgorithmString *string           `json:"versionAlgorithmString,omitempty"`
+	VersionAlgorithmCoding *Coding           `json:"versionAlgorithmCoding,omitempty"`
 	Name                   *string           `json:"name,omitempty"`
 	Title                  *string           `json:"title,omitempty"`
 	Status                 string            `json:"status"`
@@ -59,32 +63,137 @@ func (r MetadataResource) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MetadataResource) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Id", nil)
+	}
+	return StringInput("MetadataResource.Id", resource.Id)
+}
+func (resource *MetadataResource) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.ImplicitRules", nil)
+	}
+	return StringInput("MetadataResource.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MetadataResource) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MetadataResource.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MetadataResource.Language", resource.Language, optionsValueSet)
+}
+func (resource *MetadataResource) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Url", nil)
+	}
+	return StringInput("MetadataResource.Url", resource.Url)
+}
+func (resource *MetadataResource) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Version", nil)
+	}
+	return StringInput("MetadataResource.Version", resource.Version)
+}
+func (resource *MetadataResource) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Name", nil)
+	}
+	return StringInput("MetadataResource.Name", resource.Name)
+}
+func (resource *MetadataResource) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Title", nil)
+	}
+	return StringInput("MetadataResource.Title", resource.Title)
 }
 func (resource *MetadataResource) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("MetadataResource.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("MetadataResource.Status", &resource.Status, optionsValueSet)
 }
-func (resource *MetadataResource) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *MetadataResource) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("MetadataResource.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("MetadataResource.Experimental", resource.Experimental)
 }
-func (resource *MetadataResource) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *MetadataResource) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("MetadataResource.Date", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("MetadataResource.Date", resource.Date)
+}
+func (resource *MetadataResource) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Publisher", nil)
+	}
+	return StringInput("MetadataResource.Publisher", resource.Publisher)
+}
+func (resource *MetadataResource) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Description", nil)
+	}
+	return StringInput("MetadataResource.Description", resource.Description)
+}
+func (resource *MetadataResource) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("MetadataResource.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("MetadataResource.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *MetadataResource) T_Purpose() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Purpose", nil)
+	}
+	return StringInput("MetadataResource.Purpose", resource.Purpose)
+}
+func (resource *MetadataResource) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.Copyright", nil)
+	}
+	return StringInput("MetadataResource.Copyright", resource.Copyright)
+}
+func (resource *MetadataResource) T_CopyrightLabel() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.CopyrightLabel", nil)
+	}
+	return StringInput("MetadataResource.CopyrightLabel", resource.CopyrightLabel)
+}
+func (resource *MetadataResource) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.ApprovalDate", nil)
+	}
+	return StringInput("MetadataResource.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *MetadataResource) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("MetadataResource.LastReviewDate", nil)
+	}
+	return StringInput("MetadataResource.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *MetadataResource) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("MetadataResource.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("MetadataResource.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
 }

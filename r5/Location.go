@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Location
 type Location struct {
@@ -60,54 +64,117 @@ func (r Location) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Location) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Location.Id", nil)
+	}
+	return StringInput("Location.Id", resource.Id)
+}
+func (resource *Location) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Location.ImplicitRules", nil)
+	}
+	return StringInput("Location.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Location) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Location.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Location.Language", resource.Language, optionsValueSet)
 }
 func (resource *Location) T_Status() templ.Component {
 	optionsValueSet := VSLocation_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Location.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("Location.Status", resource.Status, optionsValueSet)
 }
 func (resource *Location) T_OperationalStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodingSelect("operationalStatus", nil, optionsValueSet)
+		return CodingSelect("Location.OperationalStatus", nil, optionsValueSet)
 	}
-	return CodingSelect("operationalStatus", resource.OperationalStatus, optionsValueSet)
+	return CodingSelect("Location.OperationalStatus", resource.OperationalStatus, optionsValueSet)
+}
+func (resource *Location) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("Location.Name", nil)
+	}
+	return StringInput("Location.Name", resource.Name)
+}
+func (resource *Location) T_Alias(numAlias int) templ.Component {
+
+	if resource == nil || len(resource.Alias) >= numAlias {
+		return StringInput("Location.Alias["+strconv.Itoa(numAlias)+"]", nil)
+	}
+	return StringInput("Location.Alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias])
+}
+func (resource *Location) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("Location.Description", nil)
+	}
+	return StringInput("Location.Description", resource.Description)
 }
 func (resource *Location) T_Mode() templ.Component {
 	optionsValueSet := VSLocation_mode
 
 	if resource == nil {
-		return CodeSelect("mode", nil, optionsValueSet)
+		return CodeSelect("Location.Mode", nil, optionsValueSet)
 	}
-	return CodeSelect("mode", resource.Mode, optionsValueSet)
+	return CodeSelect("Location.Mode", resource.Mode, optionsValueSet)
 }
-func (resource *Location) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Type(numType int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Type) >= numType {
+		return CodeableConceptSelect("Location.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Type[0], optionsValueSet)
+	return CodeableConceptSelect("Location.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
 }
 func (resource *Location) T_Form(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("form", nil, optionsValueSet)
+		return CodeableConceptSelect("Location.Form", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("form", resource.Form, optionsValueSet)
+	return CodeableConceptSelect("Location.Form", resource.Form, optionsValueSet)
 }
-func (resource *Location) T_Characteristic(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Characteristic(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("Location.Characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Location.Characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet)
+}
+func (resource *Location) T_PositionId() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("characteristic", nil, optionsValueSet)
+		return StringInput("Location.Position.Id", nil)
 	}
-	return CodeableConceptSelect("characteristic", &resource.Characteristic[0], optionsValueSet)
+	return StringInput("Location.Position.Id", resource.Position.Id)
+}
+func (resource *Location) T_PositionLongitude() templ.Component {
+
+	if resource == nil {
+		return Float64Input("Location.Position.Longitude", nil)
+	}
+	return Float64Input("Location.Position.Longitude", &resource.Position.Longitude)
+}
+func (resource *Location) T_PositionLatitude() templ.Component {
+
+	if resource == nil {
+		return Float64Input("Location.Position.Latitude", nil)
+	}
+	return Float64Input("Location.Position.Latitude", &resource.Position.Latitude)
+}
+func (resource *Location) T_PositionAltitude() templ.Component {
+
+	if resource == nil {
+		return Float64Input("Location.Position.Altitude", nil)
+	}
+	return Float64Input("Location.Position.Altitude", resource.Position.Altitude)
 }

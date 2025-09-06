@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/MedicinalProductInteraction
 type MedicinalProductInteraction struct {
@@ -48,38 +52,66 @@ func (r MedicinalProductInteraction) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *MedicinalProductInteraction) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductInteraction.Id", nil)
+	}
+	return StringInput("MedicinalProductInteraction.Id", resource.Id)
+}
+func (resource *MedicinalProductInteraction) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductInteraction.ImplicitRules", nil)
+	}
+	return StringInput("MedicinalProductInteraction.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *MedicinalProductInteraction) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("MedicinalProductInteraction.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("MedicinalProductInteraction.Language", resource.Language, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("MedicinalProductInteraction.Description", nil)
+	}
+	return StringInput("MedicinalProductInteraction.Description", resource.Description)
 }
 func (resource *MedicinalProductInteraction) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductInteraction.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductInteraction.Type", resource.Type, optionsValueSet)
 }
 func (resource *MedicinalProductInteraction) T_Effect(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("effect", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductInteraction.Effect", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("effect", resource.Effect, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductInteraction.Effect", resource.Effect, optionsValueSet)
 }
 func (resource *MedicinalProductInteraction) T_Incidence(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("incidence", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductInteraction.Incidence", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("incidence", resource.Incidence, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductInteraction.Incidence", resource.Incidence, optionsValueSet)
 }
 func (resource *MedicinalProductInteraction) T_Management(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("management", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductInteraction.Management", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("management", resource.Management, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductInteraction.Management", resource.Management, optionsValueSet)
+}
+func (resource *MedicinalProductInteraction) T_InteractantId(numInteractant int) templ.Component {
+
+	if resource == nil || len(resource.Interactant) >= numInteractant {
+		return StringInput("MedicinalProductInteraction.Interactant["+strconv.Itoa(numInteractant)+"].Id", nil)
+	}
+	return StringInput("MedicinalProductInteraction.Interactant["+strconv.Itoa(numInteractant)+"].Id", resource.Interactant[numInteractant].Id)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/InventoryItem
 type InventoryItem struct {
@@ -117,90 +121,174 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *InventoryItem) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Id", nil)
+	}
+	return StringInput("InventoryItem.Id", resource.Id)
+}
+func (resource *InventoryItem) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.ImplicitRules", nil)
+	}
+	return StringInput("InventoryItem.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *InventoryItem) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("InventoryItem.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("InventoryItem.Language", resource.Language, optionsValueSet)
 }
 func (resource *InventoryItem) T_Status() templ.Component {
 	optionsValueSet := VSInventoryitem_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("InventoryItem.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("InventoryItem.Status", &resource.Status, optionsValueSet)
 }
-func (resource *InventoryItem) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryItem) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("InventoryItem.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
-func (resource *InventoryItem) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryItem) T_Code(numCode int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+	if resource == nil || len(resource.Code) >= numCode {
+		return CodeableConceptSelect("InventoryItem.Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", &resource.Code[0], optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet)
 }
-func (resource *InventoryItem) T_InventoryStatus(optionsValueSet []Coding) templ.Component {
+func (resource *InventoryItem) T_InventoryStatus(numInventoryStatus int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("inventoryStatus", nil, optionsValueSet)
+	if resource == nil || len(resource.InventoryStatus) >= numInventoryStatus {
+		return CodeableConceptSelect("InventoryItem.InventoryStatus["+strconv.Itoa(numInventoryStatus)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("inventoryStatus", &resource.InventoryStatus[0], optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.InventoryStatus["+strconv.Itoa(numInventoryStatus)+"]", &resource.InventoryStatus[numInventoryStatus], optionsValueSet)
 }
 func (resource *InventoryItem) T_BaseUnit(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("baseUnit", nil, optionsValueSet)
+		return CodeableConceptSelect("InventoryItem.BaseUnit", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("baseUnit", resource.BaseUnit, optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.BaseUnit", resource.BaseUnit, optionsValueSet)
+}
+func (resource *InventoryItem) T_NameId(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("InventoryItem.Name["+strconv.Itoa(numName)+"].Id", nil)
+	}
+	return StringInput("InventoryItem.Name["+strconv.Itoa(numName)+"].Id", resource.Name[numName].Id)
 }
 func (resource *InventoryItem) T_NameNameType(numName int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodingSelect("nameType", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName {
+		return CodingSelect("InventoryItem.Name["+strconv.Itoa(numName)+"].NameType", nil, optionsValueSet)
 	}
-	return CodingSelect("nameType", &resource.Name[numName].NameType, optionsValueSet)
+	return CodingSelect("InventoryItem.Name["+strconv.Itoa(numName)+"].NameType", &resource.Name[numName].NameType, optionsValueSet)
 }
 func (resource *InventoryItem) T_NameLanguage(numName int) templ.Component {
 	optionsValueSet := VSLanguages
 
-	if resource == nil && len(resource.Name) >= numName {
-		return CodeSelect("language", nil, optionsValueSet)
+	if resource == nil || len(resource.Name) >= numName {
+		return CodeSelect("InventoryItem.Name["+strconv.Itoa(numName)+"].Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", &resource.Name[numName].Language, optionsValueSet)
+	return CodeSelect("InventoryItem.Name["+strconv.Itoa(numName)+"].Language", &resource.Name[numName].Language, optionsValueSet)
+}
+func (resource *InventoryItem) T_NameName(numName int) templ.Component {
+
+	if resource == nil || len(resource.Name) >= numName {
+		return StringInput("InventoryItem.Name["+strconv.Itoa(numName)+"].Name", nil)
+	}
+	return StringInput("InventoryItem.Name["+strconv.Itoa(numName)+"].Name", &resource.Name[numName].Name)
+}
+func (resource *InventoryItem) T_ResponsibleOrganizationId(numResponsibleOrganization int) templ.Component {
+
+	if resource == nil || len(resource.ResponsibleOrganization) >= numResponsibleOrganization {
+		return StringInput("InventoryItem.ResponsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].Id", nil)
+	}
+	return StringInput("InventoryItem.ResponsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].Id", resource.ResponsibleOrganization[numResponsibleOrganization].Id)
 }
 func (resource *InventoryItem) T_ResponsibleOrganizationRole(numResponsibleOrganization int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.ResponsibleOrganization) >= numResponsibleOrganization {
-		return CodeableConceptSelect("role", nil, optionsValueSet)
+	if resource == nil || len(resource.ResponsibleOrganization) >= numResponsibleOrganization {
+		return CodeableConceptSelect("InventoryItem.ResponsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].Role", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("role", &resource.ResponsibleOrganization[numResponsibleOrganization].Role, optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.ResponsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].Role", &resource.ResponsibleOrganization[numResponsibleOrganization].Role, optionsValueSet)
+}
+func (resource *InventoryItem) T_DescriptionId() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Description.Id", nil)
+	}
+	return StringInput("InventoryItem.Description.Id", resource.Description.Id)
 }
 func (resource *InventoryItem) T_DescriptionLanguage() templ.Component {
 	optionsValueSet := VSLanguages
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("InventoryItem.Description.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Description.Language, optionsValueSet)
+	return CodeSelect("InventoryItem.Description.Language", resource.Description.Language, optionsValueSet)
+}
+func (resource *InventoryItem) T_DescriptionDescription() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Description.Description", nil)
+	}
+	return StringInput("InventoryItem.Description.Description", resource.Description.Description)
+}
+func (resource *InventoryItem) T_AssociationId(numAssociation int) templ.Component {
+
+	if resource == nil || len(resource.Association) >= numAssociation {
+		return StringInput("InventoryItem.Association["+strconv.Itoa(numAssociation)+"].Id", nil)
+	}
+	return StringInput("InventoryItem.Association["+strconv.Itoa(numAssociation)+"].Id", resource.Association[numAssociation].Id)
 }
 func (resource *InventoryItem) T_AssociationAssociationType(numAssociation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Association) >= numAssociation {
-		return CodeableConceptSelect("associationType", nil, optionsValueSet)
+	if resource == nil || len(resource.Association) >= numAssociation {
+		return CodeableConceptSelect("InventoryItem.Association["+strconv.Itoa(numAssociation)+"].AssociationType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("associationType", &resource.Association[numAssociation].AssociationType, optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.Association["+strconv.Itoa(numAssociation)+"].AssociationType", &resource.Association[numAssociation].AssociationType, optionsValueSet)
+}
+func (resource *InventoryItem) T_CharacteristicId(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("InventoryItem.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", nil)
+	}
+	return StringInput("InventoryItem.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", resource.Characteristic[numCharacteristic].Id)
 }
 func (resource *InventoryItem) T_CharacteristicCharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("characteristicType", nil, optionsValueSet)
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("InventoryItem.Characteristic["+strconv.Itoa(numCharacteristic)+"].CharacteristicType", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("characteristicType", &resource.Characteristic[numCharacteristic].CharacteristicType, optionsValueSet)
+	return CodeableConceptSelect("InventoryItem.Characteristic["+strconv.Itoa(numCharacteristic)+"].CharacteristicType", &resource.Characteristic[numCharacteristic].CharacteristicType, optionsValueSet)
+}
+func (resource *InventoryItem) T_InstanceId() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Instance.Id", nil)
+	}
+	return StringInput("InventoryItem.Instance.Id", resource.Instance.Id)
+}
+func (resource *InventoryItem) T_InstanceLotNumber() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Instance.LotNumber", nil)
+	}
+	return StringInput("InventoryItem.Instance.LotNumber", resource.Instance.LotNumber)
+}
+func (resource *InventoryItem) T_InstanceExpiry() templ.Component {
+
+	if resource == nil {
+		return StringInput("InventoryItem.Instance.Expiry", nil)
+	}
+	return StringInput("InventoryItem.Instance.Expiry", resource.Instance.Expiry)
 }

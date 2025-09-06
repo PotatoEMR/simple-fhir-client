@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/NutritionProduct
 type NutritionProduct struct {
@@ -88,39 +92,109 @@ func (r NutritionProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *NutritionProduct) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("NutritionProduct.Id", nil)
+	}
+	return StringInput("NutritionProduct.Id", resource.Id)
+}
+func (resource *NutritionProduct) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("NutritionProduct.ImplicitRules", nil)
+	}
+	return StringInput("NutritionProduct.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *NutritionProduct) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("NutritionProduct.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("NutritionProduct.Language", resource.Language, optionsValueSet)
 }
 func (resource *NutritionProduct) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("NutritionProduct.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("NutritionProduct.Code", resource.Code, optionsValueSet)
 }
 func (resource *NutritionProduct) T_Status() templ.Component {
 	optionsValueSet := VSNutritionproduct_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("NutritionProduct.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("NutritionProduct.Status", &resource.Status, optionsValueSet)
 }
-func (resource *NutritionProduct) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *NutritionProduct) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("NutritionProduct.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("NutritionProduct.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+}
+func (resource *NutritionProduct) T_NutrientId(numNutrient int) templ.Component {
+
+	if resource == nil || len(resource.Nutrient) >= numNutrient {
+		return StringInput("NutritionProduct.Nutrient["+strconv.Itoa(numNutrient)+"].Id", nil)
+	}
+	return StringInput("NutritionProduct.Nutrient["+strconv.Itoa(numNutrient)+"].Id", resource.Nutrient[numNutrient].Id)
+}
+func (resource *NutritionProduct) T_IngredientId(numIngredient int) templ.Component {
+
+	if resource == nil || len(resource.Ingredient) >= numIngredient {
+		return StringInput("NutritionProduct.Ingredient["+strconv.Itoa(numIngredient)+"].Id", nil)
+	}
+	return StringInput("NutritionProduct.Ingredient["+strconv.Itoa(numIngredient)+"].Id", resource.Ingredient[numIngredient].Id)
+}
+func (resource *NutritionProduct) T_CharacteristicId(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("NutritionProduct.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", nil)
+	}
+	return StringInput("NutritionProduct.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", resource.Characteristic[numCharacteristic].Id)
 }
 func (resource *NutritionProduct) T_CharacteristicType(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("NutritionProduct.Characteristic["+strconv.Itoa(numCharacteristic)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Characteristic[numCharacteristic].Type, optionsValueSet)
+	return CodeableConceptSelect("NutritionProduct.Characteristic["+strconv.Itoa(numCharacteristic)+"].Type", &resource.Characteristic[numCharacteristic].Type, optionsValueSet)
+}
+func (resource *NutritionProduct) T_InstanceId(numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Instance) >= numInstance {
+		return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Id", nil)
+	}
+	return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Id", resource.Instance[numInstance].Id)
+}
+func (resource *NutritionProduct) T_InstanceName(numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Instance) >= numInstance {
+		return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Name", nil)
+	}
+	return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Name", resource.Instance[numInstance].Name)
+}
+func (resource *NutritionProduct) T_InstanceLotNumber(numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Instance) >= numInstance {
+		return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].LotNumber", nil)
+	}
+	return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].LotNumber", resource.Instance[numInstance].LotNumber)
+}
+func (resource *NutritionProduct) T_InstanceExpiry(numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Instance) >= numInstance {
+		return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Expiry", nil)
+	}
+	return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].Expiry", resource.Instance[numInstance].Expiry)
+}
+func (resource *NutritionProduct) T_InstanceUseBy(numInstance int) templ.Component {
+
+	if resource == nil || len(resource.Instance) >= numInstance {
+		return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].UseBy", nil)
+	}
+	return StringInput("NutritionProduct.Instance["+strconv.Itoa(numInstance)+"].UseBy", resource.Instance[numInstance].UseBy)
 }

@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/EvidenceVariable
 type EvidenceVariable struct {
@@ -77,9 +81,9 @@ type EvidenceVariableCategory struct {
 	Extension            []Extension      `json:"extension,omitempty"`
 	ModifierExtension    []Extension      `json:"modifierExtension,omitempty"`
 	Name                 *string          `json:"name,omitempty"`
-	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept"`
-	ValueQuantity        *Quantity        `json:"valueQuantity"`
-	ValueRange           *Range           `json:"valueRange"`
+	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
+	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
+	ValueRange           *Range           `json:"valueRange,omitempty"`
 }
 
 type OtherEvidenceVariable EvidenceVariable
@@ -95,49 +99,182 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *EvidenceVariable) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Id", nil)
+	}
+	return StringInput("EvidenceVariable.Id", resource.Id)
+}
+func (resource *EvidenceVariable) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.ImplicitRules", nil)
+	}
+	return StringInput("EvidenceVariable.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *EvidenceVariable) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("EvidenceVariable.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("EvidenceVariable.Language", resource.Language, optionsValueSet)
+}
+func (resource *EvidenceVariable) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Url", nil)
+	}
+	return StringInput("EvidenceVariable.Url", resource.Url)
+}
+func (resource *EvidenceVariable) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Version", nil)
+	}
+	return StringInput("EvidenceVariable.Version", resource.Version)
+}
+func (resource *EvidenceVariable) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Name", nil)
+	}
+	return StringInput("EvidenceVariable.Name", resource.Name)
+}
+func (resource *EvidenceVariable) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Title", nil)
+	}
+	return StringInput("EvidenceVariable.Title", resource.Title)
+}
+func (resource *EvidenceVariable) T_ShortTitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.ShortTitle", nil)
+	}
+	return StringInput("EvidenceVariable.ShortTitle", resource.ShortTitle)
+}
+func (resource *EvidenceVariable) T_Subtitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Subtitle", nil)
+	}
+	return StringInput("EvidenceVariable.Subtitle", resource.Subtitle)
 }
 func (resource *EvidenceVariable) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("EvidenceVariable.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("EvidenceVariable.Status", &resource.Status, optionsValueSet)
+}
+func (resource *EvidenceVariable) T_Date() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Date", nil)
+	}
+	return StringInput("EvidenceVariable.Date", resource.Date)
+}
+func (resource *EvidenceVariable) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Description", nil)
+	}
+	return StringInput("EvidenceVariable.Description", resource.Description)
+}
+func (resource *EvidenceVariable) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("EvidenceVariable.Publisher", nil)
+	}
+	return StringInput("EvidenceVariable.Publisher", resource.Publisher)
+}
+func (resource *EvidenceVariable) T_Actual() templ.Component {
+
+	if resource == nil {
+		return BoolInput("EvidenceVariable.Actual", nil)
+	}
+	return BoolInput("EvidenceVariable.Actual", resource.Actual)
 }
 func (resource *EvidenceVariable) T_CharacteristicCombination() templ.Component {
 	optionsValueSet := VSCharacteristic_combination
 
 	if resource == nil {
-		return CodeSelect("characteristicCombination", nil, optionsValueSet)
+		return CodeSelect("EvidenceVariable.CharacteristicCombination", nil, optionsValueSet)
 	}
-	return CodeSelect("characteristicCombination", resource.CharacteristicCombination, optionsValueSet)
+	return CodeSelect("EvidenceVariable.CharacteristicCombination", resource.CharacteristicCombination, optionsValueSet)
 }
 func (resource *EvidenceVariable) T_Handling() templ.Component {
 	optionsValueSet := VSVariable_handling
 
 	if resource == nil {
-		return CodeSelect("handling", nil, optionsValueSet)
+		return CodeSelect("EvidenceVariable.Handling", nil, optionsValueSet)
 	}
-	return CodeSelect("handling", resource.Handling, optionsValueSet)
+	return CodeSelect("EvidenceVariable.Handling", resource.Handling, optionsValueSet)
+}
+func (resource *EvidenceVariable) T_CharacteristicId(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", nil)
+	}
+	return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", resource.Characteristic[numCharacteristic].Id)
+}
+func (resource *EvidenceVariable) T_CharacteristicDescription(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Description", nil)
+	}
+	return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Description", resource.Characteristic[numCharacteristic].Description)
 }
 func (resource *EvidenceVariable) T_CharacteristicMethod(numCharacteristic int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("method", nil, optionsValueSet)
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeableConceptSelect("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Method", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("method", resource.Characteristic[numCharacteristic].Method, optionsValueSet)
+	return CodeableConceptSelect("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Method", resource.Characteristic[numCharacteristic].Method, optionsValueSet)
+}
+func (resource *EvidenceVariable) T_CharacteristicExclude(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return BoolInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", nil)
+	}
+	return BoolInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", resource.Characteristic[numCharacteristic].Exclude)
 }
 func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int) templ.Component {
 	optionsValueSet := VSGroup_measure
 
-	if resource == nil && len(resource.Characteristic) >= numCharacteristic {
-		return CodeSelect("groupMeasure", nil, optionsValueSet)
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return CodeSelect("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].GroupMeasure", nil, optionsValueSet)
 	}
-	return CodeSelect("groupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet)
+	return CodeSelect("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].GroupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet)
+}
+func (resource *EvidenceVariable) T_CharacteristicTimeFromStartId(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].TimeFromStart.Id", nil)
+	}
+	return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].TimeFromStart.Id", resource.Characteristic[numCharacteristic].TimeFromStart.Id)
+}
+func (resource *EvidenceVariable) T_CharacteristicTimeFromStartDescription(numCharacteristic int) templ.Component {
+
+	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
+		return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].TimeFromStart.Description", nil)
+	}
+	return StringInput("EvidenceVariable.Characteristic["+strconv.Itoa(numCharacteristic)+"].TimeFromStart.Description", resource.Characteristic[numCharacteristic].TimeFromStart.Description)
+}
+func (resource *EvidenceVariable) T_CategoryId(numCategory int) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return StringInput("EvidenceVariable.Category["+strconv.Itoa(numCategory)+"].Id", nil)
+	}
+	return StringInput("EvidenceVariable.Category["+strconv.Itoa(numCategory)+"].Id", resource.Category[numCategory].Id)
+}
+func (resource *EvidenceVariable) T_CategoryName(numCategory int) templ.Component {
+
+	if resource == nil || len(resource.Category) >= numCategory {
+		return StringInput("EvidenceVariable.Category["+strconv.Itoa(numCategory)+"].Name", nil)
+	}
+	return StringInput("EvidenceVariable.Category["+strconv.Itoa(numCategory)+"].Name", resource.Category[numCategory].Name)
 }

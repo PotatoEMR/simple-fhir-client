@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/Linkage
 type Linkage struct {
@@ -44,18 +48,46 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Linkage) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Linkage.Id", nil)
+	}
+	return StringInput("Linkage.Id", resource.Id)
+}
+func (resource *Linkage) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Linkage.ImplicitRules", nil)
+	}
+	return StringInput("Linkage.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Linkage) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Linkage.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Linkage.Language", resource.Language, optionsValueSet)
+}
+func (resource *Linkage) T_Active() templ.Component {
+
+	if resource == nil {
+		return BoolInput("Linkage.Active", nil)
+	}
+	return BoolInput("Linkage.Active", resource.Active)
+}
+func (resource *Linkage) T_ItemId(numItem int) templ.Component {
+
+	if resource == nil || len(resource.Item) >= numItem {
+		return StringInput("Linkage.Item["+strconv.Itoa(numItem)+"].Id", nil)
+	}
+	return StringInput("Linkage.Item["+strconv.Itoa(numItem)+"].Id", resource.Item[numItem].Id)
 }
 func (resource *Linkage) T_ItemType(numItem int) templ.Component {
 	optionsValueSet := VSLinkage_type
 
-	if resource == nil && len(resource.Item) >= numItem {
-		return CodeSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Item) >= numItem {
+		return CodeSelect("Linkage.Item["+strconv.Itoa(numItem)+"].Type", nil, optionsValueSet)
 	}
-	return CodeSelect("type", &resource.Item[numItem].Type, optionsValueSet)
+	return CodeSelect("Linkage.Item["+strconv.Itoa(numItem)+"].Type", &resource.Item[numItem].Type, optionsValueSet)
 }

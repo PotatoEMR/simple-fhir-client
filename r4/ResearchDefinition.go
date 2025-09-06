@@ -1,11 +1,15 @@
 package r4
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4/StructureDefinition/ResearchDefinition
 type ResearchDefinition struct {
@@ -26,8 +30,8 @@ type ResearchDefinition struct {
 	Subtitle               *string           `json:"subtitle,omitempty"`
 	Status                 string            `json:"status"`
 	Experimental           *bool             `json:"experimental,omitempty"`
-	SubjectCodeableConcept *CodeableConcept  `json:"subjectCodeableConcept"`
-	SubjectReference       *Reference        `json:"subjectReference"`
+	SubjectCodeableConcept *CodeableConcept  `json:"subjectCodeableConcept,omitempty"`
+	SubjectReference       *Reference        `json:"subjectReference,omitempty"`
 	Date                   *string           `json:"date,omitempty"`
 	Publisher              *string           `json:"publisher,omitempty"`
 	Contact                []ContactDetail   `json:"contact,omitempty"`
@@ -67,32 +71,165 @@ func (r ResearchDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ResearchDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Id", nil)
+	}
+	return StringInput("ResearchDefinition.Id", resource.Id)
+}
+func (resource *ResearchDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ResearchDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ResearchDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ResearchDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ResearchDefinition.Language", resource.Language, optionsValueSet)
+}
+func (resource *ResearchDefinition) T_Url() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Url", nil)
+	}
+	return StringInput("ResearchDefinition.Url", resource.Url)
+}
+func (resource *ResearchDefinition) T_Version() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Version", nil)
+	}
+	return StringInput("ResearchDefinition.Version", resource.Version)
+}
+func (resource *ResearchDefinition) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Name", nil)
+	}
+	return StringInput("ResearchDefinition.Name", resource.Name)
+}
+func (resource *ResearchDefinition) T_Title() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Title", nil)
+	}
+	return StringInput("ResearchDefinition.Title", resource.Title)
+}
+func (resource *ResearchDefinition) T_ShortTitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.ShortTitle", nil)
+	}
+	return StringInput("ResearchDefinition.ShortTitle", resource.ShortTitle)
+}
+func (resource *ResearchDefinition) T_Subtitle() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Subtitle", nil)
+	}
+	return StringInput("ResearchDefinition.Subtitle", resource.Subtitle)
 }
 func (resource *ResearchDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ResearchDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ResearchDefinition.Status", &resource.Status, optionsValueSet)
 }
-func (resource *ResearchDefinition) T_Jurisdiction(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchDefinition) T_Experimental() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("jurisdiction", nil, optionsValueSet)
+		return BoolInput("ResearchDefinition.Experimental", nil)
 	}
-	return CodeableConceptSelect("jurisdiction", &resource.Jurisdiction[0], optionsValueSet)
+	return BoolInput("ResearchDefinition.Experimental", resource.Experimental)
 }
-func (resource *ResearchDefinition) T_Topic(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchDefinition) T_Date() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return StringInput("ResearchDefinition.Date", nil)
 	}
-	return CodeableConceptSelect("topic", &resource.Topic[0], optionsValueSet)
+	return StringInput("ResearchDefinition.Date", resource.Date)
+}
+func (resource *ResearchDefinition) T_Publisher() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Publisher", nil)
+	}
+	return StringInput("ResearchDefinition.Publisher", resource.Publisher)
+}
+func (resource *ResearchDefinition) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Description", nil)
+	}
+	return StringInput("ResearchDefinition.Description", resource.Description)
+}
+func (resource *ResearchDefinition) T_Comment(numComment int) templ.Component {
+
+	if resource == nil || len(resource.Comment) >= numComment {
+		return StringInput("ResearchDefinition.Comment["+strconv.Itoa(numComment)+"]", nil)
+	}
+	return StringInput("ResearchDefinition.Comment["+strconv.Itoa(numComment)+"]", &resource.Comment[numComment])
+}
+func (resource *ResearchDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
+		return CodeableConceptSelect("ResearchDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ResearchDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+}
+func (resource *ResearchDefinition) T_Purpose() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Purpose", nil)
+	}
+	return StringInput("ResearchDefinition.Purpose", resource.Purpose)
+}
+func (resource *ResearchDefinition) T_Usage() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Usage", nil)
+	}
+	return StringInput("ResearchDefinition.Usage", resource.Usage)
+}
+func (resource *ResearchDefinition) T_Copyright() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.Copyright", nil)
+	}
+	return StringInput("ResearchDefinition.Copyright", resource.Copyright)
+}
+func (resource *ResearchDefinition) T_ApprovalDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.ApprovalDate", nil)
+	}
+	return StringInput("ResearchDefinition.ApprovalDate", resource.ApprovalDate)
+}
+func (resource *ResearchDefinition) T_LastReviewDate() templ.Component {
+
+	if resource == nil {
+		return StringInput("ResearchDefinition.LastReviewDate", nil)
+	}
+	return StringInput("ResearchDefinition.LastReviewDate", resource.LastReviewDate)
+}
+func (resource *ResearchDefinition) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Topic) >= numTopic {
+		return CodeableConceptSelect("ResearchDefinition.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ResearchDefinition.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
+}
+func (resource *ResearchDefinition) T_Library(numLibrary int) templ.Component {
+
+	if resource == nil || len(resource.Library) >= numLibrary {
+		return StringInput("ResearchDefinition.Library["+strconv.Itoa(numLibrary)+"]", nil)
+	}
+	return StringInput("ResearchDefinition.Library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary])
 }

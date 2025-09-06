@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Communication
 type Communication struct {
@@ -64,54 +68,103 @@ func (r Communication) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Communication) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Communication.Id", nil)
+	}
+	return StringInput("Communication.Id", resource.Id)
+}
+func (resource *Communication) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Communication.ImplicitRules", nil)
+	}
+	return StringInput("Communication.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Communication) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Communication.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Communication.Language", resource.Language, optionsValueSet)
+}
+func (resource *Communication) T_InstantiatesCanonical(numInstantiatesCanonical int) templ.Component {
+
+	if resource == nil || len(resource.InstantiatesCanonical) >= numInstantiatesCanonical {
+		return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil)
+	}
+	return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical])
+}
+func (resource *Communication) T_InstantiatesUri(numInstantiatesUri int) templ.Component {
+
+	if resource == nil || len(resource.InstantiatesUri) >= numInstantiatesUri {
+		return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil)
+	}
+	return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri])
 }
 func (resource *Communication) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Communication.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Communication.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Communication) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Communication.StatusReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Communication.StatusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Communication) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *Communication) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("priority", nil, optionsValueSet)
+		return CodeSelect("Communication.Priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", resource.Priority, optionsValueSet)
+	return CodeSelect("Communication.Priority", resource.Priority, optionsValueSet)
 }
-func (resource *Communication) T_Medium(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Medium(numMedium int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("medium", nil, optionsValueSet)
+	if resource == nil || len(resource.Medium) >= numMedium {
+		return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("medium", &resource.Medium[0], optionsValueSet)
+	return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet)
 }
 func (resource *Communication) T_Topic(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("topic", nil, optionsValueSet)
+		return CodeableConceptSelect("Communication.Topic", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("topic", resource.Topic, optionsValueSet)
+	return CodeableConceptSelect("Communication.Topic", resource.Topic, optionsValueSet)
+}
+func (resource *Communication) T_Sent() templ.Component {
+
+	if resource == nil {
+		return StringInput("Communication.Sent", nil)
+	}
+	return StringInput("Communication.Sent", resource.Sent)
+}
+func (resource *Communication) T_Received() templ.Component {
+
+	if resource == nil {
+		return StringInput("Communication.Received", nil)
+	}
+	return StringInput("Communication.Received", resource.Received)
+}
+func (resource *Communication) T_PayloadId(numPayload int) templ.Component {
+
+	if resource == nil || len(resource.Payload) >= numPayload {
+		return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].Id", nil)
+	}
+	return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].Id", resource.Payload[numPayload].Id)
 }

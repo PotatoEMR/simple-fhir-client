@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -10,7 +10,7 @@ type ProductShelfLife struct {
 	Extension                    []Extension       `json:"extension,omitempty"`
 	ModifierExtension            []Extension       `json:"modifierExtension,omitempty"`
 	Type                         *CodeableConcept  `json:"type,omitempty"`
-	PeriodDuration               *Duration         `json:"periodDuration"`
-	PeriodString                 *string           `json:"periodString"`
+	PeriodDuration               *Duration         `json:"periodDuration,omitempty"`
+	PeriodString                 *string           `json:"periodString,omitempty"`
 	SpecialPrecautionsForStorage []CodeableConcept `json:"specialPrecautionsForStorage,omitempty"`
 }

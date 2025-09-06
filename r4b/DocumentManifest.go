@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/DocumentManifest
 type DocumentManifest struct {
@@ -53,25 +57,67 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DocumentManifest) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DocumentManifest.Id", nil)
+	}
+	return StringInput("DocumentManifest.Id", resource.Id)
+}
+func (resource *DocumentManifest) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DocumentManifest.ImplicitRules", nil)
+	}
+	return StringInput("DocumentManifest.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DocumentManifest) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DocumentManifest.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DocumentManifest.Language", resource.Language, optionsValueSet)
 }
 func (resource *DocumentManifest) T_Status() templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("DocumentManifest.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("DocumentManifest.Status", &resource.Status, optionsValueSet)
 }
 func (resource *DocumentManifest) T_Type(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("DocumentManifest.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("DocumentManifest.Type", resource.Type, optionsValueSet)
+}
+func (resource *DocumentManifest) T_Created() templ.Component {
+
+	if resource == nil {
+		return StringInput("DocumentManifest.Created", nil)
+	}
+	return StringInput("DocumentManifest.Created", resource.Created)
+}
+func (resource *DocumentManifest) T_Source() templ.Component {
+
+	if resource == nil {
+		return StringInput("DocumentManifest.Source", nil)
+	}
+	return StringInput("DocumentManifest.Source", resource.Source)
+}
+func (resource *DocumentManifest) T_Description() templ.Component {
+
+	if resource == nil {
+		return StringInput("DocumentManifest.Description", nil)
+	}
+	return StringInput("DocumentManifest.Description", resource.Description)
+}
+func (resource *DocumentManifest) T_RelatedId(numRelated int) templ.Component {
+
+	if resource == nil || len(resource.Related) >= numRelated {
+		return StringInput("DocumentManifest.Related["+strconv.Itoa(numRelated)+"].Id", nil)
+	}
+	return StringInput("DocumentManifest.Related["+strconv.Itoa(numRelated)+"].Id", resource.Related[numRelated].Id)
 }

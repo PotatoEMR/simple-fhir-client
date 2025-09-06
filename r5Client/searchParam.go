@@ -1,6 +1,6 @@
 package r5Client
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -59,7 +59,7 @@ func (p SpAccount) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ActivityDefinition
+// search params for ActivityDefinition
 type SpActivityDefinition struct {
 	Date                string
 	Identifier          string
@@ -136,7 +136,7 @@ func (p SpActivityDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ActorDefinition
+// search params for ActorDefinition
 type SpActorDefinition struct {
 	Date                string
 	Identifier          string
@@ -197,7 +197,7 @@ func (p SpActorDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for AdministrableProductDefinition
+// search params for AdministrableProductDefinition
 type SpAdministrableProductDefinition struct {
 	Identifier       string
 	ManufacturedItem string
@@ -246,7 +246,7 @@ func (p SpAdministrableProductDefinition) SpEncode(baseURL *string) (*string, er
 	return &s, nil
 }
 
-//search params for AdverseEvent
+// search params for AdverseEvent
 type SpAdverseEvent struct {
 	Date            string
 	Identifier      string
@@ -305,7 +305,7 @@ func (p SpAdverseEvent) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for AllergyIntolerance
+// search params for AllergyIntolerance
 type SpAllergyIntolerance struct {
 	Date                   string
 	Severity               string
@@ -366,7 +366,7 @@ func (p SpAllergyIntolerance) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Appointment
+// search params for Appointment
 type SpAppointment struct {
 	Date                 string
 	Identifier           string
@@ -439,7 +439,7 @@ func (p SpAppointment) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for AppointmentResponse
+// search params for AppointmentResponse
 type SpAppointmentResponse struct {
 	Actor        string
 	Identifier   string
@@ -486,7 +486,7 @@ func (p SpAppointmentResponse) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ArtifactAssessment
+// search params for ArtifactAssessment
 type SpArtifactAssessment struct {
 	Date       string
 	Identifier string
@@ -521,7 +521,7 @@ func (p SpArtifactAssessment) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for AuditEvent
+// search params for AuditEvent
 type SpAuditEvent struct {
 	Date       string
 	Agent      string
@@ -582,7 +582,7 @@ func (p SpAuditEvent) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Basic
+// search params for Basic
 type SpBasic struct {
 	Identifier string
 	Code       string
@@ -625,7 +625,7 @@ func (p SpBasic) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Binary
+// search params for Binary
 type SpBinary struct {
 }
 
@@ -655,7 +655,7 @@ func (p SpBinary) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for BiologicallyDerivedProduct
+// search params for BiologicallyDerivedProduct
 type SpBiologicallyDerivedProduct struct {
 	Identifier            string
 	Request               string
@@ -702,7 +702,7 @@ func (p SpBiologicallyDerivedProduct) SpEncode(baseURL *string) (*string, error)
 	return &s, nil
 }
 
-//search params for BiologicallyDerivedProductDispense
+// search params for BiologicallyDerivedProductDispense
 type SpBiologicallyDerivedProductDispense struct {
 	Identifier string
 	Product    string
@@ -743,7 +743,7 @@ func (p SpBiologicallyDerivedProductDispense) SpEncode(baseURL *string) (*string
 	return &s, nil
 }
 
-//search params for BodyStructure
+// search params for BodyStructure
 type SpBodyStructure struct {
 	Identifier         string
 	Included_structure string
@@ -784,7 +784,7 @@ func (p SpBodyStructure) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Bundle
+// search params for Bundle
 type SpBundle struct {
 	Identifier  string
 	Composition string
@@ -825,7 +825,7 @@ func (p SpBundle) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CapabilityStatement
+// search params for CapabilityStatement
 type SpCapabilityStatement struct {
 	Date                string
 	Identifier          string
@@ -904,7 +904,7 @@ func (p SpCapabilityStatement) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CarePlan
+// search params for CarePlan
 type SpCarePlan struct {
 	CareTeam              string
 	Date                  string
@@ -971,7 +971,7 @@ func (p SpCarePlan) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CareTeam
+// search params for CareTeam
 type SpCareTeam struct {
 	Date        string
 	Identifier  string
@@ -1018,7 +1018,7 @@ func (p SpCareTeam) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ChargeItem
+// search params for ChargeItem
 type SpChargeItem struct {
 	Identifier             string
 	PerformingOrganization string
@@ -1085,7 +1085,7 @@ func (p SpChargeItem) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ChargeItemDefinition
+// search params for ChargeItemDefinition
 type SpChargeItemDefinition struct {
 	Date                string
 	Identifier          string
@@ -1146,7 +1146,7 @@ func (p SpChargeItemDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Citation
+// search params for Citation
 type SpCitation struct {
 	Date                string
 	Identifier          string
@@ -1215,7 +1215,7 @@ func (p SpCitation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Claim
+// search params for Claim
 type SpClaim struct {
 	CareTeam     string
 	Identifier   string
@@ -1280,7 +1280,7 @@ func (p SpClaim) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ClaimResponse
+// search params for ClaimResponse
 type SpClaimResponse struct {
 	Identifier  string
 	Request     string
@@ -1333,7 +1333,7 @@ func (p SpClaimResponse) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ClinicalImpression
+// search params for ClinicalImpression
 type SpClinicalImpression struct {
 	Date           string
 	Identifier     string
@@ -1388,7 +1388,7 @@ func (p SpClinicalImpression) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ClinicalUseDefinition
+// search params for ClinicalUseDefinition
 type SpClinicalUseDefinition struct {
 	ContraindicationReference string
 	Identifier                string
@@ -1443,7 +1443,7 @@ func (p SpClinicalUseDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CodeSystem
+// search params for CodeSystem
 type SpCodeSystem struct {
 	Date                string
 	Identifier          string
@@ -1522,7 +1522,7 @@ func (p SpCodeSystem) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Communication
+// search params for Communication
 type SpCommunication struct {
 	Identifier            string
 	Subject               string
@@ -1585,7 +1585,7 @@ func (p SpCommunication) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CommunicationRequest
+// search params for CommunicationRequest
 type SpCommunicationRequest struct {
 	Authored            string
 	Requester           string
@@ -1648,7 +1648,7 @@ func (p SpCommunicationRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CompartmentDefinition
+// search params for CompartmentDefinition
 type SpCompartmentDefinition struct {
 	Date                string
 	Code                string
@@ -1707,7 +1707,7 @@ func (p SpCompartmentDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Composition
+// search params for Composition
 type SpComposition struct {
 	Date            string
 	Identifier      string
@@ -1780,7 +1780,7 @@ func (p SpComposition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ConceptMap
+// search params for ConceptMap
 type SpConceptMap struct {
 	Date                string
 	TargetScope         string
@@ -1869,7 +1869,7 @@ func (p SpConceptMap) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Condition
+// search params for Condition
 type SpCondition struct {
 	EvidenceDetail      string
 	Severity            string
@@ -1944,7 +1944,7 @@ func (p SpCondition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ConditionDefinition
+// search params for ConditionDefinition
 type SpConditionDefinition struct {
 	Date                string
 	Identifier          string
@@ -2005,7 +2005,7 @@ func (p SpConditionDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Consent
+// search params for Consent
 type SpConsent struct {
 	Date            string
 	Identifier      string
@@ -2072,7 +2072,7 @@ func (p SpConsent) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Contract
+// search params for Contract
 type SpContract struct {
 	Identifier   string
 	Instantiates string
@@ -2123,7 +2123,7 @@ func (p SpContract) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Coverage
+// search params for Coverage
 type SpCoverage struct {
 	Identifier     string
 	Subscriber     string
@@ -2180,7 +2180,7 @@ func (p SpCoverage) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for CoverageEligibilityRequest
+// search params for CoverageEligibilityRequest
 type SpCoverageEligibilityRequest struct {
 	Identifier string
 	Provider   string
@@ -2225,7 +2225,7 @@ func (p SpCoverageEligibilityRequest) SpEncode(baseURL *string) (*string, error)
 	return &s, nil
 }
 
-//search params for CoverageEligibilityResponse
+// search params for CoverageEligibilityResponse
 type SpCoverageEligibilityResponse struct {
 	Identifier  string
 	Request     string
@@ -2274,7 +2274,7 @@ func (p SpCoverageEligibilityResponse) SpEncode(baseURL *string) (*string, error
 	return &s, nil
 }
 
-//search params for DetectedIssue
+// search params for DetectedIssue
 type SpDetectedIssue struct {
 	Identifier string
 	Code       string
@@ -2323,7 +2323,7 @@ func (p SpDetectedIssue) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Device
+// search params for Device
 type SpDevice struct {
 	UdiDi                 string
 	Identifier            string
@@ -2400,7 +2400,7 @@ func (p SpDevice) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceAssociation
+// search params for DeviceAssociation
 type SpDeviceAssociation struct {
 	Identifier string
 	Subject    string
@@ -2443,7 +2443,7 @@ func (p SpDeviceAssociation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceDefinition
+// search params for DeviceDefinition
 type SpDeviceDefinition struct {
 	Identifier           string
 	DeviceName           string
@@ -2488,7 +2488,7 @@ func (p SpDeviceDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceDispense
+// search params for DeviceDispense
 type SpDeviceDispense struct {
 	Identifier string
 	Code       string
@@ -2529,7 +2529,7 @@ func (p SpDeviceDispense) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceMetric
+// search params for DeviceMetric
 type SpDeviceMetric struct {
 	Identifier string
 	Category   string
@@ -2568,7 +2568,7 @@ func (p SpDeviceMetric) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceRequest
+// search params for DeviceRequest
 type SpDeviceRequest struct {
 	Insurance             string
 	PerformerCode         string
@@ -2637,7 +2637,7 @@ func (p SpDeviceRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DeviceUsage
+// search params for DeviceUsage
 type SpDeviceUsage struct {
 	Identifier string
 	Patient    string
@@ -2676,7 +2676,7 @@ func (p SpDeviceUsage) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DiagnosticReport
+// search params for DiagnosticReport
 type SpDiagnosticReport struct {
 	Date               string
 	Identifier         string
@@ -2741,7 +2741,7 @@ func (p SpDiagnosticReport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for DocumentReference
+// search params for DocumentReference
 type SpDocumentReference struct {
 	Date              string
 	Modality          string
@@ -2840,7 +2840,7 @@ func (p SpDocumentReference) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Encounter
+// search params for Encounter
 type SpEncounter struct {
 	Date               string
 	ParticipantType    string
@@ -2927,7 +2927,7 @@ func (p SpEncounter) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EncounterHistory
+// search params for EncounterHistory
 type SpEncounterHistory struct {
 	Identifier string
 	Patient    string
@@ -2968,7 +2968,7 @@ func (p SpEncounterHistory) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Endpoint
+// search params for Endpoint
 type SpEndpoint struct {
 	PayloadType    string
 	Identifier     string
@@ -3011,7 +3011,7 @@ func (p SpEndpoint) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EnrollmentRequest
+// search params for EnrollmentRequest
 type SpEnrollmentRequest struct {
 	Identifier string
 	Patient    string
@@ -3050,7 +3050,7 @@ func (p SpEnrollmentRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EnrollmentResponse
+// search params for EnrollmentResponse
 type SpEnrollmentResponse struct {
 	Identifier string
 	Request    string
@@ -3087,7 +3087,7 @@ func (p SpEnrollmentResponse) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EpisodeOfCare
+// search params for EpisodeOfCare
 type SpEpisodeOfCare struct {
 	Date               string
 	Identifier         string
@@ -3142,7 +3142,7 @@ func (p SpEpisodeOfCare) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EventDefinition
+// search params for EventDefinition
 type SpEventDefinition struct {
 	Date                string
 	Identifier          string
@@ -3217,7 +3217,7 @@ func (p SpEventDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Evidence
+// search params for Evidence
 type SpEvidence struct {
 	Date                string
 	Identifier          string
@@ -3274,7 +3274,7 @@ func (p SpEvidence) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EvidenceReport
+// search params for EvidenceReport
 type SpEvidenceReport struct {
 	ContextQuantity     string
 	Identifier          string
@@ -3323,7 +3323,7 @@ func (p SpEvidenceReport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for EvidenceVariable
+// search params for EvidenceVariable
 type SpEvidenceVariable struct {
 	Date                string
 	Identifier          string
@@ -3394,7 +3394,7 @@ func (p SpEvidenceVariable) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ExampleScenario
+// search params for ExampleScenario
 type SpExampleScenario struct {
 	Date                string
 	Identifier          string
@@ -3451,7 +3451,7 @@ func (p SpExampleScenario) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ExplanationOfBenefit
+// search params for ExplanationOfBenefit
 type SpExplanationOfBenefit struct {
 	CareTeam     string
 	Coverage     string
@@ -3516,7 +3516,7 @@ func (p SpExplanationOfBenefit) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for FamilyMemberHistory
+// search params for FamilyMemberHistory
 type SpFamilyMemberHistory struct {
 	Date                  string
 	Identifier            string
@@ -3565,7 +3565,7 @@ func (p SpFamilyMemberHistory) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Flag
+// search params for Flag
 type SpFlag struct {
 	Date       string
 	Identifier string
@@ -3612,7 +3612,7 @@ func (p SpFlag) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for FormularyItem
+// search params for FormularyItem
 type SpFormularyItem struct {
 	Identifier string
 	Code       string
@@ -3647,7 +3647,7 @@ func (p SpFormularyItem) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for GenomicStudy
+// search params for GenomicStudy
 type SpGenomicStudy struct {
 	Identifier string
 	Patient    string
@@ -3688,7 +3688,7 @@ func (p SpGenomicStudy) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Goal
+// search params for Goal
 type SpGoal struct {
 	TargetMeasure     string
 	Identifier        string
@@ -3741,7 +3741,7 @@ func (p SpGoal) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for GraphDefinition
+// search params for GraphDefinition
 type SpGraphDefinition struct {
 	Date                string
 	Identifier          string
@@ -3802,7 +3802,7 @@ func (p SpGraphDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Group
+// search params for Group
 type SpGroup struct {
 	Identifier              string
 	CharacteristicValue     string
@@ -3857,7 +3857,7 @@ func (p SpGroup) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for GuidanceResponse
+// search params for GuidanceResponse
 type SpGuidanceResponse struct {
 	Identifier string
 	Request    string
@@ -3898,7 +3898,7 @@ func (p SpGuidanceResponse) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for HealthcareService
+// search params for HealthcareService
 type SpHealthcareService struct {
 	Identifier      string
 	Specialty       string
@@ -3959,7 +3959,7 @@ func (p SpHealthcareService) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ImagingSelection
+// search params for ImagingSelection
 type SpImagingSelection struct {
 	Identifier    string
 	BodyStructure string
@@ -4012,7 +4012,7 @@ func (p SpImagingSelection) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ImagingStudy
+// search params for ImagingStudy
 type SpImagingStudy struct {
 	Identifier    string
 	Reason        string
@@ -4077,7 +4077,7 @@ func (p SpImagingStudy) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Immunization
+// search params for Immunization
 type SpImmunization struct {
 	Date            string
 	Identifier      string
@@ -4140,7 +4140,7 @@ func (p SpImmunization) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ImmunizationEvaluation
+// search params for ImmunizationEvaluation
 type SpImmunizationEvaluation struct {
 	Date              string
 	Identifier        string
@@ -4185,7 +4185,7 @@ func (p SpImmunizationEvaluation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ImmunizationRecommendation
+// search params for ImmunizationRecommendation
 type SpImmunizationRecommendation struct {
 	Date          string
 	Identifier    string
@@ -4232,7 +4232,7 @@ func (p SpImmunizationRecommendation) SpEncode(baseURL *string) (*string, error)
 	return &s, nil
 }
 
-//search params for ImplementationGuide
+// search params for ImplementationGuide
 type SpImplementationGuide struct {
 	Date                string
 	Identifier          string
@@ -4301,7 +4301,7 @@ func (p SpImplementationGuide) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Ingredient
+// search params for Ingredient
 type SpIngredient struct {
 	Identifier                    string
 	Role                          string
@@ -4358,7 +4358,7 @@ func (p SpIngredient) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for InsurancePlan
+// search params for InsurancePlan
 type SpInsurancePlan struct {
 	Identifier        string
 	Address           string
@@ -4417,7 +4417,7 @@ func (p SpInsurancePlan) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for InventoryItem
+// search params for InventoryItem
 type SpInventoryItem struct {
 	Identifier string
 	Code       string
@@ -4456,7 +4456,7 @@ func (p SpInventoryItem) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for InventoryReport
+// search params for InventoryReport
 type SpInventoryReport struct {
 	ItemReference string
 	Identifier    string
@@ -4495,7 +4495,7 @@ func (p SpInventoryReport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Invoice
+// search params for Invoice
 type SpInvoice struct {
 	Date            string
 	Identifier      string
@@ -4552,7 +4552,7 @@ func (p SpInvoice) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Library
+// search params for Library
 type SpLibrary struct {
 	Date                string
 	Identifier          string
@@ -4631,7 +4631,7 @@ func (p SpLibrary) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Linkage
+// search params for Linkage
 type SpLinkage struct {
 	Item   string
 	Author string
@@ -4668,7 +4668,7 @@ func (p SpLinkage) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for List
+// search params for List
 type SpList struct {
 	Date        string
 	Identifier  string
@@ -4723,7 +4723,7 @@ func (p SpList) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Location
+// search params for Location
 type SpLocation struct {
 	Identifier        string
 	Partof            string
@@ -4788,7 +4788,7 @@ func (p SpLocation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ManufacturedItemDefinition
+// search params for ManufacturedItemDefinition
 type SpManufacturedItemDefinition struct {
 	Identifier string
 	Ingredient string
@@ -4829,7 +4829,7 @@ func (p SpManufacturedItemDefinition) SpEncode(baseURL *string) (*string, error)
 	return &s, nil
 }
 
-//search params for Measure
+// search params for Measure
 type SpMeasure struct {
 	Date                string
 	Identifier          string
@@ -4904,7 +4904,7 @@ func (p SpMeasure) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MeasureReport
+// search params for MeasureReport
 type SpMeasureReport struct {
 	Date              string
 	Identifier        string
@@ -4955,7 +4955,7 @@ func (p SpMeasureReport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Medication
+// search params for Medication
 type SpMedication struct {
 	IngredientCode               string
 	Identifier                   string
@@ -5006,7 +5006,7 @@ func (p SpMedication) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicationAdministration
+// search params for MedicationAdministration
 type SpMedicationAdministration struct {
 	Date                string
 	Identifier          string
@@ -5067,7 +5067,7 @@ func (p SpMedicationAdministration) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicationDispense
+// search params for MedicationDispense
 type SpMedicationDispense struct {
 	Identifier       string
 	Code             string
@@ -5132,7 +5132,7 @@ func (p SpMedicationDispense) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicationKnowledge
+// search params for MedicationKnowledge
 type SpMedicationKnowledge struct {
 	ProductType           string
 	Identifier            string
@@ -5195,7 +5195,7 @@ func (p SpMedicationKnowledge) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicationRequest
+// search params for MedicationRequest
 type SpMedicationRequest struct {
 	Requester             string
 	Identifier            string
@@ -5260,7 +5260,7 @@ func (p SpMedicationRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicationStatement
+// search params for MedicationStatement
 type SpMedicationStatement struct {
 	Effective  string
 	Identifier string
@@ -5313,7 +5313,7 @@ func (p SpMedicationStatement) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MedicinalProductDefinition
+// search params for MedicinalProductDefinition
 type SpMedicinalProductDefinition struct {
 	Identifier            string
 	Ingredient            string
@@ -5368,7 +5368,7 @@ func (p SpMedicinalProductDefinition) SpEncode(baseURL *string) (*string, error)
 	return &s, nil
 }
 
-//search params for MessageDefinition
+// search params for MessageDefinition
 type SpMessageDefinition struct {
 	Date                string
 	Identifier          string
@@ -5437,7 +5437,7 @@ func (p SpMessageDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MessageHeader
+// search params for MessageHeader
 type SpMessageHeader struct {
 	Code        string
 	Receiver    string
@@ -5490,7 +5490,7 @@ func (p SpMessageHeader) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for MolecularSequence
+// search params for MolecularSequence
 type SpMolecularSequence struct {
 	Identifier string
 	Subject    string
@@ -5531,7 +5531,7 @@ func (p SpMolecularSequence) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for NamingSystem
+// search params for NamingSystem
 type SpNamingSystem struct {
 	Date                string
 	ContextTypeValue    string
@@ -5614,7 +5614,7 @@ func (p SpNamingSystem) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for NutritionIntake
+// search params for NutritionIntake
 type SpNutritionIntake struct {
 	Date       string
 	Identifier string
@@ -5663,7 +5663,7 @@ func (p SpNutritionIntake) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for NutritionOrder
+// search params for NutritionOrder
 type SpNutritionOrder struct {
 	Identifier      string
 	GroupIdentifier string
@@ -5718,7 +5718,7 @@ func (p SpNutritionOrder) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for NutritionProduct
+// search params for NutritionProduct
 type SpNutritionProduct struct {
 	Identifier   string
 	Code         string
@@ -5759,7 +5759,7 @@ func (p SpNutritionProduct) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Observation
+// search params for Observation
 type SpObservation struct {
 	Date                       string
 	ComboDataAbsentReason      string
@@ -5874,7 +5874,7 @@ func (p SpObservation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ObservationDefinition
+// search params for ObservationDefinition
 type SpObservationDefinition struct {
 	Identifier   string
 	Code         string
@@ -5921,7 +5921,7 @@ func (p SpObservationDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for OperationDefinition
+// search params for OperationDefinition
 type SpOperationDefinition struct {
 	Date                string
 	Identifier          string
@@ -5998,7 +5998,7 @@ func (p SpOperationDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for OperationOutcome
+// search params for OperationOutcome
 type SpOperationOutcome struct {
 }
 
@@ -6028,7 +6028,7 @@ func (p SpOperationOutcome) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Organization
+// search params for Organization
 type SpOrganization struct {
 	Identifier        string
 	Partof            string
@@ -6085,7 +6085,7 @@ func (p SpOrganization) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for OrganizationAffiliation
+// search params for OrganizationAffiliation
 type SpOrganizationAffiliation struct {
 	Date                      string
 	Identifier                string
@@ -6144,7 +6144,7 @@ func (p SpOrganizationAffiliation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for PackagedProductDefinition
+// search params for PackagedProductDefinition
 type SpPackagedProductDefinition struct {
 	Identifier       string
 	ManufacturedItem string
@@ -6197,7 +6197,7 @@ func (p SpPackagedProductDefinition) SpEncode(baseURL *string) (*string, error) 
 	return &s, nil
 }
 
-//search params for Patient
+// search params for Patient
 type SpPatient struct {
 	Given               string
 	Identifier          string
@@ -6274,7 +6274,7 @@ func (p SpPatient) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for PaymentNotice
+// search params for PaymentNotice
 type SpPaymentNotice struct {
 	Identifier    string
 	Request       string
@@ -6319,7 +6319,7 @@ func (p SpPaymentNotice) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for PaymentReconciliation
+// search params for PaymentReconciliation
 type SpPaymentReconciliation struct {
 	Identifier          string
 	Request             string
@@ -6370,7 +6370,7 @@ func (p SpPaymentReconciliation) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Permission
+// search params for Permission
 type SpPermission struct {
 	Status string
 }
@@ -6403,7 +6403,7 @@ func (p SpPermission) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Person
+// search params for Person
 type SpPerson struct {
 	Identifier        string
 	Given             string
@@ -6480,7 +6480,7 @@ func (p SpPerson) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for PlanDefinition
+// search params for PlanDefinition
 type SpPlanDefinition struct {
 	Date                string
 	Identifier          string
@@ -6559,7 +6559,7 @@ func (p SpPlanDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Practitioner
+// search params for Practitioner
 type SpPractitioner struct {
 	Given               string
 	Identifier          string
@@ -6630,7 +6630,7 @@ func (p SpPractitioner) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for PractitionerRole
+// search params for PractitionerRole
 type SpPractitionerRole struct {
 	Date           string
 	Identifier     string
@@ -6691,7 +6691,7 @@ func (p SpPractitionerRole) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Procedure
+// search params for Procedure
 type SpProcedure struct {
 	Date                  string
 	Identifier            string
@@ -6756,7 +6756,7 @@ func (p SpProcedure) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Provenance
+// search params for Provenance
 type SpProvenance struct {
 	AgentType     string
 	Agent         string
@@ -6813,7 +6813,7 @@ func (p SpProvenance) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Questionnaire
+// search params for Questionnaire
 type SpQuestionnaire struct {
 	Date                string
 	Identifier          string
@@ -6886,7 +6886,7 @@ func (p SpQuestionnaire) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for QuestionnaireResponse
+// search params for QuestionnaireResponse
 type SpQuestionnaireResponse struct {
 	Authored      string
 	Identifier    string
@@ -6941,7 +6941,7 @@ func (p SpQuestionnaireResponse) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for RegulatedAuthorization
+// search params for RegulatedAuthorization
 type SpRegulatedAuthorization struct {
 	Identifier string
 	Subject    string
@@ -6986,7 +6986,7 @@ func (p SpRegulatedAuthorization) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for RelatedPerson
+// search params for RelatedPerson
 type SpRelatedPerson struct {
 	Identifier        string
 	Given             string
@@ -7055,7 +7055,7 @@ func (p SpRelatedPerson) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for RequestOrchestration
+// search params for RequestOrchestration
 type SpRequestOrchestration struct {
 	Authored              string
 	Identifier            string
@@ -7116,7 +7116,7 @@ func (p SpRequestOrchestration) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Requirements
+// search params for Requirements
 type SpRequirements struct {
 	Date                string
 	Identifier          string
@@ -7181,7 +7181,7 @@ func (p SpRequirements) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ResearchStudy
+// search params for ResearchStudy
 type SpResearchStudy struct {
 	Date                            string
 	ObjectiveType                   string
@@ -7262,7 +7262,7 @@ func (p SpResearchStudy) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ResearchSubject
+// search params for ResearchSubject
 type SpResearchSubject struct {
 	Date          string
 	Identifier    string
@@ -7307,7 +7307,7 @@ func (p SpResearchSubject) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for RiskAssessment
+// search params for RiskAssessment
 type SpRiskAssessment struct {
 	Date        string
 	Identifier  string
@@ -7358,7 +7358,7 @@ func (p SpRiskAssessment) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Schedule
+// search params for Schedule
 type SpSchedule struct {
 	Actor                string
 	Date                 string
@@ -7407,7 +7407,7 @@ func (p SpSchedule) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SearchParameter
+// search params for SearchParameter
 type SpSearchParameter struct {
 	Date                string
 	Identifier          string
@@ -7478,7 +7478,7 @@ func (p SpSearchParameter) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ServiceRequest
+// search params for ServiceRequest
 type SpServiceRequest struct {
 	Authored              string
 	Requester             string
@@ -7555,7 +7555,7 @@ func (p SpServiceRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Slot
+// search params for Slot
 type SpSlot struct {
 	Identifier           string
 	Schedule             string
@@ -7604,7 +7604,7 @@ func (p SpSlot) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Specimen
+// search params for Specimen
 type SpSpecimen struct {
 	Identifier      string
 	Parent          string
@@ -7659,7 +7659,7 @@ func (p SpSpecimen) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SpecimenDefinition
+// search params for SpecimenDefinition
 type SpSpecimenDefinition struct {
 	Container    string
 	Identifier   string
@@ -7708,7 +7708,7 @@ func (p SpSpecimenDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for StructureDefinition
+// search params for StructureDefinition
 type SpStructureDefinition struct {
 	Date                 string
 	ContextTypeValue     string
@@ -7795,7 +7795,7 @@ func (p SpStructureDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for StructureMap
+// search params for StructureMap
 type SpStructureMap struct {
 	Date                string
 	Identifier          string
@@ -7856,7 +7856,7 @@ func (p SpStructureMap) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Subscription
+// search params for Subscription
 type SpSubscription struct {
 	Owner        string
 	Identifier   string
@@ -7909,7 +7909,7 @@ func (p SpSubscription) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubscriptionStatus
+// search params for SubscriptionStatus
 type SpSubscriptionStatus struct {
 }
 
@@ -7939,7 +7939,7 @@ func (p SpSubscriptionStatus) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubscriptionTopic
+// search params for SubscriptionTopic
 type SpSubscriptionTopic struct {
 	Date               string
 	Effective          string
@@ -7992,7 +7992,7 @@ func (p SpSubscriptionTopic) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Substance
+// search params for Substance
 type SpSubstance struct {
 	Identifier         string
 	Code               string
@@ -8039,7 +8039,7 @@ func (p SpSubstance) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubstanceDefinition
+// search params for SubstanceDefinition
 type SpSubstanceDefinition struct {
 	Identifier     string
 	Code           string
@@ -8080,7 +8080,7 @@ func (p SpSubstanceDefinition) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubstanceNucleicAcid
+// search params for SubstanceNucleicAcid
 type SpSubstanceNucleicAcid struct {
 }
 
@@ -8110,7 +8110,7 @@ func (p SpSubstanceNucleicAcid) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubstancePolymer
+// search params for SubstancePolymer
 type SpSubstancePolymer struct {
 }
 
@@ -8140,7 +8140,7 @@ func (p SpSubstancePolymer) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubstanceProtein
+// search params for SubstanceProtein
 type SpSubstanceProtein struct {
 }
 
@@ -8170,7 +8170,7 @@ func (p SpSubstanceProtein) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SubstanceReferenceInformation
+// search params for SubstanceReferenceInformation
 type SpSubstanceReferenceInformation struct {
 }
 
@@ -8200,7 +8200,7 @@ func (p SpSubstanceReferenceInformation) SpEncode(baseURL *string) (*string, err
 	return &s, nil
 }
 
-//search params for SubstanceSourceMaterial
+// search params for SubstanceSourceMaterial
 type SpSubstanceSourceMaterial struct {
 }
 
@@ -8230,7 +8230,7 @@ func (p SpSubstanceSourceMaterial) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SupplyDelivery
+// search params for SupplyDelivery
 type SpSupplyDelivery struct {
 	Identifier string
 	Receiver   string
@@ -8271,7 +8271,7 @@ func (p SpSupplyDelivery) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for SupplyRequest
+// search params for SupplyRequest
 type SpSupplyRequest struct {
 	Date       string
 	Requester  string
@@ -8318,7 +8318,7 @@ func (p SpSupplyRequest) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Task
+// search params for Task
 type SpTask struct {
 	Owner                       string
 	RequestedperformerReference string
@@ -8393,7 +8393,7 @@ func (p SpTask) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for TerminologyCapabilities
+// search params for TerminologyCapabilities
 type SpTerminologyCapabilities struct {
 	Date                string
 	Identifier          string
@@ -8454,7 +8454,7 @@ func (p SpTerminologyCapabilities) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for TestPlan
+// search params for TestPlan
 type SpTestPlan struct {
 	Identifier string
 	Scope      string
@@ -8493,7 +8493,7 @@ func (p SpTestPlan) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for TestReport
+// search params for TestReport
 type SpTestReport struct {
 	Result      string
 	Identifier  string
@@ -8538,7 +8538,7 @@ func (p SpTestReport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for TestScript
+// search params for TestScript
 type SpTestScript struct {
 	Date                     string
 	Identifier               string
@@ -8607,7 +8607,7 @@ func (p SpTestScript) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for Transport
+// search params for Transport
 type SpTransport struct {
 	Identifier string
 	Status     string
@@ -8642,7 +8642,7 @@ func (p SpTransport) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for ValueSet
+// search params for ValueSet
 type SpValueSet struct {
 	Date                string
 	Identifier          string
@@ -8717,7 +8717,7 @@ func (p SpValueSet) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for VerificationResult
+// search params for VerificationResult
 type SpVerificationResult struct {
 	StatusDate            string
 	PrimarysourceWho      string
@@ -8768,7 +8768,7 @@ func (p SpVerificationResult) SpEncode(baseURL *string) (*string, error) {
 	return &s, nil
 }
 
-//search params for VisionPrescription
+// search params for VisionPrescription
 type SpVisionPrescription struct {
 	Prescriber  string
 	Identifier  string

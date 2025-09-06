@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/Procedure
 type Procedure struct {
@@ -29,16 +33,16 @@ type Procedure struct {
 	Subject               Reference              `json:"subject"`
 	Focus                 *Reference             `json:"focus,omitempty"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string                `json:"occurrenceDateTime"`
-	OccurrencePeriod      *Period                `json:"occurrencePeriod"`
-	OccurrenceString      *string                `json:"occurrenceString"`
-	OccurrenceAge         *Age                   `json:"occurrenceAge"`
-	OccurrenceRange       *Range                 `json:"occurrenceRange"`
-	OccurrenceTiming      *Timing                `json:"occurrenceTiming"`
+	OccurrenceDateTime    *string                `json:"occurrenceDateTime,omitempty"`
+	OccurrencePeriod      *Period                `json:"occurrencePeriod,omitempty"`
+	OccurrenceString      *string                `json:"occurrenceString,omitempty"`
+	OccurrenceAge         *Age                   `json:"occurrenceAge,omitempty"`
+	OccurrenceRange       *Range                 `json:"occurrenceRange,omitempty"`
+	OccurrenceTiming      *Timing                `json:"occurrenceTiming,omitempty"`
 	Recorded              *string                `json:"recorded,omitempty"`
 	Recorder              *Reference             `json:"recorder,omitempty"`
-	ReportedBoolean       *bool                  `json:"reportedBoolean"`
-	ReportedReference     *Reference             `json:"reportedReference"`
+	ReportedBoolean       *bool                  `json:"reportedBoolean,omitempty"`
+	ReportedReference     *Reference             `json:"reportedReference,omitempty"`
 	Performer             []ProcedurePerformer   `json:"performer,omitempty"`
 	Location              *Reference             `json:"location,omitempty"`
 	Reason                []CodeableReference    `json:"reason,omitempty"`
@@ -86,74 +90,123 @@ func (r Procedure) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Procedure) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Procedure.Id", nil)
+	}
+	return StringInput("Procedure.Id", resource.Id)
+}
+func (resource *Procedure) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Procedure.ImplicitRules", nil)
+	}
+	return StringInput("Procedure.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Procedure) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Procedure.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Procedure.Language", resource.Language, optionsValueSet)
+}
+func (resource *Procedure) T_InstantiatesCanonical(numInstantiatesCanonical int) templ.Component {
+
+	if resource == nil || len(resource.InstantiatesCanonical) >= numInstantiatesCanonical {
+		return StringInput("Procedure.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil)
+	}
+	return StringInput("Procedure.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical])
+}
+func (resource *Procedure) T_InstantiatesUri(numInstantiatesUri int) templ.Component {
+
+	if resource == nil || len(resource.InstantiatesUri) >= numInstantiatesUri {
+		return StringInput("Procedure.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil)
+	}
+	return StringInput("Procedure.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri])
 }
 func (resource *Procedure) T_Status() templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Procedure.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Procedure.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Procedure) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Procedure.StatusReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Procedure.StatusReason", resource.StatusReason, optionsValueSet)
 }
-func (resource *Procedure) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("Procedure.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("Procedure.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *Procedure) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Procedure.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Procedure.Code", resource.Code, optionsValueSet)
 }
-func (resource *Procedure) T_BodySite(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_Recorded() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("bodySite", nil, optionsValueSet)
+		return StringInput("Procedure.Recorded", nil)
 	}
-	return CodeableConceptSelect("bodySite", &resource.BodySite[0], optionsValueSet)
+	return StringInput("Procedure.Recorded", resource.Recorded)
+}
+func (resource *Procedure) T_BodySite(numBodySite int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.BodySite) >= numBodySite {
+		return CodeableConceptSelect("Procedure.BodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Procedure.BodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet)
 }
 func (resource *Procedure) T_Outcome(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("outcome", nil, optionsValueSet)
+		return CodeableConceptSelect("Procedure.Outcome", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("outcome", resource.Outcome, optionsValueSet)
+	return CodeableConceptSelect("Procedure.Outcome", resource.Outcome, optionsValueSet)
 }
-func (resource *Procedure) T_FollowUp(optionsValueSet []Coding) templ.Component {
+func (resource *Procedure) T_FollowUp(numFollowUp int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("followUp", nil, optionsValueSet)
+	if resource == nil || len(resource.FollowUp) >= numFollowUp {
+		return CodeableConceptSelect("Procedure.FollowUp["+strconv.Itoa(numFollowUp)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("followUp", &resource.FollowUp[0], optionsValueSet)
+	return CodeableConceptSelect("Procedure.FollowUp["+strconv.Itoa(numFollowUp)+"]", &resource.FollowUp[numFollowUp], optionsValueSet)
+}
+func (resource *Procedure) T_PerformerId(numPerformer int) templ.Component {
+
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return StringInput("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	}
+	return StringInput("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
 }
 func (resource *Procedure) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Performer) >= numPerformer {
+		return CodeableConceptSelect("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
+}
+func (resource *Procedure) T_FocalDeviceId(numFocalDevice int) templ.Component {
+
+	if resource == nil || len(resource.FocalDevice) >= numFocalDevice {
+		return StringInput("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Id", nil)
+	}
+	return StringInput("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Id", resource.FocalDevice[numFocalDevice].Id)
 }
 func (resource *Procedure) T_FocalDeviceAction(numFocalDevice int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.FocalDevice) >= numFocalDevice {
-		return CodeableConceptSelect("action", nil, optionsValueSet)
+	if resource == nil || len(resource.FocalDevice) >= numFocalDevice {
+		return CodeableConceptSelect("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Action", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("action", resource.FocalDevice[numFocalDevice].Action, optionsValueSet)
+	return CodeableConceptSelect("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Action", resource.FocalDevice[numFocalDevice].Action, optionsValueSet)
 }

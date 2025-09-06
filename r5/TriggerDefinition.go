@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -12,10 +12,10 @@ type TriggerDefinition struct {
 	Name              *string           `json:"name,omitempty"`
 	Code              *CodeableConcept  `json:"code,omitempty"`
 	SubscriptionTopic *string           `json:"subscriptionTopic,omitempty"`
-	TimingTiming      *Timing           `json:"timingTiming"`
-	TimingReference   *Reference        `json:"timingReference"`
-	TimingDate        *string           `json:"timingDate"`
-	TimingDateTime    *string           `json:"timingDateTime"`
+	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
+	TimingReference   *Reference        `json:"timingReference,omitempty"`
+	TimingDate        *string           `json:"timingDate,omitempty"`
+	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
 	Data              []DataRequirement `json:"data,omitempty"`
 	Condition         *Expression       `json:"condition,omitempty"`
 }

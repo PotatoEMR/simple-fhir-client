@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/DeviceAssociation
 type DeviceAssociation struct {
@@ -51,40 +55,61 @@ func (r DeviceAssociation) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *DeviceAssociation) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceAssociation.Id", nil)
+	}
+	return StringInput("DeviceAssociation.Id", resource.Id)
+}
+func (resource *DeviceAssociation) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("DeviceAssociation.ImplicitRules", nil)
+	}
+	return StringInput("DeviceAssociation.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *DeviceAssociation) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("DeviceAssociation.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("DeviceAssociation.Language", resource.Language, optionsValueSet)
 }
-func (resource *DeviceAssociation) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("category", nil, optionsValueSet)
+	if resource == nil || len(resource.Category) >= numCategory {
+		return CodeableConceptSelect("DeviceAssociation.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("category", &resource.Category[0], optionsValueSet)
+	return CodeableConceptSelect("DeviceAssociation.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
 }
 func (resource *DeviceAssociation) T_Status() templ.Component {
 	optionsValueSet := VSDeviceassociation_status
 
 	if resource == nil {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+		return CodeableConceptSelect("DeviceAssociation.Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", &resource.Status, optionsValueSet)
+	return CodeableConceptSelect("DeviceAssociation.Status", &resource.Status, optionsValueSet)
 }
-func (resource *DeviceAssociation) T_StatusReason() templ.Component {
+func (resource *DeviceAssociation) T_StatusReason(numStatusReason int) templ.Component {
 	optionsValueSet := VSDeviceassociation_status_reason
 
-	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+	if resource == nil || len(resource.StatusReason) >= numStatusReason {
+		return CodeableConceptSelect("DeviceAssociation.StatusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", &resource.StatusReason[0], optionsValueSet)
+	return CodeableConceptSelect("DeviceAssociation.StatusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet)
+}
+func (resource *DeviceAssociation) T_OperationId(numOperation int) templ.Component {
+
+	if resource == nil || len(resource.Operation) >= numOperation {
+		return StringInput("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Id", nil)
+	}
+	return StringInput("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Id", resource.Operation[numOperation].Id)
 }
 func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Operation) >= numOperation {
-		return CodeableConceptSelect("status", nil, optionsValueSet)
+	if resource == nil || len(resource.Operation) >= numOperation {
+		return CodeableConceptSelect("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Status", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("status", &resource.Operation[numOperation].Status, optionsValueSet)
+	return CodeableConceptSelect("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Status", &resource.Operation[numOperation].Status, optionsValueSet)
 }

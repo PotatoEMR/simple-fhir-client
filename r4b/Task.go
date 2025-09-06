@@ -1,11 +1,15 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Task
 type Task struct {
@@ -189,83 +193,160 @@ func (r Task) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *Task) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.Id", nil)
+	}
+	return StringInput("Task.Id", resource.Id)
+}
+func (resource *Task) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.ImplicitRules", nil)
+	}
+	return StringInput("Task.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *Task) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("Task.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("Task.Language", resource.Language, optionsValueSet)
+}
+func (resource *Task) T_InstantiatesCanonical() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.InstantiatesCanonical", nil)
+	}
+	return StringInput("Task.InstantiatesCanonical", resource.InstantiatesCanonical)
+}
+func (resource *Task) T_InstantiatesUri() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.InstantiatesUri", nil)
+	}
+	return StringInput("Task.InstantiatesUri", resource.InstantiatesUri)
 }
 func (resource *Task) T_Status() templ.Component {
 	optionsValueSet := VSTask_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("Task.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("Task.Status", &resource.Status, optionsValueSet)
 }
 func (resource *Task) T_StatusReason(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("statusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.StatusReason", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Task.StatusReason", resource.StatusReason, optionsValueSet)
 }
 func (resource *Task) T_BusinessStatus(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("businessStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.BusinessStatus", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("businessStatus", resource.BusinessStatus, optionsValueSet)
+	return CodeableConceptSelect("Task.BusinessStatus", resource.BusinessStatus, optionsValueSet)
 }
 func (resource *Task) T_Intent() templ.Component {
 	optionsValueSet := VSTask_intent
 
 	if resource == nil {
-		return CodeSelect("intent", nil, optionsValueSet)
+		return CodeSelect("Task.Intent", nil, optionsValueSet)
 	}
-	return CodeSelect("intent", &resource.Intent, optionsValueSet)
+	return CodeSelect("Task.Intent", &resource.Intent, optionsValueSet)
 }
 func (resource *Task) T_Priority() templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("priority", nil, optionsValueSet)
+		return CodeSelect("Task.Priority", nil, optionsValueSet)
 	}
-	return CodeSelect("priority", resource.Priority, optionsValueSet)
+	return CodeSelect("Task.Priority", resource.Priority, optionsValueSet)
 }
 func (resource *Task) T_Code(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("code", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.Code", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Task.Code", resource.Code, optionsValueSet)
 }
-func (resource *Task) T_PerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_Description() templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("performerType", nil, optionsValueSet)
+		return StringInput("Task.Description", nil)
 	}
-	return CodeableConceptSelect("performerType", &resource.PerformerType[0], optionsValueSet)
+	return StringInput("Task.Description", resource.Description)
+}
+func (resource *Task) T_AuthoredOn() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.AuthoredOn", nil)
+	}
+	return StringInput("Task.AuthoredOn", resource.AuthoredOn)
+}
+func (resource *Task) T_LastModified() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.LastModified", nil)
+	}
+	return StringInput("Task.LastModified", resource.LastModified)
+}
+func (resource *Task) T_PerformerType(numPerformerType int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.PerformerType) >= numPerformerType {
+		return CodeableConceptSelect("Task.PerformerType["+strconv.Itoa(numPerformerType)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("Task.PerformerType["+strconv.Itoa(numPerformerType)+"]", &resource.PerformerType[numPerformerType], optionsValueSet)
 }
 func (resource *Task) T_ReasonCode(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("reasonCode", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.ReasonCode", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("reasonCode", resource.ReasonCode, optionsValueSet)
+	return CodeableConceptSelect("Task.ReasonCode", resource.ReasonCode, optionsValueSet)
+}
+func (resource *Task) T_RestrictionId() templ.Component {
+
+	if resource == nil {
+		return StringInput("Task.Restriction.Id", nil)
+	}
+	return StringInput("Task.Restriction.Id", resource.Restriction.Id)
+}
+func (resource *Task) T_RestrictionRepetitions() templ.Component {
+
+	if resource == nil {
+		return IntInput("Task.Restriction.Repetitions", nil)
+	}
+	return IntInput("Task.Restriction.Repetitions", resource.Restriction.Repetitions)
+}
+func (resource *Task) T_InputId(numInput int) templ.Component {
+
+	if resource == nil || len(resource.Input) >= numInput {
+		return StringInput("Task.Input["+strconv.Itoa(numInput)+"].Id", nil)
+	}
+	return StringInput("Task.Input["+strconv.Itoa(numInput)+"].Id", resource.Input[numInput].Id)
 }
 func (resource *Task) T_InputType(numInput int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Input) >= numInput {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Input) >= numInput {
+		return CodeableConceptSelect("Task.Input["+strconv.Itoa(numInput)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Input[numInput].Type, optionsValueSet)
+	return CodeableConceptSelect("Task.Input["+strconv.Itoa(numInput)+"].Type", &resource.Input[numInput].Type, optionsValueSet)
+}
+func (resource *Task) T_OutputId(numOutput int) templ.Component {
+
+	if resource == nil || len(resource.Output) >= numOutput {
+		return StringInput("Task.Output["+strconv.Itoa(numOutput)+"].Id", nil)
+	}
+	return StringInput("Task.Output["+strconv.Itoa(numOutput)+"].Id", resource.Output[numOutput].Id)
 }
 func (resource *Task) T_OutputType(numOutput int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Output) >= numOutput {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Output) >= numOutput {
+		return CodeableConceptSelect("Task.Output["+strconv.Itoa(numOutput)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Output[numOutput].Type, optionsValueSet)
+	return CodeableConceptSelect("Task.Output["+strconv.Itoa(numOutput)+"].Type", &resource.Output[numOutput].Type, optionsValueSet)
 }

@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/ManufacturedItemDefinition
 type ManufacturedItemDefinition struct {
@@ -35,13 +39,13 @@ type ManufacturedItemDefinitionProperty struct {
 	Extension            []Extension      `json:"extension,omitempty"`
 	ModifierExtension    []Extension      `json:"modifierExtension,omitempty"`
 	Type                 CodeableConcept  `json:"type"`
-	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept"`
-	ValueQuantity        *Quantity        `json:"valueQuantity"`
-	ValueDate            *string          `json:"valueDate"`
-	ValueBoolean         *bool            `json:"valueBoolean"`
-	ValueMarkdown        *string          `json:"valueMarkdown"`
-	ValueAttachment      *Attachment      `json:"valueAttachment"`
-	ValueReference       *Reference       `json:"valueReference"`
+	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
+	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
+	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
+	ValueMarkdown        *string          `json:"valueMarkdown,omitempty"`
+	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
+	ValueReference       *Reference       `json:"valueReference,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/ManufacturedItemDefinition
@@ -79,74 +83,116 @@ func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *ManufacturedItemDefinition) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("ManufacturedItemDefinition.Id", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Id", resource.Id)
+}
+func (resource *ManufacturedItemDefinition) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("ManufacturedItemDefinition.ImplicitRules", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *ManufacturedItemDefinition) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("ManufacturedItemDefinition.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("ManufacturedItemDefinition.Language", resource.Language, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) T_Status() templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("ManufacturedItemDefinition.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", &resource.Status, optionsValueSet)
+	return CodeSelect("ManufacturedItemDefinition.Status", &resource.Status, optionsValueSet)
+}
+func (resource *ManufacturedItemDefinition) T_Name() templ.Component {
+
+	if resource == nil {
+		return StringInput("ManufacturedItemDefinition.Name", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Name", resource.Name)
 }
 func (resource *ManufacturedItemDefinition) T_ManufacturedDoseForm(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet)
+		return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet)
 }
 func (resource *ManufacturedItemDefinition) T_UnitOfPresentation(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet)
+		return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet)
 }
-func (resource *ManufacturedItemDefinition) T_Ingredient(optionsValueSet []Coding) templ.Component {
+func (resource *ManufacturedItemDefinition) T_Ingredient(numIngredient int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("ingredient", nil, optionsValueSet)
+	if resource == nil || len(resource.Ingredient) >= numIngredient {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient["+strconv.Itoa(numIngredient)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("ingredient", &resource.Ingredient[0], optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], optionsValueSet)
+}
+func (resource *ManufacturedItemDefinition) T_PropertyId(numProperty int) templ.Component {
+
+	if resource == nil || len(resource.Property) >= numProperty {
+		return StringInput("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Id", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Id", resource.Property[numProperty].Id)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyType(numProperty int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Property) >= numProperty {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Property) >= numProperty {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Property[numProperty].Type, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Property[numProperty].Type, optionsValueSet)
+}
+func (resource *ManufacturedItemDefinition) T_ComponentId(numComponent int) templ.Component {
+
+	if resource == nil || len(resource.Component) >= numComponent {
+		return StringInput("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Id", nil)
+	}
+	return StringInput("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Id", resource.Component[numComponent].Id)
 }
 func (resource *ManufacturedItemDefinition) T_ComponentType(numComponent int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Component) >= numComponent {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+	if resource == nil || len(resource.Component) >= numComponent {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", &resource.Component[numComponent].Type, optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Type", &resource.Component[numComponent].Type, optionsValueSet)
 }
-func (resource *ManufacturedItemDefinition) T_ComponentFunction(numComponent int, optionsValueSet []Coding) templ.Component {
+func (resource *ManufacturedItemDefinition) T_ComponentFunction(numComponent int, numFunction int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Component) >= numComponent {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].Function) >= numFunction {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Function["+strconv.Itoa(numFunction)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", &resource.Component[numComponent].Function[0], optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Function["+strconv.Itoa(numFunction)+"]", &resource.Component[numComponent].Function[numFunction], optionsValueSet)
 }
-func (resource *ManufacturedItemDefinition) T_ComponentConstituentLocation(numComponent int, numConstituent int, optionsValueSet []Coding) templ.Component {
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentId(numComponent int, numConstituent int) templ.Component {
 
-	if resource == nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
-		return CodeableConceptSelect("location", nil, optionsValueSet)
+	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].Constituent) >= numConstituent {
+		return StringInput("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Id", nil)
 	}
-	return CodeableConceptSelect("location", &resource.Component[numComponent].Constituent[numConstituent].Location[0], optionsValueSet)
+	return StringInput("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Id", resource.Component[numComponent].Constituent[numConstituent].Id)
 }
-func (resource *ManufacturedItemDefinition) T_ComponentConstituentFunction(numComponent int, numConstituent int, optionsValueSet []Coding) templ.Component {
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentLocation(numComponent int, numConstituent int, numLocation int, optionsValueSet []Coding) templ.Component {
 
-	if resource == nil && len(resource.Component[numComponent].Constituent) >= numConstituent {
-		return CodeableConceptSelect("function", nil, optionsValueSet)
+	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].Constituent) >= numConstituent || len(resource.Component[numComponent].Constituent[numConstituent].Location) >= numLocation {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Location["+strconv.Itoa(numLocation)+"]", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("function", &resource.Component[numComponent].Constituent[numConstituent].Function[0], optionsValueSet)
+	return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Location["+strconv.Itoa(numLocation)+"]", &resource.Component[numComponent].Constituent[numConstituent].Location[numLocation], optionsValueSet)
+}
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentFunction(numComponent int, numConstituent int, numFunction int, optionsValueSet []Coding) templ.Component {
+
+	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].Constituent) >= numConstituent || len(resource.Component[numComponent].Constituent[numConstituent].Function) >= numFunction {
+		return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Function["+strconv.Itoa(numFunction)+"]", nil, optionsValueSet)
+	}
+	return CodeableConceptSelect("ManufacturedItemDefinition.Component["+strconv.Itoa(numComponent)+"].Constituent["+strconv.Itoa(numConstituent)+"].Function["+strconv.Itoa(numFunction)+"]", &resource.Component[numComponent].Constituent[numConstituent].Function[numFunction], optionsValueSet)
 }

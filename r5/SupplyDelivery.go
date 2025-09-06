@@ -1,11 +1,15 @@
 package r5
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
-import "encoding/json"
-import "github.com/a-h/templ"
+import (
+	"encoding/json"
+	"strconv"
+
+	"github.com/a-h/templ"
+)
 
 // http://hl7.org/fhir/r5/StructureDefinition/SupplyDelivery
 type SupplyDelivery struct {
@@ -24,9 +28,9 @@ type SupplyDelivery struct {
 	Patient            *Reference                   `json:"patient,omitempty"`
 	Type               *CodeableConcept             `json:"type,omitempty"`
 	SuppliedItem       []SupplyDeliverySuppliedItem `json:"suppliedItem,omitempty"`
-	OccurrenceDateTime *string                      `json:"occurrenceDateTime"`
-	OccurrencePeriod   *Period                      `json:"occurrencePeriod"`
-	OccurrenceTiming   *Timing                      `json:"occurrenceTiming"`
+	OccurrenceDateTime *string                      `json:"occurrenceDateTime,omitempty"`
+	OccurrencePeriod   *Period                      `json:"occurrencePeriod,omitempty"`
+	OccurrenceTiming   *Timing                      `json:"occurrenceTiming,omitempty"`
 	Supplier           *Reference                   `json:"supplier,omitempty"`
 	Destination        *Reference                   `json:"destination,omitempty"`
 	Receiver           []Reference                  `json:"receiver,omitempty"`
@@ -38,8 +42,8 @@ type SupplyDeliverySuppliedItem struct {
 	Extension           []Extension      `json:"extension,omitempty"`
 	ModifierExtension   []Extension      `json:"modifierExtension,omitempty"`
 	Quantity            *Quantity        `json:"quantity,omitempty"`
-	ItemCodeableConcept *CodeableConcept `json:"itemCodeableConcept"`
-	ItemReference       *Reference       `json:"itemReference"`
+	ItemCodeableConcept *CodeableConcept `json:"itemCodeableConcept,omitempty"`
+	ItemReference       *Reference       `json:"itemReference,omitempty"`
 }
 
 type OtherSupplyDelivery SupplyDelivery
@@ -55,26 +59,47 @@ func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 	})
 }
 
+func (resource *SupplyDelivery) T_Id() templ.Component {
+
+	if resource == nil {
+		return StringInput("SupplyDelivery.Id", nil)
+	}
+	return StringInput("SupplyDelivery.Id", resource.Id)
+}
+func (resource *SupplyDelivery) T_ImplicitRules() templ.Component {
+
+	if resource == nil {
+		return StringInput("SupplyDelivery.ImplicitRules", nil)
+	}
+	return StringInput("SupplyDelivery.ImplicitRules", resource.ImplicitRules)
+}
 func (resource *SupplyDelivery) T_Language(optionsValueSet []Coding) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("language", nil, optionsValueSet)
+		return CodeSelect("SupplyDelivery.Language", nil, optionsValueSet)
 	}
-	return CodeSelect("language", resource.Language, optionsValueSet)
+	return CodeSelect("SupplyDelivery.Language", resource.Language, optionsValueSet)
 }
 func (resource *SupplyDelivery) T_Status() templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
 	if resource == nil {
-		return CodeSelect("status", nil, optionsValueSet)
+		return CodeSelect("SupplyDelivery.Status", nil, optionsValueSet)
 	}
-	return CodeSelect("status", resource.Status, optionsValueSet)
+	return CodeSelect("SupplyDelivery.Status", resource.Status, optionsValueSet)
 }
 func (resource *SupplyDelivery) T_Type() templ.Component {
 	optionsValueSet := VSSupplydelivery_supplyitemtype
 
 	if resource == nil {
-		return CodeableConceptSelect("type", nil, optionsValueSet)
+		return CodeableConceptSelect("SupplyDelivery.Type", nil, optionsValueSet)
 	}
-	return CodeableConceptSelect("type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("SupplyDelivery.Type", resource.Type, optionsValueSet)
+}
+func (resource *SupplyDelivery) T_SuppliedItemId(numSuppliedItem int) templ.Component {
+
+	if resource == nil || len(resource.SuppliedItem) >= numSuppliedItem {
+		return StringInput("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].Id", nil)
+	}
+	return StringInput("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].Id", resource.SuppliedItem[numSuppliedItem].Id)
 }

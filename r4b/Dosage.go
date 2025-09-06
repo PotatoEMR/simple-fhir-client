@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune
+//generated with command go run ./bultaoreune -nodownload
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -14,8 +14,8 @@ type Dosage struct {
 	AdditionalInstruction    []CodeableConcept `json:"additionalInstruction,omitempty"`
 	PatientInstruction       *string           `json:"patientInstruction,omitempty"`
 	Timing                   *Timing           `json:"timing,omitempty"`
-	AsNeededBoolean          *bool             `json:"asNeededBoolean"`
-	AsNeededCodeableConcept  *CodeableConcept  `json:"asNeededCodeableConcept"`
+	AsNeededBoolean          *bool             `json:"asNeededBoolean,omitempty"`
+	AsNeededCodeableConcept  *CodeableConcept  `json:"asNeededCodeableConcept,omitempty"`
 	Site                     *CodeableConcept  `json:"site,omitempty"`
 	Route                    *CodeableConcept  `json:"route,omitempty"`
 	Method                   *CodeableConcept  `json:"method,omitempty"`
