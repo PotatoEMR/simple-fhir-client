@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -43,47 +43,40 @@ func (r Flag) MarshalJSON() ([]byte, error) {
 		ResourceType: "Flag",
 	})
 }
-
-func (resource *Flag) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Flag.Id", nil)
+func (r Flag) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Flag/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Flag.Id", resource.Id)
-}
-func (resource *Flag) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Flag.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Flag.ImplicitRules", resource.ImplicitRules)
+	rtype := "Flag"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Flag) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Flag.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Flag.Language", resource.Language, optionsValueSet)
-}
-func (resource *Flag) T_Status() templ.Component {
+func (resource *Flag) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFlag_status
 
 	if resource == nil {
-		return CodeSelect("Flag.Status", nil, optionsValueSet)
+		return CodeSelect("Flag.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Flag.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Flag.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Flag) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Flag.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Flag.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Flag.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Flag.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Flag) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *Flag) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Flag.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("Flag.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Flag.Code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Flag.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }

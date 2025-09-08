@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -53,83 +53,67 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 		ResourceType:            "SubscriptionStatus",
 	})
 }
-
-func (resource *SubscriptionStatus) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("SubscriptionStatus.Id", nil)
+func (r SubscriptionStatus) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "SubscriptionStatus/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("SubscriptionStatus.Id", resource.Id)
-}
-func (resource *SubscriptionStatus) T_ImplicitRules() templ.Component {
 
-	if resource == nil {
-		return StringInput("SubscriptionStatus.ImplicitRules", nil)
-	}
-	return StringInput("SubscriptionStatus.ImplicitRules", resource.ImplicitRules)
+	rtype := "SubscriptionStatus"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *SubscriptionStatus) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("SubscriptionStatus.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("SubscriptionStatus.Language", resource.Language, optionsValueSet)
-}
-func (resource *SubscriptionStatus) T_Status() templ.Component {
+func (resource *SubscriptionStatus) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("SubscriptionStatus.Status", nil, optionsValueSet)
+		return CodeSelect("SubscriptionStatus.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionStatus.Status", resource.Status, optionsValueSet)
+	return CodeSelect("SubscriptionStatus.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_Type() templ.Component {
+func (resource *SubscriptionStatus) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_notification_type
 
 	if resource == nil {
-		return CodeSelect("SubscriptionStatus.Type", nil, optionsValueSet)
+		return CodeSelect("SubscriptionStatus.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionStatus.Type", &resource.Type, optionsValueSet)
+	return CodeSelect("SubscriptionStatus.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_EventsSinceSubscriptionStart() templ.Component {
+func (resource *SubscriptionStatus) T_EventsSinceSubscriptionStart(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubscriptionStatus.EventsSinceSubscriptionStart", nil)
+		return StringInput("SubscriptionStatus.EventsSinceSubscriptionStart", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionStatus.EventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart)
+	return StringInput("SubscriptionStatus.EventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_Topic() templ.Component {
+func (resource *SubscriptionStatus) T_Topic(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubscriptionStatus.Topic", nil)
+		return StringInput("SubscriptionStatus.Topic", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionStatus.Topic", resource.Topic)
+	return StringInput("SubscriptionStatus.Topic", resource.Topic, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_Error(numError int, optionsValueSet []Coding) templ.Component {
+func (resource *SubscriptionStatus) T_Error(numError int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Error) >= numError {
-		return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", nil, optionsValueSet)
+	if resource == nil || numError >= len(resource.Error) {
+		return CodeableConceptSelect("SubscriptionStatus.Error."+strconv.Itoa(numError)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", &resource.Error[numError], optionsValueSet)
+	return CodeableConceptSelect("SubscriptionStatus.Error."+strconv.Itoa(numError)+".", &resource.Error[numError], optionsValueSet, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_NotificationEventId(numNotificationEvent int) templ.Component {
+func (resource *SubscriptionStatus) T_NotificationEventEventNumber(numNotificationEvent int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
-		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Id", nil)
+	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) {
+		return StringInput("SubscriptionStatus.NotificationEvent."+strconv.Itoa(numNotificationEvent)+"..EventNumber", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Id", resource.NotificationEvent[numNotificationEvent].Id)
+	return StringInput("SubscriptionStatus.NotificationEvent."+strconv.Itoa(numNotificationEvent)+"..EventNumber", &resource.NotificationEvent[numNotificationEvent].EventNumber, htmlAttrs)
 }
-func (resource *SubscriptionStatus) T_NotificationEventEventNumber(numNotificationEvent int) templ.Component {
+func (resource *SubscriptionStatus) T_NotificationEventTimestamp(numNotificationEvent int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
-		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", nil)
+	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) {
+		return StringInput("SubscriptionStatus.NotificationEvent."+strconv.Itoa(numNotificationEvent)+"..Timestamp", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", &resource.NotificationEvent[numNotificationEvent].EventNumber)
-}
-func (resource *SubscriptionStatus) T_NotificationEventTimestamp(numNotificationEvent int) templ.Component {
-
-	if resource == nil || len(resource.NotificationEvent) >= numNotificationEvent {
-		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", nil)
-	}
-	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp)
+	return StringInput("SubscriptionStatus.NotificationEvent."+strconv.Itoa(numNotificationEvent)+"..Timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp, htmlAttrs)
 }

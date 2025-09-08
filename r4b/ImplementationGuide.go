@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type ImplementationGuide struct {
 	Title             *string                        `json:"title,omitempty"`
 	Status            string                         `json:"status"`
 	Experimental      *bool                          `json:"experimental,omitempty"`
-	Date              *string                        `json:"date,omitempty"`
+	Date              *time.Time                     `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                        `json:"publisher,omitempty"`
 	Contact           []ContactDetail                `json:"contact,omitempty"`
 	Description       *string                        `json:"description,omitempty"`
@@ -172,382 +173,331 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 		ResourceType:             "ImplementationGuide",
 	})
 }
+func (r ImplementationGuide) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ImplementationGuide/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *ImplementationGuide) T_Id() templ.Component {
+	rtype := "ImplementationGuide"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ImplementationGuide) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Id", nil)
+		return StringInput("ImplementationGuide.Url", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Id", resource.Id)
+	return StringInput("ImplementationGuide.Url", &resource.Url, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ImplicitRules() templ.Component {
+func (resource *ImplementationGuide) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.ImplicitRules", nil)
+		return StringInput("ImplementationGuide.Version", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ImplementationGuide.Version", resource.Version, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ImplementationGuide.Language", nil, optionsValueSet)
+		return StringInput("ImplementationGuide.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Language", resource.Language, optionsValueSet)
+	return StringInput("ImplementationGuide.Name", &resource.Name, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Url() templ.Component {
+func (resource *ImplementationGuide) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Url", nil)
+		return StringInput("ImplementationGuide.Title", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Url", &resource.Url)
+	return StringInput("ImplementationGuide.Title", resource.Title, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImplementationGuide.Version", nil)
-	}
-	return StringInput("ImplementationGuide.Version", resource.Version)
-}
-func (resource *ImplementationGuide) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImplementationGuide.Name", nil)
-	}
-	return StringInput("ImplementationGuide.Name", &resource.Name)
-}
-func (resource *ImplementationGuide) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImplementationGuide.Title", nil)
-	}
-	return StringInput("ImplementationGuide.Title", resource.Title)
-}
-func (resource *ImplementationGuide) T_Status() templ.Component {
+func (resource *ImplementationGuide) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ImplementationGuide.Status", nil, optionsValueSet)
+		return CodeSelect("ImplementationGuide.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ImplementationGuide.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Experimental() templ.Component {
+func (resource *ImplementationGuide) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ImplementationGuide.Experimental", nil)
+		return BoolInput("ImplementationGuide.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ImplementationGuide.Experimental", resource.Experimental)
+	return BoolInput("ImplementationGuide.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Date() templ.Component {
+func (resource *ImplementationGuide) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Date", nil)
+		return DateTimeInput("ImplementationGuide.Date", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Date", resource.Date)
+	return DateTimeInput("ImplementationGuide.Date", resource.Date, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Publisher() templ.Component {
+func (resource *ImplementationGuide) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Publisher", nil)
+		return StringInput("ImplementationGuide.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Publisher", resource.Publisher)
+	return StringInput("ImplementationGuide.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Description() templ.Component {
+func (resource *ImplementationGuide) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Description", nil)
+		return StringInput("ImplementationGuide.Description", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Description", resource.Description)
+	return StringInput("ImplementationGuide.Description", resource.Description, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("ImplementationGuide.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("ImplementationGuide.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImplementationGuide.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("ImplementationGuide.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_Copyright() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImplementationGuide.Copyright", nil)
-	}
-	return StringInput("ImplementationGuide.Copyright", resource.Copyright)
-}
-func (resource *ImplementationGuide) T_PackageId() templ.Component {
+func (resource *ImplementationGuide) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.PackageId", nil)
+		return StringInput("ImplementationGuide.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.PackageId", &resource.PackageId)
+	return StringInput("ImplementationGuide.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_License() templ.Component {
+func (resource *ImplementationGuide) T_PackageId(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("ImplementationGuide.PackageId", nil, htmlAttrs)
+	}
+	return StringInput("ImplementationGuide.PackageId", &resource.PackageId, htmlAttrs)
+}
+func (resource *ImplementationGuide) T_License(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSpdx_license
 
 	if resource == nil {
-		return CodeSelect("ImplementationGuide.License", nil, optionsValueSet)
+		return CodeSelect("ImplementationGuide.License", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.License", resource.License, optionsValueSet)
+	return CodeSelect("ImplementationGuide.License", resource.License, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_FhirVersion(numFhirVersion int) templ.Component {
+func (resource *ImplementationGuide) T_FhirVersion(numFhirVersion int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSFHIR_version
 
-	if resource == nil || len(resource.FhirVersion) >= numFhirVersion {
-		return CodeSelect("ImplementationGuide.FhirVersion["+strconv.Itoa(numFhirVersion)+"]", nil, optionsValueSet)
+	if resource == nil || numFhirVersion >= len(resource.FhirVersion) {
+		return CodeSelect("ImplementationGuide.FhirVersion."+strconv.Itoa(numFhirVersion)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.FhirVersion["+strconv.Itoa(numFhirVersion)+"]", &resource.FhirVersion[numFhirVersion], optionsValueSet)
+	return CodeSelect("ImplementationGuide.FhirVersion."+strconv.Itoa(numFhirVersion)+".", &resource.FhirVersion[numFhirVersion], optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DependsOnId(numDependsOn int) templ.Component {
+func (resource *ImplementationGuide) T_DependsOnUri(numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.DependsOn) >= numDependsOn {
-		return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Id", nil)
+	if resource == nil || numDependsOn >= len(resource.DependsOn) {
+		return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..Uri", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Id", resource.DependsOn[numDependsOn].Id)
+	return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..Uri", &resource.DependsOn[numDependsOn].Uri, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DependsOnUri(numDependsOn int) templ.Component {
+func (resource *ImplementationGuide) T_DependsOnPackageId(numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.DependsOn) >= numDependsOn {
-		return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Uri", nil)
+	if resource == nil || numDependsOn >= len(resource.DependsOn) {
+		return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..PackageId", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Uri", &resource.DependsOn[numDependsOn].Uri)
+	return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..PackageId", resource.DependsOn[numDependsOn].PackageId, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DependsOnPackageId(numDependsOn int) templ.Component {
+func (resource *ImplementationGuide) T_DependsOnVersion(numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.DependsOn) >= numDependsOn {
-		return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].PackageId", nil)
+	if resource == nil || numDependsOn >= len(resource.DependsOn) {
+		return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..Version", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].PackageId", resource.DependsOn[numDependsOn].PackageId)
+	return StringInput("ImplementationGuide.DependsOn."+strconv.Itoa(numDependsOn)+"..Version", resource.DependsOn[numDependsOn].Version, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DependsOnVersion(numDependsOn int) templ.Component {
-
-	if resource == nil || len(resource.DependsOn) >= numDependsOn {
-		return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Version", nil)
-	}
-	return StringInput("ImplementationGuide.DependsOn["+strconv.Itoa(numDependsOn)+"].Version", resource.DependsOn[numDependsOn].Version)
-}
-func (resource *ImplementationGuide) T_GlobalId(numGlobal int) templ.Component {
-
-	if resource == nil || len(resource.Global) >= numGlobal {
-		return StringInput("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Id", nil)
-	}
-	return StringInput("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Id", resource.Global[numGlobal].Id)
-}
-func (resource *ImplementationGuide) T_GlobalType(numGlobal int) templ.Component {
+func (resource *ImplementationGuide) T_GlobalType(numGlobal int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource == nil || len(resource.Global) >= numGlobal {
-		return CodeSelect("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Type", nil, optionsValueSet)
+	if resource == nil || numGlobal >= len(resource.Global) {
+		return CodeSelect("ImplementationGuide.Global."+strconv.Itoa(numGlobal)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Type", &resource.Global[numGlobal].Type, optionsValueSet)
+	return CodeSelect("ImplementationGuide.Global."+strconv.Itoa(numGlobal)+"..Type", &resource.Global[numGlobal].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_GlobalProfile(numGlobal int) templ.Component {
+func (resource *ImplementationGuide) T_GlobalProfile(numGlobal int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Global) >= numGlobal {
-		return StringInput("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Profile", nil)
+	if resource == nil || numGlobal >= len(resource.Global) {
+		return StringInput("ImplementationGuide.Global."+strconv.Itoa(numGlobal)+"..Profile", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Global["+strconv.Itoa(numGlobal)+"].Profile", &resource.Global[numGlobal].Profile)
+	return StringInput("ImplementationGuide.Global."+strconv.Itoa(numGlobal)+"..Profile", &resource.Global[numGlobal].Profile, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionId() templ.Component {
+func (resource *ImplementationGuide) T_DefinitionGroupingName(numGrouping int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("ImplementationGuide.Definition.Id", nil)
+	if resource == nil || numGrouping >= len(resource.Definition.Grouping) {
+		return StringInput("ImplementationGuide.Definition.Grouping."+strconv.Itoa(numGrouping)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Id", resource.Definition.Id)
+	return StringInput("ImplementationGuide.Definition.Grouping."+strconv.Itoa(numGrouping)+"..Name", &resource.Definition.Grouping[numGrouping].Name, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionGroupingId(numGrouping int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionGroupingDescription(numGrouping int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Grouping) >= numGrouping {
-		return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Id", nil)
+	if resource == nil || numGrouping >= len(resource.Definition.Grouping) {
+		return StringInput("ImplementationGuide.Definition.Grouping."+strconv.Itoa(numGrouping)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Id", resource.Definition.Grouping[numGrouping].Id)
+	return StringInput("ImplementationGuide.Definition.Grouping."+strconv.Itoa(numGrouping)+"..Description", resource.Definition.Grouping[numGrouping].Description, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionGroupingName(numGrouping int) templ.Component {
-
-	if resource == nil || len(resource.Definition.Grouping) >= numGrouping {
-		return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Name", nil)
-	}
-	return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Name", &resource.Definition.Grouping[numGrouping].Name)
-}
-func (resource *ImplementationGuide) T_DefinitionGroupingDescription(numGrouping int) templ.Component {
-
-	if resource == nil || len(resource.Definition.Grouping) >= numGrouping {
-		return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Description", nil)
-	}
-	return StringInput("ImplementationGuide.Definition.Grouping["+strconv.Itoa(numGrouping)+"].Description", resource.Definition.Grouping[numGrouping].Description)
-}
-func (resource *ImplementationGuide) T_DefinitionResourceId(numResource int) templ.Component {
-
-	if resource == nil || len(resource.Definition.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Id", nil)
-	}
-	return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Id", resource.Definition.Resource[numResource].Id)
-}
-func (resource *ImplementationGuide) T_DefinitionResourceFhirVersion(numResource int, numFhirVersion int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceFhirVersion(numResource int, numFhirVersion int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSFHIR_version
 
-	if resource == nil || len(resource.Definition.Resource) >= numResource || len(resource.Definition.Resource[numResource].FhirVersion) >= numFhirVersion {
-		return CodeSelect("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].FhirVersion["+strconv.Itoa(numFhirVersion)+"]", nil, optionsValueSet)
+	if resource == nil || numResource >= len(resource.Definition.Resource) || numFhirVersion >= len(resource.Definition.Resource[numResource].FhirVersion) {
+		return CodeSelect("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..FhirVersion."+strconv.Itoa(numFhirVersion)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].FhirVersion["+strconv.Itoa(numFhirVersion)+"]", &resource.Definition.Resource[numResource].FhirVersion[numFhirVersion], optionsValueSet)
+	return CodeSelect("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..FhirVersion."+strconv.Itoa(numFhirVersion)+".", &resource.Definition.Resource[numResource].FhirVersion[numFhirVersion], optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionResourceName(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceName(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Name", nil)
+	if resource == nil || numResource >= len(resource.Definition.Resource) {
+		return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Name", resource.Definition.Resource[numResource].Name)
+	return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..Name", resource.Definition.Resource[numResource].Name, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionResourceDescription(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceDescription(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Description", nil)
+	if resource == nil || numResource >= len(resource.Definition.Resource) {
+		return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].Description", resource.Definition.Resource[numResource].Description)
+	return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..Description", resource.Definition.Resource[numResource].Description, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionResourceGroupingId(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceExampleBoolean(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].GroupingId", nil)
+	if resource == nil || numResource >= len(resource.Definition.Resource) {
+		return BoolInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..ExampleBoolean", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Resource["+strconv.Itoa(numResource)+"].GroupingId", resource.Definition.Resource[numResource].GroupingId)
+	return BoolInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..ExampleBoolean", resource.Definition.Resource[numResource].ExampleBoolean, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionPageId() templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceExampleCanonical(numResource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numResource >= len(resource.Definition.Resource) {
+		return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..ExampleCanonical", nil, htmlAttrs)
+	}
+	return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..ExampleCanonical", resource.Definition.Resource[numResource].ExampleCanonical, htmlAttrs)
+}
+func (resource *ImplementationGuide) T_DefinitionResourceGroupingId(numResource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numResource >= len(resource.Definition.Resource) {
+		return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..GroupingId", nil, htmlAttrs)
+	}
+	return StringInput("ImplementationGuide.Definition.Resource."+strconv.Itoa(numResource)+"..GroupingId", resource.Definition.Resource[numResource].GroupingId, htmlAttrs)
+}
+func (resource *ImplementationGuide) T_DefinitionPageNameUrl(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Definition.Page.Id", nil)
+		return StringInput("ImplementationGuide.Definition.Page.NameUrl", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Page.Id", resource.Definition.Page.Id)
+	return StringInput("ImplementationGuide.Definition.Page.NameUrl", &resource.Definition.Page.NameUrl, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionPageTitle() templ.Component {
+func (resource *ImplementationGuide) T_DefinitionPageTitle(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Definition.Page.Title", nil)
+		return StringInput("ImplementationGuide.Definition.Page.Title", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Page.Title", &resource.Definition.Page.Title)
+	return StringInput("ImplementationGuide.Definition.Page.Title", &resource.Definition.Page.Title, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionPageGeneration() templ.Component {
+func (resource *ImplementationGuide) T_DefinitionPageGeneration(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGuide_page_generation
 
 	if resource == nil {
-		return CodeSelect("ImplementationGuide.Definition.Page.Generation", nil, optionsValueSet)
+		return CodeSelect("ImplementationGuide.Definition.Page.Generation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Definition.Page.Generation", &resource.Definition.Page.Generation, optionsValueSet)
+	return CodeSelect("ImplementationGuide.Definition.Page.Generation", &resource.Definition.Page.Generation, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionParameterId(numParameter int) templ.Component {
-
-	if resource == nil || len(resource.Definition.Parameter) >= numParameter {
-		return StringInput("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
-	}
-	return StringInput("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Definition.Parameter[numParameter].Id)
-}
-func (resource *ImplementationGuide) T_DefinitionParameterCode(numParameter int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionParameterCode(numParameter int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGuide_parameter_code
 
-	if resource == nil || len(resource.Definition.Parameter) >= numParameter {
-		return CodeSelect("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Code", nil, optionsValueSet)
+	if resource == nil || numParameter >= len(resource.Definition.Parameter) {
+		return CodeSelect("ImplementationGuide.Definition.Parameter."+strconv.Itoa(numParameter)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Code", &resource.Definition.Parameter[numParameter].Code, optionsValueSet)
+	return CodeSelect("ImplementationGuide.Definition.Parameter."+strconv.Itoa(numParameter)+"..Code", &resource.Definition.Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionParameterValue(numParameter int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionParameterValue(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Parameter) >= numParameter {
-		return StringInput("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Value", nil)
+	if resource == nil || numParameter >= len(resource.Definition.Parameter) {
+		return StringInput("ImplementationGuide.Definition.Parameter."+strconv.Itoa(numParameter)+"..Value", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Parameter["+strconv.Itoa(numParameter)+"].Value", &resource.Definition.Parameter[numParameter].Value)
+	return StringInput("ImplementationGuide.Definition.Parameter."+strconv.Itoa(numParameter)+"..Value", &resource.Definition.Parameter[numParameter].Value, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionTemplateId(numTemplate int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionTemplateCode(numTemplate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Template) >= numTemplate {
-		return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Id", nil)
+	if resource == nil || numTemplate >= len(resource.Definition.Template) {
+		return CodeSelect("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Id", resource.Definition.Template[numTemplate].Id)
+	return CodeSelect("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Code", &resource.Definition.Template[numTemplate].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionTemplateCode(numTemplate int, optionsValueSet []Coding) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionTemplateSource(numTemplate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Template) >= numTemplate {
-		return CodeSelect("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Code", nil, optionsValueSet)
+	if resource == nil || numTemplate >= len(resource.Definition.Template) {
+		return StringInput("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Source", nil, htmlAttrs)
 	}
-	return CodeSelect("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Code", &resource.Definition.Template[numTemplate].Code, optionsValueSet)
+	return StringInput("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Source", &resource.Definition.Template[numTemplate].Source, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionTemplateSource(numTemplate int) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionTemplateScope(numTemplate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Definition.Template) >= numTemplate {
-		return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Source", nil)
+	if resource == nil || numTemplate >= len(resource.Definition.Template) {
+		return StringInput("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Scope", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Source", &resource.Definition.Template[numTemplate].Source)
+	return StringInput("ImplementationGuide.Definition.Template."+strconv.Itoa(numTemplate)+"..Scope", resource.Definition.Template[numTemplate].Scope, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionTemplateScope(numTemplate int) templ.Component {
-
-	if resource == nil || len(resource.Definition.Template) >= numTemplate {
-		return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Scope", nil)
-	}
-	return StringInput("ImplementationGuide.Definition.Template["+strconv.Itoa(numTemplate)+"].Scope", resource.Definition.Template[numTemplate].Scope)
-}
-func (resource *ImplementationGuide) T_ManifestId() templ.Component {
+func (resource *ImplementationGuide) T_ManifestRendering(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImplementationGuide.Manifest.Id", nil)
+		return StringInput("ImplementationGuide.Manifest.Rendering", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Id", resource.Manifest.Id)
+	return StringInput("ImplementationGuide.Manifest.Rendering", resource.Manifest.Rendering, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestRendering() templ.Component {
+func (resource *ImplementationGuide) T_ManifestImage(numImage int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("ImplementationGuide.Manifest.Rendering", nil)
+	if resource == nil || numImage >= len(resource.Manifest.Image) {
+		return StringInput("ImplementationGuide.Manifest.Image."+strconv.Itoa(numImage)+".", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Rendering", resource.Manifest.Rendering)
+	return StringInput("ImplementationGuide.Manifest.Image."+strconv.Itoa(numImage)+".", &resource.Manifest.Image[numImage], htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestImage(numImage int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestOther(numOther int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Image) >= numImage {
-		return StringInput("ImplementationGuide.Manifest.Image["+strconv.Itoa(numImage)+"]", nil)
+	if resource == nil || numOther >= len(resource.Manifest.Other) {
+		return StringInput("ImplementationGuide.Manifest.Other."+strconv.Itoa(numOther)+".", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Image["+strconv.Itoa(numImage)+"]", &resource.Manifest.Image[numImage])
+	return StringInput("ImplementationGuide.Manifest.Other."+strconv.Itoa(numOther)+".", &resource.Manifest.Other[numOther], htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestOther(numOther int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestResourceExampleBoolean(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Other) >= numOther {
-		return StringInput("ImplementationGuide.Manifest.Other["+strconv.Itoa(numOther)+"]", nil)
+	if resource == nil || numResource >= len(resource.Manifest.Resource) {
+		return BoolInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..ExampleBoolean", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Other["+strconv.Itoa(numOther)+"]", &resource.Manifest.Other[numOther])
+	return BoolInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..ExampleBoolean", resource.Manifest.Resource[numResource].ExampleBoolean, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestResourceId(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestResourceExampleCanonical(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Manifest.Resource["+strconv.Itoa(numResource)+"].Id", nil)
+	if resource == nil || numResource >= len(resource.Manifest.Resource) {
+		return StringInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..ExampleCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Resource["+strconv.Itoa(numResource)+"].Id", resource.Manifest.Resource[numResource].Id)
+	return StringInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..ExampleCanonical", resource.Manifest.Resource[numResource].ExampleCanonical, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestResourceRelativePath(numResource int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestResourceRelativePath(numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Resource) >= numResource {
-		return StringInput("ImplementationGuide.Manifest.Resource["+strconv.Itoa(numResource)+"].RelativePath", nil)
+	if resource == nil || numResource >= len(resource.Manifest.Resource) {
+		return StringInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..RelativePath", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Resource["+strconv.Itoa(numResource)+"].RelativePath", resource.Manifest.Resource[numResource].RelativePath)
+	return StringInput("ImplementationGuide.Manifest.Resource."+strconv.Itoa(numResource)+"..RelativePath", resource.Manifest.Resource[numResource].RelativePath, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestPageId(numPage int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestPageName(numPage int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Page) >= numPage {
-		return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Id", nil)
+	if resource == nil || numPage >= len(resource.Manifest.Page) {
+		return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Id", resource.Manifest.Page[numPage].Id)
+	return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Name", &resource.Manifest.Page[numPage].Name, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestPageName(numPage int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestPageTitle(numPage int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Page) >= numPage {
-		return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Name", nil)
+	if resource == nil || numPage >= len(resource.Manifest.Page) {
+		return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Title", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Name", &resource.Manifest.Page[numPage].Name)
+	return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Title", resource.Manifest.Page[numPage].Title, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestPageTitle(numPage int) templ.Component {
+func (resource *ImplementationGuide) T_ManifestPageAnchor(numPage int, numAnchor int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Manifest.Page) >= numPage {
-		return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Title", nil)
+	if resource == nil || numPage >= len(resource.Manifest.Page) || numAnchor >= len(resource.Manifest.Page[numPage].Anchor) {
+		return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Anchor."+strconv.Itoa(numAnchor)+".", nil, htmlAttrs)
 	}
-	return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Title", resource.Manifest.Page[numPage].Title)
-}
-func (resource *ImplementationGuide) T_ManifestPageAnchor(numPage int, numAnchor int) templ.Component {
-
-	if resource == nil || len(resource.Manifest.Page) >= numPage || len(resource.Manifest.Page[numPage].Anchor) >= numAnchor {
-		return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Anchor["+strconv.Itoa(numAnchor)+"]", nil)
-	}
-	return StringInput("ImplementationGuide.Manifest.Page["+strconv.Itoa(numPage)+"].Anchor["+strconv.Itoa(numAnchor)+"]", &resource.Manifest.Page[numPage].Anchor[numAnchor])
+	return StringInput("ImplementationGuide.Manifest.Page."+strconv.Itoa(numPage)+"..Anchor."+strconv.Itoa(numAnchor)+".", &resource.Manifest.Page[numPage].Anchor[numAnchor], htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -73,154 +73,133 @@ func (r Location) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Location",
 	})
 }
-
-func (resource *Location) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Location.Id", nil)
+func (r Location) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Location/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Location.Id", resource.Id)
-}
-func (resource *Location) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Location.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Location.ImplicitRules", resource.ImplicitRules)
+	rtype := "Location"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Location) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Location.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Location.Language", resource.Language, optionsValueSet)
-}
-func (resource *Location) T_Status() templ.Component {
+func (resource *Location) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSLocation_status
 
 	if resource == nil {
-		return CodeSelect("Location.Status", nil, optionsValueSet)
+		return CodeSelect("Location.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Location.Status", resource.Status, optionsValueSet)
+	return CodeSelect("Location.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_OperationalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_OperationalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodingSelect("Location.OperationalStatus", nil, optionsValueSet)
+		return CodingSelect("Location.OperationalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Location.OperationalStatus", resource.OperationalStatus, optionsValueSet)
+	return CodingSelect("Location.OperationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_Name() templ.Component {
+func (resource *Location) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Location.Name", nil)
+		return StringInput("Location.Name", nil, htmlAttrs)
 	}
-	return StringInput("Location.Name", resource.Name)
+	return StringInput("Location.Name", resource.Name, htmlAttrs)
 }
-func (resource *Location) T_Alias(numAlias int) templ.Component {
+func (resource *Location) T_Alias(numAlias int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Alias) >= numAlias {
-		return StringInput("Location.Alias["+strconv.Itoa(numAlias)+"]", nil)
+	if resource == nil || numAlias >= len(resource.Alias) {
+		return StringInput("Location.Alias."+strconv.Itoa(numAlias)+".", nil, htmlAttrs)
 	}
-	return StringInput("Location.Alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias])
+	return StringInput("Location.Alias."+strconv.Itoa(numAlias)+".", &resource.Alias[numAlias], htmlAttrs)
 }
-func (resource *Location) T_Description() templ.Component {
+func (resource *Location) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Location.Description", nil)
+		return StringInput("Location.Description", nil, htmlAttrs)
 	}
-	return StringInput("Location.Description", resource.Description)
+	return StringInput("Location.Description", resource.Description, htmlAttrs)
 }
-func (resource *Location) T_Mode() templ.Component {
+func (resource *Location) T_Mode(htmlAttrs string) templ.Component {
 	optionsValueSet := VSLocation_mode
 
 	if resource == nil {
-		return CodeSelect("Location.Mode", nil, optionsValueSet)
+		return CodeSelect("Location.Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Location.Mode", resource.Mode, optionsValueSet)
+	return CodeSelect("Location.Mode", resource.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_Type(numType int, optionsValueSet []Coding) templ.Component {
+func (resource *Location) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Type) >= numType {
-		return CodeableConceptSelect("Location.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	if resource == nil || numType >= len(resource.Type) {
+		return CodeableConceptSelect("Location.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Location.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
+	return CodeableConceptSelect("Location.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_PhysicalType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Location.PhysicalType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Location.PhysicalType", resource.PhysicalType, optionsValueSet)
-}
-func (resource *Location) T_AvailabilityExceptions() templ.Component {
+func (resource *Location) T_PhysicalType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Location.AvailabilityExceptions", nil)
+		return CodeableConceptSelect("Location.PhysicalType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Location.AvailabilityExceptions", resource.AvailabilityExceptions)
+	return CodeableConceptSelect("Location.PhysicalType", resource.PhysicalType, optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_PositionId() templ.Component {
+func (resource *Location) T_AvailabilityExceptions(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Location.Position.Id", nil)
+		return StringInput("Location.AvailabilityExceptions", nil, htmlAttrs)
 	}
-	return StringInput("Location.Position.Id", resource.Position.Id)
+	return StringInput("Location.AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
-func (resource *Location) T_PositionLongitude() templ.Component {
+func (resource *Location) T_PositionLongitude(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return Float64Input("Location.Position.Longitude", nil)
+		return Float64Input("Location.Position.Longitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Longitude", &resource.Position.Longitude)
+	return Float64Input("Location.Position.Longitude", &resource.Position.Longitude, htmlAttrs)
 }
-func (resource *Location) T_PositionLatitude() templ.Component {
+func (resource *Location) T_PositionLatitude(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return Float64Input("Location.Position.Latitude", nil)
+		return Float64Input("Location.Position.Latitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Latitude", &resource.Position.Latitude)
+	return Float64Input("Location.Position.Latitude", &resource.Position.Latitude, htmlAttrs)
 }
-func (resource *Location) T_PositionAltitude() templ.Component {
+func (resource *Location) T_PositionAltitude(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return Float64Input("Location.Position.Altitude", nil)
+		return Float64Input("Location.Position.Altitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Altitude", resource.Position.Altitude)
+	return Float64Input("Location.Position.Altitude", resource.Position.Altitude, htmlAttrs)
 }
-func (resource *Location) T_HoursOfOperationId(numHoursOfOperation int) templ.Component {
-
-	if resource == nil || len(resource.HoursOfOperation) >= numHoursOfOperation {
-		return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].Id", nil)
-	}
-	return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].Id", resource.HoursOfOperation[numHoursOfOperation].Id)
-}
-func (resource *Location) T_HoursOfOperationDaysOfWeek(numHoursOfOperation int, numDaysOfWeek int) templ.Component {
+func (resource *Location) T_HoursOfOperationDaysOfWeek(numHoursOfOperation int, numDaysOfWeek int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDays_of_week
 
-	if resource == nil || len(resource.HoursOfOperation) >= numHoursOfOperation || len(resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek) >= numDaysOfWeek {
-		return CodeSelect("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", nil, optionsValueSet)
+	if resource == nil || numHoursOfOperation >= len(resource.HoursOfOperation) || numDaysOfWeek >= len(resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek) {
+		return CodeSelect("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", &resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek[numDaysOfWeek], optionsValueSet)
+	return CodeSelect("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", &resource.HoursOfOperation[numHoursOfOperation].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_HoursOfOperationAllDay(numHoursOfOperation int) templ.Component {
+func (resource *Location) T_HoursOfOperationAllDay(numHoursOfOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.HoursOfOperation) >= numHoursOfOperation {
-		return BoolInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].AllDay", nil)
+	if resource == nil || numHoursOfOperation >= len(resource.HoursOfOperation) {
+		return BoolInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..AllDay", nil, htmlAttrs)
 	}
-	return BoolInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].AllDay", resource.HoursOfOperation[numHoursOfOperation].AllDay)
+	return BoolInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..AllDay", resource.HoursOfOperation[numHoursOfOperation].AllDay, htmlAttrs)
 }
-func (resource *Location) T_HoursOfOperationOpeningTime(numHoursOfOperation int) templ.Component {
+func (resource *Location) T_HoursOfOperationOpeningTime(numHoursOfOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.HoursOfOperation) >= numHoursOfOperation {
-		return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].OpeningTime", nil)
+	if resource == nil || numHoursOfOperation >= len(resource.HoursOfOperation) {
+		return StringInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..OpeningTime", nil, htmlAttrs)
 	}
-	return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].OpeningTime", resource.HoursOfOperation[numHoursOfOperation].OpeningTime)
+	return StringInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..OpeningTime", resource.HoursOfOperation[numHoursOfOperation].OpeningTime, htmlAttrs)
 }
-func (resource *Location) T_HoursOfOperationClosingTime(numHoursOfOperation int) templ.Component {
+func (resource *Location) T_HoursOfOperationClosingTime(numHoursOfOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.HoursOfOperation) >= numHoursOfOperation {
-		return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].ClosingTime", nil)
+	if resource == nil || numHoursOfOperation >= len(resource.HoursOfOperation) {
+		return StringInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..ClosingTime", nil, htmlAttrs)
 	}
-	return StringInput("Location.HoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"].ClosingTime", resource.HoursOfOperation[numHoursOfOperation].ClosingTime)
+	return StringInput("Location.HoursOfOperation."+strconv.Itoa(numHoursOfOperation)+"..ClosingTime", resource.HoursOfOperation[numHoursOfOperation].ClosingTime, htmlAttrs)
 }

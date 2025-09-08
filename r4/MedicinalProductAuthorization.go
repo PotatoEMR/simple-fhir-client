@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,12 +27,12 @@ type MedicinalProductAuthorization struct {
 	Country                     []CodeableConcept                                          `json:"country,omitempty"`
 	Jurisdiction                []CodeableConcept                                          `json:"jurisdiction,omitempty"`
 	Status                      *CodeableConcept                                           `json:"status,omitempty"`
-	StatusDate                  *string                                                    `json:"statusDate,omitempty"`
-	RestoreDate                 *string                                                    `json:"restoreDate,omitempty"`
+	StatusDate                  *time.Time                                                 `json:"statusDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	RestoreDate                 *time.Time                                                 `json:"restoreDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	ValidityPeriod              *Period                                                    `json:"validityPeriod,omitempty"`
 	DataExclusivityPeriod       *Period                                                    `json:"dataExclusivityPeriod,omitempty"`
-	DateOfFirstAuthorization    *string                                                    `json:"dateOfFirstAuthorization,omitempty"`
-	InternationalBirthDate      *string                                                    `json:"internationalBirthDate,omitempty"`
+	DateOfFirstAuthorization    *time.Time                                                 `json:"dateOfFirstAuthorization,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	InternationalBirthDate      *time.Time                                                 `json:"internationalBirthDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	LegalBasis                  *CodeableConcept                                           `json:"legalBasis,omitempty"`
 	JurisdictionalAuthorization []MedicinalProductAuthorizationJurisdictionalAuthorization `json:"jurisdictionalAuthorization,omitempty"`
 	Holder                      *Reference                                                 `json:"holder,omitempty"`
@@ -59,7 +60,7 @@ type MedicinalProductAuthorizationProcedure struct {
 	Identifier        *Identifier     `json:"identifier,omitempty"`
 	Type              CodeableConcept `json:"type"`
 	DatePeriod        *Period         `json:"datePeriod,omitempty"`
-	DateDateTime      *string         `json:"dateDateTime,omitempty"`
+	DateDateTime      *time.Time      `json:"dateDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }
 
 type OtherMedicinalProductAuthorization MedicinalProductAuthorization
@@ -74,123 +75,109 @@ func (r MedicinalProductAuthorization) MarshalJSON() ([]byte, error) {
 		ResourceType:                       "MedicinalProductAuthorization",
 	})
 }
+func (r MedicinalProductAuthorization) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MedicinalProductAuthorization/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "MedicinalProductAuthorization"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MedicinalProductAuthorization) T_Country(numCountry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-func (resource *MedicinalProductAuthorization) T_Id() templ.Component {
+	if resource == nil || numCountry >= len(resource.Country) {
+		return CodeableConceptSelect("MedicinalProductAuthorization.Country."+strconv.Itoa(numCountry)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductAuthorization.Country."+strconv.Itoa(numCountry)+".", &resource.Country[numCountry], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("MedicinalProductAuthorization.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductAuthorization.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_Status(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.Id", nil)
+		return CodeableConceptSelect("MedicinalProductAuthorization.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.Id", resource.Id)
+	return CodeableConceptSelect("MedicinalProductAuthorization.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_ImplicitRules() templ.Component {
+func (resource *MedicinalProductAuthorization) T_StatusDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.ImplicitRules", nil)
+		return DateTimeInput("MedicinalProductAuthorization.StatusDate", nil, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.ImplicitRules", resource.ImplicitRules)
+	return DateTimeInput("MedicinalProductAuthorization.StatusDate", resource.StatusDate, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductAuthorization) T_RestoreDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("MedicinalProductAuthorization.Language", nil, optionsValueSet)
+		return DateTimeInput("MedicinalProductAuthorization.RestoreDate", nil, htmlAttrs)
 	}
-	return CodeSelect("MedicinalProductAuthorization.Language", resource.Language, optionsValueSet)
+	return DateTimeInput("MedicinalProductAuthorization.RestoreDate", resource.RestoreDate, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_Country(numCountry int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Country) >= numCountry {
-		return CodeableConceptSelect("MedicinalProductAuthorization.Country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.Country["+strconv.Itoa(numCountry)+"]", &resource.Country[numCountry], optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("MedicinalProductAuthorization.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_Status(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductAuthorization) T_DateOfFirstAuthorization(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductAuthorization.Status", nil, optionsValueSet)
+		return DateTimeInput("MedicinalProductAuthorization.DateOfFirstAuthorization", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.Status", resource.Status, optionsValueSet)
+	return DateTimeInput("MedicinalProductAuthorization.DateOfFirstAuthorization", resource.DateOfFirstAuthorization, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_StatusDate() templ.Component {
+func (resource *MedicinalProductAuthorization) T_InternationalBirthDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.StatusDate", nil)
+		return DateTimeInput("MedicinalProductAuthorization.InternationalBirthDate", nil, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.StatusDate", resource.StatusDate)
+	return DateTimeInput("MedicinalProductAuthorization.InternationalBirthDate", resource.InternationalBirthDate, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_RestoreDate() templ.Component {
+func (resource *MedicinalProductAuthorization) T_LegalBasis(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.RestoreDate", nil)
+		return CodeableConceptSelect("MedicinalProductAuthorization.LegalBasis", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.RestoreDate", resource.RestoreDate)
+	return CodeableConceptSelect("MedicinalProductAuthorization.LegalBasis", resource.LegalBasis, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_DateOfFirstAuthorization() templ.Component {
+func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationCountry(numJurisdictionalAuthorization int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) {
+		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..Country", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..Country", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Country, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationJurisdiction(numJurisdictionalAuthorization int, numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) || numJurisdiction >= len(resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Jurisdiction) {
+		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationLegalStatusOfSupply(numJurisdictionalAuthorization int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) {
+		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..LegalStatusOfSupply", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization."+strconv.Itoa(numJurisdictionalAuthorization)+"..LegalStatusOfSupply", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].LegalStatusOfSupply, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_ProcedureType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.DateOfFirstAuthorization", nil)
+		return CodeableConceptSelect("MedicinalProductAuthorization.Procedure.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.DateOfFirstAuthorization", resource.DateOfFirstAuthorization)
+	return CodeableConceptSelect("MedicinalProductAuthorization.Procedure.Type", &resource.Procedure.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_InternationalBirthDate() templ.Component {
+func (resource *MedicinalProductAuthorization) T_ProcedureDateDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.InternationalBirthDate", nil)
+		return DateTimeInput("MedicinalProductAuthorization.Procedure.DateDateTime", nil, htmlAttrs)
 	}
-	return StringInput("MedicinalProductAuthorization.InternationalBirthDate", resource.InternationalBirthDate)
-}
-func (resource *MedicinalProductAuthorization) T_LegalBasis(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductAuthorization.LegalBasis", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.LegalBasis", resource.LegalBasis, optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationId(numJurisdictionalAuthorization int) templ.Component {
-
-	if resource == nil || len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
-		return StringInput("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Id", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Id)
-}
-func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationCountry(numJurisdictionalAuthorization int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
-		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Country", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Country", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Country, optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationJurisdiction(numJurisdictionalAuthorization int, numJurisdiction int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization || len(resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].Jurisdiction[numJurisdiction], optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationLegalStatusOfSupply(numJurisdictionalAuthorization int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.JurisdictionalAuthorization) >= numJurisdictionalAuthorization {
-		return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].LegalStatusOfSupply", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.JurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].LegalStatusOfSupply", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].LegalStatusOfSupply, optionsValueSet)
-}
-func (resource *MedicinalProductAuthorization) T_ProcedureId() templ.Component {
-
-	if resource == nil {
-		return StringInput("MedicinalProductAuthorization.Procedure.Id", nil)
-	}
-	return StringInput("MedicinalProductAuthorization.Procedure.Id", resource.Procedure.Id)
-}
-func (resource *MedicinalProductAuthorization) T_ProcedureType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductAuthorization.Procedure.Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductAuthorization.Procedure.Type", &resource.Procedure.Type, optionsValueSet)
+	return DateTimeInput("MedicinalProductAuthorization.Procedure.DateDateTime", resource.Procedure.DateDateTime, htmlAttrs)
 }

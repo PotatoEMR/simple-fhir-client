@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -159,436 +159,373 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MolecularSequence",
 	})
 }
-
-func (resource *MolecularSequence) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("MolecularSequence.Id", nil)
+func (r MolecularSequence) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MolecularSequence/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("MolecularSequence.Id", resource.Id)
-}
-func (resource *MolecularSequence) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("MolecularSequence.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("MolecularSequence.ImplicitRules", resource.ImplicitRules)
+	rtype := "MolecularSequence"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *MolecularSequence) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("MolecularSequence.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("MolecularSequence.Language", resource.Language, optionsValueSet)
-}
-func (resource *MolecularSequence) T_Type() templ.Component {
+func (resource *MolecularSequence) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSequence_type
 
 	if resource == nil {
-		return CodeSelect("MolecularSequence.Type", nil, optionsValueSet)
+		return CodeSelect("MolecularSequence.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MolecularSequence.Type", resource.Type, optionsValueSet)
+	return CodeSelect("MolecularSequence.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_CoordinateSystem() templ.Component {
+func (resource *MolecularSequence) T_CoordinateSystem(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("MolecularSequence.CoordinateSystem", nil)
+		return IntInput("MolecularSequence.CoordinateSystem", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.CoordinateSystem", &resource.CoordinateSystem)
+	return IntInput("MolecularSequence.CoordinateSystem", &resource.CoordinateSystem, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ObservedSeq() templ.Component {
+func (resource *MolecularSequence) T_ObservedSeq(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MolecularSequence.ObservedSeq", nil)
+		return StringInput("MolecularSequence.ObservedSeq", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.ObservedSeq", resource.ObservedSeq)
+	return StringInput("MolecularSequence.ObservedSeq", resource.ObservedSeq, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReadCoverage() templ.Component {
+func (resource *MolecularSequence) T_ReadCoverage(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("MolecularSequence.ReadCoverage", nil)
+		return IntInput("MolecularSequence.ReadCoverage", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.ReadCoverage", resource.ReadCoverage)
+	return IntInput("MolecularSequence.ReadCoverage", resource.ReadCoverage, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqId() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqChromosome(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MolecularSequence.ReferenceSeq.Id", nil)
+		return CodeableConceptSelect("MolecularSequence.ReferenceSeq.Chromosome", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.ReferenceSeq.Id", resource.ReferenceSeq.Id)
+	return CodeableConceptSelect("MolecularSequence.ReferenceSeq.Chromosome", resource.ReferenceSeq.Chromosome, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqChromosome(optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqGenomeBuild(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("MolecularSequence.ReferenceSeq.Chromosome", nil, optionsValueSet)
+		return StringInput("MolecularSequence.ReferenceSeq.GenomeBuild", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("MolecularSequence.ReferenceSeq.Chromosome", resource.ReferenceSeq.Chromosome, optionsValueSet)
+	return StringInput("MolecularSequence.ReferenceSeq.GenomeBuild", resource.ReferenceSeq.GenomeBuild, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqGenomeBuild() templ.Component {
-
-	if resource == nil {
-		return StringInput("MolecularSequence.ReferenceSeq.GenomeBuild", nil)
-	}
-	return StringInput("MolecularSequence.ReferenceSeq.GenomeBuild", resource.ReferenceSeq.GenomeBuild)
-}
-func (resource *MolecularSequence) T_ReferenceSeqOrientation() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqOrientation(htmlAttrs string) templ.Component {
 	optionsValueSet := VSOrientation_type
 
 	if resource == nil {
-		return CodeSelect("MolecularSequence.ReferenceSeq.Orientation", nil, optionsValueSet)
+		return CodeSelect("MolecularSequence.ReferenceSeq.Orientation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MolecularSequence.ReferenceSeq.Orientation", resource.ReferenceSeq.Orientation, optionsValueSet)
+	return CodeSelect("MolecularSequence.ReferenceSeq.Orientation", resource.ReferenceSeq.Orientation, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqId(optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqId(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("MolecularSequence.ReferenceSeq.ReferenceSeqId", nil, optionsValueSet)
+		return CodeableConceptSelect("MolecularSequence.ReferenceSeq.ReferenceSeqId", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MolecularSequence.ReferenceSeq.ReferenceSeqId", resource.ReferenceSeq.ReferenceSeqId, optionsValueSet)
+	return CodeableConceptSelect("MolecularSequence.ReferenceSeq.ReferenceSeqId", resource.ReferenceSeq.ReferenceSeqId, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqString() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqString(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MolecularSequence.ReferenceSeq.ReferenceSeqString", nil)
+		return StringInput("MolecularSequence.ReferenceSeq.ReferenceSeqString", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.ReferenceSeq.ReferenceSeqString", resource.ReferenceSeq.ReferenceSeqString)
+	return StringInput("MolecularSequence.ReferenceSeq.ReferenceSeqString", resource.ReferenceSeq.ReferenceSeqString, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqStrand() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqStrand(htmlAttrs string) templ.Component {
 	optionsValueSet := VSStrand_type
 
 	if resource == nil {
-		return CodeSelect("MolecularSequence.ReferenceSeq.Strand", nil, optionsValueSet)
+		return CodeSelect("MolecularSequence.ReferenceSeq.Strand", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MolecularSequence.ReferenceSeq.Strand", resource.ReferenceSeq.Strand, optionsValueSet)
+	return CodeSelect("MolecularSequence.ReferenceSeq.Strand", resource.ReferenceSeq.Strand, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqWindowStart() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqWindowStart(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("MolecularSequence.ReferenceSeq.WindowStart", nil)
+		return IntInput("MolecularSequence.ReferenceSeq.WindowStart", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.ReferenceSeq.WindowStart", resource.ReferenceSeq.WindowStart)
+	return IntInput("MolecularSequence.ReferenceSeq.WindowStart", resource.ReferenceSeq.WindowStart, htmlAttrs)
 }
-func (resource *MolecularSequence) T_ReferenceSeqWindowEnd() templ.Component {
+func (resource *MolecularSequence) T_ReferenceSeqWindowEnd(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("MolecularSequence.ReferenceSeq.WindowEnd", nil)
+		return IntInput("MolecularSequence.ReferenceSeq.WindowEnd", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.ReferenceSeq.WindowEnd", resource.ReferenceSeq.WindowEnd)
+	return IntInput("MolecularSequence.ReferenceSeq.WindowEnd", resource.ReferenceSeq.WindowEnd, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantId(numVariant int) templ.Component {
+func (resource *MolecularSequence) T_VariantStart(numVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Id", nil)
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return IntInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..Start", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Id", resource.Variant[numVariant].Id)
+	return IntInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..Start", resource.Variant[numVariant].Start, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantStart(numVariant int) templ.Component {
+func (resource *MolecularSequence) T_VariantEnd(numVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return IntInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Start", nil)
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return IntInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..End", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Start", resource.Variant[numVariant].Start)
+	return IntInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..End", resource.Variant[numVariant].End, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantEnd(numVariant int) templ.Component {
+func (resource *MolecularSequence) T_VariantObservedAllele(numVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return IntInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].End", nil)
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..ObservedAllele", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].End", resource.Variant[numVariant].End)
+	return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..ObservedAllele", resource.Variant[numVariant].ObservedAllele, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantObservedAllele(numVariant int) templ.Component {
+func (resource *MolecularSequence) T_VariantReferenceAllele(numVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].ObservedAllele", nil)
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..ReferenceAllele", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].ObservedAllele", resource.Variant[numVariant].ObservedAllele)
+	return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..ReferenceAllele", resource.Variant[numVariant].ReferenceAllele, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantReferenceAllele(numVariant int) templ.Component {
+func (resource *MolecularSequence) T_VariantCigar(numVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].ReferenceAllele", nil)
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..Cigar", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].ReferenceAllele", resource.Variant[numVariant].ReferenceAllele)
+	return StringInput("MolecularSequence.Variant."+strconv.Itoa(numVariant)+"..Cigar", resource.Variant[numVariant].Cigar, htmlAttrs)
 }
-func (resource *MolecularSequence) T_VariantCigar(numVariant int) templ.Component {
-
-	if resource == nil || len(resource.Variant) >= numVariant {
-		return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Cigar", nil)
-	}
-	return StringInput("MolecularSequence.Variant["+strconv.Itoa(numVariant)+"].Cigar", resource.Variant[numVariant].Cigar)
-}
-func (resource *MolecularSequence) T_QualityId(numQuality int) templ.Component {
-
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return StringInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Id", nil)
-	}
-	return StringInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Id", resource.Quality[numQuality].Id)
-}
-func (resource *MolecularSequence) T_QualityType(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityType(numQuality int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSQuality_type
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return CodeSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Type", nil, optionsValueSet)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return CodeSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Type", &resource.Quality[numQuality].Type, optionsValueSet)
+	return CodeSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Type", &resource.Quality[numQuality].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityStandardSequence(numQuality int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_QualityStandardSequence(numQuality int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return CodeableConceptSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].StandardSequence", nil, optionsValueSet)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return CodeableConceptSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..StandardSequence", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].StandardSequence", resource.Quality[numQuality].StandardSequence, optionsValueSet)
+	return CodeableConceptSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..StandardSequence", resource.Quality[numQuality].StandardSequence, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityStart(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityStart(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Start", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Start", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Start", resource.Quality[numQuality].Start)
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Start", resource.Quality[numQuality].Start, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityEnd(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityEnd(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].End", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..End", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].End", resource.Quality[numQuality].End)
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..End", resource.Quality[numQuality].End, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityMethod(numQuality int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_QualityMethod(numQuality int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return CodeableConceptSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Method", nil, optionsValueSet)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return CodeableConceptSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Method", resource.Quality[numQuality].Method, optionsValueSet)
+	return CodeableConceptSelect("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Method", resource.Quality[numQuality].Method, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityTruthTP(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityTruthTP(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].TruthTP", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..TruthTP", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].TruthTP", resource.Quality[numQuality].TruthTP)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..TruthTP", resource.Quality[numQuality].TruthTP, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityQueryTP(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityQueryTP(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].QueryTP", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..QueryTP", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].QueryTP", resource.Quality[numQuality].QueryTP)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..QueryTP", resource.Quality[numQuality].QueryTP, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityTruthFN(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityTruthFN(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].TruthFN", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..TruthFN", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].TruthFN", resource.Quality[numQuality].TruthFN)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..TruthFN", resource.Quality[numQuality].TruthFN, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityQueryFP(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityQueryFP(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].QueryFP", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..QueryFP", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].QueryFP", resource.Quality[numQuality].QueryFP)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..QueryFP", resource.Quality[numQuality].QueryFP, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityGtFP(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityGtFP(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].GtFP", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..GtFP", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].GtFP", resource.Quality[numQuality].GtFP)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..GtFP", resource.Quality[numQuality].GtFP, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityPrecision(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityPrecision(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Precision", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Precision", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Precision", resource.Quality[numQuality].Precision)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Precision", resource.Quality[numQuality].Precision, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRecall(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityRecall(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Recall", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Recall", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Recall", resource.Quality[numQuality].Recall)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Recall", resource.Quality[numQuality].Recall, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityFScore(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityFScore(numQuality int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].FScore", nil)
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..FScore", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].FScore", resource.Quality[numQuality].FScore)
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..FScore", resource.Quality[numQuality].FScore, htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocId(numQuality int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocScore(numQuality int, numScore int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality {
-		return StringInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Id", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numScore >= len(resource.Quality[numQuality].Roc.Score) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Score."+strconv.Itoa(numScore)+".", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Id", resource.Quality[numQuality].Roc.Id)
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Score."+strconv.Itoa(numScore)+".", &resource.Quality[numQuality].Roc.Score[numScore], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocScore(numQuality int, numScore int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocNumTP(numQuality int, numNumTP int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.Score) >= numScore {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Score["+strconv.Itoa(numScore)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numNumTP >= len(resource.Quality[numQuality].Roc.NumTP) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumTP."+strconv.Itoa(numNumTP)+".", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Score["+strconv.Itoa(numScore)+"]", &resource.Quality[numQuality].Roc.Score[numScore])
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumTP."+strconv.Itoa(numNumTP)+".", &resource.Quality[numQuality].Roc.NumTP[numNumTP], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocNumTP(numQuality int, numNumTP int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocNumFP(numQuality int, numNumFP int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.NumTP) >= numNumTP {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumTP["+strconv.Itoa(numNumTP)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numNumFP >= len(resource.Quality[numQuality].Roc.NumFP) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumFP."+strconv.Itoa(numNumFP)+".", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumTP["+strconv.Itoa(numNumTP)+"]", &resource.Quality[numQuality].Roc.NumTP[numNumTP])
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumFP."+strconv.Itoa(numNumFP)+".", &resource.Quality[numQuality].Roc.NumFP[numNumFP], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocNumFP(numQuality int, numNumFP int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocNumFN(numQuality int, numNumFN int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.NumFP) >= numNumFP {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumFP["+strconv.Itoa(numNumFP)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numNumFN >= len(resource.Quality[numQuality].Roc.NumFN) {
+		return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumFN."+strconv.Itoa(numNumFN)+".", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumFP["+strconv.Itoa(numNumFP)+"]", &resource.Quality[numQuality].Roc.NumFP[numNumFP])
+	return IntInput("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.NumFN."+strconv.Itoa(numNumFN)+".", &resource.Quality[numQuality].Roc.NumFN[numNumFN], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocNumFN(numQuality int, numNumFN int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocPrecision(numQuality int, numPrecision int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.NumFN) >= numNumFN {
-		return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumFN["+strconv.Itoa(numNumFN)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numPrecision >= len(resource.Quality[numQuality].Roc.Precision) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Precision."+strconv.Itoa(numPrecision)+".", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.NumFN["+strconv.Itoa(numNumFN)+"]", &resource.Quality[numQuality].Roc.NumFN[numNumFN])
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Precision."+strconv.Itoa(numPrecision)+".", &resource.Quality[numQuality].Roc.Precision[numPrecision], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocPrecision(numQuality int, numPrecision int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocSensitivity(numQuality int, numSensitivity int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.Precision) >= numPrecision {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Precision["+strconv.Itoa(numPrecision)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numSensitivity >= len(resource.Quality[numQuality].Roc.Sensitivity) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Sensitivity."+strconv.Itoa(numSensitivity)+".", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Precision["+strconv.Itoa(numPrecision)+"]", &resource.Quality[numQuality].Roc.Precision[numPrecision])
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.Sensitivity."+strconv.Itoa(numSensitivity)+".", &resource.Quality[numQuality].Roc.Sensitivity[numSensitivity], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocSensitivity(numQuality int, numSensitivity int) templ.Component {
+func (resource *MolecularSequence) T_QualityRocFMeasure(numQuality int, numFMeasure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.Sensitivity) >= numSensitivity {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Sensitivity["+strconv.Itoa(numSensitivity)+"]", nil)
+	if resource == nil || numQuality >= len(resource.Quality) || numFMeasure >= len(resource.Quality[numQuality].Roc.FMeasure) {
+		return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.FMeasure."+strconv.Itoa(numFMeasure)+".", nil, htmlAttrs)
 	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.Sensitivity["+strconv.Itoa(numSensitivity)+"]", &resource.Quality[numQuality].Roc.Sensitivity[numSensitivity])
+	return Float64Input("MolecularSequence.Quality."+strconv.Itoa(numQuality)+"..Roc.FMeasure."+strconv.Itoa(numFMeasure)+".", &resource.Quality[numQuality].Roc.FMeasure[numFMeasure], htmlAttrs)
 }
-func (resource *MolecularSequence) T_QualityRocFMeasure(numQuality int, numFMeasure int) templ.Component {
-
-	if resource == nil || len(resource.Quality) >= numQuality || len(resource.Quality[numQuality].Roc.FMeasure) >= numFMeasure {
-		return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.FMeasure["+strconv.Itoa(numFMeasure)+"]", nil)
-	}
-	return Float64Input("MolecularSequence.Quality["+strconv.Itoa(numQuality)+"].Roc.FMeasure["+strconv.Itoa(numFMeasure)+"]", &resource.Quality[numQuality].Roc.FMeasure[numFMeasure])
-}
-func (resource *MolecularSequence) T_RepositoryId(numRepository int) templ.Component {
-
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Id", nil)
-	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Id", resource.Repository[numRepository].Id)
-}
-func (resource *MolecularSequence) T_RepositoryType(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryType(numRepository int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSRepository_type
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return CodeSelect("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Type", nil, optionsValueSet)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return CodeSelect("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Type", &resource.Repository[numRepository].Type, optionsValueSet)
+	return CodeSelect("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Type", &resource.Repository[numRepository].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_RepositoryUrl(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryUrl(numRepository int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Url", nil)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Url", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Url", resource.Repository[numRepository].Url)
+	return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Url", resource.Repository[numRepository].Url, htmlAttrs)
 }
-func (resource *MolecularSequence) T_RepositoryName(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryName(numRepository int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Name", nil)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].Name", resource.Repository[numRepository].Name)
+	return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..Name", resource.Repository[numRepository].Name, htmlAttrs)
 }
-func (resource *MolecularSequence) T_RepositoryDatasetId(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryDatasetId(numRepository int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].DatasetId", nil)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..DatasetId", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].DatasetId", resource.Repository[numRepository].DatasetId)
+	return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..DatasetId", resource.Repository[numRepository].DatasetId, htmlAttrs)
 }
-func (resource *MolecularSequence) T_RepositoryVariantsetId(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryVariantsetId(numRepository int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].VariantsetId", nil)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..VariantsetId", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].VariantsetId", resource.Repository[numRepository].VariantsetId)
+	return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..VariantsetId", resource.Repository[numRepository].VariantsetId, htmlAttrs)
 }
-func (resource *MolecularSequence) T_RepositoryReadsetId(numRepository int) templ.Component {
+func (resource *MolecularSequence) T_RepositoryReadsetId(numRepository int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Repository) >= numRepository {
-		return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].ReadsetId", nil)
+	if resource == nil || numRepository >= len(resource.Repository) {
+		return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..ReadsetId", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.Repository["+strconv.Itoa(numRepository)+"].ReadsetId", resource.Repository[numRepository].ReadsetId)
+	return StringInput("MolecularSequence.Repository."+strconv.Itoa(numRepository)+"..ReadsetId", resource.Repository[numRepository].ReadsetId, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantId(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantVariantType(numStructureVariant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Id", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return CodeableConceptSelect("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..VariantType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Id", resource.StructureVariant[numStructureVariant].Id)
+	return CodeableConceptSelect("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..VariantType", resource.StructureVariant[numStructureVariant].VariantType, optionsValueSet, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantVariantType(numStructureVariant int, optionsValueSet []Coding) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantExact(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return CodeableConceptSelect("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].VariantType", nil, optionsValueSet)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return BoolInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Exact", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].VariantType", resource.StructureVariant[numStructureVariant].VariantType, optionsValueSet)
+	return BoolInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Exact", resource.StructureVariant[numStructureVariant].Exact, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantExact(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantLength(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return BoolInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Exact", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Length", nil, htmlAttrs)
 	}
-	return BoolInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Exact", resource.StructureVariant[numStructureVariant].Exact)
+	return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Length", resource.StructureVariant[numStructureVariant].Length, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantLength(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantOuterStart(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Length", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Outer.Start", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Length", resource.StructureVariant[numStructureVariant].Length)
+	return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Outer.Start", resource.StructureVariant[numStructureVariant].Outer.Start, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantOuterId(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantOuterEnd(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.Id", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Outer.End", nil, htmlAttrs)
 	}
-	return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.Id", resource.StructureVariant[numStructureVariant].Outer.Id)
+	return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Outer.End", resource.StructureVariant[numStructureVariant].Outer.End, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantOuterStart(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantInnerStart(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.Start", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Inner.Start", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.Start", resource.StructureVariant[numStructureVariant].Outer.Start)
+	return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Inner.Start", resource.StructureVariant[numStructureVariant].Inner.Start, htmlAttrs)
 }
-func (resource *MolecularSequence) T_StructureVariantOuterEnd(numStructureVariant int) templ.Component {
+func (resource *MolecularSequence) T_StructureVariantInnerEnd(numStructureVariant int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.End", nil)
+	if resource == nil || numStructureVariant >= len(resource.StructureVariant) {
+		return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Inner.End", nil, htmlAttrs)
 	}
-	return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Outer.End", resource.StructureVariant[numStructureVariant].Outer.End)
-}
-func (resource *MolecularSequence) T_StructureVariantInnerId(numStructureVariant int) templ.Component {
-
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.Id", nil)
-	}
-	return StringInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.Id", resource.StructureVariant[numStructureVariant].Inner.Id)
-}
-func (resource *MolecularSequence) T_StructureVariantInnerStart(numStructureVariant int) templ.Component {
-
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.Start", nil)
-	}
-	return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.Start", resource.StructureVariant[numStructureVariant].Inner.Start)
-}
-func (resource *MolecularSequence) T_StructureVariantInnerEnd(numStructureVariant int) templ.Component {
-
-	if resource == nil || len(resource.StructureVariant) >= numStructureVariant {
-		return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.End", nil)
-	}
-	return IntInput("MolecularSequence.StructureVariant["+strconv.Itoa(numStructureVariant)+"].Inner.End", resource.StructureVariant[numStructureVariant].Inner.End)
+	return IntInput("MolecularSequence.StructureVariant."+strconv.Itoa(numStructureVariant)+"..Inner.End", resource.StructureVariant[numStructureVariant].Inner.End, htmlAttrs)
 }

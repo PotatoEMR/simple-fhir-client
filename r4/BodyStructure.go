@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -43,60 +43,53 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 		ResourceType:       "BodyStructure",
 	})
 }
-
-func (resource *BodyStructure) T_Id() templ.Component {
+func (r BodyStructure) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "BodyStructure/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "BodyStructure"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *BodyStructure) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("BodyStructure.Id", nil)
+		return BoolInput("BodyStructure.Active", nil, htmlAttrs)
 	}
-	return StringInput("BodyStructure.Id", resource.Id)
+	return BoolInput("BodyStructure.Active", resource.Active, htmlAttrs)
 }
-func (resource *BodyStructure) T_ImplicitRules() templ.Component {
+func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("BodyStructure.ImplicitRules", nil)
+		return CodeableConceptSelect("BodyStructure.Morphology", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("BodyStructure.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("BodyStructure.Morphology", resource.Morphology, optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *BodyStructure) T_Location(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("BodyStructure.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("BodyStructure.Location", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("BodyStructure.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("BodyStructure.Location", resource.Location, optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_Active() templ.Component {
+func (resource *BodyStructure) T_LocationQualifier(numLocationQualifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numLocationQualifier >= len(resource.LocationQualifier) {
+		return CodeableConceptSelect("BodyStructure.LocationQualifier."+strconv.Itoa(numLocationQualifier)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("BodyStructure.LocationQualifier."+strconv.Itoa(numLocationQualifier)+".", &resource.LocationQualifier[numLocationQualifier], optionsValueSet, htmlAttrs)
+}
+func (resource *BodyStructure) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("BodyStructure.Active", nil)
+		return StringInput("BodyStructure.Description", nil, htmlAttrs)
 	}
-	return BoolInput("BodyStructure.Active", resource.Active)
-}
-func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("BodyStructure.Morphology", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("BodyStructure.Morphology", resource.Morphology, optionsValueSet)
-}
-func (resource *BodyStructure) T_Location(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("BodyStructure.Location", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("BodyStructure.Location", resource.Location, optionsValueSet)
-}
-func (resource *BodyStructure) T_LocationQualifier(numLocationQualifier int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.LocationQualifier) >= numLocationQualifier {
-		return CodeableConceptSelect("BodyStructure.LocationQualifier["+strconv.Itoa(numLocationQualifier)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("BodyStructure.LocationQualifier["+strconv.Itoa(numLocationQualifier)+"]", &resource.LocationQualifier[numLocationQualifier], optionsValueSet)
-}
-func (resource *BodyStructure) T_Description() templ.Component {
-
-	if resource == nil {
-		return StringInput("BodyStructure.Description", nil)
-	}
-	return StringInput("BodyStructure.Description", resource.Description)
+	return StringInput("BodyStructure.Description", resource.Description, htmlAttrs)
 }

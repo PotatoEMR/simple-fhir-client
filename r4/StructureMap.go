@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type StructureMap struct {
 	Title             *string                 `json:"title,omitempty"`
 	Status            string                  `json:"status"`
 	Experimental      *bool                   `json:"experimental,omitempty"`
-	Date              *string                 `json:"date,omitempty"`
+	Date              *time.Time              `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                 `json:"publisher,omitempty"`
 	Contact           []ContactDetail         `json:"contact,omitempty"`
 	Description       *string                 `json:"description,omitempty"`
@@ -101,8 +102,8 @@ type StructureMapGroupRuleSource struct {
 	DefaultValueBoolean             *bool                `json:"defaultValueBoolean,omitempty"`
 	DefaultValueCanonical           *string              `json:"defaultValueCanonical,omitempty"`
 	DefaultValueCode                *string              `json:"defaultValueCode,omitempty"`
-	DefaultValueDate                *string              `json:"defaultValueDate,omitempty"`
-	DefaultValueDateTime            *string              `json:"defaultValueDateTime,omitempty"`
+	DefaultValueDate                *time.Time           `json:"defaultValueDate,omitempty,format:'2006-01-02'"`
+	DefaultValueDateTime            *time.Time           `json:"defaultValueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	DefaultValueDecimal             *float64             `json:"defaultValueDecimal,omitempty"`
 	DefaultValueId                  *string              `json:"defaultValueId,omitempty"`
 	DefaultValueInstant             *string              `json:"defaultValueInstant,omitempty"`
@@ -203,411 +204,537 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 		ResourceType:      "StructureMap",
 	})
 }
-
-func (resource *StructureMap) T_Id() templ.Component {
+func (r StructureMap) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "StructureMap/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "StructureMap"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *StructureMap) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Id", nil)
+		return StringInput("StructureMap.Url", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Id", resource.Id)
+	return StringInput("StructureMap.Url", &resource.Url, htmlAttrs)
 }
-func (resource *StructureMap) T_ImplicitRules() templ.Component {
+func (resource *StructureMap) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.ImplicitRules", nil)
+		return StringInput("StructureMap.Version", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.ImplicitRules", resource.ImplicitRules)
+	return StringInput("StructureMap.Version", resource.Version, htmlAttrs)
 }
-func (resource *StructureMap) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *StructureMap) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("StructureMap.Language", nil, optionsValueSet)
+		return StringInput("StructureMap.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Language", resource.Language, optionsValueSet)
+	return StringInput("StructureMap.Name", &resource.Name, htmlAttrs)
 }
-func (resource *StructureMap) T_Url() templ.Component {
+func (resource *StructureMap) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Url", nil)
+		return StringInput("StructureMap.Title", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Url", &resource.Url)
+	return StringInput("StructureMap.Title", resource.Title, htmlAttrs)
 }
-func (resource *StructureMap) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("StructureMap.Version", nil)
-	}
-	return StringInput("StructureMap.Version", resource.Version)
-}
-func (resource *StructureMap) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("StructureMap.Name", nil)
-	}
-	return StringInput("StructureMap.Name", &resource.Name)
-}
-func (resource *StructureMap) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("StructureMap.Title", nil)
-	}
-	return StringInput("StructureMap.Title", resource.Title)
-}
-func (resource *StructureMap) T_Status() templ.Component {
+func (resource *StructureMap) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("StructureMap.Status", nil, optionsValueSet)
+		return CodeSelect("StructureMap.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("StructureMap.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_Experimental() templ.Component {
+func (resource *StructureMap) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("StructureMap.Experimental", nil)
+		return BoolInput("StructureMap.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("StructureMap.Experimental", resource.Experimental)
+	return BoolInput("StructureMap.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *StructureMap) T_Date() templ.Component {
+func (resource *StructureMap) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Date", nil)
+		return DateTimeInput("StructureMap.Date", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Date", resource.Date)
+	return DateTimeInput("StructureMap.Date", resource.Date, htmlAttrs)
 }
-func (resource *StructureMap) T_Publisher() templ.Component {
+func (resource *StructureMap) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Publisher", nil)
+		return StringInput("StructureMap.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Publisher", resource.Publisher)
+	return StringInput("StructureMap.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *StructureMap) T_Description() templ.Component {
+func (resource *StructureMap) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Description", nil)
+		return StringInput("StructureMap.Description", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Description", resource.Description)
+	return StringInput("StructureMap.Description", resource.Description, htmlAttrs)
 }
-func (resource *StructureMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *StructureMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("StructureMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("StructureMap.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("StructureMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("StructureMap.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("StructureMap.Purpose", nil)
-	}
-	return StringInput("StructureMap.Purpose", resource.Purpose)
-}
-func (resource *StructureMap) T_Copyright() templ.Component {
+func (resource *StructureMap) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("StructureMap.Copyright", nil)
+		return StringInput("StructureMap.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Copyright", resource.Copyright)
+	return StringInput("StructureMap.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *StructureMap) T_Import(numImport int) templ.Component {
+func (resource *StructureMap) T_Copyright(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Import) >= numImport {
-		return StringInput("StructureMap.Import["+strconv.Itoa(numImport)+"]", nil)
+	if resource == nil {
+		return StringInput("StructureMap.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Import["+strconv.Itoa(numImport)+"]", &resource.Import[numImport])
+	return StringInput("StructureMap.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *StructureMap) T_StructureId(numStructure int) templ.Component {
+func (resource *StructureMap) T_Import(numImport int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Structure) >= numStructure {
-		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Id", nil)
+	if resource == nil || numImport >= len(resource.Import) {
+		return StringInput("StructureMap.Import."+strconv.Itoa(numImport)+".", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Id", resource.Structure[numStructure].Id)
+	return StringInput("StructureMap.Import."+strconv.Itoa(numImport)+".", &resource.Import[numImport], htmlAttrs)
 }
-func (resource *StructureMap) T_StructureUrl(numStructure int) templ.Component {
+func (resource *StructureMap) T_StructureUrl(numStructure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Structure) >= numStructure {
-		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Url", nil)
+	if resource == nil || numStructure >= len(resource.Structure) {
+		return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Url", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Url", &resource.Structure[numStructure].Url)
+	return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Url", &resource.Structure[numStructure].Url, htmlAttrs)
 }
-func (resource *StructureMap) T_StructureMode(numStructure int) templ.Component {
+func (resource *StructureMap) T_StructureMode(numStructure int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_model_mode
 
-	if resource == nil || len(resource.Structure) >= numStructure {
-		return CodeSelect("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numStructure >= len(resource.Structure) {
+		return CodeSelect("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Mode", &resource.Structure[numStructure].Mode, optionsValueSet)
+	return CodeSelect("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Mode", &resource.Structure[numStructure].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_StructureAlias(numStructure int) templ.Component {
+func (resource *StructureMap) T_StructureAlias(numStructure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Structure) >= numStructure {
-		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Alias", nil)
+	if resource == nil || numStructure >= len(resource.Structure) {
+		return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Alias", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Alias", resource.Structure[numStructure].Alias)
+	return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Alias", resource.Structure[numStructure].Alias, htmlAttrs)
 }
-func (resource *StructureMap) T_StructureDocumentation(numStructure int) templ.Component {
+func (resource *StructureMap) T_StructureDocumentation(numStructure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Structure) >= numStructure {
-		return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Documentation", nil)
+	if resource == nil || numStructure >= len(resource.Structure) {
+		return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Structure["+strconv.Itoa(numStructure)+"].Documentation", resource.Structure[numStructure].Documentation)
+	return StringInput("StructureMap.Structure."+strconv.Itoa(numStructure)+"..Documentation", resource.Structure[numStructure].Documentation, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupId(numGroup int) templ.Component {
+func (resource *StructureMap) T_GroupName(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Id", resource.Group[numGroup].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Name", &resource.Group[numGroup].Name, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupName(numGroup int) templ.Component {
+func (resource *StructureMap) T_GroupExtends(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Name", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Extends", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Name", &resource.Group[numGroup].Name)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Extends", resource.Group[numGroup].Extends, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupExtends(numGroup int) templ.Component {
-
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Extends", nil)
-	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Extends", resource.Group[numGroup].Extends)
-}
-func (resource *StructureMap) T_GroupTypeMode(numGroup int) templ.Component {
+func (resource *StructureMap) T_GroupTypeMode(numGroup int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_group_type_mode
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].TypeMode", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..TypeMode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].TypeMode", &resource.Group[numGroup].TypeMode, optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..TypeMode", &resource.Group[numGroup].TypeMode, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupDocumentation(numGroup int) templ.Component {
+func (resource *StructureMap) T_GroupDocumentation(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Documentation", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Documentation", resource.Group[numGroup].Documentation)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Documentation", resource.Group[numGroup].Documentation, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupInputId(numGroup int, numInput int) templ.Component {
+func (resource *StructureMap) T_GroupInputName(numGroup int, numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numInput >= len(resource.Group[numGroup].Input) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Id", resource.Group[numGroup].Input[numInput].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Name", &resource.Group[numGroup].Input[numInput].Name, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupInputName(numGroup int, numInput int) templ.Component {
+func (resource *StructureMap) T_GroupInputType(numGroup int, numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Name", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numInput >= len(resource.Group[numGroup].Input) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Type", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Name", &resource.Group[numGroup].Input[numInput].Name)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Type", resource.Group[numGroup].Input[numInput].Type, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupInputType(numGroup int, numInput int) templ.Component {
-
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Type", nil)
-	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Type", resource.Group[numGroup].Input[numInput].Type)
-}
-func (resource *StructureMap) T_GroupInputMode(numGroup int, numInput int) templ.Component {
+func (resource *StructureMap) T_GroupInputMode(numGroup int, numInput int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_input_mode
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numInput >= len(resource.Group[numGroup].Input) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Mode", &resource.Group[numGroup].Input[numInput].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupInputDocumentation(numGroup int, numInput int) templ.Component {
+func (resource *StructureMap) T_GroupInputDocumentation(numGroup int, numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Input) >= numInput {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Documentation", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numInput >= len(resource.Group[numGroup].Input) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Input["+strconv.Itoa(numInput)+"].Documentation", resource.Group[numGroup].Input[numInput].Documentation)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Input."+strconv.Itoa(numInput)+"..Documentation", resource.Group[numGroup].Input[numInput].Documentation, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleId(numGroup int, numRule int) templ.Component {
+func (resource *StructureMap) T_GroupRuleName(numGroup int, numRule int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Id", resource.Group[numGroup].Rule[numRule].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Name", &resource.Group[numGroup].Rule[numRule].Name, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleName(numGroup int, numRule int) templ.Component {
+func (resource *StructureMap) T_GroupRuleDocumentation(numGroup int, numRule int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Name", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Name", &resource.Group[numGroup].Rule[numRule].Name)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Documentation", resource.Group[numGroup].Rule[numRule].Documentation, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleDocumentation(numGroup int, numRule int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceContext(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Documentation", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Context", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Documentation", resource.Group[numGroup].Rule[numRule].Documentation)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Context", &resource.Group[numGroup].Rule[numRule].Source[numSource].Context, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceId(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceMin(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Min", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Id", resource.Group[numGroup].Rule[numRule].Source[numSource].Id)
+	return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Min", resource.Group[numGroup].Rule[numRule].Source[numSource].Min, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceContext(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceMax(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Context", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Max", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Context", &resource.Group[numGroup].Rule[numRule].Source[numSource].Context)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Max", resource.Group[numGroup].Rule[numRule].Source[numSource].Max, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceMin(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceType(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return IntInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Min", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Type", nil, htmlAttrs)
 	}
-	return IntInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Min", resource.Group[numGroup].Rule[numRule].Source[numSource].Min)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Type", resource.Group[numGroup].Rule[numRule].Source[numSource].Type, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceMax(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueBase64Binary(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Max", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueBase64Binary", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Max", resource.Group[numGroup].Rule[numRule].Source[numSource].Max)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueBase64Binary", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueBase64Binary, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceType(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueBoolean(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Type", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return BoolInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueBoolean", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Type", resource.Group[numGroup].Rule[numRule].Source[numSource].Type)
+	return BoolInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueBoolean", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueBoolean, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceElement(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueCanonical(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Element", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCanonical", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Element", resource.Group[numGroup].Rule[numRule].Source[numSource].Element)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCanonical", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCanonical, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceListMode(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueCode(numGroup int, numRule int, numSource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCode", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCode", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCode, optionsValueSet, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDate(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DateInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDate", nil, htmlAttrs)
+	}
+	return DateInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDate", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDate, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDateTime(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DateTimeInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDateTime", nil, htmlAttrs)
+	}
+	return DateTimeInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDateTime", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDateTime, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDecimal(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return Float64Input("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDecimal", nil, htmlAttrs)
+	}
+	return Float64Input("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueDecimal", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDecimal, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueId(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueId", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueId", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueId, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueInstant(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueInstant", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueInstant", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueInstant, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueInteger(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueInteger", nil, htmlAttrs)
+	}
+	return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueInteger", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueInteger, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueMarkdown(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueMarkdown", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueMarkdown", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueMarkdown, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueOid(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueOid", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueOid", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueOid, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValuePositiveInt(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValuePositiveInt", nil, htmlAttrs)
+	}
+	return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValuePositiveInt", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValuePositiveInt, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueString(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueString", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueString", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueString, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueTime(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueTime", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueTime", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueTime, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueUnsignedInt(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUnsignedInt", nil, htmlAttrs)
+	}
+	return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUnsignedInt", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUnsignedInt, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueUri(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUri", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUri", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUri, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueUrl(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUrl", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUrl", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUrl, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueUuid(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUuid", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueUuid", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUuid, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueAnnotation(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return AnnotationTextArea("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueAnnotation", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueAnnotation", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueAnnotation, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueCodeableConcept(numGroup int, numRule int, numSource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return CodeableConceptSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCodeableConcept", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueCoding(numGroup int, numRule int, numSource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return CodingSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCoding", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodingSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..DefaultValueCoding", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceElement(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Element", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Element", resource.Group[numGroup].Rule[numRule].Source[numSource].Element, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceListMode(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_source_list_mode
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].ListMode", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..ListMode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].ListMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..ListMode", resource.Group[numGroup].Rule[numRule].Source[numSource].ListMode, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceVariable(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceVariable(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Variable", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Variable", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Variable", resource.Group[numGroup].Rule[numRule].Source[numSource].Variable)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Variable", resource.Group[numGroup].Rule[numRule].Source[numSource].Variable, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceCondition(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceCondition(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Condition", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Condition", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Condition", resource.Group[numGroup].Rule[numRule].Source[numSource].Condition)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Condition", resource.Group[numGroup].Rule[numRule].Source[numSource].Condition, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceCheck(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceCheck(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Check", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Check", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].Check", resource.Group[numGroup].Rule[numRule].Source[numSource].Check)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..Check", resource.Group[numGroup].Rule[numRule].Source[numSource].Check, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceLogMessage(numGroup int, numRule int, numSource int) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceLogMessage(numGroup int, numRule int, numSource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Source) >= numSource {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].LogMessage", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..LogMessage", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Source["+strconv.Itoa(numSource)+"].LogMessage", resource.Group[numGroup].Rule[numRule].Source[numSource].LogMessage)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Source."+strconv.Itoa(numSource)+"..LogMessage", resource.Group[numGroup].Rule[numRule].Source[numSource].LogMessage, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetId(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetContext(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Context", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Id", resource.Group[numGroup].Rule[numRule].Target[numTarget].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Context", resource.Group[numGroup].Rule[numRule].Target[numTarget].Context, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetContext(numGroup int, numRule int, numTarget int) templ.Component {
-
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Context", nil)
-	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Context", resource.Group[numGroup].Rule[numRule].Target[numTarget].Context)
-}
-func (resource *StructureMap) T_GroupRuleTargetContextType(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetContextType(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_context_type
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ContextType", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ContextType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ContextType", resource.Group[numGroup].Rule[numRule].Target[numTarget].ContextType, optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ContextType", resource.Group[numGroup].Rule[numRule].Target[numTarget].ContextType, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetElement(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetElement(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Element", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Element", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Element", resource.Group[numGroup].Rule[numRule].Target[numTarget].Element)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Element", resource.Group[numGroup].Rule[numRule].Target[numTarget].Element, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetVariable(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetVariable(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Variable", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Variable", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Variable", resource.Group[numGroup].Rule[numRule].Target[numTarget].Variable)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Variable", resource.Group[numGroup].Rule[numRule].Target[numTarget].Variable, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetListMode(numGroup int, numRule int, numTarget int, numListMode int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetListMode(numGroup int, numRule int, numTarget int, numListMode int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_target_list_mode
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget || len(resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode) >= numListMode {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListMode["+strconv.Itoa(numListMode)+"]", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numListMode >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ListMode."+strconv.Itoa(numListMode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListMode["+strconv.Itoa(numListMode)+"]", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[numListMode], optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ListMode."+strconv.Itoa(numListMode)+".", &resource.Group[numGroup].Rule[numRule].Target[numTarget].ListMode[numListMode], optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetListRuleId(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetListRuleId(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListRuleId", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ListRuleId", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].ListRuleId", resource.Group[numGroup].Rule[numRule].Target[numTarget].ListRuleId)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..ListRuleId", resource.Group[numGroup].Rule[numRule].Target[numTarget].ListRuleId, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetTransform(numGroup int, numRule int, numTarget int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetTransform(numGroup int, numRule int, numTarget int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMap_transform
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget {
-		return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Transform", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) {
+		return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Transform", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Transform", resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform, optionsValueSet)
+	return CodeSelect("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Transform", resource.Group[numGroup].Rule[numRule].Target[numTarget].Transform, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleTargetParameterId(numGroup int, numRule int, numTarget int, numParameter int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetParameterValueId(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Target) >= numTarget || len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) >= numParameter {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueId", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Target["+strconv.Itoa(numTarget)+"].Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueId", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueId, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleDependentId(numGroup int, numRule int, numDependent int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetParameterValueString(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueString", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Id", resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Id)
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueString", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueString, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleDependentName(numGroup int, numRule int, numDependent int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetParameterValueBoolean(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Name", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
+		return BoolInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Name", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Name)
+	return BoolInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueBoolean, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleDependentVariable(numGroup int, numRule int, numDependent int, numVariable int) templ.Component {
+func (resource *StructureMap) T_GroupRuleTargetParameterValueInteger(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Rule) >= numRule || len(resource.Group[numGroup].Rule[numRule].Dependent) >= numDependent || len(resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable) >= numVariable {
-		return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Variable["+strconv.Itoa(numVariable)+"]", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
+		return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", nil, htmlAttrs)
 	}
-	return StringInput("StructureMap.Group["+strconv.Itoa(numGroup)+"].Rule["+strconv.Itoa(numRule)+"].Dependent["+strconv.Itoa(numDependent)+"].Variable["+strconv.Itoa(numVariable)+"]", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable[numVariable])
+	return IntInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueInteger, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleTargetParameterValueDecimal(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
+		return Float64Input("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", nil, htmlAttrs)
+	}
+	return Float64Input("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Target."+strconv.Itoa(numTarget)+"..Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueDecimal, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleDependentName(numGroup int, numRule int, numDependent int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numDependent >= len(resource.Group[numGroup].Rule[numRule].Dependent) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Dependent."+strconv.Itoa(numDependent)+"..Name", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Dependent."+strconv.Itoa(numDependent)+"..Name", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Name, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleDependentVariable(numGroup int, numRule int, numDependent int, numVariable int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numDependent >= len(resource.Group[numGroup].Rule[numRule].Dependent) || numVariable >= len(resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable) {
+		return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Dependent."+strconv.Itoa(numDependent)+"..Variable."+strconv.Itoa(numVariable)+".", nil, htmlAttrs)
+	}
+	return StringInput("StructureMap.Group."+strconv.Itoa(numGroup)+"..Rule."+strconv.Itoa(numRule)+"..Dependent."+strconv.Itoa(numDependent)+"..Variable."+strconv.Itoa(numVariable)+".", &resource.Group[numGroup].Rule[numRule].Dependent[numDependent].Variable[numVariable], htmlAttrs)
 }

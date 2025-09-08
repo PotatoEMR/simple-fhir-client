@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -56,67 +56,53 @@ func (r Organization) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Organization",
 	})
 }
-
-func (resource *Organization) T_Id() templ.Component {
+func (r Organization) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Organization/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Organization"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Organization) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Organization.Id", nil)
+		return BoolInput("Organization.Active", nil, htmlAttrs)
 	}
-	return StringInput("Organization.Id", resource.Id)
+	return BoolInput("Organization.Active", resource.Active, htmlAttrs)
 }
-func (resource *Organization) T_ImplicitRules() templ.Component {
+func (resource *Organization) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numType >= len(resource.Type) {
+		return CodeableConceptSelect("Organization.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Organization.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
+}
+func (resource *Organization) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Organization.ImplicitRules", nil)
+		return StringInput("Organization.Name", nil, htmlAttrs)
 	}
-	return StringInput("Organization.ImplicitRules", resource.ImplicitRules)
+	return StringInput("Organization.Name", resource.Name, htmlAttrs)
 }
-func (resource *Organization) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *Organization) T_Alias(numAlias int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("Organization.Language", nil, optionsValueSet)
+	if resource == nil || numAlias >= len(resource.Alias) {
+		return StringInput("Organization.Alias."+strconv.Itoa(numAlias)+".", nil, htmlAttrs)
 	}
-	return CodeSelect("Organization.Language", resource.Language, optionsValueSet)
+	return StringInput("Organization.Alias."+strconv.Itoa(numAlias)+".", &resource.Alias[numAlias], htmlAttrs)
 }
-func (resource *Organization) T_Active() templ.Component {
+func (resource *Organization) T_ContactPurpose(numContact int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return BoolInput("Organization.Active", nil)
+	if resource == nil || numContact >= len(resource.Contact) {
+		return CodeableConceptSelect("Organization.Contact."+strconv.Itoa(numContact)+"..Purpose", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("Organization.Active", resource.Active)
-}
-func (resource *Organization) T_Type(numType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Type) >= numType {
-		return CodeableConceptSelect("Organization.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Organization.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
-}
-func (resource *Organization) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("Organization.Name", nil)
-	}
-	return StringInput("Organization.Name", resource.Name)
-}
-func (resource *Organization) T_Alias(numAlias int) templ.Component {
-
-	if resource == nil || len(resource.Alias) >= numAlias {
-		return StringInput("Organization.Alias["+strconv.Itoa(numAlias)+"]", nil)
-	}
-	return StringInput("Organization.Alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias])
-}
-func (resource *Organization) T_ContactId(numContact int) templ.Component {
-
-	if resource == nil || len(resource.Contact) >= numContact {
-		return StringInput("Organization.Contact["+strconv.Itoa(numContact)+"].Id", nil)
-	}
-	return StringInput("Organization.Contact["+strconv.Itoa(numContact)+"].Id", resource.Contact[numContact].Id)
-}
-func (resource *Organization) T_ContactPurpose(numContact int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Contact) >= numContact {
-		return CodeableConceptSelect("Organization.Contact["+strconv.Itoa(numContact)+"].Purpose", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Organization.Contact["+strconv.Itoa(numContact)+"].Purpose", resource.Contact[numContact].Purpose, optionsValueSet)
+	return CodeableConceptSelect("Organization.Contact."+strconv.Itoa(numContact)+"..Purpose", resource.Contact[numContact].Purpose, optionsValueSet, htmlAttrs)
 }

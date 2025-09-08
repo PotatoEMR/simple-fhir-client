@@ -1,12 +1,12 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
-	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +26,7 @@ type DocumentManifest struct {
 	Status            string                    `json:"status"`
 	Type              *CodeableConcept          `json:"type,omitempty"`
 	Subject           *Reference                `json:"subject,omitempty"`
-	Created           *string                   `json:"created,omitempty"`
+	Created           *time.Time                `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Author            []Reference               `json:"author,omitempty"`
 	Recipient         []Reference               `json:"recipient,omitempty"`
 	Source            *string                   `json:"source,omitempty"`
@@ -56,68 +56,54 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 		ResourceType:          "DocumentManifest",
 	})
 }
-
-func (resource *DocumentManifest) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("DocumentManifest.Id", nil)
+func (r DocumentManifest) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "DocumentManifest/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("DocumentManifest.Id", resource.Id)
-}
-func (resource *DocumentManifest) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("DocumentManifest.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("DocumentManifest.ImplicitRules", resource.ImplicitRules)
+	rtype := "DocumentManifest"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *DocumentManifest) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("DocumentManifest.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("DocumentManifest.Language", resource.Language, optionsValueSet)
-}
-func (resource *DocumentManifest) T_Status() templ.Component {
+func (resource *DocumentManifest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
-		return CodeSelect("DocumentManifest.Status", nil, optionsValueSet)
+		return CodeSelect("DocumentManifest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DocumentManifest.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("DocumentManifest.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("DocumentManifest.Type", nil, optionsValueSet)
+		return CodeableConceptSelect("DocumentManifest.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentManifest.Type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("DocumentManifest.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Created() templ.Component {
+func (resource *DocumentManifest) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentManifest.Created", nil)
+		return DateTimeInput("DocumentManifest.Created", nil, htmlAttrs)
 	}
-	return StringInput("DocumentManifest.Created", resource.Created)
+	return DateTimeInput("DocumentManifest.Created", resource.Created, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Source() templ.Component {
+func (resource *DocumentManifest) T_Source(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentManifest.Source", nil)
+		return StringInput("DocumentManifest.Source", nil, htmlAttrs)
 	}
-	return StringInput("DocumentManifest.Source", resource.Source)
+	return StringInput("DocumentManifest.Source", resource.Source, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Description() templ.Component {
+func (resource *DocumentManifest) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentManifest.Description", nil)
+		return StringInput("DocumentManifest.Description", nil, htmlAttrs)
 	}
-	return StringInput("DocumentManifest.Description", resource.Description)
-}
-func (resource *DocumentManifest) T_RelatedId(numRelated int) templ.Component {
-
-	if resource == nil || len(resource.Related) >= numRelated {
-		return StringInput("DocumentManifest.Related["+strconv.Itoa(numRelated)+"].Id", nil)
-	}
-	return StringInput("DocumentManifest.Related["+strconv.Itoa(numRelated)+"].Id", resource.Related[numRelated].Id)
+	return StringInput("DocumentManifest.Description", resource.Description, htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -46,89 +46,82 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 		ResourceType: "Slot",
 	})
 }
+func (r Slot) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Slot/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Slot"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Slot) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-func (resource *Slot) T_Id() templ.Component {
+	if resource == nil || numServiceCategory >= len(resource.ServiceCategory) {
+		return CodeableConceptSelect("Slot.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Slot.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
+}
+func (resource *Slot) T_ServiceType(numServiceType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numServiceType >= len(resource.ServiceType) {
+		return CodeableConceptSelect("Slot.ServiceType."+strconv.Itoa(numServiceType)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Slot.ServiceType."+strconv.Itoa(numServiceType)+".", &resource.ServiceType[numServiceType], optionsValueSet, htmlAttrs)
+}
+func (resource *Slot) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecialty >= len(resource.Specialty) {
+		return CodeableConceptSelect("Slot.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Slot.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+}
+func (resource *Slot) T_AppointmentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Slot.Id", nil)
+		return CodeableConceptSelect("Slot.AppointmentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Slot.Id", resource.Id)
+	return CodeableConceptSelect("Slot.AppointmentType", resource.AppointmentType, optionsValueSet, htmlAttrs)
 }
-func (resource *Slot) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Slot.ImplicitRules", nil)
-	}
-	return StringInput("Slot.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Slot) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Slot.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Slot.Language", resource.Language, optionsValueSet)
-}
-func (resource *Slot) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ServiceCategory) >= numServiceCategory {
-		return CodeableConceptSelect("Slot.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Slot.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet)
-}
-func (resource *Slot) T_ServiceType(numServiceType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ServiceType) >= numServiceType {
-		return CodeableConceptSelect("Slot.ServiceType["+strconv.Itoa(numServiceType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Slot.ServiceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], optionsValueSet)
-}
-func (resource *Slot) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Specialty) >= numSpecialty {
-		return CodeableConceptSelect("Slot.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Slot.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
-}
-func (resource *Slot) T_AppointmentType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Slot.AppointmentType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Slot.AppointmentType", resource.AppointmentType, optionsValueSet)
-}
-func (resource *Slot) T_Status() templ.Component {
+func (resource *Slot) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSlotstatus
 
 	if resource == nil {
-		return CodeSelect("Slot.Status", nil, optionsValueSet)
+		return CodeSelect("Slot.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Slot.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Slot.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Slot) T_Start() templ.Component {
+func (resource *Slot) T_Start(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Slot.Start", nil)
+		return StringInput("Slot.Start", nil, htmlAttrs)
 	}
-	return StringInput("Slot.Start", &resource.Start)
+	return StringInput("Slot.Start", &resource.Start, htmlAttrs)
 }
-func (resource *Slot) T_End() templ.Component {
+func (resource *Slot) T_End(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Slot.End", nil)
+		return StringInput("Slot.End", nil, htmlAttrs)
 	}
-	return StringInput("Slot.End", &resource.End)
+	return StringInput("Slot.End", &resource.End, htmlAttrs)
 }
-func (resource *Slot) T_Overbooked() templ.Component {
+func (resource *Slot) T_Overbooked(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("Slot.Overbooked", nil)
+		return BoolInput("Slot.Overbooked", nil, htmlAttrs)
 	}
-	return BoolInput("Slot.Overbooked", resource.Overbooked)
+	return BoolInput("Slot.Overbooked", resource.Overbooked, htmlAttrs)
 }
-func (resource *Slot) T_Comment() templ.Component {
+func (resource *Slot) T_Comment(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Slot.Comment", nil)
+		return StringInput("Slot.Comment", nil, htmlAttrs)
 	}
-	return StringInput("Slot.Comment", resource.Comment)
+	return StringInput("Slot.Comment", resource.Comment, htmlAttrs)
 }

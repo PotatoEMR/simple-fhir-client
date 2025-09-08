@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +27,7 @@ type AuditEvent struct {
 	Action            *string            `json:"action,omitempty"`
 	Severity          *string            `json:"severity,omitempty"`
 	OccurredPeriod    *Period            `json:"occurredPeriod,omitempty"`
-	OccurredDateTime  *string            `json:"occurredDateTime,omitempty"`
+	OccurredDateTime  *time.Time         `json:"occurredDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Recorded          string             `json:"recorded"`
 	Outcome           *AuditEventOutcome `json:"outcome,omitempty"`
 	Authorization     []CodeableConcept  `json:"authorization,omitempty"`
@@ -100,7 +101,7 @@ type AuditEventEntityDetail struct {
 	ValueRange           Range           `json:"valueRange"`
 	ValueRatio           Ratio           `json:"valueRatio"`
 	ValueTime            string          `json:"valueTime"`
-	ValueDateTime        string          `json:"valueDateTime"`
+	ValueDateTime        time.Time       `json:"valueDateTime,format:'2006-01-02T15:04:05Z07:00'"`
 	ValuePeriod          Period          `json:"valuePeriod"`
 	ValueBase64Binary    string          `json:"valueBase64Binary"`
 }
@@ -117,188 +118,214 @@ func (r AuditEvent) MarshalJSON() ([]byte, error) {
 		ResourceType:    "AuditEvent",
 	})
 }
+func (r AuditEvent) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "AuditEvent/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *AuditEvent) T_Id() templ.Component {
+	rtype := "AuditEvent"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *AuditEvent) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("AuditEvent.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("AuditEvent.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+}
+func (resource *AuditEvent) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AuditEvent.Id", nil)
+		return CodeableConceptSelect("AuditEvent.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Id", resource.Id)
+	return CodeableConceptSelect("AuditEvent.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("AuditEvent.ImplicitRules", nil)
-	}
-	return StringInput("AuditEvent.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *AuditEvent) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("AuditEvent.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("AuditEvent.Language", resource.Language, optionsValueSet)
-}
-func (resource *AuditEvent) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("AuditEvent.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("AuditEvent.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
-}
-func (resource *AuditEvent) T_Code(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("AuditEvent.Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("AuditEvent.Code", &resource.Code, optionsValueSet)
-}
-func (resource *AuditEvent) T_Action() templ.Component {
+func (resource *AuditEvent) T_Action(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAudit_event_action
 
 	if resource == nil {
-		return CodeSelect("AuditEvent.Action", nil, optionsValueSet)
+		return CodeSelect("AuditEvent.Action", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AuditEvent.Action", resource.Action, optionsValueSet)
+	return CodeSelect("AuditEvent.Action", resource.Action, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_Severity() templ.Component {
+func (resource *AuditEvent) T_Severity(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAudit_event_severity
 
 	if resource == nil {
-		return CodeSelect("AuditEvent.Severity", nil, optionsValueSet)
+		return CodeSelect("AuditEvent.Severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AuditEvent.Severity", resource.Severity, optionsValueSet)
+	return CodeSelect("AuditEvent.Severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_Recorded() templ.Component {
+func (resource *AuditEvent) T_OccurredDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AuditEvent.Recorded", nil)
+		return DateTimeInput("AuditEvent.OccurredDateTime", nil, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Recorded", &resource.Recorded)
+	return DateTimeInput("AuditEvent.OccurredDateTime", resource.OccurredDateTime, htmlAttrs)
 }
-func (resource *AuditEvent) T_Authorization(numAuthorization int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Authorization) >= numAuthorization {
-		return CodeableConceptSelect("AuditEvent.Authorization["+strconv.Itoa(numAuthorization)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("AuditEvent.Authorization["+strconv.Itoa(numAuthorization)+"]", &resource.Authorization[numAuthorization], optionsValueSet)
-}
-func (resource *AuditEvent) T_OutcomeId() templ.Component {
+func (resource *AuditEvent) T_Recorded(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AuditEvent.Outcome.Id", nil)
+		return StringInput("AuditEvent.Recorded", nil, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Outcome.Id", resource.Outcome.Id)
+	return StringInput("AuditEvent.Recorded", &resource.Recorded, htmlAttrs)
 }
-func (resource *AuditEvent) T_OutcomeCode(optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_Authorization(numAuthorization int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAuthorization >= len(resource.Authorization) {
+		return CodeableConceptSelect("AuditEvent.Authorization."+strconv.Itoa(numAuthorization)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("AuditEvent.Authorization."+strconv.Itoa(numAuthorization)+".", &resource.Authorization[numAuthorization], optionsValueSet, htmlAttrs)
+}
+func (resource *AuditEvent) T_OutcomeCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodingSelect("AuditEvent.Outcome.Code", nil, optionsValueSet)
+		return CodingSelect("AuditEvent.Outcome.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("AuditEvent.Outcome.Code", &resource.Outcome.Code, optionsValueSet)
+	return CodingSelect("AuditEvent.Outcome.Code", &resource.Outcome.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_OutcomeDetail(numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_OutcomeDetail(numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Outcome.Detail) >= numDetail {
-		return CodeableConceptSelect("AuditEvent.Outcome.Detail["+strconv.Itoa(numDetail)+"]", nil, optionsValueSet)
+	if resource == nil || numDetail >= len(resource.Outcome.Detail) {
+		return CodeableConceptSelect("AuditEvent.Outcome.Detail."+strconv.Itoa(numDetail)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Outcome.Detail["+strconv.Itoa(numDetail)+"]", &resource.Outcome.Detail[numDetail], optionsValueSet)
+	return CodeableConceptSelect("AuditEvent.Outcome.Detail."+strconv.Itoa(numDetail)+".", &resource.Outcome.Detail[numDetail], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentId(numAgent int) templ.Component {
+func (resource *AuditEvent) T_AgentType(numAgent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent {
-		return StringInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Id", nil)
+	if resource == nil || numAgent >= len(resource.Agent) {
+		return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Id", resource.Agent[numAgent].Id)
+	return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Type", resource.Agent[numAgent].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentType(numAgent int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentRole(numAgent int, numRole int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent {
-		return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Type", nil, optionsValueSet)
+	if resource == nil || numAgent >= len(resource.Agent) || numRole >= len(resource.Agent[numAgent].Role) {
+		return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Role."+strconv.Itoa(numRole)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Type", resource.Agent[numAgent].Type, optionsValueSet)
+	return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Role."+strconv.Itoa(numRole)+".", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentRole(numAgent int, numRole int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentRequestor(numAgent int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent || len(resource.Agent[numAgent].Role) >= numRole {
-		return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Role["+strconv.Itoa(numRole)+"]", nil, optionsValueSet)
+	if resource == nil || numAgent >= len(resource.Agent) {
+		return BoolInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Requestor", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet)
+	return BoolInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Requestor", resource.Agent[numAgent].Requestor, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentRequestor(numAgent int) templ.Component {
+func (resource *AuditEvent) T_AgentPolicy(numAgent int, numPolicy int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent {
-		return BoolInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Requestor", nil)
+	if resource == nil || numAgent >= len(resource.Agent) || numPolicy >= len(resource.Agent[numAgent].Policy) {
+		return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Policy."+strconv.Itoa(numPolicy)+".", nil, htmlAttrs)
 	}
-	return BoolInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Requestor", resource.Agent[numAgent].Requestor)
+	return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Policy."+strconv.Itoa(numPolicy)+".", &resource.Agent[numAgent].Policy[numPolicy], htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentPolicy(numAgent int, numPolicy int) templ.Component {
+func (resource *AuditEvent) T_AgentNetworkUri(numAgent int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent || len(resource.Agent[numAgent].Policy) >= numPolicy {
-		return StringInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Policy["+strconv.Itoa(numPolicy)+"]", nil)
+	if resource == nil || numAgent >= len(resource.Agent) {
+		return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..NetworkUri", nil, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Policy["+strconv.Itoa(numPolicy)+"]", &resource.Agent[numAgent].Policy[numPolicy])
+	return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..NetworkUri", resource.Agent[numAgent].NetworkUri, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentAuthorization(numAgent int, numAuthorization int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_AgentNetworkString(numAgent int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Agent) >= numAgent || len(resource.Agent[numAgent].Authorization) >= numAuthorization {
-		return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Authorization["+strconv.Itoa(numAuthorization)+"]", nil, optionsValueSet)
+	if resource == nil || numAgent >= len(resource.Agent) {
+		return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..NetworkString", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Agent["+strconv.Itoa(numAgent)+"].Authorization["+strconv.Itoa(numAuthorization)+"]", &resource.Agent[numAgent].Authorization[numAuthorization], optionsValueSet)
+	return StringInput("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..NetworkString", resource.Agent[numAgent].NetworkString, htmlAttrs)
 }
-func (resource *AuditEvent) T_SourceId() templ.Component {
+func (resource *AuditEvent) T_AgentAuthorization(numAgent int, numAuthorization int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("AuditEvent.Source.Id", nil)
+	if resource == nil || numAgent >= len(resource.Agent) || numAuthorization >= len(resource.Agent[numAgent].Authorization) {
+		return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Authorization."+strconv.Itoa(numAuthorization)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Source.Id", resource.Source.Id)
+	return CodeableConceptSelect("AuditEvent.Agent."+strconv.Itoa(numAgent)+"..Authorization."+strconv.Itoa(numAuthorization)+".", &resource.Agent[numAgent].Authorization[numAuthorization], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_SourceType(numType int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_SourceType(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Source.Type) >= numType {
-		return CodeableConceptSelect("AuditEvent.Source.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	if resource == nil || numType >= len(resource.Source.Type) {
+		return CodeableConceptSelect("AuditEvent.Source.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Source.Type["+strconv.Itoa(numType)+"]", &resource.Source.Type[numType], optionsValueSet)
+	return CodeableConceptSelect("AuditEvent.Source.Type."+strconv.Itoa(numType)+".", &resource.Source.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityId(numEntity int) templ.Component {
+func (resource *AuditEvent) T_EntityRole(numEntity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity {
-		return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Id", nil)
+	if resource == nil || numEntity >= len(resource.Entity) {
+		return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Id", resource.Entity[numEntity].Id)
+	return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Role", resource.Entity[numEntity].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityRole(numEntity int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntitySecurityLabel(numEntity int, numSecurityLabel int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity {
-		return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Role", nil, optionsValueSet)
+	if resource == nil || numEntity >= len(resource.Entity) || numSecurityLabel >= len(resource.Entity[numEntity].SecurityLabel) {
+		return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Role", resource.Entity[numEntity].Role, optionsValueSet)
+	return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", &resource.Entity[numEntity].SecurityLabel[numSecurityLabel], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntitySecurityLabel(numEntity int, numSecurityLabel int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntityQuery(numEntity int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity || len(resource.Entity[numEntity].SecurityLabel) >= numSecurityLabel {
-		return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", nil, optionsValueSet)
+	if resource == nil || numEntity >= len(resource.Entity) {
+		return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Query", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", &resource.Entity[numEntity].SecurityLabel[numSecurityLabel], optionsValueSet)
+	return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Query", resource.Entity[numEntity].Query, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityQuery(numEntity int) templ.Component {
+func (resource *AuditEvent) T_EntityDetailType(numEntity int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity {
-		return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Query", nil)
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Query", resource.Entity[numEntity].Query)
+	return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..Type", &resource.Entity[numEntity].Detail[numDetail].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityDetailId(numEntity int, numDetail int) templ.Component {
+func (resource *AuditEvent) T_EntityDetailValueCodeableConcept(numEntity int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity || len(resource.Entity[numEntity].Detail) >= numDetail {
-		return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Detail["+strconv.Itoa(numDetail)+"].Id", nil)
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Detail["+strconv.Itoa(numDetail)+"].Id", resource.Entity[numEntity].Detail[numDetail].Id)
+	return CodeableConceptSelect("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueCodeableConcept", &resource.Entity[numEntity].Detail[numDetail].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityDetailType(numEntity int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *AuditEvent) T_EntityDetailValueString(numEntity int, numDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entity) >= numEntity || len(resource.Entity[numEntity].Detail) >= numDetail {
-		return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Detail["+strconv.Itoa(numDetail)+"].Type", nil, optionsValueSet)
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueString", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("AuditEvent.Entity["+strconv.Itoa(numEntity)+"].Detail["+strconv.Itoa(numDetail)+"].Type", &resource.Entity[numEntity].Detail[numDetail].Type, optionsValueSet)
+	return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueString", &resource.Entity[numEntity].Detail[numDetail].ValueString, htmlAttrs)
+}
+func (resource *AuditEvent) T_EntityDetailValueBoolean(numEntity int, numDetail int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return BoolInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueBoolean", &resource.Entity[numEntity].Detail[numDetail].ValueBoolean, htmlAttrs)
+}
+func (resource *AuditEvent) T_EntityDetailValueInteger(numEntity int, numDetail int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return IntInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueInteger", nil, htmlAttrs)
+	}
+	return IntInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueInteger", &resource.Entity[numEntity].Detail[numDetail].ValueInteger, htmlAttrs)
+}
+func (resource *AuditEvent) T_EntityDetailValueTime(numEntity int, numDetail int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueTime", nil, htmlAttrs)
+	}
+	return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueTime", &resource.Entity[numEntity].Detail[numDetail].ValueTime, htmlAttrs)
+}
+func (resource *AuditEvent) T_EntityDetailValueDateTime(numEntity int, numDetail int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return DateTimeInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueDateTime", nil, htmlAttrs)
+	}
+	return DateTimeInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueDateTime", &resource.Entity[numEntity].Detail[numDetail].ValueDateTime, htmlAttrs)
+}
+func (resource *AuditEvent) T_EntityDetailValueBase64Binary(numEntity int, numDetail int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEntity >= len(resource.Entity) || numDetail >= len(resource.Entity[numEntity].Detail) {
+		return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueBase64Binary", nil, htmlAttrs)
+	}
+	return StringInput("AuditEvent.Entity."+strconv.Itoa(numEntity)+"..Detail."+strconv.Itoa(numDetail)+"..ValueBase64Binary", &resource.Entity[numEntity].Detail[numDetail].ValueBase64Binary, htmlAttrs)
 }

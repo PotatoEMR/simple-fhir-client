@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,13 +25,13 @@ type PaymentReconciliation struct {
 	Identifier        []Identifier                       `json:"identifier,omitempty"`
 	Status            string                             `json:"status"`
 	Period            *Period                            `json:"period,omitempty"`
-	Created           string                             `json:"created"`
+	Created           time.Time                          `json:"created,format:'2006-01-02T15:04:05Z07:00'"`
 	PaymentIssuer     *Reference                         `json:"paymentIssuer,omitempty"`
 	Request           *Reference                         `json:"request,omitempty"`
 	Requestor         *Reference                         `json:"requestor,omitempty"`
 	Outcome           *string                            `json:"outcome,omitempty"`
 	Disposition       *string                            `json:"disposition,omitempty"`
-	PaymentDate       string                             `json:"paymentDate"`
+	PaymentDate       time.Time                          `json:"paymentDate,format:'2006-01-02'"`
 	PaymentAmount     Money                              `json:"paymentAmount"`
 	PaymentIdentifier *Identifier                        `json:"paymentIdentifier,omitempty"`
 	Detail            []PaymentReconciliationDetail      `json:"detail,omitempty"`
@@ -49,7 +50,7 @@ type PaymentReconciliationDetail struct {
 	Request           *Reference      `json:"request,omitempty"`
 	Submitter         *Reference      `json:"submitter,omitempty"`
 	Response          *Reference      `json:"response,omitempty"`
-	Date              *string         `json:"date,omitempty"`
+	Date              *time.Time      `json:"date,omitempty,format:'2006-01-02'"`
 	Responsible       *Reference      `json:"responsible,omitempty"`
 	Payee             *Reference      `json:"payee,omitempty"`
 	Amount            *Money          `json:"amount,omitempty"`
@@ -76,112 +77,91 @@ func (r PaymentReconciliation) MarshalJSON() ([]byte, error) {
 		ResourceType:               "PaymentReconciliation",
 	})
 }
-
-func (resource *PaymentReconciliation) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("PaymentReconciliation.Id", nil)
+func (r PaymentReconciliation) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "PaymentReconciliation/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("PaymentReconciliation.Id", resource.Id)
-}
-func (resource *PaymentReconciliation) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("PaymentReconciliation.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("PaymentReconciliation.ImplicitRules", resource.ImplicitRules)
+	rtype := "PaymentReconciliation"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *PaymentReconciliation) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("PaymentReconciliation.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("PaymentReconciliation.Language", resource.Language, optionsValueSet)
-}
-func (resource *PaymentReconciliation) T_Status() templ.Component {
+func (resource *PaymentReconciliation) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("PaymentReconciliation.Status", nil, optionsValueSet)
+		return CodeSelect("PaymentReconciliation.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PaymentReconciliation.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("PaymentReconciliation.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Created() templ.Component {
+func (resource *PaymentReconciliation) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PaymentReconciliation.Created", nil)
+		return DateTimeInput("PaymentReconciliation.Created", nil, htmlAttrs)
 	}
-	return StringInput("PaymentReconciliation.Created", &resource.Created)
+	return DateTimeInput("PaymentReconciliation.Created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Outcome() templ.Component {
+func (resource *PaymentReconciliation) T_Outcome(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
-		return CodeSelect("PaymentReconciliation.Outcome", nil, optionsValueSet)
+		return CodeSelect("PaymentReconciliation.Outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PaymentReconciliation.Outcome", resource.Outcome, optionsValueSet)
+	return CodeSelect("PaymentReconciliation.Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Disposition() templ.Component {
+func (resource *PaymentReconciliation) T_Disposition(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PaymentReconciliation.Disposition", nil)
+		return StringInput("PaymentReconciliation.Disposition", nil, htmlAttrs)
 	}
-	return StringInput("PaymentReconciliation.Disposition", resource.Disposition)
+	return StringInput("PaymentReconciliation.Disposition", resource.Disposition, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_PaymentDate() templ.Component {
+func (resource *PaymentReconciliation) T_PaymentDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PaymentReconciliation.PaymentDate", nil)
+		return DateInput("PaymentReconciliation.PaymentDate", nil, htmlAttrs)
 	}
-	return StringInput("PaymentReconciliation.PaymentDate", &resource.PaymentDate)
+	return DateInput("PaymentReconciliation.PaymentDate", &resource.PaymentDate, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_FormCode(optionsValueSet []Coding) templ.Component {
+func (resource *PaymentReconciliation) T_FormCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("PaymentReconciliation.FormCode", nil, optionsValueSet)
+		return CodeableConceptSelect("PaymentReconciliation.FormCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PaymentReconciliation.FormCode", resource.FormCode, optionsValueSet)
+	return CodeableConceptSelect("PaymentReconciliation.FormCode", resource.FormCode, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailId(numDetail int) templ.Component {
+func (resource *PaymentReconciliation) T_DetailType(numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Detail) >= numDetail {
-		return StringInput("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Id", nil)
+	if resource == nil || numDetail >= len(resource.Detail) {
+		return CodeableConceptSelect("PaymentReconciliation.Detail."+strconv.Itoa(numDetail)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Id", resource.Detail[numDetail].Id)
+	return CodeableConceptSelect("PaymentReconciliation.Detail."+strconv.Itoa(numDetail)+"..Type", &resource.Detail[numDetail].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailType(numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *PaymentReconciliation) T_DetailDate(numDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Detail) >= numDetail {
-		return CodeableConceptSelect("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Type", nil, optionsValueSet)
+	if resource == nil || numDetail >= len(resource.Detail) {
+		return DateInput("PaymentReconciliation.Detail."+strconv.Itoa(numDetail)+"..Date", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Type", &resource.Detail[numDetail].Type, optionsValueSet)
+	return DateInput("PaymentReconciliation.Detail."+strconv.Itoa(numDetail)+"..Date", resource.Detail[numDetail].Date, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailDate(numDetail int) templ.Component {
-
-	if resource == nil || len(resource.Detail) >= numDetail {
-		return StringInput("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Date", nil)
-	}
-	return StringInput("PaymentReconciliation.Detail["+strconv.Itoa(numDetail)+"].Date", resource.Detail[numDetail].Date)
-}
-func (resource *PaymentReconciliation) T_ProcessNoteId(numProcessNote int) templ.Component {
-
-	if resource == nil || len(resource.ProcessNote) >= numProcessNote {
-		return StringInput("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Id", nil)
-	}
-	return StringInput("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Id", resource.ProcessNote[numProcessNote].Id)
-}
-func (resource *PaymentReconciliation) T_ProcessNoteType(numProcessNote int) templ.Component {
+func (resource *PaymentReconciliation) T_ProcessNoteType(numProcessNote int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSNote_type
 
-	if resource == nil || len(resource.ProcessNote) >= numProcessNote {
-		return CodeSelect("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Type", nil, optionsValueSet)
+	if resource == nil || numProcessNote >= len(resource.ProcessNote) {
+		return CodeSelect("PaymentReconciliation.ProcessNote."+strconv.Itoa(numProcessNote)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Type", resource.ProcessNote[numProcessNote].Type, optionsValueSet)
+	return CodeSelect("PaymentReconciliation.ProcessNote."+strconv.Itoa(numProcessNote)+"..Type", resource.ProcessNote[numProcessNote].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_ProcessNoteText(numProcessNote int) templ.Component {
+func (resource *PaymentReconciliation) T_ProcessNoteText(numProcessNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProcessNote) >= numProcessNote {
-		return StringInput("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Text", nil)
+	if resource == nil || numProcessNote >= len(resource.ProcessNote) {
+		return StringInput("PaymentReconciliation.ProcessNote."+strconv.Itoa(numProcessNote)+"..Text", nil, htmlAttrs)
 	}
-	return StringInput("PaymentReconciliation.ProcessNote["+strconv.Itoa(numProcessNote)+"].Text", resource.ProcessNote[numProcessNote].Text)
+	return StringInput("PaymentReconciliation.ProcessNote."+strconv.Itoa(numProcessNote)+"..Text", resource.ProcessNote[numProcessNote].Text, htmlAttrs)
 }

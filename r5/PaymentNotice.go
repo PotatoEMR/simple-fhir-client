@@ -1,11 +1,12 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,10 +25,10 @@ type PaymentNotice struct {
 	Status            string           `json:"status"`
 	Request           *Reference       `json:"request,omitempty"`
 	Response          *Reference       `json:"response,omitempty"`
-	Created           string           `json:"created"`
+	Created           time.Time        `json:"created,format:'2006-01-02T15:04:05Z07:00'"`
 	Reporter          *Reference       `json:"reporter,omitempty"`
 	Payment           *Reference       `json:"payment,omitempty"`
-	PaymentDate       *string          `json:"paymentDate,omitempty"`
+	PaymentDate       *time.Time       `json:"paymentDate,omitempty,format:'2006-01-02'"`
 	Payee             *Reference       `json:"payee,omitempty"`
 	Recipient         Reference        `json:"recipient"`
 	Amount            Money            `json:"amount"`
@@ -46,54 +47,47 @@ func (r PaymentNotice) MarshalJSON() ([]byte, error) {
 		ResourceType:       "PaymentNotice",
 	})
 }
-
-func (resource *PaymentNotice) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("PaymentNotice.Id", nil)
+func (r PaymentNotice) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "PaymentNotice/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("PaymentNotice.Id", resource.Id)
-}
-func (resource *PaymentNotice) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("PaymentNotice.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("PaymentNotice.ImplicitRules", resource.ImplicitRules)
+	rtype := "PaymentNotice"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *PaymentNotice) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("PaymentNotice.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("PaymentNotice.Language", resource.Language, optionsValueSet)
-}
-func (resource *PaymentNotice) T_Status() templ.Component {
+func (resource *PaymentNotice) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("PaymentNotice.Status", nil, optionsValueSet)
+		return CodeSelect("PaymentNotice.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PaymentNotice.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("PaymentNotice.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Created() templ.Component {
+func (resource *PaymentNotice) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PaymentNotice.Created", nil)
+		return DateTimeInput("PaymentNotice.Created", nil, htmlAttrs)
 	}
-	return StringInput("PaymentNotice.Created", &resource.Created)
+	return DateTimeInput("PaymentNotice.Created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentNotice) T_PaymentDate() templ.Component {
+func (resource *PaymentNotice) T_PaymentDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PaymentNotice.PaymentDate", nil)
+		return DateInput("PaymentNotice.PaymentDate", nil, htmlAttrs)
 	}
-	return StringInput("PaymentNotice.PaymentDate", resource.PaymentDate)
+	return DateInput("PaymentNotice.PaymentDate", resource.PaymentDate, htmlAttrs)
 }
-func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding) templ.Component {
+func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("PaymentNotice.PaymentStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("PaymentNotice.PaymentStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PaymentNotice.PaymentStatus", resource.PaymentStatus, optionsValueSet)
+	return CodeableConceptSelect("PaymentNotice.PaymentStatus", resource.PaymentStatus, optionsValueSet, htmlAttrs)
 }

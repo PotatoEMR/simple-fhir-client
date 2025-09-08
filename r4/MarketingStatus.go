@@ -1,6 +1,8 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+import "time"
+
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -13,5 +15,5 @@ type MarketingStatus struct {
 	Jurisdiction      *CodeableConcept `json:"jurisdiction,omitempty"`
 	Status            CodeableConcept  `json:"status"`
 	DateRange         Period           `json:"dateRange"`
-	RestoreDate       *string          `json:"restoreDate,omitempty"`
+	RestoreDate       *time.Time       `json:"restoreDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }

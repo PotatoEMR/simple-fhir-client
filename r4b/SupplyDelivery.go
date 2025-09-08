@@ -1,11 +1,12 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type SupplyDelivery struct {
 	Patient            *Reference                  `json:"patient,omitempty"`
 	Type               *CodeableConcept            `json:"type,omitempty"`
 	SuppliedItem       *SupplyDeliverySuppliedItem `json:"suppliedItem,omitempty"`
-	OccurrenceDateTime *string                     `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime *time.Time                  `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	OccurrencePeriod   *Period                     `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming   *Timing                     `json:"occurrenceTiming,omitempty"`
 	Supplier           *Reference                  `json:"supplier,omitempty"`
@@ -57,47 +58,47 @@ func (r SupplyDelivery) MarshalJSON() ([]byte, error) {
 		ResourceType:        "SupplyDelivery",
 	})
 }
-
-func (resource *SupplyDelivery) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("SupplyDelivery.Id", nil)
+func (r SupplyDelivery) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "SupplyDelivery/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("SupplyDelivery.Id", resource.Id)
-}
-func (resource *SupplyDelivery) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("SupplyDelivery.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("SupplyDelivery.ImplicitRules", resource.ImplicitRules)
+	rtype := "SupplyDelivery"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *SupplyDelivery) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("SupplyDelivery.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("SupplyDelivery.Language", resource.Language, optionsValueSet)
-}
-func (resource *SupplyDelivery) T_Status() templ.Component {
+func (resource *SupplyDelivery) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
 	if resource == nil {
-		return CodeSelect("SupplyDelivery.Status", nil, optionsValueSet)
+		return CodeSelect("SupplyDelivery.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SupplyDelivery.Status", resource.Status, optionsValueSet)
+	return CodeSelect("SupplyDelivery.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *SupplyDelivery) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SupplyDelivery.Type", nil, optionsValueSet)
+		return CodeableConceptSelect("SupplyDelivery.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SupplyDelivery.Type", resource.Type, optionsValueSet)
+	return CodeableConceptSelect("SupplyDelivery.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_SuppliedItemId() templ.Component {
+func (resource *SupplyDelivery) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SupplyDelivery.SuppliedItem.Id", nil)
+		return DateTimeInput("SupplyDelivery.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return StringInput("SupplyDelivery.SuppliedItem.Id", resource.SuppliedItem.Id)
+	return DateTimeInput("SupplyDelivery.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return CodeableConceptSelect("SupplyDelivery.SuppliedItem.ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("SupplyDelivery.SuppliedItem.ItemCodeableConcept", resource.SuppliedItem.ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }

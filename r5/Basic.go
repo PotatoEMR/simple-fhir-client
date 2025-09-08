@@ -1,11 +1,12 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -23,7 +24,7 @@ type Basic struct {
 	Identifier        []Identifier    `json:"identifier,omitempty"`
 	Code              CodeableConcept `json:"code"`
 	Subject           *Reference      `json:"subject,omitempty"`
-	Created           *string         `json:"created,omitempty"`
+	Created           *time.Time      `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Author            *Reference      `json:"author,omitempty"`
 }
 
@@ -39,39 +40,32 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 		ResourceType: "Basic",
 	})
 }
-
-func (resource *Basic) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Basic.Id", nil)
+func (r Basic) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Basic/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Basic.Id", resource.Id)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Basic"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Basic) T_ImplicitRules() templ.Component {
+func (resource *Basic) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Basic.ImplicitRules", nil)
+		return CodeableConceptSelect("Basic.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Basic.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("Basic.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Basic) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *Basic) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("Basic.Language", nil, optionsValueSet)
+		return DateTimeInput("Basic.Created", nil, htmlAttrs)
 	}
-	return CodeSelect("Basic.Language", resource.Language, optionsValueSet)
-}
-func (resource *Basic) T_Code(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Basic.Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Basic.Code", &resource.Code, optionsValueSet)
-}
-func (resource *Basic) T_Created() templ.Component {
-
-	if resource == nil {
-		return StringInput("Basic.Created", nil)
-	}
-	return StringInput("Basic.Created", resource.Created)
+	return DateTimeInput("Basic.Created", resource.Created, htmlAttrs)
 }

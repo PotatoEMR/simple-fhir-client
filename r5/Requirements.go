@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +31,7 @@ type Requirements struct {
 	Title                  *string                 `json:"title,omitempty"`
 	Status                 string                  `json:"status"`
 	Experimental           *bool                   `json:"experimental,omitempty"`
-	Date                   *string                 `json:"date,omitempty"`
+	Date                   *time.Time              `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher              *string                 `json:"publisher,omitempty"`
 	Contact                []ContactDetail         `json:"contact,omitempty"`
 	Description            *string                 `json:"description,omitempty"`
@@ -74,209 +75,209 @@ func (r Requirements) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Requirements",
 	})
 }
-
-func (resource *Requirements) T_Id() templ.Component {
+func (r Requirements) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Requirements/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Requirements"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Requirements) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Id", nil)
+		return StringInput("Requirements.Url", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Id", resource.Id)
+	return StringInput("Requirements.Url", resource.Url, htmlAttrs)
 }
-func (resource *Requirements) T_ImplicitRules() templ.Component {
+func (resource *Requirements) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.ImplicitRules", nil)
+		return StringInput("Requirements.Version", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.ImplicitRules", resource.ImplicitRules)
+	return StringInput("Requirements.Version", resource.Version, htmlAttrs)
 }
-func (resource *Requirements) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *Requirements) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("Requirements.Language", nil, optionsValueSet)
+		return StringInput("Requirements.VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return CodeSelect("Requirements.Language", resource.Language, optionsValueSet)
+	return StringInput("Requirements.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *Requirements) T_Url() templ.Component {
+func (resource *Requirements) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Url", nil)
+		return CodingSelect("Requirements.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Requirements.Url", resource.Url)
+	return CodingSelect("Requirements.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *Requirements) T_Version() templ.Component {
+func (resource *Requirements) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Version", nil)
+		return StringInput("Requirements.Name", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Version", resource.Version)
+	return StringInput("Requirements.Name", resource.Name, htmlAttrs)
 }
-func (resource *Requirements) T_Name() templ.Component {
+func (resource *Requirements) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Name", nil)
+		return StringInput("Requirements.Title", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Name", resource.Name)
+	return StringInput("Requirements.Title", resource.Title, htmlAttrs)
 }
-func (resource *Requirements) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("Requirements.Title", nil)
-	}
-	return StringInput("Requirements.Title", resource.Title)
-}
-func (resource *Requirements) T_Status() templ.Component {
+func (resource *Requirements) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Requirements.Status", nil, optionsValueSet)
+		return CodeSelect("Requirements.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Requirements.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Requirements.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Requirements) T_Experimental() templ.Component {
+func (resource *Requirements) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("Requirements.Experimental", nil)
+		return BoolInput("Requirements.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("Requirements.Experimental", resource.Experimental)
+	return BoolInput("Requirements.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *Requirements) T_Date() templ.Component {
+func (resource *Requirements) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Date", nil)
+		return DateTimeInput("Requirements.Date", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Date", resource.Date)
+	return DateTimeInput("Requirements.Date", resource.Date, htmlAttrs)
 }
-func (resource *Requirements) T_Publisher() templ.Component {
+func (resource *Requirements) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Publisher", nil)
+		return StringInput("Requirements.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Publisher", resource.Publisher)
+	return StringInput("Requirements.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *Requirements) T_Description() templ.Component {
+func (resource *Requirements) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Description", nil)
+		return StringInput("Requirements.Description", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Description", resource.Description)
+	return StringInput("Requirements.Description", resource.Description, htmlAttrs)
 }
-func (resource *Requirements) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *Requirements) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("Requirements.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("Requirements.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Requirements.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("Requirements.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *Requirements) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("Requirements.Purpose", nil)
-	}
-	return StringInput("Requirements.Purpose", resource.Purpose)
-}
-func (resource *Requirements) T_Copyright() templ.Component {
+func (resource *Requirements) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.Copyright", nil)
+		return StringInput("Requirements.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Copyright", resource.Copyright)
+	return StringInput("Requirements.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *Requirements) T_CopyrightLabel() templ.Component {
+func (resource *Requirements) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Requirements.CopyrightLabel", nil)
+		return StringInput("Requirements.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.CopyrightLabel", resource.CopyrightLabel)
+	return StringInput("Requirements.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *Requirements) T_DerivedFrom(numDerivedFrom int) templ.Component {
+func (resource *Requirements) T_CopyrightLabel(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.DerivedFrom) >= numDerivedFrom {
-		return StringInput("Requirements.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil)
+	if resource == nil {
+		return StringInput("Requirements.CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom])
+	return StringInput("Requirements.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
-func (resource *Requirements) T_Reference(numReference int) templ.Component {
+func (resource *Requirements) T_DerivedFrom(numDerivedFrom int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Reference) >= numReference {
-		return StringInput("Requirements.Reference["+strconv.Itoa(numReference)+"]", nil)
+	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
+		return StringInput("Requirements.DerivedFrom."+strconv.Itoa(numDerivedFrom)+".", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Reference["+strconv.Itoa(numReference)+"]", &resource.Reference[numReference])
+	return StringInput("Requirements.DerivedFrom."+strconv.Itoa(numDerivedFrom)+".", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
-func (resource *Requirements) T_Actor(numActor int) templ.Component {
+func (resource *Requirements) T_Reference(numReference int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return StringInput("Requirements.Actor["+strconv.Itoa(numActor)+"]", nil)
+	if resource == nil || numReference >= len(resource.Reference) {
+		return StringInput("Requirements.Reference."+strconv.Itoa(numReference)+".", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Actor["+strconv.Itoa(numActor)+"]", &resource.Actor[numActor])
+	return StringInput("Requirements.Reference."+strconv.Itoa(numReference)+".", &resource.Reference[numReference], htmlAttrs)
 }
-func (resource *Requirements) T_StatementId(numStatement int) templ.Component {
+func (resource *Requirements) T_Actor(numActor int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Id", nil)
+	if resource == nil || numActor >= len(resource.Actor) {
+		return StringInput("Requirements.Actor."+strconv.Itoa(numActor)+".", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Id", resource.Statement[numStatement].Id)
+	return StringInput("Requirements.Actor."+strconv.Itoa(numActor)+".", &resource.Actor[numActor], htmlAttrs)
 }
-func (resource *Requirements) T_StatementKey(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementKey(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Key", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Key", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Key", &resource.Statement[numStatement].Key)
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Key", &resource.Statement[numStatement].Key, htmlAttrs)
 }
-func (resource *Requirements) T_StatementLabel(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementLabel(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Label", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Label", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Label", resource.Statement[numStatement].Label)
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Label", resource.Statement[numStatement].Label, htmlAttrs)
 }
-func (resource *Requirements) T_StatementConformance(numStatement int, numConformance int) templ.Component {
+func (resource *Requirements) T_StatementConformance(numStatement int, numConformance int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConformance_expectation
 
-	if resource == nil || len(resource.Statement) >= numStatement || len(resource.Statement[numStatement].Conformance) >= numConformance {
-		return CodeSelect("Requirements.Statement["+strconv.Itoa(numStatement)+"].Conformance["+strconv.Itoa(numConformance)+"]", nil, optionsValueSet)
+	if resource == nil || numStatement >= len(resource.Statement) || numConformance >= len(resource.Statement[numStatement].Conformance) {
+		return CodeSelect("Requirements.Statement."+strconv.Itoa(numStatement)+"..Conformance."+strconv.Itoa(numConformance)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Requirements.Statement["+strconv.Itoa(numStatement)+"].Conformance["+strconv.Itoa(numConformance)+"]", &resource.Statement[numStatement].Conformance[numConformance], optionsValueSet)
+	return CodeSelect("Requirements.Statement."+strconv.Itoa(numStatement)+"..Conformance."+strconv.Itoa(numConformance)+".", &resource.Statement[numStatement].Conformance[numConformance], optionsValueSet, htmlAttrs)
 }
-func (resource *Requirements) T_StatementConditionality(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementConditionality(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return BoolInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Conditionality", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return BoolInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Conditionality", nil, htmlAttrs)
 	}
-	return BoolInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Conditionality", resource.Statement[numStatement].Conditionality)
+	return BoolInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Conditionality", resource.Statement[numStatement].Conditionality, htmlAttrs)
 }
-func (resource *Requirements) T_StatementRequirement(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementRequirement(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Requirement", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Requirement", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Requirement", &resource.Statement[numStatement].Requirement)
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Requirement", &resource.Statement[numStatement].Requirement, htmlAttrs)
 }
-func (resource *Requirements) T_StatementDerivedFrom(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementDerivedFrom(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].DerivedFrom", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..DerivedFrom", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].DerivedFrom", resource.Statement[numStatement].DerivedFrom)
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..DerivedFrom", resource.Statement[numStatement].DerivedFrom, htmlAttrs)
 }
-func (resource *Requirements) T_StatementParent(numStatement int) templ.Component {
+func (resource *Requirements) T_StatementParent(numStatement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Parent", nil)
+	if resource == nil || numStatement >= len(resource.Statement) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Parent", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Parent", resource.Statement[numStatement].Parent)
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Parent", resource.Statement[numStatement].Parent, htmlAttrs)
 }
-func (resource *Requirements) T_StatementSatisfiedBy(numStatement int, numSatisfiedBy int) templ.Component {
+func (resource *Requirements) T_StatementSatisfiedBy(numStatement int, numSatisfiedBy int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement || len(resource.Statement[numStatement].SatisfiedBy) >= numSatisfiedBy {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].SatisfiedBy["+strconv.Itoa(numSatisfiedBy)+"]", nil)
+	if resource == nil || numStatement >= len(resource.Statement) || numSatisfiedBy >= len(resource.Statement[numStatement].SatisfiedBy) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..SatisfiedBy."+strconv.Itoa(numSatisfiedBy)+".", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].SatisfiedBy["+strconv.Itoa(numSatisfiedBy)+"]", &resource.Statement[numStatement].SatisfiedBy[numSatisfiedBy])
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..SatisfiedBy."+strconv.Itoa(numSatisfiedBy)+".", &resource.Statement[numStatement].SatisfiedBy[numSatisfiedBy], htmlAttrs)
 }
-func (resource *Requirements) T_StatementReference(numStatement int, numReference int) templ.Component {
+func (resource *Requirements) T_StatementReference(numStatement int, numReference int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Statement) >= numStatement || len(resource.Statement[numStatement].Reference) >= numReference {
-		return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Reference["+strconv.Itoa(numReference)+"]", nil)
+	if resource == nil || numStatement >= len(resource.Statement) || numReference >= len(resource.Statement[numStatement].Reference) {
+		return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Reference."+strconv.Itoa(numReference)+".", nil, htmlAttrs)
 	}
-	return StringInput("Requirements.Statement["+strconv.Itoa(numStatement)+"].Reference["+strconv.Itoa(numReference)+"]", &resource.Statement[numStatement].Reference[numReference])
+	return StringInput("Requirements.Statement."+strconv.Itoa(numStatement)+"..Reference."+strconv.Itoa(numReference)+".", &resource.Statement[numStatement].Reference[numReference], htmlAttrs)
 }

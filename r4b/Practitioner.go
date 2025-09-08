@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type Practitioner struct {
 	Telecom           []ContactPoint              `json:"telecom,omitempty"`
 	Address           []Address                   `json:"address,omitempty"`
 	Gender            *string                     `json:"gender,omitempty"`
-	BirthDate         *string                     `json:"birthDate,omitempty"`
+	BirthDate         *time.Time                  `json:"birthDate,omitempty,format:'2006-01-02'"`
 	Photo             []Attachment                `json:"photo,omitempty"`
 	Qualification     []PractitionerQualification `json:"qualification,omitempty"`
 	Communication     []CodeableConcept           `json:"communication,omitempty"`
@@ -56,68 +57,54 @@ func (r Practitioner) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Practitioner",
 	})
 }
-
-func (resource *Practitioner) T_Id() templ.Component {
+func (r Practitioner) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Practitioner/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Practitioner"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Practitioner) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Practitioner.Id", nil)
+		return BoolInput("Practitioner.Active", nil, htmlAttrs)
 	}
-	return StringInput("Practitioner.Id", resource.Id)
+	return BoolInput("Practitioner.Active", resource.Active, htmlAttrs)
 }
-func (resource *Practitioner) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Practitioner.ImplicitRules", nil)
-	}
-	return StringInput("Practitioner.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Practitioner) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Practitioner.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Practitioner.Language", resource.Language, optionsValueSet)
-}
-func (resource *Practitioner) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Practitioner.Active", nil)
-	}
-	return BoolInput("Practitioner.Active", resource.Active)
-}
-func (resource *Practitioner) T_Gender() templ.Component {
+func (resource *Practitioner) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Practitioner.Gender", nil, optionsValueSet)
+		return CodeSelect("Practitioner.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Practitioner.Gender", resource.Gender, optionsValueSet)
+	return CodeSelect("Practitioner.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Practitioner) T_BirthDate() templ.Component {
+func (resource *Practitioner) T_BirthDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Practitioner.BirthDate", nil)
+		return DateInput("Practitioner.BirthDate", nil, htmlAttrs)
 	}
-	return StringInput("Practitioner.BirthDate", resource.BirthDate)
+	return DateInput("Practitioner.BirthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *Practitioner) T_Communication(numCommunication int, optionsValueSet []Coding) templ.Component {
+func (resource *Practitioner) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("Practitioner.Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet)
+	if resource == nil || numCommunication >= len(resource.Communication) {
+		return CodeableConceptSelect("Practitioner.Communication."+strconv.Itoa(numCommunication)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet)
+	return CodeableConceptSelect("Practitioner.Communication."+strconv.Itoa(numCommunication)+".", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
 }
-func (resource *Practitioner) T_QualificationId(numQualification int) templ.Component {
+func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Qualification) >= numQualification {
-		return StringInput("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Id", nil)
+	if resource == nil || numQualification >= len(resource.Qualification) {
+		return CodeableConceptSelect("Practitioner.Qualification."+strconv.Itoa(numQualification)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Id", resource.Qualification[numQualification].Id)
-}
-func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Qualification) >= numQualification {
-		return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", &resource.Qualification[numQualification].Code, optionsValueSet)
+	return CodeableConceptSelect("Practitioner.Qualification."+strconv.Itoa(numQualification)+"..Code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
 }

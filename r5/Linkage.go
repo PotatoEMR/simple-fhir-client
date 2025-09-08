@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -47,47 +47,31 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 		ResourceType: "Linkage",
 	})
 }
+func (r Linkage) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Linkage/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *Linkage) T_Id() templ.Component {
+	rtype := "Linkage"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Linkage) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Linkage.Id", nil)
+		return BoolInput("Linkage.Active", nil, htmlAttrs)
 	}
-	return StringInput("Linkage.Id", resource.Id)
+	return BoolInput("Linkage.Active", resource.Active, htmlAttrs)
 }
-func (resource *Linkage) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Linkage.ImplicitRules", nil)
-	}
-	return StringInput("Linkage.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Linkage) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Linkage.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Linkage.Language", resource.Language, optionsValueSet)
-}
-func (resource *Linkage) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Linkage.Active", nil)
-	}
-	return BoolInput("Linkage.Active", resource.Active)
-}
-func (resource *Linkage) T_ItemId(numItem int) templ.Component {
-
-	if resource == nil || len(resource.Item) >= numItem {
-		return StringInput("Linkage.Item["+strconv.Itoa(numItem)+"].Id", nil)
-	}
-	return StringInput("Linkage.Item["+strconv.Itoa(numItem)+"].Id", resource.Item[numItem].Id)
-}
-func (resource *Linkage) T_ItemType(numItem int) templ.Component {
+func (resource *Linkage) T_ItemType(numItem int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSLinkage_type
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return CodeSelect("Linkage.Item["+strconv.Itoa(numItem)+"].Type", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeSelect("Linkage.Item."+strconv.Itoa(numItem)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Linkage.Item["+strconv.Itoa(numItem)+"].Type", &resource.Item[numItem].Type, optionsValueSet)
+	return CodeSelect("Linkage.Item."+strconv.Itoa(numItem)+"..Type", &resource.Item[numItem].Type, optionsValueSet, htmlAttrs)
 }

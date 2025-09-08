@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type ValueSet struct {
 	Title             *string            `json:"title,omitempty"`
 	Status            string             `json:"status"`
 	Experimental      *bool              `json:"experimental,omitempty"`
-	Date              *string            `json:"date,omitempty"`
+	Date              *time.Time         `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string            `json:"publisher,omitempty"`
 	Contact           []ContactDetail    `json:"contact,omitempty"`
 	Description       *string            `json:"description,omitempty"`
@@ -46,7 +47,7 @@ type ValueSetCompose struct {
 	Id                *string                  `json:"id,omitempty"`
 	Extension         []Extension              `json:"extension,omitempty"`
 	ModifierExtension []Extension              `json:"modifierExtension,omitempty"`
-	LockedDate        *string                  `json:"lockedDate,omitempty"`
+	LockedDate        *time.Time               `json:"lockedDate,omitempty,format:'2006-01-02'"`
 	Inactive          *bool                    `json:"inactive,omitempty"`
 	Include           []ValueSetComposeInclude `json:"include"`
 }
@@ -99,7 +100,7 @@ type ValueSetExpansion struct {
 	Extension         []Extension                  `json:"extension,omitempty"`
 	ModifierExtension []Extension                  `json:"modifierExtension,omitempty"`
 	Identifier        *string                      `json:"identifier,omitempty"`
-	Timestamp         string                       `json:"timestamp"`
+	Timestamp         time.Time                    `json:"timestamp,format:'2006-01-02T15:04:05Z07:00'"`
 	Total             *int                         `json:"total,omitempty"`
 	Offset            *int                         `json:"offset,omitempty"`
 	Parameter         []ValueSetExpansionParameter `json:"parameter,omitempty"`
@@ -118,7 +119,7 @@ type ValueSetExpansionParameter struct {
 	ValueDecimal      *float64    `json:"valueDecimal,omitempty"`
 	ValueUri          *string     `json:"valueUri,omitempty"`
 	ValueCode         *string     `json:"valueCode,omitempty"`
-	ValueDateTime     *string     `json:"valueDateTime,omitempty"`
+	ValueDateTime     *time.Time  `json:"valueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }
 
 // http://hl7.org/fhir/r4/StructureDefinition/ValueSet
@@ -146,342 +147,314 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 		ResourceType:  "ValueSet",
 	})
 }
-
-func (resource *ValueSet) T_Id() templ.Component {
+func (r ValueSet) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ValueSet/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "ValueSet"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ValueSet) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Id", nil)
+		return StringInput("ValueSet.Url", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Id", resource.Id)
+	return StringInput("ValueSet.Url", resource.Url, htmlAttrs)
 }
-func (resource *ValueSet) T_ImplicitRules() templ.Component {
+func (resource *ValueSet) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.ImplicitRules", nil)
+		return StringInput("ValueSet.Version", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ValueSet.Version", resource.Version, htmlAttrs)
 }
-func (resource *ValueSet) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ValueSet.Language", nil, optionsValueSet)
+		return StringInput("ValueSet.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("ValueSet.Language", resource.Language, optionsValueSet)
+	return StringInput("ValueSet.Name", resource.Name, htmlAttrs)
 }
-func (resource *ValueSet) T_Url() templ.Component {
+func (resource *ValueSet) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Url", nil)
+		return StringInput("ValueSet.Title", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Url", resource.Url)
+	return StringInput("ValueSet.Title", resource.Title, htmlAttrs)
 }
-func (resource *ValueSet) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("ValueSet.Version", nil)
-	}
-	return StringInput("ValueSet.Version", resource.Version)
-}
-func (resource *ValueSet) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("ValueSet.Name", nil)
-	}
-	return StringInput("ValueSet.Name", resource.Name)
-}
-func (resource *ValueSet) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("ValueSet.Title", nil)
-	}
-	return StringInput("ValueSet.Title", resource.Title)
-}
-func (resource *ValueSet) T_Status() templ.Component {
+func (resource *ValueSet) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ValueSet.Status", nil, optionsValueSet)
+		return CodeSelect("ValueSet.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ValueSet.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ValueSet.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_Experimental() templ.Component {
+func (resource *ValueSet) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ValueSet.Experimental", nil)
+		return BoolInput("ValueSet.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ValueSet.Experimental", resource.Experimental)
+	return BoolInput("ValueSet.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ValueSet) T_Date() templ.Component {
+func (resource *ValueSet) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Date", nil)
+		return DateTimeInput("ValueSet.Date", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Date", resource.Date)
+	return DateTimeInput("ValueSet.Date", resource.Date, htmlAttrs)
 }
-func (resource *ValueSet) T_Publisher() templ.Component {
+func (resource *ValueSet) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Publisher", nil)
+		return StringInput("ValueSet.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Publisher", resource.Publisher)
+	return StringInput("ValueSet.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ValueSet) T_Description() templ.Component {
+func (resource *ValueSet) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Description", nil)
+		return StringInput("ValueSet.Description", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Description", resource.Description)
+	return StringInput("ValueSet.Description", resource.Description, htmlAttrs)
 }
-func (resource *ValueSet) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("ValueSet.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("ValueSet.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ValueSet.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("ValueSet.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_Immutable() templ.Component {
-
-	if resource == nil {
-		return BoolInput("ValueSet.Immutable", nil)
-	}
-	return BoolInput("ValueSet.Immutable", resource.Immutable)
-}
-func (resource *ValueSet) T_Purpose() templ.Component {
+func (resource *ValueSet) T_Immutable(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Purpose", nil)
+		return BoolInput("ValueSet.Immutable", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Purpose", resource.Purpose)
+	return BoolInput("ValueSet.Immutable", resource.Immutable, htmlAttrs)
 }
-func (resource *ValueSet) T_Copyright() templ.Component {
+func (resource *ValueSet) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Copyright", nil)
+		return StringInput("ValueSet.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Copyright", resource.Copyright)
+	return StringInput("ValueSet.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeId() templ.Component {
+func (resource *ValueSet) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Compose.Id", nil)
+		return StringInput("ValueSet.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Id", resource.Compose.Id)
+	return StringInput("ValueSet.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeLockedDate() templ.Component {
+func (resource *ValueSet) T_ComposeLockedDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Compose.LockedDate", nil)
+		return DateInput("ValueSet.Compose.LockedDate", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.LockedDate", resource.Compose.LockedDate)
+	return DateInput("ValueSet.Compose.LockedDate", resource.Compose.LockedDate, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeInactive() templ.Component {
+func (resource *ValueSet) T_ComposeInactive(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ValueSet.Compose.Inactive", nil)
+		return BoolInput("ValueSet.Compose.Inactive", nil, htmlAttrs)
 	}
-	return BoolInput("ValueSet.Compose.Inactive", resource.Compose.Inactive)
+	return BoolInput("ValueSet.Compose.Inactive", resource.Compose.Inactive, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeId(numInclude int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeSystem(numInclude int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Id", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..System", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Id", resource.Compose.Include[numInclude].Id)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..System", resource.Compose.Include[numInclude].System, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeSystem(numInclude int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeVersion(numInclude int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].System", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Version", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].System", resource.Compose.Include[numInclude].System)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Version", resource.Compose.Include[numInclude].Version, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeVersion(numInclude int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeValueSet(numInclude int, numValueSet int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Version", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numValueSet >= len(resource.Compose.Include[numInclude].ValueSet) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..ValueSet."+strconv.Itoa(numValueSet)+".", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Version", resource.Compose.Include[numInclude].Version)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..ValueSet."+strconv.Itoa(numValueSet)+".", &resource.Compose.Include[numInclude].ValueSet[numValueSet], htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeValueSet(numInclude int, numValueSet int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].ValueSet) >= numValueSet {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].ValueSet["+strconv.Itoa(numValueSet)+"]", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numConcept >= len(resource.Compose.Include[numInclude].Concept) {
+		return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].ValueSet["+strconv.Itoa(numValueSet)+"]", &resource.Compose.Include[numInclude].ValueSet[numValueSet])
+	return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Code", &resource.Compose.Include[numInclude].Concept[numConcept].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeConceptId(numInclude int, numConcept int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptDisplay(numInclude int, numConcept int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Id", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numConcept >= len(resource.Compose.Include[numInclude].Concept) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Display", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Id", resource.Compose.Include[numInclude].Concept[numConcept].Id)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Display", resource.Compose.Include[numInclude].Concept[numConcept].Display, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeConceptCode(numInclude int, numConcept int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptDesignationUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept {
-		return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Code", nil, optionsValueSet)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numConcept >= len(resource.Compose.Include[numInclude].Concept) || numDesignation >= len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) {
+		return CodingSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Designation."+strconv.Itoa(numDesignation)+"..Use", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Code", &resource.Compose.Include[numInclude].Concept[numConcept].Code, optionsValueSet)
+	return CodingSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Designation."+strconv.Itoa(numDesignation)+"..Use", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Use, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeConceptDisplay(numInclude int, numConcept int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeConceptDesignationValue(numInclude int, numConcept int, numDesignation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Display", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numConcept >= len(resource.Compose.Include[numInclude].Concept) || numDesignation >= len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Designation."+strconv.Itoa(numDesignation)+"..Value", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Display", resource.Compose.Include[numInclude].Concept[numConcept].Display)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Concept."+strconv.Itoa(numConcept)+"..Designation."+strconv.Itoa(numDesignation)+"..Value", &resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Value, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeConceptDesignationId(numInclude int, numConcept int, numDesignation int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept || len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Id", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numFilter >= len(resource.Compose.Include[numInclude].Filter) {
+		return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Property", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Id", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Id)
+	return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Property", &resource.Compose.Include[numInclude].Filter[numFilter].Property, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeConceptDesignationLanguage(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept || len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
-		return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Language", nil, optionsValueSet)
-	}
-	return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Language", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Language, optionsValueSet)
-}
-func (resource *ValueSet) T_ComposeIncludeConceptDesignationUse(numInclude int, numConcept int, numDesignation int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept || len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
-		return CodingSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Use", nil, optionsValueSet)
-	}
-	return CodingSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Use", resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Use, optionsValueSet)
-}
-func (resource *ValueSet) T_ComposeIncludeConceptDesignationValue(numInclude int, numConcept int, numDesignation int) templ.Component {
-
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Concept) >= numConcept || len(resource.Compose.Include[numInclude].Concept[numConcept].Designation) >= numDesignation {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Value", nil)
-	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Concept["+strconv.Itoa(numConcept)+"].Designation["+strconv.Itoa(numDesignation)+"].Value", &resource.Compose.Include[numInclude].Concept[numConcept].Designation[numDesignation].Value)
-}
-func (resource *ValueSet) T_ComposeIncludeFilterId(numInclude int, numFilter int) templ.Component {
-
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Filter) >= numFilter {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Id", nil)
-	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Id", resource.Compose.Include[numInclude].Filter[numFilter].Id)
-}
-func (resource *ValueSet) T_ComposeIncludeFilterProperty(numInclude int, numFilter int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Filter) >= numFilter {
-		return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Property", nil, optionsValueSet)
-	}
-	return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Property", &resource.Compose.Include[numInclude].Filter[numFilter].Property, optionsValueSet)
-}
-func (resource *ValueSet) T_ComposeIncludeFilterOp(numInclude int, numFilter int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeFilterOp(numInclude int, numFilter int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSFilter_operator
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Filter) >= numFilter {
-		return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Op", nil, optionsValueSet)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numFilter >= len(resource.Compose.Include[numInclude].Filter) {
+		return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Op", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Op", &resource.Compose.Include[numInclude].Filter[numFilter].Op, optionsValueSet)
+	return CodeSelect("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Op", &resource.Compose.Include[numInclude].Filter[numFilter].Op, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_ComposeIncludeFilterValue(numInclude int, numFilter int) templ.Component {
+func (resource *ValueSet) T_ComposeIncludeFilterValue(numInclude int, numFilter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Compose.Include) >= numInclude || len(resource.Compose.Include[numInclude].Filter) >= numFilter {
-		return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Value", nil)
+	if resource == nil || numInclude >= len(resource.Compose.Include) || numFilter >= len(resource.Compose.Include[numInclude].Filter) {
+		return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Value", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Compose.Include["+strconv.Itoa(numInclude)+"].Filter["+strconv.Itoa(numFilter)+"].Value", &resource.Compose.Include[numInclude].Filter[numFilter].Value)
+	return StringInput("ValueSet.Compose.Include."+strconv.Itoa(numInclude)+"..Filter."+strconv.Itoa(numFilter)+"..Value", &resource.Compose.Include[numInclude].Filter[numFilter].Value, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionId() templ.Component {
-
-	if resource == nil {
-		return StringInput("ValueSet.Expansion.Id", nil)
-	}
-	return StringInput("ValueSet.Expansion.Id", resource.Expansion.Id)
-}
-func (resource *ValueSet) T_ExpansionIdentifier() templ.Component {
+func (resource *ValueSet) T_ExpansionTimestamp(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Expansion.Identifier", nil)
+		return DateTimeInput("ValueSet.Expansion.Timestamp", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Identifier", resource.Expansion.Identifier)
+	return DateTimeInput("ValueSet.Expansion.Timestamp", &resource.Expansion.Timestamp, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionTimestamp() templ.Component {
+func (resource *ValueSet) T_ExpansionTotal(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ValueSet.Expansion.Timestamp", nil)
+		return IntInput("ValueSet.Expansion.Total", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Timestamp", &resource.Expansion.Timestamp)
+	return IntInput("ValueSet.Expansion.Total", resource.Expansion.Total, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionTotal() templ.Component {
+func (resource *ValueSet) T_ExpansionOffset(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("ValueSet.Expansion.Total", nil)
+		return IntInput("ValueSet.Expansion.Offset", nil, htmlAttrs)
 	}
-	return IntInput("ValueSet.Expansion.Total", resource.Expansion.Total)
+	return IntInput("ValueSet.Expansion.Offset", resource.Expansion.Offset, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionOffset() templ.Component {
+func (resource *ValueSet) T_ExpansionParameterName(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return IntInput("ValueSet.Expansion.Offset", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Name", nil, htmlAttrs)
 	}
-	return IntInput("ValueSet.Expansion.Offset", resource.Expansion.Offset)
+	return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Name", &resource.Expansion.Parameter[numParameter].Name, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionParameterId(numParameter int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueString(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Parameter) >= numParameter {
-		return StringInput("ValueSet.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueString", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Expansion.Parameter[numParameter].Id)
+	return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueString", resource.Expansion.Parameter[numParameter].ValueString, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionParameterName(numParameter int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueBoolean(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Parameter) >= numParameter {
-		return StringInput("ValueSet.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Name", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return BoolInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Name", &resource.Expansion.Parameter[numParameter].Name)
+	return BoolInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", resource.Expansion.Parameter[numParameter].ValueBoolean, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsId(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueInteger(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Id", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return IntInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Id", resource.Expansion.Contains[numContains].Id)
+	return IntInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", resource.Expansion.Parameter[numParameter].ValueInteger, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsSystem(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueDecimal(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].System", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return Float64Input("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].System", resource.Expansion.Contains[numContains].System)
+	return Float64Input("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", resource.Expansion.Parameter[numParameter].ValueDecimal, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsAbstract(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueUri(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return BoolInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Abstract", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueUri", nil, htmlAttrs)
 	}
-	return BoolInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Abstract", resource.Expansion.Contains[numContains].Abstract)
+	return StringInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueUri", resource.Expansion.Parameter[numParameter].ValueUri, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsInactive(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueCode(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return BoolInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Inactive", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return CodeSelect("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Inactive", resource.Expansion.Contains[numContains].Inactive)
+	return CodeSelect("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueCode", resource.Expansion.Parameter[numParameter].ValueCode, optionsValueSet, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsVersion(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionParameterValueDateTime(numParameter int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Version", nil)
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return DateTimeInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueDateTime", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Version", resource.Expansion.Contains[numContains].Version)
+	return DateTimeInput("ValueSet.Expansion.Parameter."+strconv.Itoa(numParameter)+"..ValueDateTime", resource.Expansion.Parameter[numParameter].ValueDateTime, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsCode(numContains int, optionsValueSet []Coding) templ.Component {
+func (resource *ValueSet) T_ExpansionContainsSystem(numContains int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return CodeSelect("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Code", nil, optionsValueSet)
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..System", nil, htmlAttrs)
 	}
-	return CodeSelect("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Code", resource.Expansion.Contains[numContains].Code, optionsValueSet)
+	return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..System", resource.Expansion.Contains[numContains].System, htmlAttrs)
 }
-func (resource *ValueSet) T_ExpansionContainsDisplay(numContains int) templ.Component {
+func (resource *ValueSet) T_ExpansionContainsAbstract(numContains int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Expansion.Contains) >= numContains {
-		return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Display", nil)
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return BoolInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Abstract", nil, htmlAttrs)
 	}
-	return StringInput("ValueSet.Expansion.Contains["+strconv.Itoa(numContains)+"].Display", resource.Expansion.Contains[numContains].Display)
+	return BoolInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Abstract", resource.Expansion.Contains[numContains].Abstract, htmlAttrs)
+}
+func (resource *ValueSet) T_ExpansionContainsInactive(numContains int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return BoolInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Inactive", nil, htmlAttrs)
+	}
+	return BoolInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Inactive", resource.Expansion.Contains[numContains].Inactive, htmlAttrs)
+}
+func (resource *ValueSet) T_ExpansionContainsVersion(numContains int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Version", nil, htmlAttrs)
+	}
+	return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Version", resource.Expansion.Contains[numContains].Version, htmlAttrs)
+}
+func (resource *ValueSet) T_ExpansionContainsCode(numContains int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return CodeSelect("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Code", resource.Expansion.Contains[numContains].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *ValueSet) T_ExpansionContainsDisplay(numContains int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numContains >= len(resource.Expansion.Contains) {
+		return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Display", nil, htmlAttrs)
+	}
+	return StringInput("ValueSet.Expansion.Contains."+strconv.Itoa(numContains)+"..Display", resource.Expansion.Contains[numContains].Display, htmlAttrs)
 }

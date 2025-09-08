@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +27,7 @@ type GraphDefinition struct {
 	Name              string                `json:"name"`
 	Status            string                `json:"status"`
 	Experimental      *bool                 `json:"experimental,omitempty"`
-	Date              *string               `json:"date,omitempty"`
+	Date              *time.Time            `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string               `json:"publisher,omitempty"`
 	Contact           []ContactDetail       `json:"contact,omitempty"`
 	Description       *string               `json:"description,omitempty"`
@@ -86,227 +87,197 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "GraphDefinition",
 	})
 }
+func (r GraphDefinition) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "GraphDefinition/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *GraphDefinition) T_Id() templ.Component {
+	rtype := "GraphDefinition"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *GraphDefinition) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Id", nil)
+		return StringInput("GraphDefinition.Url", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Id", resource.Id)
+	return StringInput("GraphDefinition.Url", resource.Url, htmlAttrs)
 }
-func (resource *GraphDefinition) T_ImplicitRules() templ.Component {
+func (resource *GraphDefinition) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.ImplicitRules", nil)
+		return StringInput("GraphDefinition.Version", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.ImplicitRules", resource.ImplicitRules)
+	return StringInput("GraphDefinition.Version", resource.Version, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *GraphDefinition) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("GraphDefinition.Language", nil, optionsValueSet)
+		return StringInput("GraphDefinition.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Language", resource.Language, optionsValueSet)
+	return StringInput("GraphDefinition.Name", &resource.Name, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Url() templ.Component {
-
-	if resource == nil {
-		return StringInput("GraphDefinition.Url", nil)
-	}
-	return StringInput("GraphDefinition.Url", resource.Url)
-}
-func (resource *GraphDefinition) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("GraphDefinition.Version", nil)
-	}
-	return StringInput("GraphDefinition.Version", resource.Version)
-}
-func (resource *GraphDefinition) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("GraphDefinition.Name", nil)
-	}
-	return StringInput("GraphDefinition.Name", &resource.Name)
-}
-func (resource *GraphDefinition) T_Status() templ.Component {
+func (resource *GraphDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("GraphDefinition.Status", nil, optionsValueSet)
+		return CodeSelect("GraphDefinition.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("GraphDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Experimental() templ.Component {
+func (resource *GraphDefinition) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("GraphDefinition.Experimental", nil)
+		return BoolInput("GraphDefinition.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("GraphDefinition.Experimental", resource.Experimental)
+	return BoolInput("GraphDefinition.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Date() templ.Component {
+func (resource *GraphDefinition) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Date", nil)
+		return DateTimeInput("GraphDefinition.Date", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Date", resource.Date)
+	return DateTimeInput("GraphDefinition.Date", resource.Date, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Publisher() templ.Component {
+func (resource *GraphDefinition) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Publisher", nil)
+		return StringInput("GraphDefinition.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Publisher", resource.Publisher)
+	return StringInput("GraphDefinition.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Description() templ.Component {
+func (resource *GraphDefinition) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Description", nil)
+		return StringInput("GraphDefinition.Description", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Description", resource.Description)
+	return StringInput("GraphDefinition.Description", resource.Description, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *GraphDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("GraphDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("GraphDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("GraphDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("GraphDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Purpose() templ.Component {
+func (resource *GraphDefinition) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Purpose", nil)
+		return StringInput("GraphDefinition.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Purpose", resource.Purpose)
+	return StringInput("GraphDefinition.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Start() templ.Component {
+func (resource *GraphDefinition) T_Start(htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil {
-		return CodeSelect("GraphDefinition.Start", nil, optionsValueSet)
+		return CodeSelect("GraphDefinition.Start", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Start", &resource.Start, optionsValueSet)
+	return CodeSelect("GraphDefinition.Start", &resource.Start, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_Profile() templ.Component {
+func (resource *GraphDefinition) T_Profile(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GraphDefinition.Profile", nil)
+		return StringInput("GraphDefinition.Profile", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Profile", resource.Profile)
+	return StringInput("GraphDefinition.Profile", resource.Profile, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkId(numLink int) templ.Component {
+func (resource *GraphDefinition) T_LinkPath(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Id", nil)
+	if resource == nil || numLink >= len(resource.Link) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Path", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Path", resource.Link[numLink].Path, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkPath(numLink int) templ.Component {
+func (resource *GraphDefinition) T_LinkSliceName(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Path", nil)
+	if resource == nil || numLink >= len(resource.Link) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..SliceName", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Path", resource.Link[numLink].Path)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..SliceName", resource.Link[numLink].SliceName, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkSliceName(numLink int) templ.Component {
+func (resource *GraphDefinition) T_LinkMin(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].SliceName", nil)
+	if resource == nil || numLink >= len(resource.Link) {
+		return IntInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Min", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].SliceName", resource.Link[numLink].SliceName)
+	return IntInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Min", resource.Link[numLink].Min, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkMin(numLink int) templ.Component {
+func (resource *GraphDefinition) T_LinkMax(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return IntInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Min", nil)
+	if resource == nil || numLink >= len(resource.Link) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Max", nil, htmlAttrs)
 	}
-	return IntInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Min", resource.Link[numLink].Min)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Max", resource.Link[numLink].Max, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkMax(numLink int) templ.Component {
+func (resource *GraphDefinition) T_LinkDescription(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Max", nil)
+	if resource == nil || numLink >= len(resource.Link) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Max", resource.Link[numLink].Max)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Description", resource.Link[numLink].Description, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkDescription(numLink int) templ.Component {
-
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Description", nil)
-	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Description", resource.Link[numLink].Description)
-}
-func (resource *GraphDefinition) T_LinkTargetId(numLink int, numTarget int) templ.Component {
-
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Id", nil)
-	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Id", resource.Link[numLink].Target[numTarget].Id)
-}
-func (resource *GraphDefinition) T_LinkTargetType(numLink int, numTarget int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetType(numLink int, numTarget int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget {
-		return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Type", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) {
+		return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Type", &resource.Link[numLink].Target[numTarget].Type, optionsValueSet)
+	return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Type", &resource.Link[numLink].Target[numTarget].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetParams(numLink int, numTarget int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetParams(numLink int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Params", nil)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Params", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Params", resource.Link[numLink].Target[numTarget].Params)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Params", resource.Link[numLink].Target[numTarget].Params, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetProfile(numLink int, numTarget int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetProfile(numLink int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Profile", nil)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Profile", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Profile", resource.Link[numLink].Target[numTarget].Profile)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Profile", resource.Link[numLink].Target[numTarget].Profile, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetCompartmentId(numLink int, numTarget int, numCompartment int) templ.Component {
-
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Id", nil)
-	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Id", resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Id)
-}
-func (resource *GraphDefinition) T_LinkTargetCompartmentUse(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentUse(numLink int, numTarget int, numCompartment int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGraph_compartment_use
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Use", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) || numCompartment >= len(resource.Link[numLink].Target[numTarget].Compartment) {
+		return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Use", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Use", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Use, optionsValueSet)
+	return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Use", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Use, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetCompartmentCode(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentCode(numLink int, numTarget int, numCompartment int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSCompartment_type
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Code", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) || numCompartment >= len(resource.Link[numLink].Target[numTarget].Compartment) {
+		return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Code", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Code, optionsValueSet)
+	return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Code", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetCompartmentRule(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentRule(numLink int, numTarget int, numCompartment int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGraph_compartment_rule
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Rule", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) || numCompartment >= len(resource.Link[numLink].Target[numTarget].Compartment) {
+		return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Rule", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Rule", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Rule, optionsValueSet)
+	return CodeSelect("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Rule", &resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Rule, optionsValueSet, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetCompartmentExpression(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentExpression(numLink int, numTarget int, numCompartment int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Expression", nil)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) || numCompartment >= len(resource.Link[numLink].Target[numTarget].Compartment) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Expression", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Expression", resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Expression)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Expression", resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Expression, htmlAttrs)
 }
-func (resource *GraphDefinition) T_LinkTargetCompartmentDescription(numLink int, numTarget int, numCompartment int) templ.Component {
+func (resource *GraphDefinition) T_LinkTargetCompartmentDescription(numLink int, numTarget int, numCompartment int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Link) >= numLink || len(resource.Link[numLink].Target) >= numTarget || len(resource.Link[numLink].Target[numTarget].Compartment) >= numCompartment {
-		return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Description", nil)
+	if resource == nil || numLink >= len(resource.Link) || numTarget >= len(resource.Link[numLink].Target) || numCompartment >= len(resource.Link[numLink].Target[numTarget].Compartment) {
+		return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("GraphDefinition.Link["+strconv.Itoa(numLink)+"].Target["+strconv.Itoa(numTarget)+"].Compartment["+strconv.Itoa(numCompartment)+"].Description", resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Description)
+	return StringInput("GraphDefinition.Link."+strconv.Itoa(numLink)+"..Target."+strconv.Itoa(numTarget)+"..Compartment."+strconv.Itoa(numCompartment)+"..Description", resource.Link[numLink].Target[numTarget].Compartment[numCompartment].Description, htmlAttrs)
 }

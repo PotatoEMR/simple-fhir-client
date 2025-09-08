@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -17,38 +17,17 @@ type Binary struct {
 	Data            *string    `json:"data,omitempty"`
 }
 
-func (resource *Binary) T_Id() templ.Component {
+func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Binary.Id", nil)
+		return CodeSelect("Binary.ContentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Binary.Id", resource.Id)
+	return CodeSelect("Binary.ContentType", &resource.ContentType, optionsValueSet, htmlAttrs)
 }
-func (resource *Binary) T_ImplicitRules() templ.Component {
+func (resource *Binary) T_Data(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Binary.ImplicitRules", nil)
+		return StringInput("Binary.Data", nil, htmlAttrs)
 	}
-	return StringInput("Binary.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Binary) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Binary.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Binary.Language", resource.Language, optionsValueSet)
-}
-func (resource *Binary) T_ContentType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Binary.ContentType", nil, optionsValueSet)
-	}
-	return CodeSelect("Binary.ContentType", &resource.ContentType, optionsValueSet)
-}
-func (resource *Binary) T_Data() templ.Component {
-
-	if resource == nil {
-		return StringInput("Binary.Data", nil)
-	}
-	return StringInput("Binary.Data", resource.Data)
+	return StringInput("Binary.Data", resource.Data, htmlAttrs)
 }

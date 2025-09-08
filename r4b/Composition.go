@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type Composition struct {
 	Category          []CodeableConcept      `json:"category,omitempty"`
 	Subject           *Reference             `json:"subject,omitempty"`
 	Encounter         *Reference             `json:"encounter,omitempty"`
-	Date              string                 `json:"date"`
+	Date              time.Time              `json:"date,format:'2006-01-02T15:04:05Z07:00'"`
 	Author            []Reference            `json:"author"`
 	Title             string                 `json:"title"`
 	Confidentiality   *string                `json:"confidentiality,omitempty"`
@@ -44,7 +45,7 @@ type CompositionAttester struct {
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	Mode              string      `json:"mode"`
-	Time              *string     `json:"time,omitempty"`
+	Time              *time.Time  `json:"time,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Party             *Reference  `json:"party,omitempty"`
 }
 
@@ -96,162 +97,125 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 		ResourceType:     "Composition",
 	})
 }
-
-func (resource *Composition) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Composition.Id", nil)
+func (r Composition) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Composition/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Composition.Id", resource.Id)
+	ref.Identifier = r.Identifier
+	rtype := "Composition"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Composition) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Composition.ImplicitRules", nil)
-	}
-	return StringInput("Composition.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Composition) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Composition.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Composition.Language", resource.Language, optionsValueSet)
-}
-func (resource *Composition) T_Status() templ.Component {
+func (resource *Composition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSComposition_status
 
 	if resource == nil {
-		return CodeSelect("Composition.Status", nil, optionsValueSet)
+		return CodeSelect("Composition.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Composition.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Composition.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Composition.Type", nil, optionsValueSet)
+		return CodeableConceptSelect("Composition.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Composition.Type", &resource.Type, optionsValueSet)
+	return CodeableConceptSelect("Composition.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Composition.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Composition.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Composition.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Composition.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_Date() templ.Component {
-
-	if resource == nil {
-		return StringInput("Composition.Date", nil)
-	}
-	return StringInput("Composition.Date", &resource.Date)
-}
-func (resource *Composition) T_Title() templ.Component {
+func (resource *Composition) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Composition.Title", nil)
+		return DateTimeInput("Composition.Date", nil, htmlAttrs)
 	}
-	return StringInput("Composition.Title", &resource.Title)
+	return DateTimeInput("Composition.Date", &resource.Date, htmlAttrs)
 }
-func (resource *Composition) T_Confidentiality(optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("Composition.Confidentiality", nil, optionsValueSet)
+		return StringInput("Composition.Title", nil, htmlAttrs)
 	}
-	return CodeSelect("Composition.Confidentiality", resource.Confidentiality, optionsValueSet)
+	return StringInput("Composition.Title", &resource.Title, htmlAttrs)
 }
-func (resource *Composition) T_AttesterId(numAttester int) templ.Component {
+func (resource *Composition) T_Confidentiality(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return StringInput("Composition.Attester["+strconv.Itoa(numAttester)+"].Id", nil)
+	if resource == nil {
+		return CodeSelect("Composition.Confidentiality", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Composition.Attester["+strconv.Itoa(numAttester)+"].Id", resource.Attester[numAttester].Id)
+	return CodeSelect("Composition.Confidentiality", resource.Confidentiality, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_AttesterMode(numAttester int) templ.Component {
+func (resource *Composition) T_AttesterMode(numAttester int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSComposition_attestation_mode
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return CodeSelect("Composition.Attester["+strconv.Itoa(numAttester)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numAttester >= len(resource.Attester) {
+		return CodeSelect("Composition.Attester."+strconv.Itoa(numAttester)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Composition.Attester["+strconv.Itoa(numAttester)+"].Mode", &resource.Attester[numAttester].Mode, optionsValueSet)
+	return CodeSelect("Composition.Attester."+strconv.Itoa(numAttester)+"..Mode", &resource.Attester[numAttester].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_AttesterTime(numAttester int) templ.Component {
+func (resource *Composition) T_AttesterTime(numAttester int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return StringInput("Composition.Attester["+strconv.Itoa(numAttester)+"].Time", nil)
+	if resource == nil || numAttester >= len(resource.Attester) {
+		return DateTimeInput("Composition.Attester."+strconv.Itoa(numAttester)+"..Time", nil, htmlAttrs)
 	}
-	return StringInput("Composition.Attester["+strconv.Itoa(numAttester)+"].Time", resource.Attester[numAttester].Time)
+	return DateTimeInput("Composition.Attester."+strconv.Itoa(numAttester)+"..Time", resource.Attester[numAttester].Time, htmlAttrs)
 }
-func (resource *Composition) T_RelatesToId(numRelatesTo int) templ.Component {
-
-	if resource == nil || len(resource.RelatesTo) >= numRelatesTo {
-		return StringInput("Composition.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Id", nil)
-	}
-	return StringInput("Composition.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Id", resource.RelatesTo[numRelatesTo].Id)
-}
-func (resource *Composition) T_RelatesToCode(numRelatesTo int) templ.Component {
+func (resource *Composition) T_RelatesToCode(numRelatesTo int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_relationship_type
 
-	if resource == nil || len(resource.RelatesTo) >= numRelatesTo {
-		return CodeSelect("Composition.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", nil, optionsValueSet)
+	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
+		return CodeSelect("Composition.RelatesTo."+strconv.Itoa(numRelatesTo)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Composition.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)
+	return CodeSelect("Composition.RelatesTo."+strconv.Itoa(numRelatesTo)+"..Code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_EventId(numEvent int) templ.Component {
+func (resource *Composition) T_EventCode(numEvent int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Event) >= numEvent {
-		return StringInput("Composition.Event["+strconv.Itoa(numEvent)+"].Id", nil)
+	if resource == nil || numEvent >= len(resource.Event) || numCode >= len(resource.Event[numEvent].Code) {
+		return CodeableConceptSelect("Composition.Event."+strconv.Itoa(numEvent)+"..Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Composition.Event["+strconv.Itoa(numEvent)+"].Id", resource.Event[numEvent].Id)
+	return CodeableConceptSelect("Composition.Event."+strconv.Itoa(numEvent)+"..Code."+strconv.Itoa(numCode)+".", &resource.Event[numEvent].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_EventCode(numEvent int, numCode int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionTitle(numSection int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Event) >= numEvent || len(resource.Event[numEvent].Code) >= numCode {
-		return CodeableConceptSelect("Composition.Event["+strconv.Itoa(numEvent)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
+	if resource == nil || numSection >= len(resource.Section) {
+		return StringInput("Composition.Section."+strconv.Itoa(numSection)+"..Title", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Composition.Event["+strconv.Itoa(numEvent)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Event[numEvent].Code[numCode], optionsValueSet)
+	return StringInput("Composition.Section."+strconv.Itoa(numSection)+"..Title", resource.Section[numSection].Title, htmlAttrs)
 }
-func (resource *Composition) T_SectionId(numSection int) templ.Component {
+func (resource *Composition) T_SectionCode(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Section) >= numSection {
-		return StringInput("Composition.Section["+strconv.Itoa(numSection)+"].Id", nil)
+	if resource == nil || numSection >= len(resource.Section) {
+		return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Composition.Section["+strconv.Itoa(numSection)+"].Id", resource.Section[numSection].Id)
+	return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..Code", resource.Section[numSection].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_SectionTitle(numSection int) templ.Component {
-
-	if resource == nil || len(resource.Section) >= numSection {
-		return StringInput("Composition.Section["+strconv.Itoa(numSection)+"].Title", nil)
-	}
-	return StringInput("Composition.Section["+strconv.Itoa(numSection)+"].Title", resource.Section[numSection].Title)
-}
-func (resource *Composition) T_SectionCode(numSection int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Section) >= numSection {
-		return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].Code", resource.Section[numSection].Code, optionsValueSet)
-}
-func (resource *Composition) T_SectionMode(numSection int) templ.Component {
+func (resource *Composition) T_SectionMode(numSection int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_mode
 
-	if resource == nil || len(resource.Section) >= numSection {
-		return CodeSelect("Composition.Section["+strconv.Itoa(numSection)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numSection >= len(resource.Section) {
+		return CodeSelect("Composition.Section."+strconv.Itoa(numSection)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Composition.Section["+strconv.Itoa(numSection)+"].Mode", resource.Section[numSection].Mode, optionsValueSet)
+	return CodeSelect("Composition.Section."+strconv.Itoa(numSection)+"..Mode", resource.Section[numSection].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_SectionOrderedBy(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionOrderedBy(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Section) >= numSection {
-		return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].OrderedBy", nil, optionsValueSet)
+	if resource == nil || numSection >= len(resource.Section) {
+		return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..OrderedBy", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].OrderedBy", resource.Section[numSection].OrderedBy, optionsValueSet)
+	return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..OrderedBy", resource.Section[numSection].OrderedBy, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_SectionEmptyReason(numSection int, optionsValueSet []Coding) templ.Component {
+func (resource *Composition) T_SectionEmptyReason(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Section) >= numSection {
-		return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].EmptyReason", nil, optionsValueSet)
+	if resource == nil || numSection >= len(resource.Section) {
+		return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..EmptyReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Composition.Section["+strconv.Itoa(numSection)+"].EmptyReason", resource.Section[numSection].EmptyReason, optionsValueSet)
+	return CodeableConceptSelect("Composition.Section."+strconv.Itoa(numSection)+"..EmptyReason", resource.Section[numSection].EmptyReason, optionsValueSet, htmlAttrs)
 }

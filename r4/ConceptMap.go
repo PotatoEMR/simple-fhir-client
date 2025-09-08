@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type ConceptMap struct {
 	Title             *string           `json:"title,omitempty"`
 	Status            string            `json:"status"`
 	Experimental      *bool             `json:"experimental,omitempty"`
-	Date              *string           `json:"date,omitempty"`
+	Date              *time.Time        `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string           `json:"publisher,omitempty"`
 	Contact           []ContactDetail   `json:"contact,omitempty"`
 	Description       *string           `json:"description,omitempty"`
@@ -112,273 +113,257 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 		ResourceType:    "ConceptMap",
 	})
 }
-
-func (resource *ConceptMap) T_Id() templ.Component {
+func (r ConceptMap) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ConceptMap/" + *r.Id
+		ref.Reference = &refStr
+	}
+	ref.Identifier = r.Identifier
+	rtype := "ConceptMap"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ConceptMap) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Id", nil)
+		return StringInput("ConceptMap.Url", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Id", resource.Id)
+	return StringInput("ConceptMap.Url", resource.Url, htmlAttrs)
 }
-func (resource *ConceptMap) T_ImplicitRules() templ.Component {
+func (resource *ConceptMap) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.ImplicitRules", nil)
+		return StringInput("ConceptMap.Version", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ConceptMap.Version", resource.Version, htmlAttrs)
 }
-func (resource *ConceptMap) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ConceptMap.Language", nil, optionsValueSet)
+		return StringInput("ConceptMap.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Language", resource.Language, optionsValueSet)
+	return StringInput("ConceptMap.Name", resource.Name, htmlAttrs)
 }
-func (resource *ConceptMap) T_Url() templ.Component {
+func (resource *ConceptMap) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Url", nil)
+		return StringInput("ConceptMap.Title", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Url", resource.Url)
+	return StringInput("ConceptMap.Title", resource.Title, htmlAttrs)
 }
-func (resource *ConceptMap) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("ConceptMap.Version", nil)
-	}
-	return StringInput("ConceptMap.Version", resource.Version)
-}
-func (resource *ConceptMap) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("ConceptMap.Name", nil)
-	}
-	return StringInput("ConceptMap.Name", resource.Name)
-}
-func (resource *ConceptMap) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("ConceptMap.Title", nil)
-	}
-	return StringInput("ConceptMap.Title", resource.Title)
-}
-func (resource *ConceptMap) T_Status() templ.Component {
+func (resource *ConceptMap) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ConceptMap.Status", nil, optionsValueSet)
+		return CodeSelect("ConceptMap.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ConceptMap.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_Experimental() templ.Component {
+func (resource *ConceptMap) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ConceptMap.Experimental", nil)
+		return BoolInput("ConceptMap.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ConceptMap.Experimental", resource.Experimental)
+	return BoolInput("ConceptMap.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ConceptMap) T_Date() templ.Component {
+func (resource *ConceptMap) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Date", nil)
+		return DateTimeInput("ConceptMap.Date", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Date", resource.Date)
+	return DateTimeInput("ConceptMap.Date", resource.Date, htmlAttrs)
 }
-func (resource *ConceptMap) T_Publisher() templ.Component {
+func (resource *ConceptMap) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Publisher", nil)
+		return StringInput("ConceptMap.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Publisher", resource.Publisher)
+	return StringInput("ConceptMap.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ConceptMap) T_Description() templ.Component {
+func (resource *ConceptMap) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Description", nil)
+		return StringInput("ConceptMap.Description", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Description", resource.Description)
+	return StringInput("ConceptMap.Description", resource.Description, htmlAttrs)
 }
-func (resource *ConceptMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("ConceptMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("ConceptMap.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ConceptMap.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("ConceptMap.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("ConceptMap.Purpose", nil)
-	}
-	return StringInput("ConceptMap.Purpose", resource.Purpose)
-}
-func (resource *ConceptMap) T_Copyright() templ.Component {
+func (resource *ConceptMap) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ConceptMap.Copyright", nil)
+		return StringInput("ConceptMap.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Copyright", resource.Copyright)
+	return StringInput("ConceptMap.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupId(numGroup int) templ.Component {
+func (resource *ConceptMap) T_Copyright(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Id", nil)
+	if resource == nil {
+		return StringInput("ConceptMap.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Id", resource.Group[numGroup].Id)
+	return StringInput("ConceptMap.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupSource(numGroup int) templ.Component {
+func (resource *ConceptMap) T_SourceUri(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Source", nil)
+	if resource == nil {
+		return StringInput("ConceptMap.SourceUri", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Source", resource.Group[numGroup].Source)
+	return StringInput("ConceptMap.SourceUri", resource.SourceUri, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupSourceVersion(numGroup int) templ.Component {
+func (resource *ConceptMap) T_SourceCanonical(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].SourceVersion", nil)
+	if resource == nil {
+		return StringInput("ConceptMap.SourceCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].SourceVersion", resource.Group[numGroup].SourceVersion)
+	return StringInput("ConceptMap.SourceCanonical", resource.SourceCanonical, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupTarget(numGroup int) templ.Component {
+func (resource *ConceptMap) T_TargetUri(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Target", nil)
+	if resource == nil {
+		return StringInput("ConceptMap.TargetUri", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Target", resource.Group[numGroup].Target)
+	return StringInput("ConceptMap.TargetUri", resource.TargetUri, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupTargetVersion(numGroup int) templ.Component {
+func (resource *ConceptMap) T_TargetCanonical(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].TargetVersion", nil)
+	if resource == nil {
+		return StringInput("ConceptMap.TargetCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].TargetVersion", resource.Group[numGroup].TargetVersion)
+	return StringInput("ConceptMap.TargetCanonical", resource.TargetCanonical, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementId(numGroup int, numElement int) templ.Component {
+func (resource *ConceptMap) T_GroupSource(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Source", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Id", resource.Group[numGroup].Element[numElement].Id)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Source", resource.Group[numGroup].Source, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupSourceVersion(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement {
-		return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Code", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..SourceVersion", nil, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..SourceVersion", resource.Group[numGroup].SourceVersion, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementDisplay(numGroup int, numElement int) templ.Component {
+func (resource *ConceptMap) T_GroupTarget(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Display", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Target", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Display", resource.Group[numGroup].Element[numElement].Display)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Target", resource.Group[numGroup].Target, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetId(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupTargetVersion(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..TargetVersion", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Id", resource.Group[numGroup].Element[numElement].Target[numTarget].Id)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..TargetVersion", resource.Group[numGroup].TargetVersion, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Code", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) {
+		return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet)
+	return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDisplay(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupElementDisplay(numGroup int, numElement int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Display", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Display", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Display", resource.Group[numGroup].Element[numElement].Target[numTarget].Display)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Display", resource.Group[numGroup].Element[numElement].Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
+		return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *ConceptMap) T_GroupElementTargetDisplay(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Display", nil, htmlAttrs)
+	}
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Display", resource.Group[numGroup].Element[numElement].Target[numTarget].Display, htmlAttrs)
+}
+func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConcept_map_equivalence
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Equivalence", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
+		return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Equivalence", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Equivalence", &resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence, optionsValueSet)
+	return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Equivalence", &resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetComment(numGroup int, numElement int, numTarget int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetComment(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Comment", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Comment", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].Comment", resource.Group[numGroup].Element[numElement].Target[numTarget].Comment)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..Comment", resource.Group[numGroup].Element[numElement].Target[numTarget].Comment, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnId(numGroup int, numElement int, numTarget int, numDependsOn int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnProperty(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget || len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Id", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Property", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Id", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Id)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Property", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Property, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnProperty(numGroup int, numElement int, numTarget int, numDependsOn int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnSystem(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget || len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Property", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..System", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Property", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Property)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..System", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].System, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnSystem(numGroup int, numElement int, numTarget int, numDependsOn int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnValue(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget || len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].System", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Value", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].System", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].System)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Value", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Value, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnValue(numGroup int, numElement int, numTarget int, numDependsOn int) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnDisplay(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget || len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Value", nil)
+	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Display", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Value", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Value)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Element."+strconv.Itoa(numElement)+"..Target."+strconv.Itoa(numTarget)+"..DependsOn."+strconv.Itoa(numDependsOn)+"..Display", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnDisplay(numGroup int, numElement int, numTarget int, numDependsOn int) templ.Component {
-
-	if resource == nil || len(resource.Group) >= numGroup || len(resource.Group[numGroup].Element) >= numElement || len(resource.Group[numGroup].Element[numElement].Target) >= numTarget || len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) >= numDependsOn {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Display", nil)
-	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Element["+strconv.Itoa(numElement)+"].Target["+strconv.Itoa(numTarget)+"].DependsOn["+strconv.Itoa(numDependsOn)+"].Display", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Display)
-}
-func (resource *ConceptMap) T_GroupUnmappedId(numGroup int) templ.Component {
-
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Id", nil)
-	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Id", resource.Group[numGroup].Unmapped.Id)
-}
-func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Mode", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet)
+	return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Code", nil, optionsValueSet)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Code", resource.Group[numGroup].Unmapped.Code, optionsValueSet)
+	return CodeSelect("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Code", resource.Group[numGroup].Unmapped.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedDisplay(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedDisplay(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Display", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Display", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Display", resource.Group[numGroup].Unmapped.Display)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Display", resource.Group[numGroup].Unmapped.Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedUrl(numGroup int) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedUrl(numGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Group) >= numGroup {
-		return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Url", nil)
+	if resource == nil || numGroup >= len(resource.Group) {
+		return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Url", nil, htmlAttrs)
 	}
-	return StringInput("ConceptMap.Group["+strconv.Itoa(numGroup)+"].Unmapped.Url", resource.Group[numGroup].Unmapped.Url)
+	return StringInput("ConceptMap.Group."+strconv.Itoa(numGroup)+"..Unmapped.Url", resource.Group[numGroup].Unmapped.Url, htmlAttrs)
 }

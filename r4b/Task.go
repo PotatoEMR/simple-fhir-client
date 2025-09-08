@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -38,8 +39,8 @@ type Task struct {
 	For                   *Reference        `json:"for,omitempty"`
 	Encounter             *Reference        `json:"encounter,omitempty"`
 	ExecutionPeriod       *Period           `json:"executionPeriod,omitempty"`
-	AuthoredOn            *string           `json:"authoredOn,omitempty"`
-	LastModified          *string           `json:"lastModified,omitempty"`
+	AuthoredOn            *time.Time        `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	LastModified          *time.Time        `json:"lastModified,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Requester             *Reference        `json:"requester,omitempty"`
 	PerformerType         []CodeableConcept `json:"performerType,omitempty"`
 	Owner                 *Reference        `json:"owner,omitempty"`
@@ -74,8 +75,8 @@ type TaskInput struct {
 	ValueBoolean             bool                `json:"valueBoolean"`
 	ValueCanonical           string              `json:"valueCanonical"`
 	ValueCode                string              `json:"valueCode"`
-	ValueDate                string              `json:"valueDate"`
-	ValueDateTime            string              `json:"valueDateTime"`
+	ValueDate                time.Time           `json:"valueDate,format:'2006-01-02'"`
+	ValueDateTime            time.Time           `json:"valueDateTime,format:'2006-01-02T15:04:05Z07:00'"`
 	ValueDecimal             float64             `json:"valueDecimal"`
 	ValueId                  string              `json:"valueId"`
 	ValueInstant             string              `json:"valueInstant"`
@@ -132,8 +133,8 @@ type TaskOutput struct {
 	ValueBoolean             bool                `json:"valueBoolean"`
 	ValueCanonical           string              `json:"valueCanonical"`
 	ValueCode                string              `json:"valueCode"`
-	ValueDate                string              `json:"valueDate"`
-	ValueDateTime            string              `json:"valueDateTime"`
+	ValueDate                time.Time           `json:"valueDate,format:'2006-01-02'"`
+	ValueDateTime            time.Time           `json:"valueDateTime,format:'2006-01-02T15:04:05Z07:00'"`
 	ValueDecimal             float64             `json:"valueDecimal"`
 	ValueId                  string              `json:"valueId"`
 	ValueInstant             string              `json:"valueInstant"`
@@ -192,161 +193,448 @@ func (r Task) MarshalJSON() ([]byte, error) {
 		ResourceType: "Task",
 	})
 }
-
-func (resource *Task) T_Id() templ.Component {
+func (r Task) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Task/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Task"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Task) T_InstantiatesCanonical(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.Id", nil)
+		return StringInput("Task.InstantiatesCanonical", nil, htmlAttrs)
 	}
-	return StringInput("Task.Id", resource.Id)
+	return StringInput("Task.InstantiatesCanonical", resource.InstantiatesCanonical, htmlAttrs)
 }
-func (resource *Task) T_ImplicitRules() templ.Component {
+func (resource *Task) T_InstantiatesUri(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.ImplicitRules", nil)
+		return StringInput("Task.InstantiatesUri", nil, htmlAttrs)
 	}
-	return StringInput("Task.ImplicitRules", resource.ImplicitRules)
+	return StringInput("Task.InstantiatesUri", resource.InstantiatesUri, htmlAttrs)
 }
-func (resource *Task) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Task.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Task.Language", resource.Language, optionsValueSet)
-}
-func (resource *Task) T_InstantiatesCanonical() templ.Component {
-
-	if resource == nil {
-		return StringInput("Task.InstantiatesCanonical", nil)
-	}
-	return StringInput("Task.InstantiatesCanonical", resource.InstantiatesCanonical)
-}
-func (resource *Task) T_InstantiatesUri() templ.Component {
-
-	if resource == nil {
-		return StringInput("Task.InstantiatesUri", nil)
-	}
-	return StringInput("Task.InstantiatesUri", resource.InstantiatesUri)
-}
-func (resource *Task) T_Status() templ.Component {
+func (resource *Task) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSTask_status
 
 	if resource == nil {
-		return CodeSelect("Task.Status", nil, optionsValueSet)
+		return CodeSelect("Task.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Task.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Task.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_StatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Task.StatusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.StatusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Task.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_BusinessStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_BusinessStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Task.BusinessStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.BusinessStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.BusinessStatus", resource.BusinessStatus, optionsValueSet)
+	return CodeableConceptSelect("Task.BusinessStatus", resource.BusinessStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_Intent() templ.Component {
+func (resource *Task) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSTask_intent
 
 	if resource == nil {
-		return CodeSelect("Task.Intent", nil, optionsValueSet)
+		return CodeSelect("Task.Intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Task.Intent", &resource.Intent, optionsValueSet)
+	return CodeSelect("Task.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_Priority() templ.Component {
+func (resource *Task) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("Task.Priority", nil, optionsValueSet)
+		return CodeSelect("Task.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Task.Priority", resource.Priority, optionsValueSet)
+	return CodeSelect("Task.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Task.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("Task.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Task.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_Description() templ.Component {
+func (resource *Task) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.Description", nil)
+		return StringInput("Task.Description", nil, htmlAttrs)
 	}
-	return StringInput("Task.Description", resource.Description)
+	return StringInput("Task.Description", resource.Description, htmlAttrs)
 }
-func (resource *Task) T_AuthoredOn() templ.Component {
+func (resource *Task) T_AuthoredOn(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.AuthoredOn", nil)
+		return DateTimeInput("Task.AuthoredOn", nil, htmlAttrs)
 	}
-	return StringInput("Task.AuthoredOn", resource.AuthoredOn)
+	return DateTimeInput("Task.AuthoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *Task) T_LastModified() templ.Component {
+func (resource *Task) T_LastModified(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.LastModified", nil)
+		return DateTimeInput("Task.LastModified", nil, htmlAttrs)
 	}
-	return StringInput("Task.LastModified", resource.LastModified)
+	return DateTimeInput("Task.LastModified", resource.LastModified, htmlAttrs)
 }
-func (resource *Task) T_PerformerType(numPerformerType int, optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_PerformerType(numPerformerType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.PerformerType) >= numPerformerType {
-		return CodeableConceptSelect("Task.PerformerType["+strconv.Itoa(numPerformerType)+"]", nil, optionsValueSet)
+	if resource == nil || numPerformerType >= len(resource.PerformerType) {
+		return CodeableConceptSelect("Task.PerformerType."+strconv.Itoa(numPerformerType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.PerformerType["+strconv.Itoa(numPerformerType)+"]", &resource.PerformerType[numPerformerType], optionsValueSet)
+	return CodeableConceptSelect("Task.PerformerType."+strconv.Itoa(numPerformerType)+".", &resource.PerformerType[numPerformerType], optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_ReasonCode(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Task.ReasonCode", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Task.ReasonCode", resource.ReasonCode, optionsValueSet)
-}
-func (resource *Task) T_RestrictionId() templ.Component {
+func (resource *Task) T_ReasonCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Task.Restriction.Id", nil)
+		return CodeableConceptSelect("Task.ReasonCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Task.Restriction.Id", resource.Restriction.Id)
+	return CodeableConceptSelect("Task.ReasonCode", resource.ReasonCode, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_RestrictionRepetitions() templ.Component {
+func (resource *Task) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("Task.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Task.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *Task) T_RestrictionRepetitions(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("Task.Restriction.Repetitions", nil)
+		return IntInput("Task.Restriction.Repetitions", nil, htmlAttrs)
 	}
-	return IntInput("Task.Restriction.Repetitions", resource.Restriction.Repetitions)
+	return IntInput("Task.Restriction.Repetitions", resource.Restriction.Repetitions, htmlAttrs)
 }
-func (resource *Task) T_InputId(numInput int) templ.Component {
+func (resource *Task) T_InputType(numInput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Input) >= numInput {
-		return StringInput("Task.Input["+strconv.Itoa(numInput)+"].Id", nil)
+	if resource == nil || numInput >= len(resource.Input) {
+		return CodeableConceptSelect("Task.Input."+strconv.Itoa(numInput)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Task.Input["+strconv.Itoa(numInput)+"].Id", resource.Input[numInput].Id)
+	return CodeableConceptSelect("Task.Input."+strconv.Itoa(numInput)+"..Type", &resource.Input[numInput].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Task) T_InputType(numInput int, optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_InputValueBase64Binary(numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Input) >= numInput {
-		return CodeableConceptSelect("Task.Input["+strconv.Itoa(numInput)+"].Type", nil, optionsValueSet)
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueBase64Binary", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.Input["+strconv.Itoa(numInput)+"].Type", &resource.Input[numInput].Type, optionsValueSet)
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueBase64Binary", &resource.Input[numInput].ValueBase64Binary, htmlAttrs)
 }
-func (resource *Task) T_OutputId(numOutput int) templ.Component {
+func (resource *Task) T_InputValueBoolean(numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Output) >= numOutput {
-		return StringInput("Task.Output["+strconv.Itoa(numOutput)+"].Id", nil)
+	if resource == nil || numInput >= len(resource.Input) {
+		return BoolInput("Task.Input."+strconv.Itoa(numInput)+"..ValueBoolean", nil, htmlAttrs)
 	}
-	return StringInput("Task.Output["+strconv.Itoa(numOutput)+"].Id", resource.Output[numOutput].Id)
+	return BoolInput("Task.Input."+strconv.Itoa(numInput)+"..ValueBoolean", &resource.Input[numInput].ValueBoolean, htmlAttrs)
 }
-func (resource *Task) T_OutputType(numOutput int, optionsValueSet []Coding) templ.Component {
+func (resource *Task) T_InputValueCanonical(numInput int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Output) >= numOutput {
-		return CodeableConceptSelect("Task.Output["+strconv.Itoa(numOutput)+"].Type", nil, optionsValueSet)
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueCanonical", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Task.Output["+strconv.Itoa(numOutput)+"].Type", &resource.Output[numOutput].Type, optionsValueSet)
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueCanonical", &resource.Input[numInput].ValueCanonical, htmlAttrs)
+}
+func (resource *Task) T_InputValueCode(numInput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return CodeSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCode", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCode", &resource.Input[numInput].ValueCode, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_InputValueDate(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return DateInput("Task.Input."+strconv.Itoa(numInput)+"..ValueDate", nil, htmlAttrs)
+	}
+	return DateInput("Task.Input."+strconv.Itoa(numInput)+"..ValueDate", &resource.Input[numInput].ValueDate, htmlAttrs)
+}
+func (resource *Task) T_InputValueDateTime(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return DateTimeInput("Task.Input."+strconv.Itoa(numInput)+"..ValueDateTime", nil, htmlAttrs)
+	}
+	return DateTimeInput("Task.Input."+strconv.Itoa(numInput)+"..ValueDateTime", &resource.Input[numInput].ValueDateTime, htmlAttrs)
+}
+func (resource *Task) T_InputValueDecimal(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return Float64Input("Task.Input."+strconv.Itoa(numInput)+"..ValueDecimal", nil, htmlAttrs)
+	}
+	return Float64Input("Task.Input."+strconv.Itoa(numInput)+"..ValueDecimal", &resource.Input[numInput].ValueDecimal, htmlAttrs)
+}
+func (resource *Task) T_InputValueId(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueId", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueId", &resource.Input[numInput].ValueId, htmlAttrs)
+}
+func (resource *Task) T_InputValueInstant(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueInstant", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueInstant", &resource.Input[numInput].ValueInstant, htmlAttrs)
+}
+func (resource *Task) T_InputValueInteger(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValueInteger", nil, htmlAttrs)
+	}
+	return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValueInteger", &resource.Input[numInput].ValueInteger, htmlAttrs)
+}
+func (resource *Task) T_InputValueMarkdown(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueMarkdown", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueMarkdown", &resource.Input[numInput].ValueMarkdown, htmlAttrs)
+}
+func (resource *Task) T_InputValueOid(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueOid", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueOid", &resource.Input[numInput].ValueOid, htmlAttrs)
+}
+func (resource *Task) T_InputValuePositiveInt(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValuePositiveInt", nil, htmlAttrs)
+	}
+	return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValuePositiveInt", &resource.Input[numInput].ValuePositiveInt, htmlAttrs)
+}
+func (resource *Task) T_InputValueString(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueString", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueString", &resource.Input[numInput].ValueString, htmlAttrs)
+}
+func (resource *Task) T_InputValueTime(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueTime", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueTime", &resource.Input[numInput].ValueTime, htmlAttrs)
+}
+func (resource *Task) T_InputValueUnsignedInt(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUnsignedInt", nil, htmlAttrs)
+	}
+	return IntInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUnsignedInt", &resource.Input[numInput].ValueUnsignedInt, htmlAttrs)
+}
+func (resource *Task) T_InputValueUri(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUri", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUri", &resource.Input[numInput].ValueUri, htmlAttrs)
+}
+func (resource *Task) T_InputValueUrl(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUrl", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUrl", &resource.Input[numInput].ValueUrl, htmlAttrs)
+}
+func (resource *Task) T_InputValueUuid(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUuid", nil, htmlAttrs)
+	}
+	return StringInput("Task.Input."+strconv.Itoa(numInput)+"..ValueUuid", &resource.Input[numInput].ValueUuid, htmlAttrs)
+}
+func (resource *Task) T_InputValueAnnotation(numInput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return AnnotationTextArea("Task.Input."+strconv.Itoa(numInput)+"..ValueAnnotation", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Task.Input."+strconv.Itoa(numInput)+"..ValueAnnotation", &resource.Input[numInput].ValueAnnotation, htmlAttrs)
+}
+func (resource *Task) T_InputValueCodeableConcept(numInput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return CodeableConceptSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCodeableConcept", &resource.Input[numInput].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_InputValueCoding(numInput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInput >= len(resource.Input) {
+		return CodingSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCoding", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodingSelect("Task.Input."+strconv.Itoa(numInput)+"..ValueCoding", &resource.Input[numInput].ValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_OutputType(numOutput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CodeableConceptSelect("Task.Output."+strconv.Itoa(numOutput)+"..Type", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Task.Output."+strconv.Itoa(numOutput)+"..Type", &resource.Output[numOutput].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_OutputValueBase64Binary(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueBase64Binary", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueBase64Binary", &resource.Output[numOutput].ValueBase64Binary, htmlAttrs)
+}
+func (resource *Task) T_OutputValueBoolean(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return BoolInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueBoolean", &resource.Output[numOutput].ValueBoolean, htmlAttrs)
+}
+func (resource *Task) T_OutputValueCanonical(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueCanonical", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueCanonical", &resource.Output[numOutput].ValueCanonical, htmlAttrs)
+}
+func (resource *Task) T_OutputValueCode(numOutput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CodeSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCode", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCode", &resource.Output[numOutput].ValueCode, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDate(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DateInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueDate", nil, htmlAttrs)
+	}
+	return DateInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueDate", &resource.Output[numOutput].ValueDate, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDateTime(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DateTimeInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueDateTime", nil, htmlAttrs)
+	}
+	return DateTimeInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueDateTime", &resource.Output[numOutput].ValueDateTime, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDecimal(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return Float64Input("Task.Output."+strconv.Itoa(numOutput)+"..ValueDecimal", nil, htmlAttrs)
+	}
+	return Float64Input("Task.Output."+strconv.Itoa(numOutput)+"..ValueDecimal", &resource.Output[numOutput].ValueDecimal, htmlAttrs)
+}
+func (resource *Task) T_OutputValueId(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueId", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueId", &resource.Output[numOutput].ValueId, htmlAttrs)
+}
+func (resource *Task) T_OutputValueInstant(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueInstant", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueInstant", &resource.Output[numOutput].ValueInstant, htmlAttrs)
+}
+func (resource *Task) T_OutputValueInteger(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueInteger", nil, htmlAttrs)
+	}
+	return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueInteger", &resource.Output[numOutput].ValueInteger, htmlAttrs)
+}
+func (resource *Task) T_OutputValueMarkdown(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueMarkdown", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueMarkdown", &resource.Output[numOutput].ValueMarkdown, htmlAttrs)
+}
+func (resource *Task) T_OutputValueOid(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueOid", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueOid", &resource.Output[numOutput].ValueOid, htmlAttrs)
+}
+func (resource *Task) T_OutputValuePositiveInt(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValuePositiveInt", nil, htmlAttrs)
+	}
+	return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValuePositiveInt", &resource.Output[numOutput].ValuePositiveInt, htmlAttrs)
+}
+func (resource *Task) T_OutputValueString(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueString", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueString", &resource.Output[numOutput].ValueString, htmlAttrs)
+}
+func (resource *Task) T_OutputValueTime(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueTime", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueTime", &resource.Output[numOutput].ValueTime, htmlAttrs)
+}
+func (resource *Task) T_OutputValueUnsignedInt(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUnsignedInt", nil, htmlAttrs)
+	}
+	return IntInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUnsignedInt", &resource.Output[numOutput].ValueUnsignedInt, htmlAttrs)
+}
+func (resource *Task) T_OutputValueUri(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUri", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUri", &resource.Output[numOutput].ValueUri, htmlAttrs)
+}
+func (resource *Task) T_OutputValueUrl(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUrl", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUrl", &resource.Output[numOutput].ValueUrl, htmlAttrs)
+}
+func (resource *Task) T_OutputValueUuid(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUuid", nil, htmlAttrs)
+	}
+	return StringInput("Task.Output."+strconv.Itoa(numOutput)+"..ValueUuid", &resource.Output[numOutput].ValueUuid, htmlAttrs)
+}
+func (resource *Task) T_OutputValueAnnotation(numOutput int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return AnnotationTextArea("Task.Output."+strconv.Itoa(numOutput)+"..ValueAnnotation", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Task.Output."+strconv.Itoa(numOutput)+"..ValueAnnotation", &resource.Output[numOutput].ValueAnnotation, htmlAttrs)
+}
+func (resource *Task) T_OutputValueCodeableConcept(numOutput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CodeableConceptSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCodeableConcept", &resource.Output[numOutput].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_OutputValueCoding(numOutput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CodingSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCoding", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodingSelect("Task.Output."+strconv.Itoa(numOutput)+"..ValueCoding", &resource.Output[numOutput].ValueCoding, optionsValueSet, htmlAttrs)
 }

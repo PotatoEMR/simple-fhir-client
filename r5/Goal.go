@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,10 +30,10 @@ type Goal struct {
 	Priority             *CodeableConcept    `json:"priority,omitempty"`
 	Description          CodeableConcept     `json:"description"`
 	Subject              Reference           `json:"subject"`
-	StartDate            *string             `json:"startDate,omitempty"`
+	StartDate            *time.Time          `json:"startDate,omitempty,format:'2006-01-02'"`
 	StartCodeableConcept *CodeableConcept    `json:"startCodeableConcept,omitempty"`
 	Target               []GoalTarget        `json:"target,omitempty"`
-	StatusDate           *string             `json:"statusDate,omitempty"`
+	StatusDate           *time.Time          `json:"statusDate,omitempty,format:'2006-01-02'"`
 	StatusReason         *string             `json:"statusReason,omitempty"`
 	Source               *Reference          `json:"source,omitempty"`
 	Addresses            []Reference         `json:"addresses,omitempty"`
@@ -53,7 +54,7 @@ type GoalTarget struct {
 	DetailBoolean         *bool            `json:"detailBoolean,omitempty"`
 	DetailInteger         *int             `json:"detailInteger,omitempty"`
 	DetailRatio           *Ratio           `json:"detailRatio,omitempty"`
-	DueDate               *string          `json:"dueDate,omitempty"`
+	DueDate               *time.Time       `json:"dueDate,omitempty,format:'2006-01-02'"`
 	DueDuration           *Duration        `json:"dueDuration,omitempty"`
 }
 
@@ -69,96 +70,138 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 		ResourceType: "Goal",
 	})
 }
-
-func (resource *Goal) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Goal.Id", nil)
+func (r Goal) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Goal/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Goal.Id", resource.Id)
-}
-func (resource *Goal) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Goal.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Goal.ImplicitRules", resource.ImplicitRules)
+	rtype := "Goal"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Goal) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Goal.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Goal.Language", resource.Language, optionsValueSet)
-}
-func (resource *Goal) T_LifecycleStatus() templ.Component {
+func (resource *Goal) T_LifecycleStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGoal_status
 
 	if resource == nil {
-		return CodeSelect("Goal.LifecycleStatus", nil, optionsValueSet)
+		return CodeSelect("Goal.LifecycleStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Goal.LifecycleStatus", &resource.LifecycleStatus, optionsValueSet)
+	return CodeSelect("Goal.LifecycleStatus", &resource.LifecycleStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_AchievementStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_AchievementStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Goal.AchievementStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Goal.AchievementStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Goal.AchievementStatus", resource.AchievementStatus, optionsValueSet)
+	return CodeableConceptSelect("Goal.AchievementStatus", resource.AchievementStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Goal.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Goal.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Goal.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Goal.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_Continuous() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Goal.Continuous", nil)
-	}
-	return BoolInput("Goal.Continuous", resource.Continuous)
-}
-func (resource *Goal) T_Priority(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Continuous(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Goal.Priority", nil, optionsValueSet)
+		return BoolInput("Goal.Continuous", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Goal.Priority", resource.Priority, optionsValueSet)
+	return BoolInput("Goal.Continuous", resource.Continuous, htmlAttrs)
 }
-func (resource *Goal) T_Description(optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_Priority(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Goal.Description", nil, optionsValueSet)
+		return CodeableConceptSelect("Goal.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Goal.Description", &resource.Description, optionsValueSet)
+	return CodeableConceptSelect("Goal.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_StatusDate() templ.Component {
+func (resource *Goal) T_Description(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Goal.StatusDate", nil)
+		return CodeableConceptSelect("Goal.Description", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Goal.StatusDate", resource.StatusDate)
+	return CodeableConceptSelect("Goal.Description", &resource.Description, optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_StatusReason() templ.Component {
+func (resource *Goal) T_StartDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Goal.StatusReason", nil)
+		return DateInput("Goal.StartDate", nil, htmlAttrs)
 	}
-	return StringInput("Goal.StatusReason", resource.StatusReason)
+	return DateInput("Goal.StartDate", resource.StartDate, htmlAttrs)
 }
-func (resource *Goal) T_TargetId(numTarget int) templ.Component {
+func (resource *Goal) T_StartCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Target) >= numTarget {
-		return StringInput("Goal.Target["+strconv.Itoa(numTarget)+"].Id", nil)
+	if resource == nil {
+		return CodeableConceptSelect("Goal.StartCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Goal.Target["+strconv.Itoa(numTarget)+"].Id", resource.Target[numTarget].Id)
+	return CodeableConceptSelect("Goal.StartCodeableConcept", resource.StartCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Goal) T_TargetMeasure(numTarget int, optionsValueSet []Coding) templ.Component {
+func (resource *Goal) T_StatusDate(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Target) >= numTarget {
-		return CodeableConceptSelect("Goal.Target["+strconv.Itoa(numTarget)+"].Measure", nil, optionsValueSet)
+	if resource == nil {
+		return DateInput("Goal.StatusDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Goal.Target["+strconv.Itoa(numTarget)+"].Measure", resource.Target[numTarget].Measure, optionsValueSet)
+	return DateInput("Goal.StatusDate", resource.StatusDate, htmlAttrs)
+}
+func (resource *Goal) T_StatusReason(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("Goal.StatusReason", nil, htmlAttrs)
+	}
+	return StringInput("Goal.StatusReason", resource.StatusReason, htmlAttrs)
+}
+func (resource *Goal) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("Goal.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Goal.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *Goal) T_TargetMeasure(numTarget int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return CodeableConceptSelect("Goal.Target."+strconv.Itoa(numTarget)+"..Measure", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Goal.Target."+strconv.Itoa(numTarget)+"..Measure", resource.Target[numTarget].Measure, optionsValueSet, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailCodeableConcept(numTarget int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return CodeableConceptSelect("Goal.Target."+strconv.Itoa(numTarget)+"..DetailCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Goal.Target."+strconv.Itoa(numTarget)+"..DetailCodeableConcept", resource.Target[numTarget].DetailCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailString(numTarget int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return StringInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailString", nil, htmlAttrs)
+	}
+	return StringInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailString", resource.Target[numTarget].DetailString, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailBoolean(numTarget int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return BoolInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailBoolean", resource.Target[numTarget].DetailBoolean, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailInteger(numTarget int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return IntInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailInteger", nil, htmlAttrs)
+	}
+	return IntInput("Goal.Target."+strconv.Itoa(numTarget)+"..DetailInteger", resource.Target[numTarget].DetailInteger, htmlAttrs)
+}
+func (resource *Goal) T_TargetDueDate(numTarget int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTarget >= len(resource.Target) {
+		return DateInput("Goal.Target."+strconv.Itoa(numTarget)+"..DueDate", nil, htmlAttrs)
+	}
+	return DateInput("Goal.Target."+strconv.Itoa(numTarget)+"..DueDate", resource.Target[numTarget].DueDate, htmlAttrs)
 }

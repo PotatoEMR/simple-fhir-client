@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,9 +28,9 @@ type Patient struct {
 	Name                 []HumanName            `json:"name,omitempty"`
 	Telecom              []ContactPoint         `json:"telecom,omitempty"`
 	Gender               *string                `json:"gender,omitempty"`
-	BirthDate            *string                `json:"birthDate,omitempty"`
+	BirthDate            *time.Time             `json:"birthDate,omitempty,format:'2006-01-02'"`
 	DeceasedBoolean      *bool                  `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime     *string                `json:"deceasedDateTime,omitempty"`
+	DeceasedDateTime     *time.Time             `json:"deceasedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Address              []Address              `json:"address,omitempty"`
 	MaritalStatus        *CodeableConcept       `json:"maritalStatus,omitempty"`
 	MultipleBirthBoolean *bool                  `json:"multipleBirthBoolean,omitempty"`
@@ -101,112 +102,105 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 		ResourceType: "Patient",
 	})
 }
-
-func (resource *Patient) T_Id() templ.Component {
+func (r Patient) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Patient/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Patient"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Patient) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Patient.Id", nil)
+		return BoolInput("Patient.Active", nil, htmlAttrs)
 	}
-	return StringInput("Patient.Id", resource.Id)
+	return BoolInput("Patient.Active", resource.Active, htmlAttrs)
 }
-func (resource *Patient) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Patient.ImplicitRules", nil)
-	}
-	return StringInput("Patient.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Patient) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Patient.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Patient.Language", resource.Language, optionsValueSet)
-}
-func (resource *Patient) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Patient.Active", nil)
-	}
-	return BoolInput("Patient.Active", resource.Active)
-}
-func (resource *Patient) T_Gender() templ.Component {
+func (resource *Patient) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Patient.Gender", nil, optionsValueSet)
+		return CodeSelect("Patient.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Patient.Gender", resource.Gender, optionsValueSet)
+	return CodeSelect("Patient.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Patient) T_BirthDate() templ.Component {
+func (resource *Patient) T_BirthDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Patient.BirthDate", nil)
+		return DateInput("Patient.BirthDate", nil, htmlAttrs)
 	}
-	return StringInput("Patient.BirthDate", resource.BirthDate)
+	return DateInput("Patient.BirthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *Patient) T_MaritalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_DeceasedBoolean(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Patient.MaritalStatus", nil, optionsValueSet)
+		return BoolInput("Patient.DeceasedBoolean", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Patient.MaritalStatus", resource.MaritalStatus, optionsValueSet)
+	return BoolInput("Patient.DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
-func (resource *Patient) T_ContactId(numContact int) templ.Component {
+func (resource *Patient) T_DeceasedDateTime(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Contact) >= numContact {
-		return StringInput("Patient.Contact["+strconv.Itoa(numContact)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("Patient.DeceasedDateTime", nil, htmlAttrs)
 	}
-	return StringInput("Patient.Contact["+strconv.Itoa(numContact)+"].Id", resource.Contact[numContact].Id)
+	return DateTimeInput("Patient.DeceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
 }
-func (resource *Patient) T_ContactRelationship(numContact int, numRelationship int, optionsValueSet []Coding) templ.Component {
+func (resource *Patient) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Contact) >= numContact || len(resource.Contact[numContact].Relationship) >= numRelationship {
-		return CodeableConceptSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet)
+	if resource == nil {
+		return CodeableConceptSelect("Patient.MaritalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Contact[numContact].Relationship[numRelationship], optionsValueSet)
+	return CodeableConceptSelect("Patient.MaritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Patient) T_ContactGender(numContact int) templ.Component {
+func (resource *Patient) T_MultipleBirthBoolean(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return BoolInput("Patient.MultipleBirthBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("Patient.MultipleBirthBoolean", resource.MultipleBirthBoolean, htmlAttrs)
+}
+func (resource *Patient) T_MultipleBirthInteger(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return IntInput("Patient.MultipleBirthInteger", nil, htmlAttrs)
+	}
+	return IntInput("Patient.MultipleBirthInteger", resource.MultipleBirthInteger, htmlAttrs)
+}
+func (resource *Patient) T_ContactRelationship(numContact int, numRelationship int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numContact >= len(resource.Contact) || numRelationship >= len(resource.Contact[numContact].Relationship) {
+		return CodeableConceptSelect("Patient.Contact."+strconv.Itoa(numContact)+"..Relationship."+strconv.Itoa(numRelationship)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Patient.Contact."+strconv.Itoa(numContact)+"..Relationship."+strconv.Itoa(numRelationship)+".", &resource.Contact[numContact].Relationship[numRelationship], optionsValueSet, htmlAttrs)
+}
+func (resource *Patient) T_ContactGender(numContact int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource == nil || len(resource.Contact) >= numContact {
-		return CodeSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Gender", nil, optionsValueSet)
+	if resource == nil || numContact >= len(resource.Contact) {
+		return CodeSelect("Patient.Contact."+strconv.Itoa(numContact)+"..Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Patient.Contact["+strconv.Itoa(numContact)+"].Gender", resource.Contact[numContact].Gender, optionsValueSet)
+	return CodeSelect("Patient.Contact."+strconv.Itoa(numContact)+"..Gender", resource.Contact[numContact].Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Patient) T_CommunicationId(numCommunication int) templ.Component {
+func (resource *Patient) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return StringInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Id", nil)
+	if resource == nil || numCommunication >= len(resource.Communication) {
+		return BoolInput("Patient.Communication."+strconv.Itoa(numCommunication)+"..Preferred", nil, htmlAttrs)
 	}
-	return StringInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Id", resource.Communication[numCommunication].Id)
+	return BoolInput("Patient.Communication."+strconv.Itoa(numCommunication)+"..Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }
-func (resource *Patient) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("Patient.Communication["+strconv.Itoa(numCommunication)+"].Language", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Patient.Communication["+strconv.Itoa(numCommunication)+"].Language", &resource.Communication[numCommunication].Language, optionsValueSet)
-}
-func (resource *Patient) T_CommunicationPreferred(numCommunication int) templ.Component {
-
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return BoolInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil)
-	}
-	return BoolInput("Patient.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred)
-}
-func (resource *Patient) T_LinkId(numLink int) templ.Component {
-
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("Patient.Link["+strconv.Itoa(numLink)+"].Id", nil)
-	}
-	return StringInput("Patient.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
-}
-func (resource *Patient) T_LinkType(numLink int) templ.Component {
+func (resource *Patient) T_LinkType(numLink int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSLink_type
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return CodeSelect("Patient.Link["+strconv.Itoa(numLink)+"].Type", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) {
+		return CodeSelect("Patient.Link."+strconv.Itoa(numLink)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Patient.Link["+strconv.Itoa(numLink)+"].Type", &resource.Link[numLink].Type, optionsValueSet)
+	return CodeSelect("Patient.Link."+strconv.Itoa(numLink)+"..Type", &resource.Link[numLink].Type, optionsValueSet, htmlAttrs)
 }

@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +30,7 @@ type Claim struct {
 	Use                   string                `json:"use"`
 	Patient               Reference             `json:"patient"`
 	BillablePeriod        *Period               `json:"billablePeriod,omitempty"`
-	Created               string                `json:"created"`
+	Created               time.Time             `json:"created,format:'2006-01-02T15:04:05Z07:00'"`
 	Enterer               *Reference            `json:"enterer,omitempty"`
 	Insurer               *Reference            `json:"insurer,omitempty"`
 	Provider              *Reference            `json:"provider,omitempty"`
@@ -80,7 +81,7 @@ type ClaimEvent struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Type              CodeableConcept `json:"type"`
-	WhenDateTime      string          `json:"whenDateTime"`
+	WhenDateTime      time.Time       `json:"whenDateTime,format:'2006-01-02T15:04:05Z07:00'"`
 	WhenPeriod        Period          `json:"whenPeriod"`
 }
 
@@ -104,7 +105,7 @@ type ClaimSupportingInfo struct {
 	Sequence          int              `json:"sequence"`
 	Category          CodeableConcept  `json:"category"`
 	Code              *CodeableConcept `json:"code,omitempty"`
-	TimingDate        *string          `json:"timingDate,omitempty"`
+	TimingDate        *time.Time       `json:"timingDate,omitempty,format:'2006-01-02'"`
 	TimingPeriod      *Period          `json:"timingPeriod,omitempty"`
 	ValueBoolean      *bool            `json:"valueBoolean,omitempty"`
 	ValueString       *string          `json:"valueString,omitempty"`
@@ -134,7 +135,7 @@ type ClaimProcedure struct {
 	ModifierExtension        []Extension       `json:"modifierExtension,omitempty"`
 	Sequence                 int               `json:"sequence"`
 	Type                     []CodeableConcept `json:"type,omitempty"`
-	Date                     *string           `json:"date,omitempty"`
+	Date                     *time.Time        `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	ProcedureCodeableConcept CodeableConcept   `json:"procedureCodeableConcept"`
 	ProcedureReference       Reference         `json:"procedureReference"`
 	Udi                      []Reference       `json:"udi,omitempty"`
@@ -159,7 +160,7 @@ type ClaimAccident struct {
 	Id                *string          `json:"id,omitempty"`
 	Extension         []Extension      `json:"extension,omitempty"`
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Date              string           `json:"date"`
+	Date              time.Time        `json:"date,format:'2006-01-02'"`
 	Type              *CodeableConcept `json:"type,omitempty"`
 	LocationAddress   *Address         `json:"locationAddress,omitempty"`
 	LocationReference *Reference       `json:"locationReference,omitempty"`
@@ -183,7 +184,7 @@ type ClaimItem struct {
 	Request                 []Reference         `json:"request,omitempty"`
 	Modifier                []CodeableConcept   `json:"modifier,omitempty"`
 	ProgramCode             []CodeableConcept   `json:"programCode,omitempty"`
-	ServicedDate            *string             `json:"servicedDate,omitempty"`
+	ServicedDate            *time.Time          `json:"servicedDate,omitempty,format:'2006-01-02'"`
 	ServicedPeriod          *Period             `json:"servicedPeriod,omitempty"`
 	LocationCodeableConcept *CodeableConcept    `json:"locationCodeableConcept,omitempty"`
 	LocationAddress         *Address            `json:"locationAddress,omitempty"`
@@ -266,538 +267,496 @@ func (r Claim) MarshalJSON() ([]byte, error) {
 		ResourceType: "Claim",
 	})
 }
-
-func (resource *Claim) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Claim.Id", nil)
+func (r Claim) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Claim/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Claim.Id", resource.Id)
-}
-func (resource *Claim) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Claim.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Claim.ImplicitRules", resource.ImplicitRules)
+	rtype := "Claim"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Claim) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Claim.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Claim.Language", resource.Language, optionsValueSet)
-}
-func (resource *Claim) T_Status() templ.Component {
+func (resource *Claim) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("Claim.Status", nil, optionsValueSet)
+		return CodeSelect("Claim.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Claim.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Claim.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.Type", nil, optionsValueSet)
+		return CodeableConceptSelect("Claim.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Type", &resource.Type, optionsValueSet)
+	return CodeableConceptSelect("Claim.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_SubType(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_SubType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.SubType", nil, optionsValueSet)
+		return CodeableConceptSelect("Claim.SubType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.SubType", resource.SubType, optionsValueSet)
+	return CodeableConceptSelect("Claim.SubType", resource.SubType, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_Use() templ.Component {
+func (resource *Claim) T_Use(htmlAttrs string) templ.Component {
 	optionsValueSet := VSClaim_use
 
 	if resource == nil {
-		return CodeSelect("Claim.Use", nil, optionsValueSet)
+		return CodeSelect("Claim.Use", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Claim.Use", &resource.Use, optionsValueSet)
+	return CodeSelect("Claim.Use", &resource.Use, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_Created() templ.Component {
+func (resource *Claim) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Claim.Created", nil)
+		return DateTimeInput("Claim.Created", nil, htmlAttrs)
 	}
-	return StringInput("Claim.Created", &resource.Created)
+	return DateTimeInput("Claim.Created", &resource.Created, htmlAttrs)
 }
-func (resource *Claim) T_Priority(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_Priority(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.Priority", nil, optionsValueSet)
+		return CodeableConceptSelect("Claim.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Priority", resource.Priority, optionsValueSet)
+	return CodeableConceptSelect("Claim.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_FundsReserve(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_FundsReserve(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.FundsReserve", nil, optionsValueSet)
+		return CodeableConceptSelect("Claim.FundsReserve", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.FundsReserve", resource.FundsReserve, optionsValueSet)
+	return CodeableConceptSelect("Claim.FundsReserve", resource.FundsReserve, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_DiagnosisRelatedGroup(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_DiagnosisRelatedGroup(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.DiagnosisRelatedGroup", nil, optionsValueSet)
+		return CodeableConceptSelect("Claim.DiagnosisRelatedGroup", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.DiagnosisRelatedGroup", resource.DiagnosisRelatedGroup, optionsValueSet)
+	return CodeableConceptSelect("Claim.DiagnosisRelatedGroup", resource.DiagnosisRelatedGroup, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_RelatedId(numRelated int) templ.Component {
+func (resource *Claim) T_RelatedRelationship(numRelated int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Related) >= numRelated {
-		return StringInput("Claim.Related["+strconv.Itoa(numRelated)+"].Id", nil)
+	if resource == nil || numRelated >= len(resource.Related) {
+		return CodeableConceptSelect("Claim.Related."+strconv.Itoa(numRelated)+"..Relationship", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Claim.Related["+strconv.Itoa(numRelated)+"].Id", resource.Related[numRelated].Id)
+	return CodeableConceptSelect("Claim.Related."+strconv.Itoa(numRelated)+"..Relationship", resource.Related[numRelated].Relationship, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_RelatedRelationship(numRelated int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Related) >= numRelated {
-		return CodeableConceptSelect("Claim.Related["+strconv.Itoa(numRelated)+"].Relationship", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Related["+strconv.Itoa(numRelated)+"].Relationship", resource.Related[numRelated].Relationship, optionsValueSet)
-}
-func (resource *Claim) T_PayeeId() templ.Component {
+func (resource *Claim) T_PayeeType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Claim.Payee.Id", nil)
+		return CodeableConceptSelect("Claim.Payee.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Claim.Payee.Id", resource.Payee.Id)
+	return CodeableConceptSelect("Claim.Payee.Type", &resource.Payee.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_PayeeType(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_EventType(numEvent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEvent >= len(resource.Event) {
+		return CodeableConceptSelect("Claim.Event."+strconv.Itoa(numEvent)+"..Type", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Event."+strconv.Itoa(numEvent)+"..Type", &resource.Event[numEvent].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_EventWhenDateTime(numEvent int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEvent >= len(resource.Event) {
+		return DateTimeInput("Claim.Event."+strconv.Itoa(numEvent)+"..WhenDateTime", nil, htmlAttrs)
+	}
+	return DateTimeInput("Claim.Event."+strconv.Itoa(numEvent)+"..WhenDateTime", &resource.Event[numEvent].WhenDateTime, htmlAttrs)
+}
+func (resource *Claim) T_CareTeamSequence(numCareTeam int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return IntInput("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Sequence", nil, htmlAttrs)
+	}
+	return IntInput("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Sequence", &resource.CareTeam[numCareTeam].Sequence, htmlAttrs)
+}
+func (resource *Claim) T_CareTeamResponsible(numCareTeam int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return BoolInput("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Responsible", nil, htmlAttrs)
+	}
+	return BoolInput("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Responsible", resource.CareTeam[numCareTeam].Responsible, htmlAttrs)
+}
+func (resource *Claim) T_CareTeamRole(numCareTeam int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return CodeableConceptSelect("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Role", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Role", resource.CareTeam[numCareTeam].Role, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_CareTeamSpecialty(numCareTeam int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return CodeableConceptSelect("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Specialty", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.CareTeam."+strconv.Itoa(numCareTeam)+"..Specialty", resource.CareTeam[numCareTeam].Specialty, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoSequence(numSupportingInfo int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return IntInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Sequence", nil, htmlAttrs)
+	}
+	return IntInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Sequence", &resource.SupportingInfo[numSupportingInfo].Sequence, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoCategory(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Category", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Category", &resource.SupportingInfo[numSupportingInfo].Category, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoCode(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Code", resource.SupportingInfo[numSupportingInfo].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoTimingDate(numSupportingInfo int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return DateInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..TimingDate", nil, htmlAttrs)
+	}
+	return DateInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..TimingDate", resource.SupportingInfo[numSupportingInfo].TimingDate, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoValueBoolean(numSupportingInfo int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return BoolInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ValueBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ValueBoolean", resource.SupportingInfo[numSupportingInfo].ValueBoolean, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoValueString(numSupportingInfo int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return StringInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ValueString", nil, htmlAttrs)
+	}
+	return StringInput("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ValueString", resource.SupportingInfo[numSupportingInfo].ValueString, htmlAttrs)
+}
+func (resource *Claim) T_SupportingInfoReason(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Reason", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..Reason", resource.SupportingInfo[numSupportingInfo].Reason, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_DiagnosisSequence(numDiagnosis int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return IntInput("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Sequence", nil, htmlAttrs)
+	}
+	return IntInput("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Sequence", &resource.Diagnosis[numDiagnosis].Sequence, htmlAttrs)
+}
+func (resource *Claim) T_DiagnosisDiagnosisCodeableConcept(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..DiagnosisCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..DiagnosisCodeableConcept", &resource.Diagnosis[numDiagnosis].DiagnosisCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) || numType >= len(resource.Diagnosis[numDiagnosis].Type) {
+		return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Type."+strconv.Itoa(numType)+".", &resource.Diagnosis[numDiagnosis].Type[numType], optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_DiagnosisOnAdmission(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..OnAdmission", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Diagnosis."+strconv.Itoa(numDiagnosis)+"..OnAdmission", resource.Diagnosis[numDiagnosis].OnAdmission, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_ProcedureSequence(numProcedure int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProcedure >= len(resource.Procedure) {
+		return IntInput("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Sequence", nil, htmlAttrs)
+	}
+	return IntInput("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Sequence", &resource.Procedure[numProcedure].Sequence, htmlAttrs)
+}
+func (resource *Claim) T_ProcedureType(numProcedure int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProcedure >= len(resource.Procedure) || numType >= len(resource.Procedure[numProcedure].Type) {
+		return CodeableConceptSelect("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Type."+strconv.Itoa(numType)+".", &resource.Procedure[numProcedure].Type[numType], optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_ProcedureDate(numProcedure int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProcedure >= len(resource.Procedure) {
+		return DateTimeInput("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Date", nil, htmlAttrs)
+	}
+	return DateTimeInput("Claim.Procedure."+strconv.Itoa(numProcedure)+"..Date", resource.Procedure[numProcedure].Date, htmlAttrs)
+}
+func (resource *Claim) T_ProcedureProcedureCodeableConcept(numProcedure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProcedure >= len(resource.Procedure) {
+		return CodeableConceptSelect("Claim.Procedure."+strconv.Itoa(numProcedure)+"..ProcedureCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Claim.Procedure."+strconv.Itoa(numProcedure)+"..ProcedureCodeableConcept", &resource.Procedure[numProcedure].ProcedureCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Claim) T_InsuranceSequence(numInsurance int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return IntInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..Sequence", nil, htmlAttrs)
+	}
+	return IntInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..Sequence", &resource.Insurance[numInsurance].Sequence, htmlAttrs)
+}
+func (resource *Claim) T_InsuranceFocal(numInsurance int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return BoolInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..Focal", nil, htmlAttrs)
+	}
+	return BoolInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..Focal", &resource.Insurance[numInsurance].Focal, htmlAttrs)
+}
+func (resource *Claim) T_InsuranceBusinessArrangement(numInsurance int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return StringInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..BusinessArrangement", nil, htmlAttrs)
+	}
+	return StringInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..BusinessArrangement", resource.Insurance[numInsurance].BusinessArrangement, htmlAttrs)
+}
+func (resource *Claim) T_InsurancePreAuthRef(numInsurance int, numPreAuthRef int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numInsurance >= len(resource.Insurance) || numPreAuthRef >= len(resource.Insurance[numInsurance].PreAuthRef) {
+		return StringInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..PreAuthRef."+strconv.Itoa(numPreAuthRef)+".", nil, htmlAttrs)
+	}
+	return StringInput("Claim.Insurance."+strconv.Itoa(numInsurance)+"..PreAuthRef."+strconv.Itoa(numPreAuthRef)+".", &resource.Insurance[numInsurance].PreAuthRef[numPreAuthRef], htmlAttrs)
+}
+func (resource *Claim) T_AccidentDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Claim.Payee.Type", nil, optionsValueSet)
+		return DateInput("Claim.Accident.Date", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Payee.Type", &resource.Payee.Type, optionsValueSet)
+	return DateInput("Claim.Accident.Date", &resource.Accident.Date, htmlAttrs)
 }
-func (resource *Claim) T_EventId(numEvent int) templ.Component {
-
-	if resource == nil || len(resource.Event) >= numEvent {
-		return StringInput("Claim.Event["+strconv.Itoa(numEvent)+"].Id", nil)
-	}
-	return StringInput("Claim.Event["+strconv.Itoa(numEvent)+"].Id", resource.Event[numEvent].Id)
-}
-func (resource *Claim) T_EventType(numEvent int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Event) >= numEvent {
-		return CodeableConceptSelect("Claim.Event["+strconv.Itoa(numEvent)+"].Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Event["+strconv.Itoa(numEvent)+"].Type", &resource.Event[numEvent].Type, optionsValueSet)
-}
-func (resource *Claim) T_CareTeamId(numCareTeam int) templ.Component {
-
-	if resource == nil || len(resource.CareTeam) >= numCareTeam {
-		return StringInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Id", nil)
-	}
-	return StringInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Id", resource.CareTeam[numCareTeam].Id)
-}
-func (resource *Claim) T_CareTeamSequence(numCareTeam int) templ.Component {
-
-	if resource == nil || len(resource.CareTeam) >= numCareTeam {
-		return IntInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Sequence", nil)
-	}
-	return IntInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Sequence", &resource.CareTeam[numCareTeam].Sequence)
-}
-func (resource *Claim) T_CareTeamResponsible(numCareTeam int) templ.Component {
-
-	if resource == nil || len(resource.CareTeam) >= numCareTeam {
-		return BoolInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Responsible", nil)
-	}
-	return BoolInput("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Responsible", resource.CareTeam[numCareTeam].Responsible)
-}
-func (resource *Claim) T_CareTeamRole(numCareTeam int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CareTeam) >= numCareTeam {
-		return CodeableConceptSelect("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Role", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Role", resource.CareTeam[numCareTeam].Role, optionsValueSet)
-}
-func (resource *Claim) T_CareTeamSpecialty(numCareTeam int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CareTeam) >= numCareTeam {
-		return CodeableConceptSelect("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Specialty", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.CareTeam["+strconv.Itoa(numCareTeam)+"].Specialty", resource.CareTeam[numCareTeam].Specialty, optionsValueSet)
-}
-func (resource *Claim) T_SupportingInfoId(numSupportingInfo int) templ.Component {
-
-	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
-		return StringInput("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Id", nil)
-	}
-	return StringInput("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Id", resource.SupportingInfo[numSupportingInfo].Id)
-}
-func (resource *Claim) T_SupportingInfoSequence(numSupportingInfo int) templ.Component {
-
-	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
-		return IntInput("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Sequence", nil)
-	}
-	return IntInput("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Sequence", &resource.SupportingInfo[numSupportingInfo].Sequence)
-}
-func (resource *Claim) T_SupportingInfoCategory(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
-		return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Category", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Category", &resource.SupportingInfo[numSupportingInfo].Category, optionsValueSet)
-}
-func (resource *Claim) T_SupportingInfoCode(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
-		return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Code", resource.SupportingInfo[numSupportingInfo].Code, optionsValueSet)
-}
-func (resource *Claim) T_SupportingInfoReason(numSupportingInfo int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SupportingInfo) >= numSupportingInfo {
-		return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Reason", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.SupportingInfo["+strconv.Itoa(numSupportingInfo)+"].Reason", resource.SupportingInfo[numSupportingInfo].Reason, optionsValueSet)
-}
-func (resource *Claim) T_DiagnosisId(numDiagnosis int) templ.Component {
-
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return StringInput("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", nil)
-	}
-	return StringInput("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", resource.Diagnosis[numDiagnosis].Id)
-}
-func (resource *Claim) T_DiagnosisSequence(numDiagnosis int) templ.Component {
-
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return IntInput("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Sequence", nil)
-	}
-	return IntInput("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Sequence", &resource.Diagnosis[numDiagnosis].Sequence)
-}
-func (resource *Claim) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis || len(resource.Diagnosis[numDiagnosis].Type) >= numType {
-		return CodeableConceptSelect("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Type["+strconv.Itoa(numType)+"]", &resource.Diagnosis[numDiagnosis].Type[numType], optionsValueSet)
-}
-func (resource *Claim) T_DiagnosisOnAdmission(numDiagnosis int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return CodeableConceptSelect("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].OnAdmission", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Diagnosis["+strconv.Itoa(numDiagnosis)+"].OnAdmission", resource.Diagnosis[numDiagnosis].OnAdmission, optionsValueSet)
-}
-func (resource *Claim) T_ProcedureId(numProcedure int) templ.Component {
-
-	if resource == nil || len(resource.Procedure) >= numProcedure {
-		return StringInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Id", nil)
-	}
-	return StringInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Id", resource.Procedure[numProcedure].Id)
-}
-func (resource *Claim) T_ProcedureSequence(numProcedure int) templ.Component {
-
-	if resource == nil || len(resource.Procedure) >= numProcedure {
-		return IntInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Sequence", nil)
-	}
-	return IntInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Sequence", &resource.Procedure[numProcedure].Sequence)
-}
-func (resource *Claim) T_ProcedureType(numProcedure int, numType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Procedure) >= numProcedure || len(resource.Procedure[numProcedure].Type) >= numType {
-		return CodeableConceptSelect("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Type["+strconv.Itoa(numType)+"]", &resource.Procedure[numProcedure].Type[numType], optionsValueSet)
-}
-func (resource *Claim) T_ProcedureDate(numProcedure int) templ.Component {
-
-	if resource == nil || len(resource.Procedure) >= numProcedure {
-		return StringInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Date", nil)
-	}
-	return StringInput("Claim.Procedure["+strconv.Itoa(numProcedure)+"].Date", resource.Procedure[numProcedure].Date)
-}
-func (resource *Claim) T_InsuranceId(numInsurance int) templ.Component {
-
-	if resource == nil || len(resource.Insurance) >= numInsurance {
-		return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Id", nil)
-	}
-	return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Id", resource.Insurance[numInsurance].Id)
-}
-func (resource *Claim) T_InsuranceSequence(numInsurance int) templ.Component {
-
-	if resource == nil || len(resource.Insurance) >= numInsurance {
-		return IntInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Sequence", nil)
-	}
-	return IntInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Sequence", &resource.Insurance[numInsurance].Sequence)
-}
-func (resource *Claim) T_InsuranceFocal(numInsurance int) templ.Component {
-
-	if resource == nil || len(resource.Insurance) >= numInsurance {
-		return BoolInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Focal", nil)
-	}
-	return BoolInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].Focal", &resource.Insurance[numInsurance].Focal)
-}
-func (resource *Claim) T_InsuranceBusinessArrangement(numInsurance int) templ.Component {
-
-	if resource == nil || len(resource.Insurance) >= numInsurance {
-		return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].BusinessArrangement", nil)
-	}
-	return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].BusinessArrangement", resource.Insurance[numInsurance].BusinessArrangement)
-}
-func (resource *Claim) T_InsurancePreAuthRef(numInsurance int, numPreAuthRef int) templ.Component {
-
-	if resource == nil || len(resource.Insurance) >= numInsurance || len(resource.Insurance[numInsurance].PreAuthRef) >= numPreAuthRef {
-		return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].PreAuthRef["+strconv.Itoa(numPreAuthRef)+"]", nil)
-	}
-	return StringInput("Claim.Insurance["+strconv.Itoa(numInsurance)+"].PreAuthRef["+strconv.Itoa(numPreAuthRef)+"]", &resource.Insurance[numInsurance].PreAuthRef[numPreAuthRef])
-}
-func (resource *Claim) T_AccidentId() templ.Component {
+func (resource *Claim) T_AccidentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Claim.Accident.Id", nil)
+		return CodeableConceptSelect("Claim.Accident.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Claim.Accident.Id", resource.Accident.Id)
+	return CodeableConceptSelect("Claim.Accident.Type", resource.Accident.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_AccidentDate() templ.Component {
+func (resource *Claim) T_ItemSequence(numItem int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("Claim.Accident.Date", nil)
+	if resource == nil || numItem >= len(resource.Item) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Sequence", nil, htmlAttrs)
 	}
-	return StringInput("Claim.Accident.Date", &resource.Accident.Date)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Sequence", &resource.Item[numItem].Sequence, htmlAttrs)
 }
-func (resource *Claim) T_AccidentType(optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemCareTeamSequence(numItem int, numCareTeamSequence int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("Claim.Accident.Type", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numCareTeamSequence >= len(resource.Item[numItem].CareTeamSequence) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..CareTeamSequence."+strconv.Itoa(numCareTeamSequence)+".", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Accident.Type", resource.Accident.Type, optionsValueSet)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..CareTeamSequence."+strconv.Itoa(numCareTeamSequence)+".", &resource.Item[numItem].CareTeamSequence[numCareTeamSequence], htmlAttrs)
 }
-func (resource *Claim) T_ItemId(numItem int) templ.Component {
+func (resource *Claim) T_ItemDiagnosisSequence(numItem int, numDiagnosisSequence int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Id", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDiagnosisSequence >= len(resource.Item[numItem].DiagnosisSequence) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..DiagnosisSequence."+strconv.Itoa(numDiagnosisSequence)+".", nil, htmlAttrs)
 	}
-	return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Id", resource.Item[numItem].Id)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..DiagnosisSequence."+strconv.Itoa(numDiagnosisSequence)+".", &resource.Item[numItem].DiagnosisSequence[numDiagnosisSequence], htmlAttrs)
 }
-func (resource *Claim) T_ItemSequence(numItem int) templ.Component {
+func (resource *Claim) T_ItemProcedureSequence(numItem int, numProcedureSequence int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Sequence", nil)
+	if resource == nil || numItem >= len(resource.Item) || numProcedureSequence >= len(resource.Item[numItem].ProcedureSequence) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..ProcedureSequence."+strconv.Itoa(numProcedureSequence)+".", nil, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Sequence", &resource.Item[numItem].Sequence)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..ProcedureSequence."+strconv.Itoa(numProcedureSequence)+".", &resource.Item[numItem].ProcedureSequence[numProcedureSequence], htmlAttrs)
 }
-func (resource *Claim) T_ItemCareTeamSequence(numItem int, numCareTeamSequence int) templ.Component {
+func (resource *Claim) T_ItemInformationSequence(numItem int, numInformationSequence int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].CareTeamSequence) >= numCareTeamSequence {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].CareTeamSequence["+strconv.Itoa(numCareTeamSequence)+"]", nil)
+	if resource == nil || numItem >= len(resource.Item) || numInformationSequence >= len(resource.Item[numItem].InformationSequence) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..InformationSequence."+strconv.Itoa(numInformationSequence)+".", nil, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].CareTeamSequence["+strconv.Itoa(numCareTeamSequence)+"]", &resource.Item[numItem].CareTeamSequence[numCareTeamSequence])
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..InformationSequence."+strconv.Itoa(numInformationSequence)+".", &resource.Item[numItem].InformationSequence[numInformationSequence], htmlAttrs)
 }
-func (resource *Claim) T_ItemDiagnosisSequence(numItem int, numDiagnosisSequence int) templ.Component {
+func (resource *Claim) T_ItemRevenue(numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].DiagnosisSequence) >= numDiagnosisSequence {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].DiagnosisSequence["+strconv.Itoa(numDiagnosisSequence)+"]", nil)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Revenue", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].DiagnosisSequence["+strconv.Itoa(numDiagnosisSequence)+"]", &resource.Item[numItem].DiagnosisSequence[numDiagnosisSequence])
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Revenue", resource.Item[numItem].Revenue, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemProcedureSequence(numItem int, numProcedureSequence int) templ.Component {
+func (resource *Claim) T_ItemCategory(numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].ProcedureSequence) >= numProcedureSequence {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].ProcedureSequence["+strconv.Itoa(numProcedureSequence)+"]", nil)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].ProcedureSequence["+strconv.Itoa(numProcedureSequence)+"]", &resource.Item[numItem].ProcedureSequence[numProcedureSequence])
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Category", resource.Item[numItem].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemInformationSequence(numItem int, numInformationSequence int) templ.Component {
+func (resource *Claim) T_ItemProductOrService(numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].InformationSequence) >= numInformationSequence {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].InformationSequence["+strconv.Itoa(numInformationSequence)+"]", nil)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProductOrService", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].InformationSequence["+strconv.Itoa(numInformationSequence)+"]", &resource.Item[numItem].InformationSequence[numInformationSequence])
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProductOrService", resource.Item[numItem].ProductOrService, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemRevenue(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemProductOrServiceEnd(numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Revenue", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProductOrServiceEnd", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Revenue", resource.Item[numItem].Revenue, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProductOrServiceEnd", resource.Item[numItem].ProductOrServiceEnd, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemCategory(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemModifier(numItem int, numModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Category", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numModifier >= len(resource.Item[numItem].Modifier) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Modifier."+strconv.Itoa(numModifier)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Category", resource.Item[numItem].Category, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Modifier."+strconv.Itoa(numModifier)+".", &resource.Item[numItem].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemProductOrService(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemProgramCode(numItem int, numProgramCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProductOrService", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numProgramCode >= len(resource.Item[numItem].ProgramCode) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProductOrService", resource.Item[numItem].ProductOrService, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", &resource.Item[numItem].ProgramCode[numProgramCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemProductOrServiceEnd(numItem int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemServicedDate(numItem int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProductOrServiceEnd", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) {
+		return DateInput("Claim.Item."+strconv.Itoa(numItem)+"..ServicedDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProductOrServiceEnd", resource.Item[numItem].ProductOrServiceEnd, optionsValueSet)
+	return DateInput("Claim.Item."+strconv.Itoa(numItem)+"..ServicedDate", resource.Item[numItem].ServicedDate, htmlAttrs)
 }
-func (resource *Claim) T_ItemModifier(numItem int, numModifier int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemLocationCodeableConcept(numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Modifier) >= numModifier {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..LocationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.Item[numItem].Modifier[numModifier], optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..LocationCodeableConcept", resource.Item[numItem].LocationCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemProgramCode(numItem int, numProgramCode int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemFactor(numItem int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].ProgramCode) >= numProgramCode {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) {
+		return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Factor", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", &resource.Item[numItem].ProgramCode[numProgramCode], optionsValueSet)
+	return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Factor", resource.Item[numItem].Factor, htmlAttrs)
 }
-func (resource *Claim) T_ItemFactor(numItem int) templ.Component {
+func (resource *Claim) T_ItemBodySiteSubSite(numItem int, numBodySite int, numSubSite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem {
-		return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Factor", nil)
+	if resource == nil || numItem >= len(resource.Item) || numBodySite >= len(resource.Item[numItem].BodySite) || numSubSite >= len(resource.Item[numItem].BodySite[numBodySite].SubSite) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..BodySite."+strconv.Itoa(numBodySite)+"..SubSite."+strconv.Itoa(numSubSite)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Factor", resource.Item[numItem].Factor)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..BodySite."+strconv.Itoa(numBodySite)+"..SubSite."+strconv.Itoa(numSubSite)+".", &resource.Item[numItem].BodySite[numBodySite].SubSite[numSubSite], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemBodySiteId(numItem int, numBodySite int) templ.Component {
+func (resource *Claim) T_ItemDetailSequence(numItem int, numDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].BodySite) >= numBodySite {
-		return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].BodySite["+strconv.Itoa(numBodySite)+"].Id", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Sequence", nil, htmlAttrs)
 	}
-	return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].BodySite["+strconv.Itoa(numBodySite)+"].Id", resource.Item[numItem].BodySite[numBodySite].Id)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Sequence", &resource.Item[numItem].Detail[numDetail].Sequence, htmlAttrs)
 }
-func (resource *Claim) T_ItemBodySiteSubSite(numItem int, numBodySite int, numSubSite int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailRevenue(numItem int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].BodySite) >= numBodySite || len(resource.Item[numItem].BodySite[numBodySite].SubSite) >= numSubSite {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].BodySite["+strconv.Itoa(numBodySite)+"].SubSite["+strconv.Itoa(numSubSite)+"]", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Revenue", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].BodySite["+strconv.Itoa(numBodySite)+"].SubSite["+strconv.Itoa(numSubSite)+"]", &resource.Item[numItem].BodySite[numBodySite].SubSite[numSubSite], optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Revenue", resource.Item[numItem].Detail[numDetail].Revenue, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailId(numItem int, numDetail int) templ.Component {
+func (resource *Claim) T_ItemDetailCategory(numItem int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Id", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Id", resource.Item[numItem].Detail[numDetail].Id)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Category", resource.Item[numItem].Detail[numDetail].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSequence(numItem int, numDetail int) templ.Component {
+func (resource *Claim) T_ItemDetailProductOrService(numItem int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Sequence", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProductOrService", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Sequence", &resource.Item[numItem].Detail[numDetail].Sequence)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProductOrService", resource.Item[numItem].Detail[numDetail].ProductOrService, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailRevenue(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailProductOrServiceEnd(numItem int, numDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Revenue", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProductOrServiceEnd", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Revenue", resource.Item[numItem].Detail[numDetail].Revenue, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProductOrServiceEnd", resource.Item[numItem].Detail[numDetail].ProductOrServiceEnd, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailCategory(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailModifier(numItem int, numDetail int, numModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Category", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numModifier >= len(resource.Item[numItem].Detail[numDetail].Modifier) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Modifier."+strconv.Itoa(numModifier)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Category", resource.Item[numItem].Detail[numDetail].Category, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Modifier."+strconv.Itoa(numModifier)+".", &resource.Item[numItem].Detail[numDetail].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailProductOrService(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailProgramCode(numItem int, numDetail int, numProgramCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProductOrService", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numProgramCode >= len(resource.Item[numItem].Detail[numDetail].ProgramCode) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProductOrService", resource.Item[numItem].Detail[numDetail].ProductOrService, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", &resource.Item[numItem].Detail[numDetail].ProgramCode[numProgramCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailProductOrServiceEnd(numItem int, numDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailFactor(numItem int, numDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProductOrServiceEnd", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Factor", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProductOrServiceEnd", resource.Item[numItem].Detail[numDetail].ProductOrServiceEnd, optionsValueSet)
+	return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..Factor", resource.Item[numItem].Detail[numDetail].Factor, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailModifier(numItem int, numDetail int, numModifier int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailSequence(numItem int, numDetail int, numSubDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].Modifier) >= numModifier {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Sequence", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.Item[numItem].Detail[numDetail].Modifier[numModifier], optionsValueSet)
+	return IntInput("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Sequence", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Sequence, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailProgramCode(numItem int, numDetail int, numProgramCode int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailRevenue(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].ProgramCode) >= numProgramCode {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Revenue", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", &resource.Item[numItem].Detail[numDetail].ProgramCode[numProgramCode], optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Revenue", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Revenue, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailFactor(numItem int, numDetail int) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailCategory(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail {
-		return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Factor", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].Factor", resource.Item[numItem].Detail[numDetail].Factor)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Category", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSubDetailId(numItem int, numDetail int, numSubDetail int) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailProductOrService(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Id", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProductOrService", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Id", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Id)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProductOrService", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrService, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSubDetailSequence(numItem int, numDetail int, numSubDetail int) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailProductOrServiceEnd(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Sequence", nil)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProductOrServiceEnd", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Sequence", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Sequence)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProductOrServiceEnd", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrServiceEnd, optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSubDetailRevenue(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailModifier(numItem int, numDetail int, numSubDetail int, numModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Revenue", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) || numModifier >= len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Modifier) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Modifier."+strconv.Itoa(numModifier)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Revenue", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Revenue, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Modifier."+strconv.Itoa(numModifier)+".", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSubDetailCategory(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailProgramCode(numItem int, numDetail int, numSubDetail int, numProgramCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Category", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) || numProgramCode >= len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode) {
+		return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Category", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Category, optionsValueSet)
+	return CodeableConceptSelect("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..ProgramCode."+strconv.Itoa(numProgramCode)+".", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode[numProgramCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Claim) T_ItemDetailSubDetailProductOrService(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
+func (resource *Claim) T_ItemDetailSubDetailFactor(numItem int, numDetail int, numSubDetail int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProductOrService", nil, optionsValueSet)
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Factor", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProductOrService", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrService, optionsValueSet)
-}
-func (resource *Claim) T_ItemDetailSubDetailProductOrServiceEnd(numItem int, numDetail int, numSubDetail int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProductOrServiceEnd", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProductOrServiceEnd", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProductOrServiceEnd, optionsValueSet)
-}
-func (resource *Claim) T_ItemDetailSubDetailModifier(numItem int, numDetail int, numSubDetail int, numModifier int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Modifier) >= numModifier {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[numModifier], optionsValueSet)
-}
-func (resource *Claim) T_ItemDetailSubDetailProgramCode(numItem int, numDetail int, numSubDetail int, numProgramCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode) >= numProgramCode {
-		return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].ProgramCode["+strconv.Itoa(numProgramCode)+"]", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode[numProgramCode], optionsValueSet)
-}
-func (resource *Claim) T_ItemDetailSubDetailFactor(numItem int, numDetail int, numSubDetail int) templ.Component {
-
-	if resource == nil || len(resource.Item) >= numItem || len(resource.Item[numItem].Detail) >= numDetail || len(resource.Item[numItem].Detail[numDetail].SubDetail) >= numSubDetail {
-		return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Factor", nil)
-	}
-	return Float64Input("Claim.Item["+strconv.Itoa(numItem)+"].Detail["+strconv.Itoa(numDetail)+"].SubDetail["+strconv.Itoa(numSubDetail)+"].Factor", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Factor)
+	return Float64Input("Claim.Item."+strconv.Itoa(numItem)+"..Detail."+strconv.Itoa(numDetail)+"..SubDetail."+strconv.Itoa(numSubDetail)+"..Factor", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Factor, htmlAttrs)
 }

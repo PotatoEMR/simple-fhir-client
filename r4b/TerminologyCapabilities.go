@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type TerminologyCapabilities struct {
 	Title             *string                                `json:"title,omitempty"`
 	Status            string                                 `json:"status"`
 	Experimental      *bool                                  `json:"experimental,omitempty"`
-	Date              string                                 `json:"date"`
+	Date              time.Time                              `json:"date,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                                `json:"publisher,omitempty"`
 	Contact           []ContactDetail                        `json:"contact,omitempty"`
 	Description       *string                                `json:"description,omitempty"`
@@ -154,357 +155,271 @@ func (r TerminologyCapabilities) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "TerminologyCapabilities",
 	})
 }
+func (r TerminologyCapabilities) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "TerminologyCapabilities/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *TerminologyCapabilities) T_Id() templ.Component {
+	rtype := "TerminologyCapabilities"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *TerminologyCapabilities) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Id", nil)
+		return StringInput("TerminologyCapabilities.Url", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Id", resource.Id)
+	return StringInput("TerminologyCapabilities.Url", resource.Url, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ImplicitRules() templ.Component {
+func (resource *TerminologyCapabilities) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.ImplicitRules", nil)
+		return StringInput("TerminologyCapabilities.Version", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.ImplicitRules", resource.ImplicitRules)
+	return StringInput("TerminologyCapabilities.Version", resource.Version, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *TerminologyCapabilities) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("TerminologyCapabilities.Language", nil, optionsValueSet)
+		return StringInput("TerminologyCapabilities.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("TerminologyCapabilities.Language", resource.Language, optionsValueSet)
+	return StringInput("TerminologyCapabilities.Name", resource.Name, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Url() templ.Component {
+func (resource *TerminologyCapabilities) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Url", nil)
+		return StringInput("TerminologyCapabilities.Title", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Url", resource.Url)
+	return StringInput("TerminologyCapabilities.Title", resource.Title, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Version", nil)
-	}
-	return StringInput("TerminologyCapabilities.Version", resource.Version)
-}
-func (resource *TerminologyCapabilities) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Name", nil)
-	}
-	return StringInput("TerminologyCapabilities.Name", resource.Name)
-}
-func (resource *TerminologyCapabilities) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Title", nil)
-	}
-	return StringInput("TerminologyCapabilities.Title", resource.Title)
-}
-func (resource *TerminologyCapabilities) T_Status() templ.Component {
+func (resource *TerminologyCapabilities) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("TerminologyCapabilities.Status", nil, optionsValueSet)
+		return CodeSelect("TerminologyCapabilities.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TerminologyCapabilities.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("TerminologyCapabilities.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Experimental() templ.Component {
+func (resource *TerminologyCapabilities) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Experimental", nil)
+		return BoolInput("TerminologyCapabilities.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("TerminologyCapabilities.Experimental", resource.Experimental)
+	return BoolInput("TerminologyCapabilities.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Date() templ.Component {
+func (resource *TerminologyCapabilities) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Date", nil)
+		return DateTimeInput("TerminologyCapabilities.Date", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Date", &resource.Date)
+	return DateTimeInput("TerminologyCapabilities.Date", &resource.Date, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Publisher() templ.Component {
+func (resource *TerminologyCapabilities) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Publisher", nil)
+		return StringInput("TerminologyCapabilities.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Publisher", resource.Publisher)
+	return StringInput("TerminologyCapabilities.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Description() templ.Component {
+func (resource *TerminologyCapabilities) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Description", nil)
+		return StringInput("TerminologyCapabilities.Description", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Description", resource.Description)
+	return StringInput("TerminologyCapabilities.Description", resource.Description, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *TerminologyCapabilities) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("TerminologyCapabilities.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("TerminologyCapabilities.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("TerminologyCapabilities.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("TerminologyCapabilities.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Purpose", nil)
-	}
-	return StringInput("TerminologyCapabilities.Purpose", resource.Purpose)
-}
-func (resource *TerminologyCapabilities) T_Copyright() templ.Component {
+func (resource *TerminologyCapabilities) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Copyright", nil)
+		return StringInput("TerminologyCapabilities.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Copyright", resource.Copyright)
+	return StringInput("TerminologyCapabilities.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_Kind() templ.Component {
+func (resource *TerminologyCapabilities) T_Copyright(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("TerminologyCapabilities.Copyright", nil, htmlAttrs)
+	}
+	return StringInput("TerminologyCapabilities.Copyright", resource.Copyright, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_Kind(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCapability_statement_kind
 
 	if resource == nil {
-		return CodeSelect("TerminologyCapabilities.Kind", nil, optionsValueSet)
+		return CodeSelect("TerminologyCapabilities.Kind", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TerminologyCapabilities.Kind", &resource.Kind, optionsValueSet)
+	return CodeSelect("TerminologyCapabilities.Kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_LockedDate() templ.Component {
+func (resource *TerminologyCapabilities) T_LockedDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TerminologyCapabilities.LockedDate", nil)
+		return BoolInput("TerminologyCapabilities.LockedDate", nil, htmlAttrs)
 	}
-	return BoolInput("TerminologyCapabilities.LockedDate", resource.LockedDate)
+	return BoolInput("TerminologyCapabilities.LockedDate", resource.LockedDate, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_CodeSearch() templ.Component {
+func (resource *TerminologyCapabilities) T_CodeSearch(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCode_search_support
 
 	if resource == nil {
-		return CodeSelect("TerminologyCapabilities.CodeSearch", nil, optionsValueSet)
+		return CodeSelect("TerminologyCapabilities.CodeSearch", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TerminologyCapabilities.CodeSearch", resource.CodeSearch, optionsValueSet)
+	return CodeSelect("TerminologyCapabilities.CodeSearch", resource.CodeSearch, optionsValueSet, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_SoftwareId() templ.Component {
+func (resource *TerminologyCapabilities) T_SoftwareName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Software.Id", nil)
+		return StringInput("TerminologyCapabilities.Software.Name", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Software.Id", resource.Software.Id)
+	return StringInput("TerminologyCapabilities.Software.Name", &resource.Software.Name, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_SoftwareName() templ.Component {
+func (resource *TerminologyCapabilities) T_SoftwareVersion(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Software.Name", nil)
+		return StringInput("TerminologyCapabilities.Software.Version", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Software.Name", &resource.Software.Name)
+	return StringInput("TerminologyCapabilities.Software.Version", resource.Software.Version, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_SoftwareVersion() templ.Component {
+func (resource *TerminologyCapabilities) T_ImplementationDescription(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Software.Version", nil)
+		return StringInput("TerminologyCapabilities.Implementation.Description", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Software.Version", resource.Software.Version)
+	return StringInput("TerminologyCapabilities.Implementation.Description", &resource.Implementation.Description, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ImplementationId() templ.Component {
+func (resource *TerminologyCapabilities) T_ImplementationUrl(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Implementation.Id", nil)
+		return StringInput("TerminologyCapabilities.Implementation.Url", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Implementation.Id", resource.Implementation.Id)
+	return StringInput("TerminologyCapabilities.Implementation.Url", resource.Implementation.Url, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ImplementationDescription() templ.Component {
+func (resource *TerminologyCapabilities) T_CodeSystemUri(numCodeSystem int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) {
+		return StringInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Uri", nil, htmlAttrs)
+	}
+	return StringInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Uri", resource.CodeSystem[numCodeSystem].Uri, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemSubsumption(numCodeSystem int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) {
+		return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Subsumption", nil, htmlAttrs)
+	}
+	return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Subsumption", resource.CodeSystem[numCodeSystem].Subsumption, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionCode(numCodeSystem int, numVersion int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) {
+		return StringInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Code", nil, htmlAttrs)
+	}
+	return StringInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Code", resource.CodeSystem[numCodeSystem].Version[numVersion].Code, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionIsDefault(numCodeSystem int, numVersion int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) {
+		return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..IsDefault", nil, htmlAttrs)
+	}
+	return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..IsDefault", resource.CodeSystem[numCodeSystem].Version[numVersion].IsDefault, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionCompositional(numCodeSystem int, numVersion int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) {
+		return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Compositional", nil, htmlAttrs)
+	}
+	return BoolInput("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Compositional", resource.CodeSystem[numCodeSystem].Version[numVersion].Compositional, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionProperty(numCodeSystem int, numVersion int, numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) || numProperty >= len(resource.CodeSystem[numCodeSystem].Version[numVersion].Property) {
+		return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Property."+strconv.Itoa(numProperty)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Property."+strconv.Itoa(numProperty)+".", &resource.CodeSystem[numCodeSystem].Version[numVersion].Property[numProperty], optionsValueSet, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionFilterCode(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) || numFilter >= len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) {
+		return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Filter."+strconv.Itoa(numFilter)+"..Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Filter."+strconv.Itoa(numFilter)+"..Code", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_CodeSystemVersionFilterOp(numCodeSystem int, numVersion int, numFilter int, numOp int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCodeSystem >= len(resource.CodeSystem) || numVersion >= len(resource.CodeSystem[numCodeSystem].Version) || numFilter >= len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) || numOp >= len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op) {
+		return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Filter."+strconv.Itoa(numFilter)+"..Op."+strconv.Itoa(numOp)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("TerminologyCapabilities.CodeSystem."+strconv.Itoa(numCodeSystem)+"..Version."+strconv.Itoa(numVersion)+"..Filter."+strconv.Itoa(numFilter)+"..Op."+strconv.Itoa(numOp)+".", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op[numOp], optionsValueSet, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_ExpansionHierarchical(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Implementation.Description", nil)
+		return BoolInput("TerminologyCapabilities.Expansion.Hierarchical", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Implementation.Description", &resource.Implementation.Description)
+	return BoolInput("TerminologyCapabilities.Expansion.Hierarchical", resource.Expansion.Hierarchical, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ImplementationUrl() templ.Component {
+func (resource *TerminologyCapabilities) T_ExpansionPaging(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Implementation.Url", nil)
+		return BoolInput("TerminologyCapabilities.Expansion.Paging", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Implementation.Url", resource.Implementation.Url)
+	return BoolInput("TerminologyCapabilities.Expansion.Paging", resource.Expansion.Paging, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_CodeSystemId(numCodeSystem int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem {
-		return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Id", resource.CodeSystem[numCodeSystem].Id)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemUri(numCodeSystem int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem {
-		return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Uri", nil)
-	}
-	return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Uri", resource.CodeSystem[numCodeSystem].Uri)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemSubsumption(numCodeSystem int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem {
-		return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Subsumption", nil)
-	}
-	return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Subsumption", resource.CodeSystem[numCodeSystem].Subsumption)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionId(numCodeSystem int, numVersion int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
-		return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Id", resource.CodeSystem[numCodeSystem].Version[numVersion].Id)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionCode(numCodeSystem int, numVersion int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
-		return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Code", nil)
-	}
-	return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Code", resource.CodeSystem[numCodeSystem].Version[numVersion].Code)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionIsDefault(numCodeSystem int, numVersion int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
-		return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].IsDefault", nil)
-	}
-	return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].IsDefault", resource.CodeSystem[numCodeSystem].Version[numVersion].IsDefault)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionCompositional(numCodeSystem int, numVersion int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion {
-		return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Compositional", nil)
-	}
-	return BoolInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Compositional", resource.CodeSystem[numCodeSystem].Version[numVersion].Compositional)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionLanguage(numCodeSystem int, numVersion int, numLanguage int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Language) >= numLanguage {
-		return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Language["+strconv.Itoa(numLanguage)+"]", nil, optionsValueSet)
-	}
-	return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Language["+strconv.Itoa(numLanguage)+"]", &resource.CodeSystem[numCodeSystem].Version[numVersion].Language[numLanguage], optionsValueSet)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionProperty(numCodeSystem int, numVersion int, numProperty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Property) >= numProperty {
-		return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Property["+strconv.Itoa(numProperty)+"]", nil, optionsValueSet)
-	}
-	return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Property["+strconv.Itoa(numProperty)+"]", &resource.CodeSystem[numCodeSystem].Version[numVersion].Property[numProperty], optionsValueSet)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionFilterId(numCodeSystem int, numVersion int, numFilter int) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
-		return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Id", resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Id)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionFilterCode(numCodeSystem int, numVersion int, numFilter int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter {
-		return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Code", nil, optionsValueSet)
-	}
-	return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Code", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Code, optionsValueSet)
-}
-func (resource *TerminologyCapabilities) T_CodeSystemVersionFilterOp(numCodeSystem int, numVersion int, numFilter int, numOp int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CodeSystem) >= numCodeSystem || len(resource.CodeSystem[numCodeSystem].Version) >= numVersion || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter) >= numFilter || len(resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op) >= numOp {
-		return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Op["+strconv.Itoa(numOp)+"]", nil, optionsValueSet)
-	}
-	return CodeSelect("TerminologyCapabilities.CodeSystem["+strconv.Itoa(numCodeSystem)+"].Version["+strconv.Itoa(numVersion)+"].Filter["+strconv.Itoa(numFilter)+"].Op["+strconv.Itoa(numOp)+"]", &resource.CodeSystem[numCodeSystem].Version[numVersion].Filter[numFilter].Op[numOp], optionsValueSet)
-}
-func (resource *TerminologyCapabilities) T_ExpansionId() templ.Component {
+func (resource *TerminologyCapabilities) T_ExpansionIncomplete(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Expansion.Id", nil)
+		return BoolInput("TerminologyCapabilities.Expansion.Incomplete", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Expansion.Id", resource.Expansion.Id)
+	return BoolInput("TerminologyCapabilities.Expansion.Incomplete", resource.Expansion.Incomplete, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ExpansionHierarchical() templ.Component {
+func (resource *TerminologyCapabilities) T_ExpansionTextFilter(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Expansion.Hierarchical", nil)
+		return StringInput("TerminologyCapabilities.Expansion.TextFilter", nil, htmlAttrs)
 	}
-	return BoolInput("TerminologyCapabilities.Expansion.Hierarchical", resource.Expansion.Hierarchical)
+	return StringInput("TerminologyCapabilities.Expansion.TextFilter", resource.Expansion.TextFilter, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ExpansionPaging() templ.Component {
+func (resource *TerminologyCapabilities) T_ExpansionParameterName(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return CodeSelect("TerminologyCapabilities.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Name", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeSelect("TerminologyCapabilities.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Name", &resource.Expansion.Parameter[numParameter].Name, optionsValueSet, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_ExpansionParameterDocumentation(numParameter int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
+		return StringInput("TerminologyCapabilities.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Documentation", nil, htmlAttrs)
+	}
+	return StringInput("TerminologyCapabilities.Expansion.Parameter."+strconv.Itoa(numParameter)+"..Documentation", resource.Expansion.Parameter[numParameter].Documentation, htmlAttrs)
+}
+func (resource *TerminologyCapabilities) T_ValidateCodeTranslations(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Expansion.Paging", nil)
+		return BoolInput("TerminologyCapabilities.ValidateCode.Translations", nil, htmlAttrs)
 	}
-	return BoolInput("TerminologyCapabilities.Expansion.Paging", resource.Expansion.Paging)
+	return BoolInput("TerminologyCapabilities.ValidateCode.Translations", &resource.ValidateCode.Translations, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ExpansionIncomplete() templ.Component {
+func (resource *TerminologyCapabilities) T_TranslationNeedsMap(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Expansion.Incomplete", nil)
+		return BoolInput("TerminologyCapabilities.Translation.NeedsMap", nil, htmlAttrs)
 	}
-	return BoolInput("TerminologyCapabilities.Expansion.Incomplete", resource.Expansion.Incomplete)
+	return BoolInput("TerminologyCapabilities.Translation.NeedsMap", &resource.Translation.NeedsMap, htmlAttrs)
 }
-func (resource *TerminologyCapabilities) T_ExpansionTextFilter() templ.Component {
+func (resource *TerminologyCapabilities) T_ClosureTranslation(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TerminologyCapabilities.Expansion.TextFilter", nil)
+		return BoolInput("TerminologyCapabilities.Closure.Translation", nil, htmlAttrs)
 	}
-	return StringInput("TerminologyCapabilities.Expansion.TextFilter", resource.Expansion.TextFilter)
-}
-func (resource *TerminologyCapabilities) T_ExpansionParameterId(numParameter int) templ.Component {
-
-	if resource == nil || len(resource.Expansion.Parameter) >= numParameter {
-		return StringInput("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Expansion.Parameter[numParameter].Id)
-}
-func (resource *TerminologyCapabilities) T_ExpansionParameterName(numParameter int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Expansion.Parameter) >= numParameter {
-		return CodeSelect("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Name", nil, optionsValueSet)
-	}
-	return CodeSelect("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Name", &resource.Expansion.Parameter[numParameter].Name, optionsValueSet)
-}
-func (resource *TerminologyCapabilities) T_ExpansionParameterDocumentation(numParameter int) templ.Component {
-
-	if resource == nil || len(resource.Expansion.Parameter) >= numParameter {
-		return StringInput("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Documentation", nil)
-	}
-	return StringInput("TerminologyCapabilities.Expansion.Parameter["+strconv.Itoa(numParameter)+"].Documentation", resource.Expansion.Parameter[numParameter].Documentation)
-}
-func (resource *TerminologyCapabilities) T_ValidateCodeId() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.ValidateCode.Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.ValidateCode.Id", resource.ValidateCode.Id)
-}
-func (resource *TerminologyCapabilities) T_ValidateCodeTranslations() templ.Component {
-
-	if resource == nil {
-		return BoolInput("TerminologyCapabilities.ValidateCode.Translations", nil)
-	}
-	return BoolInput("TerminologyCapabilities.ValidateCode.Translations", &resource.ValidateCode.Translations)
-}
-func (resource *TerminologyCapabilities) T_TranslationId() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Translation.Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.Translation.Id", resource.Translation.Id)
-}
-func (resource *TerminologyCapabilities) T_TranslationNeedsMap() templ.Component {
-
-	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Translation.NeedsMap", nil)
-	}
-	return BoolInput("TerminologyCapabilities.Translation.NeedsMap", &resource.Translation.NeedsMap)
-}
-func (resource *TerminologyCapabilities) T_ClosureId() templ.Component {
-
-	if resource == nil {
-		return StringInput("TerminologyCapabilities.Closure.Id", nil)
-	}
-	return StringInput("TerminologyCapabilities.Closure.Id", resource.Closure.Id)
-}
-func (resource *TerminologyCapabilities) T_ClosureTranslation() templ.Component {
-
-	if resource == nil {
-		return BoolInput("TerminologyCapabilities.Closure.Translation", nil)
-	}
-	return BoolInput("TerminologyCapabilities.Closure.Translation", resource.Closure.Translation)
+	return BoolInput("TerminologyCapabilities.Closure.Translation", resource.Closure.Translation, htmlAttrs)
 }

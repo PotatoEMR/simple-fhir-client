@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -49,60 +49,53 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 		ResourceType:          "PractitionerRole",
 	})
 }
-
-func (resource *PractitionerRole) T_Id() templ.Component {
+func (r PractitionerRole) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "PractitionerRole/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "PractitionerRole"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *PractitionerRole) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PractitionerRole.Id", nil)
+		return BoolInput("PractitionerRole.Active", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.Id", resource.Id)
+	return BoolInput("PractitionerRole.Active", resource.Active, htmlAttrs)
 }
-func (resource *PractitionerRole) T_ImplicitRules() templ.Component {
+func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("PractitionerRole.ImplicitRules", nil)
+	if resource == nil || numCode >= len(resource.Code) {
+		return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("PractitionerRole.Language", nil, optionsValueSet)
+	if resource == nil || numSpecialty >= len(resource.Specialty) {
+		return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PractitionerRole.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Active() templ.Component {
+func (resource *PractitionerRole) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return BoolInput("PractitionerRole.Active", nil)
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return CodeableConceptSelect("PractitionerRole.Characteristic."+strconv.Itoa(numCharacteristic)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("PractitionerRole.Active", resource.Active)
+	return CodeableConceptSelect("PractitionerRole.Characteristic."+strconv.Itoa(numCharacteristic)+".", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding) templ.Component {
+func (resource *PractitionerRole) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Code) >= numCode {
-		return CodeableConceptSelect("PractitionerRole.Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
+	if resource == nil || numCommunication >= len(resource.Communication) {
+		return CodeableConceptSelect("PractitionerRole.Communication."+strconv.Itoa(numCommunication)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PractitionerRole.Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet)
-}
-func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Specialty) >= numSpecialty {
-		return CodeableConceptSelect("PractitionerRole.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("PractitionerRole.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
-}
-func (resource *PractitionerRole) T_Characteristic(numCharacteristic int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("PractitionerRole.Characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("PractitionerRole.Characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet)
-}
-func (resource *PractitionerRole) T_Communication(numCommunication int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("PractitionerRole.Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("PractitionerRole.Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet)
+	return CodeableConceptSelect("PractitionerRole.Communication."+strconv.Itoa(numCommunication)+".", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
 }

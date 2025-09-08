@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +30,7 @@ type RiskAssessment struct {
 	Code               *CodeableConcept           `json:"code,omitempty"`
 	Subject            Reference                  `json:"subject"`
 	Encounter          *Reference                 `json:"encounter,omitempty"`
-	OccurrenceDateTime *string                    `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime *time.Time                 `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	OccurrencePeriod   *Period                    `json:"occurrencePeriod,omitempty"`
 	Condition          *Reference                 `json:"condition,omitempty"`
 	Performer          *Reference                 `json:"performer,omitempty"`
@@ -68,96 +69,103 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 		ResourceType:        "RiskAssessment",
 	})
 }
-
-func (resource *RiskAssessment) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskAssessment.Id", nil)
+func (r RiskAssessment) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "RiskAssessment/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("RiskAssessment.Id", resource.Id)
-}
-func (resource *RiskAssessment) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskAssessment.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("RiskAssessment.ImplicitRules", resource.ImplicitRules)
+	rtype := "RiskAssessment"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *RiskAssessment) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("RiskAssessment.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("RiskAssessment.Language", resource.Language, optionsValueSet)
-}
-func (resource *RiskAssessment) T_Status() templ.Component {
+func (resource *RiskAssessment) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
-		return CodeSelect("RiskAssessment.Status", nil, optionsValueSet)
+		return CodeSelect("RiskAssessment.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RiskAssessment.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("RiskAssessment.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Method(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Method(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskAssessment.Method", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskAssessment.Method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskAssessment.Method", resource.Method, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Method", resource.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskAssessment.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskAssessment.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskAssessment.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("RiskAssessment.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("RiskAssessment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RiskAssessment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
-}
-func (resource *RiskAssessment) T_Mitigation() templ.Component {
+func (resource *RiskAssessment) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskAssessment.Mitigation", nil)
+		return DateTimeInput("RiskAssessment.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return StringInput("RiskAssessment.Mitigation", resource.Mitigation)
+	return DateTimeInput("RiskAssessment.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *RiskAssessment) T_PredictionId(numPrediction int) templ.Component {
+func (resource *RiskAssessment) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Prediction) >= numPrediction {
-		return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Id", nil)
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("RiskAssessment.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Id", resource.Prediction[numPrediction].Id)
+	return CodeableConceptSelect("RiskAssessment.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_PredictionOutcome(numPrediction int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Mitigation(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Prediction) >= numPrediction {
-		return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Outcome", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("RiskAssessment.Mitigation", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet)
+	return StringInput("RiskAssessment.Mitigation", resource.Mitigation, htmlAttrs)
 }
-func (resource *RiskAssessment) T_PredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskAssessment) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Prediction) >= numPrediction {
-		return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].QualitativeRisk", nil, optionsValueSet)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("RiskAssessment.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].QualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet)
+	return AnnotationTextArea("RiskAssessment.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *RiskAssessment) T_PredictionRelativeRisk(numPrediction int) templ.Component {
+func (resource *RiskAssessment) T_PredictionOutcome(numPrediction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Prediction) >= numPrediction {
-		return Float64Input("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].RelativeRisk", nil)
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return CodeableConceptSelect("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..Outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return Float64Input("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].RelativeRisk", resource.Prediction[numPrediction].RelativeRisk)
+	return CodeableConceptSelect("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..Outcome", resource.Prediction[numPrediction].Outcome, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_PredictionRationale(numPrediction int) templ.Component {
+func (resource *RiskAssessment) T_PredictionProbabilityDecimal(numPrediction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Prediction) >= numPrediction {
-		return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Rationale", nil)
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return Float64Input("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..ProbabilityDecimal", nil, htmlAttrs)
 	}
-	return StringInput("RiskAssessment.Prediction["+strconv.Itoa(numPrediction)+"].Rationale", resource.Prediction[numPrediction].Rationale)
+	return Float64Input("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..ProbabilityDecimal", resource.Prediction[numPrediction].ProbabilityDecimal, htmlAttrs)
+}
+func (resource *RiskAssessment) T_PredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return CodeableConceptSelect("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..QualitativeRisk", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..QualitativeRisk", resource.Prediction[numPrediction].QualitativeRisk, optionsValueSet, htmlAttrs)
+}
+func (resource *RiskAssessment) T_PredictionRelativeRisk(numPrediction int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return Float64Input("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..RelativeRisk", nil, htmlAttrs)
+	}
+	return Float64Input("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..RelativeRisk", resource.Prediction[numPrediction].RelativeRisk, htmlAttrs)
+}
+func (resource *RiskAssessment) T_PredictionRationale(numPrediction int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return StringInput("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..Rationale", nil, htmlAttrs)
+	}
+	return StringInput("RiskAssessment.Prediction."+strconv.Itoa(numPrediction)+"..Rationale", resource.Prediction[numPrediction].Rationale, htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -43,61 +43,54 @@ func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 		ResourceType:             "AppointmentResponse",
 	})
 }
-
-func (resource *AppointmentResponse) T_Id() templ.Component {
+func (r AppointmentResponse) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "AppointmentResponse/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "AppointmentResponse"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *AppointmentResponse) T_Start(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.Id", nil)
+		return StringInput("AppointmentResponse.Start", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Id", resource.Id)
+	return StringInput("AppointmentResponse.Start", resource.Start, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ImplicitRules() templ.Component {
+func (resource *AppointmentResponse) T_End(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.ImplicitRules", nil)
+		return StringInput("AppointmentResponse.End", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.ImplicitRules", resource.ImplicitRules)
+	return StringInput("AppointmentResponse.End", resource.End, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("AppointmentResponse.Language", nil, optionsValueSet)
+	if resource == nil || numParticipantType >= len(resource.ParticipantType) {
+		return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Start() templ.Component {
-
-	if resource == nil {
-		return StringInput("AppointmentResponse.Start", nil)
-	}
-	return StringInput("AppointmentResponse.Start", resource.Start)
-}
-func (resource *AppointmentResponse) T_End() templ.Component {
-
-	if resource == nil {
-		return StringInput("AppointmentResponse.End", nil)
-	}
-	return StringInput("AppointmentResponse.End", resource.End)
-}
-func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ParticipantType) >= numParticipantType {
-		return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet)
-}
-func (resource *AppointmentResponse) T_ParticipantStatus() templ.Component {
+func (resource *AppointmentResponse) T_ParticipantStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
 	if resource == nil {
-		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet)
+		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet)
+	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Comment() templ.Component {
+func (resource *AppointmentResponse) T_Comment(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.Comment", nil)
+		return StringInput("AppointmentResponse.Comment", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Comment", resource.Comment)
+	return StringInput("AppointmentResponse.Comment", resource.Comment, htmlAttrs)
 }

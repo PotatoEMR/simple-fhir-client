@@ -1,16 +1,10 @@
 /*
-if you want to copy this, no attribution is needed in the output structs,
-but please leave a link in your code generation project itself.
-on that note, a lot of this is based on these projects:
-https://github.com/FirelyTeam/firely-net-sdk (Firely)
-https://github.com/beda-software/fhir-py-types/ (Beda Software)
-https://github.com/samply/golang-fhir-models (Samply)
+generates structs, client, forms. usage: go run ./bulteaoreune
+...honestly codegen became a big ball of mud, very messy and hard to read or modify easily
+kind of based on these but their approach to golang codegen might cleaner:
 https://github.com/DAMEDIC/fhir-toolbox-go/ (DAMEDIC)
-for example, 1 download -> 2 parse -> 3 write structs
-or, custom marshal json method that adds resourceType
-also just in general, they are interesting packages to check out!
+https://github.com/samply/golang-fhir-models (Samply)
 */
-
 package main
 
 import (
@@ -69,7 +63,7 @@ func main() {
 
 	for _, fhirVersion := range fhirVersions {
 		var header strings.Builder
-		header.WriteString(fmt.Sprintf("//generated with command go run ./bultaoreune %s\n", strings.Join(os.Args[1:], " ")))
+		header.WriteString("//generated with command go run ./bultaoreune\n")
 		header.WriteString(fmt.Sprintf("//inputs %s/[%s]\n", fhirURL+"/"+fhirVersion, strings.Join(zipFileNames, " ")))
 		header.WriteString("//for details see https://github.com/PotatoEMR/simple-fhir-client\n\n")
 
@@ -113,6 +107,12 @@ func main() {
 		filename := filepath.Join(generateDirVer, "zzzFieldComponents.templ")
 		file, _ := os.Create(filename)
 		fmt.Fprintln(file, FormText(fhirVersion))
+
+		timeFormat := filepath.Join(generateDirVer, "zzzTimeFormat.go")
+		tf, _ := os.Create(timeFormat)
+		fmt.Fprintln(tf, "package "+fhirVersion+`	
+const DateFormat string = "2006-01-02"
+const DateTimeFormat string = "2006-01-02T15:04:05-07:00"`)
 	}
 	fmt.Println("wrote files, running templ generate for form components")
 	cmd := exec.Command("go", "tool", "templ", "generate")
@@ -222,6 +222,8 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 			//also adding forms input field funcs as we go through
 		}
 
+		identifierType := "none" //for reference function
+
 		pathCard := make(map[string]string)
 		//just for forms, to know if backbone elements in field path are [] or not
 		for _, elt := range res.Snapshot.Element {
@@ -270,83 +272,98 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				fieldName_lower := parts[len(parts)-1]
 				fieldName := strings.Title(fieldName_lower)
 
-				//take a break from structs to write form methods...kind of mixed up with structs
-				if len(elt.Type) == 1 {
-
-					eltGoType, ok := fhirPrimitive_to_GolangType[elt.Type[0].Code]
-					if ok || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
-						optionsValueSet := ""
-						vsParam := ""
-						vsReq := ""
-						if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
-							optionsValueSet = ", optionsValueSet"
-							varname := urlToVarname(elt.Binding.ValueSet)
-							if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
-								vsReq = "optionsValueSet := " + "VS" + varname + "\n"
-							} else {
-								vsParam = "optionsValueSet []Coding"
-							}
-						}
-						//forms
-						caps := []string{}
-						for _, s := range parts[1:] {
-							caps = append(caps, strings.Title(s))
-						}
-						backbonePath := "resource" //this one actually used in field
-						intParams := ""
-						bbCheck := ""
-						formName := res.Name
-
-						//need to check if each backbone element along the way is cardinality * or not to make [n] or not
-						pathString := res.Name
-						for _, p := range parts[1:len(parts)] {
-							pUpper := strings.Title(p)
-							pUpperNum := "num" + pUpper
-							pathString = pathString + "." + p
-							//fmt.Println("path", pathString)
-							if pathCard[pathString] == "*" {
-								fmt.Println("star", pathString)
-								intParams = intParams + pUpperNum + " int, "
-								bbCheck = bbCheck + " || len(" + backbonePath + "." + pUpper + ") >= " + pUpperNum
-								backbonePath = backbonePath + "." + pUpper + "[" + pUpperNum + "]"
-								formName = formName + "." + pUpper + "[\"+strconv.Itoa(" + pUpperNum + ")+\"]"
-							} else {
-								fmt.Println("normal", pathString)
-								backbonePath = backbonePath + "." + pUpper
-								formName = formName + "." + pUpper
-							}
-						}
-
-						formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + strings.Join(caps, "") + "(" + intParams + vsParam + `) templ.Component {
-								        ` + vsReq + `
-								        if resource == nil ` + bbCheck + `{`)
-						if elt.Max == "*" {
-							backbonePath = "&" + backbonePath //+ `[num` + strings.Title(parts[len(parts)-1]) + `]`
-							fmt.Println(elt.Path, "max *")
-						} else if elt.Min == 1 {
-							backbonePath = "&" + backbonePath
-							fmt.Println(elt.Path, "min 1")
-						}
-
-						inputType := "StringInput"
-						if eltGoType == "bool" {
-							inputType = "BoolInput"
-						} else if eltGoType == "float64" || eltGoType == "int" || eltGoType == "int64" {
-							inputType = strings.Title(eltGoType) + "Input"
-						} else if elt.Type[0].Code == "code" || elt.Type[0].Code == "Coding" || elt.Type[0].Code == "CodeableConcept" {
-							inputType = strings.Title(elt.Type[0].Code + "Select")
-						}
-
-						formFuncs.WriteString(`
-					        return ` + inputType + `("` + formName + `", nil` + optionsValueSet + `)
-					        }
-					    return ` + inputType + `("` + formName + `", ` + backbonePath + optionsValueSet + `)
-					    }
-						`)
-					}
+				if elt.Path == res.Name+".identifier" {
+					identifierType = elt.Max //1 or *
 				}
 
+				//region Forms
+				//take a break from structs to write form methods...kind of mixed up with structs
+				//dont think you want a form for one of these...make it yourself if you do
+				if !slices.Contains([]string{"id", "meta", "implicitRules", "language", "contained", "extension", "modifierExtension", "identifier"}, fieldName_lower) {
+					for _, eltType := range elt.Type {
+						eltGoType, ok := fhirPrimitive_to_GolangType[eltType.Code]
+						//currently only forms for primitive types and coding/codeableconcept/annotation
+						if ok || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" || eltType.Code == "Annotation" {
+							optionsValueSet := ""
+							vsParam := ""
+							vsReq := ""
+							if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" {
+								optionsValueSet = ", optionsValueSet"
+								varname := urlToVarname(elt.Binding.ValueSet)
+								if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
+									vsReq = "optionsValueSet := " + "VS" + varname + "\n"
+								} else {
+									vsParam = "optionsValueSet []Coding, "
+								}
+							}
+							//forms
+							caps := []string{}
+							for _, s := range parts[1:] {
+								caps = append(caps, strings.Title(s))
+							}
+							backbonePath := "resource" //this one actually used in field
+							intParams := ""
+							bbCheck := ""
+							formName := res.Name
+
+							//need to check if each backbone element along the way is cardinality * or not to make [n] or not
+							pathString := res.Name
+							for _, p := range parts[1:] {
+								pUpper := strings.Title(p)
+								pUpperNum := "num" + pUpper
+								pathString = pathString + "." + p
+								if pathCard[pathString] == "*" {
+									intParams = intParams + pUpperNum + " int, "
+									bbCheck = bbCheck + " || " + pUpperNum + ">= len(" + backbonePath + "." + pUpper + ")"
+									backbonePath = backbonePath + "." + pUpper + "[" + pUpperNum + "]"
+									formName = formName + "." + pUpper + ".\"+strconv.Itoa(" + pUpperNum + ")+\"."
+								} else {
+									backbonePath = backbonePath + "." + pUpper
+									formName = formName + "." + pUpper
+								}
+							}
+
+							funcName := strings.Join(caps, "")
+							if len(elt.Type) > 1 {
+								//choice properties end in [x], and have multiple types
+								//they can be one of multiple types, we don't bother enforcing that though
+								//just provide fields Address_url Address_string Address_ContactPoint etc
+								funcName = funcName[:len(funcName)-3] + strings.Title(eltType.Code)
+								backbonePath = backbonePath[:len(backbonePath)-3] + strings.Title(eltType.Code)
+								formName = formName[:len(formName)-3] + strings.Title(eltType.Code)
+							}
+							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs string) templ.Component {
+								        ` + vsReq + `
+								        if resource == nil ` + bbCheck + `{`)
+							if elt.Max == "*" || elt.Min == 1 {
+								backbonePath = "&" + backbonePath
+							}
+
+							inputType := "StringInput"
+							if eltGoType == "bool" {
+								inputType = "BoolInput"
+							} else if eltGoType == "float64" || eltGoType == "int" || eltGoType == "int64" {
+								inputType = strings.Title(eltGoType) + "Input"
+							} else if eltType.Code == "date" || eltType.Code == "dateTime" {
+								inputType = strings.Title(eltType.Code) + "Input"
+							} else if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" {
+								inputType = strings.Title(eltType.Code + "Select")
+							} else if eltType.Code == "Annotation" {
+								inputType = "AnnotationTextArea"
+							}
+
+							formFuncs.WriteString(`
+					        return ` + inputType + `("` + formName + `", nil` + optionsValueSet + `, htmlAttrs)
+					        }
+					    return ` + inputType + `("` + formName + `", ` + backbonePath + optionsValueSet + `, htmlAttrs)
+					    }
+						`)
+						}
+					}
+				}
+				//endregion
 				//done with form methods, back to writing struct fields
+				//region Structs again
 
 				if len(elt.Type) < 1 {
 					//some fields eg AuditEvent.entity.agent have no type
@@ -365,7 +382,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 					}
 				}
 				omitempty := ",omitempty"
-				if elt.Min == 1 /*|| len(elt.Type) > 1*/ {
+				if elt.Min == 1 {
 					omitempty = ""
 				}
 				for _, t := range elt.Type {
@@ -389,7 +406,14 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						f = f[:len(f)-3] + strings.Title(t.Code)
 						fl = fieldName_lower[:len(fieldName_lower)-3] + strings.Title(t.Code)
 					}
-					sb.WriteString(fmt.Sprintf("%s %s%s `json:\"%s%s\"`\n", f, c, ft, fl, omitempty))
+					jsonEnc := omitempty
+					if t.Code == "date" {
+						jsonEnc = jsonEnc + ",format:'2006-01-02'"
+					} else if t.Code == "dateTime" {
+						jsonEnc = jsonEnc + ",format:'2006-01-02T15:04:05Z07:00'"
+					}
+
+					sb.WriteString(fmt.Sprintf("%s %s%s `json:\"%s%s\"`\n", f, c, ft, fl, jsonEnc))
 				}
 			}
 			//add string representation if struct has one in resourceStrings.go
@@ -416,6 +440,28 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 					})
 				}
 				`, res.Name, res.Name, res.Name))
+
+			refFromIdentifier := ""
+			if identifierType == "1" {
+				refFromIdentifier = `ref.Identifier = r.Identifier`
+			} else if identifierType == "*" {
+				refFromIdentifier = `if len(r.Identifier) != 0 {
+								ref.Identifier = &r.Identifier[0]
+							}`
+			}
+			sb.WriteString(`func (r ` + res.Name + `) ToRef() Reference {
+							var ref Reference
+							if r.Id != nil {
+								refStr := "` + res.Name + `/" + *r.Id
+								ref.Reference = &refStr
+							}
+							` + refFromIdentifier + `
+							rtype := "` + res.Name + `"
+							ref.Type = &rtype
+							//rDisplay := r.String()
+							//ref.Display = &rDisplay
+							return ref
+						}`)
 		}
 		filename := filepath.Join(generateStructsDir, res.Name+".go")
 		file, err := os.Create(filename)
@@ -440,8 +486,8 @@ var fhirPrimitive_to_GolangType = map[string]string{
 	"boolean":                               "bool",
 	"canonical":                             "string",
 	"code":                                  "string",
-	"date":                                  "string",
-	"dateTime":                              "string",
+	"date":                                  "time.Time",
+	"dateTime":                              "time.Time",
 	"decimal":                               "float64",
 	"id":                                    "string",
 	"instant":                               "string",

@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,8 +30,8 @@ type CatalogEntry struct {
 	Classification           []CodeableConcept          `json:"classification,omitempty"`
 	Status                   *string                    `json:"status,omitempty"`
 	ValidityPeriod           *Period                    `json:"validityPeriod,omitempty"`
-	ValidTo                  *string                    `json:"validTo,omitempty"`
-	LastUpdated              *string                    `json:"lastUpdated,omitempty"`
+	ValidTo                  *time.Time                 `json:"validTo,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	LastUpdated              *time.Time                 `json:"lastUpdated,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	AdditionalCharacteristic []CodeableConcept          `json:"additionalCharacteristic,omitempty"`
 	AdditionalClassification []CodeableConcept          `json:"additionalClassification,omitempty"`
 	RelatedEntry             []CatalogEntryRelatedEntry `json:"relatedEntry,omitempty"`
@@ -57,97 +58,83 @@ func (r CatalogEntry) MarshalJSON() ([]byte, error) {
 		ResourceType:      "CatalogEntry",
 	})
 }
-
-func (resource *CatalogEntry) T_Id() templ.Component {
+func (r CatalogEntry) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "CatalogEntry/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "CatalogEntry"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *CatalogEntry) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CatalogEntry.Id", nil)
+		return CodeableConceptSelect("CatalogEntry.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("CatalogEntry.Id", resource.Id)
+	return CodeableConceptSelect("CatalogEntry.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_ImplicitRules() templ.Component {
+func (resource *CatalogEntry) T_Orderable(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CatalogEntry.ImplicitRules", nil)
+		return BoolInput("CatalogEntry.Orderable", nil, htmlAttrs)
 	}
-	return StringInput("CatalogEntry.ImplicitRules", resource.ImplicitRules)
+	return BoolInput("CatalogEntry.Orderable", &resource.Orderable, htmlAttrs)
 }
-func (resource *CatalogEntry) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_Classification(numClassification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("CatalogEntry.Language", nil, optionsValueSet)
+	if resource == nil || numClassification >= len(resource.Classification) {
+		return CodeableConceptSelect("CatalogEntry.Classification."+strconv.Itoa(numClassification)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CatalogEntry.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("CatalogEntry.Classification."+strconv.Itoa(numClassification)+".", &resource.Classification[numClassification], optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_Type(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("CatalogEntry.Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("CatalogEntry.Type", resource.Type, optionsValueSet)
-}
-func (resource *CatalogEntry) T_Orderable() templ.Component {
-
-	if resource == nil {
-		return BoolInput("CatalogEntry.Orderable", nil)
-	}
-	return BoolInput("CatalogEntry.Orderable", &resource.Orderable)
-}
-func (resource *CatalogEntry) T_Classification(numClassification int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Classification) >= numClassification {
-		return CodeableConceptSelect("CatalogEntry.Classification["+strconv.Itoa(numClassification)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("CatalogEntry.Classification["+strconv.Itoa(numClassification)+"]", &resource.Classification[numClassification], optionsValueSet)
-}
-func (resource *CatalogEntry) T_Status() templ.Component {
+func (resource *CatalogEntry) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("CatalogEntry.Status", nil, optionsValueSet)
+		return CodeSelect("CatalogEntry.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CatalogEntry.Status", resource.Status, optionsValueSet)
+	return CodeSelect("CatalogEntry.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_ValidTo() templ.Component {
+func (resource *CatalogEntry) T_ValidTo(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CatalogEntry.ValidTo", nil)
+		return DateTimeInput("CatalogEntry.ValidTo", nil, htmlAttrs)
 	}
-	return StringInput("CatalogEntry.ValidTo", resource.ValidTo)
+	return DateTimeInput("CatalogEntry.ValidTo", resource.ValidTo, htmlAttrs)
 }
-func (resource *CatalogEntry) T_LastUpdated() templ.Component {
+func (resource *CatalogEntry) T_LastUpdated(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CatalogEntry.LastUpdated", nil)
+		return DateTimeInput("CatalogEntry.LastUpdated", nil, htmlAttrs)
 	}
-	return StringInput("CatalogEntry.LastUpdated", resource.LastUpdated)
+	return DateTimeInput("CatalogEntry.LastUpdated", resource.LastUpdated, htmlAttrs)
 }
-func (resource *CatalogEntry) T_AdditionalCharacteristic(numAdditionalCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_AdditionalCharacteristic(numAdditionalCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AdditionalCharacteristic) >= numAdditionalCharacteristic {
-		return CodeableConceptSelect("CatalogEntry.AdditionalCharacteristic["+strconv.Itoa(numAdditionalCharacteristic)+"]", nil, optionsValueSet)
+	if resource == nil || numAdditionalCharacteristic >= len(resource.AdditionalCharacteristic) {
+		return CodeableConceptSelect("CatalogEntry.AdditionalCharacteristic."+strconv.Itoa(numAdditionalCharacteristic)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CatalogEntry.AdditionalCharacteristic["+strconv.Itoa(numAdditionalCharacteristic)+"]", &resource.AdditionalCharacteristic[numAdditionalCharacteristic], optionsValueSet)
+	return CodeableConceptSelect("CatalogEntry.AdditionalCharacteristic."+strconv.Itoa(numAdditionalCharacteristic)+".", &resource.AdditionalCharacteristic[numAdditionalCharacteristic], optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_AdditionalClassification(numAdditionalClassification int, optionsValueSet []Coding) templ.Component {
+func (resource *CatalogEntry) T_AdditionalClassification(numAdditionalClassification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AdditionalClassification) >= numAdditionalClassification {
-		return CodeableConceptSelect("CatalogEntry.AdditionalClassification["+strconv.Itoa(numAdditionalClassification)+"]", nil, optionsValueSet)
+	if resource == nil || numAdditionalClassification >= len(resource.AdditionalClassification) {
+		return CodeableConceptSelect("CatalogEntry.AdditionalClassification."+strconv.Itoa(numAdditionalClassification)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CatalogEntry.AdditionalClassification["+strconv.Itoa(numAdditionalClassification)+"]", &resource.AdditionalClassification[numAdditionalClassification], optionsValueSet)
+	return CodeableConceptSelect("CatalogEntry.AdditionalClassification."+strconv.Itoa(numAdditionalClassification)+".", &resource.AdditionalClassification[numAdditionalClassification], optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_RelatedEntryId(numRelatedEntry int) templ.Component {
-
-	if resource == nil || len(resource.RelatedEntry) >= numRelatedEntry {
-		return StringInput("CatalogEntry.RelatedEntry["+strconv.Itoa(numRelatedEntry)+"].Id", nil)
-	}
-	return StringInput("CatalogEntry.RelatedEntry["+strconv.Itoa(numRelatedEntry)+"].Id", resource.RelatedEntry[numRelatedEntry].Id)
-}
-func (resource *CatalogEntry) T_RelatedEntryRelationtype(numRelatedEntry int) templ.Component {
+func (resource *CatalogEntry) T_RelatedEntryRelationtype(numRelatedEntry int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSRelation_type
 
-	if resource == nil || len(resource.RelatedEntry) >= numRelatedEntry {
-		return CodeSelect("CatalogEntry.RelatedEntry["+strconv.Itoa(numRelatedEntry)+"].Relationtype", nil, optionsValueSet)
+	if resource == nil || numRelatedEntry >= len(resource.RelatedEntry) {
+		return CodeSelect("CatalogEntry.RelatedEntry."+strconv.Itoa(numRelatedEntry)+"..Relationtype", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CatalogEntry.RelatedEntry["+strconv.Itoa(numRelatedEntry)+"].Relationtype", &resource.RelatedEntry[numRelatedEntry].Relationtype, optionsValueSet)
+	return CodeSelect("CatalogEntry.RelatedEntry."+strconv.Itoa(numRelatedEntry)+"..Relationtype", &resource.RelatedEntry[numRelatedEntry].Relationtype, optionsValueSet, htmlAttrs)
 }

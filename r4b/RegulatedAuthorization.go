@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type RegulatedAuthorization struct {
 	Description       *string                     `json:"description,omitempty"`
 	Region            []CodeableConcept           `json:"region,omitempty"`
 	Status            *CodeableConcept            `json:"status,omitempty"`
-	StatusDate        *string                     `json:"statusDate,omitempty"`
+	StatusDate        *time.Time                  `json:"statusDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	ValidityPeriod    *Period                     `json:"validityPeriod,omitempty"`
 	Indication        *CodeableReference          `json:"indication,omitempty"`
 	IntendedUse       *CodeableConcept            `json:"intendedUse,omitempty"`
@@ -46,7 +47,7 @@ type RegulatedAuthorizationCase struct {
 	Type              *CodeableConcept `json:"type,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
 	DatePeriod        *Period          `json:"datePeriod,omitempty"`
-	DateDateTime      *string          `json:"dateDateTime,omitempty"`
+	DateDateTime      *time.Time       `json:"dateDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }
 
 type OtherRegulatedAuthorization RegulatedAuthorization
@@ -61,95 +62,88 @@ func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 		ResourceType:                "RegulatedAuthorization",
 	})
 }
-
-func (resource *RegulatedAuthorization) T_Id() templ.Component {
+func (r RegulatedAuthorization) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "RegulatedAuthorization/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "RegulatedAuthorization"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *RegulatedAuthorization) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RegulatedAuthorization.Id", nil)
+		return CodeableConceptSelect("RegulatedAuthorization.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RegulatedAuthorization.Id", resource.Id)
+	return CodeableConceptSelect("RegulatedAuthorization.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_ImplicitRules() templ.Component {
+func (resource *RegulatedAuthorization) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RegulatedAuthorization.ImplicitRules", nil)
+		return StringInput("RegulatedAuthorization.Description", nil, htmlAttrs)
 	}
-	return StringInput("RegulatedAuthorization.ImplicitRules", resource.ImplicitRules)
+	return StringInput("RegulatedAuthorization.Description", resource.Description, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Region(numRegion int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numRegion >= len(resource.Region) {
+		return CodeableConceptSelect("RegulatedAuthorization.Region."+strconv.Itoa(numRegion)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("RegulatedAuthorization.Region."+strconv.Itoa(numRegion)+".", &resource.Region[numRegion], optionsValueSet, htmlAttrs)
+}
+func (resource *RegulatedAuthorization) T_Status(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("RegulatedAuthorization.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("RegulatedAuthorization.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RegulatedAuthorization.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("RegulatedAuthorization.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Type(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_StatusDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RegulatedAuthorization.Type", nil, optionsValueSet)
+		return DateTimeInput("RegulatedAuthorization.StatusDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RegulatedAuthorization.Type", resource.Type, optionsValueSet)
+	return DateTimeInput("RegulatedAuthorization.StatusDate", resource.StatusDate, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Description() templ.Component {
+func (resource *RegulatedAuthorization) T_IntendedUse(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RegulatedAuthorization.Description", nil)
+		return CodeableConceptSelect("RegulatedAuthorization.IntendedUse", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RegulatedAuthorization.Description", resource.Description)
+	return CodeableConceptSelect("RegulatedAuthorization.IntendedUse", resource.IntendedUse, optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Region(numRegion int, optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_Basis(numBasis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Region) >= numRegion {
-		return CodeableConceptSelect("RegulatedAuthorization.Region["+strconv.Itoa(numRegion)+"]", nil, optionsValueSet)
+	if resource == nil || numBasis >= len(resource.Basis) {
+		return CodeableConceptSelect("RegulatedAuthorization.Basis."+strconv.Itoa(numBasis)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RegulatedAuthorization.Region["+strconv.Itoa(numRegion)+"]", &resource.Region[numRegion], optionsValueSet)
+	return CodeableConceptSelect("RegulatedAuthorization.Basis."+strconv.Itoa(numBasis)+".", &resource.Basis[numBasis], optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Status(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("RegulatedAuthorization.Status", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RegulatedAuthorization.Status", resource.Status, optionsValueSet)
-}
-func (resource *RegulatedAuthorization) T_StatusDate() templ.Component {
+func (resource *RegulatedAuthorization) T_CaseType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RegulatedAuthorization.StatusDate", nil)
+		return CodeableConceptSelect("RegulatedAuthorization.Case.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RegulatedAuthorization.StatusDate", resource.StatusDate)
+	return CodeableConceptSelect("RegulatedAuthorization.Case.Type", resource.Case.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_IntendedUse(optionsValueSet []Coding) templ.Component {
+func (resource *RegulatedAuthorization) T_CaseStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RegulatedAuthorization.IntendedUse", nil, optionsValueSet)
+		return CodeableConceptSelect("RegulatedAuthorization.Case.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RegulatedAuthorization.IntendedUse", resource.IntendedUse, optionsValueSet)
+	return CodeableConceptSelect("RegulatedAuthorization.Case.Status", resource.Case.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Basis(numBasis int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Basis) >= numBasis {
-		return CodeableConceptSelect("RegulatedAuthorization.Basis["+strconv.Itoa(numBasis)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RegulatedAuthorization.Basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], optionsValueSet)
-}
-func (resource *RegulatedAuthorization) T_CaseId() templ.Component {
+func (resource *RegulatedAuthorization) T_CaseDateDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RegulatedAuthorization.Case.Id", nil)
+		return DateTimeInput("RegulatedAuthorization.Case.DateDateTime", nil, htmlAttrs)
 	}
-	return StringInput("RegulatedAuthorization.Case.Id", resource.Case.Id)
-}
-func (resource *RegulatedAuthorization) T_CaseType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("RegulatedAuthorization.Case.Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RegulatedAuthorization.Case.Type", resource.Case.Type, optionsValueSet)
-}
-func (resource *RegulatedAuthorization) T_CaseStatus(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("RegulatedAuthorization.Case.Status", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RegulatedAuthorization.Case.Status", resource.Case.Status, optionsValueSet)
+	return DateTimeInput("RegulatedAuthorization.Case.DateDateTime", resource.Case.DateDateTime, htmlAttrs)
 }

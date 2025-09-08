@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type ExampleScenario struct {
 	Name              *string                   `json:"name,omitempty"`
 	Status            string                    `json:"status"`
 	Experimental      *bool                     `json:"experimental,omitempty"`
-	Date              *string                   `json:"date,omitempty"`
+	Date              *time.Time                `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                   `json:"publisher,omitempty"`
 	Contact           []ContactDetail           `json:"contact,omitempty"`
 	UseContext        []UsageContext            `json:"useContext,omitempty"`
@@ -140,350 +141,287 @@ func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ExampleScenario",
 	})
 }
-
-func (resource *ExampleScenario) T_Id() templ.Component {
+func (r ExampleScenario) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ExampleScenario/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "ExampleScenario"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ExampleScenario) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ExampleScenario.Id", nil)
+		return StringInput("ExampleScenario.Url", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Id", resource.Id)
+	return StringInput("ExampleScenario.Url", resource.Url, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ImplicitRules() templ.Component {
+func (resource *ExampleScenario) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ExampleScenario.ImplicitRules", nil)
+		return StringInput("ExampleScenario.Version", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ExampleScenario.Version", resource.Version, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ExampleScenario) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ExampleScenario.Language", nil, optionsValueSet)
+		return StringInput("ExampleScenario.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("ExampleScenario.Language", resource.Language, optionsValueSet)
+	return StringInput("ExampleScenario.Name", resource.Name, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Url() templ.Component {
-
-	if resource == nil {
-		return StringInput("ExampleScenario.Url", nil)
-	}
-	return StringInput("ExampleScenario.Url", resource.Url)
-}
-func (resource *ExampleScenario) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("ExampleScenario.Version", nil)
-	}
-	return StringInput("ExampleScenario.Version", resource.Version)
-}
-func (resource *ExampleScenario) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("ExampleScenario.Name", nil)
-	}
-	return StringInput("ExampleScenario.Name", resource.Name)
-}
-func (resource *ExampleScenario) T_Status() templ.Component {
+func (resource *ExampleScenario) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ExampleScenario.Status", nil, optionsValueSet)
+		return CodeSelect("ExampleScenario.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ExampleScenario.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ExampleScenario.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Experimental() templ.Component {
+func (resource *ExampleScenario) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ExampleScenario.Experimental", nil)
+		return BoolInput("ExampleScenario.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ExampleScenario.Experimental", resource.Experimental)
+	return BoolInput("ExampleScenario.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Date() templ.Component {
+func (resource *ExampleScenario) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ExampleScenario.Date", nil)
+		return DateTimeInput("ExampleScenario.Date", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Date", resource.Date)
+	return DateTimeInput("ExampleScenario.Date", resource.Date, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Publisher() templ.Component {
+func (resource *ExampleScenario) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ExampleScenario.Publisher", nil)
+		return StringInput("ExampleScenario.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Publisher", resource.Publisher)
+	return StringInput("ExampleScenario.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *ExampleScenario) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("ExampleScenario.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("ExampleScenario.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ExampleScenario.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("ExampleScenario.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Copyright() templ.Component {
-
-	if resource == nil {
-		return StringInput("ExampleScenario.Copyright", nil)
-	}
-	return StringInput("ExampleScenario.Copyright", resource.Copyright)
-}
-func (resource *ExampleScenario) T_Purpose() templ.Component {
+func (resource *ExampleScenario) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ExampleScenario.Purpose", nil)
+		return StringInput("ExampleScenario.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Purpose", resource.Purpose)
+	return StringInput("ExampleScenario.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ExampleScenario) T_Workflow(numWorkflow int) templ.Component {
+func (resource *ExampleScenario) T_Purpose(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Workflow) >= numWorkflow {
-		return StringInput("ExampleScenario.Workflow["+strconv.Itoa(numWorkflow)+"]", nil)
+	if resource == nil {
+		return StringInput("ExampleScenario.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Workflow["+strconv.Itoa(numWorkflow)+"]", &resource.Workflow[numWorkflow])
+	return StringInput("ExampleScenario.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ActorId(numActor int) templ.Component {
+func (resource *ExampleScenario) T_Workflow(numWorkflow int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Id", nil)
+	if resource == nil || numWorkflow >= len(resource.Workflow) {
+		return StringInput("ExampleScenario.Workflow."+strconv.Itoa(numWorkflow)+".", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Id", resource.Actor[numActor].Id)
+	return StringInput("ExampleScenario.Workflow."+strconv.Itoa(numWorkflow)+".", &resource.Workflow[numWorkflow], htmlAttrs)
 }
-func (resource *ExampleScenario) T_ActorActorId(numActor int) templ.Component {
+func (resource *ExampleScenario) T_ActorActorId(numActor int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].ActorId", nil)
+	if resource == nil || numActor >= len(resource.Actor) {
+		return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..ActorId", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].ActorId", &resource.Actor[numActor].ActorId)
+	return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..ActorId", &resource.Actor[numActor].ActorId, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ActorType(numActor int) templ.Component {
+func (resource *ExampleScenario) T_ActorType(numActor int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSExamplescenario_actor_type
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return CodeSelect("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Type", nil, optionsValueSet)
+	if resource == nil || numActor >= len(resource.Actor) {
+		return CodeSelect("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Type", &resource.Actor[numActor].Type, optionsValueSet)
+	return CodeSelect("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Type", &resource.Actor[numActor].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ActorName(numActor int) templ.Component {
+func (resource *ExampleScenario) T_ActorName(numActor int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Name", nil)
+	if resource == nil || numActor >= len(resource.Actor) {
+		return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Name", resource.Actor[numActor].Name)
+	return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Name", resource.Actor[numActor].Name, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ActorDescription(numActor int) templ.Component {
+func (resource *ExampleScenario) T_ActorDescription(numActor int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Actor) >= numActor {
-		return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Description", nil)
+	if resource == nil || numActor >= len(resource.Actor) {
+		return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Actor["+strconv.Itoa(numActor)+"].Description", resource.Actor[numActor].Description)
+	return StringInput("ExampleScenario.Actor."+strconv.Itoa(numActor)+"..Description", resource.Actor[numActor].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceId(numInstance int) templ.Component {
+func (resource *ExampleScenario) T_InstanceResourceId(numInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Id", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ResourceId", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Id", resource.Instance[numInstance].Id)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ResourceId", &resource.Instance[numInstance].ResourceId, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceResourceId(numInstance int) templ.Component {
-
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ResourceId", nil)
-	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ResourceId", &resource.Instance[numInstance].ResourceId)
-}
-func (resource *ExampleScenario) T_InstanceResourceType(numInstance int) templ.Component {
+func (resource *ExampleScenario) T_InstanceResourceType(numInstance int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return CodeSelect("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ResourceType", nil, optionsValueSet)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return CodeSelect("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ResourceType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ResourceType", &resource.Instance[numInstance].ResourceType, optionsValueSet)
+	return CodeSelect("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ResourceType", &resource.Instance[numInstance].ResourceType, optionsValueSet, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceName(numInstance int) templ.Component {
+func (resource *ExampleScenario) T_InstanceName(numInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Name", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Name", resource.Instance[numInstance].Name)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Name", resource.Instance[numInstance].Name, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceDescription(numInstance int) templ.Component {
+func (resource *ExampleScenario) T_InstanceDescription(numInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Description", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Description", resource.Instance[numInstance].Description)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Description", resource.Instance[numInstance].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceVersionId(numInstance int, numVersion int) templ.Component {
+func (resource *ExampleScenario) T_InstanceVersionVersionId(numInstance int, numVersion int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].Version) >= numVersion {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].Id", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Version."+strconv.Itoa(numVersion)+"..VersionId", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].Id", resource.Instance[numInstance].Version[numVersion].Id)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Version."+strconv.Itoa(numVersion)+"..VersionId", &resource.Instance[numInstance].Version[numVersion].VersionId, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceVersionVersionId(numInstance int, numVersion int) templ.Component {
+func (resource *ExampleScenario) T_InstanceVersionDescription(numInstance int, numVersion int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].Version) >= numVersion {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].VersionId", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Version."+strconv.Itoa(numVersion)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].VersionId", &resource.Instance[numInstance].Version[numVersion].VersionId)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..Version."+strconv.Itoa(numVersion)+"..Description", &resource.Instance[numInstance].Version[numVersion].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceVersionDescription(numInstance int, numVersion int) templ.Component {
+func (resource *ExampleScenario) T_InstanceContainedInstanceResourceId(numInstance int, numContainedInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].Version) >= numVersion {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].Description", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numContainedInstance >= len(resource.Instance[numInstance].ContainedInstance) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ContainedInstance."+strconv.Itoa(numContainedInstance)+"..ResourceId", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].Version["+strconv.Itoa(numVersion)+"].Description", &resource.Instance[numInstance].Version[numVersion].Description)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ContainedInstance."+strconv.Itoa(numContainedInstance)+"..ResourceId", &resource.Instance[numInstance].ContainedInstance[numContainedInstance].ResourceId, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceContainedInstanceId(numInstance int, numContainedInstance int) templ.Component {
+func (resource *ExampleScenario) T_InstanceContainedInstanceVersionId(numInstance int, numContainedInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ContainedInstance) >= numContainedInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].Id", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numContainedInstance >= len(resource.Instance[numInstance].ContainedInstance) {
+		return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ContainedInstance."+strconv.Itoa(numContainedInstance)+"..VersionId", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].Id", resource.Instance[numInstance].ContainedInstance[numContainedInstance].Id)
+	return StringInput("ExampleScenario.Instance."+strconv.Itoa(numInstance)+"..ContainedInstance."+strconv.Itoa(numContainedInstance)+"..VersionId", resource.Instance[numInstance].ContainedInstance[numContainedInstance].VersionId, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceContainedInstanceResourceId(numInstance int, numContainedInstance int) templ.Component {
+func (resource *ExampleScenario) T_ProcessTitle(numProcess int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ContainedInstance) >= numContainedInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].ResourceId", nil)
+	if resource == nil || numProcess >= len(resource.Process) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Title", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].ResourceId", &resource.Instance[numInstance].ContainedInstance[numContainedInstance].ResourceId)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Title", &resource.Process[numProcess].Title, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceContainedInstanceVersionId(numInstance int, numContainedInstance int) templ.Component {
+func (resource *ExampleScenario) T_ProcessDescription(numProcess int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ContainedInstance) >= numContainedInstance {
-		return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].VersionId", nil)
+	if resource == nil || numProcess >= len(resource.Process) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Instance["+strconv.Itoa(numInstance)+"].ContainedInstance["+strconv.Itoa(numContainedInstance)+"].VersionId", resource.Instance[numInstance].ContainedInstance[numContainedInstance].VersionId)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Description", resource.Process[numProcess].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessId(numProcess int) templ.Component {
+func (resource *ExampleScenario) T_ProcessPreConditions(numProcess int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Id", nil)
+	if resource == nil || numProcess >= len(resource.Process) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..PreConditions", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Id", resource.Process[numProcess].Id)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..PreConditions", resource.Process[numProcess].PreConditions, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessTitle(numProcess int) templ.Component {
+func (resource *ExampleScenario) T_ProcessPostConditions(numProcess int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Title", nil)
+	if resource == nil || numProcess >= len(resource.Process) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..PostConditions", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Title", &resource.Process[numProcess].Title)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..PostConditions", resource.Process[numProcess].PostConditions, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessDescription(numProcess int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepPause(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Description", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Pause", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Description", resource.Process[numProcess].Description)
+	return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Pause", resource.Process[numProcess].Step[numStep].Pause, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessPreConditions(numProcess int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationNumber(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].PreConditions", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Number", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].PreConditions", resource.Process[numProcess].PreConditions)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Number", &resource.Process[numProcess].Step[numStep].Operation.Number, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessPostConditions(numProcess int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationType(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].PostConditions", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Type", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].PostConditions", resource.Process[numProcess].PostConditions)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Type", resource.Process[numProcess].Step[numStep].Operation.Type, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepId(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationName(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Id", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Name", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Id", resource.Process[numProcess].Step[numStep].Id)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Name", resource.Process[numProcess].Step[numStep].Operation.Name, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepPause(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationInitiator(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Pause", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Initiator", nil, htmlAttrs)
 	}
-	return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Pause", resource.Process[numProcess].Step[numStep].Pause)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Initiator", resource.Process[numProcess].Step[numStep].Operation.Initiator, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationId(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationReceiver(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Id", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Receiver", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Id", resource.Process[numProcess].Step[numStep].Operation.Id)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Receiver", resource.Process[numProcess].Step[numStep].Operation.Receiver, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationNumber(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationDescription(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Number", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Number", &resource.Process[numProcess].Step[numStep].Operation.Number)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.Description", resource.Process[numProcess].Step[numStep].Operation.Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationType(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationInitiatorActive(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Type", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.InitiatorActive", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Type", resource.Process[numProcess].Step[numStep].Operation.Type)
+	return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.InitiatorActive", resource.Process[numProcess].Step[numStep].Operation.InitiatorActive, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationName(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepOperationReceiverActive(numProcess int, numStep int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Name", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) {
+		return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.ReceiverActive", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Name", resource.Process[numProcess].Step[numStep].Operation.Name)
+	return BoolInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Operation.ReceiverActive", resource.Process[numProcess].Step[numStep].Operation.ReceiverActive, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationInitiator(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepAlternativeTitle(numProcess int, numStep int, numAlternative int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Initiator", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) || numAlternative >= len(resource.Process[numProcess].Step[numStep].Alternative) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Alternative."+strconv.Itoa(numAlternative)+"..Title", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Initiator", resource.Process[numProcess].Step[numStep].Operation.Initiator)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Alternative."+strconv.Itoa(numAlternative)+"..Title", &resource.Process[numProcess].Step[numStep].Alternative[numAlternative].Title, htmlAttrs)
 }
-func (resource *ExampleScenario) T_ProcessStepOperationReceiver(numProcess int, numStep int) templ.Component {
+func (resource *ExampleScenario) T_ProcessStepAlternativeDescription(numProcess int, numStep int, numAlternative int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Receiver", nil)
+	if resource == nil || numProcess >= len(resource.Process) || numStep >= len(resource.Process[numProcess].Step) || numAlternative >= len(resource.Process[numProcess].Step[numStep].Alternative) {
+		return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Alternative."+strconv.Itoa(numAlternative)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Receiver", resource.Process[numProcess].Step[numStep].Operation.Receiver)
-}
-func (resource *ExampleScenario) T_ProcessStepOperationDescription(numProcess int, numStep int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Description", nil)
-	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.Description", resource.Process[numProcess].Step[numStep].Operation.Description)
-}
-func (resource *ExampleScenario) T_ProcessStepOperationInitiatorActive(numProcess int, numStep int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.InitiatorActive", nil)
-	}
-	return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.InitiatorActive", resource.Process[numProcess].Step[numStep].Operation.InitiatorActive)
-}
-func (resource *ExampleScenario) T_ProcessStepOperationReceiverActive(numProcess int, numStep int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep {
-		return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.ReceiverActive", nil)
-	}
-	return BoolInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Operation.ReceiverActive", resource.Process[numProcess].Step[numStep].Operation.ReceiverActive)
-}
-func (resource *ExampleScenario) T_ProcessStepAlternativeId(numProcess int, numStep int, numAlternative int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep || len(resource.Process[numProcess].Step[numStep].Alternative) >= numAlternative {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Id", nil)
-	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Id", resource.Process[numProcess].Step[numStep].Alternative[numAlternative].Id)
-}
-func (resource *ExampleScenario) T_ProcessStepAlternativeTitle(numProcess int, numStep int, numAlternative int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep || len(resource.Process[numProcess].Step[numStep].Alternative) >= numAlternative {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Title", nil)
-	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Title", &resource.Process[numProcess].Step[numStep].Alternative[numAlternative].Title)
-}
-func (resource *ExampleScenario) T_ProcessStepAlternativeDescription(numProcess int, numStep int, numAlternative int) templ.Component {
-
-	if resource == nil || len(resource.Process) >= numProcess || len(resource.Process[numProcess].Step) >= numStep || len(resource.Process[numProcess].Step[numStep].Alternative) >= numAlternative {
-		return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Description", nil)
-	}
-	return StringInput("ExampleScenario.Process["+strconv.Itoa(numProcess)+"].Step["+strconv.Itoa(numStep)+"].Alternative["+strconv.Itoa(numAlternative)+"].Description", resource.Process[numProcess].Step[numStep].Alternative[numAlternative].Description)
+	return StringInput("ExampleScenario.Process."+strconv.Itoa(numProcess)+"..Step."+strconv.Itoa(numStep)+"..Alternative."+strconv.Itoa(numAlternative)+"..Description", resource.Process[numProcess].Step[numStep].Alternative[numAlternative].Description, htmlAttrs)
 }

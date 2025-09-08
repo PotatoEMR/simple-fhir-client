@@ -6,7 +6,7 @@ func FormText(fhirVersion string) string {
 import "fmt"
 
 //html Select for code, from valueset list
-templ CodeSelect(fieldname string, current *string, valueset []Coding) {
+templ CodeSelect(fieldname string, current *string, valueset []Coding, htmlAttrs string) {
 		<select name={ fieldname }>
 			<option value="">--</option>
 			for _, c := range valueset {
@@ -28,7 +28,7 @@ templ CodeSelect(fieldname string, current *string, valueset []Coding) {
 		</select>
 }
 
-templ CodingSelect(fieldname string, current *Coding, valueset []Coding) {
+templ CodingSelect(fieldname string, current *Coding, valueset []Coding, htmlAttrs string) {
 		<select
 			name={ fieldname + ".display" }
 			onblur="setCodingFromOptions(this)"
@@ -70,7 +70,7 @@ templ CodingSelect(fieldname string, current *Coding, valueset []Coding) {
 		}
 }
 
-templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding) {
+templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding, htmlAttrs string) {
 	{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
 	<select
 		onblur="setCodingFromOptions(this)"
@@ -112,18 +112,15 @@ templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset
 	}
 }
 
-templ AnnotationInput(fieldname string, current *Annotation) {
-	if current != nil && current.Time != nil {
-		<span>{ *current.Time } </span>
-	}
+templ AnnotationTextArea(fieldname string, current *Annotation, htmlAttrs string) {
 	if current == nil {
-		<textarea name={ fieldname } value=""></textarea>
+		<textarea name={ fieldname + ".Text" } value=""></textarea>
 	} else {
-		<textarea name={ fieldname } value={ current.Text }></textarea>
+		<textarea name={ fieldname + ".Text" } value={ current.Text }></textarea>
 	}
 }
 
-templ StringInput(fieldname string, current *string) {
+templ StringInput(fieldname string, current *string, htmlAttrs string) {
 	if current == nil {
 		<input name={fieldname} value=""/>
 	} else {
@@ -131,7 +128,7 @@ templ StringInput(fieldname string, current *string) {
 	}
 }
 
-templ BoolInput(fieldname string, current *bool) {
+templ BoolInput(fieldname string, current *bool, htmlAttrs string) {
 	<select name={fieldname}>
 		<option value="" selected={current == nil}>--</option>
 		<option value="true" selected={current != nil && *current}>Yes</option>
@@ -139,7 +136,7 @@ templ BoolInput(fieldname string, current *bool) {
 	</select>
 }
 
-templ Float64Input(fieldname string, current *float64) {
+templ Float64Input(fieldname string, current *float64, htmlAttrs string) {
 	if current == nil {
 		<input type="number" step="any" name={fieldname} value=""/>
 	} else {
@@ -147,7 +144,7 @@ templ Float64Input(fieldname string, current *float64) {
 	}
 }
 
-templ IntInput(fieldname string, current *int) {
+templ IntInput(fieldname string, current *int, htmlAttrs string) {
 	if current == nil {
 		<input type="number" name={fieldname} value=""/>
 	} else {
@@ -155,13 +152,30 @@ templ IntInput(fieldname string, current *int) {
 	}
 }
 
-templ Int64Input(fieldname string, current *int64) {
+templ Int64Input(fieldname string, current *int64, htmlAttrs string) {
 	if current == nil {
 		<input type="number" name={fieldname} value=""/>
 	} else {
 		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)}/>
 	}
 }
+
+templ DateInput(fieldname string, current *time.Time, htmlAttrs string) {
+	if current == nil {
+		<input type="date" name={fieldname} value=""/>
+	} else {
+		<input type="date" name={fieldname} value={current.Format("2006-01-02")}/>
+	}
+}
+
+templ DateTimeInput(fieldname string, current *time.Time, htmlAttrs string) {
+	if current == nil {
+		<input type="datetime-local" name={fieldname} value=""/>
+	} else {
+		<input type="datetime-local" name={fieldname} value={current.Format("2006-01-02 15:04:05")}/>
+	}
+}
+
 
 `
 	return ret

@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type List struct {
 	Code              *CodeableConcept `json:"code,omitempty"`
 	Subject           *Reference       `json:"subject,omitempty"`
 	Encounter         *Reference       `json:"encounter,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *time.Time       `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Source            *Reference       `json:"source,omitempty"`
 	OrderedBy         *CodeableConcept `json:"orderedBy,omitempty"`
 	Note              []Annotation     `json:"note,omitempty"`
@@ -43,7 +44,7 @@ type ListEntry struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Flag              *CodeableConcept `json:"flag,omitempty"`
 	Deleted           *bool            `json:"deleted,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *time.Time       `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Item              Reference        `json:"item"`
 }
 
@@ -59,104 +60,97 @@ func (r List) MarshalJSON() ([]byte, error) {
 		ResourceType: "List",
 	})
 }
-
-func (resource *List) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("List.Id", nil)
+func (r List) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "List/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("List.Id", resource.Id)
-}
-func (resource *List) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("List.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("List.ImplicitRules", resource.ImplicitRules)
+	rtype := "List"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *List) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("List.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("List.Language", resource.Language, optionsValueSet)
-}
-func (resource *List) T_Status() templ.Component {
+func (resource *List) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_status
 
 	if resource == nil {
-		return CodeSelect("List.Status", nil, optionsValueSet)
+		return CodeSelect("List.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("List.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("List.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Mode() templ.Component {
+func (resource *List) T_Mode(htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil {
-		return CodeSelect("List.Mode", nil, optionsValueSet)
+		return CodeSelect("List.Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("List.Mode", &resource.Mode, optionsValueSet)
+	return CodeSelect("List.Mode", &resource.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Title() templ.Component {
+func (resource *List) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("List.Title", nil)
+		return StringInput("List.Title", nil, htmlAttrs)
 	}
-	return StringInput("List.Title", resource.Title)
+	return StringInput("List.Title", resource.Title, htmlAttrs)
 }
-func (resource *List) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("List.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("List.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("List.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("List.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Date() templ.Component {
+func (resource *List) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("List.Date", nil)
+		return DateTimeInput("List.Date", nil, htmlAttrs)
 	}
-	return StringInput("List.Date", resource.Date)
+	return DateTimeInput("List.Date", resource.Date, htmlAttrs)
 }
-func (resource *List) T_OrderedBy(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_OrderedBy(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("List.OrderedBy", nil, optionsValueSet)
+		return CodeableConceptSelect("List.OrderedBy", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("List.OrderedBy", resource.OrderedBy, optionsValueSet)
+	return CodeableConceptSelect("List.OrderedBy", resource.OrderedBy, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_EmptyReason(optionsValueSet []Coding) templ.Component {
+func (resource *List) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("List.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("List.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *List) T_EmptyReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("List.EmptyReason", nil, optionsValueSet)
+		return CodeableConceptSelect("List.EmptyReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("List.EmptyReason", resource.EmptyReason, optionsValueSet)
+	return CodeableConceptSelect("List.EmptyReason", resource.EmptyReason, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_EntryId(numEntry int) templ.Component {
+func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entry) >= numEntry {
-		return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Id", nil)
+	if resource == nil || numEntry >= len(resource.Entry) {
+		return CodeableConceptSelect("List.Entry."+strconv.Itoa(numEntry)+"..Flag", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Id", resource.Entry[numEntry].Id)
+	return CodeableConceptSelect("List.Entry."+strconv.Itoa(numEntry)+"..Flag", resource.Entry[numEntry].Flag, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding) templ.Component {
+func (resource *List) T_EntryDeleted(numEntry int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entry) >= numEntry {
-		return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", nil, optionsValueSet)
+	if resource == nil || numEntry >= len(resource.Entry) {
+		return BoolInput("List.Entry."+strconv.Itoa(numEntry)+"..Deleted", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", resource.Entry[numEntry].Flag, optionsValueSet)
+	return BoolInput("List.Entry."+strconv.Itoa(numEntry)+"..Deleted", resource.Entry[numEntry].Deleted, htmlAttrs)
 }
-func (resource *List) T_EntryDeleted(numEntry int) templ.Component {
+func (resource *List) T_EntryDate(numEntry int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Entry) >= numEntry {
-		return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", nil)
+	if resource == nil || numEntry >= len(resource.Entry) {
+		return DateTimeInput("List.Entry."+strconv.Itoa(numEntry)+"..Date", nil, htmlAttrs)
 	}
-	return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", resource.Entry[numEntry].Deleted)
-}
-func (resource *List) T_EntryDate(numEntry int) templ.Component {
-
-	if resource == nil || len(resource.Entry) >= numEntry {
-		return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", nil)
-	}
-	return StringInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", resource.Entry[numEntry].Date)
+	return DateTimeInput("List.Entry."+strconv.Itoa(numEntry)+"..Date", resource.Entry[numEntry].Date, htmlAttrs)
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"testing"
+	"time"
 
 	r4 "github.com/PotatoEMR/simple-fhir-client/r4"
 	fhirClient "github.com/PotatoEMR/simple-fhir-client/r4Client"
@@ -24,10 +25,13 @@ func TestAllergy_r4(t *testing.T) {
 	note2 := r4.Annotation{Text: "fhir!"}
 	a.Note = append(a.Note, note2)
 	a.Criticality = r4.VSAllergy_intolerance_criticality[0].Code
+	onsetTime := time.Now()
+	a.OnsetDateTime = &onsetTime
 	j, err := json.Marshal(a)
 	if err != nil {
 		t.Error("r4 marshal allergy into json")
 	}
+	fmt.Println(string(j))
 	var rt rtTest
 	err = json.Unmarshal(j, &rt)
 	if err != nil {
@@ -44,6 +48,13 @@ func TestAllergy_r4(t *testing.T) {
 	if a2.Id == nil || *a2.Id != "abc" {
 		t.Error("r4 get original id after marshal/unmarshal")
 	}
+	if a2.OnsetDateTime == nil || (*a2.OnsetDateTime).Format(r4.DateTimeFormat) != onsetTime.Format(r4.DateTimeFormat) {
+		if a2.OnsetDateTime == nil {
+			t.Error("r4 time nil, did not get onset datetime, must install Go v1.25 and set GOEXPERIMENT=jsonv2")
+		} else {
+			t.Error("r4 onset ", (*a2.OnsetDateTime).Format(r4.DateTimeFormat), " different from old onset", onsetTime.Format(r4.DateTimeFormat), "must install Go v1.25 and set GOEXPERIMENT=jsonv2")
+		}
+	}
 	if a2.Criticality == nil || *a2.Criticality != "low" {
 		t.Error("r4 get original criticality after marshal/unmarshal...array of codings maybe awkward")
 	}
@@ -51,10 +62,10 @@ func TestAllergy_r4(t *testing.T) {
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
 	fmt.Println("does criticality look right? selected should be low")
-	allergyCritField := a2.T_Criticality()
+	allergyCritField := a2.T_Criticality("")
 	allergyCritField.Render(context.Background(), os.Stdout)
 	fmt.Println("does reaction[0].severity look right? it was never set, should be no selected")
-	allergyReactionSeverityField := a2.T_ReactionSeverity(0)
+	allergyReactionSeverityField := a2.T_ReactionSeverity(0, "")
 	allergyReactionSeverityField.Render(context.Background(), os.Stdout)
 }
 
@@ -134,7 +145,7 @@ func TestClient(t *testing.T) {
 		t.Error("Server did not set newpat id?")
 	}
 	fmt.Println(*newPat.Id)
-	bday := "1849-07-12"
+	bday := time.Date(1849, 7, 12, 0, 0, 0, 0, time.UTC)
 	newPat.BirthDate = &bday
 	_, err = client.UpdatePatient(newPat)
 	if err != nil {
@@ -144,10 +155,14 @@ func TestClient(t *testing.T) {
 	if err != nil {
 		t.Error("Error reading patient again", err)
 	}
-	if *patAgain.BirthDate != bday {
-		t.Error("Birthday doesnt match")
+	if patAgain.BirthDate == nil {
+		t.Error("Birthday nil, maybe install Go v1.25 and set GOEXPERIMENT=jsonv2")
+	} else {
+		bdAgain := *patAgain.BirthDate
+		if bdAgain.Format(r4.DateFormat) != bday.Format(r4.DateFormat) {
+			fmt.Println("Birthday error", bdAgain.Format(r4.DateFormat), "does not match", bday, "maybe install Go v1.25 and set GOEXPERIMENT=jsonv2")
+		}
 	}
-	fmt.Println(patAgain)
 	oo, err := client.DeletePatient(newPat)
 	if err != nil {
 		t.Error("Error deleting patient", err)
@@ -162,7 +177,7 @@ func TestClient(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	client := fhirClient.New("hapi.fhir.org/baseR4/")
+	client := fhirClient.New("https://r4.smarthealthit.org")
 	allPatients, err := client.SearchBundled(fhirClient.SpPatient{Name: "a"})
 	if err != nil {
 		t.Error("Search", err)
@@ -180,7 +195,9 @@ func TestSearch(t *testing.T) {
 	resGroup, err := client.SearchGrouped(fhirClient.SpPatient{Name: "a"})
 	if err != nil {
 		t.Error("SearchGrouped", err)
+		return
 	}
+
 	pats := resGroup.Patients
 	for _, p := range pats {
 		fmt.Println(p)

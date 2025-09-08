@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -47,46 +47,39 @@ func (r OrganizationAffiliation) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "OrganizationAffiliation",
 	})
 }
-
-func (resource *OrganizationAffiliation) T_Id() templ.Component {
+func (r OrganizationAffiliation) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "OrganizationAffiliation/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "OrganizationAffiliation"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *OrganizationAffiliation) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("OrganizationAffiliation.Id", nil)
+		return BoolInput("OrganizationAffiliation.Active", nil, htmlAttrs)
 	}
-	return StringInput("OrganizationAffiliation.Id", resource.Id)
+	return BoolInput("OrganizationAffiliation.Active", resource.Active, htmlAttrs)
 }
-func (resource *OrganizationAffiliation) T_ImplicitRules() templ.Component {
+func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("OrganizationAffiliation.ImplicitRules", nil)
+	if resource == nil || numCode >= len(resource.Code) {
+		return CodeableConceptSelect("OrganizationAffiliation.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("OrganizationAffiliation.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("OrganizationAffiliation.Code."+strconv.Itoa(numCode)+".", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *OrganizationAffiliation) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("OrganizationAffiliation.Language", nil, optionsValueSet)
+	if resource == nil || numSpecialty >= len(resource.Specialty) {
+		return CodeableConceptSelect("OrganizationAffiliation.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OrganizationAffiliation.Language", resource.Language, optionsValueSet)
-}
-func (resource *OrganizationAffiliation) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("OrganizationAffiliation.Active", nil)
-	}
-	return BoolInput("OrganizationAffiliation.Active", resource.Active)
-}
-func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Code) >= numCode {
-		return CodeableConceptSelect("OrganizationAffiliation.Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("OrganizationAffiliation.Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet)
-}
-func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Specialty) >= numSpecialty {
-		return CodeableConceptSelect("OrganizationAffiliation.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("OrganizationAffiliation.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
+	return CodeableConceptSelect("OrganizationAffiliation.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }

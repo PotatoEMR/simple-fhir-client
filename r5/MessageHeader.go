@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -81,96 +81,94 @@ func (r MessageHeader) MarshalJSON() ([]byte, error) {
 		ResourceType:       "MessageHeader",
 	})
 }
+func (r MessageHeader) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MessageHeader/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *MessageHeader) T_Id() templ.Component {
+	rtype := "MessageHeader"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MessageHeader) T_EventCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.Id", nil)
+		return CodingSelect("MessageHeader.EventCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MessageHeader.Id", resource.Id)
+	return CodingSelect("MessageHeader.EventCoding", &resource.EventCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageHeader) T_ImplicitRules() templ.Component {
+func (resource *MessageHeader) T_EventCanonical(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.ImplicitRules", nil)
+		return StringInput("MessageHeader.EventCanonical", nil, htmlAttrs)
 	}
-	return StringInput("MessageHeader.ImplicitRules", resource.ImplicitRules)
+	return StringInput("MessageHeader.EventCanonical", &resource.EventCanonical, htmlAttrs)
 }
-func (resource *MessageHeader) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MessageHeader) T_Reason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("MessageHeader.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("MessageHeader.Reason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageHeader.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("MessageHeader.Reason", resource.Reason, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageHeader) T_Reason(optionsValueSet []Coding) templ.Component {
+func (resource *MessageHeader) T_Definition(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("MessageHeader.Reason", nil, optionsValueSet)
+		return StringInput("MessageHeader.Definition", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("MessageHeader.Reason", resource.Reason, optionsValueSet)
+	return StringInput("MessageHeader.Definition", resource.Definition, htmlAttrs)
 }
-func (resource *MessageHeader) T_Definition() templ.Component {
+func (resource *MessageHeader) T_DestinationEndpointUrl(numDestination int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return StringInput("MessageHeader.Destination."+strconv.Itoa(numDestination)+"..EndpointUrl", nil, htmlAttrs)
+	}
+	return StringInput("MessageHeader.Destination."+strconv.Itoa(numDestination)+"..EndpointUrl", resource.Destination[numDestination].EndpointUrl, htmlAttrs)
+}
+func (resource *MessageHeader) T_DestinationName(numDestination int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return StringInput("MessageHeader.Destination."+strconv.Itoa(numDestination)+"..Name", nil, htmlAttrs)
+	}
+	return StringInput("MessageHeader.Destination."+strconv.Itoa(numDestination)+"..Name", resource.Destination[numDestination].Name, htmlAttrs)
+}
+func (resource *MessageHeader) T_SourceEndpointUrl(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.Definition", nil)
+		return StringInput("MessageHeader.Source.EndpointUrl", nil, htmlAttrs)
 	}
-	return StringInput("MessageHeader.Definition", resource.Definition)
+	return StringInput("MessageHeader.Source.EndpointUrl", resource.Source.EndpointUrl, htmlAttrs)
 }
-func (resource *MessageHeader) T_DestinationId(numDestination int) templ.Component {
-
-	if resource == nil || len(resource.Destination) >= numDestination {
-		return StringInput("MessageHeader.Destination["+strconv.Itoa(numDestination)+"].Id", nil)
-	}
-	return StringInput("MessageHeader.Destination["+strconv.Itoa(numDestination)+"].Id", resource.Destination[numDestination].Id)
-}
-func (resource *MessageHeader) T_DestinationName(numDestination int) templ.Component {
-
-	if resource == nil || len(resource.Destination) >= numDestination {
-		return StringInput("MessageHeader.Destination["+strconv.Itoa(numDestination)+"].Name", nil)
-	}
-	return StringInput("MessageHeader.Destination["+strconv.Itoa(numDestination)+"].Name", resource.Destination[numDestination].Name)
-}
-func (resource *MessageHeader) T_SourceId() templ.Component {
+func (resource *MessageHeader) T_SourceName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.Source.Id", nil)
+		return StringInput("MessageHeader.Source.Name", nil, htmlAttrs)
 	}
-	return StringInput("MessageHeader.Source.Id", resource.Source.Id)
+	return StringInput("MessageHeader.Source.Name", resource.Source.Name, htmlAttrs)
 }
-func (resource *MessageHeader) T_SourceName() templ.Component {
+func (resource *MessageHeader) T_SourceSoftware(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.Source.Name", nil)
+		return StringInput("MessageHeader.Source.Software", nil, htmlAttrs)
 	}
-	return StringInput("MessageHeader.Source.Name", resource.Source.Name)
+	return StringInput("MessageHeader.Source.Software", resource.Source.Software, htmlAttrs)
 }
-func (resource *MessageHeader) T_SourceSoftware() templ.Component {
+func (resource *MessageHeader) T_SourceVersion(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageHeader.Source.Software", nil)
+		return StringInput("MessageHeader.Source.Version", nil, htmlAttrs)
 	}
-	return StringInput("MessageHeader.Source.Software", resource.Source.Software)
+	return StringInput("MessageHeader.Source.Version", resource.Source.Version, htmlAttrs)
 }
-func (resource *MessageHeader) T_SourceVersion() templ.Component {
-
-	if resource == nil {
-		return StringInput("MessageHeader.Source.Version", nil)
-	}
-	return StringInput("MessageHeader.Source.Version", resource.Source.Version)
-}
-func (resource *MessageHeader) T_ResponseId() templ.Component {
-
-	if resource == nil {
-		return StringInput("MessageHeader.Response.Id", nil)
-	}
-	return StringInput("MessageHeader.Response.Id", resource.Response.Id)
-}
-func (resource *MessageHeader) T_ResponseCode() templ.Component {
+func (resource *MessageHeader) T_ResponseCode(htmlAttrs string) templ.Component {
 	optionsValueSet := VSResponse_code
 
 	if resource == nil {
-		return CodeSelect("MessageHeader.Response.Code", nil, optionsValueSet)
+		return CodeSelect("MessageHeader.Response.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageHeader.Response.Code", &resource.Response.Code, optionsValueSet)
+	return CodeSelect("MessageHeader.Response.Code", &resource.Response.Code, optionsValueSet, htmlAttrs)
 }

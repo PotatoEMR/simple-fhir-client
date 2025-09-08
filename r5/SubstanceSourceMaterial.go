@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -113,263 +113,212 @@ func (r SubstanceSourceMaterial) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "SubstanceSourceMaterial",
 	})
 }
+func (r SubstanceSourceMaterial) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "SubstanceSourceMaterial/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *SubstanceSourceMaterial) T_Id() templ.Component {
+	rtype := "SubstanceSourceMaterial"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *SubstanceSourceMaterial) T_SourceMaterialClass(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Id", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialClass", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Id", resource.Id)
+	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialClass", resource.SourceMaterialClass, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_ImplicitRules() templ.Component {
+func (resource *SubstanceSourceMaterial) T_SourceMaterialType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.ImplicitRules", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialType", resource.SourceMaterialType, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_SourceMaterialState(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("SubstanceSourceMaterial.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialState", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubstanceSourceMaterial.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialState", resource.SourceMaterialState, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_SourceMaterialClass(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialClass", nil, optionsValueSet)
+		return StringInput("SubstanceSourceMaterial.OrganismName", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialClass", resource.SourceMaterialClass, optionsValueSet)
+	return StringInput("SubstanceSourceMaterial.OrganismName", resource.OrganismName, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_SourceMaterialType(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_ParentSubstanceName(numParentSubstanceName int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParentSubstanceName >= len(resource.ParentSubstanceName) {
+		return StringInput("SubstanceSourceMaterial.ParentSubstanceName."+strconv.Itoa(numParentSubstanceName)+".", nil, htmlAttrs)
+	}
+	return StringInput("SubstanceSourceMaterial.ParentSubstanceName."+strconv.Itoa(numParentSubstanceName)+".", &resource.ParentSubstanceName[numParentSubstanceName], htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_CountryOfOrigin(numCountryOfOrigin int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCountryOfOrigin >= len(resource.CountryOfOrigin) {
+		return CodeableConceptSelect("SubstanceSourceMaterial.CountryOfOrigin."+strconv.Itoa(numCountryOfOrigin)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("SubstanceSourceMaterial.CountryOfOrigin."+strconv.Itoa(numCountryOfOrigin)+".", &resource.CountryOfOrigin[numCountryOfOrigin], optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_GeographicalLocation(numGeographicalLocation int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numGeographicalLocation >= len(resource.GeographicalLocation) {
+		return StringInput("SubstanceSourceMaterial.GeographicalLocation."+strconv.Itoa(numGeographicalLocation)+".", nil, htmlAttrs)
+	}
+	return StringInput("SubstanceSourceMaterial.GeographicalLocation."+strconv.Itoa(numGeographicalLocation)+".", &resource.GeographicalLocation[numGeographicalLocation], htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_DevelopmentStage(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialType", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceSourceMaterial.DevelopmentStage", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialType", resource.SourceMaterialType, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.DevelopmentStage", resource.DevelopmentStage, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_SourceMaterialState(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_FractionDescriptionFraction(numFractionDescription int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numFractionDescription >= len(resource.FractionDescription) {
+		return StringInput("SubstanceSourceMaterial.FractionDescription."+strconv.Itoa(numFractionDescription)+"..Fraction", nil, htmlAttrs)
+	}
+	return StringInput("SubstanceSourceMaterial.FractionDescription."+strconv.Itoa(numFractionDescription)+"..Fraction", resource.FractionDescription[numFractionDescription].Fraction, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_FractionDescriptionMaterialType(numFractionDescription int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numFractionDescription >= len(resource.FractionDescription) {
+		return CodeableConceptSelect("SubstanceSourceMaterial.FractionDescription."+strconv.Itoa(numFractionDescription)+"..MaterialType", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("SubstanceSourceMaterial.FractionDescription."+strconv.Itoa(numFractionDescription)+"..MaterialType", resource.FractionDescription[numFractionDescription].MaterialType, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_OrganismFamily(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialState", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Family", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.SourceMaterialState", resource.SourceMaterialState, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Family", resource.Organism.Family, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismName() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismGenus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.OrganismName", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Genus", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.OrganismName", resource.OrganismName)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Genus", resource.Organism.Genus, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_ParentSubstanceName(numParentSubstanceName int) templ.Component {
-
-	if resource == nil || len(resource.ParentSubstanceName) >= numParentSubstanceName {
-		return StringInput("SubstanceSourceMaterial.ParentSubstanceName["+strconv.Itoa(numParentSubstanceName)+"]", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.ParentSubstanceName["+strconv.Itoa(numParentSubstanceName)+"]", &resource.ParentSubstanceName[numParentSubstanceName])
-}
-func (resource *SubstanceSourceMaterial) T_CountryOfOrigin(numCountryOfOrigin int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.CountryOfOrigin) >= numCountryOfOrigin {
-		return CodeableConceptSelect("SubstanceSourceMaterial.CountryOfOrigin["+strconv.Itoa(numCountryOfOrigin)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.CountryOfOrigin["+strconv.Itoa(numCountryOfOrigin)+"]", &resource.CountryOfOrigin[numCountryOfOrigin], optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_GeographicalLocation(numGeographicalLocation int) templ.Component {
-
-	if resource == nil || len(resource.GeographicalLocation) >= numGeographicalLocation {
-		return StringInput("SubstanceSourceMaterial.GeographicalLocation["+strconv.Itoa(numGeographicalLocation)+"]", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.GeographicalLocation["+strconv.Itoa(numGeographicalLocation)+"]", &resource.GeographicalLocation[numGeographicalLocation])
-}
-func (resource *SubstanceSourceMaterial) T_DevelopmentStage(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismSpecies(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.DevelopmentStage", nil, optionsValueSet)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Species", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.DevelopmentStage", resource.DevelopmentStage, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Species", resource.Organism.Species, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_FractionDescriptionId(numFractionDescription int) templ.Component {
-
-	if resource == nil || len(resource.FractionDescription) >= numFractionDescription {
-		return StringInput("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].Id", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].Id", resource.FractionDescription[numFractionDescription].Id)
-}
-func (resource *SubstanceSourceMaterial) T_FractionDescriptionFraction(numFractionDescription int) templ.Component {
-
-	if resource == nil || len(resource.FractionDescription) >= numFractionDescription {
-		return StringInput("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].Fraction", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].Fraction", resource.FractionDescription[numFractionDescription].Fraction)
-}
-func (resource *SubstanceSourceMaterial) T_FractionDescriptionMaterialType(numFractionDescription int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.FractionDescription) >= numFractionDescription {
-		return CodeableConceptSelect("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].MaterialType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.FractionDescription["+strconv.Itoa(numFractionDescription)+"].MaterialType", resource.FractionDescription[numFractionDescription].MaterialType, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismId() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismIntraspecificType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Id", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.IntraspecificType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Id", resource.Organism.Id)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.IntraspecificType", resource.Organism.IntraspecificType, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismFamily(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismIntraspecificDescription(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Family", nil, optionsValueSet)
+		return StringInput("SubstanceSourceMaterial.Organism.IntraspecificDescription", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Family", resource.Organism.Family, optionsValueSet)
+	return StringInput("SubstanceSourceMaterial.Organism.IntraspecificDescription", resource.Organism.IntraspecificDescription, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismGenus(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismAuthorAuthorType(numAuthor int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAuthor >= len(resource.Organism.Author) {
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Author."+strconv.Itoa(numAuthor)+"..AuthorType", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Author."+strconv.Itoa(numAuthor)+"..AuthorType", resource.Organism.Author[numAuthor].AuthorType, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_OrganismAuthorAuthorDescription(numAuthor int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAuthor >= len(resource.Organism.Author) {
+		return StringInput("SubstanceSourceMaterial.Organism.Author."+strconv.Itoa(numAuthor)+"..AuthorDescription", nil, htmlAttrs)
+	}
+	return StringInput("SubstanceSourceMaterial.Organism.Author."+strconv.Itoa(numAuthor)+"..AuthorDescription", resource.Organism.Author[numAuthor].AuthorDescription, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_OrganismHybridMaternalOrganismId(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Genus", nil, optionsValueSet)
+		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismId", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Genus", resource.Organism.Genus, optionsValueSet)
+	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismId", resource.Organism.Hybrid.MaternalOrganismId, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismSpecies(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismHybridMaternalOrganismName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Species", nil, optionsValueSet)
+		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismName", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Species", resource.Organism.Species, optionsValueSet)
+	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismName", resource.Organism.Hybrid.MaternalOrganismName, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismIntraspecificType(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismHybridPaternalOrganismId(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.IntraspecificType", nil, optionsValueSet)
+		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismId", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.IntraspecificType", resource.Organism.IntraspecificType, optionsValueSet)
+	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismId", resource.Organism.Hybrid.PaternalOrganismId, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismIntraspecificDescription() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismHybridPaternalOrganismName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.IntraspecificDescription", nil)
+		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismName", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.IntraspecificDescription", resource.Organism.IntraspecificDescription)
+	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismName", resource.Organism.Hybrid.PaternalOrganismName, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismAuthorId(numAuthor int) templ.Component {
-
-	if resource == nil || len(resource.Organism.Author) >= numAuthor {
-		return StringInput("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].Id", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].Id", resource.Organism.Author[numAuthor].Id)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismAuthorAuthorType(numAuthor int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Organism.Author) >= numAuthor {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].AuthorType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].AuthorType", resource.Organism.Author[numAuthor].AuthorType, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismAuthorAuthorDescription(numAuthor int) templ.Component {
-
-	if resource == nil || len(resource.Organism.Author) >= numAuthor {
-		return StringInput("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].AuthorDescription", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.Organism.Author["+strconv.Itoa(numAuthor)+"].AuthorDescription", resource.Organism.Author[numAuthor].AuthorDescription)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismHybridId() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismHybridHybridType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.Id", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Hybrid.HybridType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.Id", resource.Organism.Hybrid.Id)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Hybrid.HybridType", resource.Organism.Hybrid.HybridType, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismHybridMaternalOrganismId() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralKingdom(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismId", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Kingdom", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismId", resource.Organism.Hybrid.MaternalOrganismId)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Kingdom", resource.Organism.OrganismGeneral.Kingdom, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismHybridMaternalOrganismName() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralPhylum(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismName", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Phylum", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.MaternalOrganismName", resource.Organism.Hybrid.MaternalOrganismName)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Phylum", resource.Organism.OrganismGeneral.Phylum, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismHybridPaternalOrganismId() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralClass(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismId", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Class", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismId", resource.Organism.Hybrid.PaternalOrganismId)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Class", resource.Organism.OrganismGeneral.Class, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismHybridPaternalOrganismName() templ.Component {
+func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralOrder(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismName", nil)
+		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Order", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.Hybrid.PaternalOrganismName", resource.Organism.Hybrid.PaternalOrganismName)
+	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Order", resource.Organism.OrganismGeneral.Order, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismHybridHybridType(optionsValueSet []Coding) templ.Component {
+func (resource *SubstanceSourceMaterial) T_PartDescriptionPart(numPartDescription int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Hybrid.HybridType", nil, optionsValueSet)
+	if resource == nil || numPartDescription >= len(resource.PartDescription) {
+		return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription."+strconv.Itoa(numPartDescription)+"..Part", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.Hybrid.HybridType", resource.Organism.Hybrid.HybridType, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription."+strconv.Itoa(numPartDescription)+"..Part", resource.PartDescription[numPartDescription].Part, optionsValueSet, htmlAttrs)
 }
-func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralId() templ.Component {
+func (resource *SubstanceSourceMaterial) T_PartDescriptionPartLocation(numPartDescription int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("SubstanceSourceMaterial.Organism.OrganismGeneral.Id", nil)
+	if resource == nil || numPartDescription >= len(resource.PartDescription) {
+		return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription."+strconv.Itoa(numPartDescription)+"..PartLocation", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("SubstanceSourceMaterial.Organism.OrganismGeneral.Id", resource.Organism.OrganismGeneral.Id)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralKingdom(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Kingdom", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Kingdom", resource.Organism.OrganismGeneral.Kingdom, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralPhylum(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Phylum", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Phylum", resource.Organism.OrganismGeneral.Phylum, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralClass(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Class", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Class", resource.Organism.OrganismGeneral.Class, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_OrganismOrganismGeneralOrder(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Order", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.Organism.OrganismGeneral.Order", resource.Organism.OrganismGeneral.Order, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_PartDescriptionId(numPartDescription int) templ.Component {
-
-	if resource == nil || len(resource.PartDescription) >= numPartDescription {
-		return StringInput("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].Id", nil)
-	}
-	return StringInput("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].Id", resource.PartDescription[numPartDescription].Id)
-}
-func (resource *SubstanceSourceMaterial) T_PartDescriptionPart(numPartDescription int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PartDescription) >= numPartDescription {
-		return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].Part", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].Part", resource.PartDescription[numPartDescription].Part, optionsValueSet)
-}
-func (resource *SubstanceSourceMaterial) T_PartDescriptionPartLocation(numPartDescription int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PartDescription) >= numPartDescription {
-		return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].PartLocation", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription["+strconv.Itoa(numPartDescription)+"].PartLocation", resource.PartDescription[numPartDescription].PartLocation, optionsValueSet)
+	return CodeableConceptSelect("SubstanceSourceMaterial.PartDescription."+strconv.Itoa(numPartDescription)+"..PartLocation", resource.PartDescription[numPartDescription].PartLocation, optionsValueSet, htmlAttrs)
 }

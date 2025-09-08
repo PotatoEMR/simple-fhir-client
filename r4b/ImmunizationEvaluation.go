@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,7 +25,7 @@ type ImmunizationEvaluation struct {
 	Identifier             []Identifier      `json:"identifier,omitempty"`
 	Status                 string            `json:"status"`
 	Patient                Reference         `json:"patient"`
-	Date                   *string           `json:"date,omitempty"`
+	Date                   *time.Time        `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Authority              *Reference        `json:"authority,omitempty"`
 	TargetDisease          CodeableConcept   `json:"targetDisease"`
 	ImmunizationEvent      Reference         `json:"immunizationEvent"`
@@ -50,75 +51,96 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 		ResourceType:                "ImmunizationEvaluation",
 	})
 }
-
-func (resource *ImmunizationEvaluation) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Id", nil)
+func (r ImmunizationEvaluation) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ImmunizationEvaluation/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("ImmunizationEvaluation.Id", resource.Id)
-}
-func (resource *ImmunizationEvaluation) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImmunizationEvaluation.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("ImmunizationEvaluation.ImplicitRules", resource.ImplicitRules)
+	rtype := "ImmunizationEvaluation"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *ImmunizationEvaluation) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("ImmunizationEvaluation.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("ImmunizationEvaluation.Language", resource.Language, optionsValueSet)
-}
-func (resource *ImmunizationEvaluation) T_Status() templ.Component {
+func (resource *ImmunizationEvaluation) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSImmunization_evaluation_status
 
 	if resource == nil {
-		return CodeSelect("ImmunizationEvaluation.Status", nil, optionsValueSet)
+		return CodeSelect("ImmunizationEvaluation.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImmunizationEvaluation.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ImmunizationEvaluation.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_Date() templ.Component {
+func (resource *ImmunizationEvaluation) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Date", nil)
+		return DateTimeInput("ImmunizationEvaluation.Date", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.Date", resource.Date)
+	return DateTimeInput("ImmunizationEvaluation.Date", resource.Date, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", nil, optionsValueSet)
+		return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", &resource.TargetDisease, optionsValueSet)
+	return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", &resource.TargetDisease, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", &resource.DoseStatus, optionsValueSet)
+	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", &resource.DoseStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_DoseStatusReason(numDoseStatusReason int, optionsValueSet []Coding) templ.Component {
+func (resource *ImmunizationEvaluation) T_DoseStatusReason(numDoseStatusReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.DoseStatusReason) >= numDoseStatusReason {
-		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", nil, optionsValueSet)
+	if resource == nil || numDoseStatusReason >= len(resource.DoseStatusReason) {
+		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason."+strconv.Itoa(numDoseStatusReason)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", &resource.DoseStatusReason[numDoseStatusReason], optionsValueSet)
+	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason."+strconv.Itoa(numDoseStatusReason)+".", &resource.DoseStatusReason[numDoseStatusReason], optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_Description() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Description", nil)
-	}
-	return StringInput("ImmunizationEvaluation.Description", resource.Description)
-}
-func (resource *ImmunizationEvaluation) T_Series() templ.Component {
+func (resource *ImmunizationEvaluation) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Series", nil)
+		return StringInput("ImmunizationEvaluation.Description", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.Series", resource.Series)
+	return StringInput("ImmunizationEvaluation.Description", resource.Description, htmlAttrs)
+}
+func (resource *ImmunizationEvaluation) T_Series(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.Series", nil, htmlAttrs)
+	}
+	return StringInput("ImmunizationEvaluation.Series", resource.Series, htmlAttrs)
+}
+func (resource *ImmunizationEvaluation) T_DoseNumberPositiveInt(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return IntInput("ImmunizationEvaluation.DoseNumberPositiveInt", nil, htmlAttrs)
+	}
+	return IntInput("ImmunizationEvaluation.DoseNumberPositiveInt", resource.DoseNumberPositiveInt, htmlAttrs)
+}
+func (resource *ImmunizationEvaluation) T_DoseNumberString(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.DoseNumberString", nil, htmlAttrs)
+	}
+	return StringInput("ImmunizationEvaluation.DoseNumberString", resource.DoseNumberString, htmlAttrs)
+}
+func (resource *ImmunizationEvaluation) T_SeriesDosesPositiveInt(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return IntInput("ImmunizationEvaluation.SeriesDosesPositiveInt", nil, htmlAttrs)
+	}
+	return IntInput("ImmunizationEvaluation.SeriesDosesPositiveInt", resource.SeriesDosesPositiveInt, htmlAttrs)
+}
+func (resource *ImmunizationEvaluation) T_SeriesDosesString(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("ImmunizationEvaluation.SeriesDosesString", nil, htmlAttrs)
+	}
+	return StringInput("ImmunizationEvaluation.SeriesDosesString", resource.SeriesDosesString, htmlAttrs)
 }

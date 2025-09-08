@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,8 +31,8 @@ type EncounterHistory struct {
 	Subject           *Reference                 `json:"subject,omitempty"`
 	SubjectStatus     *CodeableConcept           `json:"subjectStatus,omitempty"`
 	ActualPeriod      *Period                    `json:"actualPeriod,omitempty"`
-	PlannedStartDate  *string                    `json:"plannedStartDate,omitempty"`
-	PlannedEndDate    *string                    `json:"plannedEndDate,omitempty"`
+	PlannedStartDate  *time.Time                 `json:"plannedStartDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	PlannedEndDate    *time.Time                 `json:"plannedEndDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Length            *Duration                  `json:"length,omitempty"`
 	Location          []EncounterHistoryLocation `json:"location,omitempty"`
 }
@@ -57,82 +58,68 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 		ResourceType:          "EncounterHistory",
 	})
 }
-
-func (resource *EncounterHistory) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("EncounterHistory.Id", nil)
+func (r EncounterHistory) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "EncounterHistory/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("EncounterHistory.Id", resource.Id)
-}
-func (resource *EncounterHistory) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("EncounterHistory.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("EncounterHistory.ImplicitRules", resource.ImplicitRules)
+	rtype := "EncounterHistory"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *EncounterHistory) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("EncounterHistory.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("EncounterHistory.Language", resource.Language, optionsValueSet)
-}
-func (resource *EncounterHistory) T_Status() templ.Component {
+func (resource *EncounterHistory) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
-		return CodeSelect("EncounterHistory.Status", nil, optionsValueSet)
+		return CodeSelect("EncounterHistory.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EncounterHistory.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("EncounterHistory.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_Class(optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Class(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("EncounterHistory.Class", nil, optionsValueSet)
+		return CodeableConceptSelect("EncounterHistory.Class", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Class", &resource.Class, optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Class", &resource.Class, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Type) >= numType {
-		return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	if resource == nil || numType >= len(resource.Type) {
+		return CodeableConceptSelect("EncounterHistory.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("EncounterHistory.SubjectStatus", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("EncounterHistory.SubjectStatus", resource.SubjectStatus, optionsValueSet)
-}
-func (resource *EncounterHistory) T_PlannedStartDate() templ.Component {
+func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("EncounterHistory.PlannedStartDate", nil)
+		return CodeableConceptSelect("EncounterHistory.SubjectStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("EncounterHistory.PlannedStartDate", resource.PlannedStartDate)
+	return CodeableConceptSelect("EncounterHistory.SubjectStatus", resource.SubjectStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_PlannedEndDate() templ.Component {
+func (resource *EncounterHistory) T_PlannedStartDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("EncounterHistory.PlannedEndDate", nil)
+		return DateTimeInput("EncounterHistory.PlannedStartDate", nil, htmlAttrs)
 	}
-	return StringInput("EncounterHistory.PlannedEndDate", resource.PlannedEndDate)
+	return DateTimeInput("EncounterHistory.PlannedStartDate", resource.PlannedStartDate, htmlAttrs)
 }
-func (resource *EncounterHistory) T_LocationId(numLocation int) templ.Component {
+func (resource *EncounterHistory) T_PlannedEndDate(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Location) >= numLocation {
-		return StringInput("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("EncounterHistory.PlannedEndDate", nil, htmlAttrs)
 	}
-	return StringInput("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Id", resource.Location[numLocation].Id)
+	return DateTimeInput("EncounterHistory.PlannedEndDate", resource.PlannedEndDate, htmlAttrs)
 }
-func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding) templ.Component {
+func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Location) >= numLocation {
-		return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", nil, optionsValueSet)
+	if resource == nil || numLocation >= len(resource.Location) {
+		return CodeableConceptSelect("EncounterHistory.Location."+strconv.Itoa(numLocation)+"..Form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", resource.Location[numLocation].Form, optionsValueSet)
+	return CodeableConceptSelect("EncounterHistory.Location."+strconv.Itoa(numLocation)+"..Form", resource.Location[numLocation].Form, optionsValueSet, htmlAttrs)
 }

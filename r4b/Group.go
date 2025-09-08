@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -70,103 +70,96 @@ func (r Group) MarshalJSON() ([]byte, error) {
 		ResourceType: "Group",
 	})
 }
-
-func (resource *Group) T_Id() templ.Component {
+func (r Group) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Group/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Group"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Group) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Group.Id", nil)
+		return BoolInput("Group.Active", nil, htmlAttrs)
 	}
-	return StringInput("Group.Id", resource.Id)
+	return BoolInput("Group.Active", resource.Active, htmlAttrs)
 }
-func (resource *Group) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Group.ImplicitRules", nil)
-	}
-	return StringInput("Group.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Group) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Group.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Group.Language", resource.Language, optionsValueSet)
-}
-func (resource *Group) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Group.Active", nil)
-	}
-	return BoolInput("Group.Active", resource.Active)
-}
-func (resource *Group) T_Type() templ.Component {
+func (resource *Group) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_type
 
 	if resource == nil {
-		return CodeSelect("Group.Type", nil, optionsValueSet)
+		return CodeSelect("Group.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Group.Type", &resource.Type, optionsValueSet)
+	return CodeSelect("Group.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Group) T_Actual() templ.Component {
+func (resource *Group) T_Actual(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("Group.Actual", nil)
+		return BoolInput("Group.Actual", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Actual", &resource.Actual)
+	return BoolInput("Group.Actual", &resource.Actual, htmlAttrs)
 }
-func (resource *Group) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *Group) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Group.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("Group.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Group.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Group.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Group) T_Name() templ.Component {
+func (resource *Group) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Group.Name", nil)
+		return StringInput("Group.Name", nil, htmlAttrs)
 	}
-	return StringInput("Group.Name", resource.Name)
+	return StringInput("Group.Name", resource.Name, htmlAttrs)
 }
-func (resource *Group) T_Quantity() templ.Component {
+func (resource *Group) T_Quantity(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("Group.Quantity", nil)
+		return IntInput("Group.Quantity", nil, htmlAttrs)
 	}
-	return IntInput("Group.Quantity", resource.Quantity)
+	return IntInput("Group.Quantity", resource.Quantity, htmlAttrs)
 }
-func (resource *Group) T_CharacteristicId(numCharacteristic int) templ.Component {
+func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
-		return StringInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", nil)
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Id", resource.Characteristic[numCharacteristic].Id)
+	return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding) templ.Component {
+func (resource *Group) T_CharacteristicValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
-		return CodeableConceptSelect("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", nil, optionsValueSet)
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet)
+	return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", &resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Group) T_CharacteristicExclude(numCharacteristic int) templ.Component {
+func (resource *Group) T_CharacteristicValueBoolean(numCharacteristic int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Characteristic) >= numCharacteristic {
-		return BoolInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", nil)
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", &resource.Characteristic[numCharacteristic].Exclude)
+	return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
-func (resource *Group) T_MemberId(numMember int) templ.Component {
+func (resource *Group) T_CharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Member) >= numMember {
-		return StringInput("Group.Member["+strconv.Itoa(numMember)+"].Id", nil)
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", nil, htmlAttrs)
 	}
-	return StringInput("Group.Member["+strconv.Itoa(numMember)+"].Id", resource.Member[numMember].Id)
+	return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", &resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
-func (resource *Group) T_MemberInactive(numMember int) templ.Component {
+func (resource *Group) T_MemberInactive(numMember int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Member) >= numMember {
-		return BoolInput("Group.Member["+strconv.Itoa(numMember)+"].Inactive", nil)
+	if resource == nil || numMember >= len(resource.Member) {
+		return BoolInput("Group.Member."+strconv.Itoa(numMember)+"..Inactive", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Member["+strconv.Itoa(numMember)+"].Inactive", resource.Member[numMember].Inactive)
+	return BoolInput("Group.Member."+strconv.Itoa(numMember)+"..Inactive", resource.Member[numMember].Inactive, htmlAttrs)
 }

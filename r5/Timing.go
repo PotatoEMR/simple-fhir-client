@@ -1,6 +1,8 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+import "time"
+
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -9,7 +11,7 @@ type Timing struct {
 	Id                *string          `json:"id,omitempty"`
 	Extension         []Extension      `json:"extension,omitempty"`
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Event             []string         `json:"event,omitempty"`
+	Event             []time.Time      `json:"event,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Repeat            *Element         `json:"repeat,omitempty"`
 	Code              *CodeableConcept `json:"code,omitempty"`
 }

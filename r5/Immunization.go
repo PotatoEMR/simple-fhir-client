@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,11 +30,11 @@ type Immunization struct {
 	AdministeredProduct   *CodeableReference               `json:"administeredProduct,omitempty"`
 	Manufacturer          *CodeableReference               `json:"manufacturer,omitempty"`
 	LotNumber             *string                          `json:"lotNumber,omitempty"`
-	ExpirationDate        *string                          `json:"expirationDate,omitempty"`
+	ExpirationDate        *time.Time                       `json:"expirationDate,omitempty,format:'2006-01-02'"`
 	Patient               Reference                        `json:"patient"`
 	Encounter             *Reference                       `json:"encounter,omitempty"`
 	SupportingInformation []Reference                      `json:"supportingInformation,omitempty"`
-	OccurrenceDateTime    string                           `json:"occurrenceDateTime"`
+	OccurrenceDateTime    time.Time                        `json:"occurrenceDateTime,format:'2006-01-02T15:04:05Z07:00'"`
 	OccurrenceString      string                           `json:"occurrenceString"`
 	PrimarySource         *bool                            `json:"primarySource,omitempty"`
 	InformationSource     *CodeableReference               `json:"informationSource,omitempty"`
@@ -75,7 +76,7 @@ type ImmunizationReaction struct {
 	Id                *string            `json:"id,omitempty"`
 	Extension         []Extension        `json:"extension,omitempty"`
 	ModifierExtension []Extension        `json:"modifierExtension,omitempty"`
-	Date              *string            `json:"date,omitempty"`
+	Date              *time.Time         `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Manifestation     *CodeableReference `json:"manifestation,omitempty"`
 	Reported          *bool              `json:"reported,omitempty"`
 }
@@ -104,194 +105,180 @@ func (r Immunization) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Immunization",
 	})
 }
-
-func (resource *Immunization) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Immunization.Id", nil)
+func (r Immunization) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Immunization/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Immunization.Id", resource.Id)
-}
-func (resource *Immunization) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Immunization.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Immunization.ImplicitRules", resource.ImplicitRules)
+	rtype := "Immunization"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Immunization) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Immunization.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Immunization.Language", resource.Language, optionsValueSet)
-}
-func (resource *Immunization) T_Status() templ.Component {
+func (resource *Immunization) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSImmunization_status
 
 	if resource == nil {
-		return CodeSelect("Immunization.Status", nil, optionsValueSet)
+		return CodeSelect("Immunization.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Immunization.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Immunization.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_StatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Immunization.StatusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Immunization.StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.StatusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Immunization.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_VaccineCode(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_VaccineCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Immunization.VaccineCode", nil, optionsValueSet)
+		return CodeableConceptSelect("Immunization.VaccineCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.VaccineCode", &resource.VaccineCode, optionsValueSet)
+	return CodeableConceptSelect("Immunization.VaccineCode", &resource.VaccineCode, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_LotNumber() templ.Component {
+func (resource *Immunization) T_LotNumber(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Immunization.LotNumber", nil)
+		return StringInput("Immunization.LotNumber", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.LotNumber", resource.LotNumber)
+	return StringInput("Immunization.LotNumber", resource.LotNumber, htmlAttrs)
 }
-func (resource *Immunization) T_ExpirationDate() templ.Component {
+func (resource *Immunization) T_ExpirationDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Immunization.ExpirationDate", nil)
+		return DateInput("Immunization.ExpirationDate", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.ExpirationDate", resource.ExpirationDate)
+	return DateInput("Immunization.ExpirationDate", resource.ExpirationDate, htmlAttrs)
 }
-func (resource *Immunization) T_PrimarySource() templ.Component {
+func (resource *Immunization) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("Immunization.PrimarySource", nil)
+		return DateTimeInput("Immunization.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return BoolInput("Immunization.PrimarySource", resource.PrimarySource)
+	return DateTimeInput("Immunization.OccurrenceDateTime", &resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *Immunization) T_Site(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_OccurrenceString(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Immunization.Site", nil, optionsValueSet)
+		return StringInput("Immunization.OccurrenceString", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.Site", resource.Site, optionsValueSet)
+	return StringInput("Immunization.OccurrenceString", &resource.OccurrenceString, htmlAttrs)
 }
-func (resource *Immunization) T_Route(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_PrimarySource(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Immunization.Route", nil, optionsValueSet)
+		return BoolInput("Immunization.PrimarySource", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.Route", resource.Route, optionsValueSet)
+	return BoolInput("Immunization.PrimarySource", resource.PrimarySource, htmlAttrs)
 }
-func (resource *Immunization) T_IsSubpotent() templ.Component {
+func (resource *Immunization) T_Site(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("Immunization.IsSubpotent", nil)
+		return CodeableConceptSelect("Immunization.Site", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("Immunization.IsSubpotent", resource.IsSubpotent)
+	return CodeableConceptSelect("Immunization.Site", resource.Site, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_SubpotentReason(numSubpotentReason int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SubpotentReason) >= numSubpotentReason {
-		return CodeableConceptSelect("Immunization.SubpotentReason["+strconv.Itoa(numSubpotentReason)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Immunization.SubpotentReason["+strconv.Itoa(numSubpotentReason)+"]", &resource.SubpotentReason[numSubpotentReason], optionsValueSet)
-}
-func (resource *Immunization) T_FundingSource(optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_Route(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Immunization.FundingSource", nil, optionsValueSet)
+		return CodeableConceptSelect("Immunization.Route", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.FundingSource", resource.FundingSource, optionsValueSet)
+	return CodeableConceptSelect("Immunization.Route", resource.Route, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_PerformerId(numPerformer int) templ.Component {
+func (resource *Immunization) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return StringInput("Immunization.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("Immunization.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
+	return AnnotationTextArea("Immunization.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *Immunization) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_IsSubpotent(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("Immunization.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
+	if resource == nil {
+		return BoolInput("Immunization.IsSubpotent", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return BoolInput("Immunization.IsSubpotent", resource.IsSubpotent, htmlAttrs)
 }
-func (resource *Immunization) T_ProgramEligibilityId(numProgramEligibility int) templ.Component {
+func (resource *Immunization) T_SubpotentReason(numSubpotentReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProgramEligibility) >= numProgramEligibility {
-		return StringInput("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].Id", nil)
+	if resource == nil || numSubpotentReason >= len(resource.SubpotentReason) {
+		return CodeableConceptSelect("Immunization.SubpotentReason."+strconv.Itoa(numSubpotentReason)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].Id", resource.ProgramEligibility[numProgramEligibility].Id)
+	return CodeableConceptSelect("Immunization.SubpotentReason."+strconv.Itoa(numSubpotentReason)+".", &resource.SubpotentReason[numSubpotentReason], optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ProgramEligibilityProgram(numProgramEligibility int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_FundingSource(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProgramEligibility) >= numProgramEligibility {
-		return CodeableConceptSelect("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].Program", nil, optionsValueSet)
+	if resource == nil {
+		return CodeableConceptSelect("Immunization.FundingSource", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].Program", &resource.ProgramEligibility[numProgramEligibility].Program, optionsValueSet)
+	return CodeableConceptSelect("Immunization.FundingSource", resource.FundingSource, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ProgramEligibilityProgramStatus(numProgramEligibility int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProgramEligibility) >= numProgramEligibility {
-		return CodeableConceptSelect("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].ProgramStatus", nil, optionsValueSet)
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return CodeableConceptSelect("Immunization.Performer."+strconv.Itoa(numPerformer)+"..Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.ProgramEligibility["+strconv.Itoa(numProgramEligibility)+"].ProgramStatus", &resource.ProgramEligibility[numProgramEligibility].ProgramStatus, optionsValueSet)
+	return CodeableConceptSelect("Immunization.Performer."+strconv.Itoa(numPerformer)+"..Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ReactionId(numReaction int) templ.Component {
+func (resource *Immunization) T_ProgramEligibilityProgram(numProgramEligibility int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Reaction) >= numReaction {
-		return StringInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Id", nil)
+	if resource == nil || numProgramEligibility >= len(resource.ProgramEligibility) {
+		return CodeableConceptSelect("Immunization.ProgramEligibility."+strconv.Itoa(numProgramEligibility)+"..Program", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Id", resource.Reaction[numReaction].Id)
+	return CodeableConceptSelect("Immunization.ProgramEligibility."+strconv.Itoa(numProgramEligibility)+"..Program", &resource.ProgramEligibility[numProgramEligibility].Program, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ReactionDate(numReaction int) templ.Component {
+func (resource *Immunization) T_ProgramEligibilityProgramStatus(numProgramEligibility int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Reaction) >= numReaction {
-		return StringInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Date", nil)
+	if resource == nil || numProgramEligibility >= len(resource.ProgramEligibility) {
+		return CodeableConceptSelect("Immunization.ProgramEligibility."+strconv.Itoa(numProgramEligibility)+"..ProgramStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Date", resource.Reaction[numReaction].Date)
+	return CodeableConceptSelect("Immunization.ProgramEligibility."+strconv.Itoa(numProgramEligibility)+"..ProgramStatus", &resource.ProgramEligibility[numProgramEligibility].ProgramStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ReactionReported(numReaction int) templ.Component {
+func (resource *Immunization) T_ReactionDate(numReaction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Reaction) >= numReaction {
-		return BoolInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Reported", nil)
+	if resource == nil || numReaction >= len(resource.Reaction) {
+		return DateTimeInput("Immunization.Reaction."+strconv.Itoa(numReaction)+"..Date", nil, htmlAttrs)
 	}
-	return BoolInput("Immunization.Reaction["+strconv.Itoa(numReaction)+"].Reported", resource.Reaction[numReaction].Reported)
+	return DateTimeInput("Immunization.Reaction."+strconv.Itoa(numReaction)+"..Date", resource.Reaction[numReaction].Date, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedId(numProtocolApplied int) templ.Component {
+func (resource *Immunization) T_ReactionReported(numReaction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProtocolApplied) >= numProtocolApplied {
-		return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].Id", nil)
+	if resource == nil || numReaction >= len(resource.Reaction) {
+		return BoolInput("Immunization.Reaction."+strconv.Itoa(numReaction)+"..Reported", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].Id", resource.ProtocolApplied[numProtocolApplied].Id)
+	return BoolInput("Immunization.Reaction."+strconv.Itoa(numReaction)+"..Reported", resource.Reaction[numReaction].Reported, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedSeries(numProtocolApplied int) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedSeries(numProtocolApplied int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProtocolApplied) >= numProtocolApplied {
-		return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].Series", nil)
+	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) {
+		return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..Series", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].Series", resource.ProtocolApplied[numProtocolApplied].Series)
+	return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..Series", resource.ProtocolApplied[numProtocolApplied].Series, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedTargetDisease(numProtocolApplied int, numTargetDisease int, optionsValueSet []Coding) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedTargetDisease(numProtocolApplied int, numTargetDisease int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProtocolApplied) >= numProtocolApplied || len(resource.ProtocolApplied[numProtocolApplied].TargetDisease) >= numTargetDisease {
-		return CodeableConceptSelect("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].TargetDisease["+strconv.Itoa(numTargetDisease)+"]", nil, optionsValueSet)
+	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) || numTargetDisease >= len(resource.ProtocolApplied[numProtocolApplied].TargetDisease) {
+		return CodeableConceptSelect("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..TargetDisease."+strconv.Itoa(numTargetDisease)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].TargetDisease["+strconv.Itoa(numTargetDisease)+"]", &resource.ProtocolApplied[numProtocolApplied].TargetDisease[numTargetDisease], optionsValueSet)
+	return CodeableConceptSelect("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..TargetDisease."+strconv.Itoa(numTargetDisease)+".", &resource.ProtocolApplied[numProtocolApplied].TargetDisease[numTargetDisease], optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedDoseNumber(numProtocolApplied int) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedDoseNumber(numProtocolApplied int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProtocolApplied) >= numProtocolApplied {
-		return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].DoseNumber", nil)
+	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) {
+		return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..DoseNumber", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].DoseNumber", &resource.ProtocolApplied[numProtocolApplied].DoseNumber)
+	return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..DoseNumber", &resource.ProtocolApplied[numProtocolApplied].DoseNumber, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedSeriesDoses(numProtocolApplied int) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedSeriesDoses(numProtocolApplied int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ProtocolApplied) >= numProtocolApplied {
-		return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].SeriesDoses", nil)
+	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) {
+		return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..SeriesDoses", nil, htmlAttrs)
 	}
-	return StringInput("Immunization.ProtocolApplied["+strconv.Itoa(numProtocolApplied)+"].SeriesDoses", resource.ProtocolApplied[numProtocolApplied].SeriesDoses)
+	return StringInput("Immunization.ProtocolApplied."+strconv.Itoa(numProtocolApplied)+"..SeriesDoses", resource.ProtocolApplied[numProtocolApplied].SeriesDoses, htmlAttrs)
 }

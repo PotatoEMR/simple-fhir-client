@@ -1,6 +1,8 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+import "time"
+
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -17,5 +19,5 @@ type RelatedArtifact struct {
 	Resource          *string           `json:"resource,omitempty"`
 	ResourceReference *Reference        `json:"resourceReference,omitempty"`
 	PublicationStatus *string           `json:"publicationStatus,omitempty"`
-	PublicationDate   *string           `json:"publicationDate,omitempty"`
+	PublicationDate   *time.Time        `json:"publicationDate,omitempty,format:'2006-01-02'"`
 }

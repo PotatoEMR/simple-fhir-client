@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +31,7 @@ type ResearchStudy struct {
 	Protocol           []Reference                    `json:"protocol,omitempty"`
 	PartOf             []Reference                    `json:"partOf,omitempty"`
 	RelatedArtifact    []RelatedArtifact              `json:"relatedArtifact,omitempty"`
-	Date               *string                        `json:"date,omitempty"`
+	Date               *time.Time                     `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Status             string                         `json:"status"`
 	PrimaryPurposeType *CodeableConcept               `json:"primaryPurposeType,omitempty"`
 	Phase              *CodeableConcept               `json:"phase,omitempty"`
@@ -143,320 +144,271 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 		ResourceType:       "ResearchStudy",
 	})
 }
-
-func (resource *ResearchStudy) T_Id() templ.Component {
+func (r ResearchStudy) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ResearchStudy/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "ResearchStudy"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ResearchStudy) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.Id", nil)
+		return StringInput("ResearchStudy.Url", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Id", resource.Id)
+	return StringInput("ResearchStudy.Url", resource.Url, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ImplicitRules() templ.Component {
+func (resource *ResearchStudy) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.ImplicitRules", nil)
+		return StringInput("ResearchStudy.Version", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ResearchStudy.Version", resource.Version, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ResearchStudy.Language", nil, optionsValueSet)
+		return StringInput("ResearchStudy.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("ResearchStudy.Language", resource.Language, optionsValueSet)
+	return StringInput("ResearchStudy.Name", resource.Name, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Url() templ.Component {
+func (resource *ResearchStudy) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.Url", nil)
+		return StringInput("ResearchStudy.Title", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Url", resource.Url)
+	return StringInput("ResearchStudy.Title", resource.Title, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Version() templ.Component {
+func (resource *ResearchStudy) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.Version", nil)
+		return DateTimeInput("ResearchStudy.Date", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Version", resource.Version)
+	return DateTimeInput("ResearchStudy.Date", resource.Date, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchStudy.Name", nil)
-	}
-	return StringInput("ResearchStudy.Name", resource.Name)
-}
-func (resource *ResearchStudy) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchStudy.Title", nil)
-	}
-	return StringInput("ResearchStudy.Title", resource.Title)
-}
-func (resource *ResearchStudy) T_Date() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchStudy.Date", nil)
-	}
-	return StringInput("ResearchStudy.Date", resource.Date)
-}
-func (resource *ResearchStudy) T_Status() templ.Component {
+func (resource *ResearchStudy) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ResearchStudy.Status", nil, optionsValueSet)
+		return CodeSelect("ResearchStudy.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchStudy.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ResearchStudy.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_PrimaryPurposeType(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_PrimaryPurposeType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ResearchStudy.PrimaryPurposeType", nil, optionsValueSet)
+		return CodeableConceptSelect("ResearchStudy.PrimaryPurposeType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.PrimaryPurposeType", resource.PrimaryPurposeType, optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.PrimaryPurposeType", resource.PrimaryPurposeType, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Phase(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Phase(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ResearchStudy.Phase", nil, optionsValueSet)
+		return CodeableConceptSelect("ResearchStudy.Phase", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Phase", resource.Phase, optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.Phase", resource.Phase, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_StudyDesign(numStudyDesign int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_StudyDesign(numStudyDesign int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.StudyDesign) >= numStudyDesign {
-		return CodeableConceptSelect("ResearchStudy.StudyDesign["+strconv.Itoa(numStudyDesign)+"]", nil, optionsValueSet)
+	if resource == nil || numStudyDesign >= len(resource.StudyDesign) {
+		return CodeableConceptSelect("ResearchStudy.StudyDesign."+strconv.Itoa(numStudyDesign)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.StudyDesign["+strconv.Itoa(numStudyDesign)+"]", &resource.StudyDesign[numStudyDesign], optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.StudyDesign."+strconv.Itoa(numStudyDesign)+".", &resource.StudyDesign[numStudyDesign], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Condition(numCondition int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Condition(numCondition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Condition) >= numCondition {
-		return CodeableConceptSelect("ResearchStudy.Condition["+strconv.Itoa(numCondition)+"]", nil, optionsValueSet)
+	if resource == nil || numCondition >= len(resource.Condition) {
+		return CodeableConceptSelect("ResearchStudy.Condition."+strconv.Itoa(numCondition)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Condition["+strconv.Itoa(numCondition)+"]", &resource.Condition[numCondition], optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.Condition."+strconv.Itoa(numCondition)+".", &resource.Condition[numCondition], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Keyword(numKeyword int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Keyword(numKeyword int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Keyword) >= numKeyword {
-		return CodeableConceptSelect("ResearchStudy.Keyword["+strconv.Itoa(numKeyword)+"]", nil, optionsValueSet)
+	if resource == nil || numKeyword >= len(resource.Keyword) {
+		return CodeableConceptSelect("ResearchStudy.Keyword."+strconv.Itoa(numKeyword)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Keyword["+strconv.Itoa(numKeyword)+"]", &resource.Keyword[numKeyword], optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.Keyword."+strconv.Itoa(numKeyword)+".", &resource.Keyword[numKeyword], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Region(numRegion int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Region(numRegion int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Region) >= numRegion {
-		return CodeableConceptSelect("ResearchStudy.Region["+strconv.Itoa(numRegion)+"]", nil, optionsValueSet)
+	if resource == nil || numRegion >= len(resource.Region) {
+		return CodeableConceptSelect("ResearchStudy.Region."+strconv.Itoa(numRegion)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Region["+strconv.Itoa(numRegion)+"]", &resource.Region[numRegion], optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.Region."+strconv.Itoa(numRegion)+".", &resource.Region[numRegion], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_DescriptionSummary() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchStudy.DescriptionSummary", nil)
-	}
-	return StringInput("ResearchStudy.DescriptionSummary", resource.DescriptionSummary)
-}
-func (resource *ResearchStudy) T_Description() templ.Component {
+func (resource *ResearchStudy) T_DescriptionSummary(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.Description", nil)
+		return StringInput("ResearchStudy.DescriptionSummary", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Description", resource.Description)
+	return StringInput("ResearchStudy.DescriptionSummary", resource.DescriptionSummary, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Classifier(numClassifier int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Classifier) >= numClassifier {
-		return CodeableConceptSelect("ResearchStudy.Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ResearchStudy.Classifier["+strconv.Itoa(numClassifier)+"]", &resource.Classifier[numClassifier], optionsValueSet)
-}
-func (resource *ResearchStudy) T_WhyStopped(optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ResearchStudy.WhyStopped", nil, optionsValueSet)
+		return StringInput("ResearchStudy.Description", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.WhyStopped", resource.WhyStopped, optionsValueSet)
+	return StringInput("ResearchStudy.Description", resource.Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_LabelId(numLabel int) templ.Component {
+func (resource *ResearchStudy) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Label) >= numLabel {
-		return StringInput("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Id", nil)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("ResearchStudy.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Id", resource.Label[numLabel].Id)
+	return AnnotationTextArea("ResearchStudy.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *ResearchStudy) T_LabelType(numLabel int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_Classifier(numClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Label) >= numLabel {
-		return CodeableConceptSelect("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Type", nil, optionsValueSet)
+	if resource == nil || numClassifier >= len(resource.Classifier) {
+		return CodeableConceptSelect("ResearchStudy.Classifier."+strconv.Itoa(numClassifier)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Type", resource.Label[numLabel].Type, optionsValueSet)
+	return CodeableConceptSelect("ResearchStudy.Classifier."+strconv.Itoa(numClassifier)+".", &resource.Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_LabelValue(numLabel int) templ.Component {
-
-	if resource == nil || len(resource.Label) >= numLabel {
-		return StringInput("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Value", nil)
-	}
-	return StringInput("ResearchStudy.Label["+strconv.Itoa(numLabel)+"].Value", resource.Label[numLabel].Value)
-}
-func (resource *ResearchStudy) T_AssociatedPartyId(numAssociatedParty int) templ.Component {
-
-	if resource == nil || len(resource.AssociatedParty) >= numAssociatedParty {
-		return StringInput("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Id", nil)
-	}
-	return StringInput("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Id", resource.AssociatedParty[numAssociatedParty].Id)
-}
-func (resource *ResearchStudy) T_AssociatedPartyName(numAssociatedParty int) templ.Component {
-
-	if resource == nil || len(resource.AssociatedParty) >= numAssociatedParty {
-		return StringInput("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Name", nil)
-	}
-	return StringInput("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Name", resource.AssociatedParty[numAssociatedParty].Name)
-}
-func (resource *ResearchStudy) T_AssociatedPartyRole(numAssociatedParty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.AssociatedParty) >= numAssociatedParty {
-		return CodeableConceptSelect("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Role", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Role", &resource.AssociatedParty[numAssociatedParty].Role, optionsValueSet)
-}
-func (resource *ResearchStudy) T_AssociatedPartyClassifier(numAssociatedParty int, numClassifier int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.AssociatedParty) >= numAssociatedParty || len(resource.AssociatedParty[numAssociatedParty].Classifier) >= numClassifier {
-		return CodeableConceptSelect("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ResearchStudy.AssociatedParty["+strconv.Itoa(numAssociatedParty)+"].Classifier["+strconv.Itoa(numClassifier)+"]", &resource.AssociatedParty[numAssociatedParty].Classifier[numClassifier], optionsValueSet)
-}
-func (resource *ResearchStudy) T_ProgressStatusId(numProgressStatus int) templ.Component {
-
-	if resource == nil || len(resource.ProgressStatus) >= numProgressStatus {
-		return StringInput("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].Id", nil)
-	}
-	return StringInput("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].Id", resource.ProgressStatus[numProgressStatus].Id)
-}
-func (resource *ResearchStudy) T_ProgressStatusState(numProgressStatus int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ProgressStatus) >= numProgressStatus {
-		return CodeableConceptSelect("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].State", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].State", &resource.ProgressStatus[numProgressStatus].State, optionsValueSet)
-}
-func (resource *ResearchStudy) T_ProgressStatusActual(numProgressStatus int) templ.Component {
-
-	if resource == nil || len(resource.ProgressStatus) >= numProgressStatus {
-		return BoolInput("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].Actual", nil)
-	}
-	return BoolInput("ResearchStudy.ProgressStatus["+strconv.Itoa(numProgressStatus)+"].Actual", resource.ProgressStatus[numProgressStatus].Actual)
-}
-func (resource *ResearchStudy) T_RecruitmentId() templ.Component {
+func (resource *ResearchStudy) T_WhyStopped(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchStudy.Recruitment.Id", nil)
+		return CodeableConceptSelect("ResearchStudy.WhyStopped", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Recruitment.Id", resource.Recruitment.Id)
+	return CodeableConceptSelect("ResearchStudy.WhyStopped", resource.WhyStopped, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_RecruitmentTargetNumber() templ.Component {
+func (resource *ResearchStudy) T_LabelType(numLabel int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numLabel >= len(resource.Label) {
+		return CodeableConceptSelect("ResearchStudy.Label."+strconv.Itoa(numLabel)+"..Type", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ResearchStudy.Label."+strconv.Itoa(numLabel)+"..Type", resource.Label[numLabel].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *ResearchStudy) T_LabelValue(numLabel int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numLabel >= len(resource.Label) {
+		return StringInput("ResearchStudy.Label."+strconv.Itoa(numLabel)+"..Value", nil, htmlAttrs)
+	}
+	return StringInput("ResearchStudy.Label."+strconv.Itoa(numLabel)+"..Value", resource.Label[numLabel].Value, htmlAttrs)
+}
+func (resource *ResearchStudy) T_AssociatedPartyName(numAssociatedParty int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAssociatedParty >= len(resource.AssociatedParty) {
+		return StringInput("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Name", nil, htmlAttrs)
+	}
+	return StringInput("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Name", resource.AssociatedParty[numAssociatedParty].Name, htmlAttrs)
+}
+func (resource *ResearchStudy) T_AssociatedPartyRole(numAssociatedParty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAssociatedParty >= len(resource.AssociatedParty) {
+		return CodeableConceptSelect("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Role", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Role", &resource.AssociatedParty[numAssociatedParty].Role, optionsValueSet, htmlAttrs)
+}
+func (resource *ResearchStudy) T_AssociatedPartyClassifier(numAssociatedParty int, numClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAssociatedParty >= len(resource.AssociatedParty) || numClassifier >= len(resource.AssociatedParty[numAssociatedParty].Classifier) {
+		return CodeableConceptSelect("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Classifier."+strconv.Itoa(numClassifier)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ResearchStudy.AssociatedParty."+strconv.Itoa(numAssociatedParty)+"..Classifier."+strconv.Itoa(numClassifier)+".", &resource.AssociatedParty[numAssociatedParty].Classifier[numClassifier], optionsValueSet, htmlAttrs)
+}
+func (resource *ResearchStudy) T_ProgressStatusState(numProgressStatus int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProgressStatus >= len(resource.ProgressStatus) {
+		return CodeableConceptSelect("ResearchStudy.ProgressStatus."+strconv.Itoa(numProgressStatus)+"..State", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ResearchStudy.ProgressStatus."+strconv.Itoa(numProgressStatus)+"..State", &resource.ProgressStatus[numProgressStatus].State, optionsValueSet, htmlAttrs)
+}
+func (resource *ResearchStudy) T_ProgressStatusActual(numProgressStatus int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numProgressStatus >= len(resource.ProgressStatus) {
+		return BoolInput("ResearchStudy.ProgressStatus."+strconv.Itoa(numProgressStatus)+"..Actual", nil, htmlAttrs)
+	}
+	return BoolInput("ResearchStudy.ProgressStatus."+strconv.Itoa(numProgressStatus)+"..Actual", resource.ProgressStatus[numProgressStatus].Actual, htmlAttrs)
+}
+func (resource *ResearchStudy) T_RecruitmentTargetNumber(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("ResearchStudy.Recruitment.TargetNumber", nil)
+		return IntInput("ResearchStudy.Recruitment.TargetNumber", nil, htmlAttrs)
 	}
-	return IntInput("ResearchStudy.Recruitment.TargetNumber", resource.Recruitment.TargetNumber)
+	return IntInput("ResearchStudy.Recruitment.TargetNumber", resource.Recruitment.TargetNumber, htmlAttrs)
 }
-func (resource *ResearchStudy) T_RecruitmentActualNumber() templ.Component {
+func (resource *ResearchStudy) T_RecruitmentActualNumber(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("ResearchStudy.Recruitment.ActualNumber", nil)
+		return IntInput("ResearchStudy.Recruitment.ActualNumber", nil, htmlAttrs)
 	}
-	return IntInput("ResearchStudy.Recruitment.ActualNumber", resource.Recruitment.ActualNumber)
+	return IntInput("ResearchStudy.Recruitment.ActualNumber", resource.Recruitment.ActualNumber, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupId(numComparisonGroup int) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupLinkId(numComparisonGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ComparisonGroup) >= numComparisonGroup {
-		return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Id", nil)
+	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
+		return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..LinkId", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Id", resource.ComparisonGroup[numComparisonGroup].Id)
+	return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..LinkId", resource.ComparisonGroup[numComparisonGroup].LinkId, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupLinkId(numComparisonGroup int) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupName(numComparisonGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ComparisonGroup) >= numComparisonGroup {
-		return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].LinkId", nil)
+	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
+		return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].LinkId", resource.ComparisonGroup[numComparisonGroup].LinkId)
+	return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Name", &resource.ComparisonGroup[numComparisonGroup].Name, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupName(numComparisonGroup int) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupType(numComparisonGroup int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ComparisonGroup) >= numComparisonGroup {
-		return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Name", nil)
+	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
+		return CodeableConceptSelect("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Name", &resource.ComparisonGroup[numComparisonGroup].Name)
+	return CodeableConceptSelect("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Type", resource.ComparisonGroup[numComparisonGroup].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupType(numComparisonGroup int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupDescription(numComparisonGroup int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ComparisonGroup) >= numComparisonGroup {
-		return CodeableConceptSelect("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Type", nil, optionsValueSet)
+	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
+		return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Description", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Type", resource.ComparisonGroup[numComparisonGroup].Type, optionsValueSet)
+	return StringInput("ResearchStudy.ComparisonGroup."+strconv.Itoa(numComparisonGroup)+"..Description", resource.ComparisonGroup[numComparisonGroup].Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupDescription(numComparisonGroup int) templ.Component {
+func (resource *ResearchStudy) T_ObjectiveName(numObjective int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ComparisonGroup) >= numComparisonGroup {
-		return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Description", nil)
+	if resource == nil || numObjective >= len(resource.Objective) {
+		return StringInput("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.ComparisonGroup["+strconv.Itoa(numComparisonGroup)+"].Description", resource.ComparisonGroup[numComparisonGroup].Description)
+	return StringInput("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Name", resource.Objective[numObjective].Name, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ObjectiveId(numObjective int) templ.Component {
+func (resource *ResearchStudy) T_ObjectiveType(numObjective int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Objective) >= numObjective {
-		return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Id", nil)
+	if resource == nil || numObjective >= len(resource.Objective) {
+		return CodeableConceptSelect("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Id", resource.Objective[numObjective].Id)
+	return CodeableConceptSelect("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Type", resource.Objective[numObjective].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ObjectiveName(numObjective int) templ.Component {
+func (resource *ResearchStudy) T_ObjectiveDescription(numObjective int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Objective) >= numObjective {
-		return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Name", nil)
+	if resource == nil || numObjective >= len(resource.Objective) {
+		return StringInput("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Name", resource.Objective[numObjective].Name)
+	return StringInput("ResearchStudy.Objective."+strconv.Itoa(numObjective)+"..Description", resource.Objective[numObjective].Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ObjectiveType(numObjective int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchStudy) T_OutcomeMeasureName(numOutcomeMeasure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Objective) >= numObjective {
-		return CodeableConceptSelect("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Type", nil, optionsValueSet)
+	if resource == nil || numOutcomeMeasure >= len(resource.OutcomeMeasure) {
+		return StringInput("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Name", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Type", resource.Objective[numObjective].Type, optionsValueSet)
+	return StringInput("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Name", resource.OutcomeMeasure[numOutcomeMeasure].Name, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ObjectiveDescription(numObjective int) templ.Component {
+func (resource *ResearchStudy) T_OutcomeMeasureType(numOutcomeMeasure int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Objective) >= numObjective {
-		return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Description", nil)
+	if resource == nil || numOutcomeMeasure >= len(resource.OutcomeMeasure) || numType >= len(resource.OutcomeMeasure[numOutcomeMeasure].Type) {
+		return CodeableConceptSelect("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.Objective["+strconv.Itoa(numObjective)+"].Description", resource.Objective[numObjective].Description)
+	return CodeableConceptSelect("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Type."+strconv.Itoa(numType)+".", &resource.OutcomeMeasure[numOutcomeMeasure].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_OutcomeMeasureId(numOutcomeMeasure int) templ.Component {
+func (resource *ResearchStudy) T_OutcomeMeasureDescription(numOutcomeMeasure int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.OutcomeMeasure) >= numOutcomeMeasure {
-		return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Id", nil)
+	if resource == nil || numOutcomeMeasure >= len(resource.OutcomeMeasure) {
+		return StringInput("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Id", resource.OutcomeMeasure[numOutcomeMeasure].Id)
-}
-func (resource *ResearchStudy) T_OutcomeMeasureName(numOutcomeMeasure int) templ.Component {
-
-	if resource == nil || len(resource.OutcomeMeasure) >= numOutcomeMeasure {
-		return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Name", nil)
-	}
-	return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Name", resource.OutcomeMeasure[numOutcomeMeasure].Name)
-}
-func (resource *ResearchStudy) T_OutcomeMeasureType(numOutcomeMeasure int, numType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.OutcomeMeasure) >= numOutcomeMeasure || len(resource.OutcomeMeasure[numOutcomeMeasure].Type) >= numType {
-		return CodeableConceptSelect("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Type["+strconv.Itoa(numType)+"]", &resource.OutcomeMeasure[numOutcomeMeasure].Type[numType], optionsValueSet)
-}
-func (resource *ResearchStudy) T_OutcomeMeasureDescription(numOutcomeMeasure int) templ.Component {
-
-	if resource == nil || len(resource.OutcomeMeasure) >= numOutcomeMeasure {
-		return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Description", nil)
-	}
-	return StringInput("ResearchStudy.OutcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].Description", resource.OutcomeMeasure[numOutcomeMeasure].Description)
+	return StringInput("ResearchStudy.OutcomeMeasure."+strconv.Itoa(numOutcomeMeasure)+"..Description", resource.OutcomeMeasure[numOutcomeMeasure].Description, htmlAttrs)
 }

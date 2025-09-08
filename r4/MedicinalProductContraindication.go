@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -52,60 +52,51 @@ func (r MedicinalProductContraindication) MarshalJSON() ([]byte, error) {
 		ResourceType:                          "MedicinalProductContraindication",
 	})
 }
+func (r MedicinalProductContraindication) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MedicinalProductContraindication/" + *r.Id
+		ref.Reference = &refStr
+	}
 
-func (resource *MedicinalProductContraindication) T_Id() templ.Component {
+	rtype := "MedicinalProductContraindication"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MedicinalProductContraindication) T_Disease(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductContraindication.Id", nil)
+		return CodeableConceptSelect("MedicinalProductContraindication.Disease", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductContraindication.Id", resource.Id)
+	return CodeableConceptSelect("MedicinalProductContraindication.Disease", resource.Disease, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductContraindication) T_ImplicitRules() templ.Component {
+func (resource *MedicinalProductContraindication) T_DiseaseStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductContraindication.ImplicitRules", nil)
+		return CodeableConceptSelect("MedicinalProductContraindication.DiseaseStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductContraindication.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("MedicinalProductContraindication.DiseaseStatus", resource.DiseaseStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductContraindication) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_Comorbidity(numComorbidity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("MedicinalProductContraindication.Language", nil, optionsValueSet)
+	if resource == nil || numComorbidity >= len(resource.Comorbidity) {
+		return CodeableConceptSelect("MedicinalProductContraindication.Comorbidity."+strconv.Itoa(numComorbidity)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicinalProductContraindication.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductContraindication.Comorbidity."+strconv.Itoa(numComorbidity)+".", &resource.Comorbidity[numComorbidity], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductContraindication) T_Disease(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductContraindication.Disease", nil, optionsValueSet)
+	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
+		return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy."+strconv.Itoa(numOtherTherapy)+"..TherapyRelationshipType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductContraindication.Disease", resource.Disease, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy."+strconv.Itoa(numOtherTherapy)+"..TherapyRelationshipType", &resource.OtherTherapy[numOtherTherapy].TherapyRelationshipType, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductContraindication) T_DiseaseStatus(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductContraindication) T_OtherTherapyMedicationCodeableConcept(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductContraindication.DiseaseStatus", nil, optionsValueSet)
+	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
+		return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy."+strconv.Itoa(numOtherTherapy)+"..MedicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductContraindication.DiseaseStatus", resource.DiseaseStatus, optionsValueSet)
-}
-func (resource *MedicinalProductContraindication) T_Comorbidity(numComorbidity int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Comorbidity) >= numComorbidity {
-		return CodeableConceptSelect("MedicinalProductContraindication.Comorbidity["+strconv.Itoa(numComorbidity)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductContraindication.Comorbidity["+strconv.Itoa(numComorbidity)+"]", &resource.Comorbidity[numComorbidity], optionsValueSet)
-}
-func (resource *MedicinalProductContraindication) T_OtherTherapyId(numOtherTherapy int) templ.Component {
-
-	if resource == nil || len(resource.OtherTherapy) >= numOtherTherapy {
-		return StringInput("MedicinalProductContraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductContraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].Id", resource.OtherTherapy[numOtherTherapy].Id)
-}
-func (resource *MedicinalProductContraindication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.OtherTherapy) >= numOtherTherapy {
-		return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].TherapyRelationshipType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy["+strconv.Itoa(numOtherTherapy)+"].TherapyRelationshipType", &resource.OtherTherapy[numOtherTherapy].TherapyRelationshipType, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductContraindication.OtherTherapy."+strconv.Itoa(numOtherTherapy)+"..MedicationCodeableConcept", &resource.OtherTherapy[numOtherTherapy].MedicationCodeableConcept, optionsValueSet, htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -59,68 +59,61 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 		ResourceType:  "CareTeam",
 	})
 }
-
-func (resource *CareTeam) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("CareTeam.Id", nil)
+func (r CareTeam) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "CareTeam/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("CareTeam.Id", resource.Id)
-}
-func (resource *CareTeam) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("CareTeam.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("CareTeam.ImplicitRules", resource.ImplicitRules)
+	rtype := "CareTeam"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *CareTeam) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("CareTeam.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("CareTeam.Language", resource.Language, optionsValueSet)
-}
-func (resource *CareTeam) T_Status() templ.Component {
+func (resource *CareTeam) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCare_team_status
 
 	if resource == nil {
-		return CodeSelect("CareTeam.Status", nil, optionsValueSet)
+		return CodeSelect("CareTeam.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CareTeam.Status", resource.Status, optionsValueSet)
+	return CodeSelect("CareTeam.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("CareTeam.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("CareTeam.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CareTeam.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("CareTeam.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_Name() templ.Component {
+func (resource *CareTeam) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CareTeam.Name", nil)
+		return StringInput("CareTeam.Name", nil, htmlAttrs)
 	}
-	return StringInput("CareTeam.Name", resource.Name)
+	return StringInput("CareTeam.Name", resource.Name, htmlAttrs)
 }
-func (resource *CareTeam) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("CareTeam.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("CareTeam.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CareTeam.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
+	return CodeableConceptSelect("CareTeam.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_ParticipantId(numParticipant int) templ.Component {
+func (resource *CareTeam) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Participant) >= numParticipant {
-		return StringInput("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Id", nil)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("CareTeam.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Id", resource.Participant[numParticipant].Id)
+	return AnnotationTextArea("CareTeam.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *CareTeam) T_ParticipantRole(numParticipant int, numRole int, optionsValueSet []Coding) templ.Component {
+func (resource *CareTeam) T_ParticipantRole(numParticipant int, numRole int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Participant) >= numParticipant || len(resource.Participant[numParticipant].Role) >= numRole {
-		return CodeableConceptSelect("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Role["+strconv.Itoa(numRole)+"]", nil, optionsValueSet)
+	if resource == nil || numParticipant >= len(resource.Participant) || numRole >= len(resource.Participant[numParticipant].Role) {
+		return CodeableConceptSelect("CareTeam.Participant."+strconv.Itoa(numParticipant)+"..Role."+strconv.Itoa(numRole)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CareTeam.Participant["+strconv.Itoa(numParticipant)+"].Role["+strconv.Itoa(numRole)+"]", &resource.Participant[numParticipant].Role[numRole], optionsValueSet)
+	return CodeableConceptSelect("CareTeam.Participant."+strconv.Itoa(numParticipant)+"..Role."+strconv.Itoa(numRole)+".", &resource.Participant[numParticipant].Role[numRole], optionsValueSet, htmlAttrs)
 }

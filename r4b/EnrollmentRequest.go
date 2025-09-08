@@ -1,11 +1,12 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -22,7 +23,7 @@ type EnrollmentRequest struct {
 	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier `json:"identifier,omitempty"`
 	Status            *string      `json:"status,omitempty"`
-	Created           *string      `json:"created,omitempty"`
+	Created           *time.Time   `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Insurer           *Reference   `json:"insurer,omitempty"`
 	Provider          *Reference   `json:"provider,omitempty"`
 	Candidate         *Reference   `json:"candidate,omitempty"`
@@ -41,40 +42,33 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:           "EnrollmentRequest",
 	})
 }
-
-func (resource *EnrollmentRequest) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("EnrollmentRequest.Id", nil)
+func (r EnrollmentRequest) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "EnrollmentRequest/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("EnrollmentRequest.Id", resource.Id)
-}
-func (resource *EnrollmentRequest) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("EnrollmentRequest.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("EnrollmentRequest.ImplicitRules", resource.ImplicitRules)
+	rtype := "EnrollmentRequest"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *EnrollmentRequest) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("EnrollmentRequest.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("EnrollmentRequest.Language", resource.Language, optionsValueSet)
-}
-func (resource *EnrollmentRequest) T_Status() templ.Component {
+func (resource *EnrollmentRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("EnrollmentRequest.Status", nil, optionsValueSet)
+		return CodeSelect("EnrollmentRequest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentRequest.Status", resource.Status, optionsValueSet)
+	return CodeSelect("EnrollmentRequest.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Created() templ.Component {
+func (resource *EnrollmentRequest) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("EnrollmentRequest.Created", nil)
+		return DateTimeInput("EnrollmentRequest.Created", nil, htmlAttrs)
 	}
-	return StringInput("EnrollmentRequest.Created", resource.Created)
+	return DateTimeInput("EnrollmentRequest.Created", resource.Created, htmlAttrs)
 }

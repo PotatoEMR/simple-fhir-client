@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -53,97 +53,81 @@ func (r Subscription) MarshalJSON() ([]byte, error) {
 		ResourceType:      "Subscription",
 	})
 }
-
-func (resource *Subscription) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Subscription.Id", nil)
+func (r Subscription) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Subscription/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Subscription.Id", resource.Id)
-}
-func (resource *Subscription) T_ImplicitRules() templ.Component {
 
-	if resource == nil {
-		return StringInput("Subscription.ImplicitRules", nil)
-	}
-	return StringInput("Subscription.ImplicitRules", resource.ImplicitRules)
+	rtype := "Subscription"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Subscription) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Subscription.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Subscription.Language", resource.Language, optionsValueSet)
-}
-func (resource *Subscription) T_Status() templ.Component {
+func (resource *Subscription) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("Subscription.Status", nil, optionsValueSet)
+		return CodeSelect("Subscription.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Subscription.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Subscription) T_End() templ.Component {
+func (resource *Subscription) T_End(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Subscription.End", nil)
+		return StringInput("Subscription.End", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.End", resource.End)
+	return StringInput("Subscription.End", resource.End, htmlAttrs)
 }
-func (resource *Subscription) T_Reason() templ.Component {
+func (resource *Subscription) T_Reason(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Subscription.Reason", nil)
+		return StringInput("Subscription.Reason", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Reason", &resource.Reason)
+	return StringInput("Subscription.Reason", &resource.Reason, htmlAttrs)
 }
-func (resource *Subscription) T_Criteria() templ.Component {
+func (resource *Subscription) T_Criteria(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Subscription.Criteria", nil)
+		return StringInput("Subscription.Criteria", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Criteria", &resource.Criteria)
+	return StringInput("Subscription.Criteria", &resource.Criteria, htmlAttrs)
 }
-func (resource *Subscription) T_Error() templ.Component {
+func (resource *Subscription) T_Error(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Subscription.Error", nil)
+		return StringInput("Subscription.Error", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Error", resource.Error)
+	return StringInput("Subscription.Error", resource.Error, htmlAttrs)
 }
-func (resource *Subscription) T_ChannelId() templ.Component {
-
-	if resource == nil {
-		return StringInput("Subscription.Channel.Id", nil)
-	}
-	return StringInput("Subscription.Channel.Id", resource.Channel.Id)
-}
-func (resource *Subscription) T_ChannelType() templ.Component {
+func (resource *Subscription) T_ChannelType(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_channel_type
 
 	if resource == nil {
-		return CodeSelect("Subscription.Channel.Type", nil, optionsValueSet)
+		return CodeSelect("Subscription.Channel.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Channel.Type", &resource.Channel.Type, optionsValueSet)
+	return CodeSelect("Subscription.Channel.Type", &resource.Channel.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Subscription) T_ChannelEndpoint() templ.Component {
+func (resource *Subscription) T_ChannelEndpoint(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Subscription.Channel.Endpoint", nil)
+		return StringInput("Subscription.Channel.Endpoint", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Channel.Endpoint", resource.Channel.Endpoint)
+	return StringInput("Subscription.Channel.Endpoint", resource.Channel.Endpoint, htmlAttrs)
 }
-func (resource *Subscription) T_ChannelPayload(optionsValueSet []Coding) templ.Component {
+func (resource *Subscription) T_ChannelPayload(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("Subscription.Channel.Payload", nil, optionsValueSet)
+		return CodeSelect("Subscription.Channel.Payload", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Channel.Payload", resource.Channel.Payload, optionsValueSet)
+	return CodeSelect("Subscription.Channel.Payload", resource.Channel.Payload, optionsValueSet, htmlAttrs)
 }
-func (resource *Subscription) T_ChannelHeader(numHeader int) templ.Component {
+func (resource *Subscription) T_ChannelHeader(numHeader int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Channel.Header) >= numHeader {
-		return StringInput("Subscription.Channel.Header["+strconv.Itoa(numHeader)+"]", nil)
+	if resource == nil || numHeader >= len(resource.Channel.Header) {
+		return StringInput("Subscription.Channel.Header."+strconv.Itoa(numHeader)+".", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Channel.Header["+strconv.Itoa(numHeader)+"]", &resource.Channel.Header[numHeader])
+	return StringInput("Subscription.Channel.Header."+strconv.Itoa(numHeader)+".", &resource.Channel.Header[numHeader], htmlAttrs)
 }

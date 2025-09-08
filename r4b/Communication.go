@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -36,8 +37,8 @@ type Communication struct {
 	Topic                 *CodeableConcept       `json:"topic,omitempty"`
 	About                 []Reference            `json:"about,omitempty"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	Sent                  *string                `json:"sent,omitempty"`
-	Received              *string                `json:"received,omitempty"`
+	Sent                  *time.Time             `json:"sent,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Received              *time.Time             `json:"received,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Recipient             []Reference            `json:"recipient,omitempty"`
 	Sender                *Reference             `json:"sender,omitempty"`
 	ReasonCode            []CodeableConcept      `json:"reasonCode,omitempty"`
@@ -68,111 +69,111 @@ func (r Communication) MarshalJSON() ([]byte, error) {
 		ResourceType:       "Communication",
 	})
 }
-
-func (resource *Communication) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Communication.Id", nil)
+func (r Communication) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Communication/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Communication.Id", resource.Id)
-}
-func (resource *Communication) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Communication.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Communication.ImplicitRules", resource.ImplicitRules)
+	rtype := "Communication"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Communication) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("Communication.Language", nil, optionsValueSet)
+	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
+		return StringInput("Communication.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", nil, htmlAttrs)
 	}
-	return CodeSelect("Communication.Language", resource.Language, optionsValueSet)
+	return StringInput("Communication.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
-func (resource *Communication) T_InstantiatesCanonical(numInstantiatesCanonical int) templ.Component {
+func (resource *Communication) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.InstantiatesCanonical) >= numInstantiatesCanonical {
-		return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil)
+	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
+		return StringInput("Communication.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", nil, htmlAttrs)
 	}
-	return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical])
+	return StringInput("Communication.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *Communication) T_InstantiatesUri(numInstantiatesUri int) templ.Component {
-
-	if resource == nil || len(resource.InstantiatesUri) >= numInstantiatesUri {
-		return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil)
-	}
-	return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri])
-}
-func (resource *Communication) T_Status() templ.Component {
+func (resource *Communication) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("Communication.Status", nil, optionsValueSet)
+		return CodeSelect("Communication.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Communication.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Communication.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_StatusReason(optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Communication.StatusReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Communication.StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Communication.StatusReason", resource.StatusReason, optionsValueSet)
+	return CodeableConceptSelect("Communication.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Communication.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Communication.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_Priority() templ.Component {
+func (resource *Communication) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("Communication.Priority", nil, optionsValueSet)
+		return CodeSelect("Communication.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Communication.Priority", resource.Priority, optionsValueSet)
+	return CodeSelect("Communication.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_Medium(numMedium int, optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Medium) >= numMedium {
-		return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet)
+	if resource == nil || numMedium >= len(resource.Medium) {
+		return CodeableConceptSelect("Communication.Medium."+strconv.Itoa(numMedium)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet)
+	return CodeableConceptSelect("Communication.Medium."+strconv.Itoa(numMedium)+".", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_Topic(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Communication.Topic", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Communication.Topic", resource.Topic, optionsValueSet)
-}
-func (resource *Communication) T_Sent() templ.Component {
+func (resource *Communication) T_Topic(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Communication.Sent", nil)
+		return CodeableConceptSelect("Communication.Topic", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Communication.Sent", resource.Sent)
+	return CodeableConceptSelect("Communication.Topic", resource.Topic, optionsValueSet, htmlAttrs)
 }
-func (resource *Communication) T_Received() templ.Component {
+func (resource *Communication) T_Sent(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Communication.Received", nil)
+		return DateTimeInput("Communication.Sent", nil, htmlAttrs)
 	}
-	return StringInput("Communication.Received", resource.Received)
+	return DateTimeInput("Communication.Sent", resource.Sent, htmlAttrs)
 }
-func (resource *Communication) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+func (resource *Communication) T_Received(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("Communication.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	if resource == nil {
+		return DateTimeInput("Communication.Received", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Communication.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
+	return DateTimeInput("Communication.Received", resource.Received, htmlAttrs)
 }
-func (resource *Communication) T_PayloadId(numPayload int) templ.Component {
+func (resource *Communication) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Payload) >= numPayload {
-		return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].Id", nil)
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("Communication.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].Id", resource.Payload[numPayload].Id)
+	return CodeableConceptSelect("Communication.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *Communication) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("Communication.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Communication.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *Communication) T_PayloadContentString(numPayload int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numPayload >= len(resource.Payload) {
+		return StringInput("Communication.Payload."+strconv.Itoa(numPayload)+"..ContentString", nil, htmlAttrs)
+	}
+	return StringInput("Communication.Payload."+strconv.Itoa(numPayload)+"..ContentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
 }

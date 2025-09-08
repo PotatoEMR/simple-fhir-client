@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -71,81 +71,60 @@ func (r MedicinalProductPackaged) MarshalJSON() ([]byte, error) {
 		ResourceType:                  "MedicinalProductPackaged",
 	})
 }
-
-func (resource *MedicinalProductPackaged) T_Id() templ.Component {
+func (r MedicinalProductPackaged) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MedicinalProductPackaged/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "MedicinalProductPackaged"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MedicinalProductPackaged) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductPackaged.Id", nil)
+		return StringInput("MedicinalProductPackaged.Description", nil, htmlAttrs)
 	}
-	return StringInput("MedicinalProductPackaged.Id", resource.Id)
+	return StringInput("MedicinalProductPackaged.Description", resource.Description, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_ImplicitRules() templ.Component {
+func (resource *MedicinalProductPackaged) T_LegalStatusOfSupply(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductPackaged.ImplicitRules", nil)
+		return CodeableConceptSelect("MedicinalProductPackaged.LegalStatusOfSupply", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductPackaged.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("MedicinalProductPackaged.LegalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemType(numPackageItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("MedicinalProductPackaged.Language", nil, optionsValueSet)
+	if resource == nil || numPackageItem >= len(resource.PackageItem) {
+		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicinalProductPackaged.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..Type", &resource.PackageItem[numPackageItem].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_Description() templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemMaterial(numPackageItem int, numMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("MedicinalProductPackaged.Description", nil)
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numMaterial >= len(resource.PackageItem[numPackageItem].Material) {
+		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..Material."+strconv.Itoa(numMaterial)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductPackaged.Description", resource.Description)
+	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..Material."+strconv.Itoa(numMaterial)+".", &resource.PackageItem[numPackageItem].Material[numMaterial], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_LegalStatusOfSupply(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemAlternateMaterial(numPackageItem int, numAlternateMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductPackaged.LegalStatusOfSupply", nil, optionsValueSet)
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numAlternateMaterial >= len(resource.PackageItem[numPackageItem].AlternateMaterial) {
+		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..AlternateMaterial."+strconv.Itoa(numAlternateMaterial)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductPackaged.LegalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..AlternateMaterial."+strconv.Itoa(numAlternateMaterial)+".", &resource.PackageItem[numPackageItem].AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_BatchIdentifierId(numBatchIdentifier int) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemOtherCharacteristics(numPackageItem int, numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.BatchIdentifier) >= numBatchIdentifier {
-		return StringInput("MedicinalProductPackaged.BatchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].Id", nil)
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numOtherCharacteristics >= len(resource.PackageItem[numPackageItem].OtherCharacteristics) {
+		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..OtherCharacteristics."+strconv.Itoa(numOtherCharacteristics)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductPackaged.BatchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].Id", resource.BatchIdentifier[numBatchIdentifier].Id)
-}
-func (resource *MedicinalProductPackaged) T_PackageItemId(numPackageItem int) templ.Component {
-
-	if resource == nil || len(resource.PackageItem) >= numPackageItem {
-		return StringInput("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Id", resource.PackageItem[numPackageItem].Id)
-}
-func (resource *MedicinalProductPackaged) T_PackageItemType(numPackageItem int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PackageItem) >= numPackageItem {
-		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Type", &resource.PackageItem[numPackageItem].Type, optionsValueSet)
-}
-func (resource *MedicinalProductPackaged) T_PackageItemMaterial(numPackageItem int, numMaterial int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PackageItem) >= numPackageItem || len(resource.PackageItem[numPackageItem].Material) >= numMaterial {
-		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Material["+strconv.Itoa(numMaterial)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].Material["+strconv.Itoa(numMaterial)+"]", &resource.PackageItem[numPackageItem].Material[numMaterial], optionsValueSet)
-}
-func (resource *MedicinalProductPackaged) T_PackageItemAlternateMaterial(numPackageItem int, numAlternateMaterial int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PackageItem) >= numPackageItem || len(resource.PackageItem[numPackageItem].AlternateMaterial) >= numAlternateMaterial {
-		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].AlternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].AlternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.PackageItem[numPackageItem].AlternateMaterial[numAlternateMaterial], optionsValueSet)
-}
-func (resource *MedicinalProductPackaged) T_PackageItemOtherCharacteristics(numPackageItem int, numOtherCharacteristics int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.PackageItem) >= numPackageItem || len(resource.PackageItem[numPackageItem].OtherCharacteristics) >= numOtherCharacteristics {
-		return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem["+strconv.Itoa(numPackageItem)+"].OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", &resource.PackageItem[numPackageItem].OtherCharacteristics[numOtherCharacteristics], optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductPackaged.PackageItem."+strconv.Itoa(numPackageItem)+"..OtherCharacteristics."+strconv.Itoa(numOtherCharacteristics)+".", &resource.PackageItem[numPackageItem].OtherCharacteristics[numOtherCharacteristics], optionsValueSet, htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -69,103 +69,82 @@ func (r PractitionerRole) MarshalJSON() ([]byte, error) {
 		ResourceType:          "PractitionerRole",
 	})
 }
-
-func (resource *PractitionerRole) T_Id() templ.Component {
+func (r PractitionerRole) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "PractitionerRole/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "PractitionerRole"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *PractitionerRole) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PractitionerRole.Id", nil)
+		return BoolInput("PractitionerRole.Active", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.Id", resource.Id)
+	return BoolInput("PractitionerRole.Active", resource.Active, htmlAttrs)
 }
-func (resource *PractitionerRole) T_ImplicitRules() templ.Component {
+func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCode >= len(resource.Code) {
+		return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", &resource.Code[numCode], optionsValueSet, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecialty >= len(resource.Specialty) {
+		return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+}
+func (resource *PractitionerRole) T_AvailabilityExceptions(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("PractitionerRole.ImplicitRules", nil)
+		return StringInput("PractitionerRole.AvailabilityExceptions", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.ImplicitRules", resource.ImplicitRules)
+	return StringInput("PractitionerRole.AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("PractitionerRole.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("PractitionerRole.Language", resource.Language, optionsValueSet)
-}
-func (resource *PractitionerRole) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("PractitionerRole.Active", nil)
-	}
-	return BoolInput("PractitionerRole.Active", resource.Active)
-}
-func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Code) >= numCode {
-		return CodeableConceptSelect("PractitionerRole.Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("PractitionerRole.Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet)
-}
-func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Specialty) >= numSpecialty {
-		return CodeableConceptSelect("PractitionerRole.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("PractitionerRole.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
-}
-func (resource *PractitionerRole) T_AvailabilityExceptions() templ.Component {
-
-	if resource == nil {
-		return StringInput("PractitionerRole.AvailabilityExceptions", nil)
-	}
-	return StringInput("PractitionerRole.AvailabilityExceptions", resource.AvailabilityExceptions)
-}
-func (resource *PractitionerRole) T_AvailableTimeId(numAvailableTime int) templ.Component {
-
-	if resource == nil || len(resource.AvailableTime) >= numAvailableTime {
-		return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].Id", nil)
-	}
-	return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].Id", resource.AvailableTime[numAvailableTime].Id)
-}
-func (resource *PractitionerRole) T_AvailableTimeDaysOfWeek(numAvailableTime int, numDaysOfWeek int) templ.Component {
+func (resource *PractitionerRole) T_AvailableTimeDaysOfWeek(numAvailableTime int, numDaysOfWeek int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDays_of_week
 
-	if resource == nil || len(resource.AvailableTime) >= numAvailableTime || len(resource.AvailableTime[numAvailableTime].DaysOfWeek) >= numDaysOfWeek {
-		return CodeSelect("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", nil, optionsValueSet)
+	if resource == nil || numAvailableTime >= len(resource.AvailableTime) || numDaysOfWeek >= len(resource.AvailableTime[numAvailableTime].DaysOfWeek) {
+		return CodeSelect("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet)
+	return CodeSelect("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_AvailableTimeAllDay(numAvailableTime int) templ.Component {
+func (resource *PractitionerRole) T_AvailableTimeAllDay(numAvailableTime int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AvailableTime) >= numAvailableTime {
-		return BoolInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AllDay", nil)
+	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
+		return BoolInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", nil, htmlAttrs)
 	}
-	return BoolInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AllDay", resource.AvailableTime[numAvailableTime].AllDay)
+	return BoolInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", resource.AvailableTime[numAvailableTime].AllDay, htmlAttrs)
 }
-func (resource *PractitionerRole) T_AvailableTimeAvailableStartTime(numAvailableTime int) templ.Component {
+func (resource *PractitionerRole) T_AvailableTimeAvailableStartTime(numAvailableTime int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AvailableTime) >= numAvailableTime {
-		return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AvailableStartTime", nil)
+	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
+		return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime)
+	return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime, htmlAttrs)
 }
-func (resource *PractitionerRole) T_AvailableTimeAvailableEndTime(numAvailableTime int) templ.Component {
+func (resource *PractitionerRole) T_AvailableTimeAvailableEndTime(numAvailableTime int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AvailableTime) >= numAvailableTime {
-		return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AvailableEndTime", nil)
+	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
+		return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.AvailableTime["+strconv.Itoa(numAvailableTime)+"].AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime)
+	return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime, htmlAttrs)
 }
-func (resource *PractitionerRole) T_NotAvailableId(numNotAvailable int) templ.Component {
+func (resource *PractitionerRole) T_NotAvailableDescription(numNotAvailable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.NotAvailable) >= numNotAvailable {
-		return StringInput("PractitionerRole.NotAvailable["+strconv.Itoa(numNotAvailable)+"].Id", nil)
+	if resource == nil || numNotAvailable >= len(resource.NotAvailable) {
+		return StringInput("PractitionerRole.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.NotAvailable["+strconv.Itoa(numNotAvailable)+"].Id", resource.NotAvailable[numNotAvailable].Id)
-}
-func (resource *PractitionerRole) T_NotAvailableDescription(numNotAvailable int) templ.Component {
-
-	if resource == nil || len(resource.NotAvailable) >= numNotAvailable {
-		return StringInput("PractitionerRole.NotAvailable["+strconv.Itoa(numNotAvailable)+"].Description", nil)
-	}
-	return StringInput("PractitionerRole.NotAvailable["+strconv.Itoa(numNotAvailable)+"].Description", &resource.NotAvailable[numNotAvailable].Description)
+	return StringInput("PractitionerRole.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
 }

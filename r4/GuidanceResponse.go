@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +30,7 @@ type GuidanceResponse struct {
 	Status                string            `json:"status"`
 	Subject               *Reference        `json:"subject,omitempty"`
 	Encounter             *Reference        `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string           `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime    *time.Time        `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Performer             *Reference        `json:"performer,omitempty"`
 	ReasonCode            []CodeableConcept `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference       `json:"reasonReference,omitempty"`
@@ -52,47 +53,68 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 		ResourceType:          "GuidanceResponse",
 	})
 }
-
-func (resource *GuidanceResponse) T_Id() templ.Component {
+func (r GuidanceResponse) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "GuidanceResponse/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "GuidanceResponse"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GuidanceResponse.Id", nil)
+		return StringInput("GuidanceResponse.ModuleUri", nil, htmlAttrs)
 	}
-	return StringInput("GuidanceResponse.Id", resource.Id)
+	return StringInput("GuidanceResponse.ModuleUri", &resource.ModuleUri, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_ImplicitRules() templ.Component {
+func (resource *GuidanceResponse) T_ModuleCanonical(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GuidanceResponse.ImplicitRules", nil)
+		return StringInput("GuidanceResponse.ModuleCanonical", nil, htmlAttrs)
 	}
-	return StringInput("GuidanceResponse.ImplicitRules", resource.ImplicitRules)
+	return StringInput("GuidanceResponse.ModuleCanonical", &resource.ModuleCanonical, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *GuidanceResponse) T_ModuleCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("GuidanceResponse.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GuidanceResponse.Language", resource.Language, optionsValueSet)
+	return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Status() templ.Component {
+func (resource *GuidanceResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
-		return CodeSelect("GuidanceResponse.Status", nil, optionsValueSet)
+		return CodeSelect("GuidanceResponse.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GuidanceResponse.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("GuidanceResponse.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_OccurrenceDateTime() templ.Component {
+func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("GuidanceResponse.OccurrenceDateTime", nil)
+		return DateTimeInput("GuidanceResponse.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return StringInput("GuidanceResponse.OccurrenceDateTime", resource.OccurrenceDateTime)
+	return DateTimeInput("GuidanceResponse.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("GuidanceResponse.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("GuidanceResponse.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("GuidanceResponse.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
+	return CodeableConceptSelect("GuidanceResponse.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("GuidanceResponse.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("GuidanceResponse.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }

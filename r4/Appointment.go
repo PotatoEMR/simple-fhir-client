@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -37,7 +38,7 @@ type Appointment struct {
 	End                   *string                  `json:"end,omitempty"`
 	MinutesDuration       *int                     `json:"minutesDuration,omitempty"`
 	Slot                  []Reference              `json:"slot,omitempty"`
-	Created               *string                  `json:"created,omitempty"`
+	Created               *time.Time               `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Comment               *string                  `json:"comment,omitempty"`
 	PatientInstruction    *string                  `json:"patientInstruction,omitempty"`
 	BasedOn               []Reference              `json:"basedOn,omitempty"`
@@ -69,161 +70,147 @@ func (r Appointment) MarshalJSON() ([]byte, error) {
 		ResourceType:     "Appointment",
 	})
 }
-
-func (resource *Appointment) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Appointment.Id", nil)
+func (r Appointment) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Appointment/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Appointment.Id", resource.Id)
-}
-func (resource *Appointment) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Appointment.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Appointment.ImplicitRules", resource.ImplicitRules)
+	rtype := "Appointment"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Appointment) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Appointment.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Appointment.Language", resource.Language, optionsValueSet)
-}
-func (resource *Appointment) T_Status() templ.Component {
+func (resource *Appointment) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAppointmentstatus
 
 	if resource == nil {
-		return CodeSelect("Appointment.Status", nil, optionsValueSet)
+		return CodeSelect("Appointment.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Appointment.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("Appointment.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_CancelationReason(optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_CancelationReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Appointment.CancelationReason", nil, optionsValueSet)
+		return CodeableConceptSelect("Appointment.CancelationReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Appointment.CancelationReason", resource.CancelationReason, optionsValueSet)
+	return CodeableConceptSelect("Appointment.CancelationReason", resource.CancelationReason, optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ServiceCategory) >= numServiceCategory {
-		return CodeableConceptSelect("Appointment.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numServiceCategory >= len(resource.ServiceCategory) {
+		return CodeableConceptSelect("Appointment.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Appointment.ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet)
+	return CodeableConceptSelect("Appointment.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_ServiceType(numServiceType int, optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ServiceType(numServiceType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ServiceType) >= numServiceType {
-		return CodeableConceptSelect("Appointment.ServiceType["+strconv.Itoa(numServiceType)+"]", nil, optionsValueSet)
+	if resource == nil || numServiceType >= len(resource.ServiceType) {
+		return CodeableConceptSelect("Appointment.ServiceType."+strconv.Itoa(numServiceType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Appointment.ServiceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], optionsValueSet)
+	return CodeableConceptSelect("Appointment.ServiceType."+strconv.Itoa(numServiceType)+".", &resource.ServiceType[numServiceType], optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_Specialty(numSpecialty int, optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Specialty) >= numSpecialty {
-		return CodeableConceptSelect("Appointment.Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet)
+	if resource == nil || numSpecialty >= len(resource.Specialty) {
+		return CodeableConceptSelect("Appointment.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Appointment.Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet)
+	return CodeableConceptSelect("Appointment.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_AppointmentType(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Appointment.AppointmentType", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Appointment.AppointmentType", resource.AppointmentType, optionsValueSet)
-}
-func (resource *Appointment) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("Appointment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Appointment.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
-}
-func (resource *Appointment) T_Priority() templ.Component {
+func (resource *Appointment) T_AppointmentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("Appointment.Priority", nil)
+		return CodeableConceptSelect("Appointment.AppointmentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("Appointment.Priority", resource.Priority)
+	return CodeableConceptSelect("Appointment.AppointmentType", resource.AppointmentType, optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_Description() templ.Component {
+func (resource *Appointment) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("Appointment.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Appointment.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *Appointment) T_Priority(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.Description", nil)
+		return IntInput("Appointment.Priority", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.Description", resource.Description)
+	return IntInput("Appointment.Priority", resource.Priority, htmlAttrs)
 }
-func (resource *Appointment) T_Start() templ.Component {
+func (resource *Appointment) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.Start", nil)
+		return StringInput("Appointment.Description", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.Start", resource.Start)
+	return StringInput("Appointment.Description", resource.Description, htmlAttrs)
 }
-func (resource *Appointment) T_End() templ.Component {
+func (resource *Appointment) T_Start(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.End", nil)
+		return StringInput("Appointment.Start", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.End", resource.End)
+	return StringInput("Appointment.Start", resource.Start, htmlAttrs)
 }
-func (resource *Appointment) T_MinutesDuration() templ.Component {
+func (resource *Appointment) T_End(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("Appointment.MinutesDuration", nil)
+		return StringInput("Appointment.End", nil, htmlAttrs)
 	}
-	return IntInput("Appointment.MinutesDuration", resource.MinutesDuration)
+	return StringInput("Appointment.End", resource.End, htmlAttrs)
 }
-func (resource *Appointment) T_Created() templ.Component {
+func (resource *Appointment) T_MinutesDuration(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.Created", nil)
+		return IntInput("Appointment.MinutesDuration", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.Created", resource.Created)
+	return IntInput("Appointment.MinutesDuration", resource.MinutesDuration, htmlAttrs)
 }
-func (resource *Appointment) T_Comment() templ.Component {
+func (resource *Appointment) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.Comment", nil)
+		return DateTimeInput("Appointment.Created", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.Comment", resource.Comment)
+	return DateTimeInput("Appointment.Created", resource.Created, htmlAttrs)
 }
-func (resource *Appointment) T_PatientInstruction() templ.Component {
+func (resource *Appointment) T_Comment(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Appointment.PatientInstruction", nil)
+		return StringInput("Appointment.Comment", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.PatientInstruction", resource.PatientInstruction)
+	return StringInput("Appointment.Comment", resource.Comment, htmlAttrs)
 }
-func (resource *Appointment) T_ParticipantId(numParticipant int) templ.Component {
+func (resource *Appointment) T_PatientInstruction(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Participant) >= numParticipant {
-		return StringInput("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Id", nil)
+	if resource == nil {
+		return StringInput("Appointment.PatientInstruction", nil, htmlAttrs)
 	}
-	return StringInput("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Id", resource.Participant[numParticipant].Id)
+	return StringInput("Appointment.PatientInstruction", resource.PatientInstruction, htmlAttrs)
 }
-func (resource *Appointment) T_ParticipantType(numParticipant int, numType int, optionsValueSet []Coding) templ.Component {
+func (resource *Appointment) T_ParticipantType(numParticipant int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Participant) >= numParticipant || len(resource.Participant[numParticipant].Type) >= numType {
-		return CodeableConceptSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	if resource == nil || numParticipant >= len(resource.Participant) || numType >= len(resource.Participant[numParticipant].Type) {
+		return CodeableConceptSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Type["+strconv.Itoa(numType)+"]", &resource.Participant[numParticipant].Type[numType], optionsValueSet)
+	return CodeableConceptSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Type."+strconv.Itoa(numType)+".", &resource.Participant[numParticipant].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_ParticipantRequired(numParticipant int) templ.Component {
+func (resource *Appointment) T_ParticipantRequired(numParticipant int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSParticipantrequired
 
-	if resource == nil || len(resource.Participant) >= numParticipant {
-		return CodeSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Required", nil, optionsValueSet)
+	if resource == nil || numParticipant >= len(resource.Participant) {
+		return CodeSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Required", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Required", resource.Participant[numParticipant].Required, optionsValueSet)
+	return CodeSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Required", resource.Participant[numParticipant].Required, optionsValueSet, htmlAttrs)
 }
-func (resource *Appointment) T_ParticipantStatus(numParticipant int) templ.Component {
+func (resource *Appointment) T_ParticipantStatus(numParticipant int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
-	if resource == nil || len(resource.Participant) >= numParticipant {
-		return CodeSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Status", nil, optionsValueSet)
+	if resource == nil || numParticipant >= len(resource.Participant) {
+		return CodeSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Appointment.Participant["+strconv.Itoa(numParticipant)+"].Status", &resource.Participant[numParticipant].Status, optionsValueSet)
+	return CodeSelect("Appointment.Participant."+strconv.Itoa(numParticipant)+"..Status", &resource.Participant[numParticipant].Status, optionsValueSet, htmlAttrs)
 }

@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,8 +29,8 @@ type DeviceUseStatement struct {
 	DerivedFrom       []Reference       `json:"derivedFrom,omitempty"`
 	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
 	TimingPeriod      *Period           `json:"timingPeriod,omitempty"`
-	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
-	RecordedOn        *string           `json:"recordedOn,omitempty"`
+	TimingDateTime    *time.Time        `json:"timingDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	RecordedOn        *time.Time        `json:"recordedOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Source            *Reference        `json:"source,omitempty"`
 	Device            Reference         `json:"device"`
 	ReasonCode        []CodeableConcept `json:"reasonCode,omitempty"`
@@ -50,54 +51,61 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 		ResourceType:            "DeviceUseStatement",
 	})
 }
-
-func (resource *DeviceUseStatement) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("DeviceUseStatement.Id", nil)
+func (r DeviceUseStatement) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "DeviceUseStatement/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("DeviceUseStatement.Id", resource.Id)
-}
-func (resource *DeviceUseStatement) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("DeviceUseStatement.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("DeviceUseStatement.ImplicitRules", resource.ImplicitRules)
+	rtype := "DeviceUseStatement"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *DeviceUseStatement) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("DeviceUseStatement.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("DeviceUseStatement.Language", resource.Language, optionsValueSet)
-}
-func (resource *DeviceUseStatement) T_Status() templ.Component {
+func (resource *DeviceUseStatement) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
 	if resource == nil {
-		return CodeSelect("DeviceUseStatement.Status", nil, optionsValueSet)
+		return CodeSelect("DeviceUseStatement.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceUseStatement.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("DeviceUseStatement.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUseStatement) T_RecordedOn() templ.Component {
+func (resource *DeviceUseStatement) T_TimingDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DeviceUseStatement.RecordedOn", nil)
+		return DateTimeInput("DeviceUseStatement.TimingDateTime", nil, htmlAttrs)
 	}
-	return StringInput("DeviceUseStatement.RecordedOn", resource.RecordedOn)
+	return DateTimeInput("DeviceUseStatement.TimingDateTime", resource.TimingDateTime, htmlAttrs)
 }
-func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
-}
-func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding) templ.Component {
+func (resource *DeviceUseStatement) T_RecordedOn(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("DeviceUseStatement.BodySite", nil, optionsValueSet)
+		return DateTimeInput("DeviceUseStatement.RecordedOn", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceUseStatement.BodySite", resource.BodySite, optionsValueSet)
+	return DateTimeInput("DeviceUseStatement.RecordedOn", resource.RecordedOn, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("DeviceUseStatement.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("DeviceUseStatement.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return CodeableConceptSelect("DeviceUseStatement.BodySite", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("DeviceUseStatement.BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("DeviceUseStatement.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("DeviceUseStatement.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }

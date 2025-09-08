@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +31,7 @@ type ObservationDefinition struct {
 	Title                  *string                               `json:"title,omitempty"`
 	Status                 string                                `json:"status"`
 	Experimental           *bool                                 `json:"experimental,omitempty"`
-	Date                   *string                               `json:"date,omitempty"`
+	Date                   *time.Time                            `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher              *string                               `json:"publisher,omitempty"`
 	Contact                []ContactDetail                       `json:"contact,omitempty"`
 	Description            *string                               `json:"description,omitempty"`
@@ -39,8 +40,8 @@ type ObservationDefinition struct {
 	Purpose                *string                               `json:"purpose,omitempty"`
 	Copyright              *string                               `json:"copyright,omitempty"`
 	CopyrightLabel         *string                               `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string                               `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                               `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *time.Time                            `json:"approvalDate,omitempty,format:'2006-01-02'"`
+	LastReviewDate         *time.Time                            `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
 	EffectivePeriod        *Period                               `json:"effectivePeriod,omitempty"`
 	DerivedFromCanonical   []string                              `json:"derivedFromCanonical,omitempty"`
 	DerivedFromUri         []string                              `json:"derivedFromUri,omitempty"`
@@ -102,317 +103,308 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:               "ObservationDefinition",
 	})
 }
-
-func (resource *ObservationDefinition) T_Id() templ.Component {
+func (r ObservationDefinition) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ObservationDefinition/" + *r.Id
+		ref.Reference = &refStr
+	}
+	ref.Identifier = r.Identifier
+	rtype := "ObservationDefinition"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *ObservationDefinition) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Id", nil)
+		return StringInput("ObservationDefinition.Url", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Id", resource.Id)
+	return StringInput("ObservationDefinition.Url", resource.Url, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ImplicitRules() templ.Component {
+func (resource *ObservationDefinition) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.ImplicitRules", nil)
+		return StringInput("ObservationDefinition.Version", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.ImplicitRules", resource.ImplicitRules)
+	return StringInput("ObservationDefinition.Version", resource.Version, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("ObservationDefinition.Language", nil, optionsValueSet)
+		return StringInput("ObservationDefinition.VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.Language", resource.Language, optionsValueSet)
+	return StringInput("ObservationDefinition.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Url() templ.Component {
+func (resource *ObservationDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Url", nil)
+		return CodingSelect("ObservationDefinition.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Url", resource.Url)
+	return CodingSelect("ObservationDefinition.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Version() templ.Component {
+func (resource *ObservationDefinition) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Version", nil)
+		return StringInput("ObservationDefinition.Name", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Version", resource.Version)
+	return StringInput("ObservationDefinition.Name", resource.Name, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Name() templ.Component {
+func (resource *ObservationDefinition) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Name", nil)
+		return StringInput("ObservationDefinition.Title", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Name", resource.Name)
+	return StringInput("ObservationDefinition.Title", resource.Title, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("ObservationDefinition.Title", nil)
-	}
-	return StringInput("ObservationDefinition.Title", resource.Title)
-}
-func (resource *ObservationDefinition) T_Status() templ.Component {
+func (resource *ObservationDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ObservationDefinition.Status", nil, optionsValueSet)
+		return CodeSelect("ObservationDefinition.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ObservationDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Experimental() templ.Component {
+func (resource *ObservationDefinition) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ObservationDefinition.Experimental", nil)
+		return BoolInput("ObservationDefinition.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ObservationDefinition.Experimental", resource.Experimental)
+	return BoolInput("ObservationDefinition.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Date() templ.Component {
+func (resource *ObservationDefinition) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Date", nil)
+		return DateTimeInput("ObservationDefinition.Date", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Date", resource.Date)
+	return DateTimeInput("ObservationDefinition.Date", resource.Date, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Publisher() templ.Component {
+func (resource *ObservationDefinition) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Publisher", nil)
+		return StringInput("ObservationDefinition.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Publisher", resource.Publisher)
+	return StringInput("ObservationDefinition.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Description() templ.Component {
+func (resource *ObservationDefinition) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Description", nil)
+		return StringInput("ObservationDefinition.Description", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Description", resource.Description)
+	return StringInput("ObservationDefinition.Description", resource.Description, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("ObservationDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("ObservationDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("ObservationDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("ObservationDefinition.Purpose", nil)
-	}
-	return StringInput("ObservationDefinition.Purpose", resource.Purpose)
-}
-func (resource *ObservationDefinition) T_Copyright() templ.Component {
+func (resource *ObservationDefinition) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.Copyright", nil)
+		return StringInput("ObservationDefinition.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Copyright", resource.Copyright)
+	return StringInput("ObservationDefinition.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_CopyrightLabel() templ.Component {
+func (resource *ObservationDefinition) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.CopyrightLabel", nil)
+		return StringInput("ObservationDefinition.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.CopyrightLabel", resource.CopyrightLabel)
+	return StringInput("ObservationDefinition.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ApprovalDate() templ.Component {
+func (resource *ObservationDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.ApprovalDate", nil)
+		return StringInput("ObservationDefinition.CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.ApprovalDate", resource.ApprovalDate)
+	return StringInput("ObservationDefinition.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_LastReviewDate() templ.Component {
+func (resource *ObservationDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.LastReviewDate", nil)
+		return DateInput("ObservationDefinition.ApprovalDate", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.LastReviewDate", resource.LastReviewDate)
+	return DateInput("ObservationDefinition.ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_DerivedFromCanonical(numDerivedFromCanonical int) templ.Component {
-
-	if resource == nil || len(resource.DerivedFromCanonical) >= numDerivedFromCanonical {
-		return StringInput("ObservationDefinition.DerivedFromCanonical["+strconv.Itoa(numDerivedFromCanonical)+"]", nil)
-	}
-	return StringInput("ObservationDefinition.DerivedFromCanonical["+strconv.Itoa(numDerivedFromCanonical)+"]", &resource.DerivedFromCanonical[numDerivedFromCanonical])
-}
-func (resource *ObservationDefinition) T_DerivedFromUri(numDerivedFromUri int) templ.Component {
-
-	if resource == nil || len(resource.DerivedFromUri) >= numDerivedFromUri {
-		return StringInput("ObservationDefinition.DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", nil)
-	}
-	return StringInput("ObservationDefinition.DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", &resource.DerivedFromUri[numDerivedFromUri])
-}
-func (resource *ObservationDefinition) T_Subject(numSubject int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Subject) >= numSubject {
-		return CodeableConceptSelect("ObservationDefinition.Subject["+strconv.Itoa(numSubject)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ObservationDefinition.Subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], optionsValueSet)
-}
-func (resource *ObservationDefinition) T_PerformerType(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ObservationDefinition.PerformerType", nil, optionsValueSet)
+		return DateInput("ObservationDefinition.LastReviewDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.PerformerType", resource.PerformerType, optionsValueSet)
+	return DateInput("ObservationDefinition.LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_DerivedFromCanonical(numDerivedFromCanonical int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("ObservationDefinition.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numDerivedFromCanonical >= len(resource.DerivedFromCanonical) {
+		return StringInput("ObservationDefinition.DerivedFromCanonical."+strconv.Itoa(numDerivedFromCanonical)+".", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return StringInput("ObservationDefinition.DerivedFromCanonical."+strconv.Itoa(numDerivedFromCanonical)+".", &resource.DerivedFromCanonical[numDerivedFromCanonical], htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_DerivedFromUri(numDerivedFromUri int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numDerivedFromUri >= len(resource.DerivedFromUri) {
+		return StringInput("ObservationDefinition.DerivedFromUri."+strconv.Itoa(numDerivedFromUri)+".", nil, htmlAttrs)
+	}
+	return StringInput("ObservationDefinition.DerivedFromUri."+strconv.Itoa(numDerivedFromUri)+".", &resource.DerivedFromUri[numDerivedFromUri], htmlAttrs)
+}
+func (resource *ObservationDefinition) T_Subject(numSubject int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return CodeableConceptSelect("ObservationDefinition.Subject."+strconv.Itoa(numSubject)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ObservationDefinition.Subject."+strconv.Itoa(numSubject)+".", &resource.Subject[numSubject], optionsValueSet, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_PerformerType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ObservationDefinition.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("ObservationDefinition.PerformerType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.Code", &resource.Code, optionsValueSet)
+	return CodeableConceptSelect("ObservationDefinition.PerformerType", resource.PerformerType, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_PermittedDataType(numPermittedDataType int) templ.Component {
+func (resource *ObservationDefinition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("ObservationDefinition.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ObservationDefinition.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return CodeableConceptSelect("ObservationDefinition.Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("ObservationDefinition.Code", &resource.Code, optionsValueSet, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_PermittedDataType(numPermittedDataType int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
-	if resource == nil || len(resource.PermittedDataType) >= numPermittedDataType {
-		return CodeSelect("ObservationDefinition.PermittedDataType["+strconv.Itoa(numPermittedDataType)+"]", nil, optionsValueSet)
+	if resource == nil || numPermittedDataType >= len(resource.PermittedDataType) {
+		return CodeSelect("ObservationDefinition.PermittedDataType."+strconv.Itoa(numPermittedDataType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.PermittedDataType["+strconv.Itoa(numPermittedDataType)+"]", &resource.PermittedDataType[numPermittedDataType], optionsValueSet)
+	return CodeSelect("ObservationDefinition.PermittedDataType."+strconv.Itoa(numPermittedDataType)+".", &resource.PermittedDataType[numPermittedDataType], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_MultipleResultsAllowed() templ.Component {
+func (resource *ObservationDefinition) T_MultipleResultsAllowed(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("ObservationDefinition.MultipleResultsAllowed", nil)
+		return BoolInput("ObservationDefinition.MultipleResultsAllowed", nil, htmlAttrs)
 	}
-	return BoolInput("ObservationDefinition.MultipleResultsAllowed", resource.MultipleResultsAllowed)
+	return BoolInput("ObservationDefinition.MultipleResultsAllowed", resource.MultipleResultsAllowed, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_BodySite(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ObservationDefinition.BodySite", nil, optionsValueSet)
+		return CodeableConceptSelect("ObservationDefinition.BodySite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.BodySite", resource.BodySite, optionsValueSet)
+	return CodeableConceptSelect("ObservationDefinition.BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("ObservationDefinition.Method", nil, optionsValueSet)
+		return CodeableConceptSelect("ObservationDefinition.Method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.Method", resource.Method, optionsValueSet)
+	return CodeableConceptSelect("ObservationDefinition.Method", resource.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_PreferredReportName() templ.Component {
+func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ObservationDefinition.PreferredReportName", nil)
+		return StringInput("ObservationDefinition.PreferredReportName", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.PreferredReportName", resource.PreferredReportName)
+	return StringInput("ObservationDefinition.PreferredReportName", resource.PreferredReportName, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_PermittedUnit(numPermittedUnit int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_PermittedUnit(numPermittedUnit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.PermittedUnit) >= numPermittedUnit {
-		return CodingSelect("ObservationDefinition.PermittedUnit["+strconv.Itoa(numPermittedUnit)+"]", nil, optionsValueSet)
+	if resource == nil || numPermittedUnit >= len(resource.PermittedUnit) {
+		return CodingSelect("ObservationDefinition.PermittedUnit."+strconv.Itoa(numPermittedUnit)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("ObservationDefinition.PermittedUnit["+strconv.Itoa(numPermittedUnit)+"]", &resource.PermittedUnit[numPermittedUnit], optionsValueSet)
+	return CodingSelect("ObservationDefinition.PermittedUnit."+strconv.Itoa(numPermittedUnit)+".", &resource.PermittedUnit[numPermittedUnit], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueId(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Id", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return CodeableConceptSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Context", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Id", resource.QualifiedValue[numQualifiedValue].Id)
+	return CodeableConceptSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Context", resource.QualifiedValue[numQualifiedValue].Context, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueAppliesTo(numQualifiedValue int, numAppliesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return CodeableConceptSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Context", nil, optionsValueSet)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) || numAppliesTo >= len(resource.QualifiedValue[numQualifiedValue].AppliesTo) {
+		return CodeableConceptSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..AppliesTo."+strconv.Itoa(numAppliesTo)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Context", resource.QualifiedValue[numQualifiedValue].Context, optionsValueSet)
+	return CodeableConceptSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..AppliesTo."+strconv.Itoa(numAppliesTo)+".", &resource.QualifiedValue[numQualifiedValue].AppliesTo[numAppliesTo], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueAppliesTo(numQualifiedValue int, numAppliesTo int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue || len(resource.QualifiedValue[numQualifiedValue].AppliesTo) >= numAppliesTo {
-		return CodeableConceptSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].AppliesTo["+strconv.Itoa(numAppliesTo)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].AppliesTo["+strconv.Itoa(numAppliesTo)+"]", &resource.QualifiedValue[numQualifiedValue].AppliesTo[numAppliesTo], optionsValueSet)
-}
-func (resource *ObservationDefinition) T_QualifiedValueGender(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueGender(numQualifiedValue int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return CodeSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Gender", nil, optionsValueSet)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return CodeSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Gender", resource.QualifiedValue[numQualifiedValue].Gender, optionsValueSet)
+	return CodeSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Gender", resource.QualifiedValue[numQualifiedValue].Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueCondition(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueCondition(numQualifiedValue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Condition", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Condition", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].Condition", resource.QualifiedValue[numQualifiedValue].Condition)
+	return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..Condition", resource.QualifiedValue[numQualifiedValue].Condition, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueRangeCategory(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueRangeCategory(numQualifiedValue int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSObservation_range_category
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return CodeSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].RangeCategory", nil, optionsValueSet)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return CodeSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..RangeCategory", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].RangeCategory", resource.QualifiedValue[numQualifiedValue].RangeCategory, optionsValueSet)
+	return CodeSelect("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..RangeCategory", resource.QualifiedValue[numQualifiedValue].RangeCategory, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueValidCodedValueSet(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueValidCodedValueSet(numQualifiedValue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].ValidCodedValueSet", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..ValidCodedValueSet", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].ValidCodedValueSet", resource.QualifiedValue[numQualifiedValue].ValidCodedValueSet)
+	return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..ValidCodedValueSet", resource.QualifiedValue[numQualifiedValue].ValidCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueNormalCodedValueSet(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueNormalCodedValueSet(numQualifiedValue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].NormalCodedValueSet", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..NormalCodedValueSet", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].NormalCodedValueSet", resource.QualifiedValue[numQualifiedValue].NormalCodedValueSet)
+	return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..NormalCodedValueSet", resource.QualifiedValue[numQualifiedValue].NormalCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueAbnormalCodedValueSet(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueAbnormalCodedValueSet(numQualifiedValue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].AbnormalCodedValueSet", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..AbnormalCodedValueSet", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].AbnormalCodedValueSet", resource.QualifiedValue[numQualifiedValue].AbnormalCodedValueSet)
+	return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..AbnormalCodedValueSet", resource.QualifiedValue[numQualifiedValue].AbnormalCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedValueCriticalCodedValueSet(numQualifiedValue int) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedValueCriticalCodedValueSet(numQualifiedValue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.QualifiedValue) >= numQualifiedValue {
-		return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].CriticalCodedValueSet", nil)
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..CriticalCodedValueSet", nil, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.QualifiedValue["+strconv.Itoa(numQualifiedValue)+"].CriticalCodedValueSet", resource.QualifiedValue[numQualifiedValue].CriticalCodedValueSet)
+	return StringInput("ObservationDefinition.QualifiedValue."+strconv.Itoa(numQualifiedValue)+"..CriticalCodedValueSet", resource.QualifiedValue[numQualifiedValue].CriticalCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ComponentId(numComponent int) templ.Component {
+func (resource *ObservationDefinition) T_ComponentCode(numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Component) >= numComponent {
-		return StringInput("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].Id", nil)
+	if resource == nil || numComponent >= len(resource.Component) {
+		return CodeableConceptSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].Id", resource.Component[numComponent].Id)
+	return CodeableConceptSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..Code", &resource.Component[numComponent].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ComponentCode(numComponent int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Component) >= numComponent {
-		return CodeableConceptSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].Code", &resource.Component[numComponent].Code, optionsValueSet)
-}
-func (resource *ObservationDefinition) T_ComponentPermittedDataType(numComponent int, numPermittedDataType int) templ.Component {
+func (resource *ObservationDefinition) T_ComponentPermittedDataType(numComponent int, numPermittedDataType int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
-	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].PermittedDataType) >= numPermittedDataType {
-		return CodeSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].PermittedDataType["+strconv.Itoa(numPermittedDataType)+"]", nil, optionsValueSet)
+	if resource == nil || numComponent >= len(resource.Component) || numPermittedDataType >= len(resource.Component[numComponent].PermittedDataType) {
+		return CodeSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..PermittedDataType."+strconv.Itoa(numPermittedDataType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].PermittedDataType["+strconv.Itoa(numPermittedDataType)+"]", &resource.Component[numComponent].PermittedDataType[numPermittedDataType], optionsValueSet)
+	return CodeSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..PermittedDataType."+strconv.Itoa(numPermittedDataType)+".", &resource.Component[numComponent].PermittedDataType[numPermittedDataType], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ComponentPermittedUnit(numComponent int, numPermittedUnit int, optionsValueSet []Coding) templ.Component {
+func (resource *ObservationDefinition) T_ComponentPermittedUnit(numComponent int, numPermittedUnit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Component) >= numComponent || len(resource.Component[numComponent].PermittedUnit) >= numPermittedUnit {
-		return CodingSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].PermittedUnit["+strconv.Itoa(numPermittedUnit)+"]", nil, optionsValueSet)
+	if resource == nil || numComponent >= len(resource.Component) || numPermittedUnit >= len(resource.Component[numComponent].PermittedUnit) {
+		return CodingSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..PermittedUnit."+strconv.Itoa(numPermittedUnit)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("ObservationDefinition.Component["+strconv.Itoa(numComponent)+"].PermittedUnit["+strconv.Itoa(numPermittedUnit)+"]", &resource.Component[numComponent].PermittedUnit[numPermittedUnit], optionsValueSet)
+	return CodingSelect("ObservationDefinition.Component."+strconv.Itoa(numComponent)+"..PermittedUnit."+strconv.Itoa(numPermittedUnit)+".", &resource.Component[numComponent].PermittedUnit[numPermittedUnit], optionsValueSet, htmlAttrs)
 }

@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -37,40 +37,33 @@ func (r FormularyItem) MarshalJSON() ([]byte, error) {
 		ResourceType:       "FormularyItem",
 	})
 }
-
-func (resource *FormularyItem) T_Id() templ.Component {
+func (r FormularyItem) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "FormularyItem/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "FormularyItem"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *FormularyItem) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("FormularyItem.Id", nil)
+		return CodeableConceptSelect("FormularyItem.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("FormularyItem.Id", resource.Id)
+	return CodeableConceptSelect("FormularyItem.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *FormularyItem) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("FormularyItem.ImplicitRules", nil)
-	}
-	return StringInput("FormularyItem.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *FormularyItem) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("FormularyItem.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("FormularyItem.Language", resource.Language, optionsValueSet)
-}
-func (resource *FormularyItem) T_Code(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("FormularyItem.Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("FormularyItem.Code", resource.Code, optionsValueSet)
-}
-func (resource *FormularyItem) T_Status() templ.Component {
+func (resource *FormularyItem) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
 	if resource == nil {
-		return CodeSelect("FormularyItem.Status", nil, optionsValueSet)
+		return CodeSelect("FormularyItem.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("FormularyItem.Status", resource.Status, optionsValueSet)
+	return CodeSelect("FormularyItem.Status", resource.Status, optionsValueSet, htmlAttrs)
 }

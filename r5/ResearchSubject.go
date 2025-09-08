@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -41,8 +42,8 @@ type ResearchSubjectProgress struct {
 	SubjectState      *CodeableConcept `json:"subjectState,omitempty"`
 	Milestone         *CodeableConcept `json:"milestone,omitempty"`
 	Reason            *CodeableConcept `json:"reason,omitempty"`
-	StartDate         *string          `json:"startDate,omitempty"`
-	EndDate           *string          `json:"endDate,omitempty"`
+	StartDate         *time.Time       `json:"startDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	EndDate           *time.Time       `json:"endDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }
 
 type OtherResearchSubject ResearchSubject
@@ -57,96 +58,82 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ResearchSubject",
 	})
 }
-
-func (resource *ResearchSubject) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchSubject.Id", nil)
+func (r ResearchSubject) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ResearchSubject/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("ResearchSubject.Id", resource.Id)
-}
-func (resource *ResearchSubject) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchSubject.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("ResearchSubject.ImplicitRules", resource.ImplicitRules)
+	rtype := "ResearchSubject"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *ResearchSubject) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("ResearchSubject.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("ResearchSubject.Language", resource.Language, optionsValueSet)
-}
-func (resource *ResearchSubject) T_Status() templ.Component {
+func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ResearchSubject.Status", nil, optionsValueSet)
+		return CodeSelect("ResearchSubject.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchSubject.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ResearchSubject.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_AssignedComparisonGroup() templ.Component {
+func (resource *ResearchSubject) T_AssignedComparisonGroup(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchSubject.AssignedComparisonGroup", nil)
+		return StringInput("ResearchSubject.AssignedComparisonGroup", nil, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.AssignedComparisonGroup", resource.AssignedComparisonGroup)
+	return StringInput("ResearchSubject.AssignedComparisonGroup", resource.AssignedComparisonGroup, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ActualComparisonGroup() templ.Component {
+func (resource *ResearchSubject) T_ActualComparisonGroup(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchSubject.ActualComparisonGroup", nil)
+		return StringInput("ResearchSubject.ActualComparisonGroup", nil, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.ActualComparisonGroup", resource.ActualComparisonGroup)
+	return StringInput("ResearchSubject.ActualComparisonGroup", resource.ActualComparisonGroup, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressId(numProgress int) templ.Component {
+func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Id", nil)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Id", resource.Progress[numProgress].Id)
+	return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Type", resource.Progress[numProgress].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressSubjectState(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Type", nil, optionsValueSet)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..SubjectState", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Type", resource.Progress[numProgress].Type, optionsValueSet)
+	return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..SubjectState", resource.Progress[numProgress].SubjectState, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressSubjectState(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressMilestone(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].SubjectState", nil, optionsValueSet)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Milestone", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].SubjectState", resource.Progress[numProgress].SubjectState, optionsValueSet)
+	return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Milestone", resource.Progress[numProgress].Milestone, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressMilestone(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Milestone", nil, optionsValueSet)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Reason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Milestone", resource.Progress[numProgress].Milestone, optionsValueSet)
+	return CodeableConceptSelect("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..Reason", resource.Progress[numProgress].Reason, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueSet []Coding) templ.Component {
+func (resource *ResearchSubject) T_ProgressStartDate(numProgress int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Reason", nil, optionsValueSet)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return DateTimeInput("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..StartDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].Reason", resource.Progress[numProgress].Reason, optionsValueSet)
+	return DateTimeInput("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..StartDate", resource.Progress[numProgress].StartDate, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressStartDate(numProgress int) templ.Component {
+func (resource *ResearchSubject) T_ProgressEndDate(numProgress int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].StartDate", nil)
+	if resource == nil || numProgress >= len(resource.Progress) {
+		return DateTimeInput("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..EndDate", nil, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].StartDate", resource.Progress[numProgress].StartDate)
-}
-func (resource *ResearchSubject) T_ProgressEndDate(numProgress int) templ.Component {
-
-	if resource == nil || len(resource.Progress) >= numProgress {
-		return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].EndDate", nil)
-	}
-	return StringInput("ResearchSubject.Progress["+strconv.Itoa(numProgress)+"].EndDate", resource.Progress[numProgress].EndDate)
+	return DateTimeInput("ResearchSubject.Progress."+strconv.Itoa(numProgress)+"..EndDate", resource.Progress[numProgress].EndDate, htmlAttrs)
 }

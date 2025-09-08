@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -52,7 +53,7 @@ type DocumentReferenceAttester struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Mode              CodeableConcept `json:"mode"`
-	Time              *string         `json:"time,omitempty"`
+	Time              *time.Time      `json:"time,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Party             *Reference      `json:"party,omitempty"`
 }
 
@@ -96,153 +97,139 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 		ResourceType:           "DocumentReference",
 	})
 }
-
-func (resource *DocumentReference) T_Id() templ.Component {
+func (r DocumentReference) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "DocumentReference/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "DocumentReference"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *DocumentReference) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentReference.Id", nil)
+		return StringInput("DocumentReference.Version", nil, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Id", resource.Id)
+	return StringInput("DocumentReference.Version", resource.Version, htmlAttrs)
 }
-func (resource *DocumentReference) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("DocumentReference.ImplicitRules", nil)
-	}
-	return StringInput("DocumentReference.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *DocumentReference) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("DocumentReference.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("DocumentReference.Language", resource.Language, optionsValueSet)
-}
-func (resource *DocumentReference) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("DocumentReference.Version", nil)
-	}
-	return StringInput("DocumentReference.Version", resource.Version)
-}
-func (resource *DocumentReference) T_Status() templ.Component {
+func (resource *DocumentReference) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
-		return CodeSelect("DocumentReference.Status", nil, optionsValueSet)
+		return CodeSelect("DocumentReference.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DocumentReference.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("DocumentReference.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_DocStatus() templ.Component {
+func (resource *DocumentReference) T_DocStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSComposition_status
 
 	if resource == nil {
-		return CodeSelect("DocumentReference.DocStatus", nil, optionsValueSet)
+		return CodeSelect("DocumentReference.DocStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DocumentReference.DocStatus", resource.DocStatus, optionsValueSet)
+	return CodeSelect("DocumentReference.DocStatus", resource.DocStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_Modality(numModality int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Modality(numModality int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Modality) >= numModality {
-		return CodeableConceptSelect("DocumentReference.Modality["+strconv.Itoa(numModality)+"]", nil, optionsValueSet)
+	if resource == nil || numModality >= len(resource.Modality) {
+		return CodeableConceptSelect("DocumentReference.Modality."+strconv.Itoa(numModality)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.Modality["+strconv.Itoa(numModality)+"]", &resource.Modality[numModality], optionsValueSet)
+	return CodeableConceptSelect("DocumentReference.Modality."+strconv.Itoa(numModality)+".", &resource.Modality[numModality], optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_Type(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("DocumentReference.Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("DocumentReference.Type", resource.Type, optionsValueSet)
-}
-func (resource *DocumentReference) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("DocumentReference.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("DocumentReference.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
-}
-func (resource *DocumentReference) T_FacilityType(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("DocumentReference.FacilityType", nil, optionsValueSet)
+		return CodeableConceptSelect("DocumentReference.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.FacilityType", resource.FacilityType, optionsValueSet)
+	return CodeableConceptSelect("DocumentReference.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_PracticeSetting(optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("DocumentReference.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("DocumentReference.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+}
+func (resource *DocumentReference) T_FacilityType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("DocumentReference.PracticeSetting", nil, optionsValueSet)
+		return CodeableConceptSelect("DocumentReference.FacilityType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.PracticeSetting", resource.PracticeSetting, optionsValueSet)
+	return CodeableConceptSelect("DocumentReference.FacilityType", resource.FacilityType, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_Date() templ.Component {
+func (resource *DocumentReference) T_PracticeSetting(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentReference.Date", nil)
+		return CodeableConceptSelect("DocumentReference.PracticeSetting", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Date", resource.Date)
+	return CodeableConceptSelect("DocumentReference.PracticeSetting", resource.PracticeSetting, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_Description() templ.Component {
+func (resource *DocumentReference) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DocumentReference.Description", nil)
+		return StringInput("DocumentReference.Date", nil, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Description", resource.Description)
+	return StringInput("DocumentReference.Date", resource.Date, htmlAttrs)
 }
-func (resource *DocumentReference) T_SecurityLabel(numSecurityLabel int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_Description(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.SecurityLabel) >= numSecurityLabel {
-		return CodeableConceptSelect("DocumentReference.SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("DocumentReference.Description", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.SecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", &resource.SecurityLabel[numSecurityLabel], optionsValueSet)
+	return StringInput("DocumentReference.Description", resource.Description, htmlAttrs)
 }
-func (resource *DocumentReference) T_AttesterId(numAttester int) templ.Component {
+func (resource *DocumentReference) T_SecurityLabel(numSecurityLabel int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return StringInput("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Id", nil)
+	if resource == nil || numSecurityLabel >= len(resource.SecurityLabel) {
+		return CodeableConceptSelect("DocumentReference.SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Id", resource.Attester[numAttester].Id)
+	return CodeableConceptSelect("DocumentReference.SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", &resource.SecurityLabel[numSecurityLabel], optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_AttesterMode(numAttester int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_AttesterMode(numAttester int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return CodeableConceptSelect("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numAttester >= len(resource.Attester) {
+		return CodeableConceptSelect("DocumentReference.Attester."+strconv.Itoa(numAttester)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Mode", &resource.Attester[numAttester].Mode, optionsValueSet)
+	return CodeableConceptSelect("DocumentReference.Attester."+strconv.Itoa(numAttester)+"..Mode", &resource.Attester[numAttester].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_AttesterTime(numAttester int) templ.Component {
+func (resource *DocumentReference) T_AttesterTime(numAttester int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Attester) >= numAttester {
-		return StringInput("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Time", nil)
+	if resource == nil || numAttester >= len(resource.Attester) {
+		return DateTimeInput("DocumentReference.Attester."+strconv.Itoa(numAttester)+"..Time", nil, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Attester["+strconv.Itoa(numAttester)+"].Time", resource.Attester[numAttester].Time)
+	return DateTimeInput("DocumentReference.Attester."+strconv.Itoa(numAttester)+"..Time", resource.Attester[numAttester].Time, htmlAttrs)
 }
-func (resource *DocumentReference) T_RelatesToId(numRelatesTo int) templ.Component {
+func (resource *DocumentReference) T_RelatesToCode(numRelatesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RelatesTo) >= numRelatesTo {
-		return StringInput("DocumentReference.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Id", nil)
+	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
+		return CodeableConceptSelect("DocumentReference.RelatesTo."+strconv.Itoa(numRelatesTo)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("DocumentReference.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Id", resource.RelatesTo[numRelatesTo].Id)
+	return CodeableConceptSelect("DocumentReference.RelatesTo."+strconv.Itoa(numRelatesTo)+"..Code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_RelatesToCode(numRelatesTo int, optionsValueSet []Coding) templ.Component {
+func (resource *DocumentReference) T_ContentProfileValueCoding(numContent int, numProfile int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RelatesTo) >= numRelatesTo {
-		return CodeableConceptSelect("DocumentReference.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", nil, optionsValueSet)
+	if resource == nil || numContent >= len(resource.Content) || numProfile >= len(resource.Content[numContent].Profile) {
+		return CodingSelect("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentReference.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet)
+	return CodingSelect("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueCoding", &resource.Content[numContent].Profile[numProfile].ValueCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentReference) T_ContentId(numContent int) templ.Component {
+func (resource *DocumentReference) T_ContentProfileValueUri(numContent int, numProfile int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Content) >= numContent {
-		return StringInput("DocumentReference.Content["+strconv.Itoa(numContent)+"].Id", nil)
+	if resource == nil || numContent >= len(resource.Content) || numProfile >= len(resource.Content[numContent].Profile) {
+		return StringInput("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueUri", nil, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Content["+strconv.Itoa(numContent)+"].Id", resource.Content[numContent].Id)
+	return StringInput("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueUri", &resource.Content[numContent].Profile[numProfile].ValueUri, htmlAttrs)
 }
-func (resource *DocumentReference) T_ContentProfileId(numContent int, numProfile int) templ.Component {
+func (resource *DocumentReference) T_ContentProfileValueCanonical(numContent int, numProfile int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Content) >= numContent || len(resource.Content[numContent].Profile) >= numProfile {
-		return StringInput("DocumentReference.Content["+strconv.Itoa(numContent)+"].Profile["+strconv.Itoa(numProfile)+"].Id", nil)
+	if resource == nil || numContent >= len(resource.Content) || numProfile >= len(resource.Content[numContent].Profile) {
+		return StringInput("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueCanonical", nil, htmlAttrs)
 	}
-	return StringInput("DocumentReference.Content["+strconv.Itoa(numContent)+"].Profile["+strconv.Itoa(numProfile)+"].Id", resource.Content[numContent].Profile[numProfile].Id)
+	return StringInput("DocumentReference.Content."+strconv.Itoa(numContent)+"..Profile."+strconv.Itoa(numProfile)+"..ValueCanonical", &resource.Content[numContent].Profile[numProfile].ValueCanonical, htmlAttrs)
 }

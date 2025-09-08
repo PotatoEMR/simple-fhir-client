@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +30,7 @@ type MessageDefinition struct {
 	Replaces          []string                           `json:"replaces,omitempty"`
 	Status            string                             `json:"status"`
 	Experimental      *bool                              `json:"experimental,omitempty"`
-	Date              string                             `json:"date"`
+	Date              time.Time                          `json:"date,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                            `json:"publisher,omitempty"`
 	Contact           []ContactDetail                    `json:"contact,omitempty"`
 	Description       *string                            `json:"description,omitempty"`
@@ -80,211 +81,204 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MessageDefinition",
 	})
 }
-
-func (resource *MessageDefinition) T_Id() templ.Component {
+func (r MessageDefinition) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MessageDefinition/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "MessageDefinition"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MessageDefinition) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Id", nil)
+		return StringInput("MessageDefinition.Url", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Id", resource.Id)
+	return StringInput("MessageDefinition.Url", resource.Url, htmlAttrs)
 }
-func (resource *MessageDefinition) T_ImplicitRules() templ.Component {
+func (resource *MessageDefinition) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.ImplicitRules", nil)
+		return StringInput("MessageDefinition.Version", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.ImplicitRules", resource.ImplicitRules)
+	return StringInput("MessageDefinition.Version", resource.Version, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MessageDefinition) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("MessageDefinition.Language", nil, optionsValueSet)
+		return StringInput("MessageDefinition.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("MessageDefinition.Language", resource.Language, optionsValueSet)
+	return StringInput("MessageDefinition.Name", resource.Name, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Url() templ.Component {
+func (resource *MessageDefinition) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Url", nil)
+		return StringInput("MessageDefinition.Title", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Url", resource.Url)
+	return StringInput("MessageDefinition.Title", resource.Title, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Version() templ.Component {
+func (resource *MessageDefinition) T_Replaces(numReplaces int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("MessageDefinition.Version", nil)
+	if resource == nil || numReplaces >= len(resource.Replaces) {
+		return StringInput("MessageDefinition.Replaces."+strconv.Itoa(numReplaces)+".", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Version", resource.Version)
+	return StringInput("MessageDefinition.Replaces."+strconv.Itoa(numReplaces)+".", &resource.Replaces[numReplaces], htmlAttrs)
 }
-func (resource *MessageDefinition) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("MessageDefinition.Name", nil)
-	}
-	return StringInput("MessageDefinition.Name", resource.Name)
-}
-func (resource *MessageDefinition) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("MessageDefinition.Title", nil)
-	}
-	return StringInput("MessageDefinition.Title", resource.Title)
-}
-func (resource *MessageDefinition) T_Replaces(numReplaces int) templ.Component {
-
-	if resource == nil || len(resource.Replaces) >= numReplaces {
-		return StringInput("MessageDefinition.Replaces["+strconv.Itoa(numReplaces)+"]", nil)
-	}
-	return StringInput("MessageDefinition.Replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces])
-}
-func (resource *MessageDefinition) T_Status() templ.Component {
+func (resource *MessageDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("MessageDefinition.Status", nil, optionsValueSet)
+		return CodeSelect("MessageDefinition.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageDefinition.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("MessageDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Experimental() templ.Component {
+func (resource *MessageDefinition) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("MessageDefinition.Experimental", nil)
+		return BoolInput("MessageDefinition.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("MessageDefinition.Experimental", resource.Experimental)
+	return BoolInput("MessageDefinition.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Date() templ.Component {
+func (resource *MessageDefinition) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Date", nil)
+		return DateTimeInput("MessageDefinition.Date", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Date", &resource.Date)
+	return DateTimeInput("MessageDefinition.Date", &resource.Date, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Publisher() templ.Component {
+func (resource *MessageDefinition) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Publisher", nil)
+		return StringInput("MessageDefinition.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Publisher", resource.Publisher)
+	return StringInput("MessageDefinition.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Description() templ.Component {
+func (resource *MessageDefinition) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Description", nil)
+		return StringInput("MessageDefinition.Description", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Description", resource.Description)
+	return StringInput("MessageDefinition.Description", resource.Description, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *MessageDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("MessageDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("MessageDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MessageDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("MessageDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("MessageDefinition.Purpose", nil)
-	}
-	return StringInput("MessageDefinition.Purpose", resource.Purpose)
-}
-func (resource *MessageDefinition) T_Copyright() templ.Component {
+func (resource *MessageDefinition) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Copyright", nil)
+		return StringInput("MessageDefinition.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Copyright", resource.Copyright)
+	return StringInput("MessageDefinition.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Base() templ.Component {
+func (resource *MessageDefinition) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MessageDefinition.Base", nil)
+		return StringInput("MessageDefinition.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Base", resource.Base)
+	return StringInput("MessageDefinition.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Parent(numParent int) templ.Component {
+func (resource *MessageDefinition) T_Base(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Parent) >= numParent {
-		return StringInput("MessageDefinition.Parent["+strconv.Itoa(numParent)+"]", nil)
+	if resource == nil {
+		return StringInput("MessageDefinition.Base", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent])
+	return StringInput("MessageDefinition.Base", resource.Base, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Category() templ.Component {
+func (resource *MessageDefinition) T_Parent(numParent int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParent >= len(resource.Parent) {
+		return StringInput("MessageDefinition.Parent."+strconv.Itoa(numParent)+".", nil, htmlAttrs)
+	}
+	return StringInput("MessageDefinition.Parent."+strconv.Itoa(numParent)+".", &resource.Parent[numParent], htmlAttrs)
+}
+func (resource *MessageDefinition) T_EventCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return CodingSelect("MessageDefinition.EventCoding", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodingSelect("MessageDefinition.EventCoding", &resource.EventCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *MessageDefinition) T_EventUri(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("MessageDefinition.EventUri", nil, htmlAttrs)
+	}
+	return StringInput("MessageDefinition.EventUri", &resource.EventUri, htmlAttrs)
+}
+func (resource *MessageDefinition) T_Category(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMessage_significance_category
 
 	if resource == nil {
-		return CodeSelect("MessageDefinition.Category", nil, optionsValueSet)
+		return CodeSelect("MessageDefinition.Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageDefinition.Category", resource.Category, optionsValueSet)
+	return CodeSelect("MessageDefinition.Category", resource.Category, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageDefinition) T_ResponseRequired() templ.Component {
+func (resource *MessageDefinition) T_ResponseRequired(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMessageheader_response_request
 
 	if resource == nil {
-		return CodeSelect("MessageDefinition.ResponseRequired", nil, optionsValueSet)
+		return CodeSelect("MessageDefinition.ResponseRequired", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageDefinition.ResponseRequired", resource.ResponseRequired, optionsValueSet)
+	return CodeSelect("MessageDefinition.ResponseRequired", resource.ResponseRequired, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageDefinition) T_Graph(numGraph int) templ.Component {
+func (resource *MessageDefinition) T_Graph(numGraph int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Graph) >= numGraph {
-		return StringInput("MessageDefinition.Graph["+strconv.Itoa(numGraph)+"]", nil)
+	if resource == nil || numGraph >= len(resource.Graph) {
+		return StringInput("MessageDefinition.Graph."+strconv.Itoa(numGraph)+".", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Graph["+strconv.Itoa(numGraph)+"]", &resource.Graph[numGraph])
+	return StringInput("MessageDefinition.Graph."+strconv.Itoa(numGraph)+".", &resource.Graph[numGraph], htmlAttrs)
 }
-func (resource *MessageDefinition) T_FocusId(numFocus int) templ.Component {
-
-	if resource == nil || len(resource.Focus) >= numFocus {
-		return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Id", nil)
-	}
-	return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Id", resource.Focus[numFocus].Id)
-}
-func (resource *MessageDefinition) T_FocusCode(numFocus int) templ.Component {
+func (resource *MessageDefinition) T_FocusCode(numFocus int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource == nil || len(resource.Focus) >= numFocus {
-		return CodeSelect("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Code", nil, optionsValueSet)
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return CodeSelect("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Code", &resource.Focus[numFocus].Code, optionsValueSet)
+	return CodeSelect("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Code", &resource.Focus[numFocus].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageDefinition) T_FocusProfile(numFocus int) templ.Component {
+func (resource *MessageDefinition) T_FocusProfile(numFocus int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Focus) >= numFocus {
-		return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Profile", nil)
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return StringInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Profile", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Profile", resource.Focus[numFocus].Profile)
+	return StringInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Profile", resource.Focus[numFocus].Profile, htmlAttrs)
 }
-func (resource *MessageDefinition) T_FocusMin(numFocus int) templ.Component {
+func (resource *MessageDefinition) T_FocusMin(numFocus int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Focus) >= numFocus {
-		return IntInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Min", nil)
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return IntInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Min", nil, htmlAttrs)
 	}
-	return IntInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Min", &resource.Focus[numFocus].Min)
+	return IntInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Min", &resource.Focus[numFocus].Min, htmlAttrs)
 }
-func (resource *MessageDefinition) T_FocusMax(numFocus int) templ.Component {
+func (resource *MessageDefinition) T_FocusMax(numFocus int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Focus) >= numFocus {
-		return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Max", nil)
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return StringInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Max", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.Focus["+strconv.Itoa(numFocus)+"].Max", resource.Focus[numFocus].Max)
+	return StringInput("MessageDefinition.Focus."+strconv.Itoa(numFocus)+"..Max", resource.Focus[numFocus].Max, htmlAttrs)
 }
-func (resource *MessageDefinition) T_AllowedResponseId(numAllowedResponse int) templ.Component {
+func (resource *MessageDefinition) T_AllowedResponseMessage(numAllowedResponse int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AllowedResponse) >= numAllowedResponse {
-		return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Id", nil)
+	if resource == nil || numAllowedResponse >= len(resource.AllowedResponse) {
+		return StringInput("MessageDefinition.AllowedResponse."+strconv.Itoa(numAllowedResponse)+"..Message", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Id", resource.AllowedResponse[numAllowedResponse].Id)
+	return StringInput("MessageDefinition.AllowedResponse."+strconv.Itoa(numAllowedResponse)+"..Message", &resource.AllowedResponse[numAllowedResponse].Message, htmlAttrs)
 }
-func (resource *MessageDefinition) T_AllowedResponseMessage(numAllowedResponse int) templ.Component {
+func (resource *MessageDefinition) T_AllowedResponseSituation(numAllowedResponse int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AllowedResponse) >= numAllowedResponse {
-		return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Message", nil)
+	if resource == nil || numAllowedResponse >= len(resource.AllowedResponse) {
+		return StringInput("MessageDefinition.AllowedResponse."+strconv.Itoa(numAllowedResponse)+"..Situation", nil, htmlAttrs)
 	}
-	return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Message", &resource.AllowedResponse[numAllowedResponse].Message)
-}
-func (resource *MessageDefinition) T_AllowedResponseSituation(numAllowedResponse int) templ.Component {
-
-	if resource == nil || len(resource.AllowedResponse) >= numAllowedResponse {
-		return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Situation", nil)
-	}
-	return StringInput("MessageDefinition.AllowedResponse["+strconv.Itoa(numAllowedResponse)+"].Situation", resource.AllowedResponse[numAllowedResponse].Situation)
+	return StringInput("MessageDefinition.AllowedResponse."+strconv.Itoa(numAllowedResponse)+"..Situation", resource.AllowedResponse[numAllowedResponse].Situation, htmlAttrs)
 }

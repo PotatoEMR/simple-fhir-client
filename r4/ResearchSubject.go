@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -42,47 +42,40 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ResearchSubject",
 	})
 }
-
-func (resource *ResearchSubject) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchSubject.Id", nil)
+func (r ResearchSubject) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ResearchSubject/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("ResearchSubject.Id", resource.Id)
-}
-func (resource *ResearchSubject) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("ResearchSubject.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("ResearchSubject.ImplicitRules", resource.ImplicitRules)
+	rtype := "ResearchSubject"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *ResearchSubject) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("ResearchSubject.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("ResearchSubject.Language", resource.Language, optionsValueSet)
-}
-func (resource *ResearchSubject) T_Status() templ.Component {
+func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSResearch_subject_status
 
 	if resource == nil {
-		return CodeSelect("ResearchSubject.Status", nil, optionsValueSet)
+		return CodeSelect("ResearchSubject.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchSubject.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ResearchSubject.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_AssignedArm() templ.Component {
+func (resource *ResearchSubject) T_AssignedArm(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchSubject.AssignedArm", nil)
+		return StringInput("ResearchSubject.AssignedArm", nil, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.AssignedArm", resource.AssignedArm)
+	return StringInput("ResearchSubject.AssignedArm", resource.AssignedArm, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ActualArm() templ.Component {
+func (resource *ResearchSubject) T_ActualArm(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ResearchSubject.ActualArm", nil)
+		return StringInput("ResearchSubject.ActualArm", nil, htmlAttrs)
 	}
-	return StringInput("ResearchSubject.ActualArm", resource.ActualArm)
+	return StringInput("ResearchSubject.ActualArm", resource.ActualArm, htmlAttrs)
 }

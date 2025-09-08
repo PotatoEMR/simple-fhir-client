@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +31,7 @@ type CapabilityStatement struct {
 	Title                  *string                            `json:"title,omitempty"`
 	Status                 string                             `json:"status"`
 	Experimental           *bool                              `json:"experimental,omitempty"`
-	Date                   string                             `json:"date"`
+	Date                   time.Time                          `json:"date,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher              *string                            `json:"publisher,omitempty"`
 	Contact                []ContactDetail                    `json:"contact,omitempty"`
 	Description            *string                            `json:"description,omitempty"`
@@ -61,7 +62,7 @@ type CapabilityStatementSoftware struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	Name              string      `json:"name"`
 	Version           *string     `json:"version,omitempty"`
-	ReleaseDate       *string     `json:"releaseDate,omitempty"`
+	ReleaseDate       *time.Time  `json:"releaseDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/CapabilityStatement
@@ -212,599 +213,515 @@ func (r CapabilityStatement) MarshalJSON() ([]byte, error) {
 		ResourceType:             "CapabilityStatement",
 	})
 }
-
-func (resource *CapabilityStatement) T_Id() templ.Component {
+func (r CapabilityStatement) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "CapabilityStatement/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "CapabilityStatement"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *CapabilityStatement) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Id", nil)
+		return StringInput("CapabilityStatement.Url", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Id", resource.Id)
+	return StringInput("CapabilityStatement.Url", resource.Url, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplicitRules() templ.Component {
+func (resource *CapabilityStatement) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.ImplicitRules", nil)
+		return StringInput("CapabilityStatement.Version", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.ImplicitRules", resource.ImplicitRules)
+	return StringInput("CapabilityStatement.Version", resource.Version, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("CapabilityStatement.Language", nil, optionsValueSet)
+		return StringInput("CapabilityStatement.VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Language", resource.Language, optionsValueSet)
+	return StringInput("CapabilityStatement.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Url() templ.Component {
+func (resource *CapabilityStatement) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Url", nil)
+		return CodingSelect("CapabilityStatement.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Url", resource.Url)
+	return CodingSelect("CapabilityStatement.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Version() templ.Component {
+func (resource *CapabilityStatement) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Version", nil)
+		return StringInput("CapabilityStatement.Name", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Version", resource.Version)
+	return StringInput("CapabilityStatement.Name", resource.Name, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Name() templ.Component {
+func (resource *CapabilityStatement) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Name", nil)
+		return StringInput("CapabilityStatement.Title", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Name", resource.Name)
+	return StringInput("CapabilityStatement.Title", resource.Title, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("CapabilityStatement.Title", nil)
-	}
-	return StringInput("CapabilityStatement.Title", resource.Title)
-}
-func (resource *CapabilityStatement) T_Status() templ.Component {
+func (resource *CapabilityStatement) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("CapabilityStatement.Status", nil, optionsValueSet)
+		return CodeSelect("CapabilityStatement.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Experimental() templ.Component {
+func (resource *CapabilityStatement) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("CapabilityStatement.Experimental", nil)
+		return BoolInput("CapabilityStatement.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Experimental", resource.Experimental)
+	return BoolInput("CapabilityStatement.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Date() templ.Component {
+func (resource *CapabilityStatement) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Date", nil)
+		return DateTimeInput("CapabilityStatement.Date", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Date", &resource.Date)
+	return DateTimeInput("CapabilityStatement.Date", &resource.Date, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Publisher() templ.Component {
+func (resource *CapabilityStatement) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Publisher", nil)
+		return StringInput("CapabilityStatement.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Publisher", resource.Publisher)
+	return StringInput("CapabilityStatement.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Description() templ.Component {
+func (resource *CapabilityStatement) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Description", nil)
+		return StringInput("CapabilityStatement.Description", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Description", resource.Description)
+	return StringInput("CapabilityStatement.Description", resource.Description, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("CapabilityStatement.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("CapabilityStatement.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CapabilityStatement.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("CapabilityStatement.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("CapabilityStatement.Purpose", nil)
-	}
-	return StringInput("CapabilityStatement.Purpose", resource.Purpose)
-}
-func (resource *CapabilityStatement) T_Copyright() templ.Component {
+func (resource *CapabilityStatement) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Copyright", nil)
+		return StringInput("CapabilityStatement.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Copyright", resource.Copyright)
+	return StringInput("CapabilityStatement.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_CopyrightLabel() templ.Component {
+func (resource *CapabilityStatement) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.CopyrightLabel", nil)
+		return StringInput("CapabilityStatement.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.CopyrightLabel", resource.CopyrightLabel)
+	return StringInput("CapabilityStatement.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Kind() templ.Component {
+func (resource *CapabilityStatement) T_CopyrightLabel(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return StringInput("CapabilityStatement.CopyrightLabel", nil, htmlAttrs)
+	}
+	return StringInput("CapabilityStatement.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+}
+func (resource *CapabilityStatement) T_Kind(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCapability_statement_kind
 
 	if resource == nil {
-		return CodeSelect("CapabilityStatement.Kind", nil, optionsValueSet)
+		return CodeSelect("CapabilityStatement.Kind", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Kind", &resource.Kind, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Instantiates(numInstantiates int) templ.Component {
+func (resource *CapabilityStatement) T_Instantiates(numInstantiates int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instantiates) >= numInstantiates {
-		return StringInput("CapabilityStatement.Instantiates["+strconv.Itoa(numInstantiates)+"]", nil)
+	if resource == nil || numInstantiates >= len(resource.Instantiates) {
+		return StringInput("CapabilityStatement.Instantiates."+strconv.Itoa(numInstantiates)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Instantiates["+strconv.Itoa(numInstantiates)+"]", &resource.Instantiates[numInstantiates])
+	return StringInput("CapabilityStatement.Instantiates."+strconv.Itoa(numInstantiates)+".", &resource.Instantiates[numInstantiates], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Imports(numImports int) templ.Component {
+func (resource *CapabilityStatement) T_Imports(numImports int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Imports) >= numImports {
-		return StringInput("CapabilityStatement.Imports["+strconv.Itoa(numImports)+"]", nil)
+	if resource == nil || numImports >= len(resource.Imports) {
+		return StringInput("CapabilityStatement.Imports."+strconv.Itoa(numImports)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Imports["+strconv.Itoa(numImports)+"]", &resource.Imports[numImports])
+	return StringInput("CapabilityStatement.Imports."+strconv.Itoa(numImports)+".", &resource.Imports[numImports], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_FhirVersion() templ.Component {
+func (resource *CapabilityStatement) T_FhirVersion(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil {
-		return CodeSelect("CapabilityStatement.FhirVersion", nil, optionsValueSet)
+		return CodeSelect("CapabilityStatement.FhirVersion", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.FhirVersion", &resource.FhirVersion, optionsValueSet)
+	return CodeSelect("CapabilityStatement.FhirVersion", &resource.FhirVersion, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_Format(numFormat int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_Format(numFormat int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Format) >= numFormat {
-		return CodeSelect("CapabilityStatement.Format["+strconv.Itoa(numFormat)+"]", nil, optionsValueSet)
+	if resource == nil || numFormat >= len(resource.Format) {
+		return CodeSelect("CapabilityStatement.Format."+strconv.Itoa(numFormat)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Format["+strconv.Itoa(numFormat)+"]", &resource.Format[numFormat], optionsValueSet)
+	return CodeSelect("CapabilityStatement.Format."+strconv.Itoa(numFormat)+".", &resource.Format[numFormat], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_PatchFormat(numPatchFormat int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_PatchFormat(numPatchFormat int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.PatchFormat) >= numPatchFormat {
-		return CodeSelect("CapabilityStatement.PatchFormat["+strconv.Itoa(numPatchFormat)+"]", nil, optionsValueSet)
+	if resource == nil || numPatchFormat >= len(resource.PatchFormat) {
+		return CodeSelect("CapabilityStatement.PatchFormat."+strconv.Itoa(numPatchFormat)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.PatchFormat["+strconv.Itoa(numPatchFormat)+"]", &resource.PatchFormat[numPatchFormat], optionsValueSet)
+	return CodeSelect("CapabilityStatement.PatchFormat."+strconv.Itoa(numPatchFormat)+".", &resource.PatchFormat[numPatchFormat], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_AcceptLanguage(numAcceptLanguage int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_AcceptLanguage(numAcceptLanguage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.AcceptLanguage) >= numAcceptLanguage {
-		return CodeSelect("CapabilityStatement.AcceptLanguage["+strconv.Itoa(numAcceptLanguage)+"]", nil, optionsValueSet)
+	if resource == nil || numAcceptLanguage >= len(resource.AcceptLanguage) {
+		return CodeSelect("CapabilityStatement.AcceptLanguage."+strconv.Itoa(numAcceptLanguage)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.AcceptLanguage["+strconv.Itoa(numAcceptLanguage)+"]", &resource.AcceptLanguage[numAcceptLanguage], optionsValueSet)
+	return CodeSelect("CapabilityStatement.AcceptLanguage."+strconv.Itoa(numAcceptLanguage)+".", &resource.AcceptLanguage[numAcceptLanguage], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplementationGuide(numImplementationGuide int) templ.Component {
+func (resource *CapabilityStatement) T_ImplementationGuide(numImplementationGuide int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ImplementationGuide) >= numImplementationGuide {
-		return StringInput("CapabilityStatement.ImplementationGuide["+strconv.Itoa(numImplementationGuide)+"]", nil)
+	if resource == nil || numImplementationGuide >= len(resource.ImplementationGuide) {
+		return StringInput("CapabilityStatement.ImplementationGuide."+strconv.Itoa(numImplementationGuide)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.ImplementationGuide["+strconv.Itoa(numImplementationGuide)+"]", &resource.ImplementationGuide[numImplementationGuide])
+	return StringInput("CapabilityStatement.ImplementationGuide."+strconv.Itoa(numImplementationGuide)+".", &resource.ImplementationGuide[numImplementationGuide], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_SoftwareId() templ.Component {
-
-	if resource == nil {
-		return StringInput("CapabilityStatement.Software.Id", nil)
-	}
-	return StringInput("CapabilityStatement.Software.Id", resource.Software.Id)
-}
-func (resource *CapabilityStatement) T_SoftwareName() templ.Component {
+func (resource *CapabilityStatement) T_SoftwareName(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Software.Name", nil)
+		return StringInput("CapabilityStatement.Software.Name", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Software.Name", &resource.Software.Name)
+	return StringInput("CapabilityStatement.Software.Name", &resource.Software.Name, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_SoftwareVersion() templ.Component {
+func (resource *CapabilityStatement) T_SoftwareVersion(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Software.Version", nil)
+		return StringInput("CapabilityStatement.Software.Version", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Software.Version", resource.Software.Version)
+	return StringInput("CapabilityStatement.Software.Version", resource.Software.Version, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_SoftwareReleaseDate() templ.Component {
+func (resource *CapabilityStatement) T_SoftwareReleaseDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Software.ReleaseDate", nil)
+		return DateTimeInput("CapabilityStatement.Software.ReleaseDate", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Software.ReleaseDate", resource.Software.ReleaseDate)
+	return DateTimeInput("CapabilityStatement.Software.ReleaseDate", resource.Software.ReleaseDate, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplementationId() templ.Component {
+func (resource *CapabilityStatement) T_ImplementationDescription(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Implementation.Id", nil)
+		return StringInput("CapabilityStatement.Implementation.Description", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Implementation.Id", resource.Implementation.Id)
+	return StringInput("CapabilityStatement.Implementation.Description", &resource.Implementation.Description, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplementationDescription() templ.Component {
+func (resource *CapabilityStatement) T_ImplementationUrl(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("CapabilityStatement.Implementation.Description", nil)
+		return StringInput("CapabilityStatement.Implementation.Url", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Implementation.Description", &resource.Implementation.Description)
+	return StringInput("CapabilityStatement.Implementation.Url", resource.Implementation.Url, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplementationUrl() templ.Component {
-
-	if resource == nil {
-		return StringInput("CapabilityStatement.Implementation.Url", nil)
-	}
-	return StringInput("CapabilityStatement.Implementation.Url", resource.Implementation.Url)
-}
-func (resource *CapabilityStatement) T_RestId(numRest int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Id", resource.Rest[numRest].Id)
-}
-func (resource *CapabilityStatement) T_RestMode(numRest int) templ.Component {
+func (resource *CapabilityStatement) T_RestMode(numRest int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSRestful_capability_mode
 
-	if resource == nil || len(resource.Rest) >= numRest {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Mode", &resource.Rest[numRest].Mode, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Mode", &resource.Rest[numRest].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestDocumentation(numRest int) templ.Component {
+func (resource *CapabilityStatement) T_RestDocumentation(numRest int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Documentation", nil)
+	if resource == nil || numRest >= len(resource.Rest) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Documentation", resource.Rest[numRest].Documentation)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Documentation", resource.Rest[numRest].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestCompartment(numRest int, numCompartment int) templ.Component {
+func (resource *CapabilityStatement) T_RestCompartment(numRest int, numCompartment int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Compartment) >= numCompartment {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Compartment["+strconv.Itoa(numCompartment)+"]", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numCompartment >= len(resource.Rest[numRest].Compartment) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Compartment."+strconv.Itoa(numCompartment)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Compartment["+strconv.Itoa(numCompartment)+"]", &resource.Rest[numRest].Compartment[numCompartment])
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Compartment."+strconv.Itoa(numCompartment)+".", &resource.Rest[numRest].Compartment[numCompartment], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestSecurityId(numRest int) templ.Component {
+func (resource *CapabilityStatement) T_RestSecurityCors(numRest int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Id", nil)
+	if resource == nil || numRest >= len(resource.Rest) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Cors", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Id", resource.Rest[numRest].Security.Id)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Cors", resource.Rest[numRest].Security.Cors, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestSecurityCors(numRest int) templ.Component {
+func (resource *CapabilityStatement) T_RestSecurityService(numRest int, numService int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Cors", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numService >= len(resource.Rest[numRest].Security.Service) {
+		return CodeableConceptSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Service."+strconv.Itoa(numService)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Cors", resource.Rest[numRest].Security.Cors)
+	return CodeableConceptSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Service."+strconv.Itoa(numService)+".", &resource.Rest[numRest].Security.Service[numService], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestSecurityService(numRest int, numService int, optionsValueSet []Coding) templ.Component {
+func (resource *CapabilityStatement) T_RestSecurityDescription(numRest int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Security.Service) >= numService {
-		return CodeableConceptSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Service["+strconv.Itoa(numService)+"]", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Description", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Service["+strconv.Itoa(numService)+"]", &resource.Rest[numRest].Security.Service[numService], optionsValueSet)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Security.Description", resource.Rest[numRest].Security.Description, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestSecurityDescription(numRest int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Description", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Security.Description", resource.Rest[numRest].Security.Description)
-}
-func (resource *CapabilityStatement) T_RestResourceId(numRest int, numResource int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Id", resource.Rest[numRest].Resource[numResource].Id)
-}
-func (resource *CapabilityStatement) T_RestResourceType(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceType(numRest int, numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Type", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Type", &resource.Rest[numRest].Resource[numResource].Type, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Type", &resource.Rest[numRest].Resource[numResource].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceProfile(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceProfile(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Profile", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Profile", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Profile", resource.Rest[numRest].Resource[numResource].Profile)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Profile", resource.Rest[numRest].Resource[numResource].Profile, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSupportedProfile(numRest int, numResource int, numSupportedProfile int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSupportedProfile(numRest int, numResource int, numSupportedProfile int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SupportedProfile) >= numSupportedProfile {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SupportedProfile["+strconv.Itoa(numSupportedProfile)+"]", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSupportedProfile >= len(resource.Rest[numRest].Resource[numResource].SupportedProfile) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SupportedProfile."+strconv.Itoa(numSupportedProfile)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SupportedProfile["+strconv.Itoa(numSupportedProfile)+"]", &resource.Rest[numRest].Resource[numResource].SupportedProfile[numSupportedProfile])
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SupportedProfile."+strconv.Itoa(numSupportedProfile)+".", &resource.Rest[numRest].Resource[numResource].SupportedProfile[numSupportedProfile], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceDocumentation(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceDocumentation(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Documentation", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Documentation", resource.Rest[numRest].Resource[numResource].Documentation)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Documentation", resource.Rest[numRest].Resource[numResource].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceVersioning(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceVersioning(numRest int, numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSVersioning_policy
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Versioning", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Versioning", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Versioning", resource.Rest[numRest].Resource[numResource].Versioning, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Versioning", resource.Rest[numRest].Resource[numResource].Versioning, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceReadHistory(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceReadHistory(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ReadHistory", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ReadHistory", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ReadHistory", resource.Rest[numRest].Resource[numResource].ReadHistory)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ReadHistory", resource.Rest[numRest].Resource[numResource].ReadHistory, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceUpdateCreate(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceUpdateCreate(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].UpdateCreate", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..UpdateCreate", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].UpdateCreate", resource.Rest[numRest].Resource[numResource].UpdateCreate)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..UpdateCreate", resource.Rest[numRest].Resource[numResource].UpdateCreate, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceConditionalCreate(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalCreate(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalCreate", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalCreate", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalCreate", resource.Rest[numRest].Resource[numResource].ConditionalCreate)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalCreate", resource.Rest[numRest].Resource[numResource].ConditionalCreate, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceConditionalRead(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalRead(numRest int, numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConditional_read_status
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalRead", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalRead", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalRead", resource.Rest[numRest].Resource[numResource].ConditionalRead, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalRead", resource.Rest[numRest].Resource[numResource].ConditionalRead, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceConditionalUpdate(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalUpdate(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalUpdate", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalUpdate", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalUpdate", resource.Rest[numRest].Resource[numResource].ConditionalUpdate)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalUpdate", resource.Rest[numRest].Resource[numResource].ConditionalUpdate, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceConditionalPatch(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalPatch(numRest int, numResource int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalPatch", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalPatch", nil, htmlAttrs)
 	}
-	return BoolInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalPatch", resource.Rest[numRest].Resource[numResource].ConditionalPatch)
+	return BoolInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalPatch", resource.Rest[numRest].Resource[numResource].ConditionalPatch, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceConditionalDelete(numRest int, numResource int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceConditionalDelete(numRest int, numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConditional_delete_status
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalDelete", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalDelete", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ConditionalDelete", resource.Rest[numRest].Resource[numResource].ConditionalDelete, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ConditionalDelete", resource.Rest[numRest].Resource[numResource].ConditionalDelete, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceReferencePolicy(numRest int, numResource int, numReferencePolicy int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceReferencePolicy(numRest int, numResource int, numReferencePolicy int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReference_handling_policy
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].ReferencePolicy) >= numReferencePolicy {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ReferencePolicy["+strconv.Itoa(numReferencePolicy)+"]", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numReferencePolicy >= len(resource.Rest[numRest].Resource[numResource].ReferencePolicy) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ReferencePolicy."+strconv.Itoa(numReferencePolicy)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].ReferencePolicy["+strconv.Itoa(numReferencePolicy)+"]", &resource.Rest[numRest].Resource[numResource].ReferencePolicy[numReferencePolicy], optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..ReferencePolicy."+strconv.Itoa(numReferencePolicy)+".", &resource.Rest[numRest].Resource[numResource].ReferencePolicy[numReferencePolicy], optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchInclude(numRest int, numResource int, numSearchInclude int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchInclude(numRest int, numResource int, numSearchInclude int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchInclude) >= numSearchInclude {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchInclude["+strconv.Itoa(numSearchInclude)+"]", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchInclude >= len(resource.Rest[numRest].Resource[numResource].SearchInclude) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchInclude."+strconv.Itoa(numSearchInclude)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchInclude["+strconv.Itoa(numSearchInclude)+"]", &resource.Rest[numRest].Resource[numResource].SearchInclude[numSearchInclude])
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchInclude."+strconv.Itoa(numSearchInclude)+".", &resource.Rest[numRest].Resource[numResource].SearchInclude[numSearchInclude], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchRevInclude(numRest int, numResource int, numSearchRevInclude int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchRevInclude(numRest int, numResource int, numSearchRevInclude int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchRevInclude) >= numSearchRevInclude {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchRevInclude["+strconv.Itoa(numSearchRevInclude)+"]", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchRevInclude >= len(resource.Rest[numRest].Resource[numResource].SearchRevInclude) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchRevInclude."+strconv.Itoa(numSearchRevInclude)+".", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchRevInclude["+strconv.Itoa(numSearchRevInclude)+"]", &resource.Rest[numRest].Resource[numResource].SearchRevInclude[numSearchRevInclude])
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchRevInclude."+strconv.Itoa(numSearchRevInclude)+".", &resource.Rest[numRest].Resource[numResource].SearchRevInclude[numSearchRevInclude], htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceInteractionId(numRest int, numResource int, numInteraction int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Id", resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Id)
-}
-func (resource *CapabilityStatement) T_RestResourceInteractionCode(numRest int, numResource int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceInteractionCode(numRest int, numResource int, numInteraction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSType_restful_interaction
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Code", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numInteraction >= len(resource.Rest[numRest].Resource[numResource].Interaction) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Interaction."+strconv.Itoa(numInteraction)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Code", &resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Code, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Interaction."+strconv.Itoa(numInteraction)+"..Code", &resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceInteractionDocumentation(numRest int, numResource int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceInteractionDocumentation(numRest int, numResource int, numInteraction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Interaction) >= numInteraction {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Documentation", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numInteraction >= len(resource.Rest[numRest].Resource[numResource].Interaction) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Interaction."+strconv.Itoa(numInteraction)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Interaction["+strconv.Itoa(numInteraction)+"].Documentation", resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Documentation)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Interaction."+strconv.Itoa(numInteraction)+"..Documentation", resource.Rest[numRest].Resource[numResource].Interaction[numInteraction].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchParamId(numRest int, numResource int, numSearchParam int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchParamName(numRest int, numResource int, numSearchParam int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Id", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchParam >= len(resource.Rest[numRest].Resource[numResource].SearchParam) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Id", resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Id)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Name", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Name, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchParamName(numRest int, numResource int, numSearchParam int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchParamDefinition(numRest int, numResource int, numSearchParam int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Name", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchParam >= len(resource.Rest[numRest].Resource[numResource].SearchParam) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Definition", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Name", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Name)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Definition", resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Definition, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchParamDefinition(numRest int, numResource int, numSearchParam int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Definition", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Definition", resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Definition)
-}
-func (resource *CapabilityStatement) T_RestResourceSearchParamType(numRest int, numResource int, numSearchParam int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchParamType(numRest int, numResource int, numSearchParam int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Type", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchParam >= len(resource.Rest[numRest].Resource[numResource].SearchParam) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Type", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Type, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Type", &resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceSearchParamDocumentation(numRest int, numResource int, numSearchParam int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceSearchParamDocumentation(numRest int, numResource int, numSearchParam int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].SearchParam) >= numSearchParam {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Documentation", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numSearchParam >= len(resource.Rest[numRest].Resource[numResource].SearchParam) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].SearchParam["+strconv.Itoa(numSearchParam)+"].Documentation", resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Documentation)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..SearchParam."+strconv.Itoa(numSearchParam)+"..Documentation", resource.Rest[numRest].Resource[numResource].SearchParam[numSearchParam].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceOperationId(numRest int, numResource int, numOperation int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceOperationName(numRest int, numResource int, numOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Operation) >= numOperation {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Id", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numOperation >= len(resource.Rest[numRest].Resource[numResource].Operation) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Id", resource.Rest[numRest].Resource[numResource].Operation[numOperation].Id)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Name", &resource.Rest[numRest].Resource[numResource].Operation[numOperation].Name, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceOperationName(numRest int, numResource int, numOperation int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceOperationDefinition(numRest int, numResource int, numOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Operation) >= numOperation {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Name", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numOperation >= len(resource.Rest[numRest].Resource[numResource].Operation) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Definition", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Name", &resource.Rest[numRest].Resource[numResource].Operation[numOperation].Name)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Definition", &resource.Rest[numRest].Resource[numResource].Operation[numOperation].Definition, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceOperationDefinition(numRest int, numResource int, numOperation int) templ.Component {
+func (resource *CapabilityStatement) T_RestResourceOperationDocumentation(numRest int, numResource int, numOperation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Operation) >= numOperation {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Definition", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numResource >= len(resource.Rest[numRest].Resource) || numOperation >= len(resource.Rest[numRest].Resource[numResource].Operation) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Definition", &resource.Rest[numRest].Resource[numResource].Operation[numOperation].Definition)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Resource."+strconv.Itoa(numResource)+"..Operation."+strconv.Itoa(numOperation)+"..Documentation", resource.Rest[numRest].Resource[numResource].Operation[numOperation].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestResourceOperationDocumentation(numRest int, numResource int, numOperation int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Resource) >= numResource || len(resource.Rest[numRest].Resource[numResource].Operation) >= numOperation {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Documentation", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Resource["+strconv.Itoa(numResource)+"].Operation["+strconv.Itoa(numOperation)+"].Documentation", resource.Rest[numRest].Resource[numResource].Operation[numOperation].Documentation)
-}
-func (resource *CapabilityStatement) T_RestInteractionId(numRest int, numInteraction int) templ.Component {
-
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Interaction) >= numInteraction {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Id", resource.Rest[numRest].Interaction[numInteraction].Id)
-}
-func (resource *CapabilityStatement) T_RestInteractionCode(numRest int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestInteractionCode(numRest int, numInteraction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSystem_restful_interaction
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Interaction) >= numInteraction {
-		return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Code", nil, optionsValueSet)
+	if resource == nil || numRest >= len(resource.Rest) || numInteraction >= len(resource.Rest[numRest].Interaction) {
+		return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Interaction."+strconv.Itoa(numInteraction)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Code", &resource.Rest[numRest].Interaction[numInteraction].Code, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Interaction."+strconv.Itoa(numInteraction)+"..Code", &resource.Rest[numRest].Interaction[numInteraction].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_RestInteractionDocumentation(numRest int, numInteraction int) templ.Component {
+func (resource *CapabilityStatement) T_RestInteractionDocumentation(numRest int, numInteraction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Rest) >= numRest || len(resource.Rest[numRest].Interaction) >= numInteraction {
-		return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Documentation", nil)
+	if resource == nil || numRest >= len(resource.Rest) || numInteraction >= len(resource.Rest[numRest].Interaction) {
+		return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Interaction."+strconv.Itoa(numInteraction)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Rest["+strconv.Itoa(numRest)+"].Interaction["+strconv.Itoa(numInteraction)+"].Documentation", resource.Rest[numRest].Interaction[numInteraction].Documentation)
+	return StringInput("CapabilityStatement.Rest."+strconv.Itoa(numRest)+"..Interaction."+strconv.Itoa(numInteraction)+"..Documentation", resource.Rest[numRest].Interaction[numInteraction].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingId(numMessaging int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingReliableCache(numMessaging int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Messaging) >= numMessaging {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Id", nil)
+	if resource == nil || numMessaging >= len(resource.Messaging) {
+		return IntInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..ReliableCache", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Id", resource.Messaging[numMessaging].Id)
+	return IntInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..ReliableCache", resource.Messaging[numMessaging].ReliableCache, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingReliableCache(numMessaging int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingDocumentation(numMessaging int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Messaging) >= numMessaging {
-		return IntInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].ReliableCache", nil)
+	if resource == nil || numMessaging >= len(resource.Messaging) {
+		return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Documentation", nil, htmlAttrs)
 	}
-	return IntInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].ReliableCache", resource.Messaging[numMessaging].ReliableCache)
+	return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Documentation", resource.Messaging[numMessaging].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingDocumentation(numMessaging int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingEndpointProtocol(numMessaging int, numEndpoint int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Messaging) >= numMessaging {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Documentation", nil)
+	if resource == nil || numMessaging >= len(resource.Messaging) || numEndpoint >= len(resource.Messaging[numMessaging].Endpoint) {
+		return CodingSelect("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Endpoint."+strconv.Itoa(numEndpoint)+"..Protocol", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Documentation", resource.Messaging[numMessaging].Documentation)
+	return CodingSelect("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Endpoint."+strconv.Itoa(numEndpoint)+"..Protocol", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Protocol, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingEndpointId(numMessaging int, numEndpoint int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingEndpointAddress(numMessaging int, numEndpoint int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Id", nil)
+	if resource == nil || numMessaging >= len(resource.Messaging) || numEndpoint >= len(resource.Messaging[numMessaging].Endpoint) {
+		return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Endpoint."+strconv.Itoa(numEndpoint)+"..Address", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Id", resource.Messaging[numMessaging].Endpoint[numEndpoint].Id)
+	return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..Endpoint."+strconv.Itoa(numEndpoint)+"..Address", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Address, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingEndpointProtocol(numMessaging int, numEndpoint int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
-		return CodingSelect("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Protocol", nil, optionsValueSet)
-	}
-	return CodingSelect("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Protocol", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Protocol, optionsValueSet)
-}
-func (resource *CapabilityStatement) T_MessagingEndpointAddress(numMessaging int, numEndpoint int) templ.Component {
-
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].Endpoint) >= numEndpoint {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Address", nil)
-	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].Endpoint["+strconv.Itoa(numEndpoint)+"].Address", &resource.Messaging[numMessaging].Endpoint[numEndpoint].Address)
-}
-func (resource *CapabilityStatement) T_MessagingSupportedMessageId(numMessaging int, numSupportedMessage int) templ.Component {
-
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Id", resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Id)
-}
-func (resource *CapabilityStatement) T_MessagingSupportedMessageMode(numMessaging int, numSupportedMessage int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingSupportedMessageMode(numMessaging int, numSupportedMessage int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSEvent_capability_mode
 
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
-		return CodeSelect("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numMessaging >= len(resource.Messaging) || numSupportedMessage >= len(resource.Messaging[numMessaging].SupportedMessage) {
+		return CodeSelect("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..SupportedMessage."+strconv.Itoa(numSupportedMessage)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Mode", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Mode, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..SupportedMessage."+strconv.Itoa(numSupportedMessage)+"..Mode", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_MessagingSupportedMessageDefinition(numMessaging int, numSupportedMessage int) templ.Component {
+func (resource *CapabilityStatement) T_MessagingSupportedMessageDefinition(numMessaging int, numSupportedMessage int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Messaging) >= numMessaging || len(resource.Messaging[numMessaging].SupportedMessage) >= numSupportedMessage {
-		return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Definition", nil)
+	if resource == nil || numMessaging >= len(resource.Messaging) || numSupportedMessage >= len(resource.Messaging[numMessaging].SupportedMessage) {
+		return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..SupportedMessage."+strconv.Itoa(numSupportedMessage)+"..Definition", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Messaging["+strconv.Itoa(numMessaging)+"].SupportedMessage["+strconv.Itoa(numSupportedMessage)+"].Definition", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Definition)
+	return StringInput("CapabilityStatement.Messaging."+strconv.Itoa(numMessaging)+"..SupportedMessage."+strconv.Itoa(numSupportedMessage)+"..Definition", &resource.Messaging[numMessaging].SupportedMessage[numSupportedMessage].Definition, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_DocumentId(numDocument int) templ.Component {
-
-	if resource == nil || len(resource.Document) >= numDocument {
-		return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Id", nil)
-	}
-	return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Id", resource.Document[numDocument].Id)
-}
-func (resource *CapabilityStatement) T_DocumentMode(numDocument int) templ.Component {
+func (resource *CapabilityStatement) T_DocumentMode(numDocument int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_mode
 
-	if resource == nil || len(resource.Document) >= numDocument {
-		return CodeSelect("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Mode", nil, optionsValueSet)
+	if resource == nil || numDocument >= len(resource.Document) {
+		return CodeSelect("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Mode", &resource.Document[numDocument].Mode, optionsValueSet)
+	return CodeSelect("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Mode", &resource.Document[numDocument].Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_DocumentDocumentation(numDocument int) templ.Component {
+func (resource *CapabilityStatement) T_DocumentDocumentation(numDocument int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Document) >= numDocument {
-		return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Documentation", nil)
+	if resource == nil || numDocument >= len(resource.Document) {
+		return StringInput("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Documentation", resource.Document[numDocument].Documentation)
+	return StringInput("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Documentation", resource.Document[numDocument].Documentation, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_DocumentProfile(numDocument int) templ.Component {
+func (resource *CapabilityStatement) T_DocumentProfile(numDocument int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Document) >= numDocument {
-		return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Profile", nil)
+	if resource == nil || numDocument >= len(resource.Document) {
+		return StringInput("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Profile", nil, htmlAttrs)
 	}
-	return StringInput("CapabilityStatement.Document["+strconv.Itoa(numDocument)+"].Profile", &resource.Document[numDocument].Profile)
+	return StringInput("CapabilityStatement.Document."+strconv.Itoa(numDocument)+"..Profile", &resource.Document[numDocument].Profile, htmlAttrs)
 }

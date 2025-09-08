@@ -1,6 +1,6 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -66,76 +66,55 @@ func (r EpisodeOfCare) MarshalJSON() ([]byte, error) {
 		ResourceType:       "EpisodeOfCare",
 	})
 }
-
-func (resource *EpisodeOfCare) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("EpisodeOfCare.Id", nil)
+func (r EpisodeOfCare) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "EpisodeOfCare/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("EpisodeOfCare.Id", resource.Id)
-}
-func (resource *EpisodeOfCare) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("EpisodeOfCare.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("EpisodeOfCare.ImplicitRules", resource.ImplicitRules)
+	rtype := "EpisodeOfCare"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *EpisodeOfCare) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("EpisodeOfCare.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("EpisodeOfCare.Language", resource.Language, optionsValueSet)
-}
-func (resource *EpisodeOfCare) T_Status() templ.Component {
+func (resource *EpisodeOfCare) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil {
-		return CodeSelect("EpisodeOfCare.Status", nil, optionsValueSet)
+		return CodeSelect("EpisodeOfCare.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EpisodeOfCare.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("EpisodeOfCare.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding) templ.Component {
+func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Type) >= numType {
-		return CodeableConceptSelect("EpisodeOfCare.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet)
+	if resource == nil || numType >= len(resource.Type) {
+		return CodeableConceptSelect("EpisodeOfCare.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EpisodeOfCare.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet)
+	return CodeableConceptSelect("EpisodeOfCare.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_StatusHistoryId(numStatusHistory int) templ.Component {
-
-	if resource == nil || len(resource.StatusHistory) >= numStatusHistory {
-		return StringInput("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Id", nil)
-	}
-	return StringInput("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Id", resource.StatusHistory[numStatusHistory].Id)
-}
-func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int) templ.Component {
+func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
-	if resource == nil || len(resource.StatusHistory) >= numStatusHistory {
-		return CodeSelect("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Status", nil, optionsValueSet)
+	if resource == nil || numStatusHistory >= len(resource.StatusHistory) {
+		return CodeSelect("EpisodeOfCare.StatusHistory."+strconv.Itoa(numStatusHistory)+"..Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet)
+	return CodeSelect("EpisodeOfCare.StatusHistory."+strconv.Itoa(numStatusHistory)+"..Status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_DiagnosisId(numDiagnosis int) templ.Component {
+func (resource *EpisodeOfCare) T_DiagnosisRole(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return StringInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", nil)
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return CodeableConceptSelect("EpisodeOfCare.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Id", resource.Diagnosis[numDiagnosis].Id)
+	return CodeableConceptSelect("EpisodeOfCare.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Role", resource.Diagnosis[numDiagnosis].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_DiagnosisRole(numDiagnosis int, optionsValueSet []Coding) templ.Component {
+func (resource *EpisodeOfCare) T_DiagnosisRank(numDiagnosis int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return CodeableConceptSelect("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Role", nil, optionsValueSet)
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return IntInput("EpisodeOfCare.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Rank", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Role", resource.Diagnosis[numDiagnosis].Role, optionsValueSet)
-}
-func (resource *EpisodeOfCare) T_DiagnosisRank(numDiagnosis int) templ.Component {
-
-	if resource == nil || len(resource.Diagnosis) >= numDiagnosis {
-		return IntInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Rank", nil)
-	}
-	return IntInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Rank", resource.Diagnosis[numDiagnosis].Rank)
+	return IntInput("EpisodeOfCare.Diagnosis."+strconv.Itoa(numDiagnosis)+"..Rank", resource.Diagnosis[numDiagnosis].Rank, htmlAttrs)
 }

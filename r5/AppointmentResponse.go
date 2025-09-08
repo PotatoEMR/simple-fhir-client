@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -31,7 +32,7 @@ type AppointmentResponse struct {
 	ParticipantStatus string            `json:"participantStatus"`
 	Comment           *string           `json:"comment,omitempty"`
 	Recurring         *bool             `json:"recurring,omitempty"`
-	OccurrenceDate    *string           `json:"occurrenceDate,omitempty"`
+	OccurrenceDate    *time.Time        `json:"occurrenceDate,omitempty,format:'2006-01-02'"`
 	RecurrenceId      *int              `json:"recurrenceId,omitempty"`
 }
 
@@ -47,88 +48,81 @@ func (r AppointmentResponse) MarshalJSON() ([]byte, error) {
 		ResourceType:             "AppointmentResponse",
 	})
 }
-
-func (resource *AppointmentResponse) T_Id() templ.Component {
+func (r AppointmentResponse) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "AppointmentResponse/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "AppointmentResponse"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *AppointmentResponse) T_ProposedNewTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.Id", nil)
+		return BoolInput("AppointmentResponse.ProposedNewTime", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Id", resource.Id)
+	return BoolInput("AppointmentResponse.ProposedNewTime", resource.ProposedNewTime, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ImplicitRules() templ.Component {
+func (resource *AppointmentResponse) T_Start(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.ImplicitRules", nil)
+		return StringInput("AppointmentResponse.Start", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.ImplicitRules", resource.ImplicitRules)
+	return StringInput("AppointmentResponse.Start", resource.Start, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *AppointmentResponse) T_End(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("AppointmentResponse.Language", nil, optionsValueSet)
+		return StringInput("AppointmentResponse.End", nil, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.Language", resource.Language, optionsValueSet)
+	return StringInput("AppointmentResponse.End", resource.End, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ProposedNewTime() templ.Component {
+func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParticipantType >= len(resource.ParticipantType) {
+		return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
+}
+func (resource *AppointmentResponse) T_ParticipantStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("AppointmentResponse.ProposedNewTime", nil)
+		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return BoolInput("AppointmentResponse.ProposedNewTime", resource.ProposedNewTime)
+	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Start() templ.Component {
+func (resource *AppointmentResponse) T_Comment(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.Start", nil)
+		return StringInput("AppointmentResponse.Comment", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Start", resource.Start)
+	return StringInput("AppointmentResponse.Comment", resource.Comment, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_End() templ.Component {
+func (resource *AppointmentResponse) T_Recurring(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.End", nil)
+		return BoolInput("AppointmentResponse.Recurring", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.End", resource.End)
+	return BoolInput("AppointmentResponse.Recurring", resource.Recurring, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.ParticipantType) >= numParticipantType {
-		return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet)
-}
-func (resource *AppointmentResponse) T_ParticipantStatus(optionsValueSet []Coding) templ.Component {
+func (resource *AppointmentResponse) T_OccurrenceDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet)
+		return DateInput("AppointmentResponse.OccurrenceDate", nil, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet)
+	return DateInput("AppointmentResponse.OccurrenceDate", resource.OccurrenceDate, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Comment() templ.Component {
+func (resource *AppointmentResponse) T_RecurrenceId(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("AppointmentResponse.Comment", nil)
+		return IntInput("AppointmentResponse.RecurrenceId", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Comment", resource.Comment)
-}
-func (resource *AppointmentResponse) T_Recurring() templ.Component {
-
-	if resource == nil {
-		return BoolInput("AppointmentResponse.Recurring", nil)
-	}
-	return BoolInput("AppointmentResponse.Recurring", resource.Recurring)
-}
-func (resource *AppointmentResponse) T_OccurrenceDate() templ.Component {
-
-	if resource == nil {
-		return StringInput("AppointmentResponse.OccurrenceDate", nil)
-	}
-	return StringInput("AppointmentResponse.OccurrenceDate", resource.OccurrenceDate)
-}
-func (resource *AppointmentResponse) T_RecurrenceId() templ.Component {
-
-	if resource == nil {
-		return IntInput("AppointmentResponse.RecurrenceId", nil)
-	}
-	return IntInput("AppointmentResponse.RecurrenceId", resource.RecurrenceId)
+	return IntInput("AppointmentResponse.RecurrenceId", resource.RecurrenceId, htmlAttrs)
 }

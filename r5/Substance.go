@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type Substance struct {
 	Category          []CodeableConcept     `json:"category,omitempty"`
 	Code              CodeableReference     `json:"code"`
 	Description       *string               `json:"description,omitempty"`
-	Expiry            *string               `json:"expiry,omitempty"`
+	Expiry            *time.Time            `json:"expiry,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Quantity          *Quantity             `json:"quantity,omitempty"`
 	Ingredient        []SubstanceIngredient `json:"ingredient,omitempty"`
 }
@@ -54,68 +55,61 @@ func (r Substance) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Substance",
 	})
 }
-
-func (resource *Substance) T_Id() templ.Component {
+func (r Substance) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Substance/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Substance"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Substance) T_Instance(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Substance.Id", nil)
+		return BoolInput("Substance.Instance", nil, htmlAttrs)
 	}
-	return StringInput("Substance.Id", resource.Id)
+	return BoolInput("Substance.Instance", &resource.Instance, htmlAttrs)
 }
-func (resource *Substance) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Substance.ImplicitRules", nil)
-	}
-	return StringInput("Substance.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Substance) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Substance.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Substance.Language", resource.Language, optionsValueSet)
-}
-func (resource *Substance) T_Instance() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Substance.Instance", nil)
-	}
-	return BoolInput("Substance.Instance", &resource.Instance)
-}
-func (resource *Substance) T_Status() templ.Component {
+func (resource *Substance) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubstance_status
 
 	if resource == nil {
-		return CodeSelect("Substance.Status", nil, optionsValueSet)
+		return CodeSelect("Substance.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Substance.Status", resource.Status, optionsValueSet)
+	return CodeSelect("Substance.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Substance) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Substance.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Substance.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Substance.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Substance.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_Description() templ.Component {
-
-	if resource == nil {
-		return StringInput("Substance.Description", nil)
-	}
-	return StringInput("Substance.Description", resource.Description)
-}
-func (resource *Substance) T_Expiry() templ.Component {
+func (resource *Substance) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Substance.Expiry", nil)
+		return StringInput("Substance.Description", nil, htmlAttrs)
 	}
-	return StringInput("Substance.Expiry", resource.Expiry)
+	return StringInput("Substance.Description", resource.Description, htmlAttrs)
 }
-func (resource *Substance) T_IngredientId(numIngredient int) templ.Component {
+func (resource *Substance) T_Expiry(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Ingredient) >= numIngredient {
-		return StringInput("Substance.Ingredient["+strconv.Itoa(numIngredient)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("Substance.Expiry", nil, htmlAttrs)
 	}
-	return StringInput("Substance.Ingredient["+strconv.Itoa(numIngredient)+"].Id", resource.Ingredient[numIngredient].Id)
+	return DateTimeInput("Substance.Expiry", resource.Expiry, htmlAttrs)
+}
+func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return CodeableConceptSelect("Substance.Ingredient."+strconv.Itoa(numIngredient)+"..SubstanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Substance.Ingredient."+strconv.Itoa(numIngredient)+"..SubstanceCodeableConcept", &resource.Ingredient[numIngredient].SubstanceCodeableConcept, optionsValueSet, htmlAttrs)
 }

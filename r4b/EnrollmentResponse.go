@@ -1,11 +1,12 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -25,7 +26,7 @@ type EnrollmentResponse struct {
 	Request           *Reference   `json:"request,omitempty"`
 	Outcome           *string      `json:"outcome,omitempty"`
 	Disposition       *string      `json:"disposition,omitempty"`
-	Created           *string      `json:"created,omitempty"`
+	Created           *time.Time   `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Organization      *Reference   `json:"organization,omitempty"`
 	RequestProvider   *Reference   `json:"requestProvider,omitempty"`
 }
@@ -42,55 +43,48 @@ func (r EnrollmentResponse) MarshalJSON() ([]byte, error) {
 		ResourceType:            "EnrollmentResponse",
 	})
 }
-
-func (resource *EnrollmentResponse) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("EnrollmentResponse.Id", nil)
+func (r EnrollmentResponse) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "EnrollmentResponse/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("EnrollmentResponse.Id", resource.Id)
-}
-func (resource *EnrollmentResponse) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("EnrollmentResponse.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("EnrollmentResponse.ImplicitRules", resource.ImplicitRules)
+	rtype := "EnrollmentResponse"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *EnrollmentResponse) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("EnrollmentResponse.Language", resource.Language, optionsValueSet)
-}
-func (resource *EnrollmentResponse) T_Status() templ.Component {
+func (resource *EnrollmentResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Status", nil, optionsValueSet)
+		return CodeSelect("EnrollmentResponse.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Status", resource.Status, optionsValueSet)
+	return CodeSelect("EnrollmentResponse.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Outcome() templ.Component {
+func (resource *EnrollmentResponse) T_Outcome(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Outcome", nil, optionsValueSet)
+		return CodeSelect("EnrollmentResponse.Outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Outcome", resource.Outcome, optionsValueSet)
+	return CodeSelect("EnrollmentResponse.Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Disposition() templ.Component {
+func (resource *EnrollmentResponse) T_Disposition(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("EnrollmentResponse.Disposition", nil)
+		return StringInput("EnrollmentResponse.Disposition", nil, htmlAttrs)
 	}
-	return StringInput("EnrollmentResponse.Disposition", resource.Disposition)
+	return StringInput("EnrollmentResponse.Disposition", resource.Disposition, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Created() templ.Component {
+func (resource *EnrollmentResponse) T_Created(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("EnrollmentResponse.Created", nil)
+		return DateTimeInput("EnrollmentResponse.Created", nil, htmlAttrs)
 	}
-	return StringInput("EnrollmentResponse.Created", resource.Created)
+	return DateTimeInput("EnrollmentResponse.Created", resource.Created, htmlAttrs)
 }

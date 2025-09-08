@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,17 +31,17 @@ type Condition struct {
 	BodySite           []CodeableConcept   `json:"bodySite,omitempty"`
 	Subject            Reference           `json:"subject"`
 	Encounter          *Reference          `json:"encounter,omitempty"`
-	OnsetDateTime      *string             `json:"onsetDateTime,omitempty"`
+	OnsetDateTime      *time.Time          `json:"onsetDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	OnsetAge           *Age                `json:"onsetAge,omitempty"`
 	OnsetPeriod        *Period             `json:"onsetPeriod,omitempty"`
 	OnsetRange         *Range              `json:"onsetRange,omitempty"`
 	OnsetString        *string             `json:"onsetString,omitempty"`
-	AbatementDateTime  *string             `json:"abatementDateTime,omitempty"`
+	AbatementDateTime  *time.Time          `json:"abatementDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	AbatementAge       *Age                `json:"abatementAge,omitempty"`
 	AbatementPeriod    *Period             `json:"abatementPeriod,omitempty"`
 	AbatementRange     *Range              `json:"abatementRange,omitempty"`
 	AbatementString    *string             `json:"abatementString,omitempty"`
-	RecordedDate       *string             `json:"recordedDate,omitempty"`
+	RecordedDate       *time.Time          `json:"recordedDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Recorder           *Reference          `json:"recorder,omitempty"`
 	Asserter           *Reference          `json:"asserter,omitempty"`
 	Stage              []ConditionStage    `json:"stage,omitempty"`
@@ -79,111 +80,125 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Condition",
 	})
 }
-
-func (resource *Condition) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("Condition.Id", nil)
+func (r Condition) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Condition/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("Condition.Id", resource.Id)
-}
-func (resource *Condition) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Condition.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("Condition.ImplicitRules", resource.ImplicitRules)
+	rtype := "Condition"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *Condition) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Condition.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Condition.Language", resource.Language, optionsValueSet)
-}
-func (resource *Condition) T_ClinicalStatus() templ.Component {
+func (resource *Condition) T_ClinicalStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCondition_clinical
 
 	if resource == nil {
-		return CodeableConceptSelect("Condition.ClinicalStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Condition.ClinicalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.ClinicalStatus", resource.ClinicalStatus, optionsValueSet)
+	return CodeableConceptSelect("Condition.ClinicalStatus", resource.ClinicalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_VerificationStatus() templ.Component {
+func (resource *Condition) T_VerificationStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCondition_ver_status
 
 	if resource == nil {
-		return CodeableConceptSelect("Condition.VerificationStatus", nil, optionsValueSet)
+		return CodeableConceptSelect("Condition.VerificationStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.VerificationStatus", resource.VerificationStatus, optionsValueSet)
+	return CodeableConceptSelect("Condition.VerificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("Condition.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("Condition.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("Condition.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Severity(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("Condition.Severity", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Condition.Severity", resource.Severity, optionsValueSet)
-}
-func (resource *Condition) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_Severity(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Condition.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("Condition.Severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("Condition.Severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.BodySite) >= numBodySite {
-		return CodeableConceptSelect("Condition.BodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("Condition.BodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet)
-}
-func (resource *Condition) T_RecordedDate() templ.Component {
+func (resource *Condition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Condition.RecordedDate", nil)
+		return CodeableConceptSelect("Condition.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Condition.RecordedDate", resource.RecordedDate)
+	return CodeableConceptSelect("Condition.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageId(numStage int) templ.Component {
+func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Stage) >= numStage {
-		return StringInput("Condition.Stage["+strconv.Itoa(numStage)+"].Id", nil)
+	if resource == nil || numBodySite >= len(resource.BodySite) {
+		return CodeableConceptSelect("Condition.BodySite."+strconv.Itoa(numBodySite)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("Condition.Stage["+strconv.Itoa(numStage)+"].Id", resource.Stage[numStage].Id)
+	return CodeableConceptSelect("Condition.BodySite."+strconv.Itoa(numBodySite)+".", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_OnsetDateTime(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Stage) >= numStage {
-		return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Summary", nil, optionsValueSet)
+	if resource == nil {
+		return DateTimeInput("Condition.OnsetDateTime", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Summary", resource.Stage[numStage].Summary, optionsValueSet)
+	return DateTimeInput("Condition.OnsetDateTime", resource.OnsetDateTime, htmlAttrs)
 }
-func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_OnsetString(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Stage) >= numStage {
-		return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Type", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("Condition.OnsetString", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Type", resource.Stage[numStage].Type, optionsValueSet)
+	return StringInput("Condition.OnsetString", resource.OnsetString, htmlAttrs)
 }
-func (resource *Condition) T_EvidenceId(numEvidence int) templ.Component {
+func (resource *Condition) T_AbatementDateTime(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Evidence) >= numEvidence {
-		return StringInput("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("Condition.AbatementDateTime", nil, htmlAttrs)
 	}
-	return StringInput("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Id", resource.Evidence[numEvidence].Id)
+	return DateTimeInput("Condition.AbatementDateTime", resource.AbatementDateTime, htmlAttrs)
 }
-func (resource *Condition) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding) templ.Component {
+func (resource *Condition) T_AbatementString(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Evidence) >= numEvidence || len(resource.Evidence[numEvidence].Code) >= numCode {
-		return CodeableConceptSelect("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("Condition.AbatementString", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet)
+	return StringInput("Condition.AbatementString", resource.AbatementString, htmlAttrs)
+}
+func (resource *Condition) T_RecordedDate(htmlAttrs string) templ.Component {
+
+	if resource == nil {
+		return DateTimeInput("Condition.RecordedDate", nil, htmlAttrs)
+	}
+	return DateTimeInput("Condition.RecordedDate", resource.RecordedDate, htmlAttrs)
+}
+func (resource *Condition) T_Note(numNote int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("Condition.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+	}
+	return AnnotationTextArea("Condition.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numStage >= len(resource.Stage) {
+		return CodeableConceptSelect("Condition.Stage."+strconv.Itoa(numStage)+"..Summary", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Condition.Stage."+strconv.Itoa(numStage)+"..Summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
+}
+func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numStage >= len(resource.Stage) {
+		return CodeableConceptSelect("Condition.Stage."+strconv.Itoa(numStage)+"..Type", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Condition.Stage."+strconv.Itoa(numStage)+"..Type", resource.Stage[numStage].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Condition) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numEvidence >= len(resource.Evidence) || numCode >= len(resource.Evidence[numEvidence].Code) {
+		return CodeableConceptSelect("Condition.Evidence."+strconv.Itoa(numEvidence)+"..Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("Condition.Evidence."+strconv.Itoa(numEvidence)+"..Code."+strconv.Itoa(numCode)+".", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }

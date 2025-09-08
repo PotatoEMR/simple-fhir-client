@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -71,76 +71,60 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 		ResourceType:          "OperationOutcome",
 	})
 }
-
-func (resource *OperationOutcome) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("OperationOutcome.Id", nil)
+func (r OperationOutcome) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "OperationOutcome/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("OperationOutcome.Id", resource.Id)
-}
-func (resource *OperationOutcome) T_ImplicitRules() templ.Component {
 
-	if resource == nil {
-		return StringInput("OperationOutcome.ImplicitRules", nil)
-	}
-	return StringInput("OperationOutcome.ImplicitRules", resource.ImplicitRules)
+	rtype := "OperationOutcome"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *OperationOutcome) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("OperationOutcome.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("OperationOutcome.Language", resource.Language, optionsValueSet)
-}
-func (resource *OperationOutcome) T_IssueId(numIssue int) templ.Component {
-
-	if resource == nil || len(resource.Issue) >= numIssue {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Id", nil)
-	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Id", resource.Issue[numIssue].Id)
-}
-func (resource *OperationOutcome) T_IssueSeverity(numIssue int) templ.Component {
+func (resource *OperationOutcome) T_IssueSeverity(numIssue int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIssue_severity
 
-	if resource == nil || len(resource.Issue) >= numIssue {
-		return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Severity", nil, optionsValueSet)
+	if resource == nil || numIssue >= len(resource.Issue) {
+		return CodeSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Severity", &resource.Issue[numIssue].Severity, optionsValueSet)
+	return CodeSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Severity", &resource.Issue[numIssue].Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationOutcome) T_IssueCode(numIssue int) templ.Component {
+func (resource *OperationOutcome) T_IssueCode(numIssue int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIssue_type
 
-	if resource == nil || len(resource.Issue) >= numIssue {
-		return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Code", nil, optionsValueSet)
+	if resource == nil || numIssue >= len(resource.Issue) {
+		return CodeSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Code", &resource.Issue[numIssue].Code, optionsValueSet)
+	return CodeSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Code", &resource.Issue[numIssue].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationOutcome) T_IssueDetails(numIssue int, optionsValueSet []Coding) templ.Component {
+func (resource *OperationOutcome) T_IssueDetails(numIssue int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Issue) >= numIssue {
-		return CodeableConceptSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Details", nil, optionsValueSet)
+	if resource == nil || numIssue >= len(resource.Issue) {
+		return CodeableConceptSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Details", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Details", resource.Issue[numIssue].Details, optionsValueSet)
+	return CodeableConceptSelect("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Details", resource.Issue[numIssue].Details, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationOutcome) T_IssueDiagnostics(numIssue int) templ.Component {
+func (resource *OperationOutcome) T_IssueDiagnostics(numIssue int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Issue) >= numIssue {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Diagnostics", nil)
+	if resource == nil || numIssue >= len(resource.Issue) {
+		return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Diagnostics", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Diagnostics", resource.Issue[numIssue].Diagnostics)
+	return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Diagnostics", resource.Issue[numIssue].Diagnostics, htmlAttrs)
 }
-func (resource *OperationOutcome) T_IssueLocation(numIssue int, numLocation int) templ.Component {
+func (resource *OperationOutcome) T_IssueLocation(numIssue int, numLocation int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Issue) >= numIssue || len(resource.Issue[numIssue].Location) >= numLocation {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Location["+strconv.Itoa(numLocation)+"]", nil)
+	if resource == nil || numIssue >= len(resource.Issue) || numLocation >= len(resource.Issue[numIssue].Location) {
+		return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Location."+strconv.Itoa(numLocation)+".", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Location["+strconv.Itoa(numLocation)+"]", &resource.Issue[numIssue].Location[numLocation])
+	return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Location."+strconv.Itoa(numLocation)+".", &resource.Issue[numIssue].Location[numLocation], htmlAttrs)
 }
-func (resource *OperationOutcome) T_IssueExpression(numIssue int, numExpression int) templ.Component {
+func (resource *OperationOutcome) T_IssueExpression(numIssue int, numExpression int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Issue) >= numIssue || len(resource.Issue[numIssue].Expression) >= numExpression {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Expression["+strconv.Itoa(numExpression)+"]", nil)
+	if resource == nil || numIssue >= len(resource.Issue) || numExpression >= len(resource.Issue[numIssue].Expression) {
+		return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Expression."+strconv.Itoa(numExpression)+".", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Expression["+strconv.Itoa(numExpression)+"]", &resource.Issue[numIssue].Expression[numExpression])
+	return StringInput("OperationOutcome.Issue."+strconv.Itoa(numIssue)+"..Expression."+strconv.Itoa(numExpression)+".", &resource.Issue[numIssue].Expression[numExpression], htmlAttrs)
 }

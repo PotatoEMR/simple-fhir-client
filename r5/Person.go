@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,9 +27,9 @@ type Person struct {
 	Name                 []HumanName           `json:"name,omitempty"`
 	Telecom              []ContactPoint        `json:"telecom,omitempty"`
 	Gender               *string               `json:"gender,omitempty"`
-	BirthDate            *string               `json:"birthDate,omitempty"`
+	BirthDate            *time.Time            `json:"birthDate,omitempty,format:'2006-01-02'"`
 	DeceasedBoolean      *bool                 `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime     *string               `json:"deceasedDateTime,omitempty"`
+	DeceasedDateTime     *time.Time            `json:"deceasedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Address              []Address             `json:"address,omitempty"`
 	MaritalStatus        *CodeableConcept      `json:"maritalStatus,omitempty"`
 	Photo                []Attachment          `json:"photo,omitempty"`
@@ -67,90 +68,76 @@ func (r Person) MarshalJSON() ([]byte, error) {
 		ResourceType: "Person",
 	})
 }
-
-func (resource *Person) T_Id() templ.Component {
+func (r Person) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Person/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "Person"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *Person) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Person.Id", nil)
+		return BoolInput("Person.Active", nil, htmlAttrs)
 	}
-	return StringInput("Person.Id", resource.Id)
+	return BoolInput("Person.Active", resource.Active, htmlAttrs)
 }
-func (resource *Person) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("Person.ImplicitRules", nil)
-	}
-	return StringInput("Person.ImplicitRules", resource.ImplicitRules)
-}
-func (resource *Person) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("Person.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("Person.Language", resource.Language, optionsValueSet)
-}
-func (resource *Person) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("Person.Active", nil)
-	}
-	return BoolInput("Person.Active", resource.Active)
-}
-func (resource *Person) T_Gender() templ.Component {
+func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Person.Gender", nil, optionsValueSet)
+		return CodeSelect("Person.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet)
+	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Person) T_BirthDate() templ.Component {
+func (resource *Person) T_BirthDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("Person.BirthDate", nil)
+		return DateInput("Person.BirthDate", nil, htmlAttrs)
 	}
-	return StringInput("Person.BirthDate", resource.BirthDate)
+	return DateInput("Person.BirthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *Person) T_MaritalStatus(optionsValueSet []Coding) templ.Component {
+func (resource *Person) T_DeceasedBoolean(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("Person.MaritalStatus", nil, optionsValueSet)
+		return BoolInput("Person.DeceasedBoolean", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("Person.MaritalStatus", resource.MaritalStatus, optionsValueSet)
+	return BoolInput("Person.DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
-func (resource *Person) T_CommunicationId(numCommunication int) templ.Component {
+func (resource *Person) T_DeceasedDateTime(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return StringInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("Person.DeceasedDateTime", nil, htmlAttrs)
 	}
-	return StringInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Id", resource.Communication[numCommunication].Id)
+	return DateTimeInput("Person.DeceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
 }
-func (resource *Person) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
+func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("Person.Communication["+strconv.Itoa(numCommunication)+"].Language", nil, optionsValueSet)
+	if resource == nil {
+		return CodeableConceptSelect("Person.MaritalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Person.Communication["+strconv.Itoa(numCommunication)+"].Language", &resource.Communication[numCommunication].Language, optionsValueSet)
+	return CodeableConceptSelect("Person.MaritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Person) T_CommunicationPreferred(numCommunication int) templ.Component {
+func (resource *Person) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return BoolInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil)
+	if resource == nil || numCommunication >= len(resource.Communication) {
+		return BoolInput("Person.Communication."+strconv.Itoa(numCommunication)+"..Preferred", nil, htmlAttrs)
 	}
-	return BoolInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred)
+	return BoolInput("Person.Communication."+strconv.Itoa(numCommunication)+"..Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }
-func (resource *Person) T_LinkId(numLink int) templ.Component {
-
-	if resource == nil || len(resource.Link) >= numLink {
-		return StringInput("Person.Link["+strconv.Itoa(numLink)+"].Id", nil)
-	}
-	return StringInput("Person.Link["+strconv.Itoa(numLink)+"].Id", resource.Link[numLink].Id)
-}
-func (resource *Person) T_LinkAssurance(numLink int) templ.Component {
+func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
-	if resource == nil || len(resource.Link) >= numLink {
-		return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", nil, optionsValueSet)
+	if resource == nil || numLink >= len(resource.Link) {
+		return CodeSelect("Person.Link."+strconv.Itoa(numLink)+"..Assurance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", resource.Link[numLink].Assurance, optionsValueSet)
+	return CodeSelect("Person.Link."+strconv.Itoa(numLink)+"..Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
 }

@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -33,7 +34,7 @@ type RequestGroup struct {
 	Code                  *CodeableConcept     `json:"code,omitempty"`
 	Subject               *Reference           `json:"subject,omitempty"`
 	Encounter             *Reference           `json:"encounter,omitempty"`
-	AuthoredOn            *string              `json:"authoredOn,omitempty"`
+	AuthoredOn            *time.Time           `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Author                *Reference           `json:"author,omitempty"`
 	ReasonCode            []CodeableConcept    `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference          `json:"reasonReference,omitempty"`
@@ -55,7 +56,7 @@ type RequestGroupAction struct {
 	Documentation       []RelatedArtifact                 `json:"documentation,omitempty"`
 	Condition           []RequestGroupActionCondition     `json:"condition,omitempty"`
 	RelatedAction       []RequestGroupActionRelatedAction `json:"relatedAction,omitempty"`
-	TimingDateTime      *string                           `json:"timingDateTime,omitempty"`
+	TimingDateTime      *time.Time                        `json:"timingDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	TimingAge           *Age                              `json:"timingAge,omitempty"`
 	TimingPeriod        *Period                           `json:"timingPeriod,omitempty"`
 	TimingDuration      *Duration                         `json:"timingDuration,omitempty"`
@@ -103,218 +104,204 @@ func (r RequestGroup) MarshalJSON() ([]byte, error) {
 		ResourceType:      "RequestGroup",
 	})
 }
-
-func (resource *RequestGroup) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("RequestGroup.Id", nil)
+func (r RequestGroup) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "RequestGroup/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("RequestGroup.Id", resource.Id)
-}
-func (resource *RequestGroup) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("RequestGroup.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("RequestGroup.ImplicitRules", resource.ImplicitRules)
+	rtype := "RequestGroup"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *RequestGroup) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *RequestGroup) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return CodeSelect("RequestGroup.Language", nil, optionsValueSet)
+	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
+		return StringInput("RequestGroup.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", nil, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Language", resource.Language, optionsValueSet)
+	return StringInput("RequestGroup.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
-func (resource *RequestGroup) T_InstantiatesCanonical(numInstantiatesCanonical int) templ.Component {
+func (resource *RequestGroup) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.InstantiatesCanonical) >= numInstantiatesCanonical {
-		return StringInput("RequestGroup.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil)
+	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
+		return StringInput("RequestGroup.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical])
+	return StringInput("RequestGroup.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *RequestGroup) T_InstantiatesUri(numInstantiatesUri int) templ.Component {
-
-	if resource == nil || len(resource.InstantiatesUri) >= numInstantiatesUri {
-		return StringInput("RequestGroup.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil)
-	}
-	return StringInput("RequestGroup.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri])
-}
-func (resource *RequestGroup) T_Status() templ.Component {
+func (resource *RequestGroup) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("RequestGroup.Status", nil, optionsValueSet)
+		return CodeSelect("RequestGroup.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("RequestGroup.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_Intent() templ.Component {
+func (resource *RequestGroup) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
-		return CodeSelect("RequestGroup.Intent", nil, optionsValueSet)
+		return CodeSelect("RequestGroup.Intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Intent", &resource.Intent, optionsValueSet)
+	return CodeSelect("RequestGroup.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_Priority() templ.Component {
+func (resource *RequestGroup) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("RequestGroup.Priority", nil, optionsValueSet)
+		return CodeSelect("RequestGroup.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Priority", resource.Priority, optionsValueSet)
+	return CodeSelect("RequestGroup.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_Code(optionsValueSet []Coding) templ.Component {
+func (resource *RequestGroup) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RequestGroup.Code", nil, optionsValueSet)
+		return CodeableConceptSelect("RequestGroup.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RequestGroup.Code", resource.Code, optionsValueSet)
+	return CodeableConceptSelect("RequestGroup.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_AuthoredOn() templ.Component {
+func (resource *RequestGroup) T_AuthoredOn(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RequestGroup.AuthoredOn", nil)
+		return DateTimeInput("RequestGroup.AuthoredOn", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.AuthoredOn", resource.AuthoredOn)
+	return DateTimeInput("RequestGroup.AuthoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *RequestGroup) T_ReasonCode(numReasonCode int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestGroup) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.ReasonCode) >= numReasonCode {
-		return CodeableConceptSelect("RequestGroup.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet)
+	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
+		return CodeableConceptSelect("RequestGroup.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RequestGroup.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet)
+	return CodeableConceptSelect("RequestGroup.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionId(numAction int) templ.Component {
+func (resource *RequestGroup) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Id", nil)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("RequestGroup.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Id", resource.Action[numAction].Id)
+	return AnnotationTextArea("RequestGroup.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionPrefix(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionPrefix(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Prefix", nil)
+	if resource == nil || numAction >= len(resource.Action) {
+		return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Prefix", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Prefix", resource.Action[numAction].Prefix)
+	return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Prefix", resource.Action[numAction].Prefix, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionTitle(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionTitle(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Title", nil)
+	if resource == nil || numAction >= len(resource.Action) {
+		return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Title", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Title", resource.Action[numAction].Title)
+	return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Title", resource.Action[numAction].Title, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionDescription(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionDescription(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Description", nil)
+	if resource == nil || numAction >= len(resource.Action) {
+		return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Description", resource.Action[numAction].Description)
+	return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..Description", resource.Action[numAction].Description, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionTextEquivalent(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionTextEquivalent(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].TextEquivalent", nil)
+	if resource == nil || numAction >= len(resource.Action) {
+		return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..TextEquivalent", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].TextEquivalent", resource.Action[numAction].TextEquivalent)
+	return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..TextEquivalent", resource.Action[numAction].TextEquivalent, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionPriority(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionPriority(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Priority", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Priority", resource.Action[numAction].Priority, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Priority", resource.Action[numAction].Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionCode(numAction int, numCode int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestGroup) T_ActionCode(numAction int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].Code) >= numCode {
-		return CodeableConceptSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) || numCode >= len(resource.Action[numAction].Code) {
+		return CodeableConceptSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Action[numAction].Code[numCode], optionsValueSet)
+	return CodeableConceptSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Code."+strconv.Itoa(numCode)+".", &resource.Action[numAction].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *RequestGroup) T_ActionTimingDateTime(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeableConceptSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Type", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return DateTimeInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..TimingDateTime", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Type", resource.Action[numAction].Type, optionsValueSet)
+	return DateTimeInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..TimingDateTime", resource.Action[numAction].TimingDateTime, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionGroupingBehavior(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionType(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeableConceptSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Type", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Type", resource.Action[numAction].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionGroupingBehavior(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_grouping_behavior
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].GroupingBehavior", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..GroupingBehavior", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].GroupingBehavior", resource.Action[numAction].GroupingBehavior, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..GroupingBehavior", resource.Action[numAction].GroupingBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionSelectionBehavior(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionSelectionBehavior(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_selection_behavior
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].SelectionBehavior", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..SelectionBehavior", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].SelectionBehavior", resource.Action[numAction].SelectionBehavior, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..SelectionBehavior", resource.Action[numAction].SelectionBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionRequiredBehavior(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionRequiredBehavior(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_required_behavior
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].RequiredBehavior", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..RequiredBehavior", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].RequiredBehavior", resource.Action[numAction].RequiredBehavior, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..RequiredBehavior", resource.Action[numAction].RequiredBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionPrecheckBehavior(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionPrecheckBehavior(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_precheck_behavior
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].PrecheckBehavior", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..PrecheckBehavior", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].PrecheckBehavior", resource.Action[numAction].PrecheckBehavior, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..PrecheckBehavior", resource.Action[numAction].PrecheckBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionCardinalityBehavior(numAction int) templ.Component {
+func (resource *RequestGroup) T_ActionCardinalityBehavior(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_cardinality_behavior
 
-	if resource == nil || len(resource.Action) >= numAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].CardinalityBehavior", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..CardinalityBehavior", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].CardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..CardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionConditionId(numAction int, numCondition int) templ.Component {
-
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].Condition) >= numCondition {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Condition["+strconv.Itoa(numCondition)+"].Id", nil)
-	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].Condition["+strconv.Itoa(numCondition)+"].Id", resource.Action[numAction].Condition[numCondition].Id)
-}
-func (resource *RequestGroup) T_ActionConditionKind(numAction int, numCondition int) templ.Component {
+func (resource *RequestGroup) T_ActionConditionKind(numAction int, numCondition int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_condition_kind
 
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].Condition) >= numCondition {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Condition["+strconv.Itoa(numCondition)+"].Kind", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) || numCondition >= len(resource.Action[numAction].Condition) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Condition."+strconv.Itoa(numCondition)+"..Kind", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].Condition["+strconv.Itoa(numCondition)+"].Kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..Condition."+strconv.Itoa(numCondition)+"..Kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionRelatedActionId(numAction int, numRelatedAction int) templ.Component {
+func (resource *RequestGroup) T_ActionRelatedActionActionId(numAction int, numRelatedAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].Id", nil)
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..RelatedAction."+strconv.Itoa(numRelatedAction)+"..ActionId", nil, htmlAttrs)
 	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].Id", resource.Action[numAction].RelatedAction[numRelatedAction].Id)
+	return StringInput("RequestGroup.Action."+strconv.Itoa(numAction)+"..RelatedAction."+strconv.Itoa(numRelatedAction)+"..ActionId", &resource.Action[numAction].RelatedAction[numRelatedAction].ActionId, htmlAttrs)
 }
-func (resource *RequestGroup) T_ActionRelatedActionActionId(numAction int, numRelatedAction int) templ.Component {
-
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
-		return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].ActionId", nil)
-	}
-	return StringInput("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].ActionId", &resource.Action[numAction].RelatedAction[numRelatedAction].ActionId)
-}
-func (resource *RequestGroup) T_ActionRelatedActionRelationship(numAction int, numRelatedAction int) templ.Component {
+func (resource *RequestGroup) T_ActionRelatedActionRelationship(numAction int, numRelatedAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAction_relationship_type
 
-	if resource == nil || len(resource.Action) >= numAction || len(resource.Action[numAction].RelatedAction) >= numRelatedAction {
-		return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].Relationship", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..RelatedAction."+strconv.Itoa(numRelatedAction)+"..Relationship", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RequestGroup.Action["+strconv.Itoa(numAction)+"].RelatedAction["+strconv.Itoa(numRelatedAction)+"].Relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet)
+	return CodeSelect("RequestGroup.Action."+strconv.Itoa(numAction)+"..RelatedAction."+strconv.Itoa(numRelatedAction)+"..Relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet, htmlAttrs)
 }

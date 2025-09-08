@@ -1,12 +1,13 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +28,7 @@ type RiskEvidenceSynthesis struct {
 	Name              *string                            `json:"name,omitempty"`
 	Title             *string                            `json:"title,omitempty"`
 	Status            string                             `json:"status"`
-	Date              *string                            `json:"date,omitempty"`
+	Date              *time.Time                         `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                            `json:"publisher,omitempty"`
 	Contact           []ContactDetail                    `json:"contact,omitempty"`
 	Description       *string                            `json:"description,omitempty"`
@@ -35,8 +36,8 @@ type RiskEvidenceSynthesis struct {
 	UseContext        []UsageContext                     `json:"useContext,omitempty"`
 	Jurisdiction      []CodeableConcept                  `json:"jurisdiction,omitempty"`
 	Copyright         *string                            `json:"copyright,omitempty"`
-	ApprovalDate      *string                            `json:"approvalDate,omitempty"`
-	LastReviewDate    *string                            `json:"lastReviewDate,omitempty"`
+	ApprovalDate      *time.Time                         `json:"approvalDate,omitempty,format:'2006-01-02'"`
+	LastReviewDate    *time.Time                         `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
 	EffectivePeriod   *Period                            `json:"effectivePeriod,omitempty"`
 	Topic             []CodeableConcept                  `json:"topic,omitempty"`
 	Author            []ContactDetail                    `json:"author,omitempty"`
@@ -121,278 +122,257 @@ func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 		ResourceType:               "RiskEvidenceSynthesis",
 	})
 }
-
-func (resource *RiskEvidenceSynthesis) T_Id() templ.Component {
+func (r RiskEvidenceSynthesis) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "RiskEvidenceSynthesis/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "RiskEvidenceSynthesis"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *RiskEvidenceSynthesis) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Id", nil)
+		return StringInput("RiskEvidenceSynthesis.Url", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Id", resource.Id)
+	return StringInput("RiskEvidenceSynthesis.Url", resource.Url, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_ImplicitRules() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.ImplicitRules", nil)
+		return StringInput("RiskEvidenceSynthesis.Version", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.ImplicitRules", resource.ImplicitRules)
+	return StringInput("RiskEvidenceSynthesis.Version", resource.Version, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("RiskEvidenceSynthesis.Language", nil, optionsValueSet)
+		return StringInput("RiskEvidenceSynthesis.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("RiskEvidenceSynthesis.Language", resource.Language, optionsValueSet)
+	return StringInput("RiskEvidenceSynthesis.Name", resource.Name, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Url() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Url", nil)
+		return StringInput("RiskEvidenceSynthesis.Title", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Url", resource.Url)
+	return StringInput("RiskEvidenceSynthesis.Title", resource.Title, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Version", nil)
-	}
-	return StringInput("RiskEvidenceSynthesis.Version", resource.Version)
-}
-func (resource *RiskEvidenceSynthesis) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Name", nil)
-	}
-	return StringInput("RiskEvidenceSynthesis.Name", resource.Name)
-}
-func (resource *RiskEvidenceSynthesis) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Title", nil)
-	}
-	return StringInput("RiskEvidenceSynthesis.Title", resource.Title)
-}
-func (resource *RiskEvidenceSynthesis) T_Status() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("RiskEvidenceSynthesis.Status", nil, optionsValueSet)
+		return CodeSelect("RiskEvidenceSynthesis.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RiskEvidenceSynthesis.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("RiskEvidenceSynthesis.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Date() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Date", nil)
+		return DateTimeInput("RiskEvidenceSynthesis.Date", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Date", resource.Date)
+	return DateTimeInput("RiskEvidenceSynthesis.Date", resource.Date, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Publisher() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Publisher", nil)
+		return StringInput("RiskEvidenceSynthesis.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Publisher", resource.Publisher)
+	return StringInput("RiskEvidenceSynthesis.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Description() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Description", nil)
+		return StringInput("RiskEvidenceSynthesis.Description", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Description", resource.Description)
+	return StringInput("RiskEvidenceSynthesis.Description", resource.Description, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("RiskEvidenceSynthesis.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return AnnotationTextArea("RiskEvidenceSynthesis.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Copyright() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.Copyright", nil)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Copyright", resource.Copyright)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_ApprovalDate() templ.Component {
-
-	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.ApprovalDate", nil)
-	}
-	return StringInput("RiskEvidenceSynthesis.ApprovalDate", resource.ApprovalDate)
-}
-func (resource *RiskEvidenceSynthesis) T_LastReviewDate() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.LastReviewDate", nil)
+		return StringInput("RiskEvidenceSynthesis.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.LastReviewDate", resource.LastReviewDate)
+	return StringInput("RiskEvidenceSynthesis.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Topic(numTopic int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Topic) >= numTopic {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet)
-}
-func (resource *RiskEvidenceSynthesis) T_SynthesisType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_ApprovalDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.SynthesisType", nil, optionsValueSet)
+		return DateInput("RiskEvidenceSynthesis.ApprovalDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.SynthesisType", resource.SynthesisType, optionsValueSet)
+	return DateInput("RiskEvidenceSynthesis.ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_StudyType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_LastReviewDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.StudyType", nil, optionsValueSet)
+		return DateInput("RiskEvidenceSynthesis.LastReviewDate", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.StudyType", resource.StudyType, optionsValueSet)
+	return DateInput("RiskEvidenceSynthesis.LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_SampleSizeId() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numTopic >= len(resource.Topic) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.Topic."+strconv.Itoa(numTopic)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("RiskEvidenceSynthesis.Topic."+strconv.Itoa(numTopic)+".", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+}
+func (resource *RiskEvidenceSynthesis) T_SynthesisType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.SampleSize.Id", nil)
+		return CodeableConceptSelect("RiskEvidenceSynthesis.SynthesisType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.SampleSize.Id", resource.SampleSize.Id)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.SynthesisType", resource.SynthesisType, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_SampleSizeDescription() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_StudyType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.SampleSize.Description", nil)
+		return CodeableConceptSelect("RiskEvidenceSynthesis.StudyType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.SampleSize.Description", resource.SampleSize.Description)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.StudyType", resource.StudyType, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_SampleSizeNumberOfStudies() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_SampleSizeDescription(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfStudies", nil)
+		return StringInput("RiskEvidenceSynthesis.SampleSize.Description", nil, htmlAttrs)
 	}
-	return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfStudies", resource.SampleSize.NumberOfStudies)
+	return StringInput("RiskEvidenceSynthesis.SampleSize.Description", resource.SampleSize.Description, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_SampleSizeNumberOfParticipants() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_SampleSizeNumberOfStudies(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfParticipants", nil)
+		return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfStudies", nil, htmlAttrs)
 	}
-	return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfParticipants", resource.SampleSize.NumberOfParticipants)
+	return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfStudies", resource.SampleSize.NumberOfStudies, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateId() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_SampleSizeNumberOfParticipants(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.RiskEstimate.Id", nil)
+		return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfParticipants", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.RiskEstimate.Id", resource.RiskEstimate.Id)
+	return IntInput("RiskEvidenceSynthesis.SampleSize.NumberOfParticipants", resource.SampleSize.NumberOfParticipants, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateDescription() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateDescription(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RiskEvidenceSynthesis.RiskEstimate.Description", nil)
+		return StringInput("RiskEvidenceSynthesis.RiskEstimate.Description", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.RiskEstimate.Description", resource.RiskEstimate.Description)
+	return StringInput("RiskEvidenceSynthesis.RiskEstimate.Description", resource.RiskEstimate.Description, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateType(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.Type", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.Type", resource.RiskEstimate.Type, optionsValueSet)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.Type", resource.RiskEstimate.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateValue() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateValue(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.Value", nil)
+		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.Value", nil, htmlAttrs)
 	}
-	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.Value", resource.RiskEstimate.Value)
+	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.Value", resource.RiskEstimate.Value, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateUnitOfMeasure(optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateUnitOfMeasure(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.UnitOfMeasure", nil, optionsValueSet)
+		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.UnitOfMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.UnitOfMeasure", resource.RiskEstimate.UnitOfMeasure, optionsValueSet)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.UnitOfMeasure", resource.RiskEstimate.UnitOfMeasure, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateDenominatorCount() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateDenominatorCount(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("RiskEvidenceSynthesis.RiskEstimate.DenominatorCount", nil)
+		return IntInput("RiskEvidenceSynthesis.RiskEstimate.DenominatorCount", nil, htmlAttrs)
 	}
-	return IntInput("RiskEvidenceSynthesis.RiskEstimate.DenominatorCount", resource.RiskEstimate.DenominatorCount)
+	return IntInput("RiskEvidenceSynthesis.RiskEstimate.DenominatorCount", resource.RiskEstimate.DenominatorCount, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimateNumeratorCount() templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimateNumeratorCount(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("RiskEvidenceSynthesis.RiskEstimate.NumeratorCount", nil)
+		return IntInput("RiskEvidenceSynthesis.RiskEstimate.NumeratorCount", nil, htmlAttrs)
 	}
-	return IntInput("RiskEvidenceSynthesis.RiskEstimate.NumeratorCount", resource.RiskEstimate.NumeratorCount)
+	return IntInput("RiskEvidenceSynthesis.RiskEstimate.NumeratorCount", resource.RiskEstimate.NumeratorCount, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateId(numPrecisionEstimate int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateType(numPrecisionEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
-		return StringInput("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Id", nil)
+	if resource == nil || numPrecisionEstimate >= len(resource.RiskEstimate.PrecisionEstimate) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Id", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Id)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..Type", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateType(numPrecisionEstimate int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateLevel(numPrecisionEstimate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", nil, optionsValueSet)
+	if resource == nil || numPrecisionEstimate >= len(resource.RiskEstimate.PrecisionEstimate) {
+		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..Level", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet)
+	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..Level", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Level, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateLevel(numPrecisionEstimate int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateFrom(numPrecisionEstimate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
-		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", nil)
+	if resource == nil || numPrecisionEstimate >= len(resource.RiskEstimate.PrecisionEstimate) {
+		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..From", nil, htmlAttrs)
 	}
-	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].Level)
+	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..From", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].From, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateFrom(numPrecisionEstimate int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateTo(numPrecisionEstimate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
-		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", nil)
+	if resource == nil || numPrecisionEstimate >= len(resource.RiskEstimate.PrecisionEstimate) {
+		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..To", nil, htmlAttrs)
 	}
-	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].From)
+	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate."+strconv.Itoa(numPrecisionEstimate)+"..To", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].To, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_RiskEstimatePrecisionEstimateTo(numPrecisionEstimate int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyRating(numCertainty int, numRating int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.RiskEstimate.PrecisionEstimate) >= numPrecisionEstimate {
-		return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", nil)
+	if resource == nil || numCertainty >= len(resource.Certainty) || numRating >= len(resource.Certainty[numCertainty].Rating) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..Rating."+strconv.Itoa(numRating)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return Float64Input("RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", resource.RiskEstimate.PrecisionEstimate[numPrecisionEstimate].To)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..Rating."+strconv.Itoa(numRating)+".", &resource.Certainty[numCertainty].Rating[numRating], optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_CertaintyId(numCertainty int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyNote(numCertainty int, numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Certainty) >= numCertainty {
-		return StringInput("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Id", nil)
+	if resource == nil || numCertainty >= len(resource.Certainty) || numNote >= len(resource.Certainty[numCertainty].Note) {
+		return AnnotationTextArea("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Id", resource.Certainty[numCertainty].Id)
+	return AnnotationTextArea("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..Note."+strconv.Itoa(numNote)+".", &resource.Certainty[numCertainty].Note[numNote], htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_CertaintyRating(numCertainty int, numRating int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].Rating) >= numRating {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet)
+	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].Rating[numRating], optionsValueSet)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentId(numCertainty int, numCertaintySubcomponent int) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, numRating int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
-		return StringInput("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Id", nil)
+	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) || numRating >= len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating) {
+		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Rating."+strconv.Itoa(numRating)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Id", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Id)
+	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Rating."+strconv.Itoa(numRating)+".", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[numRating], optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentNote(numCertainty int, numCertaintySubcomponent int, numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", nil, optionsValueSet)
+	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) || numNote >= len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Note) {
+		return AnnotationTextArea("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet)
-}
-func (resource *RiskEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, numRating int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Certainty) >= numCertainty || len(resource.Certainty[numCertainty].CertaintySubcomponent) >= numCertaintySubcomponent || len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating) >= numRating {
-		return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RiskEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[numRating], optionsValueSet)
+	return AnnotationTextArea("RiskEvidenceSynthesis.Certainty."+strconv.Itoa(numCertainty)+"..CertaintySubcomponent."+strconv.Itoa(numCertaintySubcomponent)+"..Note."+strconv.Itoa(numNote)+".", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Note[numNote], htmlAttrs)
 }

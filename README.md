@@ -1,3 +1,7 @@
+go install golang.org/x/tools/gopls@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/a-h/templ/cmd/templ@latest
+
 v0.1.0
 
 models

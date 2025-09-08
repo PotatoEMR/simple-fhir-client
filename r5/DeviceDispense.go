@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -36,8 +37,8 @@ type DeviceDispense struct {
 	Location              *Reference                `json:"location,omitempty"`
 	Type                  *CodeableConcept          `json:"type,omitempty"`
 	Quantity              *Quantity                 `json:"quantity,omitempty"`
-	PreparedDate          *string                   `json:"preparedDate,omitempty"`
-	WhenHandedOver        *string                   `json:"whenHandedOver,omitempty"`
+	PreparedDate          *time.Time                `json:"preparedDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	WhenHandedOver        *time.Time                `json:"whenHandedOver,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Destination           *Reference                `json:"destination,omitempty"`
 	Note                  []Annotation              `json:"note,omitempty"`
 	UsageInstruction      *string                   `json:"usageInstruction,omitempty"`
@@ -65,82 +66,75 @@ func (r DeviceDispense) MarshalJSON() ([]byte, error) {
 		ResourceType:        "DeviceDispense",
 	})
 }
-
-func (resource *DeviceDispense) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("DeviceDispense.Id", nil)
+func (r DeviceDispense) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "DeviceDispense/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("DeviceDispense.Id", resource.Id)
-}
-func (resource *DeviceDispense) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("DeviceDispense.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("DeviceDispense.ImplicitRules", resource.ImplicitRules)
+	rtype := "DeviceDispense"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *DeviceDispense) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("DeviceDispense.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("DeviceDispense.Language", resource.Language, optionsValueSet)
-}
-func (resource *DeviceDispense) T_Status() templ.Component {
+func (resource *DeviceDispense) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevicedispense_status
 
 	if resource == nil {
-		return CodeSelect("DeviceDispense.Status", nil, optionsValueSet)
+		return CodeSelect("DeviceDispense.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceDispense.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("DeviceDispense.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDispense) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("DeviceDispense.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("DeviceDispense.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceDispense.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("DeviceDispense.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDispense) T_Type(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("DeviceDispense.Type", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("DeviceDispense.Type", resource.Type, optionsValueSet)
-}
-func (resource *DeviceDispense) T_PreparedDate() templ.Component {
+func (resource *DeviceDispense) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DeviceDispense.PreparedDate", nil)
+		return CodeableConceptSelect("DeviceDispense.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("DeviceDispense.PreparedDate", resource.PreparedDate)
+	return CodeableConceptSelect("DeviceDispense.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDispense) T_WhenHandedOver() templ.Component {
+func (resource *DeviceDispense) T_PreparedDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DeviceDispense.WhenHandedOver", nil)
+		return DateTimeInput("DeviceDispense.PreparedDate", nil, htmlAttrs)
 	}
-	return StringInput("DeviceDispense.WhenHandedOver", resource.WhenHandedOver)
+	return DateTimeInput("DeviceDispense.PreparedDate", resource.PreparedDate, htmlAttrs)
 }
-func (resource *DeviceDispense) T_UsageInstruction() templ.Component {
+func (resource *DeviceDispense) T_WhenHandedOver(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("DeviceDispense.UsageInstruction", nil)
+		return DateTimeInput("DeviceDispense.WhenHandedOver", nil, htmlAttrs)
 	}
-	return StringInput("DeviceDispense.UsageInstruction", resource.UsageInstruction)
+	return DateTimeInput("DeviceDispense.WhenHandedOver", resource.WhenHandedOver, htmlAttrs)
 }
-func (resource *DeviceDispense) T_PerformerId(numPerformer int) templ.Component {
+func (resource *DeviceDispense) T_Note(numNote int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return StringInput("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	if resource == nil || numNote >= len(resource.Note) {
+		return AnnotationTextArea("DeviceDispense.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
 	}
-	return StringInput("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
+	return AnnotationTextArea("DeviceDispense.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *DeviceDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *DeviceDispense) T_UsageInstruction(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
+	if resource == nil {
+		return StringInput("DeviceDispense.UsageInstruction", nil, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return StringInput("DeviceDispense.UsageInstruction", resource.UsageInstruction, htmlAttrs)
+}
+func (resource *DeviceDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return CodeableConceptSelect("DeviceDispense.Performer."+strconv.Itoa(numPerformer)+"..Function", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("DeviceDispense.Performer."+strconv.Itoa(numPerformer)+"..Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }

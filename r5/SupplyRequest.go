@@ -1,12 +1,13 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,10 +31,10 @@ type SupplyRequest struct {
 	Item               CodeableReference        `json:"item"`
 	Quantity           Quantity                 `json:"quantity"`
 	Parameter          []SupplyRequestParameter `json:"parameter,omitempty"`
-	OccurrenceDateTime *string                  `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime *time.Time               `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	OccurrencePeriod   *Period                  `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming   *Timing                  `json:"occurrenceTiming,omitempty"`
-	AuthoredOn         *string                  `json:"authoredOn,omitempty"`
+	AuthoredOn         *time.Time               `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Requester          *Reference               `json:"requester,omitempty"`
 	Supplier           []Reference              `json:"supplier,omitempty"`
 	Reason             []CodeableReference      `json:"reason,omitempty"`
@@ -65,69 +66,76 @@ func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:       "SupplyRequest",
 	})
 }
-
-func (resource *SupplyRequest) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("SupplyRequest.Id", nil)
+func (r SupplyRequest) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "SupplyRequest/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("SupplyRequest.Id", resource.Id)
-}
-func (resource *SupplyRequest) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("SupplyRequest.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("SupplyRequest.ImplicitRules", resource.ImplicitRules)
+	rtype := "SupplyRequest"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *SupplyRequest) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("SupplyRequest.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("SupplyRequest.Language", resource.Language, optionsValueSet)
-}
-func (resource *SupplyRequest) T_Status() templ.Component {
+func (resource *SupplyRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplyrequest_status
 
 	if resource == nil {
-		return CodeSelect("SupplyRequest.Status", nil, optionsValueSet)
+		return CodeSelect("SupplyRequest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SupplyRequest.Status", resource.Status, optionsValueSet)
+	return CodeSelect("SupplyRequest.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_Category(optionsValueSet []Coding) templ.Component {
+func (resource *SupplyRequest) T_Category(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeableConceptSelect("SupplyRequest.Category", nil, optionsValueSet)
+		return CodeableConceptSelect("SupplyRequest.Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SupplyRequest.Category", resource.Category, optionsValueSet)
+	return CodeableConceptSelect("SupplyRequest.Category", resource.Category, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_Priority() templ.Component {
+func (resource *SupplyRequest) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("SupplyRequest.Priority", nil, optionsValueSet)
+		return CodeSelect("SupplyRequest.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SupplyRequest.Priority", resource.Priority, optionsValueSet)
+	return CodeSelect("SupplyRequest.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_AuthoredOn() templ.Component {
+func (resource *SupplyRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("SupplyRequest.AuthoredOn", nil)
+		return DateTimeInput("SupplyRequest.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return StringInput("SupplyRequest.AuthoredOn", resource.AuthoredOn)
+	return DateTimeInput("SupplyRequest.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *SupplyRequest) T_ParameterId(numParameter int) templ.Component {
+func (resource *SupplyRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Parameter) >= numParameter {
-		return StringInput("SupplyRequest.Parameter["+strconv.Itoa(numParameter)+"].Id", nil)
+	if resource == nil {
+		return DateTimeInput("SupplyRequest.AuthoredOn", nil, htmlAttrs)
 	}
-	return StringInput("SupplyRequest.Parameter["+strconv.Itoa(numParameter)+"].Id", resource.Parameter[numParameter].Id)
+	return DateTimeInput("SupplyRequest.AuthoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *SupplyRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding) templ.Component {
+func (resource *SupplyRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Parameter) >= numParameter {
-		return CodeableConceptSelect("SupplyRequest.Parameter["+strconv.Itoa(numParameter)+"].Code", nil, optionsValueSet)
+	if resource == nil || numParameter >= len(resource.Parameter) {
+		return CodeableConceptSelect("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SupplyRequest.Parameter["+strconv.Itoa(numParameter)+"].Code", resource.Parameter[numParameter].Code, optionsValueSet)
+	return CodeableConceptSelect("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..Code", resource.Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *SupplyRequest) T_ParameterValueCodeableConcept(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParameter >= len(resource.Parameter) {
+		return CodeableConceptSelect("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..ValueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *SupplyRequest) T_ParameterValueBoolean(numParameter int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numParameter >= len(resource.Parameter) {
+		return BoolInput("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", nil, htmlAttrs)
+	}
+	return BoolInput("SupplyRequest.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", resource.Parameter[numParameter].ValueBoolean, htmlAttrs)
 }

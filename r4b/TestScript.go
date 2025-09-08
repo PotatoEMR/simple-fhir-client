@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type TestScript struct {
 	Title             *string                 `json:"title,omitempty"`
 	Status            string                  `json:"status"`
 	Experimental      *bool                   `json:"experimental,omitempty"`
-	Date              *string                 `json:"date,omitempty"`
+	Date              *time.Time              `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
 	Publisher         *string                 `json:"publisher,omitempty"`
 	Contact           []ContactDetail         `json:"contact,omitempty"`
 	Description       *string                 `json:"description,omitempty"`
@@ -245,682 +246,561 @@ func (r TestScript) MarshalJSON() ([]byte, error) {
 		ResourceType:    "TestScript",
 	})
 }
-
-func (resource *TestScript) T_Id() templ.Component {
+func (r TestScript) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "TestScript/" + *r.Id
+		ref.Reference = &refStr
+	}
+	ref.Identifier = r.Identifier
+	rtype := "TestScript"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *TestScript) T_Url(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Id", nil)
+		return StringInput("TestScript.Url", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Id", resource.Id)
+	return StringInput("TestScript.Url", &resource.Url, htmlAttrs)
 }
-func (resource *TestScript) T_ImplicitRules() templ.Component {
+func (resource *TestScript) T_Version(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.ImplicitRules", nil)
+		return StringInput("TestScript.Version", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.ImplicitRules", resource.ImplicitRules)
+	return StringInput("TestScript.Version", resource.Version, htmlAttrs)
 }
-func (resource *TestScript) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_Name(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("TestScript.Language", nil, optionsValueSet)
+		return StringInput("TestScript.Name", nil, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Language", resource.Language, optionsValueSet)
+	return StringInput("TestScript.Name", &resource.Name, htmlAttrs)
 }
-func (resource *TestScript) T_Url() templ.Component {
+func (resource *TestScript) T_Title(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Url", nil)
+		return StringInput("TestScript.Title", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Url", &resource.Url)
+	return StringInput("TestScript.Title", resource.Title, htmlAttrs)
 }
-func (resource *TestScript) T_Version() templ.Component {
-
-	if resource == nil {
-		return StringInput("TestScript.Version", nil)
-	}
-	return StringInput("TestScript.Version", resource.Version)
-}
-func (resource *TestScript) T_Name() templ.Component {
-
-	if resource == nil {
-		return StringInput("TestScript.Name", nil)
-	}
-	return StringInput("TestScript.Name", &resource.Name)
-}
-func (resource *TestScript) T_Title() templ.Component {
-
-	if resource == nil {
-		return StringInput("TestScript.Title", nil)
-	}
-	return StringInput("TestScript.Title", resource.Title)
-}
-func (resource *TestScript) T_Status() templ.Component {
+func (resource *TestScript) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("TestScript.Status", nil, optionsValueSet)
+		return CodeSelect("TestScript.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("TestScript.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_Experimental() templ.Component {
+func (resource *TestScript) T_Experimental(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return BoolInput("TestScript.Experimental", nil)
+		return BoolInput("TestScript.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Experimental", resource.Experimental)
+	return BoolInput("TestScript.Experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *TestScript) T_Date() templ.Component {
+func (resource *TestScript) T_Date(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Date", nil)
+		return DateTimeInput("TestScript.Date", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Date", resource.Date)
+	return DateTimeInput("TestScript.Date", resource.Date, htmlAttrs)
 }
-func (resource *TestScript) T_Publisher() templ.Component {
+func (resource *TestScript) T_Publisher(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Publisher", nil)
+		return StringInput("TestScript.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Publisher", resource.Publisher)
+	return StringInput("TestScript.Publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *TestScript) T_Description() templ.Component {
+func (resource *TestScript) T_Description(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Description", nil)
+		return StringInput("TestScript.Description", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Description", resource.Description)
+	return StringInput("TestScript.Description", resource.Description, htmlAttrs)
 }
-func (resource *TestScript) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Jurisdiction) >= numJurisdiction {
-		return CodeableConceptSelect("TestScript.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet)
+	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
+		return CodeableConceptSelect("TestScript.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("TestScript.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet)
+	return CodeableConceptSelect("TestScript.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_Purpose() templ.Component {
-
-	if resource == nil {
-		return StringInput("TestScript.Purpose", nil)
-	}
-	return StringInput("TestScript.Purpose", resource.Purpose)
-}
-func (resource *TestScript) T_Copyright() templ.Component {
+func (resource *TestScript) T_Purpose(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Copyright", nil)
+		return StringInput("TestScript.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Copyright", resource.Copyright)
+	return StringInput("TestScript.Purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *TestScript) T_OriginId(numOrigin int) templ.Component {
-
-	if resource == nil || len(resource.Origin) >= numOrigin {
-		return StringInput("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Id", nil)
-	}
-	return StringInput("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Id", resource.Origin[numOrigin].Id)
-}
-func (resource *TestScript) T_OriginIndex(numOrigin int) templ.Component {
-
-	if resource == nil || len(resource.Origin) >= numOrigin {
-		return IntInput("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Index", nil)
-	}
-	return IntInput("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Index", &resource.Origin[numOrigin].Index)
-}
-func (resource *TestScript) T_OriginProfile(numOrigin int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Origin) >= numOrigin {
-		return CodingSelect("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Profile", nil, optionsValueSet)
-	}
-	return CodingSelect("TestScript.Origin["+strconv.Itoa(numOrigin)+"].Profile", &resource.Origin[numOrigin].Profile, optionsValueSet)
-}
-func (resource *TestScript) T_DestinationId(numDestination int) templ.Component {
-
-	if resource == nil || len(resource.Destination) >= numDestination {
-		return StringInput("TestScript.Destination["+strconv.Itoa(numDestination)+"].Id", nil)
-	}
-	return StringInput("TestScript.Destination["+strconv.Itoa(numDestination)+"].Id", resource.Destination[numDestination].Id)
-}
-func (resource *TestScript) T_DestinationIndex(numDestination int) templ.Component {
-
-	if resource == nil || len(resource.Destination) >= numDestination {
-		return IntInput("TestScript.Destination["+strconv.Itoa(numDestination)+"].Index", nil)
-	}
-	return IntInput("TestScript.Destination["+strconv.Itoa(numDestination)+"].Index", &resource.Destination[numDestination].Index)
-}
-func (resource *TestScript) T_DestinationProfile(numDestination int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Destination) >= numDestination {
-		return CodingSelect("TestScript.Destination["+strconv.Itoa(numDestination)+"].Profile", nil, optionsValueSet)
-	}
-	return CodingSelect("TestScript.Destination["+strconv.Itoa(numDestination)+"].Profile", &resource.Destination[numDestination].Profile, optionsValueSet)
-}
-func (resource *TestScript) T_MetadataId() templ.Component {
+func (resource *TestScript) T_Copyright(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("TestScript.Metadata.Id", nil)
+		return StringInput("TestScript.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Id", resource.Metadata.Id)
+	return StringInput("TestScript.Copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataLinkId(numLink int) templ.Component {
+func (resource *TestScript) T_OriginIndex(numOrigin int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Link) >= numLink {
-		return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Id", nil)
+	if resource == nil || numOrigin >= len(resource.Origin) {
+		return IntInput("TestScript.Origin."+strconv.Itoa(numOrigin)+"..Index", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Id", resource.Metadata.Link[numLink].Id)
+	return IntInput("TestScript.Origin."+strconv.Itoa(numOrigin)+"..Index", &resource.Origin[numOrigin].Index, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataLinkUrl(numLink int) templ.Component {
+func (resource *TestScript) T_OriginProfile(numOrigin int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Link) >= numLink {
-		return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Url", nil)
+	if resource == nil || numOrigin >= len(resource.Origin) {
+		return CodingSelect("TestScript.Origin."+strconv.Itoa(numOrigin)+"..Profile", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Url", &resource.Metadata.Link[numLink].Url)
+	return CodingSelect("TestScript.Origin."+strconv.Itoa(numOrigin)+"..Profile", &resource.Origin[numOrigin].Profile, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataLinkDescription(numLink int) templ.Component {
+func (resource *TestScript) T_DestinationIndex(numDestination int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Link) >= numLink {
-		return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Description", nil)
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return IntInput("TestScript.Destination."+strconv.Itoa(numDestination)+"..Index", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Link["+strconv.Itoa(numLink)+"].Description", resource.Metadata.Link[numLink].Description)
+	return IntInput("TestScript.Destination."+strconv.Itoa(numDestination)+"..Index", &resource.Destination[numDestination].Index, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityId(numCapability int) templ.Component {
+func (resource *TestScript) T_DestinationProfile(numDestination int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Id", nil)
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return CodingSelect("TestScript.Destination."+strconv.Itoa(numDestination)+"..Profile", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Id", resource.Metadata.Capability[numCapability].Id)
+	return CodingSelect("TestScript.Destination."+strconv.Itoa(numDestination)+"..Profile", &resource.Destination[numDestination].Profile, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityRequired(numCapability int) templ.Component {
+func (resource *TestScript) T_MetadataLinkUrl(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return BoolInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Required", nil)
+	if resource == nil || numLink >= len(resource.Metadata.Link) {
+		return StringInput("TestScript.Metadata.Link."+strconv.Itoa(numLink)+"..Url", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Required", &resource.Metadata.Capability[numCapability].Required)
+	return StringInput("TestScript.Metadata.Link."+strconv.Itoa(numLink)+"..Url", &resource.Metadata.Link[numLink].Url, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityValidated(numCapability int) templ.Component {
+func (resource *TestScript) T_MetadataLinkDescription(numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return BoolInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Validated", nil)
+	if resource == nil || numLink >= len(resource.Metadata.Link) {
+		return StringInput("TestScript.Metadata.Link."+strconv.Itoa(numLink)+"..Description", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Validated", &resource.Metadata.Capability[numCapability].Validated)
+	return StringInput("TestScript.Metadata.Link."+strconv.Itoa(numLink)+"..Description", resource.Metadata.Link[numLink].Description, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityDescription(numCapability int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityRequired(numCapability int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Description", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) {
+		return BoolInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Required", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Description", resource.Metadata.Capability[numCapability].Description)
+	return BoolInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Required", &resource.Metadata.Capability[numCapability].Required, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityOrigin(numCapability int, numOrigin int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityValidated(numCapability int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability || len(resource.Metadata.Capability[numCapability].Origin) >= numOrigin {
-		return IntInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Origin["+strconv.Itoa(numOrigin)+"]", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) {
+		return BoolInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Validated", nil, htmlAttrs)
 	}
-	return IntInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Origin["+strconv.Itoa(numOrigin)+"]", &resource.Metadata.Capability[numCapability].Origin[numOrigin])
+	return BoolInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Validated", &resource.Metadata.Capability[numCapability].Validated, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityDestination(numCapability int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityDescription(numCapability int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return IntInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Destination", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) {
+		return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Description", nil, htmlAttrs)
 	}
-	return IntInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Destination", resource.Metadata.Capability[numCapability].Destination)
+	return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Description", resource.Metadata.Capability[numCapability].Description, htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityLink(numCapability int, numLink int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityOrigin(numCapability int, numOrigin int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability || len(resource.Metadata.Capability[numCapability].Link) >= numLink {
-		return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Link["+strconv.Itoa(numLink)+"]", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) || numOrigin >= len(resource.Metadata.Capability[numCapability].Origin) {
+		return IntInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Origin."+strconv.Itoa(numOrigin)+".", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Link["+strconv.Itoa(numLink)+"]", &resource.Metadata.Capability[numCapability].Link[numLink])
+	return IntInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Origin."+strconv.Itoa(numOrigin)+".", &resource.Metadata.Capability[numCapability].Origin[numOrigin], htmlAttrs)
 }
-func (resource *TestScript) T_MetadataCapabilityCapabilities(numCapability int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityDestination(numCapability int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Metadata.Capability) >= numCapability {
-		return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Capabilities", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) {
+		return IntInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Destination", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Metadata.Capability["+strconv.Itoa(numCapability)+"].Capabilities", &resource.Metadata.Capability[numCapability].Capabilities)
+	return IntInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Destination", resource.Metadata.Capability[numCapability].Destination, htmlAttrs)
 }
-func (resource *TestScript) T_FixtureId(numFixture int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityLink(numCapability int, numLink int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Fixture) >= numFixture {
-		return StringInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Id", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) || numLink >= len(resource.Metadata.Capability[numCapability].Link) {
+		return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Link."+strconv.Itoa(numLink)+".", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Id", resource.Fixture[numFixture].Id)
+	return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Link."+strconv.Itoa(numLink)+".", &resource.Metadata.Capability[numCapability].Link[numLink], htmlAttrs)
 }
-func (resource *TestScript) T_FixtureAutocreate(numFixture int) templ.Component {
+func (resource *TestScript) T_MetadataCapabilityCapabilities(numCapability int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Fixture) >= numFixture {
-		return BoolInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Autocreate", nil)
+	if resource == nil || numCapability >= len(resource.Metadata.Capability) {
+		return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Capabilities", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Autocreate", &resource.Fixture[numFixture].Autocreate)
+	return StringInput("TestScript.Metadata.Capability."+strconv.Itoa(numCapability)+"..Capabilities", &resource.Metadata.Capability[numCapability].Capabilities, htmlAttrs)
 }
-func (resource *TestScript) T_FixtureAutodelete(numFixture int) templ.Component {
+func (resource *TestScript) T_FixtureAutocreate(numFixture int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Fixture) >= numFixture {
-		return BoolInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Autodelete", nil)
+	if resource == nil || numFixture >= len(resource.Fixture) {
+		return BoolInput("TestScript.Fixture."+strconv.Itoa(numFixture)+"..Autocreate", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Fixture["+strconv.Itoa(numFixture)+"].Autodelete", &resource.Fixture[numFixture].Autodelete)
+	return BoolInput("TestScript.Fixture."+strconv.Itoa(numFixture)+"..Autocreate", &resource.Fixture[numFixture].Autocreate, htmlAttrs)
 }
-func (resource *TestScript) T_VariableId(numVariable int) templ.Component {
+func (resource *TestScript) T_FixtureAutodelete(numFixture int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Id", nil)
+	if resource == nil || numFixture >= len(resource.Fixture) {
+		return BoolInput("TestScript.Fixture."+strconv.Itoa(numFixture)+"..Autodelete", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Id", resource.Variable[numVariable].Id)
+	return BoolInput("TestScript.Fixture."+strconv.Itoa(numFixture)+"..Autodelete", &resource.Fixture[numFixture].Autodelete, htmlAttrs)
 }
-func (resource *TestScript) T_VariableName(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableName(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Name", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Name", &resource.Variable[numVariable].Name)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Name", &resource.Variable[numVariable].Name, htmlAttrs)
 }
-func (resource *TestScript) T_VariableDefaultValue(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableDefaultValue(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].DefaultValue", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..DefaultValue", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].DefaultValue", resource.Variable[numVariable].DefaultValue)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..DefaultValue", resource.Variable[numVariable].DefaultValue, htmlAttrs)
 }
-func (resource *TestScript) T_VariableDescription(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableDescription(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Description", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Description", resource.Variable[numVariable].Description)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Description", resource.Variable[numVariable].Description, htmlAttrs)
 }
-func (resource *TestScript) T_VariableExpression(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableExpression(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Expression", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Expression", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Expression", resource.Variable[numVariable].Expression)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Expression", resource.Variable[numVariable].Expression, htmlAttrs)
 }
-func (resource *TestScript) T_VariableHeaderField(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableHeaderField(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].HeaderField", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..HeaderField", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].HeaderField", resource.Variable[numVariable].HeaderField)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..HeaderField", resource.Variable[numVariable].HeaderField, htmlAttrs)
 }
-func (resource *TestScript) T_VariableHint(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableHint(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Hint", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Hint", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Hint", resource.Variable[numVariable].Hint)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Hint", resource.Variable[numVariable].Hint, htmlAttrs)
 }
-func (resource *TestScript) T_VariablePath(numVariable int) templ.Component {
+func (resource *TestScript) T_VariablePath(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Path", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Path", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].Path", resource.Variable[numVariable].Path)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..Path", resource.Variable[numVariable].Path, htmlAttrs)
 }
-func (resource *TestScript) T_VariableSourceId(numVariable int) templ.Component {
+func (resource *TestScript) T_VariableSourceId(numVariable int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Variable) >= numVariable {
-		return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].SourceId", nil)
+	if resource == nil || numVariable >= len(resource.Variable) {
+		return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..SourceId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Variable["+strconv.Itoa(numVariable)+"].SourceId", resource.Variable[numVariable].SourceId)
+	return StringInput("TestScript.Variable."+strconv.Itoa(numVariable)+"..SourceId", resource.Variable[numVariable].SourceId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupId() templ.Component {
+func (resource *TestScript) T_SetupActionOperationType(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("TestScript.Setup.Id", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodingSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Id", resource.Setup.Id)
+	return CodingSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Type", resource.Setup.Action[numAction].Operation.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationResource(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Id", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Resource", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Id", resource.Setup.Action[numAction].Id)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Resource", resource.Setup.Action[numAction].Operation.Resource, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationLabel(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Id", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Label", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Id", resource.Setup.Action[numAction].Operation.Id)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Label", resource.Setup.Action[numAction].Operation.Label, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationDescription(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodingSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Type", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Description", nil, htmlAttrs)
 	}
-	return CodingSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Type", resource.Setup.Action[numAction].Operation.Type, optionsValueSet)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Description", resource.Setup.Action[numAction].Operation.Description, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationResource(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationAccept(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Resource", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Accept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Resource", resource.Setup.Action[numAction].Operation.Resource, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Accept", resource.Setup.Action[numAction].Operation.Accept, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationLabel(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationContentType(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Label", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.ContentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Label", resource.Setup.Action[numAction].Operation.Label)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.ContentType", resource.Setup.Action[numAction].Operation.ContentType, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationDescription(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationDestination(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Description", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return IntInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Destination", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Description", resource.Setup.Action[numAction].Operation.Description)
+	return IntInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Destination", resource.Setup.Action[numAction].Operation.Destination, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationAccept(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionOperationEncodeRequestUrl(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Accept", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.EncodeRequestUrl", nil, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Accept", resource.Setup.Action[numAction].Operation.Accept, optionsValueSet)
+	return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.EncodeRequestUrl", &resource.Setup.Action[numAction].Operation.EncodeRequestUrl, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationContentType(numAction int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.ContentType", nil, optionsValueSet)
-	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.ContentType", resource.Setup.Action[numAction].Operation.ContentType, optionsValueSet)
-}
-func (resource *TestScript) T_SetupActionOperationDestination(numAction int) templ.Component {
-
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return IntInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Destination", nil)
-	}
-	return IntInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Destination", resource.Setup.Action[numAction].Operation.Destination)
-}
-func (resource *TestScript) T_SetupActionOperationEncodeRequestUrl(numAction int) templ.Component {
-
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.EncodeRequestUrl", nil)
-	}
-	return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.EncodeRequestUrl", &resource.Setup.Action[numAction].Operation.EncodeRequestUrl)
-}
-func (resource *TestScript) T_SetupActionOperationMethod(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationMethod(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSHttp_operations
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Method", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Method", resource.Setup.Action[numAction].Operation.Method, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Method", resource.Setup.Action[numAction].Operation.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationOrigin(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationOrigin(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return IntInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Origin", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return IntInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Origin", nil, htmlAttrs)
 	}
-	return IntInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Origin", resource.Setup.Action[numAction].Operation.Origin)
+	return IntInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Origin", resource.Setup.Action[numAction].Operation.Origin, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationParams(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationParams(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Params", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Params", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Params", resource.Setup.Action[numAction].Operation.Params)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Params", resource.Setup.Action[numAction].Operation.Params, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationRequestId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationRequestId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestId", resource.Setup.Action[numAction].Operation.RequestId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestId", resource.Setup.Action[numAction].Operation.RequestId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationResponseId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationResponseId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.ResponseId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.ResponseId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.ResponseId", resource.Setup.Action[numAction].Operation.ResponseId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.ResponseId", resource.Setup.Action[numAction].Operation.ResponseId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationSourceId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationSourceId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.SourceId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.SourceId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.SourceId", resource.Setup.Action[numAction].Operation.SourceId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.SourceId", resource.Setup.Action[numAction].Operation.SourceId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationTargetId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationTargetId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.TargetId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.TargetId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.TargetId", resource.Setup.Action[numAction].Operation.TargetId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.TargetId", resource.Setup.Action[numAction].Operation.TargetId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationUrl(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationUrl(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Url", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Url", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Url", resource.Setup.Action[numAction].Operation.Url)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.Url", resource.Setup.Action[numAction].Operation.Url, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationRequestHeaderId(numAction int, numRequestHeader int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationRequestHeaderField(numAction int, numRequestHeader int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction || len(resource.Setup.Action[numAction].Operation.RequestHeader) >= numRequestHeader {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Id", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) || numRequestHeader >= len(resource.Setup.Action[numAction].Operation.RequestHeader) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestHeader."+strconv.Itoa(numRequestHeader)+"..Field", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Id", resource.Setup.Action[numAction].Operation.RequestHeader[numRequestHeader].Id)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestHeader."+strconv.Itoa(numRequestHeader)+"..Field", &resource.Setup.Action[numAction].Operation.RequestHeader[numRequestHeader].Field, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationRequestHeaderField(numAction int, numRequestHeader int) templ.Component {
+func (resource *TestScript) T_SetupActionOperationRequestHeaderValue(numAction int, numRequestHeader int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction || len(resource.Setup.Action[numAction].Operation.RequestHeader) >= numRequestHeader {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Field", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) || numRequestHeader >= len(resource.Setup.Action[numAction].Operation.RequestHeader) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestHeader."+strconv.Itoa(numRequestHeader)+"..Value", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Field", &resource.Setup.Action[numAction].Operation.RequestHeader[numRequestHeader].Field)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Operation.RequestHeader."+strconv.Itoa(numRequestHeader)+"..Value", &resource.Setup.Action[numAction].Operation.RequestHeader[numRequestHeader].Value, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionOperationRequestHeaderValue(numAction int, numRequestHeader int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertLabel(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction || len(resource.Setup.Action[numAction].Operation.RequestHeader) >= numRequestHeader {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Value", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Label", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Operation.RequestHeader["+strconv.Itoa(numRequestHeader)+"].Value", &resource.Setup.Action[numAction].Operation.RequestHeader[numRequestHeader].Value)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Label", resource.Setup.Action[numAction].Assert.Label, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertDescription(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Id", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Description", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Id", resource.Setup.Action[numAction].Assert.Id)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Description", resource.Setup.Action[numAction].Assert.Description, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertLabel(numAction int) templ.Component {
-
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Label", nil)
-	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Label", resource.Setup.Action[numAction].Assert.Label)
-}
-func (resource *TestScript) T_SetupActionAssertDescription(numAction int) templ.Component {
-
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Description", nil)
-	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Description", resource.Setup.Action[numAction].Assert.Description)
-}
-func (resource *TestScript) T_SetupActionAssertDirection(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertDirection(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAssert_direction_codes
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Direction", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Direction", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Direction", resource.Setup.Action[numAction].Assert.Direction, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Direction", resource.Setup.Action[numAction].Assert.Direction, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertCompareToSourceId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertCompareToSourceId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourceId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourceId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourceId", resource.Setup.Action[numAction].Assert.CompareToSourceId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourceId", resource.Setup.Action[numAction].Assert.CompareToSourceId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertCompareToSourceExpression(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertCompareToSourceExpression(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourceExpression", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourceExpression", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourceExpression", resource.Setup.Action[numAction].Assert.CompareToSourceExpression)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourceExpression", resource.Setup.Action[numAction].Assert.CompareToSourceExpression, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertCompareToSourcePath(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertCompareToSourcePath(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourcePath", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourcePath", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.CompareToSourcePath", resource.Setup.Action[numAction].Assert.CompareToSourcePath)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.CompareToSourcePath", resource.Setup.Action[numAction].Assert.CompareToSourcePath, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertContentType(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionAssertContentType(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ContentType", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ContentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ContentType", resource.Setup.Action[numAction].Assert.ContentType, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ContentType", resource.Setup.Action[numAction].Assert.ContentType, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertExpression(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertExpression(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Expression", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Expression", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Expression", resource.Setup.Action[numAction].Assert.Expression)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Expression", resource.Setup.Action[numAction].Assert.Expression, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertHeaderField(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertHeaderField(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.HeaderField", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.HeaderField", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.HeaderField", resource.Setup.Action[numAction].Assert.HeaderField)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.HeaderField", resource.Setup.Action[numAction].Assert.HeaderField, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertMinimumId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertMinimumId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.MinimumId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.MinimumId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.MinimumId", resource.Setup.Action[numAction].Assert.MinimumId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.MinimumId", resource.Setup.Action[numAction].Assert.MinimumId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertNavigationLinks(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertNavigationLinks(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.NavigationLinks", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.NavigationLinks", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.NavigationLinks", resource.Setup.Action[numAction].Assert.NavigationLinks)
+	return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.NavigationLinks", resource.Setup.Action[numAction].Assert.NavigationLinks, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertOperator(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertOperator(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAssert_operator_codes
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Operator", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Operator", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Operator", resource.Setup.Action[numAction].Assert.Operator, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Operator", resource.Setup.Action[numAction].Assert.Operator, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertPath(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertPath(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Path", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Path", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Path", resource.Setup.Action[numAction].Assert.Path)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Path", resource.Setup.Action[numAction].Assert.Path, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertRequestMethod(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertRequestMethod(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSHttp_operations
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.RequestMethod", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.RequestMethod", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.RequestMethod", resource.Setup.Action[numAction].Assert.RequestMethod, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.RequestMethod", resource.Setup.Action[numAction].Assert.RequestMethod, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertRequestURL(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertRequestURL(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.RequestURL", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.RequestURL", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.RequestURL", resource.Setup.Action[numAction].Assert.RequestURL)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.RequestURL", resource.Setup.Action[numAction].Assert.RequestURL, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertResource(numAction int, optionsValueSet []Coding) templ.Component {
+func (resource *TestScript) T_SetupActionAssertResource(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Resource", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Resource", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Resource", resource.Setup.Action[numAction].Assert.Resource, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Resource", resource.Setup.Action[numAction].Assert.Resource, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertResponse(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertResponse(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAssert_response_code_types
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Response", nil, optionsValueSet)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Response", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Response", resource.Setup.Action[numAction].Assert.Response, optionsValueSet)
+	return CodeSelect("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Response", resource.Setup.Action[numAction].Assert.Response, optionsValueSet, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertResponseCode(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertResponseCode(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ResponseCode", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ResponseCode", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ResponseCode", resource.Setup.Action[numAction].Assert.ResponseCode)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ResponseCode", resource.Setup.Action[numAction].Assert.ResponseCode, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertSourceId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertSourceId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.SourceId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.SourceId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.SourceId", resource.Setup.Action[numAction].Assert.SourceId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.SourceId", resource.Setup.Action[numAction].Assert.SourceId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertValidateProfileId(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertValidateProfileId(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ValidateProfileId", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ValidateProfileId", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.ValidateProfileId", resource.Setup.Action[numAction].Assert.ValidateProfileId)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.ValidateProfileId", resource.Setup.Action[numAction].Assert.ValidateProfileId, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertValue(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertValue(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Value", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Value", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Value", resource.Setup.Action[numAction].Assert.Value)
+	return StringInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.Value", resource.Setup.Action[numAction].Assert.Value, htmlAttrs)
 }
-func (resource *TestScript) T_SetupActionAssertWarningOnly(numAction int) templ.Component {
+func (resource *TestScript) T_SetupActionAssertWarningOnly(numAction int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Setup.Action) >= numAction {
-		return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.WarningOnly", nil)
+	if resource == nil || numAction >= len(resource.Setup.Action) {
+		return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.WarningOnly", nil, htmlAttrs)
 	}
-	return BoolInput("TestScript.Setup.Action["+strconv.Itoa(numAction)+"].Assert.WarningOnly", &resource.Setup.Action[numAction].Assert.WarningOnly)
+	return BoolInput("TestScript.Setup.Action."+strconv.Itoa(numAction)+"..Assert.WarningOnly", &resource.Setup.Action[numAction].Assert.WarningOnly, htmlAttrs)
 }
-func (resource *TestScript) T_TestId(numTest int) templ.Component {
+func (resource *TestScript) T_TestName(numTest int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Test) >= numTest {
-		return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Id", nil)
+	if resource == nil || numTest >= len(resource.Test) {
+		return StringInput("TestScript.Test."+strconv.Itoa(numTest)+"..Name", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Id", resource.Test[numTest].Id)
+	return StringInput("TestScript.Test."+strconv.Itoa(numTest)+"..Name", resource.Test[numTest].Name, htmlAttrs)
 }
-func (resource *TestScript) T_TestName(numTest int) templ.Component {
+func (resource *TestScript) T_TestDescription(numTest int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Test) >= numTest {
-		return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Name", nil)
+	if resource == nil || numTest >= len(resource.Test) {
+		return StringInput("TestScript.Test."+strconv.Itoa(numTest)+"..Description", nil, htmlAttrs)
 	}
-	return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Name", resource.Test[numTest].Name)
-}
-func (resource *TestScript) T_TestDescription(numTest int) templ.Component {
-
-	if resource == nil || len(resource.Test) >= numTest {
-		return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Description", nil)
-	}
-	return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Description", resource.Test[numTest].Description)
-}
-func (resource *TestScript) T_TestActionId(numTest int, numAction int) templ.Component {
-
-	if resource == nil || len(resource.Test) >= numTest || len(resource.Test[numTest].Action) >= numAction {
-		return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Action["+strconv.Itoa(numAction)+"].Id", nil)
-	}
-	return StringInput("TestScript.Test["+strconv.Itoa(numTest)+"].Action["+strconv.Itoa(numAction)+"].Id", resource.Test[numTest].Action[numAction].Id)
-}
-func (resource *TestScript) T_TeardownId() templ.Component {
-
-	if resource == nil {
-		return StringInput("TestScript.Teardown.Id", nil)
-	}
-	return StringInput("TestScript.Teardown.Id", resource.Teardown.Id)
-}
-func (resource *TestScript) T_TeardownActionId(numAction int) templ.Component {
-
-	if resource == nil || len(resource.Teardown.Action) >= numAction {
-		return StringInput("TestScript.Teardown.Action["+strconv.Itoa(numAction)+"].Id", nil)
-	}
-	return StringInput("TestScript.Teardown.Action["+strconv.Itoa(numAction)+"].Id", resource.Teardown.Action[numAction].Id)
+	return StringInput("TestScript.Test."+strconv.Itoa(numTest)+"..Description", resource.Test[numTest].Description, htmlAttrs)
 }

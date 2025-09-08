@@ -1,12 +1,13 @@
 package r4b
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +29,7 @@ type RelatedPerson struct {
 	Name              []HumanName                  `json:"name,omitempty"`
 	Telecom           []ContactPoint               `json:"telecom,omitempty"`
 	Gender            *string                      `json:"gender,omitempty"`
-	BirthDate         *string                      `json:"birthDate,omitempty"`
+	BirthDate         *time.Time                   `json:"birthDate,omitempty,format:'2006-01-02'"`
 	Address           []Address                    `json:"address,omitempty"`
 	Photo             []Attachment                 `json:"photo,omitempty"`
 	Period            *Period                      `json:"period,omitempty"`
@@ -56,75 +57,54 @@ func (r RelatedPerson) MarshalJSON() ([]byte, error) {
 		ResourceType:       "RelatedPerson",
 	})
 }
-
-func (resource *RelatedPerson) T_Id() templ.Component {
+func (r RelatedPerson) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "RelatedPerson/" + *r.Id
+		ref.Reference = &refStr
+	}
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
+	}
+	rtype := "RelatedPerson"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *RelatedPerson) T_Active(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RelatedPerson.Id", nil)
+		return BoolInput("RelatedPerson.Active", nil, htmlAttrs)
 	}
-	return StringInput("RelatedPerson.Id", resource.Id)
+	return BoolInput("RelatedPerson.Active", resource.Active, htmlAttrs)
 }
-func (resource *RelatedPerson) T_ImplicitRules() templ.Component {
+func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil {
-		return StringInput("RelatedPerson.ImplicitRules", nil)
+	if resource == nil || numRelationship >= len(resource.Relationship) {
+		return CodeableConceptSelect("RelatedPerson.Relationship."+strconv.Itoa(numRelationship)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("RelatedPerson.ImplicitRules", resource.ImplicitRules)
+	return CodeableConceptSelect("RelatedPerson.Relationship."+strconv.Itoa(numRelationship)+".", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
 }
-func (resource *RelatedPerson) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("RelatedPerson.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("RelatedPerson.Language", resource.Language, optionsValueSet)
-}
-func (resource *RelatedPerson) T_Active() templ.Component {
-
-	if resource == nil {
-		return BoolInput("RelatedPerson.Active", nil)
-	}
-	return BoolInput("RelatedPerson.Active", resource.Active)
-}
-func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Relationship) >= numRelationship {
-		return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet)
-}
-func (resource *RelatedPerson) T_Gender() templ.Component {
+func (resource *RelatedPerson) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("RelatedPerson.Gender", nil, optionsValueSet)
+		return CodeSelect("RelatedPerson.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RelatedPerson.Gender", resource.Gender, optionsValueSet)
+	return CodeSelect("RelatedPerson.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *RelatedPerson) T_BirthDate() templ.Component {
+func (resource *RelatedPerson) T_BirthDate(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("RelatedPerson.BirthDate", nil)
+		return DateInput("RelatedPerson.BirthDate", nil, htmlAttrs)
 	}
-	return StringInput("RelatedPerson.BirthDate", resource.BirthDate)
+	return DateInput("RelatedPerson.BirthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *RelatedPerson) T_CommunicationId(numCommunication int) templ.Component {
+func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return StringInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Id", nil)
+	if resource == nil || numCommunication >= len(resource.Communication) {
+		return BoolInput("RelatedPerson.Communication."+strconv.Itoa(numCommunication)+"..Preferred", nil, htmlAttrs)
 	}
-	return StringInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Id", resource.Communication[numCommunication].Id)
-}
-func (resource *RelatedPerson) T_CommunicationLanguage(numCommunication int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return CodeableConceptSelect("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Language", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Language", &resource.Communication[numCommunication].Language, optionsValueSet)
-}
-func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int) templ.Component {
-
-	if resource == nil || len(resource.Communication) >= numCommunication {
-		return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil)
-	}
-	return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred)
+	return BoolInput("RelatedPerson.Communication."+strconv.Itoa(numCommunication)+"..Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }

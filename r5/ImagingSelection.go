@@ -1,6 +1,6 @@
 package r5
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -92,175 +92,140 @@ func (r ImagingSelection) MarshalJSON() ([]byte, error) {
 		ResourceType:          "ImagingSelection",
 	})
 }
-
-func (resource *ImagingSelection) T_Id() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImagingSelection.Id", nil)
+func (r ImagingSelection) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "ImagingSelection/" + *r.Id
+		ref.Reference = &refStr
 	}
-	return StringInput("ImagingSelection.Id", resource.Id)
-}
-func (resource *ImagingSelection) T_ImplicitRules() templ.Component {
-
-	if resource == nil {
-		return StringInput("ImagingSelection.ImplicitRules", nil)
+	if len(r.Identifier) != 0 {
+		ref.Identifier = &r.Identifier[0]
 	}
-	return StringInput("ImagingSelection.ImplicitRules", resource.ImplicitRules)
+	rtype := "ImagingSelection"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
 }
-func (resource *ImagingSelection) T_Language(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeSelect("ImagingSelection.Language", nil, optionsValueSet)
-	}
-	return CodeSelect("ImagingSelection.Language", resource.Language, optionsValueSet)
-}
-func (resource *ImagingSelection) T_Status() templ.Component {
+func (resource *ImagingSelection) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSImagingselection_status
 
 	if resource == nil {
-		return CodeSelect("ImagingSelection.Status", nil, optionsValueSet)
+		return CodeSelect("ImagingSelection.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImagingSelection.Status", &resource.Status, optionsValueSet)
+	return CodeSelect("ImagingSelection.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_Issued() templ.Component {
+func (resource *ImagingSelection) T_Issued(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImagingSelection.Issued", nil)
+		return StringInput("ImagingSelection.Issued", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.Issued", resource.Issued)
+	return StringInput("ImagingSelection.Issued", resource.Issued, htmlAttrs)
 }
-func (resource *ImagingSelection) T_Category(numCategory int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingSelection) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Category) >= numCategory {
-		return CodeableConceptSelect("ImagingSelection.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet)
+	if resource == nil || numCategory >= len(resource.Category) {
+		return CodeableConceptSelect("ImagingSelection.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImagingSelection.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet)
+	return CodeableConceptSelect("ImagingSelection.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_Code(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("ImagingSelection.Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("ImagingSelection.Code", &resource.Code, optionsValueSet)
-}
-func (resource *ImagingSelection) T_StudyUid() templ.Component {
+func (resource *ImagingSelection) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImagingSelection.StudyUid", nil)
+		return CodeableConceptSelect("ImagingSelection.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.StudyUid", resource.StudyUid)
+	return CodeableConceptSelect("ImagingSelection.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_SeriesUid() templ.Component {
+func (resource *ImagingSelection) T_StudyUid(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImagingSelection.SeriesUid", nil)
+		return StringInput("ImagingSelection.StudyUid", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.SeriesUid", resource.SeriesUid)
+	return StringInput("ImagingSelection.StudyUid", resource.StudyUid, htmlAttrs)
 }
-func (resource *ImagingSelection) T_SeriesNumber() templ.Component {
+func (resource *ImagingSelection) T_SeriesUid(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return IntInput("ImagingSelection.SeriesNumber", nil)
+		return StringInput("ImagingSelection.SeriesUid", nil, htmlAttrs)
 	}
-	return IntInput("ImagingSelection.SeriesNumber", resource.SeriesNumber)
+	return StringInput("ImagingSelection.SeriesUid", resource.SeriesUid, htmlAttrs)
 }
-func (resource *ImagingSelection) T_FrameOfReferenceUid() templ.Component {
+func (resource *ImagingSelection) T_SeriesNumber(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("ImagingSelection.FrameOfReferenceUid", nil)
+		return IntInput("ImagingSelection.SeriesNumber", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.FrameOfReferenceUid", resource.FrameOfReferenceUid)
+	return IntInput("ImagingSelection.SeriesNumber", resource.SeriesNumber, htmlAttrs)
 }
-func (resource *ImagingSelection) T_PerformerId(numPerformer int) templ.Component {
+func (resource *ImagingSelection) T_FrameOfReferenceUid(htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return StringInput("ImagingSelection.Performer["+strconv.Itoa(numPerformer)+"].Id", nil)
+	if resource == nil {
+		return StringInput("ImagingSelection.FrameOfReferenceUid", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.Performer["+strconv.Itoa(numPerformer)+"].Id", resource.Performer[numPerformer].Id)
+	return StringInput("ImagingSelection.FrameOfReferenceUid", resource.FrameOfReferenceUid, htmlAttrs)
 }
-func (resource *ImagingSelection) T_PerformerFunction(numPerformer int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingSelection) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Performer) >= numPerformer {
-		return CodeableConceptSelect("ImagingSelection.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet)
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return CodeableConceptSelect("ImagingSelection.Performer."+strconv.Itoa(numPerformer)+"..Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImagingSelection.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet)
+	return CodeableConceptSelect("ImagingSelection.Performer."+strconv.Itoa(numPerformer)+"..Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceId(numInstance int) templ.Component {
+func (resource *ImagingSelection) T_InstanceUid(numInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Id", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return StringInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Uid", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Id", resource.Instance[numInstance].Id)
+	return StringInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Uid", &resource.Instance[numInstance].Uid, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceUid(numInstance int) templ.Component {
+func (resource *ImagingSelection) T_InstanceNumber(numInstance int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Uid", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return IntInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Number", nil, htmlAttrs)
 	}
-	return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Uid", &resource.Instance[numInstance].Uid)
+	return IntInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Number", resource.Instance[numInstance].Number, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceNumber(numInstance int) templ.Component {
+func (resource *ImagingSelection) T_InstanceSopClass(numInstance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return IntInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Number", nil)
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return CodingSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..SopClass", nil, optionsValueSet, htmlAttrs)
 	}
-	return IntInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Number", resource.Instance[numInstance].Number)
+	return CodingSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..SopClass", resource.Instance[numInstance].SopClass, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceSopClass(numInstance int, optionsValueSet []Coding) templ.Component {
+func (resource *ImagingSelection) T_InstanceSubset(numInstance int, numSubset int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance {
-		return CodingSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].SopClass", nil, optionsValueSet)
+	if resource == nil || numInstance >= len(resource.Instance) || numSubset >= len(resource.Instance[numInstance].Subset) {
+		return StringInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Subset."+strconv.Itoa(numSubset)+".", nil, htmlAttrs)
 	}
-	return CodingSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].SopClass", resource.Instance[numInstance].SopClass, optionsValueSet)
+	return StringInput("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..Subset."+strconv.Itoa(numSubset)+".", &resource.Instance[numInstance].Subset[numSubset], htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceSubset(numInstance int, numSubset int) templ.Component {
-
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].Subset) >= numSubset {
-		return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Subset["+strconv.Itoa(numSubset)+"]", nil)
-	}
-	return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].Subset["+strconv.Itoa(numSubset)+"]", &resource.Instance[numInstance].Subset[numSubset])
-}
-func (resource *ImagingSelection) T_InstanceImageRegion2DId(numInstance int, numImageRegion2D int) templ.Component {
-
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D {
-		return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].Id", nil)
-	}
-	return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].Id", resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].Id)
-}
-func (resource *ImagingSelection) T_InstanceImageRegion2DRegionType(numInstance int, numImageRegion2D int) templ.Component {
+func (resource *ImagingSelection) T_InstanceImageRegion2DRegionType(numInstance int, numImageRegion2D int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSImagingselection_2dgraphictype
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D {
-		return CodeSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].RegionType", nil, optionsValueSet)
+	if resource == nil || numInstance >= len(resource.Instance) || numImageRegion2D >= len(resource.Instance[numInstance].ImageRegion2D) {
+		return CodeSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion2D."+strconv.Itoa(numImageRegion2D)+"..RegionType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].RegionType", &resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].RegionType, optionsValueSet)
+	return CodeSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion2D."+strconv.Itoa(numImageRegion2D)+"..RegionType", &resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].RegionType, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceImageRegion2DCoordinate(numInstance int, numImageRegion2D int, numCoordinate int) templ.Component {
+func (resource *ImagingSelection) T_InstanceImageRegion2DCoordinate(numInstance int, numImageRegion2D int, numCoordinate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion2D) >= numImageRegion2D || len(resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].Coordinate) >= numCoordinate {
-		return Float64Input("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].Coordinate["+strconv.Itoa(numCoordinate)+"]", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numImageRegion2D >= len(resource.Instance[numInstance].ImageRegion2D) || numCoordinate >= len(resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].Coordinate) {
+		return Float64Input("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion2D."+strconv.Itoa(numImageRegion2D)+"..Coordinate."+strconv.Itoa(numCoordinate)+".", nil, htmlAttrs)
 	}
-	return Float64Input("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion2D["+strconv.Itoa(numImageRegion2D)+"].Coordinate["+strconv.Itoa(numCoordinate)+"]", &resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].Coordinate[numCoordinate])
+	return Float64Input("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion2D."+strconv.Itoa(numImageRegion2D)+"..Coordinate."+strconv.Itoa(numCoordinate)+".", &resource.Instance[numInstance].ImageRegion2D[numImageRegion2D].Coordinate[numCoordinate], htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceImageRegion3DId(numInstance int, numImageRegion3D int) templ.Component {
-
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D {
-		return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].Id", nil)
-	}
-	return StringInput("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].Id", resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].Id)
-}
-func (resource *ImagingSelection) T_InstanceImageRegion3DRegionType(numInstance int, numImageRegion3D int) templ.Component {
+func (resource *ImagingSelection) T_InstanceImageRegion3DRegionType(numInstance int, numImageRegion3D int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSImagingselection_3dgraphictype
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D {
-		return CodeSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].RegionType", nil, optionsValueSet)
+	if resource == nil || numInstance >= len(resource.Instance) || numImageRegion3D >= len(resource.Instance[numInstance].ImageRegion3D) {
+		return CodeSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion3D."+strconv.Itoa(numImageRegion3D)+"..RegionType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].RegionType", &resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].RegionType, optionsValueSet)
+	return CodeSelect("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion3D."+strconv.Itoa(numImageRegion3D)+"..RegionType", &resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].RegionType, optionsValueSet, htmlAttrs)
 }
-func (resource *ImagingSelection) T_InstanceImageRegion3DCoordinate(numInstance int, numImageRegion3D int, numCoordinate int) templ.Component {
+func (resource *ImagingSelection) T_InstanceImageRegion3DCoordinate(numInstance int, numImageRegion3D int, numCoordinate int, htmlAttrs string) templ.Component {
 
-	if resource == nil || len(resource.Instance) >= numInstance || len(resource.Instance[numInstance].ImageRegion3D) >= numImageRegion3D || len(resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].Coordinate) >= numCoordinate {
-		return Float64Input("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].Coordinate["+strconv.Itoa(numCoordinate)+"]", nil)
+	if resource == nil || numInstance >= len(resource.Instance) || numImageRegion3D >= len(resource.Instance[numInstance].ImageRegion3D) || numCoordinate >= len(resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].Coordinate) {
+		return Float64Input("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion3D."+strconv.Itoa(numImageRegion3D)+"..Coordinate."+strconv.Itoa(numCoordinate)+".", nil, htmlAttrs)
 	}
-	return Float64Input("ImagingSelection.Instance["+strconv.Itoa(numInstance)+"].ImageRegion3D["+strconv.Itoa(numImageRegion3D)+"].Coordinate["+strconv.Itoa(numCoordinate)+"]", &resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].Coordinate[numCoordinate])
+	return Float64Input("ImagingSelection.Instance."+strconv.Itoa(numInstance)+"..ImageRegion3D."+strconv.Itoa(numImageRegion3D)+"..Coordinate."+strconv.Itoa(numCoordinate)+".", &resource.Instance[numInstance].ImageRegion3D[numImageRegion3D].Coordinate[numCoordinate], htmlAttrs)
 }

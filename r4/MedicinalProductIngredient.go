@@ -1,6 +1,6 @@
 package r4
 
-//generated with command go run ./bultaoreune -nodownload
+//generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
 
@@ -86,130 +86,93 @@ func (r MedicinalProductIngredient) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "MedicinalProductIngredient",
 	})
 }
-
-func (resource *MedicinalProductIngredient) T_Id() templ.Component {
+func (r MedicinalProductIngredient) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "MedicinalProductIngredient/" + *r.Id
+		ref.Reference = &refStr
+	}
+	ref.Identifier = r.Identifier
+	rtype := "MedicinalProductIngredient"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
+func (resource *MedicinalProductIngredient) T_Role(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductIngredient.Id", nil)
+		return CodeableConceptSelect("MedicinalProductIngredient.Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return StringInput("MedicinalProductIngredient.Id", resource.Id)
+	return CodeableConceptSelect("MedicinalProductIngredient.Role", &resource.Role, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIngredient) T_ImplicitRules() templ.Component {
+func (resource *MedicinalProductIngredient) T_AllergenicIndicator(htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return StringInput("MedicinalProductIngredient.ImplicitRules", nil)
+		return BoolInput("MedicinalProductIngredient.AllergenicIndicator", nil, htmlAttrs)
 	}
-	return StringInput("MedicinalProductIngredient.ImplicitRules", resource.ImplicitRules)
+	return BoolInput("MedicinalProductIngredient.AllergenicIndicator", resource.AllergenicIndicator, htmlAttrs)
 }
-func (resource *MedicinalProductIngredient) T_Language(optionsValueSet []Coding) templ.Component {
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceCode(numSpecifiedSubstance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Code", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Code", &resource.SpecifiedSubstance[numSpecifiedSubstance].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceGroup(numSpecifiedSubstance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Group", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Group", &resource.SpecifiedSubstance[numSpecifiedSubstance].Group, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceConfidentiality(numSpecifiedSubstance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Confidentiality", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Confidentiality", resource.SpecifiedSubstance[numSpecifiedSubstance].Confidentiality, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthMeasurementPoint(numSpecifiedSubstance int, numStrength int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) || numStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) {
+		return StringInput("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..MeasurementPoint", nil, htmlAttrs)
+	}
+	return StringInput("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..MeasurementPoint", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].MeasurementPoint, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthCountry(numSpecifiedSubstance int, numStrength int, numCountry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) || numStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) || numCountry >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Country) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..Country."+strconv.Itoa(numCountry)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..Country."+strconv.Itoa(numCountry)+".", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Country[numCountry], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthSubstance(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) || numStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) || numReferenceStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..Substance", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..Substance", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Substance, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthMeasurementPoint(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) || numStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) || numReferenceStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) {
+		return StringInput("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..MeasurementPoint", nil, htmlAttrs)
+	}
+	return StringInput("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..MeasurementPoint", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].MeasurementPoint, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthCountry(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, numCountry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+
+	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) || numStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) || numReferenceStrength >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) || numCountry >= len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Country) {
+		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..Country."+strconv.Itoa(numCountry)+".", nil, optionsValueSet, htmlAttrs)
+	}
+	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance."+strconv.Itoa(numSpecifiedSubstance)+"..Strength."+strconv.Itoa(numStrength)+"..ReferenceStrength."+strconv.Itoa(numReferenceStrength)+"..Country."+strconv.Itoa(numCountry)+".", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[numCountry], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIngredient) T_SubstanceCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 
 	if resource == nil {
-		return CodeSelect("MedicinalProductIngredient.Language", nil, optionsValueSet)
+		return CodeableConceptSelect("MedicinalProductIngredient.Substance.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicinalProductIngredient.Language", resource.Language, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_Role(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductIngredient.Role", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.Role", &resource.Role, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_AllergenicIndicator() templ.Component {
-
-	if resource == nil {
-		return BoolInput("MedicinalProductIngredient.AllergenicIndicator", nil)
-	}
-	return BoolInput("MedicinalProductIngredient.AllergenicIndicator", resource.AllergenicIndicator)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceId(numSpecifiedSubstance int) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
-		return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Id", resource.SpecifiedSubstance[numSpecifiedSubstance].Id)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceCode(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Code", &resource.SpecifiedSubstance[numSpecifiedSubstance].Code, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceGroup(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Group", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Group", &resource.SpecifiedSubstance[numSpecifiedSubstance].Group, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceConfidentiality(numSpecifiedSubstance int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Confidentiality", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Confidentiality", resource.SpecifiedSubstance[numSpecifiedSubstance].Confidentiality, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthId(numSpecifiedSubstance int, numStrength int) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength {
-		return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].Id", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Id)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthMeasurementPoint(numSpecifiedSubstance int, numStrength int) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength {
-		return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].MeasurementPoint", nil)
-	}
-	return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].MeasurementPoint", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].MeasurementPoint)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthCountry(numSpecifiedSubstance int, numStrength int, numCountry int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Country) >= numCountry {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].Country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].Country["+strconv.Itoa(numCountry)+"]", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].Country[numCountry], optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthId(numSpecifiedSubstance int, numStrength int, numReferenceStrength int) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
-		return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Id", nil)
-	}
-	return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Id", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Id)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthSubstance(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Substance", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Substance", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Substance, optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthMeasurementPoint(numSpecifiedSubstance int, numStrength int, numReferenceStrength int) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength {
-		return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].MeasurementPoint", nil)
-	}
-	return StringInput("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].MeasurementPoint", resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].MeasurementPoint)
-}
-func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceStrengthReferenceStrengthCountry(numSpecifiedSubstance int, numStrength int, numReferenceStrength int, numCountry int, optionsValueSet []Coding) templ.Component {
-
-	if resource == nil || len(resource.SpecifiedSubstance) >= numSpecifiedSubstance || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength) >= numStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength) >= numReferenceStrength || len(resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Country) >= numCountry {
-		return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.SpecifiedSubstance["+strconv.Itoa(numSpecifiedSubstance)+"].Strength["+strconv.Itoa(numStrength)+"].ReferenceStrength["+strconv.Itoa(numReferenceStrength)+"].Country["+strconv.Itoa(numCountry)+"]", &resource.SpecifiedSubstance[numSpecifiedSubstance].Strength[numStrength].ReferenceStrength[numReferenceStrength].Country[numCountry], optionsValueSet)
-}
-func (resource *MedicinalProductIngredient) T_SubstanceId() templ.Component {
-
-	if resource == nil {
-		return StringInput("MedicinalProductIngredient.Substance.Id", nil)
-	}
-	return StringInput("MedicinalProductIngredient.Substance.Id", resource.Substance.Id)
-}
-func (resource *MedicinalProductIngredient) T_SubstanceCode(optionsValueSet []Coding) templ.Component {
-
-	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductIngredient.Substance.Code", nil, optionsValueSet)
-	}
-	return CodeableConceptSelect("MedicinalProductIngredient.Substance.Code", &resource.Substance.Code, optionsValueSet)
+	return CodeableConceptSelect("MedicinalProductIngredient.Substance.Code", &resource.Substance.Code, optionsValueSet, htmlAttrs)
 }
