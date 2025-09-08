@@ -64,65 +64,56 @@ func (r AppointmentResponse) ToRef() Reference {
 	return ref
 }
 func (resource *AppointmentResponse) T_ProposedNewTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("AppointmentResponse.ProposedNewTime", nil, htmlAttrs)
+		return BoolInput("ProposedNewTime", nil, htmlAttrs)
 	}
-	return BoolInput("AppointmentResponse.ProposedNewTime", resource.ProposedNewTime, htmlAttrs)
+	return BoolInput("ProposedNewTime", resource.ProposedNewTime, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_Start(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("AppointmentResponse.Start", nil, htmlAttrs)
+		return StringInput("Start", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Start", resource.Start, htmlAttrs)
+	return StringInput("Start", resource.Start, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_End(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("AppointmentResponse.End", nil, htmlAttrs)
+		return StringInput("End", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.End", resource.End, htmlAttrs)
+	return StringInput("End", resource.End, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParticipantType >= len(resource.ParticipantType) {
-		return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ParticipantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AppointmentResponse.ParticipantType."+strconv.Itoa(numParticipantType)+".", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ParticipantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_ParticipantStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("ParticipantStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
+	return CodeSelect("ParticipantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_Comment(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("AppointmentResponse.Comment", nil, htmlAttrs)
+		return StringInput("Comment", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Comment", resource.Comment, htmlAttrs)
+	return StringInput("Comment", resource.Comment, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_Recurring(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("AppointmentResponse.Recurring", nil, htmlAttrs)
+		return BoolInput("Recurring", nil, htmlAttrs)
 	}
-	return BoolInput("AppointmentResponse.Recurring", resource.Recurring, htmlAttrs)
+	return BoolInput("Recurring", resource.Recurring, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_OccurrenceDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("AppointmentResponse.OccurrenceDate", nil, htmlAttrs)
+		return DateInput("OccurrenceDate", nil, htmlAttrs)
 	}
-	return DateInput("AppointmentResponse.OccurrenceDate", resource.OccurrenceDate, htmlAttrs)
+	return DateInput("OccurrenceDate", resource.OccurrenceDate, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_RecurrenceId(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return IntInput("AppointmentResponse.RecurrenceId", nil, htmlAttrs)
+		return IntInput("RecurrenceId", nil, htmlAttrs)
 	}
-	return IntInput("AppointmentResponse.RecurrenceId", resource.RecurrenceId, htmlAttrs)
+	return IntInput("RecurrenceId", resource.RecurrenceId, htmlAttrs)
 }

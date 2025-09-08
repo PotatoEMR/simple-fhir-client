@@ -70,108 +70,94 @@ func (r CanonicalResource) ToRef() Reference {
 	return ref
 }
 func (resource *CanonicalResource) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Url", resource.Url, htmlAttrs)
+	return StringInput("Url", resource.Url, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *CanonicalResource) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *CanonicalResource) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("CanonicalResource.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("CanonicalResource.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Title(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Title", nil, htmlAttrs)
+		return StringInput("Title", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Title", resource.Title, htmlAttrs)
+	return StringInput("Title", resource.Title, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("CanonicalResource.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CanonicalResource.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Experimental(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("CanonicalResource.Experimental", nil, htmlAttrs)
+		return BoolInput("Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("CanonicalResource.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("CanonicalResource.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("CanonicalResource.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("CanonicalResource.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CanonicalResource.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Purpose(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Purpose", nil, htmlAttrs)
+		return StringInput("Purpose", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *CanonicalResource) T_Copyright(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.Copyright", nil, htmlAttrs)
+		return StringInput("Copyright", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *CanonicalResource) T_CopyrightLabel(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CanonicalResource.CopyrightLabel", nil, htmlAttrs)
+		return StringInput("CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("CanonicalResource.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }

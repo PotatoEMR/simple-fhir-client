@@ -59,37 +59,32 @@ func (r BodyStructure) ToRef() Reference {
 	return ref
 }
 func (resource *BodyStructure) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("BodyStructure.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("BodyStructure.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("BodyStructure.Morphology", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Morphology", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.Morphology", resource.Morphology, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Morphology", resource.Morphology, optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_Location(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("BodyStructure.Location", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Location", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.Location", resource.Location, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Location", resource.Location, optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_LocationQualifier(numLocationQualifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numLocationQualifier >= len(resource.LocationQualifier) {
-		return CodeableConceptSelect("BodyStructure.LocationQualifier."+strconv.Itoa(numLocationQualifier)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("LocationQualifier["+strconv.Itoa(numLocationQualifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.LocationQualifier."+strconv.Itoa(numLocationQualifier)+".", &resource.LocationQualifier[numLocationQualifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("LocationQualifier["+strconv.Itoa(numLocationQualifier)+"]", &resource.LocationQualifier[numLocationQualifier], optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("BodyStructure.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("BodyStructure.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }

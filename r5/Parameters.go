@@ -84,170 +84,146 @@ type ParametersParameter struct {
 }
 
 func (resource *Parameters) T_ParameterName(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..Name", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Name", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..Name", &resource.Parameter[numParameter].Name, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Name", &resource.Parameter[numParameter].Name, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueBase64Binary(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueBase64Binary", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueBase64Binary", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueBase64Binary", resource.Parameter[numParameter].ValueBase64Binary, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueBase64Binary", resource.Parameter[numParameter].ValueBase64Binary, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueBoolean(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return BoolInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Parameter["+strconv.Itoa(numParameter)+"]ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueBoolean", resource.Parameter[numParameter].ValueBoolean, htmlAttrs)
+	return BoolInput("Parameter["+strconv.Itoa(numParameter)+"]ValueBoolean", resource.Parameter[numParameter].ValueBoolean, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueCanonical(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCanonical", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueCanonical", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCanonical", resource.Parameter[numParameter].ValueCanonical, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueCanonical", resource.Parameter[numParameter].ValueCanonical, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueCode(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return CodeSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCode", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCode", resource.Parameter[numParameter].ValueCode, optionsValueSet, htmlAttrs)
+	return CodeSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCode", resource.Parameter[numParameter].ValueCode, optionsValueSet, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueDate(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return DateInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDate", nil, htmlAttrs)
+		return DateInput("Parameter["+strconv.Itoa(numParameter)+"]ValueDate", nil, htmlAttrs)
 	}
-	return DateInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDate", resource.Parameter[numParameter].ValueDate, htmlAttrs)
+	return DateInput("Parameter["+strconv.Itoa(numParameter)+"]ValueDate", resource.Parameter[numParameter].ValueDate, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueDateTime(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return DateTimeInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDateTime", nil, htmlAttrs)
+		return DateTimeInput("Parameter["+strconv.Itoa(numParameter)+"]ValueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDateTime", resource.Parameter[numParameter].ValueDateTime, htmlAttrs)
+	return DateTimeInput("Parameter["+strconv.Itoa(numParameter)+"]ValueDateTime", resource.Parameter[numParameter].ValueDateTime, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueDecimal(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return Float64Input("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", nil, htmlAttrs)
+		return Float64Input("Parameter["+strconv.Itoa(numParameter)+"]ValueDecimal", nil, htmlAttrs)
 	}
-	return Float64Input("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueDecimal", resource.Parameter[numParameter].ValueDecimal, htmlAttrs)
+	return Float64Input("Parameter["+strconv.Itoa(numParameter)+"]ValueDecimal", resource.Parameter[numParameter].ValueDecimal, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueId(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueId", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueId", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueId", resource.Parameter[numParameter].ValueId, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueId", resource.Parameter[numParameter].ValueId, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueInstant(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInstant", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueInstant", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInstant", resource.Parameter[numParameter].ValueInstant, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueInstant", resource.Parameter[numParameter].ValueInstant, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueInteger(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", nil, htmlAttrs)
+		return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValueInteger", nil, htmlAttrs)
 	}
-	return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger", resource.Parameter[numParameter].ValueInteger, htmlAttrs)
+	return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValueInteger", resource.Parameter[numParameter].ValueInteger, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueInteger64(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return Int64Input("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger64", nil, htmlAttrs)
+		return Int64Input("Parameter["+strconv.Itoa(numParameter)+"]ValueInteger64", nil, htmlAttrs)
 	}
-	return Int64Input("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueInteger64", resource.Parameter[numParameter].ValueInteger64, htmlAttrs)
+	return Int64Input("Parameter["+strconv.Itoa(numParameter)+"]ValueInteger64", resource.Parameter[numParameter].ValueInteger64, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueMarkdown(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueMarkdown", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueMarkdown", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueMarkdown", resource.Parameter[numParameter].ValueMarkdown, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueMarkdown", resource.Parameter[numParameter].ValueMarkdown, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueOid(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueOid", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueOid", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueOid", resource.Parameter[numParameter].ValueOid, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueOid", resource.Parameter[numParameter].ValueOid, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValuePositiveInt(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValuePositiveInt", nil, htmlAttrs)
+		return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValuePositiveInt", nil, htmlAttrs)
 	}
-	return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValuePositiveInt", resource.Parameter[numParameter].ValuePositiveInt, htmlAttrs)
+	return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValuePositiveInt", resource.Parameter[numParameter].ValuePositiveInt, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueString(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueString", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueString", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueString", resource.Parameter[numParameter].ValueString, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueString", resource.Parameter[numParameter].ValueString, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueTime(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueTime", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueTime", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueTime", resource.Parameter[numParameter].ValueTime, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueTime", resource.Parameter[numParameter].ValueTime, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueUnsignedInt(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUnsignedInt", nil, htmlAttrs)
+		return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUnsignedInt", nil, htmlAttrs)
 	}
-	return IntInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUnsignedInt", resource.Parameter[numParameter].ValueUnsignedInt, htmlAttrs)
+	return IntInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUnsignedInt", resource.Parameter[numParameter].ValueUnsignedInt, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueUri(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUri", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUri", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUri", resource.Parameter[numParameter].ValueUri, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUri", resource.Parameter[numParameter].ValueUri, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueUrl(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUrl", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUrl", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUrl", resource.Parameter[numParameter].ValueUrl, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUrl", resource.Parameter[numParameter].ValueUrl, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueUuid(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUuid", nil, htmlAttrs)
+		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUuid", nil, htmlAttrs)
 	}
-	return StringInput("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueUuid", resource.Parameter[numParameter].ValueUuid, htmlAttrs)
+	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]ValueUuid", resource.Parameter[numParameter].ValueUuid, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueAnnotation(numParameter int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return AnnotationTextArea("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueAnnotation", nil, htmlAttrs)
+		return AnnotationTextArea("Parameter["+strconv.Itoa(numParameter)+"]ValueAnnotation", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueAnnotation", resource.Parameter[numParameter].ValueAnnotation, htmlAttrs)
+	return AnnotationTextArea("Parameter["+strconv.Itoa(numParameter)+"]ValueAnnotation", resource.Parameter[numParameter].ValueAnnotation, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueCodeableConcept(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return CodeableConceptSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueCoding(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return CodingSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Parameters.Parameter."+strconv.Itoa(numParameter)+"..ValueCoding", resource.Parameter[numParameter].ValueCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("Parameter["+strconv.Itoa(numParameter)+"]ValueCoding", resource.Parameter[numParameter].ValueCoding, optionsValueSet, htmlAttrs)
 }

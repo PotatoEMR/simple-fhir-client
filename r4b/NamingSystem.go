@@ -75,103 +75,92 @@ func (r NamingSystem) ToRef() Reference {
 	return ref
 }
 func (resource *NamingSystem) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NamingSystem.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.Name", &resource.Name, htmlAttrs)
+	return StringInput("Name", &resource.Name, htmlAttrs)
 }
 func (resource *NamingSystem) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("NamingSystem.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NamingSystem.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *NamingSystem) T_Kind(htmlAttrs string) templ.Component {
 	optionsValueSet := VSNamingsystem_type
 
 	if resource == nil {
-		return CodeSelect("NamingSystem.Kind", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Kind", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NamingSystem.Kind", &resource.Kind, optionsValueSet, htmlAttrs)
+	return CodeSelect("Kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
 func (resource *NamingSystem) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("NamingSystem.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("NamingSystem.Date", &resource.Date, htmlAttrs)
+	return DateTimeInput("Date", &resource.Date, htmlAttrs)
 }
 func (resource *NamingSystem) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NamingSystem.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *NamingSystem) T_Responsible(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NamingSystem.Responsible", nil, htmlAttrs)
+		return StringInput("Responsible", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.Responsible", resource.Responsible, htmlAttrs)
+	return StringInput("Responsible", resource.Responsible, htmlAttrs)
 }
 func (resource *NamingSystem) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("NamingSystem.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NamingSystem.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *NamingSystem) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NamingSystem.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *NamingSystem) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("NamingSystem.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NamingSystem.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *NamingSystem) T_Usage(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NamingSystem.Usage", nil, htmlAttrs)
+		return StringInput("Usage", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.Usage", resource.Usage, htmlAttrs)
+	return StringInput("Usage", resource.Usage, htmlAttrs)
 }
 func (resource *NamingSystem) T_UniqueIdType(numUniqueId int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSNamingsystem_identifier_type
 
 	if resource == nil || numUniqueId >= len(resource.UniqueId) {
-		return CodeSelect("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("UniqueId["+strconv.Itoa(numUniqueId)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Type", &resource.UniqueId[numUniqueId].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("UniqueId["+strconv.Itoa(numUniqueId)+"]Type", &resource.UniqueId[numUniqueId].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *NamingSystem) T_UniqueIdValue(numUniqueId int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numUniqueId >= len(resource.UniqueId) {
-		return StringInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Value", nil, htmlAttrs)
+		return StringInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Value", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Value", &resource.UniqueId[numUniqueId].Value, htmlAttrs)
+	return StringInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Value", &resource.UniqueId[numUniqueId].Value, htmlAttrs)
 }
 func (resource *NamingSystem) T_UniqueIdPreferred(numUniqueId int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numUniqueId >= len(resource.UniqueId) {
-		return BoolInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Preferred", nil, htmlAttrs)
+		return BoolInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Preferred", nil, htmlAttrs)
 	}
-	return BoolInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Preferred", resource.UniqueId[numUniqueId].Preferred, htmlAttrs)
+	return BoolInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Preferred", resource.UniqueId[numUniqueId].Preferred, htmlAttrs)
 }
 func (resource *NamingSystem) T_UniqueIdComment(numUniqueId int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numUniqueId >= len(resource.UniqueId) {
-		return StringInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Comment", nil, htmlAttrs)
+		return StringInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Comment", nil, htmlAttrs)
 	}
-	return StringInput("NamingSystem.UniqueId."+strconv.Itoa(numUniqueId)+"..Comment", resource.UniqueId[numUniqueId].Comment, htmlAttrs)
+	return StringInput("UniqueId["+strconv.Itoa(numUniqueId)+"]Comment", resource.UniqueId[numUniqueId].Comment, htmlAttrs)
 }

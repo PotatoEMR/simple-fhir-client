@@ -106,94 +106,82 @@ func (r NutritionProduct) ToRef() Reference {
 	return ref
 }
 func (resource *NutritionProduct) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("NutritionProduct.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionProduct.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSNutritionproduct_status
 
 	if resource == nil {
-		return CodeSelect("NutritionProduct.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NutritionProduct.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("NutritionProduct.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionProduct.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("NutritionProduct.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("NutritionProduct.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicType(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..Type", &resource.Characteristic[numCharacteristic].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]Type", &resource.Characteristic[numCharacteristic].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", &resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueCodeableConcept", &resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicValueString(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueString", nil, htmlAttrs)
+		return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueString", nil, htmlAttrs)
 	}
-	return StringInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueString", &resource.Characteristic[numCharacteristic].ValueString, htmlAttrs)
+	return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueString", &resource.Characteristic[numCharacteristic].ValueString, htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicValueBase64Binary(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBase64Binary", nil, htmlAttrs)
+		return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBase64Binary", nil, htmlAttrs)
 	}
-	return StringInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBase64Binary", &resource.Characteristic[numCharacteristic].ValueBase64Binary, htmlAttrs)
+	return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBase64Binary", &resource.Characteristic[numCharacteristic].ValueBase64Binary, htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicValueBoolean(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return BoolInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("NutritionProduct.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
+	return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceName(numInstance int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return StringInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..Name", nil, htmlAttrs)
+		return StringInput("Instance["+strconv.Itoa(numInstance)+"]Name", nil, htmlAttrs)
 	}
-	return StringInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..Name", resource.Instance[numInstance].Name, htmlAttrs)
+	return StringInput("Instance["+strconv.Itoa(numInstance)+"]Name", resource.Instance[numInstance].Name, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceLotNumber(numInstance int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return StringInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..LotNumber", nil, htmlAttrs)
+		return StringInput("Instance["+strconv.Itoa(numInstance)+"]LotNumber", nil, htmlAttrs)
 	}
-	return StringInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..LotNumber", resource.Instance[numInstance].LotNumber, htmlAttrs)
+	return StringInput("Instance["+strconv.Itoa(numInstance)+"]LotNumber", resource.Instance[numInstance].LotNumber, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceExpiry(numInstance int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return DateTimeInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..Expiry", nil, htmlAttrs)
+		return DateTimeInput("Instance["+strconv.Itoa(numInstance)+"]Expiry", nil, htmlAttrs)
 	}
-	return DateTimeInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..Expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
+	return DateTimeInput("Instance["+strconv.Itoa(numInstance)+"]Expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceUseBy(numInstance int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return DateTimeInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..UseBy", nil, htmlAttrs)
+		return DateTimeInput("Instance["+strconv.Itoa(numInstance)+"]UseBy", nil, htmlAttrs)
 	}
-	return DateTimeInput("NutritionProduct.Instance."+strconv.Itoa(numInstance)+"..UseBy", resource.Instance[numInstance].UseBy, htmlAttrs)
+	return DateTimeInput("Instance["+strconv.Itoa(numInstance)+"]UseBy", resource.Instance[numInstance].UseBy, htmlAttrs)
 }

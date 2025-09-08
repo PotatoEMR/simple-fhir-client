@@ -61,17 +61,16 @@ func (r Linkage) ToRef() Reference {
 	return ref
 }
 func (resource *Linkage) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Linkage.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Linkage.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Linkage) T_ItemType(numItem int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSLinkage_type
 
 	if resource == nil || numItem >= len(resource.Item) {
-		return CodeSelect("Linkage.Item."+strconv.Itoa(numItem)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Item["+strconv.Itoa(numItem)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Linkage.Item."+strconv.Itoa(numItem)+"..Type", &resource.Item[numItem].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("Item["+strconv.Itoa(numItem)+"]Type", &resource.Item[numItem].Type, optionsValueSet, htmlAttrs)
 }

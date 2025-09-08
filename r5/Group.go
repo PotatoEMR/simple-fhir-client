@@ -87,88 +87,78 @@ func (r Group) ToRef() Reference {
 	return ref
 }
 func (resource *Group) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Group.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Group) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_type
 
 	if resource == nil {
-		return CodeSelect("Group.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Group.Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Group) T_Membership(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_membership_basis
 
 	if resource == nil {
-		return CodeSelect("Group.Membership", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Membership", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Group.Membership", &resource.Membership, optionsValueSet, htmlAttrs)
+	return CodeSelect("Membership", &resource.Membership, optionsValueSet, htmlAttrs)
 }
 func (resource *Group) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Group.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Group.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Group) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Group.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("Group.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *Group) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Group.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("Group.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *Group) T_Quantity(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return IntInput("Group.Quantity", nil, htmlAttrs)
+		return IntInput("Quantity", nil, htmlAttrs)
 	}
-	return IntInput("Group.Quantity", resource.Quantity, htmlAttrs)
+	return IntInput("Quantity", resource.Quantity, htmlAttrs)
 }
 func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]Code", &resource.Characteristic[numCharacteristic].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Group) T_CharacteristicValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueCodeableConcept", &resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueCodeableConcept", &resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Group) T_CharacteristicValueBoolean(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..ValueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
+	return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ValueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
 func (resource *Group) T_CharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", nil, htmlAttrs)
+		return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Exclude", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", &resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
+	return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Exclude", &resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
 func (resource *Group) T_MemberInactive(numMember int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numMember >= len(resource.Member) {
-		return BoolInput("Group.Member."+strconv.Itoa(numMember)+"..Inactive", nil, htmlAttrs)
+		return BoolInput("Member["+strconv.Itoa(numMember)+"]Inactive", nil, htmlAttrs)
 	}
-	return BoolInput("Group.Member."+strconv.Itoa(numMember)+"..Inactive", resource.Member[numMember].Inactive, htmlAttrs)
+	return BoolInput("Member["+strconv.Itoa(numMember)+"]Inactive", resource.Member[numMember].Inactive, htmlAttrs)
 }

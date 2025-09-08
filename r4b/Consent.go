@@ -123,121 +123,107 @@ func (resource *Consent) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSConsent_state_codes
 
 	if resource == nil {
-		return CodeSelect("Consent.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Consent.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_Scope(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Consent.Scope", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Scope", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.Scope", &resource.Scope, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Scope", &resource.Scope, optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Consent.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_DateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("Consent.DateTime", nil, htmlAttrs)
+		return DateTimeInput("DateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Consent.DateTime", resource.DateTime, htmlAttrs)
+	return DateTimeInput("DateTime", resource.DateTime, htmlAttrs)
 }
 func (resource *Consent) T_PolicyRule(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Consent.PolicyRule", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("PolicyRule", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.PolicyRule", resource.PolicyRule, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("PolicyRule", resource.PolicyRule, optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_PolicyAuthority(numPolicy int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPolicy >= len(resource.Policy) {
-		return StringInput("Consent.Policy."+strconv.Itoa(numPolicy)+"..Authority", nil, htmlAttrs)
+		return StringInput("Policy["+strconv.Itoa(numPolicy)+"]Authority", nil, htmlAttrs)
 	}
-	return StringInput("Consent.Policy."+strconv.Itoa(numPolicy)+"..Authority", resource.Policy[numPolicy].Authority, htmlAttrs)
+	return StringInput("Policy["+strconv.Itoa(numPolicy)+"]Authority", resource.Policy[numPolicy].Authority, htmlAttrs)
 }
 func (resource *Consent) T_PolicyUri(numPolicy int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPolicy >= len(resource.Policy) {
-		return StringInput("Consent.Policy."+strconv.Itoa(numPolicy)+"..Uri", nil, htmlAttrs)
+		return StringInput("Policy["+strconv.Itoa(numPolicy)+"]Uri", nil, htmlAttrs)
 	}
-	return StringInput("Consent.Policy."+strconv.Itoa(numPolicy)+"..Uri", resource.Policy[numPolicy].Uri, htmlAttrs)
+	return StringInput("Policy["+strconv.Itoa(numPolicy)+"]Uri", resource.Policy[numPolicy].Uri, htmlAttrs)
 }
 func (resource *Consent) T_VerificationVerified(numVerification int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numVerification >= len(resource.Verification) {
-		return BoolInput("Consent.Verification."+strconv.Itoa(numVerification)+"..Verified", nil, htmlAttrs)
+		return BoolInput("Verification["+strconv.Itoa(numVerification)+"]Verified", nil, htmlAttrs)
 	}
-	return BoolInput("Consent.Verification."+strconv.Itoa(numVerification)+"..Verified", &resource.Verification[numVerification].Verified, htmlAttrs)
+	return BoolInput("Verification["+strconv.Itoa(numVerification)+"]Verified", &resource.Verification[numVerification].Verified, htmlAttrs)
 }
 func (resource *Consent) T_VerificationVerificationDate(numVerification int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numVerification >= len(resource.Verification) {
-		return DateTimeInput("Consent.Verification."+strconv.Itoa(numVerification)+"..VerificationDate", nil, htmlAttrs)
+		return DateTimeInput("Verification["+strconv.Itoa(numVerification)+"]VerificationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("Consent.Verification."+strconv.Itoa(numVerification)+"..VerificationDate", resource.Verification[numVerification].VerificationDate, htmlAttrs)
+	return DateTimeInput("Verification["+strconv.Itoa(numVerification)+"]VerificationDate", resource.Verification[numVerification].VerificationDate, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionType(htmlAttrs string) templ.Component {
 	optionsValueSet := VSConsent_provision_type
 
 	if resource == nil {
-		return CodeSelect("Consent.Provision.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("ProvisionType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Consent.Provision.Type", resource.Provision.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("ProvisionType", resource.Provision.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionAction(numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAction >= len(resource.Provision.Action) {
-		return CodeableConceptSelect("Consent.Provision.Action."+strconv.Itoa(numAction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ProvisionAction["+strconv.Itoa(numAction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.Provision.Action."+strconv.Itoa(numAction)+".", &resource.Provision.Action[numAction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ProvisionAction["+strconv.Itoa(numAction)+"]", &resource.Provision.Action[numAction], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionSecurityLabel(numSecurityLabel int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSecurityLabel >= len(resource.Provision.SecurityLabel) {
-		return CodingSelect("Consent.Provision.SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("ProvisionSecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Consent.Provision.SecurityLabel."+strconv.Itoa(numSecurityLabel)+".", &resource.Provision.SecurityLabel[numSecurityLabel], optionsValueSet, htmlAttrs)
+	return CodingSelect("ProvisionSecurityLabel["+strconv.Itoa(numSecurityLabel)+"]", &resource.Provision.SecurityLabel[numSecurityLabel], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionPurpose(numPurpose int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPurpose >= len(resource.Provision.Purpose) {
-		return CodingSelect("Consent.Provision.Purpose."+strconv.Itoa(numPurpose)+".", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("ProvisionPurpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Consent.Provision.Purpose."+strconv.Itoa(numPurpose)+".", &resource.Provision.Purpose[numPurpose], optionsValueSet, htmlAttrs)
+	return CodingSelect("ProvisionPurpose["+strconv.Itoa(numPurpose)+"]", &resource.Provision.Purpose[numPurpose], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionClass(numClass int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numClass >= len(resource.Provision.Class) {
-		return CodingSelect("Consent.Provision.Class."+strconv.Itoa(numClass)+".", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("ProvisionClass["+strconv.Itoa(numClass)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Consent.Provision.Class."+strconv.Itoa(numClass)+".", &resource.Provision.Class[numClass], optionsValueSet, htmlAttrs)
+	return CodingSelect("ProvisionClass["+strconv.Itoa(numClass)+"]", &resource.Provision.Class[numClass], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionCode(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCode >= len(resource.Provision.Code) {
-		return CodeableConceptSelect("Consent.Provision.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ProvisionCode["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.Provision.Code."+strconv.Itoa(numCode)+".", &resource.Provision.Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ProvisionCode["+strconv.Itoa(numCode)+"]", &resource.Provision.Code[numCode], optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionActorRole(numActor int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numActor >= len(resource.Provision.Actor) {
-		return CodeableConceptSelect("Consent.Provision.Actor."+strconv.Itoa(numActor)+"..Role", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ProvisionActor["+strconv.Itoa(numActor)+"].Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Consent.Provision.Actor."+strconv.Itoa(numActor)+"..Role", &resource.Provision.Actor[numActor].Role, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ProvisionActor["+strconv.Itoa(numActor)+"].Role", &resource.Provision.Actor[numActor].Role, optionsValueSet, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionDataMeaning(numData int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
 	if resource == nil || numData >= len(resource.Provision.Data) {
-		return CodeSelect("Consent.Provision.Data."+strconv.Itoa(numData)+"..Meaning", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("ProvisionData["+strconv.Itoa(numData)+"].Meaning", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Consent.Provision.Data."+strconv.Itoa(numData)+"..Meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet, htmlAttrs)
+	return CodeSelect("ProvisionData["+strconv.Itoa(numData)+"].Meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet, htmlAttrs)
 }

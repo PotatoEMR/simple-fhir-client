@@ -60,37 +60,32 @@ func (r Schedule) ToRef() Reference {
 	return ref
 }
 func (resource *Schedule) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Schedule.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Schedule.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Schedule) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numServiceCategory >= len(resource.ServiceCategory) {
-		return CodeableConceptSelect("Schedule.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Schedule.ServiceCategory."+strconv.Itoa(numServiceCategory)+".", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ServiceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
-		return CodeableConceptSelect("Schedule.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Schedule.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
 func (resource *Schedule) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Schedule.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("Schedule.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *Schedule) T_Comment(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Schedule.Comment", nil, htmlAttrs)
+		return StringInput("Comment", nil, htmlAttrs)
 	}
-	return StringInput("Schedule.Comment", resource.Comment, htmlAttrs)
+	return StringInput("Comment", resource.Comment, htmlAttrs)
 }

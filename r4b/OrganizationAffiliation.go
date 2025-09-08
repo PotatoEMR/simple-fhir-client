@@ -63,23 +63,20 @@ func (r OrganizationAffiliation) ToRef() Reference {
 	return ref
 }
 func (resource *OrganizationAffiliation) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("OrganizationAffiliation.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("OrganizationAffiliation.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCode >= len(resource.Code) {
-		return CodeableConceptSelect("OrganizationAffiliation.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OrganizationAffiliation.Code."+strconv.Itoa(numCode)+".", &resource.Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
 func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
-		return CodeableConceptSelect("OrganizationAffiliation.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OrganizationAffiliation.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }

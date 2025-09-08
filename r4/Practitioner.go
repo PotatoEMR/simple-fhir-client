@@ -73,38 +73,34 @@ func (r Practitioner) ToRef() Reference {
 	return ref
 }
 func (resource *Practitioner) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Practitioner.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Practitioner.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Practitioner) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Practitioner.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Practitioner.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_BirthDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("Practitioner.BirthDate", nil, htmlAttrs)
+		return DateInput("BirthDate", nil, htmlAttrs)
 	}
-	return DateInput("Practitioner.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("BirthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Practitioner) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return CodeableConceptSelect("Practitioner.Communication."+strconv.Itoa(numCommunication)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Communication."+strconv.Itoa(numCommunication)+".", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numQualification >= len(resource.Qualification) {
-		return CodeableConceptSelect("Practitioner.Qualification."+strconv.Itoa(numQualification)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Qualification["+strconv.Itoa(numQualification)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Qualification."+strconv.Itoa(numQualification)+"..Code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Qualification["+strconv.Itoa(numQualification)+"]Code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
 }

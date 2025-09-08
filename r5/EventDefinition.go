@@ -84,150 +84,130 @@ func (r EventDefinition) ToRef() Reference {
 	return ref
 }
 func (resource *EventDefinition) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Url", resource.Url, htmlAttrs)
+	return StringInput("Url", resource.Url, htmlAttrs)
 }
 func (resource *EventDefinition) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *EventDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *EventDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("EventDefinition.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("EventDefinition.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *EventDefinition) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *EventDefinition) T_Title(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Title", nil, htmlAttrs)
+		return StringInput("Title", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Title", resource.Title, htmlAttrs)
+	return StringInput("Title", resource.Title, htmlAttrs)
 }
 func (resource *EventDefinition) T_Subtitle(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Subtitle", nil, htmlAttrs)
+		return StringInput("Subtitle", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("Subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *EventDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("EventDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EventDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EventDefinition) T_Experimental(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("EventDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("EventDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *EventDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("EventDefinition.SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EventDefinition.SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *EventDefinition) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("EventDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("EventDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *EventDefinition) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *EventDefinition) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *EventDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("EventDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EventDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *EventDefinition) T_Purpose(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("Purpose", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *EventDefinition) T_Usage(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Usage", nil, htmlAttrs)
+		return StringInput("Usage", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Usage", resource.Usage, htmlAttrs)
+	return StringInput("Usage", resource.Usage, htmlAttrs)
 }
 func (resource *EventDefinition) T_Copyright(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.Copyright", nil, htmlAttrs)
+		return StringInput("Copyright", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *EventDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EventDefinition.CopyrightLabel", nil, htmlAttrs)
+		return StringInput("CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("EventDefinition.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
 func (resource *EventDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("EventDefinition.ApprovalDate", nil, htmlAttrs)
+		return DateInput("ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("EventDefinition.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *EventDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("EventDefinition.LastReviewDate", nil, htmlAttrs)
+		return DateInput("LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("EventDefinition.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *EventDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("EventDefinition.Topic."+strconv.Itoa(numTopic)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EventDefinition.Topic."+strconv.Itoa(numTopic)+".", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }

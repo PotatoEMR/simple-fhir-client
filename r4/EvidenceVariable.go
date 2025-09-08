@@ -101,166 +101,146 @@ func (r EvidenceVariable) ToRef() Reference {
 	return ref
 }
 func (resource *EvidenceVariable) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Url", resource.Url, htmlAttrs)
+	return StringInput("Url", resource.Url, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Title(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Title", nil, htmlAttrs)
+		return StringInput("Title", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Title", resource.Title, htmlAttrs)
+	return StringInput("Title", resource.Title, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_ShortTitle(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.ShortTitle", nil, htmlAttrs)
+		return StringInput("ShortTitle", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.ShortTitle", resource.ShortTitle, htmlAttrs)
+	return StringInput("ShortTitle", resource.ShortTitle, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Subtitle(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Subtitle", nil, htmlAttrs)
+		return StringInput("Subtitle", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("Subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("EvidenceVariable.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceVariable.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("EvidenceVariable.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("EvidenceVariable.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("EvidenceVariable.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EvidenceVariable.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("EvidenceVariable.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceVariable.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Copyright(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EvidenceVariable.Copyright", nil, htmlAttrs)
+		return StringInput("Copyright", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_ApprovalDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("EvidenceVariable.ApprovalDate", nil, htmlAttrs)
+		return DateInput("ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("EvidenceVariable.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_LastReviewDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("EvidenceVariable.LastReviewDate", nil, htmlAttrs)
+		return DateInput("LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("EvidenceVariable.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("EvidenceVariable.Topic."+strconv.Itoa(numTopic)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceVariable.Topic."+strconv.Itoa(numTopic)+".", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSVariable_type
 
 	if resource == nil {
-		return CodeSelect("EvidenceVariable.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceVariable.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDescription(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..Description", nil, htmlAttrs)
+		return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Description", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..Description", resource.Characteristic[numCharacteristic].Description, htmlAttrs)
+	return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Description", resource.Characteristic[numCharacteristic].Description, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..DefinitionCanonical", nil, htmlAttrs)
+		return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]DefinitionCanonical", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..DefinitionCanonical", &resource.Characteristic[numCharacteristic].DefinitionCanonical, htmlAttrs)
+	return StringInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]DefinitionCanonical", &resource.Characteristic[numCharacteristic].DefinitionCanonical, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..DefinitionCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]DefinitionCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..DefinitionCodeableConcept", &resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]DefinitionCodeableConcept", &resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return BoolInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", nil, htmlAttrs)
+		return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Exclude", nil, htmlAttrs)
 	}
-	return BoolInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..Exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
+	return BoolInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]Exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicParticipantEffectiveDateTime(numCharacteristic int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return DateTimeInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..ParticipantEffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ParticipantEffectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..ParticipantEffectiveDateTime", resource.Characteristic[numCharacteristic].ParticipantEffectiveDateTime, htmlAttrs)
+	return DateTimeInput("Characteristic["+strconv.Itoa(numCharacteristic)+"]ParticipantEffectiveDateTime", resource.Characteristic[numCharacteristic].ParticipantEffectiveDateTime, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeSelect("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..GroupMeasure", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]GroupMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceVariable.Characteristic."+strconv.Itoa(numCharacteristic)+"..GroupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet, htmlAttrs)
+	return CodeSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]GroupMeasure", resource.Characteristic[numCharacteristic].GroupMeasure, optionsValueSet, htmlAttrs)
 }

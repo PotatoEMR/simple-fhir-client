@@ -74,29 +74,27 @@ func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Person.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Person) T_BirthDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("Person.BirthDate", nil, htmlAttrs)
+		return DateInput("BirthDate", nil, htmlAttrs)
 	}
-	return DateInput("Person.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("BirthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Person) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Person.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Person.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
 	if resource == nil || numLink >= len(resource.Link) {
-		return CodeSelect("Person.Link."+strconv.Itoa(numLink)+"..Assurance", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Link["+strconv.Itoa(numLink)+"]Assurance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Link."+strconv.Itoa(numLink)+"..Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
+	return CodeSelect("Link["+strconv.Itoa(numLink)+"]Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
 }

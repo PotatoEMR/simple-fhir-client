@@ -146,134 +146,117 @@ func (resource *AdverseEvent) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdverse_event_status
 
 	if resource == nil {
-		return CodeSelect("AdverseEvent.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AdverseEvent.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Actuality(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdverse_event_actuality
 
 	if resource == nil {
-		return CodeSelect("AdverseEvent.Actuality", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Actuality", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AdverseEvent.Actuality", &resource.Actuality, optionsValueSet, htmlAttrs)
+	return CodeSelect("Actuality", &resource.Actuality, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("AdverseEvent.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("AdverseEvent.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("AdverseEvent.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("AdverseEvent.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Detected(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("AdverseEvent.Detected", nil, htmlAttrs)
+		return DateTimeInput("Detected", nil, htmlAttrs)
 	}
-	return DateTimeInput("AdverseEvent.Detected", resource.Detected, htmlAttrs)
+	return DateTimeInput("Detected", resource.Detected, htmlAttrs)
 }
 func (resource *AdverseEvent) T_RecordedDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("AdverseEvent.RecordedDate", nil, htmlAttrs)
+		return DateTimeInput("RecordedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("AdverseEvent.RecordedDate", resource.RecordedDate, htmlAttrs)
+	return DateTimeInput("RecordedDate", resource.RecordedDate, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Seriousness(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("AdverseEvent.Seriousness", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Seriousness", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.Seriousness", resource.Seriousness, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Seriousness", resource.Seriousness, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Outcome(numOutcome int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numOutcome >= len(resource.Outcome) {
-		return CodeableConceptSelect("AdverseEvent.Outcome."+strconv.Itoa(numOutcome)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Outcome["+strconv.Itoa(numOutcome)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.Outcome."+strconv.Itoa(numOutcome)+".", &resource.Outcome[numOutcome], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Outcome["+strconv.Itoa(numOutcome)+"]", &resource.Outcome[numOutcome], optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_ExpectedInResearchStudy(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("AdverseEvent.ExpectedInResearchStudy", nil, htmlAttrs)
+		return BoolInput("ExpectedInResearchStudy", nil, htmlAttrs)
 	}
-	return BoolInput("AdverseEvent.ExpectedInResearchStudy", resource.ExpectedInResearchStudy, htmlAttrs)
+	return BoolInput("ExpectedInResearchStudy", resource.ExpectedInResearchStudy, htmlAttrs)
 }
 func (resource *AdverseEvent) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("AdverseEvent.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("AdverseEvent.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *AdverseEvent) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return CodeableConceptSelect("AdverseEvent.Participant."+strconv.Itoa(numParticipant)+"..Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Participant["+strconv.Itoa(numParticipant)+"]Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.Participant."+strconv.Itoa(numParticipant)+"..Function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Participant["+strconv.Itoa(numParticipant)+"]Function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_SuspectEntityInstanceCodeableConcept(numSuspectEntity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) {
-		return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..InstanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]InstanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..InstanceCodeableConcept", &resource.SuspectEntity[numSuspectEntity].InstanceCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]InstanceCodeableConcept", &resource.SuspectEntity[numSuspectEntity].InstanceCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_SuspectEntityCausalityAssessmentMethod(numSuspectEntity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) {
-		return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..Causality.AssessmentMethod", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]Causality.AssessmentMethod", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..Causality.AssessmentMethod", resource.SuspectEntity[numSuspectEntity].Causality.AssessmentMethod, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]Causality.AssessmentMethod", resource.SuspectEntity[numSuspectEntity].Causality.AssessmentMethod, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_SuspectEntityCausalityEntityRelatedness(numSuspectEntity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) {
-		return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..Causality.EntityRelatedness", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]Causality.EntityRelatedness", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.SuspectEntity."+strconv.Itoa(numSuspectEntity)+"..Causality.EntityRelatedness", resource.SuspectEntity[numSuspectEntity].Causality.EntityRelatedness, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SuspectEntity["+strconv.Itoa(numSuspectEntity)+"]Causality.EntityRelatedness", resource.SuspectEntity[numSuspectEntity].Causality.EntityRelatedness, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_ContributingFactorItemCodeableConcept(numContributingFactor int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numContributingFactor >= len(resource.ContributingFactor) {
-		return CodeableConceptSelect("AdverseEvent.ContributingFactor."+strconv.Itoa(numContributingFactor)+"..ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ContributingFactor["+strconv.Itoa(numContributingFactor)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.ContributingFactor."+strconv.Itoa(numContributingFactor)+"..ItemCodeableConcept", &resource.ContributingFactor[numContributingFactor].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ContributingFactor["+strconv.Itoa(numContributingFactor)+"]ItemCodeableConcept", &resource.ContributingFactor[numContributingFactor].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_PreventiveActionItemCodeableConcept(numPreventiveAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPreventiveAction >= len(resource.PreventiveAction) {
-		return CodeableConceptSelect("AdverseEvent.PreventiveAction."+strconv.Itoa(numPreventiveAction)+"..ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("PreventiveAction["+strconv.Itoa(numPreventiveAction)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.PreventiveAction."+strconv.Itoa(numPreventiveAction)+"..ItemCodeableConcept", &resource.PreventiveAction[numPreventiveAction].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("PreventiveAction["+strconv.Itoa(numPreventiveAction)+"]ItemCodeableConcept", &resource.PreventiveAction[numPreventiveAction].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_MitigatingActionItemCodeableConcept(numMitigatingAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numMitigatingAction >= len(resource.MitigatingAction) {
-		return CodeableConceptSelect("AdverseEvent.MitigatingAction."+strconv.Itoa(numMitigatingAction)+"..ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MitigatingAction["+strconv.Itoa(numMitigatingAction)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.MitigatingAction."+strconv.Itoa(numMitigatingAction)+"..ItemCodeableConcept", &resource.MitigatingAction[numMitigatingAction].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MitigatingAction["+strconv.Itoa(numMitigatingAction)+"]ItemCodeableConcept", &resource.MitigatingAction[numMitigatingAction].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *AdverseEvent) T_SupportingInfoItemCodeableConcept(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
-		return CodeableConceptSelect("AdverseEvent.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SupportingInfo["+strconv.Itoa(numSupportingInfo)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AdverseEvent.SupportingInfo."+strconv.Itoa(numSupportingInfo)+"..ItemCodeableConcept", &resource.SupportingInfo[numSupportingInfo].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SupportingInfo["+strconv.Itoa(numSupportingInfo)+"]ItemCodeableConcept", &resource.SupportingInfo[numSupportingInfo].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }

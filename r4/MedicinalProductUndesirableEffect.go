@@ -53,23 +53,20 @@ func (r MedicinalProductUndesirableEffect) ToRef() Reference {
 	return ref
 }
 func (resource *MedicinalProductUndesirableEffect) T_SymptomConditionEffect(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductUndesirableEffect.SymptomConditionEffect", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SymptomConditionEffect", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductUndesirableEffect.SymptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SymptomConditionEffect", resource.SymptomConditionEffect, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicinalProductUndesirableEffect) T_Classification(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductUndesirableEffect.Classification", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Classification", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductUndesirableEffect.Classification", resource.Classification, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Classification", resource.Classification, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicinalProductUndesirableEffect) T_FrequencyOfOccurrence(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicinalProductUndesirableEffect.FrequencyOfOccurrence", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("FrequencyOfOccurrence", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicinalProductUndesirableEffect.FrequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("FrequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet, htmlAttrs)
 }

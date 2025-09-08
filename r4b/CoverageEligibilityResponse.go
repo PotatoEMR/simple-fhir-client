@@ -125,191 +125,167 @@ func (resource *CoverageEligibilityResponse) T_Status(htmlAttrs string) templ.Co
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("CoverageEligibilityResponse.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CoverageEligibilityResponse.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_Purpose(numPurpose int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSEligibilityresponse_purpose
 
 	if resource == nil || numPurpose >= len(resource.Purpose) {
-		return CodeSelect("CoverageEligibilityResponse.Purpose."+strconv.Itoa(numPurpose)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Purpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CoverageEligibilityResponse.Purpose."+strconv.Itoa(numPurpose)+".", &resource.Purpose[numPurpose], optionsValueSet, htmlAttrs)
+	return CodeSelect("Purpose["+strconv.Itoa(numPurpose)+"]", &resource.Purpose[numPurpose], optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_ServicedDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("CoverageEligibilityResponse.ServicedDate", nil, htmlAttrs)
+		return DateInput("ServicedDate", nil, htmlAttrs)
 	}
-	return DateInput("CoverageEligibilityResponse.ServicedDate", resource.ServicedDate, htmlAttrs)
+	return DateInput("ServicedDate", resource.ServicedDate, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_Created(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("CoverageEligibilityResponse.Created", nil, htmlAttrs)
+		return DateTimeInput("Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("CoverageEligibilityResponse.Created", &resource.Created, htmlAttrs)
+	return DateTimeInput("Created", &resource.Created, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_Outcome(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
-		return CodeSelect("CoverageEligibilityResponse.Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CoverageEligibilityResponse.Outcome", &resource.Outcome, optionsValueSet, htmlAttrs)
+	return CodeSelect("Outcome", &resource.Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_Disposition(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CoverageEligibilityResponse.Disposition", nil, htmlAttrs)
+		return StringInput("Disposition", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Disposition", resource.Disposition, htmlAttrs)
+	return StringInput("Disposition", resource.Disposition, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_PreAuthRef(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CoverageEligibilityResponse.PreAuthRef", nil, htmlAttrs)
+		return StringInput("PreAuthRef", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.PreAuthRef", resource.PreAuthRef, htmlAttrs)
+	return StringInput("PreAuthRef", resource.PreAuthRef, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_Form(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Form", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Form", resource.Form, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Form", resource.Form, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceInforce(numInsurance int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) {
-		return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Inforce", nil, htmlAttrs)
+		return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Inforce", nil, htmlAttrs)
 	}
-	return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Inforce", resource.Insurance[numInsurance].Inforce, htmlAttrs)
+	return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Inforce", resource.Insurance[numInsurance].Inforce, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemCategory(numInsurance int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Category", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Category", resource.Insurance[numInsurance].Item[numItem].Category, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Category", resource.Insurance[numInsurance].Item[numItem].Category, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemProductOrService(numInsurance int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..ProductOrService", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].ProductOrService", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..ProductOrService", resource.Insurance[numInsurance].Item[numItem].ProductOrService, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].ProductOrService", resource.Insurance[numInsurance].Item[numItem].ProductOrService, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemModifier(numInsurance int, numItem int, numModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numModifier >= len(resource.Insurance[numInsurance].Item[numItem].Modifier) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Modifier."+strconv.Itoa(numModifier)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Modifier."+strconv.Itoa(numModifier)+".", &resource.Insurance[numInsurance].Item[numItem].Modifier[numModifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.Insurance[numInsurance].Item[numItem].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemExcluded(numInsurance int, numItem int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Excluded", nil, htmlAttrs)
+		return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Excluded", nil, htmlAttrs)
 	}
-	return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Excluded", resource.Insurance[numInsurance].Item[numItem].Excluded, htmlAttrs)
+	return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Excluded", resource.Insurance[numInsurance].Item[numItem].Excluded, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemName(numInsurance int, numItem int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Name", nil, htmlAttrs)
+		return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Name", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Name", resource.Insurance[numInsurance].Item[numItem].Name, htmlAttrs)
+	return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Name", resource.Insurance[numInsurance].Item[numItem].Name, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemDescription(numInsurance int, numItem int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Description", nil, htmlAttrs)
+		return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Description", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Description", resource.Insurance[numInsurance].Item[numItem].Description, htmlAttrs)
+	return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Description", resource.Insurance[numInsurance].Item[numItem].Description, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemNetwork(numInsurance int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Network", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Network", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Network", resource.Insurance[numInsurance].Item[numItem].Network, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Network", resource.Insurance[numInsurance].Item[numItem].Network, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemUnit(numInsurance int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Unit", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Unit", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Unit", resource.Insurance[numInsurance].Item[numItem].Unit, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Unit", resource.Insurance[numInsurance].Item[numItem].Unit, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemTerm(numInsurance int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Term", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Term", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Term", resource.Insurance[numInsurance].Item[numItem].Term, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Term", resource.Insurance[numInsurance].Item[numItem].Term, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemAuthorizationRequired(numInsurance int, numItem int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationRequired", nil, htmlAttrs)
+		return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationRequired", nil, htmlAttrs)
 	}
-	return BoolInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationRequired", resource.Insurance[numInsurance].Item[numItem].AuthorizationRequired, htmlAttrs)
+	return BoolInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationRequired", resource.Insurance[numInsurance].Item[numItem].AuthorizationRequired, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemAuthorizationSupporting(numInsurance int, numItem int, numAuthorizationSupporting int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numAuthorizationSupporting >= len(resource.Insurance[numInsurance].Item[numItem].AuthorizationSupporting) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationSupporting."+strconv.Itoa(numAuthorizationSupporting)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationSupporting["+strconv.Itoa(numAuthorizationSupporting)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationSupporting."+strconv.Itoa(numAuthorizationSupporting)+".", &resource.Insurance[numInsurance].Item[numItem].AuthorizationSupporting[numAuthorizationSupporting], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationSupporting["+strconv.Itoa(numAuthorizationSupporting)+"]", &resource.Insurance[numInsurance].Item[numItem].AuthorizationSupporting[numAuthorizationSupporting], optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemAuthorizationUrl(numInsurance int, numItem int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) {
-		return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationUrl", nil, htmlAttrs)
+		return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationUrl", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..AuthorizationUrl", resource.Insurance[numInsurance].Item[numItem].AuthorizationUrl, htmlAttrs)
+	return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].AuthorizationUrl", resource.Insurance[numInsurance].Item[numItem].AuthorizationUrl, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitType(numInsurance int, numItem int, numBenefit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numBenefit >= len(resource.Insurance[numInsurance].Item[numItem].Benefit) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..Type", &resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].Type", &resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitAllowedUnsignedInt(numInsurance int, numItem int, numBenefit int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numBenefit >= len(resource.Insurance[numInsurance].Item[numItem].Benefit) {
-		return IntInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..AllowedUnsignedInt", nil, htmlAttrs)
+		return IntInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].AllowedUnsignedInt", nil, htmlAttrs)
 	}
-	return IntInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..AllowedUnsignedInt", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].AllowedUnsignedInt, htmlAttrs)
+	return IntInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].AllowedUnsignedInt", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].AllowedUnsignedInt, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitAllowedString(numInsurance int, numItem int, numBenefit int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numBenefit >= len(resource.Insurance[numInsurance].Item[numItem].Benefit) {
-		return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..AllowedString", nil, htmlAttrs)
+		return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].AllowedString", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..AllowedString", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].AllowedString, htmlAttrs)
+	return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].AllowedString", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].AllowedString, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitUsedUnsignedInt(numInsurance int, numItem int, numBenefit int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numBenefit >= len(resource.Insurance[numInsurance].Item[numItem].Benefit) {
-		return IntInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..UsedUnsignedInt", nil, htmlAttrs)
+		return IntInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].UsedUnsignedInt", nil, htmlAttrs)
 	}
-	return IntInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..UsedUnsignedInt", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].UsedUnsignedInt, htmlAttrs)
+	return IntInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].UsedUnsignedInt", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].UsedUnsignedInt, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_InsuranceItemBenefitUsedString(numInsurance int, numItem int, numBenefit int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInsurance >= len(resource.Insurance) || numItem >= len(resource.Insurance[numInsurance].Item) || numBenefit >= len(resource.Insurance[numInsurance].Item[numItem].Benefit) {
-		return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..UsedString", nil, htmlAttrs)
+		return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].UsedString", nil, htmlAttrs)
 	}
-	return StringInput("CoverageEligibilityResponse.Insurance."+strconv.Itoa(numInsurance)+"..Item."+strconv.Itoa(numItem)+"..Benefit."+strconv.Itoa(numBenefit)+"..UsedString", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].UsedString, htmlAttrs)
+	return StringInput("Insurance["+strconv.Itoa(numInsurance)+"]Item["+strconv.Itoa(numItem)+"].Benefit["+strconv.Itoa(numBenefit)+"].UsedString", resource.Insurance[numInsurance].Item[numItem].Benefit[numBenefit].UsedString, htmlAttrs)
 }
 func (resource *CoverageEligibilityResponse) T_ErrorCode(numError int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numError >= len(resource.Error) {
-		return CodeableConceptSelect("CoverageEligibilityResponse.Error."+strconv.Itoa(numError)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Error["+strconv.Itoa(numError)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CoverageEligibilityResponse.Error."+strconv.Itoa(numError)+"..Code", &resource.Error[numError].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Error["+strconv.Itoa(numError)+"]Code", &resource.Error[numError].Code, optionsValueSet, htmlAttrs)
 }

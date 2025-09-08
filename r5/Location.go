@@ -82,85 +82,75 @@ func (resource *Location) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSLocation_status
 
 	if resource == nil {
-		return CodeSelect("Location.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Location.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_OperationalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("Location.OperationalStatus", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("OperationalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Location.OperationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
+	return CodingSelect("OperationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Location.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("Location.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *Location) T_Alias(numAlias int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAlias >= len(resource.Alias) {
-		return StringInput("Location.Alias."+strconv.Itoa(numAlias)+".", nil, htmlAttrs)
+		return StringInput("Alias["+strconv.Itoa(numAlias)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Location.Alias."+strconv.Itoa(numAlias)+".", &resource.Alias[numAlias], htmlAttrs)
+	return StringInput("Alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
 func (resource *Location) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Location.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("Location.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *Location) T_Mode(htmlAttrs string) templ.Component {
 	optionsValueSet := VSLocation_mode
 
 	if resource == nil {
-		return CodeSelect("Location.Mode", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Location.Mode", resource.Mode, optionsValueSet, htmlAttrs)
+	return CodeSelect("Mode", resource.Mode, optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("Location.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Location.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_Form(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Location.Form", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Location.Form", resource.Form, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Form", resource.Form, optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("Location.Characteristic."+strconv.Itoa(numCharacteristic)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Location.Characteristic."+strconv.Itoa(numCharacteristic)+".", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
 }
 func (resource *Location) T_PositionLongitude(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return Float64Input("Location.Position.Longitude", nil, htmlAttrs)
+		return Float64Input("PositionLongitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Longitude", &resource.Position.Longitude, htmlAttrs)
+	return Float64Input("PositionLongitude", &resource.Position.Longitude, htmlAttrs)
 }
 func (resource *Location) T_PositionLatitude(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return Float64Input("Location.Position.Latitude", nil, htmlAttrs)
+		return Float64Input("PositionLatitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Latitude", &resource.Position.Latitude, htmlAttrs)
+	return Float64Input("PositionLatitude", &resource.Position.Latitude, htmlAttrs)
 }
 func (resource *Location) T_PositionAltitude(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return Float64Input("Location.Position.Altitude", nil, htmlAttrs)
+		return Float64Input("PositionAltitude", nil, htmlAttrs)
 	}
-	return Float64Input("Location.Position.Altitude", resource.Position.Altitude, htmlAttrs)
+	return Float64Input("PositionAltitude", resource.Position.Altitude, htmlAttrs)
 }

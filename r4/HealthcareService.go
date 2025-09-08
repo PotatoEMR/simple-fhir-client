@@ -104,150 +104,130 @@ func (r HealthcareService) ToRef() Reference {
 	return ref
 }
 func (resource *HealthcareService) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("HealthcareService.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("HealthcareService.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *HealthcareService) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("HealthcareService.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("HealthcareService.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
-		return CodeableConceptSelect("HealthcareService.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("HealthcareService.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *HealthcareService) T_Comment(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("HealthcareService.Comment", nil, htmlAttrs)
+		return StringInput("Comment", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.Comment", resource.Comment, htmlAttrs)
+	return StringInput("Comment", resource.Comment, htmlAttrs)
 }
 func (resource *HealthcareService) T_ExtraDetails(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("HealthcareService.ExtraDetails", nil, htmlAttrs)
+		return StringInput("ExtraDetails", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.ExtraDetails", resource.ExtraDetails, htmlAttrs)
+	return StringInput("ExtraDetails", resource.ExtraDetails, htmlAttrs)
 }
 func (resource *HealthcareService) T_ServiceProvisionCode(numServiceProvisionCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numServiceProvisionCode >= len(resource.ServiceProvisionCode) {
-		return CodeableConceptSelect("HealthcareService.ServiceProvisionCode."+strconv.Itoa(numServiceProvisionCode)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ServiceProvisionCode["+strconv.Itoa(numServiceProvisionCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.ServiceProvisionCode."+strconv.Itoa(numServiceProvisionCode)+".", &resource.ServiceProvisionCode[numServiceProvisionCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ServiceProvisionCode["+strconv.Itoa(numServiceProvisionCode)+"]", &resource.ServiceProvisionCode[numServiceProvisionCode], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Program(numProgram int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProgram >= len(resource.Program) {
-		return CodeableConceptSelect("HealthcareService.Program."+strconv.Itoa(numProgram)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Program["+strconv.Itoa(numProgram)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Program."+strconv.Itoa(numProgram)+".", &resource.Program[numProgram], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Program["+strconv.Itoa(numProgram)+"]", &resource.Program[numProgram], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("HealthcareService.Characteristic."+strconv.Itoa(numCharacteristic)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Characteristic."+strconv.Itoa(numCharacteristic)+".", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return CodeableConceptSelect("HealthcareService.Communication."+strconv.Itoa(numCommunication)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Communication."+strconv.Itoa(numCommunication)+".", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_ReferralMethod(numReferralMethod int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numReferralMethod >= len(resource.ReferralMethod) {
-		return CodeableConceptSelect("HealthcareService.ReferralMethod."+strconv.Itoa(numReferralMethod)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ReferralMethod["+strconv.Itoa(numReferralMethod)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.ReferralMethod."+strconv.Itoa(numReferralMethod)+".", &resource.ReferralMethod[numReferralMethod], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ReferralMethod["+strconv.Itoa(numReferralMethod)+"]", &resource.ReferralMethod[numReferralMethod], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_AppointmentRequired(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("HealthcareService.AppointmentRequired", nil, htmlAttrs)
+		return BoolInput("AppointmentRequired", nil, htmlAttrs)
 	}
-	return BoolInput("HealthcareService.AppointmentRequired", resource.AppointmentRequired, htmlAttrs)
+	return BoolInput("AppointmentRequired", resource.AppointmentRequired, htmlAttrs)
 }
 func (resource *HealthcareService) T_AvailabilityExceptions(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("HealthcareService.AvailabilityExceptions", nil, htmlAttrs)
+		return StringInput("AvailabilityExceptions", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
+	return StringInput("AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
 func (resource *HealthcareService) T_EligibilityCode(numEligibility int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numEligibility >= len(resource.Eligibility) {
-		return CodeableConceptSelect("HealthcareService.Eligibility."+strconv.Itoa(numEligibility)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Eligibility["+strconv.Itoa(numEligibility)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("HealthcareService.Eligibility."+strconv.Itoa(numEligibility)+"..Code", resource.Eligibility[numEligibility].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Eligibility["+strconv.Itoa(numEligibility)+"]Code", resource.Eligibility[numEligibility].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_EligibilityComment(numEligibility int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numEligibility >= len(resource.Eligibility) {
-		return StringInput("HealthcareService.Eligibility."+strconv.Itoa(numEligibility)+"..Comment", nil, htmlAttrs)
+		return StringInput("Eligibility["+strconv.Itoa(numEligibility)+"]Comment", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.Eligibility."+strconv.Itoa(numEligibility)+"..Comment", resource.Eligibility[numEligibility].Comment, htmlAttrs)
+	return StringInput("Eligibility["+strconv.Itoa(numEligibility)+"]Comment", resource.Eligibility[numEligibility].Comment, htmlAttrs)
 }
 func (resource *HealthcareService) T_AvailableTimeDaysOfWeek(numAvailableTime int, numDaysOfWeek int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDays_of_week
 
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) || numDaysOfWeek >= len(resource.AvailableTime[numAvailableTime].DaysOfWeek) {
-		return CodeSelect("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("AvailableTime["+strconv.Itoa(numAvailableTime)+"]DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
+	return CodeSelect("AvailableTime["+strconv.Itoa(numAvailableTime)+"]DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
 }
 func (resource *HealthcareService) T_AvailableTimeAllDay(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return BoolInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", nil, htmlAttrs)
+		return BoolInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AllDay", nil, htmlAttrs)
 	}
-	return BoolInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", resource.AvailableTime[numAvailableTime].AllDay, htmlAttrs)
+	return BoolInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AllDay", resource.AvailableTime[numAvailableTime].AllDay, htmlAttrs)
 }
 func (resource *HealthcareService) T_AvailableTimeAvailableStartTime(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return StringInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", nil, htmlAttrs)
+		return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableStartTime", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime, htmlAttrs)
+	return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime, htmlAttrs)
 }
 func (resource *HealthcareService) T_AvailableTimeAvailableEndTime(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return StringInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", nil, htmlAttrs)
+		return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableEndTime", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime, htmlAttrs)
+	return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime, htmlAttrs)
 }
 func (resource *HealthcareService) T_NotAvailableDescription(numNotAvailable int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNotAvailable >= len(resource.NotAvailable) {
-		return StringInput("HealthcareService.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", nil, htmlAttrs)
+		return StringInput("NotAvailable["+strconv.Itoa(numNotAvailable)+"]Description", nil, htmlAttrs)
 	}
-	return StringInput("HealthcareService.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
+	return StringInput("NotAvailable["+strconv.Itoa(numNotAvailable)+"]Description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
 }

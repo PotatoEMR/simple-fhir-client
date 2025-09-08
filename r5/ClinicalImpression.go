@@ -84,77 +84,67 @@ func (resource *ClinicalImpression) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("ClinicalImpression.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ClinicalImpression.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ClinicalImpression.StatusReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ClinicalImpression.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ClinicalImpression.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("ClinicalImpression.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_EffectiveDateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("ClinicalImpression.EffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("EffectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("ClinicalImpression.EffectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
+	return DateTimeInput("EffectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("ClinicalImpression.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ClinicalImpression.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_ChangePattern(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ClinicalImpression.ChangePattern", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ChangePattern", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ClinicalImpression.ChangePattern", resource.ChangePattern, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ChangePattern", resource.ChangePattern, optionsValueSet, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Protocol(numProtocol int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProtocol >= len(resource.Protocol) {
-		return StringInput("ClinicalImpression.Protocol."+strconv.Itoa(numProtocol)+".", nil, htmlAttrs)
+		return StringInput("Protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ClinicalImpression.Protocol."+strconv.Itoa(numProtocol)+".", &resource.Protocol[numProtocol], htmlAttrs)
+	return StringInput("Protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Summary(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ClinicalImpression.Summary", nil, htmlAttrs)
+		return StringInput("Summary", nil, htmlAttrs)
 	}
-	return StringInput("ClinicalImpression.Summary", resource.Summary, htmlAttrs)
+	return StringInput("Summary", resource.Summary, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_PrognosisCodeableConcept(numPrognosisCodeableConcept int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPrognosisCodeableConcept >= len(resource.PrognosisCodeableConcept) {
-		return CodeableConceptSelect("ClinicalImpression.PrognosisCodeableConcept."+strconv.Itoa(numPrognosisCodeableConcept)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("PrognosisCodeableConcept["+strconv.Itoa(numPrognosisCodeableConcept)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ClinicalImpression.PrognosisCodeableConcept."+strconv.Itoa(numPrognosisCodeableConcept)+".", &resource.PrognosisCodeableConcept[numPrognosisCodeableConcept], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("PrognosisCodeableConcept["+strconv.Itoa(numPrognosisCodeableConcept)+"]", &resource.PrognosisCodeableConcept[numPrognosisCodeableConcept], optionsValueSet, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("ClinicalImpression.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("ClinicalImpression.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *ClinicalImpression) T_FindingBasis(numFinding int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numFinding >= len(resource.Finding) {
-		return StringInput("ClinicalImpression.Finding."+strconv.Itoa(numFinding)+"..Basis", nil, htmlAttrs)
+		return StringInput("Finding["+strconv.Itoa(numFinding)+"]Basis", nil, htmlAttrs)
 	}
-	return StringInput("ClinicalImpression.Finding."+strconv.Itoa(numFinding)+"..Basis", resource.Finding[numFinding].Basis, htmlAttrs)
+	return StringInput("Finding["+strconv.Itoa(numFinding)+"]Basis", resource.Finding[numFinding].Basis, htmlAttrs)
 }

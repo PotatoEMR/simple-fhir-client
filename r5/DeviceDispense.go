@@ -85,56 +85,49 @@ func (resource *DeviceDispense) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevicedispense_status
 
 	if resource == nil {
-		return CodeSelect("DeviceDispense.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceDispense.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDispense) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("DeviceDispense.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceDispense.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDispense) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("DeviceDispense.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceDispense.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDispense) T_PreparedDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("DeviceDispense.PreparedDate", nil, htmlAttrs)
+		return DateTimeInput("PreparedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceDispense.PreparedDate", resource.PreparedDate, htmlAttrs)
+	return DateTimeInput("PreparedDate", resource.PreparedDate, htmlAttrs)
 }
 func (resource *DeviceDispense) T_WhenHandedOver(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("DeviceDispense.WhenHandedOver", nil, htmlAttrs)
+		return DateTimeInput("WhenHandedOver", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceDispense.WhenHandedOver", resource.WhenHandedOver, htmlAttrs)
+	return DateTimeInput("WhenHandedOver", resource.WhenHandedOver, htmlAttrs)
 }
 func (resource *DeviceDispense) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("DeviceDispense.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("DeviceDispense.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *DeviceDispense) T_UsageInstruction(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("DeviceDispense.UsageInstruction", nil, htmlAttrs)
+		return StringInput("UsageInstruction", nil, htmlAttrs)
 	}
-	return StringInput("DeviceDispense.UsageInstruction", resource.UsageInstruction, htmlAttrs)
+	return StringInput("UsageInstruction", resource.UsageInstruction, htmlAttrs)
 }
 func (resource *DeviceDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return CodeableConceptSelect("DeviceDispense.Performer."+strconv.Itoa(numPerformer)+"..Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Performer["+strconv.Itoa(numPerformer)+"]Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceDispense.Performer."+strconv.Itoa(numPerformer)+"..Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Performer["+strconv.Itoa(numPerformer)+"]Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }

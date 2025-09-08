@@ -304,22 +304,25 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 							backbonePath := "resource" //this one actually used in field
 							intParams := ""
 							bbCheck := ""
-							formName := res.Name
+							formName := "" //this one used in submitted json
 
 							//need to check if each backbone element along the way is cardinality * or not to make [n] or not
 							pathString := res.Name
-							for _, p := range parts[1:] {
+							for i, p := range parts[1:] {
 								pUpper := strings.Title(p)
 								pUpperNum := "num" + pUpper
 								pathString = pathString + "." + p
+								if i > 1 {
+									formName = formName + "."
+								}
 								if pathCard[pathString] == "*" {
 									intParams = intParams + pUpperNum + " int, "
 									bbCheck = bbCheck + " || " + pUpperNum + ">= len(" + backbonePath + "." + pUpper + ")"
 									backbonePath = backbonePath + "." + pUpper + "[" + pUpperNum + "]"
-									formName = formName + "." + pUpper + ".\"+strconv.Itoa(" + pUpperNum + ")+\"."
+									formName = formName + pUpper + "[\"+strconv.Itoa(" + pUpperNum + ")+\"]"
 								} else {
 									backbonePath = backbonePath + "." + pUpper
-									formName = formName + "." + pUpper
+									formName = formName + pUpper
 								}
 							}
 
@@ -332,8 +335,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								backbonePath = backbonePath[:len(backbonePath)-3] + strings.Title(eltType.Code)
 								formName = formName[:len(formName)-3] + strings.Title(eltType.Code)
 							}
-							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs string) templ.Component {
-								        ` + vsReq + `
+							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs string) templ.Component {` + vsReq + `
 								        if resource == nil ` + bbCheck + `{`)
 							if elt.Max == "*" || elt.Min == 1 {
 								backbonePath = "&" + backbonePath

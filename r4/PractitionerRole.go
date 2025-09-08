@@ -85,66 +85,58 @@ func (r PractitionerRole) ToRef() Reference {
 	return ref
 }
 func (resource *PractitionerRole) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("PractitionerRole.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("PractitionerRole.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCode >= len(resource.Code) {
-		return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PractitionerRole.Code."+strconv.Itoa(numCode)+".", &resource.Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
 func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
-		return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PractitionerRole.Specialty."+strconv.Itoa(numSpecialty)+".", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailabilityExceptions(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("PractitionerRole.AvailabilityExceptions", nil, htmlAttrs)
+		return StringInput("AvailabilityExceptions", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
+	return StringInput("AvailabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailableTimeDaysOfWeek(numAvailableTime int, numDaysOfWeek int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDays_of_week
 
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) || numDaysOfWeek >= len(resource.AvailableTime[numAvailableTime].DaysOfWeek) {
-		return CodeSelect("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("AvailableTime["+strconv.Itoa(numAvailableTime)+"]DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..DaysOfWeek."+strconv.Itoa(numDaysOfWeek)+".", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
+	return CodeSelect("AvailableTime["+strconv.Itoa(numAvailableTime)+"]DaysOfWeek["+strconv.Itoa(numDaysOfWeek)+"]", &resource.AvailableTime[numAvailableTime].DaysOfWeek[numDaysOfWeek], optionsValueSet, htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailableTimeAllDay(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return BoolInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", nil, htmlAttrs)
+		return BoolInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AllDay", nil, htmlAttrs)
 	}
-	return BoolInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AllDay", resource.AvailableTime[numAvailableTime].AllDay, htmlAttrs)
+	return BoolInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AllDay", resource.AvailableTime[numAvailableTime].AllDay, htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailableTimeAvailableStartTime(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", nil, htmlAttrs)
+		return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableStartTime", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime, htmlAttrs)
+	return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableStartTime", resource.AvailableTime[numAvailableTime].AvailableStartTime, htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailableTimeAvailableEndTime(numAvailableTime int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAvailableTime >= len(resource.AvailableTime) {
-		return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", nil, htmlAttrs)
+		return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableEndTime", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.AvailableTime."+strconv.Itoa(numAvailableTime)+"..AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime, htmlAttrs)
+	return StringInput("AvailableTime["+strconv.Itoa(numAvailableTime)+"]AvailableEndTime", resource.AvailableTime[numAvailableTime].AvailableEndTime, htmlAttrs)
 }
 func (resource *PractitionerRole) T_NotAvailableDescription(numNotAvailable int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNotAvailable >= len(resource.NotAvailable) {
-		return StringInput("PractitionerRole.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", nil, htmlAttrs)
+		return StringInput("NotAvailable["+strconv.Itoa(numNotAvailable)+"]Description", nil, htmlAttrs)
 	}
-	return StringInput("PractitionerRole.NotAvailable."+strconv.Itoa(numNotAvailable)+"..Description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
+	return StringInput("NotAvailable["+strconv.Itoa(numNotAvailable)+"]Description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
 }

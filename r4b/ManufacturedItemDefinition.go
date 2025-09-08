@@ -75,56 +75,49 @@ func (resource *ManufacturedItemDefinition) T_Status(htmlAttrs string) templ.Com
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ManufacturedItemDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ManufacturedItemDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_ManufacturedDoseForm(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ManufacturedDoseForm", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedItemDefinition.ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("UnitOfPresentation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedItemDefinition.UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_Ingredient(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient."+strconv.Itoa(numIngredient)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Ingredient["+strconv.Itoa(numIngredient)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedItemDefinition.Ingredient."+strconv.Itoa(numIngredient)+".", &resource.Ingredient[numIngredient], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyType(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return CodeableConceptSelect("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyValueCodeableConcept(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return CodeableConceptSelect("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueCodeableConcept", resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCodeableConcept", resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyValueDate(numProperty int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return DateInput("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueDate", nil, htmlAttrs)
+		return DateInput("Property["+strconv.Itoa(numProperty)+"]ValueDate", nil, htmlAttrs)
 	}
-	return DateInput("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueDate", resource.Property[numProperty].ValueDate, htmlAttrs)
+	return DateInput("Property["+strconv.Itoa(numProperty)+"]ValueDate", resource.Property[numProperty].ValueDate, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyValueBoolean(numProperty int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return BoolInput("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Property["+strconv.Itoa(numProperty)+"]ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("ManufacturedItemDefinition.Property."+strconv.Itoa(numProperty)+"..ValueBoolean", resource.Property[numProperty].ValueBoolean, htmlAttrs)
+	return BoolInput("Property["+strconv.Itoa(numProperty)+"]ValueBoolean", resource.Property[numProperty].ValueBoolean, htmlAttrs)
 }

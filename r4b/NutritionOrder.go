@@ -139,172 +139,150 @@ func (r NutritionOrder) ToRef() Reference {
 	return ref
 }
 func (resource *NutritionOrder) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("NutritionOrder.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", nil, htmlAttrs)
+		return StringInput("InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.InstantiatesCanonical."+strconv.Itoa(numInstantiatesCanonical)+".", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *NutritionOrder) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("NutritionOrder.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", nil, htmlAttrs)
+		return StringInput("InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.InstantiatesUri."+strconv.Itoa(numInstantiatesUri)+".", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *NutritionOrder) T_Instantiates(numInstantiates int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numInstantiates >= len(resource.Instantiates) {
-		return StringInput("NutritionOrder.Instantiates."+strconv.Itoa(numInstantiates)+".", nil, htmlAttrs)
+		return StringInput("Instantiates["+strconv.Itoa(numInstantiates)+"]", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.Instantiates."+strconv.Itoa(numInstantiates)+".", &resource.Instantiates[numInstantiates], htmlAttrs)
+	return StringInput("Instantiates["+strconv.Itoa(numInstantiates)+"]", &resource.Instantiates[numInstantiates], htmlAttrs)
 }
 func (resource *NutritionOrder) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("NutritionOrder.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NutritionOrder.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
-		return CodeSelect("NutritionOrder.Intent", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("NutritionOrder.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
+	return CodeSelect("Intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_DateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("NutritionOrder.DateTime", nil, htmlAttrs)
+		return DateTimeInput("DateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("NutritionOrder.DateTime", &resource.DateTime, htmlAttrs)
+	return DateTimeInput("DateTime", &resource.DateTime, htmlAttrs)
 }
 func (resource *NutritionOrder) T_FoodPreferenceModifier(numFoodPreferenceModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numFoodPreferenceModifier >= len(resource.FoodPreferenceModifier) {
-		return CodeableConceptSelect("NutritionOrder.FoodPreferenceModifier."+strconv.Itoa(numFoodPreferenceModifier)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("FoodPreferenceModifier["+strconv.Itoa(numFoodPreferenceModifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.FoodPreferenceModifier."+strconv.Itoa(numFoodPreferenceModifier)+".", &resource.FoodPreferenceModifier[numFoodPreferenceModifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("FoodPreferenceModifier["+strconv.Itoa(numFoodPreferenceModifier)+"]", &resource.FoodPreferenceModifier[numFoodPreferenceModifier], optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_ExcludeFoodModifier(numExcludeFoodModifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numExcludeFoodModifier >= len(resource.ExcludeFoodModifier) {
-		return CodeableConceptSelect("NutritionOrder.ExcludeFoodModifier."+strconv.Itoa(numExcludeFoodModifier)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ExcludeFoodModifier["+strconv.Itoa(numExcludeFoodModifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.ExcludeFoodModifier."+strconv.Itoa(numExcludeFoodModifier)+".", &resource.ExcludeFoodModifier[numExcludeFoodModifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ExcludeFoodModifier["+strconv.Itoa(numExcludeFoodModifier)+"]", &resource.ExcludeFoodModifier[numExcludeFoodModifier], optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("NutritionOrder.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("NutritionOrder.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietType(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numType >= len(resource.OralDiet.Type) {
-		return CodeableConceptSelect("NutritionOrder.OralDiet.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("OralDietType["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.OralDiet.Type."+strconv.Itoa(numType)+".", &resource.OralDiet.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("OralDietType["+strconv.Itoa(numType)+"]", &resource.OralDiet.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietFluidConsistencyType(numFluidConsistencyType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numFluidConsistencyType >= len(resource.OralDiet.FluidConsistencyType) {
-		return CodeableConceptSelect("NutritionOrder.OralDiet.FluidConsistencyType."+strconv.Itoa(numFluidConsistencyType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("OralDietFluidConsistencyType["+strconv.Itoa(numFluidConsistencyType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.OralDiet.FluidConsistencyType."+strconv.Itoa(numFluidConsistencyType)+".", &resource.OralDiet.FluidConsistencyType[numFluidConsistencyType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("OralDietFluidConsistencyType["+strconv.Itoa(numFluidConsistencyType)+"]", &resource.OralDiet.FluidConsistencyType[numFluidConsistencyType], optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietInstruction(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NutritionOrder.OralDiet.Instruction", nil, htmlAttrs)
+		return StringInput("OralDietInstruction", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.OralDiet.Instruction", resource.OralDiet.Instruction, htmlAttrs)
+	return StringInput("OralDietInstruction", resource.OralDiet.Instruction, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietNutrientModifier(numNutrient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNutrient >= len(resource.OralDiet.Nutrient) {
-		return CodeableConceptSelect("NutritionOrder.OralDiet.Nutrient."+strconv.Itoa(numNutrient)+"..Modifier", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("OralDietNutrient["+strconv.Itoa(numNutrient)+"].Modifier", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.OralDiet.Nutrient."+strconv.Itoa(numNutrient)+"..Modifier", resource.OralDiet.Nutrient[numNutrient].Modifier, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("OralDietNutrient["+strconv.Itoa(numNutrient)+"].Modifier", resource.OralDiet.Nutrient[numNutrient].Modifier, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietTextureModifier(numTexture int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numTexture >= len(resource.OralDiet.Texture) {
-		return CodeableConceptSelect("NutritionOrder.OralDiet.Texture."+strconv.Itoa(numTexture)+"..Modifier", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("OralDietTexture["+strconv.Itoa(numTexture)+"].Modifier", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.OralDiet.Texture."+strconv.Itoa(numTexture)+"..Modifier", resource.OralDiet.Texture[numTexture].Modifier, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("OralDietTexture["+strconv.Itoa(numTexture)+"].Modifier", resource.OralDiet.Texture[numTexture].Modifier, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietTextureFoodType(numTexture int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numTexture >= len(resource.OralDiet.Texture) {
-		return CodeableConceptSelect("NutritionOrder.OralDiet.Texture."+strconv.Itoa(numTexture)+"..FoodType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("OralDietTexture["+strconv.Itoa(numTexture)+"].FoodType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.OralDiet.Texture."+strconv.Itoa(numTexture)+"..FoodType", resource.OralDiet.Texture[numTexture].FoodType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("OralDietTexture["+strconv.Itoa(numTexture)+"].FoodType", resource.OralDiet.Texture[numTexture].FoodType, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_SupplementType(numSupplement int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplement >= len(resource.Supplement) {
-		return CodeableConceptSelect("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Supplement["+strconv.Itoa(numSupplement)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..Type", resource.Supplement[numSupplement].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Supplement["+strconv.Itoa(numSupplement)+"]Type", resource.Supplement[numSupplement].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_SupplementProductName(numSupplement int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplement >= len(resource.Supplement) {
-		return StringInput("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..ProductName", nil, htmlAttrs)
+		return StringInput("Supplement["+strconv.Itoa(numSupplement)+"]ProductName", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..ProductName", resource.Supplement[numSupplement].ProductName, htmlAttrs)
+	return StringInput("Supplement["+strconv.Itoa(numSupplement)+"]ProductName", resource.Supplement[numSupplement].ProductName, htmlAttrs)
 }
 func (resource *NutritionOrder) T_SupplementInstruction(numSupplement int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplement >= len(resource.Supplement) {
-		return StringInput("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..Instruction", nil, htmlAttrs)
+		return StringInput("Supplement["+strconv.Itoa(numSupplement)+"]Instruction", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.Supplement."+strconv.Itoa(numSupplement)+"..Instruction", resource.Supplement[numSupplement].Instruction, htmlAttrs)
+	return StringInput("Supplement["+strconv.Itoa(numSupplement)+"]Instruction", resource.Supplement[numSupplement].Instruction, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaBaseFormulaType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("NutritionOrder.EnteralFormula.BaseFormulaType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("EnteralFormulaBaseFormulaType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.EnteralFormula.BaseFormulaType", resource.EnteralFormula.BaseFormulaType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("EnteralFormulaBaseFormulaType", resource.EnteralFormula.BaseFormulaType, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaBaseFormulaProductName(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NutritionOrder.EnteralFormula.BaseFormulaProductName", nil, htmlAttrs)
+		return StringInput("EnteralFormulaBaseFormulaProductName", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.EnteralFormula.BaseFormulaProductName", resource.EnteralFormula.BaseFormulaProductName, htmlAttrs)
+	return StringInput("EnteralFormulaBaseFormulaProductName", resource.EnteralFormula.BaseFormulaProductName, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaAdditiveType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("NutritionOrder.EnteralFormula.AdditiveType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("EnteralFormulaAdditiveType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.EnteralFormula.AdditiveType", resource.EnteralFormula.AdditiveType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("EnteralFormulaAdditiveType", resource.EnteralFormula.AdditiveType, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaAdditiveProductName(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NutritionOrder.EnteralFormula.AdditiveProductName", nil, htmlAttrs)
+		return StringInput("EnteralFormulaAdditiveProductName", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.EnteralFormula.AdditiveProductName", resource.EnteralFormula.AdditiveProductName, htmlAttrs)
+	return StringInput("EnteralFormulaAdditiveProductName", resource.EnteralFormula.AdditiveProductName, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaRouteofAdministration(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("NutritionOrder.EnteralFormula.RouteofAdministration", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("EnteralFormulaRouteofAdministration", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("NutritionOrder.EnteralFormula.RouteofAdministration", resource.EnteralFormula.RouteofAdministration, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("EnteralFormulaRouteofAdministration", resource.EnteralFormula.RouteofAdministration, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaAdministrationInstruction(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("NutritionOrder.EnteralFormula.AdministrationInstruction", nil, htmlAttrs)
+		return StringInput("EnteralFormulaAdministrationInstruction", nil, htmlAttrs)
 	}
-	return StringInput("NutritionOrder.EnteralFormula.AdministrationInstruction", resource.EnteralFormula.AdministrationInstruction, htmlAttrs)
+	return StringInput("EnteralFormulaAdministrationInstruction", resource.EnteralFormula.AdministrationInstruction, htmlAttrs)
 }

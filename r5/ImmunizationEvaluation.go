@@ -68,63 +68,55 @@ func (resource *ImmunizationEvaluation) T_Status(htmlAttrs string) templ.Compone
 	optionsValueSet := VSImmunization_evaluation_status
 
 	if resource == nil {
-		return CodeSelect("ImmunizationEvaluation.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ImmunizationEvaluation.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("ImmunizationEvaluation.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ImmunizationEvaluation.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("TargetDisease", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.TargetDisease", &resource.TargetDisease, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("TargetDisease", &resource.TargetDisease, optionsValueSet, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DoseStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatus", &resource.DoseStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DoseStatus", &resource.DoseStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_DoseStatusReason(numDoseStatusReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numDoseStatusReason >= len(resource.DoseStatusReason) {
-		return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason."+strconv.Itoa(numDoseStatusReason)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ImmunizationEvaluation.DoseStatusReason."+strconv.Itoa(numDoseStatusReason)+".", &resource.DoseStatusReason[numDoseStatusReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DoseStatusReason["+strconv.Itoa(numDoseStatusReason)+"]", &resource.DoseStatusReason[numDoseStatusReason], optionsValueSet, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_Series(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.Series", nil, htmlAttrs)
+		return StringInput("Series", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.Series", resource.Series, htmlAttrs)
+	return StringInput("Series", resource.Series, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_DoseNumber(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.DoseNumber", nil, htmlAttrs)
+		return StringInput("DoseNumber", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.DoseNumber", resource.DoseNumber, htmlAttrs)
+	return StringInput("DoseNumber", resource.DoseNumber, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_SeriesDoses(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ImmunizationEvaluation.SeriesDoses", nil, htmlAttrs)
+		return StringInput("SeriesDoses", nil, htmlAttrs)
 	}
-	return StringInput("ImmunizationEvaluation.SeriesDoses", resource.SeriesDoses, htmlAttrs)
+	return StringInput("SeriesDoses", resource.SeriesDoses, htmlAttrs)
 }

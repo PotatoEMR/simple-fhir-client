@@ -93,79 +93,68 @@ func (r BiologicallyDerivedProduct) ToRef() Reference {
 	return ref
 }
 func (resource *BiologicallyDerivedProduct) T_ProductCategory(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("BiologicallyDerivedProduct.ProductCategory", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("ProductCategory", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("BiologicallyDerivedProduct.ProductCategory", resource.ProductCategory, optionsValueSet, htmlAttrs)
+	return CodingSelect("ProductCategory", resource.ProductCategory, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("BiologicallyDerivedProduct.ProductCode", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ProductCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BiologicallyDerivedProduct.ProductCode", resource.ProductCode, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ProductCode", resource.ProductCode, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_Division(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("BiologicallyDerivedProduct.Division", nil, htmlAttrs)
+		return StringInput("Division", nil, htmlAttrs)
 	}
-	return StringInput("BiologicallyDerivedProduct.Division", resource.Division, htmlAttrs)
+	return StringInput("Division", resource.Division, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProductStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("BiologicallyDerivedProduct.ProductStatus", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("ProductStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("BiologicallyDerivedProduct.ProductStatus", resource.ProductStatus, optionsValueSet, htmlAttrs)
+	return CodingSelect("ProductStatus", resource.ProductStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ExpirationDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("BiologicallyDerivedProduct.ExpirationDate", nil, htmlAttrs)
+		return DateTimeInput("ExpirationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("BiologicallyDerivedProduct.ExpirationDate", resource.ExpirationDate, htmlAttrs)
+	return DateTimeInput("ExpirationDate", resource.ExpirationDate, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("BiologicallyDerivedProduct.Collection.CollectedDateTime", nil, htmlAttrs)
+		return DateTimeInput("CollectionCollectedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("BiologicallyDerivedProduct.Collection.CollectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
+	return DateTimeInput("CollectionCollectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyType(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return CodeableConceptSelect("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyValueBoolean(numProperty int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return BoolInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Property["+strconv.Itoa(numProperty)+"]ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueBoolean", &resource.Property[numProperty].ValueBoolean, htmlAttrs)
+	return BoolInput("Property["+strconv.Itoa(numProperty)+"]ValueBoolean", &resource.Property[numProperty].ValueBoolean, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyValueInteger(numProperty int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return IntInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueInteger", nil, htmlAttrs)
+		return IntInput("Property["+strconv.Itoa(numProperty)+"]ValueInteger", nil, htmlAttrs)
 	}
-	return IntInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueInteger", &resource.Property[numProperty].ValueInteger, htmlAttrs)
+	return IntInput("Property["+strconv.Itoa(numProperty)+"]ValueInteger", &resource.Property[numProperty].ValueInteger, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyValueCodeableConcept(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return CodeableConceptSelect("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueCodeableConcept", &resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCodeableConcept", &resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyValueString(numProperty int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numProperty >= len(resource.Property) {
-		return StringInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueString", nil, htmlAttrs)
+		return StringInput("Property["+strconv.Itoa(numProperty)+"]ValueString", nil, htmlAttrs)
 	}
-	return StringInput("BiologicallyDerivedProduct.Property."+strconv.Itoa(numProperty)+"..ValueString", &resource.Property[numProperty].ValueString, htmlAttrs)
+	return StringInput("Property["+strconv.Itoa(numProperty)+"]ValueString", &resource.Property[numProperty].ValueString, htmlAttrs)
 }

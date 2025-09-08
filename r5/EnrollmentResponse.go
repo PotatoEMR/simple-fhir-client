@@ -62,29 +62,27 @@ func (resource *EnrollmentResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Outcome(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEnrollment_outcome
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
+	return CodeSelect("Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Disposition(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("EnrollmentResponse.Disposition", nil, htmlAttrs)
+		return StringInput("Disposition", nil, htmlAttrs)
 	}
-	return StringInput("EnrollmentResponse.Disposition", resource.Disposition, htmlAttrs)
+	return StringInput("Disposition", resource.Disposition, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Created(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("EnrollmentResponse.Created", nil, htmlAttrs)
+		return DateTimeInput("Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("EnrollmentResponse.Created", resource.Created, htmlAttrs)
+	return DateTimeInput("Created", resource.Created, htmlAttrs)
 }

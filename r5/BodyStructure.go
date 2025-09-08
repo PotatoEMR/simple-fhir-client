@@ -90,65 +90,56 @@ func (r BodyStructure) ToRef() Reference {
 	return ref
 }
 func (resource *BodyStructure) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("BodyStructure.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("BodyStructure.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("BodyStructure.Morphology", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Morphology", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.Morphology", resource.Morphology, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Morphology", resource.Morphology, optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("BodyStructure.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("BodyStructure.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureStructure(numIncludedStructure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Structure", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Structure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Structure", &resource.IncludedStructure[numIncludedStructure].Structure, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Structure", &resource.IncludedStructure[numIncludedStructure].Structure, optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureLaterality(numIncludedStructure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Laterality", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Laterality", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Laterality", resource.IncludedStructure[numIncludedStructure].Laterality, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Laterality", resource.IncludedStructure[numIncludedStructure].Laterality, optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureQualifier(numIncludedStructure int, numQualifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numQualifier >= len(resource.IncludedStructure[numIncludedStructure].Qualifier) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Qualifier."+strconv.Itoa(numQualifier)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Qualifier["+strconv.Itoa(numQualifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..Qualifier."+strconv.Itoa(numQualifier)+".", &resource.IncludedStructure[numIncludedStructure].Qualifier[numQualifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]Qualifier["+strconv.Itoa(numQualifier)+"]", &resource.IncludedStructure[numIncludedStructure].Qualifier[numQualifier], optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationLandmarkDescription(numIncludedStructure int, numBodyLandmarkOrientation int, numLandmarkDescription int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numBodyLandmarkOrientation >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) || numLandmarkDescription >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].LandmarkDescription) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..LandmarkDescription."+strconv.Itoa(numLandmarkDescription)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].LandmarkDescription["+strconv.Itoa(numLandmarkDescription)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..LandmarkDescription."+strconv.Itoa(numLandmarkDescription)+".", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].LandmarkDescription[numLandmarkDescription], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].LandmarkDescription["+strconv.Itoa(numLandmarkDescription)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].LandmarkDescription[numLandmarkDescription], optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationClockFacePosition(numIncludedStructure int, numBodyLandmarkOrientation int, numClockFacePosition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numBodyLandmarkOrientation >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) || numClockFacePosition >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].ClockFacePosition) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..ClockFacePosition."+strconv.Itoa(numClockFacePosition)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].ClockFacePosition["+strconv.Itoa(numClockFacePosition)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..ClockFacePosition."+strconv.Itoa(numClockFacePosition)+".", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].ClockFacePosition[numClockFacePosition], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].ClockFacePosition["+strconv.Itoa(numClockFacePosition)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].ClockFacePosition[numClockFacePosition], optionsValueSet, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationSurfaceOrientation(numIncludedStructure int, numBodyLandmarkOrientation int, numSurfaceOrientation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numBodyLandmarkOrientation >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) || numSurfaceOrientation >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].SurfaceOrientation) {
-		return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..SurfaceOrientation."+strconv.Itoa(numSurfaceOrientation)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].SurfaceOrientation["+strconv.Itoa(numSurfaceOrientation)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodyStructure.IncludedStructure."+strconv.Itoa(numIncludedStructure)+"..BodyLandmarkOrientation."+strconv.Itoa(numBodyLandmarkOrientation)+"..SurfaceOrientation."+strconv.Itoa(numSurfaceOrientation)+".", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].SurfaceOrientation[numSurfaceOrientation], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("IncludedStructure["+strconv.Itoa(numIncludedStructure)+"]BodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].SurfaceOrientation["+strconv.Itoa(numSurfaceOrientation)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].SurfaceOrientation[numSurfaceOrientation], optionsValueSet, htmlAttrs)
 }

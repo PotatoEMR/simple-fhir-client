@@ -18,16 +18,14 @@ type Binary struct {
 }
 
 func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeSelect("Binary.ContentType", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("ContentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Binary.ContentType", &resource.ContentType, optionsValueSet, htmlAttrs)
+	return CodeSelect("ContentType", &resource.ContentType, optionsValueSet, htmlAttrs)
 }
 func (resource *Binary) T_Data(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Binary.Data", nil, htmlAttrs)
+		return StringInput("Data", nil, htmlAttrs)
 	}
-	return StringInput("Binary.Data", resource.Data, htmlAttrs)
+	return StringInput("Data", resource.Data, htmlAttrs)
 }

@@ -147,291 +147,252 @@ func (r Measure) ToRef() Reference {
 	return ref
 }
 func (resource *Measure) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Url", resource.Url, htmlAttrs)
+	return StringInput("Url", resource.Url, htmlAttrs)
 }
 func (resource *Measure) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *Measure) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *Measure) T_Title(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Title", nil, htmlAttrs)
+		return StringInput("Title", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Title", resource.Title, htmlAttrs)
+	return StringInput("Title", resource.Title, htmlAttrs)
 }
 func (resource *Measure) T_Subtitle(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Subtitle", nil, htmlAttrs)
+		return StringInput("Subtitle", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("Subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *Measure) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Measure.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Measure.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Experimental(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Measure.Experimental", nil, htmlAttrs)
+		return BoolInput("Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("Measure.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *Measure) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Measure.SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("Measure.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Measure.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *Measure) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *Measure) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *Measure) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("Measure.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Purpose(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Purpose", nil, htmlAttrs)
+		return StringInput("Purpose", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *Measure) T_Usage(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Usage", nil, htmlAttrs)
+		return StringInput("Usage", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Usage", resource.Usage, htmlAttrs)
+	return StringInput("Usage", resource.Usage, htmlAttrs)
 }
 func (resource *Measure) T_Copyright(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Copyright", nil, htmlAttrs)
+		return StringInput("Copyright", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *Measure) T_ApprovalDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("Measure.ApprovalDate", nil, htmlAttrs)
+		return DateInput("ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("Measure.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *Measure) T_LastReviewDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("Measure.LastReviewDate", nil, htmlAttrs)
+		return DateInput("LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("Measure.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *Measure) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("Measure.Topic."+strconv.Itoa(numTopic)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Topic."+strconv.Itoa(numTopic)+".", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Library(numLibrary int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numLibrary >= len(resource.Library) {
-		return StringInput("Measure.Library."+strconv.Itoa(numLibrary)+".", nil, htmlAttrs)
+		return StringInput("Library["+strconv.Itoa(numLibrary)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Library."+strconv.Itoa(numLibrary)+".", &resource.Library[numLibrary], htmlAttrs)
+	return StringInput("Library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary], htmlAttrs)
 }
 func (resource *Measure) T_Disclaimer(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Disclaimer", nil, htmlAttrs)
+		return StringInput("Disclaimer", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Disclaimer", resource.Disclaimer, htmlAttrs)
+	return StringInput("Disclaimer", resource.Disclaimer, htmlAttrs)
 }
 func (resource *Measure) T_Scoring(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Measure.Scoring", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Scoring", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Scoring", resource.Scoring, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Scoring", resource.Scoring, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_CompositeScoring(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("Measure.CompositeScoring", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("CompositeScoring", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.CompositeScoring", resource.CompositeScoring, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("CompositeScoring", resource.CompositeScoring, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("Measure.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_RiskAdjustment(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.RiskAdjustment", nil, htmlAttrs)
+		return StringInput("RiskAdjustment", nil, htmlAttrs)
 	}
-	return StringInput("Measure.RiskAdjustment", resource.RiskAdjustment, htmlAttrs)
+	return StringInput("RiskAdjustment", resource.RiskAdjustment, htmlAttrs)
 }
 func (resource *Measure) T_RateAggregation(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.RateAggregation", nil, htmlAttrs)
+		return StringInput("RateAggregation", nil, htmlAttrs)
 	}
-	return StringInput("Measure.RateAggregation", resource.RateAggregation, htmlAttrs)
+	return StringInput("RateAggregation", resource.RateAggregation, htmlAttrs)
 }
 func (resource *Measure) T_Rationale(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Rationale", nil, htmlAttrs)
+		return StringInput("Rationale", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Rationale", resource.Rationale, htmlAttrs)
+	return StringInput("Rationale", resource.Rationale, htmlAttrs)
 }
 func (resource *Measure) T_ClinicalRecommendationStatement(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.ClinicalRecommendationStatement", nil, htmlAttrs)
+		return StringInput("ClinicalRecommendationStatement", nil, htmlAttrs)
 	}
-	return StringInput("Measure.ClinicalRecommendationStatement", resource.ClinicalRecommendationStatement, htmlAttrs)
+	return StringInput("ClinicalRecommendationStatement", resource.ClinicalRecommendationStatement, htmlAttrs)
 }
 func (resource *Measure) T_ImprovementNotation(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMeasure_improvement_notation
 
 	if resource == nil {
-		return CodeableConceptSelect("Measure.ImprovementNotation", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ImprovementNotation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.ImprovementNotation", resource.ImprovementNotation, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ImprovementNotation", resource.ImprovementNotation, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_Definition(numDefinition int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numDefinition >= len(resource.Definition) {
-		return StringInput("Measure.Definition."+strconv.Itoa(numDefinition)+".", nil, htmlAttrs)
+		return StringInput("Definition["+strconv.Itoa(numDefinition)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Definition."+strconv.Itoa(numDefinition)+".", &resource.Definition[numDefinition], htmlAttrs)
+	return StringInput("Definition["+strconv.Itoa(numDefinition)+"]", &resource.Definition[numDefinition], htmlAttrs)
 }
 func (resource *Measure) T_Guidance(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Measure.Guidance", nil, htmlAttrs)
+		return StringInput("Guidance", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Guidance", resource.Guidance, htmlAttrs)
+	return StringInput("Guidance", resource.Guidance, htmlAttrs)
 }
 func (resource *Measure) T_GroupCode(numGroup int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) {
-		return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Code", resource.Group[numGroup].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Code", resource.Group[numGroup].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_GroupDescription(numGroup int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) {
-		return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Description", nil, htmlAttrs)
+		return StringInput("Group["+strconv.Itoa(numGroup)+"]Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Description", resource.Group[numGroup].Description, htmlAttrs)
+	return StringInput("Group["+strconv.Itoa(numGroup)+"]Description", resource.Group[numGroup].Description, htmlAttrs)
 }
 func (resource *Measure) T_GroupPopulationCode(numGroup int, numPopulation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
-		return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Population."+strconv.Itoa(numPopulation)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Population["+strconv.Itoa(numPopulation)+"].Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Population."+strconv.Itoa(numPopulation)+"..Code", resource.Group[numGroup].Population[numPopulation].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Population["+strconv.Itoa(numPopulation)+"].Code", resource.Group[numGroup].Population[numPopulation].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_GroupPopulationDescription(numGroup int, numPopulation int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
-		return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Population."+strconv.Itoa(numPopulation)+"..Description", nil, htmlAttrs)
+		return StringInput("Group["+strconv.Itoa(numGroup)+"]Population["+strconv.Itoa(numPopulation)+"].Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Population."+strconv.Itoa(numPopulation)+"..Description", resource.Group[numGroup].Population[numPopulation].Description, htmlAttrs)
+	return StringInput("Group["+strconv.Itoa(numGroup)+"]Population["+strconv.Itoa(numPopulation)+"].Description", resource.Group[numGroup].Population[numPopulation].Description, htmlAttrs)
 }
 func (resource *Measure) T_GroupStratifierCode(numGroup int, numStratifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) {
-		return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Code", resource.Group[numGroup].Stratifier[numStratifier].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Code", resource.Group[numGroup].Stratifier[numStratifier].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_GroupStratifierDescription(numGroup int, numStratifier int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) {
-		return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Description", nil, htmlAttrs)
+		return StringInput("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Description", resource.Group[numGroup].Stratifier[numStratifier].Description, htmlAttrs)
+	return StringInput("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Description", resource.Group[numGroup].Stratifier[numStratifier].Description, htmlAttrs)
 }
 func (resource *Measure) T_GroupStratifierComponentCode(numGroup int, numStratifier int, numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Component) {
-		return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Component."+strconv.Itoa(numComponent)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Component["+strconv.Itoa(numComponent)+"].Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Component."+strconv.Itoa(numComponent)+"..Code", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Component["+strconv.Itoa(numComponent)+"].Code", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_GroupStratifierComponentDescription(numGroup int, numStratifier int, numComponent int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Component) {
-		return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Component."+strconv.Itoa(numComponent)+"..Description", nil, htmlAttrs)
+		return StringInput("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Component["+strconv.Itoa(numComponent)+"].Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.Group."+strconv.Itoa(numGroup)+"..Stratifier."+strconv.Itoa(numStratifier)+"..Component."+strconv.Itoa(numComponent)+"..Description", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Description, htmlAttrs)
+	return StringInput("Group["+strconv.Itoa(numGroup)+"]Stratifier["+strconv.Itoa(numStratifier)+"].Component["+strconv.Itoa(numComponent)+"].Description", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Description, htmlAttrs)
 }
 func (resource *Measure) T_SupplementalDataCode(numSupplementalData int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplementalData >= len(resource.SupplementalData) {
-		return CodeableConceptSelect("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Code", resource.SupplementalData[numSupplementalData].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Code", resource.SupplementalData[numSupplementalData].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_SupplementalDataUsage(numSupplementalData int, numUsage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplementalData >= len(resource.SupplementalData) || numUsage >= len(resource.SupplementalData[numSupplementalData].Usage) {
-		return CodeableConceptSelect("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Usage."+strconv.Itoa(numUsage)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Usage["+strconv.Itoa(numUsage)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Usage."+strconv.Itoa(numUsage)+".", &resource.SupplementalData[numSupplementalData].Usage[numUsage], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Usage["+strconv.Itoa(numUsage)+"]", &resource.SupplementalData[numSupplementalData].Usage[numUsage], optionsValueSet, htmlAttrs)
 }
 func (resource *Measure) T_SupplementalDataDescription(numSupplementalData int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSupplementalData >= len(resource.SupplementalData) {
-		return StringInput("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Description", nil, htmlAttrs)
+		return StringInput("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Description", nil, htmlAttrs)
 	}
-	return StringInput("Measure.SupplementalData."+strconv.Itoa(numSupplementalData)+"..Description", resource.SupplementalData[numSupplementalData].Description, htmlAttrs)
+	return StringInput("SupplementalData["+strconv.Itoa(numSupplementalData)+"]Description", resource.SupplementalData[numSupplementalData].Description, htmlAttrs)
 }

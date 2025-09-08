@@ -101,91 +101,79 @@ func (resource *MedicationAdministration) T_Status(htmlAttrs string) templ.Compo
 	optionsValueSet := VSMedication_admin_status
 
 	if resource == nil {
-		return CodeSelect("MedicationAdministration.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicationAdministration.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_StatusReason(numStatusReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numStatusReason >= len(resource.StatusReason) {
-		return CodeableConceptSelect("MedicationAdministration.StatusReason."+strconv.Itoa(numStatusReason)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("StatusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.StatusReason."+strconv.Itoa(numStatusReason)+".", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("StatusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("MedicationAdministration.Category."+strconv.Itoa(numCategory)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.Category."+strconv.Itoa(numCategory)+".", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_OccurenceDateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("MedicationAdministration.OccurenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("OccurenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationAdministration.OccurenceDateTime", &resource.OccurenceDateTime, htmlAttrs)
+	return DateTimeInput("OccurenceDateTime", &resource.OccurenceDateTime, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_Recorded(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("MedicationAdministration.Recorded", nil, htmlAttrs)
+		return DateTimeInput("Recorded", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationAdministration.Recorded", resource.Recorded, htmlAttrs)
+	return DateTimeInput("Recorded", resource.Recorded, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_IsSubPotent(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("MedicationAdministration.IsSubPotent", nil, htmlAttrs)
+		return BoolInput("IsSubPotent", nil, htmlAttrs)
 	}
-	return BoolInput("MedicationAdministration.IsSubPotent", resource.IsSubPotent, htmlAttrs)
+	return BoolInput("IsSubPotent", resource.IsSubPotent, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_SubPotentReason(numSubPotentReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numSubPotentReason >= len(resource.SubPotentReason) {
-		return CodeableConceptSelect("MedicationAdministration.SubPotentReason."+strconv.Itoa(numSubPotentReason)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubPotentReason["+strconv.Itoa(numSubPotentReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.SubPotentReason."+strconv.Itoa(numSubPotentReason)+".", &resource.SubPotentReason[numSubPotentReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubPotentReason["+strconv.Itoa(numSubPotentReason)+"]", &resource.SubPotentReason[numSubPotentReason], optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("MedicationAdministration.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("MedicationAdministration.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *MedicationAdministration) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return CodeableConceptSelect("MedicationAdministration.Performer."+strconv.Itoa(numPerformer)+"..Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Performer["+strconv.Itoa(numPerformer)+"]Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.Performer."+strconv.Itoa(numPerformer)+"..Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Performer["+strconv.Itoa(numPerformer)+"]Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_DosageText(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("MedicationAdministration.Dosage.Text", nil, htmlAttrs)
+		return StringInput("DosageText", nil, htmlAttrs)
 	}
-	return StringInput("MedicationAdministration.Dosage.Text", resource.Dosage.Text, htmlAttrs)
+	return StringInput("DosageText", resource.Dosage.Text, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_DosageSite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicationAdministration.Dosage.Site", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DosageSite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.Dosage.Site", resource.Dosage.Site, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DosageSite", resource.Dosage.Site, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_DosageRoute(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicationAdministration.Dosage.Route", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DosageRoute", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.Dosage.Route", resource.Dosage.Route, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DosageRoute", resource.Dosage.Route, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_DosageMethod(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("MedicationAdministration.Dosage.Method", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DosageMethod", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationAdministration.Dosage.Method", resource.Dosage.Method, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DosageMethod", resource.Dosage.Method, optionsValueSet, htmlAttrs)
 }

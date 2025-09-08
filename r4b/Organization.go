@@ -72,37 +72,32 @@ func (r Organization) ToRef() Reference {
 	return ref
 }
 func (resource *Organization) T_Active(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("Organization.Active", nil, htmlAttrs)
+		return BoolInput("Active", nil, htmlAttrs)
 	}
-	return BoolInput("Organization.Active", resource.Active, htmlAttrs)
+	return BoolInput("Active", resource.Active, htmlAttrs)
 }
 func (resource *Organization) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("Organization.Type."+strconv.Itoa(numType)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Organization.Type."+strconv.Itoa(numType)+".", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *Organization) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("Organization.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("Organization.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *Organization) T_Alias(numAlias int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numAlias >= len(resource.Alias) {
-		return StringInput("Organization.Alias."+strconv.Itoa(numAlias)+".", nil, htmlAttrs)
+		return StringInput("Alias["+strconv.Itoa(numAlias)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Organization.Alias."+strconv.Itoa(numAlias)+".", &resource.Alias[numAlias], htmlAttrs)
+	return StringInput("Alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
 func (resource *Organization) T_ContactPurpose(numContact int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numContact >= len(resource.Contact) {
-		return CodeableConceptSelect("Organization.Contact."+strconv.Itoa(numContact)+"..Purpose", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Contact["+strconv.Itoa(numContact)+"]Purpose", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Organization.Contact."+strconv.Itoa(numContact)+"..Purpose", resource.Contact[numContact].Purpose, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Contact["+strconv.Itoa(numContact)+"]Purpose", resource.Contact[numContact].Purpose, optionsValueSet, htmlAttrs)
 }

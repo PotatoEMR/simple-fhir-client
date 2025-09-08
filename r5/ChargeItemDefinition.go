@@ -97,150 +97,130 @@ func (r ChargeItemDefinition) ToRef() Reference {
 	return ref
 }
 func (resource *ChargeItemDefinition) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Url", resource.Url, htmlAttrs)
+	return StringInput("Url", resource.Url, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodingSelect("ChargeItemDefinition.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("ChargeItemDefinition.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Name", resource.Name, htmlAttrs)
+	return StringInput("Name", resource.Name, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Title(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Title", nil, htmlAttrs)
+		return StringInput("Title", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Title", resource.Title, htmlAttrs)
+	return StringInput("Title", resource.Title, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_DerivedFromUri(numDerivedFromUri int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numDerivedFromUri >= len(resource.DerivedFromUri) {
-		return StringInput("ChargeItemDefinition.DerivedFromUri."+strconv.Itoa(numDerivedFromUri)+".", nil, htmlAttrs)
+		return StringInput("DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.DerivedFromUri."+strconv.Itoa(numDerivedFromUri)+".", &resource.DerivedFromUri[numDerivedFromUri], htmlAttrs)
+	return StringInput("DerivedFromUri["+strconv.Itoa(numDerivedFromUri)+"]", &resource.DerivedFromUri[numDerivedFromUri], htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_PartOf(numPartOf int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return StringInput("ChargeItemDefinition.PartOf."+strconv.Itoa(numPartOf)+".", nil, htmlAttrs)
+		return StringInput("PartOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.PartOf."+strconv.Itoa(numPartOf)+".", &resource.PartOf[numPartOf], htmlAttrs)
+	return StringInput("PartOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Replaces(numReplaces int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numReplaces >= len(resource.Replaces) {
-		return StringInput("ChargeItemDefinition.Replaces."+strconv.Itoa(numReplaces)+".", nil, htmlAttrs)
+		return StringInput("Replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Replaces."+strconv.Itoa(numReplaces)+".", &resource.Replaces[numReplaces], htmlAttrs)
+	return StringInput("Replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ChargeItemDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ChargeItemDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Experimental(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("ChargeItemDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ChargeItemDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("ChargeItemDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ChargeItemDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("ChargeItemDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ChargeItemDefinition.Jurisdiction."+strconv.Itoa(numJurisdiction)+".", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Purpose(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("Purpose", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Copyright(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.Copyright", nil, htmlAttrs)
+		return StringInput("Copyright", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("ChargeItemDefinition.CopyrightLabel", nil, htmlAttrs)
+		return StringInput("CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("ChargeItemDefinition.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("ChargeItemDefinition.ApprovalDate", nil, htmlAttrs)
+		return DateInput("ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("ChargeItemDefinition.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateInput("ChargeItemDefinition.LastReviewDate", nil, htmlAttrs)
+		return DateInput("LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("ChargeItemDefinition.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("ChargeItemDefinition.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ChargeItemDefinition.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
 }

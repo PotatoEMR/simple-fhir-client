@@ -70,42 +70,37 @@ func (resource *DeviceUseStatement) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
 	if resource == nil {
-		return CodeSelect("DeviceUseStatement.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceUseStatement.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_TimingDateTime(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("DeviceUseStatement.TimingDateTime", nil, htmlAttrs)
+		return DateTimeInput("TimingDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceUseStatement.TimingDateTime", resource.TimingDateTime, htmlAttrs)
+	return DateTimeInput("TimingDateTime", resource.TimingDateTime, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_RecordedOn(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("DeviceUseStatement.RecordedOn", nil, htmlAttrs)
+		return DateTimeInput("RecordedOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceUseStatement.RecordedOn", resource.RecordedOn, htmlAttrs)
+	return DateTimeInput("RecordedOn", resource.RecordedOn, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("DeviceUseStatement.ReasonCode."+strconv.Itoa(numReasonCode)+".", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceUseStatement.ReasonCode."+strconv.Itoa(numReasonCode)+".", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return CodeableConceptSelect("DeviceUseStatement.BodySite", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("BodySite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceUseStatement.BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_Note(numNote int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("DeviceUseStatement.Note."+strconv.Itoa(numNote)+".", nil, htmlAttrs)
+		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("DeviceUseStatement.Note."+strconv.Itoa(numNote)+".", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }

@@ -74,103 +74,92 @@ func (r CompartmentDefinition) ToRef() Reference {
 	return ref
 }
 func (resource *CompartmentDefinition) T_Url(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Url", nil, htmlAttrs)
+		return StringInput("Url", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Url", &resource.Url, htmlAttrs)
+	return StringInput("Url", &resource.Url, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Version(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Version", nil, htmlAttrs)
+		return StringInput("Version", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("Version", resource.Version, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Name(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Name", nil, htmlAttrs)
+		return StringInput("Name", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Name", &resource.Name, htmlAttrs)
+	return StringInput("Name", &resource.Name, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("CompartmentDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CompartmentDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Experimental(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("CompartmentDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("CompartmentDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Date(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return DateTimeInput("CompartmentDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("CompartmentDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Date", resource.Date, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Publisher(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("Publisher", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Description(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Description", nil, htmlAttrs)
+		return StringInput("Description", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("Description", resource.Description, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Purpose(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return StringInput("CompartmentDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("Purpose", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Code(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCompartment_type
 
 	if resource == nil {
-		return CodeSelect("CompartmentDefinition.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CompartmentDefinition.Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeSelect("Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_Search(htmlAttrs string) templ.Component {
-
 	if resource == nil {
-		return BoolInput("CompartmentDefinition.Search", nil, htmlAttrs)
+		return BoolInput("Search", nil, htmlAttrs)
 	}
-	return BoolInput("CompartmentDefinition.Search", &resource.Search, htmlAttrs)
+	return BoolInput("Search", &resource.Search, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_ResourceCode(numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil || numResource >= len(resource.Resource) {
-		return CodeSelect("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Code", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Resource["+strconv.Itoa(numResource)+"]Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Code", &resource.Resource[numResource].Code, optionsValueSet, htmlAttrs)
+	return CodeSelect("Resource["+strconv.Itoa(numResource)+"]Code", &resource.Resource[numResource].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_ResourceParam(numResource int, numParam int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numResource >= len(resource.Resource) || numParam >= len(resource.Resource[numResource].Param) {
-		return StringInput("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Param."+strconv.Itoa(numParam)+".", nil, htmlAttrs)
+		return StringInput("Resource["+strconv.Itoa(numResource)+"]Param["+strconv.Itoa(numParam)+"]", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Param."+strconv.Itoa(numParam)+".", &resource.Resource[numResource].Param[numParam], htmlAttrs)
+	return StringInput("Resource["+strconv.Itoa(numResource)+"]Param["+strconv.Itoa(numParam)+"]", &resource.Resource[numResource].Param[numParam], htmlAttrs)
 }
 func (resource *CompartmentDefinition) T_ResourceDocumentation(numResource int, htmlAttrs string) templ.Component {
-
 	if resource == nil || numResource >= len(resource.Resource) {
-		return StringInput("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Documentation", nil, htmlAttrs)
+		return StringInput("Resource["+strconv.Itoa(numResource)+"]Documentation", nil, htmlAttrs)
 	}
-	return StringInput("CompartmentDefinition.Resource."+strconv.Itoa(numResource)+"..Documentation", resource.Resource[numResource].Documentation, htmlAttrs)
+	return StringInput("Resource["+strconv.Itoa(numResource)+"]Documentation", resource.Resource[numResource].Documentation, htmlAttrs)
 }
