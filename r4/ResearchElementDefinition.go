@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -33,7 +32,7 @@ type ResearchElementDefinition struct {
 	Experimental           *bool                                     `json:"experimental,omitempty"`
 	SubjectCodeableConcept *CodeableConcept                          `json:"subjectCodeableConcept,omitempty"`
 	SubjectReference       *Reference                                `json:"subjectReference,omitempty"`
-	Date                   *time.Time                                `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                   *string                                   `json:"date,omitempty"`
 	Publisher              *string                                   `json:"publisher,omitempty"`
 	Contact                []ContactDetail                           `json:"contact,omitempty"`
 	Description            *string                                   `json:"description,omitempty"`
@@ -43,8 +42,8 @@ type ResearchElementDefinition struct {
 	Purpose                *string                                   `json:"purpose,omitempty"`
 	Usage                  *string                                   `json:"usage,omitempty"`
 	Copyright              *string                                   `json:"copyright,omitempty"`
-	ApprovalDate           *time.Time                                `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate         *time.Time                                `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate           *string                                   `json:"approvalDate,omitempty"`
+	LastReviewDate         *string                                   `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period                                   `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept                         `json:"topic,omitempty"`
 	Author                 []ContactDetail                           `json:"author,omitempty"`
@@ -71,14 +70,14 @@ type ResearchElementDefinitionCharacteristic struct {
 	Exclude                           *bool            `json:"exclude,omitempty"`
 	UnitOfMeasure                     *CodeableConcept `json:"unitOfMeasure,omitempty"`
 	StudyEffectiveDescription         *string          `json:"studyEffectiveDescription,omitempty"`
-	StudyEffectiveDateTime            *time.Time       `json:"studyEffectiveDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	StudyEffectiveDateTime            *string          `json:"studyEffectiveDateTime,omitempty"`
 	StudyEffectivePeriod              *Period          `json:"studyEffectivePeriod,omitempty"`
 	StudyEffectiveDuration            *Duration        `json:"studyEffectiveDuration,omitempty"`
 	StudyEffectiveTiming              *Timing          `json:"studyEffectiveTiming,omitempty"`
 	StudyEffectiveTimeFromStart       *Duration        `json:"studyEffectiveTimeFromStart,omitempty"`
 	StudyEffectiveGroupMeasure        *string          `json:"studyEffectiveGroupMeasure,omitempty"`
 	ParticipantEffectiveDescription   *string          `json:"participantEffectiveDescription,omitempty"`
-	ParticipantEffectiveDateTime      *time.Time       `json:"participantEffectiveDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	ParticipantEffectiveDateTime      *string          `json:"participantEffectiveDateTime,omitempty"`
 	ParticipantEffectivePeriod        *Period          `json:"participantEffectivePeriod,omitempty"`
 	ParticipantEffectiveDuration      *Duration        `json:"participantEffectiveDuration,omitempty"`
 	ParticipantEffectiveTiming        *Timing          `json:"participantEffectiveTiming,omitempty"`
@@ -115,209 +114,209 @@ func (r ResearchElementDefinition) ToRef() Reference {
 }
 func (resource *ResearchElementDefinition) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_ShortTitle(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.ShortTitle", nil, htmlAttrs)
+		return StringInput("shortTitle", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.ShortTitle", resource.ShortTitle, htmlAttrs)
+	return StringInput("shortTitle", resource.ShortTitle, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Subtitle(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Subtitle", nil, htmlAttrs)
+		return StringInput("subtitle", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ResearchElementDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchElementDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("ResearchElementDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ResearchElementDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ResearchElementDefinition.SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchElementDefinition.SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ResearchElementDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ResearchElementDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Comment(numComment int, htmlAttrs string) templ.Component {
 	if resource == nil || numComment >= len(resource.Comment) {
-		return StringInput("ResearchElementDefinition.Comment["+strconv.Itoa(numComment)+"]", nil, htmlAttrs)
+		return StringInput("comment["+strconv.Itoa(numComment)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Comment["+strconv.Itoa(numComment)+"]", &resource.Comment[numComment], htmlAttrs)
+	return StringInput("comment["+strconv.Itoa(numComment)+"]", &resource.Comment[numComment], htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("ResearchElementDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchElementDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Usage(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Usage", nil, htmlAttrs)
+		return StringInput("usage", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Usage", resource.Usage, htmlAttrs)
+	return StringInput("usage", resource.Usage, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ResearchElementDefinition.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ResearchElementDefinition.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("ResearchElementDefinition.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ResearchElementDefinition.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("ResearchElementDefinition.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("ResearchElementDefinition.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchElementDefinition.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Library(numLibrary int, htmlAttrs string) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
-		return StringInput("ResearchElementDefinition.Library["+strconv.Itoa(numLibrary)+"]", nil, htmlAttrs)
+		return StringInput("library["+strconv.Itoa(numLibrary)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary], htmlAttrs)
+	return StringInput("library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary], htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSResearch_element_type
 
 	if resource == nil {
-		return CodeSelect("ResearchElementDefinition.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchElementDefinition.Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_VariableType(htmlAttrs string) templ.Component {
 	optionsValueSet := VSVariable_type
 
 	if resource == nil {
-		return CodeSelect("ResearchElementDefinition.VariableType", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("variableType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchElementDefinition.VariableType", resource.VariableType, optionsValueSet, htmlAttrs)
+	return CodeSelect("variableType", resource.VariableType, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].DefinitionCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].DefinitionCodeableConcept", &resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCodeableConcept", &resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].DefinitionCanonical", nil, htmlAttrs)
+		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].DefinitionCanonical", &resource.Characteristic[numCharacteristic].DefinitionCanonical, htmlAttrs)
+	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCanonical", &resource.Characteristic[numCharacteristic].DefinitionCanonical, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return BoolInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", nil, htmlAttrs)
+		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", nil, htmlAttrs)
 	}
-	return BoolInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
+	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicUnitOfMeasure(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeableConceptSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].UnitOfMeasure", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].unitOfMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].UnitOfMeasure", resource.Characteristic[numCharacteristic].UnitOfMeasure, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].unitOfMeasure", resource.Characteristic[numCharacteristic].UnitOfMeasure, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicStudyEffectiveDescription(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveDescription", nil, htmlAttrs)
+		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveDescription", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveDescription", resource.Characteristic[numCharacteristic].StudyEffectiveDescription, htmlAttrs)
+	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveDescription", resource.Characteristic[numCharacteristic].StudyEffectiveDescription, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicStudyEffectiveDateTime(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return DateTimeInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveDateTime", resource.Characteristic[numCharacteristic].StudyEffectiveDateTime, htmlAttrs)
+	return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveDateTime", resource.Characteristic[numCharacteristic].StudyEffectiveDateTime, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicStudyEffectiveGroupMeasure(numCharacteristic int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveGroupMeasure", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveGroupMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].StudyEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure, optionsValueSet, htmlAttrs)
+	return CodeSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].studyEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].StudyEffectiveGroupMeasure, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicParticipantEffectiveDescription(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveDescription", nil, htmlAttrs)
+		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDescription", nil, htmlAttrs)
 	}
-	return StringInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveDescription", resource.Characteristic[numCharacteristic].ParticipantEffectiveDescription, htmlAttrs)
+	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDescription", resource.Characteristic[numCharacteristic].ParticipantEffectiveDescription, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicParticipantEffectiveDateTime(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return DateTimeInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveDateTime", resource.Characteristic[numCharacteristic].ParticipantEffectiveDateTime, htmlAttrs)
+	return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDateTime", resource.Characteristic[numCharacteristic].ParticipantEffectiveDateTime, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_CharacteristicParticipantEffectiveGroupMeasure(numCharacteristic int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return CodeSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveGroupMeasure", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveGroupMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ResearchElementDefinition.Characteristic["+strconv.Itoa(numCharacteristic)+"].ParticipantEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].ParticipantEffectiveGroupMeasure, optionsValueSet, htmlAttrs)
+	return CodeSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveGroupMeasure", resource.Characteristic[numCharacteristic].ParticipantEffectiveGroupMeasure, optionsValueSet, htmlAttrs)
 }

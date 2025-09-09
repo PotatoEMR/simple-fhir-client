@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -42,7 +41,7 @@ type BiologicallyDerivedProductCollection struct {
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	Collector         *Reference  `json:"collector,omitempty"`
 	Source            *Reference  `json:"source,omitempty"`
-	CollectedDateTime *time.Time  `json:"collectedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	CollectedDateTime *string     `json:"collectedDateTime,omitempty"`
 	CollectedPeriod   *Period     `json:"collectedPeriod,omitempty"`
 }
 
@@ -54,7 +53,7 @@ type BiologicallyDerivedProductProcessing struct {
 	Description       *string          `json:"description,omitempty"`
 	Procedure         *CodeableConcept `json:"procedure,omitempty"`
 	Additive          *Reference       `json:"additive,omitempty"`
-	TimeDateTime      *time.Time       `json:"timeDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	TimeDateTime      *string          `json:"timeDateTime,omitempty"`
 	TimePeriod        *Period          `json:"timePeriod,omitempty"`
 }
 
@@ -64,7 +63,7 @@ type BiologicallyDerivedProductManipulation struct {
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	Description       *string     `json:"description,omitempty"`
-	TimeDateTime      *time.Time  `json:"timeDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	TimeDateTime      *string     `json:"timeDateTime,omitempty"`
 	TimePeriod        *Period     `json:"timePeriod,omitempty"`
 }
 
@@ -110,83 +109,83 @@ func (resource *BiologicallyDerivedProduct) T_ProductCategory(htmlAttrs string) 
 	optionsValueSet := VSProduct_category
 
 	if resource == nil {
-		return CodeSelect("BiologicallyDerivedProduct.ProductCategory", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("productCategory", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("BiologicallyDerivedProduct.ProductCategory", resource.ProductCategory, optionsValueSet, htmlAttrs)
+	return CodeSelect("productCategory", resource.ProductCategory, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("BiologicallyDerivedProduct.ProductCode", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("productCode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BiologicallyDerivedProduct.ProductCode", resource.ProductCode, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSProduct_status
 
 	if resource == nil {
-		return CodeSelect("BiologicallyDerivedProduct.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("BiologicallyDerivedProduct.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("BiologicallyDerivedProduct.Quantity", nil, htmlAttrs)
+		return IntInput("quantity", nil, htmlAttrs)
 	}
-	return IntInput("BiologicallyDerivedProduct.Quantity", resource.Quantity, htmlAttrs)
+	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("BiologicallyDerivedProduct.Collection.CollectedDateTime", nil, htmlAttrs)
+		return DateTimeInput("collection.collectedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("BiologicallyDerivedProduct.Collection.CollectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
+	return DateTimeInput("collection.collectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProcessingDescription(numProcessing int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return StringInput("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].Description", nil, htmlAttrs)
+		return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].Description", resource.Processing[numProcessing].Description, htmlAttrs)
+	return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", resource.Processing[numProcessing].Description, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return CodeableConceptSelect("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].Procedure", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].Procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return DateTimeInput("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].TimeDateTime", nil, htmlAttrs)
+		return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("BiologicallyDerivedProduct.Processing["+strconv.Itoa(numProcessing)+"].TimeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
+	return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ManipulationDescription(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("BiologicallyDerivedProduct.Manipulation.Description", nil, htmlAttrs)
+		return StringInput("manipulation.description", nil, htmlAttrs)
 	}
-	return StringInput("BiologicallyDerivedProduct.Manipulation.Description", resource.Manipulation.Description, htmlAttrs)
+	return StringInput("manipulation.description", resource.Manipulation.Description, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ManipulationTimeDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("BiologicallyDerivedProduct.Manipulation.TimeDateTime", nil, htmlAttrs)
+		return DateTimeInput("manipulation.timeDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("BiologicallyDerivedProduct.Manipulation.TimeDateTime", resource.Manipulation.TimeDateTime, htmlAttrs)
+	return DateTimeInput("manipulation.timeDateTime", resource.Manipulation.TimeDateTime, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_StorageDescription(numStorage int, htmlAttrs string) templ.Component {
 	if resource == nil || numStorage >= len(resource.Storage) {
-		return StringInput("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Description", nil, htmlAttrs)
+		return StringInput("storage["+strconv.Itoa(numStorage)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Description", resource.Storage[numStorage].Description, htmlAttrs)
+	return StringInput("storage["+strconv.Itoa(numStorage)+"].description", resource.Storage[numStorage].Description, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_StorageTemperature(numStorage int, htmlAttrs string) templ.Component {
 	if resource == nil || numStorage >= len(resource.Storage) {
-		return Float64Input("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Temperature", nil, htmlAttrs)
+		return Float64Input("storage["+strconv.Itoa(numStorage)+"].temperature", nil, htmlAttrs)
 	}
-	return Float64Input("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Temperature", resource.Storage[numStorage].Temperature, htmlAttrs)
+	return Float64Input("storage["+strconv.Itoa(numStorage)+"].temperature", resource.Storage[numStorage].Temperature, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_StorageScale(numStorage int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSProduct_storage_scale
 
 	if resource == nil || numStorage >= len(resource.Storage) {
-		return CodeSelect("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Scale", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("storage["+strconv.Itoa(numStorage)+"].scale", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("BiologicallyDerivedProduct.Storage["+strconv.Itoa(numStorage)+"].Scale", resource.Storage[numStorage].Scale, optionsValueSet, htmlAttrs)
+	return CodeSelect("storage["+strconv.Itoa(numStorage)+"].scale", resource.Storage[numStorage].Scale, optionsValueSet, htmlAttrs)
 }

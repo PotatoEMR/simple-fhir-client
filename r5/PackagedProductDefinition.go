@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +26,7 @@ type PackagedProductDefinition struct {
 	Type                  *CodeableConcept                               `json:"type,omitempty"`
 	PackageFor            []Reference                                    `json:"packageFor,omitempty"`
 	Status                *CodeableConcept                               `json:"status,omitempty"`
-	StatusDate            *time.Time                                     `json:"statusDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	StatusDate            *string                                        `json:"statusDate,omitempty"`
 	ContainedItemQuantity []Quantity                                     `json:"containedItemQuantity,omitempty"`
 	Description           *string                                        `json:"description,omitempty"`
 	LegalStatusOfSupply   []PackagedProductDefinitionLegalStatusOfSupply `json:"legalStatusOfSupply,omitempty"`
@@ -72,7 +71,7 @@ type PackagedProductDefinitionPackagingProperty struct {
 	Type                 CodeableConcept  `json:"type"`
 	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
-	ValueDate            *time.Time       `json:"valueDate,omitempty,format:'2006-01-02'"`
+	ValueDate            *string          `json:"valueDate,omitempty"`
 	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
 	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }
@@ -115,103 +114,103 @@ func (r PackagedProductDefinition) ToRef() Reference {
 }
 func (resource *PackagedProductDefinition) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("PackagedProductDefinition.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("PackagedProductDefinition.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("PackagedProductDefinition.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_Status(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("PackagedProductDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_StatusDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("PackagedProductDefinition.StatusDate", nil, htmlAttrs)
+		return DateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("PackagedProductDefinition.StatusDate", resource.StatusDate, htmlAttrs)
+	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("PackagedProductDefinition.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("PackagedProductDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_CopackagedIndicator(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("PackagedProductDefinition.CopackagedIndicator", nil, htmlAttrs)
+		return BoolInput("copackagedIndicator", nil, htmlAttrs)
 	}
-	return BoolInput("PackagedProductDefinition.CopackagedIndicator", resource.CopackagedIndicator, htmlAttrs)
+	return BoolInput("copackagedIndicator", resource.CopackagedIndicator, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_LegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLegalStatusOfSupply >= len(resource.LegalStatusOfSupply) {
-		return CodeableConceptSelect("PackagedProductDefinition.LegalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("legalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.LegalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].Code", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("legalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].code", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_LegalStatusOfSupplyJurisdiction(numLegalStatusOfSupply int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLegalStatusOfSupply >= len(resource.LegalStatusOfSupply) {
-		return CodeableConceptSelect("PackagedProductDefinition.LegalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].Jurisdiction", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("legalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].jurisdiction", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.LegalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].Jurisdiction", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Jurisdiction, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("legalStatusOfSupply["+strconv.Itoa(numLegalStatusOfSupply)+"].jurisdiction", resource.LegalStatusOfSupply[numLegalStatusOfSupply].Jurisdiction, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("PackagedProductDefinition.Packaging.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("packaging.type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Packaging.Type", resource.Packaging.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("packaging.type", resource.Packaging.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingComponentPart(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("PackagedProductDefinition.Packaging.ComponentPart", nil, htmlAttrs)
+		return BoolInput("packaging.componentPart", nil, htmlAttrs)
 	}
-	return BoolInput("PackagedProductDefinition.Packaging.ComponentPart", resource.Packaging.ComponentPart, htmlAttrs)
+	return BoolInput("packaging.componentPart", resource.Packaging.ComponentPart, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingQuantity(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("PackagedProductDefinition.Packaging.Quantity", nil, htmlAttrs)
+		return IntInput("packaging.quantity", nil, htmlAttrs)
 	}
-	return IntInput("PackagedProductDefinition.Packaging.Quantity", resource.Packaging.Quantity, htmlAttrs)
+	return IntInput("packaging.quantity", resource.Packaging.Quantity, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingMaterial(numMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMaterial >= len(resource.Packaging.Material) {
-		return CodeableConceptSelect("PackagedProductDefinition.Packaging.Material["+strconv.Itoa(numMaterial)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("packaging.material["+strconv.Itoa(numMaterial)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Packaging.Material["+strconv.Itoa(numMaterial)+"]", &resource.Packaging.Material[numMaterial], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("packaging.material["+strconv.Itoa(numMaterial)+"]", &resource.Packaging.Material[numMaterial], optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingAlternateMaterial(numAlternateMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numAlternateMaterial >= len(resource.Packaging.AlternateMaterial) {
-		return CodeableConceptSelect("PackagedProductDefinition.Packaging.AlternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("packaging.alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Packaging.AlternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.Packaging.AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("packaging.alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.Packaging.AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingPropertyType(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Packaging.Property) {
-		return CodeableConceptSelect("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("packaging.property["+strconv.Itoa(numProperty)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Packaging.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("packaging.property["+strconv.Itoa(numProperty)+"].type", &resource.Packaging.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingPropertyValueCodeableConcept(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Packaging.Property) {
-		return CodeableConceptSelect("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("packaging.property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueCodeableConcept", resource.Packaging.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("packaging.property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", resource.Packaging.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingPropertyValueDate(numProperty int, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Packaging.Property) {
-		return DateInput("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueDate", nil, htmlAttrs)
+		return DateInput("packaging.property["+strconv.Itoa(numProperty)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueDate", resource.Packaging.Property[numProperty].ValueDate, htmlAttrs)
+	return DateInput("packaging.property["+strconv.Itoa(numProperty)+"].valueDate", resource.Packaging.Property[numProperty].ValueDate, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagingPropertyValueBoolean(numProperty int, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Packaging.Property) {
-		return BoolInput("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueBoolean", nil, htmlAttrs)
+		return BoolInput("packaging.property["+strconv.Itoa(numProperty)+"].valueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("PackagedProductDefinition.Packaging.Property["+strconv.Itoa(numProperty)+"].ValueBoolean", resource.Packaging.Property[numProperty].ValueBoolean, htmlAttrs)
+	return BoolInput("packaging.property["+strconv.Itoa(numProperty)+"].valueBoolean", resource.Packaging.Property[numProperty].ValueBoolean, htmlAttrs)
 }

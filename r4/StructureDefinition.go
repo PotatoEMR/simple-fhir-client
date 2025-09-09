@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +28,7 @@ type StructureDefinition struct {
 	Title             *string                          `json:"title,omitempty"`
 	Status            string                           `json:"status"`
 	Experimental      *bool                            `json:"experimental,omitempty"`
-	Date              *time.Time                       `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string                          `json:"date,omitempty"`
 	Publisher         *string                          `json:"publisher,omitempty"`
 	Contact           []ContactDetail                  `json:"contact,omitempty"`
 	Description       *string                          `json:"description,omitempty"`
@@ -116,167 +115,167 @@ func (r StructureDefinition) ToRef() Reference {
 }
 func (resource *StructureDefinition) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Url", &resource.Url, htmlAttrs)
+	return StringInput("url", &resource.Url, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Name", &resource.Name, htmlAttrs)
+	return StringInput("name", &resource.Name, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("StructureDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("StructureDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("StructureDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("StructureDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("StructureDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("StructureDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("StructureDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Keyword(numKeyword int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numKeyword >= len(resource.Keyword) {
-		return CodingSelect("StructureDefinition.Keyword["+strconv.Itoa(numKeyword)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("keyword["+strconv.Itoa(numKeyword)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("StructureDefinition.Keyword["+strconv.Itoa(numKeyword)+"]", &resource.Keyword[numKeyword], optionsValueSet, htmlAttrs)
+	return CodingSelect("keyword["+strconv.Itoa(numKeyword)+"]", &resource.Keyword[numKeyword], optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_FhirVersion(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil {
-		return CodeSelect("StructureDefinition.FhirVersion", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("fhirVersion", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureDefinition.FhirVersion", resource.FhirVersion, optionsValueSet, htmlAttrs)
+	return CodeSelect("fhirVersion", resource.FhirVersion, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Kind(htmlAttrs string) templ.Component {
 	optionsValueSet := VSStructure_definition_kind
 
 	if resource == nil {
-		return CodeSelect("StructureDefinition.Kind", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("kind", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureDefinition.Kind", &resource.Kind, optionsValueSet, htmlAttrs)
+	return CodeSelect("kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Abstract(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("StructureDefinition.Abstract", nil, htmlAttrs)
+		return BoolInput("abstract", nil, htmlAttrs)
 	}
-	return BoolInput("StructureDefinition.Abstract", &resource.Abstract, htmlAttrs)
+	return BoolInput("abstract", &resource.Abstract, htmlAttrs)
 }
 func (resource *StructureDefinition) T_ContextInvariant(numContextInvariant int, htmlAttrs string) templ.Component {
 	if resource == nil || numContextInvariant >= len(resource.ContextInvariant) {
-		return StringInput("StructureDefinition.ContextInvariant["+strconv.Itoa(numContextInvariant)+"]", nil, htmlAttrs)
+		return StringInput("contextInvariant["+strconv.Itoa(numContextInvariant)+"]", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.ContextInvariant["+strconv.Itoa(numContextInvariant)+"]", &resource.ContextInvariant[numContextInvariant], htmlAttrs)
+	return StringInput("contextInvariant["+strconv.Itoa(numContextInvariant)+"]", &resource.ContextInvariant[numContextInvariant], htmlAttrs)
 }
 func (resource *StructureDefinition) T_Type(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.Type", nil, htmlAttrs)
+		return StringInput("type", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Type", &resource.Type, htmlAttrs)
+	return StringInput("type", &resource.Type, htmlAttrs)
 }
 func (resource *StructureDefinition) T_BaseDefinition(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("StructureDefinition.BaseDefinition", nil, htmlAttrs)
+		return StringInput("baseDefinition", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.BaseDefinition", resource.BaseDefinition, htmlAttrs)
+	return StringInput("baseDefinition", resource.BaseDefinition, htmlAttrs)
 }
 func (resource *StructureDefinition) T_Derivation(htmlAttrs string) templ.Component {
 	optionsValueSet := VSType_derivation_rule
 
 	if resource == nil {
-		return CodeSelect("StructureDefinition.Derivation", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("derivation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureDefinition.Derivation", resource.Derivation, optionsValueSet, htmlAttrs)
+	return CodeSelect("derivation", resource.Derivation, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_MappingIdentity(numMapping int, htmlAttrs string) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
-		return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Identity", nil, htmlAttrs)
+		return StringInput("mapping["+strconv.Itoa(numMapping)+"].identity", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Identity", &resource.Mapping[numMapping].Identity, htmlAttrs)
+	return StringInput("mapping["+strconv.Itoa(numMapping)+"].identity", &resource.Mapping[numMapping].Identity, htmlAttrs)
 }
 func (resource *StructureDefinition) T_MappingUri(numMapping int, htmlAttrs string) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
-		return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Uri", nil, htmlAttrs)
+		return StringInput("mapping["+strconv.Itoa(numMapping)+"].uri", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Uri", resource.Mapping[numMapping].Uri, htmlAttrs)
+	return StringInput("mapping["+strconv.Itoa(numMapping)+"].uri", resource.Mapping[numMapping].Uri, htmlAttrs)
 }
 func (resource *StructureDefinition) T_MappingName(numMapping int, htmlAttrs string) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
-		return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Name", nil, htmlAttrs)
+		return StringInput("mapping["+strconv.Itoa(numMapping)+"].name", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Name", resource.Mapping[numMapping].Name, htmlAttrs)
+	return StringInput("mapping["+strconv.Itoa(numMapping)+"].name", resource.Mapping[numMapping].Name, htmlAttrs)
 }
 func (resource *StructureDefinition) T_MappingComment(numMapping int, htmlAttrs string) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
-		return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Comment", nil, htmlAttrs)
+		return StringInput("mapping["+strconv.Itoa(numMapping)+"].comment", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Mapping["+strconv.Itoa(numMapping)+"].Comment", resource.Mapping[numMapping].Comment, htmlAttrs)
+	return StringInput("mapping["+strconv.Itoa(numMapping)+"].comment", resource.Mapping[numMapping].Comment, htmlAttrs)
 }
 func (resource *StructureDefinition) T_ContextType(numContext int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSExtension_context_type
 
 	if resource == nil || numContext >= len(resource.Context) {
-		return CodeSelect("StructureDefinition.Context["+strconv.Itoa(numContext)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("context["+strconv.Itoa(numContext)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("StructureDefinition.Context["+strconv.Itoa(numContext)+"].Type", &resource.Context[numContext].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("context["+strconv.Itoa(numContext)+"].type", &resource.Context[numContext].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureDefinition) T_ContextExpression(numContext int, htmlAttrs string) templ.Component {
 	if resource == nil || numContext >= len(resource.Context) {
-		return StringInput("StructureDefinition.Context["+strconv.Itoa(numContext)+"].Expression", nil, htmlAttrs)
+		return StringInput("context["+strconv.Itoa(numContext)+"].expression", nil, htmlAttrs)
 	}
-	return StringInput("StructureDefinition.Context["+strconv.Itoa(numContext)+"].Expression", &resource.Context[numContext].Expression, htmlAttrs)
+	return StringInput("context["+strconv.Itoa(numContext)+"].expression", &resource.Context[numContext].Expression, htmlAttrs)
 }

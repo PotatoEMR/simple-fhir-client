@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -33,7 +32,7 @@ type Procedure struct {
 	Code                  *CodeableConcept       `json:"code,omitempty"`
 	Subject               Reference              `json:"subject"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	PerformedDateTime     *time.Time             `json:"performedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	PerformedDateTime     *string                `json:"performedDateTime,omitempty"`
 	PerformedPeriod       *Period                `json:"performedPeriod,omitempty"`
 	PerformedString       *string                `json:"performedString,omitempty"`
 	PerformedAge          *Age                   `json:"performedAge,omitempty"`
@@ -104,105 +103,105 @@ func (r Procedure) ToRef() Reference {
 }
 func (resource *Procedure) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("Procedure.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Procedure.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *Procedure) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("Procedure.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Procedure.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *Procedure) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("Procedure.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Procedure.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Procedure.StatusReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_Category(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Procedure.Category", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.Category", resource.Category, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category", resource.Category, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Procedure.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_PerformedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Procedure.PerformedDateTime", nil, htmlAttrs)
+		return DateTimeInput("performedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Procedure.PerformedDateTime", resource.PerformedDateTime, htmlAttrs)
+	return DateTimeInput("performedDateTime", resource.PerformedDateTime, htmlAttrs)
 }
 func (resource *Procedure) T_PerformedString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Procedure.PerformedString", nil, htmlAttrs)
+		return StringInput("performedString", nil, htmlAttrs)
 	}
-	return StringInput("Procedure.PerformedString", resource.PerformedString, htmlAttrs)
+	return StringInput("performedString", resource.PerformedString, htmlAttrs)
 }
 func (resource *Procedure) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("Procedure.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
-		return CodeableConceptSelect("Procedure.BodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.BodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_Outcome(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Procedure.Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_Complication(numComplication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numComplication >= len(resource.Complication) {
-		return CodeableConceptSelect("Procedure.Complication["+strconv.Itoa(numComplication)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("complication["+strconv.Itoa(numComplication)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.Complication["+strconv.Itoa(numComplication)+"]", &resource.Complication[numComplication], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("complication["+strconv.Itoa(numComplication)+"]", &resource.Complication[numComplication], optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_FollowUp(numFollowUp int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numFollowUp >= len(resource.FollowUp) {
-		return CodeableConceptSelect("Procedure.FollowUp["+strconv.Itoa(numFollowUp)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("followUp["+strconv.Itoa(numFollowUp)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.FollowUp["+strconv.Itoa(numFollowUp)+"]", &resource.FollowUp[numFollowUp], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("followUp["+strconv.Itoa(numFollowUp)+"]", &resource.FollowUp[numFollowUp], optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Procedure.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Procedure.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Procedure) T_UsedCode(numUsedCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numUsedCode >= len(resource.UsedCode) {
-		return CodeableConceptSelect("Procedure.UsedCode["+strconv.Itoa(numUsedCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("usedCode["+strconv.Itoa(numUsedCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.UsedCode["+strconv.Itoa(numUsedCode)+"]", &resource.UsedCode[numUsedCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("usedCode["+strconv.Itoa(numUsedCode)+"]", &resource.UsedCode[numUsedCode], optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return CodeableConceptSelect("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *Procedure) T_FocalDeviceAction(numFocalDevice int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numFocalDevice >= len(resource.FocalDevice) {
-		return CodeableConceptSelect("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Action", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("focalDevice["+strconv.Itoa(numFocalDevice)+"].action", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Procedure.FocalDevice["+strconv.Itoa(numFocalDevice)+"].Action", resource.FocalDevice[numFocalDevice].Action, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("focalDevice["+strconv.Itoa(numFocalDevice)+"].action", resource.FocalDevice[numFocalDevice].Action, optionsValueSet, htmlAttrs)
 }

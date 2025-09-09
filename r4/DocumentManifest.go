@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +25,7 @@ type DocumentManifest struct {
 	Status            string                    `json:"status"`
 	Type              *CodeableConcept          `json:"type,omitempty"`
 	Subject           *Reference                `json:"subject,omitempty"`
-	Created           *time.Time                `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Created           *string                   `json:"created,omitempty"`
 	Author            []Reference               `json:"author,omitempty"`
 	Recipient         []Reference               `json:"recipient,omitempty"`
 	Source            *string                   `json:"source,omitempty"`
@@ -75,31 +74,31 @@ func (resource *DocumentManifest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
-		return CodeSelect("DocumentManifest.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DocumentManifest.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("DocumentManifest.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DocumentManifest.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DocumentManifest.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("DocumentManifest.Created", resource.Created, htmlAttrs)
+	return DateTimeInput("created", resource.Created, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Source(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("DocumentManifest.Source", nil, htmlAttrs)
+		return StringInput("source", nil, htmlAttrs)
 	}
-	return StringInput("DocumentManifest.Source", resource.Source, htmlAttrs)
+	return StringInput("source", resource.Source, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("DocumentManifest.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("DocumentManifest.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }

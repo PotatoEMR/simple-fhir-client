@@ -304,22 +304,25 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 							backbonePath := "resource" //this one actually used in field
 							intParams := ""
 							bbCheck := ""
-							formName := res.Name //this one used in submitted json
+							formName := "" //this one used in submitted json
 
 							//need to check if each backbone element along the way is cardinality * or not to make [n] or not
 							pathString := res.Name
-							for _, p := range parts[1:] {
+							for i, p := range parts[1:] {
 								pUpper := strings.Title(p)
 								pUpperNum := "num" + pUpper
 								pathString = pathString + "." + p
+								if i != 0 {
+									formName = formName + "."
+								}
 								if pathCard[pathString] == "*" {
 									intParams = intParams + pUpperNum + " int, "
 									bbCheck = bbCheck + " || " + pUpperNum + ">= len(" + backbonePath + "." + pUpper + ")"
 									backbonePath = backbonePath + "." + pUpper + "[" + pUpperNum + "]"
-									formName = formName + "." + pUpper + "[\"+strconv.Itoa(" + pUpperNum + ")+\"]"
+									formName = formName + p + "[\"+strconv.Itoa(" + pUpperNum + ")+\"]"
 								} else {
 									backbonePath = backbonePath + "." + pUpper
-									formName = formName + "." + pUpper
+									formName = formName + p
 								}
 							}
 
@@ -406,11 +409,11 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						fl = fieldName_lower[:len(fieldName_lower)-3] + strings.Title(t.Code)
 					}
 					jsonEnc := omitempty
-					if t.Code == "date" {
+					/*if t.Code == "date" {
 						jsonEnc = jsonEnc + ",format:'2006-01-02'"
 					} else if t.Code == "dateTime" {
 						jsonEnc = jsonEnc + ",format:'2006-01-02T15:04:05Z07:00'"
-					}
+					}*/
 
 					sb.WriteString(fmt.Sprintf("%s %s%s `json:\"%s%s\"`\n", f, c, ft, fl, jsonEnc))
 				}
@@ -485,8 +488,8 @@ var fhirPrimitive_to_GolangType = map[string]string{
 	"boolean":                               "bool",
 	"canonical":                             "string",
 	"code":                                  "string",
-	"date":                                  "time.Time",
-	"dateTime":                              "time.Time",
+	"date":                                  "string",
+	"dateTime":                              "string",
 	"decimal":                               "float64",
 	"id":                                    "string",
 	"instant":                               "string",

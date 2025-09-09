@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +26,7 @@ type Specimen struct {
 	Status              *string              `json:"status,omitempty"`
 	Type                *CodeableConcept     `json:"type,omitempty"`
 	Subject             *Reference           `json:"subject,omitempty"`
-	ReceivedTime        *time.Time           `json:"receivedTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	ReceivedTime        *string              `json:"receivedTime,omitempty"`
 	Parent              []Reference          `json:"parent,omitempty"`
 	Request             []Reference          `json:"request,omitempty"`
 	Collection          *SpecimenCollection  `json:"collection,omitempty"`
@@ -43,7 +42,7 @@ type SpecimenCollection struct {
 	Extension                    []Extension      `json:"extension,omitempty"`
 	ModifierExtension            []Extension      `json:"modifierExtension,omitempty"`
 	Collector                    *Reference       `json:"collector,omitempty"`
-	CollectedDateTime            *time.Time       `json:"collectedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	CollectedDateTime            *string          `json:"collectedDateTime,omitempty"`
 	CollectedPeriod              *Period          `json:"collectedPeriod,omitempty"`
 	Duration                     *Duration        `json:"duration,omitempty"`
 	Quantity                     *Quantity        `json:"quantity,omitempty"`
@@ -61,7 +60,7 @@ type SpecimenProcessing struct {
 	Description       *string          `json:"description,omitempty"`
 	Procedure         *CodeableConcept `json:"procedure,omitempty"`
 	Additive          []Reference      `json:"additive,omitempty"`
-	TimeDateTime      *time.Time       `json:"timeDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	TimeDateTime      *string          `json:"timeDateTime,omitempty"`
 	TimePeriod        *Period          `json:"timePeriod,omitempty"`
 }
 
@@ -110,91 +109,91 @@ func (resource *Specimen) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSpecimen_status
 
 	if resource == nil {
-		return CodeSelect("Specimen.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Specimen.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Specimen.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_ReceivedTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Specimen.ReceivedTime", nil, htmlAttrs)
+		return DateTimeInput("receivedTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Specimen.ReceivedTime", resource.ReceivedTime, htmlAttrs)
+	return DateTimeInput("receivedTime", resource.ReceivedTime, htmlAttrs)
 }
 func (resource *Specimen) T_Condition(numCondition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {
-		return CodeableConceptSelect("Specimen.Condition["+strconv.Itoa(numCondition)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Condition["+strconv.Itoa(numCondition)+"]", &resource.Condition[numCondition], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"]", &resource.Condition[numCondition], optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Specimen.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Specimen.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Specimen) T_CollectionCollectedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Specimen.Collection.CollectedDateTime", nil, htmlAttrs)
+		return DateTimeInput("collection.collectedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Specimen.Collection.CollectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
+	return DateTimeInput("collection.collectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionMethod(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Specimen.Collection.Method", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("collection.method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Collection.Method", resource.Collection.Method, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("collection.method", resource.Collection.Method, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionBodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Specimen.Collection.BodySite", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("collection.bodySite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Collection.BodySite", resource.Collection.BodySite, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("collection.bodySite", resource.Collection.BodySite, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionFastingStatusCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Specimen.Collection.FastingStatusCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("collection.fastingStatusCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Collection.FastingStatusCodeableConcept", resource.Collection.FastingStatusCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("collection.fastingStatusCodeableConcept", resource.Collection.FastingStatusCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_ProcessingDescription(numProcessing int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return StringInput("Specimen.Processing["+strconv.Itoa(numProcessing)+"].Description", nil, htmlAttrs)
+		return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("Specimen.Processing["+strconv.Itoa(numProcessing)+"].Description", resource.Processing[numProcessing].Description, htmlAttrs)
+	return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", resource.Processing[numProcessing].Description, htmlAttrs)
 }
 func (resource *Specimen) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return CodeableConceptSelect("Specimen.Processing["+strconv.Itoa(numProcessing)+"].Procedure", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Processing["+strconv.Itoa(numProcessing)+"].Procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return DateTimeInput("Specimen.Processing["+strconv.Itoa(numProcessing)+"].TimeDateTime", nil, htmlAttrs)
+		return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Specimen.Processing["+strconv.Itoa(numProcessing)+"].TimeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
+	return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
 }
 func (resource *Specimen) T_ContainerDescription(numContainer int, htmlAttrs string) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return StringInput("Specimen.Container["+strconv.Itoa(numContainer)+"].Description", nil, htmlAttrs)
+		return StringInput("container["+strconv.Itoa(numContainer)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("Specimen.Container["+strconv.Itoa(numContainer)+"].Description", resource.Container[numContainer].Description, htmlAttrs)
+	return StringInput("container["+strconv.Itoa(numContainer)+"].description", resource.Container[numContainer].Description, htmlAttrs)
 }
 func (resource *Specimen) T_ContainerType(numContainer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return CodeableConceptSelect("Specimen.Container["+strconv.Itoa(numContainer)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("container["+strconv.Itoa(numContainer)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Container["+strconv.Itoa(numContainer)+"].Type", resource.Container[numContainer].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("container["+strconv.Itoa(numContainer)+"].type", resource.Container[numContainer].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_ContainerAdditiveCodeableConcept(numContainer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return CodeableConceptSelect("Specimen.Container["+strconv.Itoa(numContainer)+"].AdditiveCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("container["+strconv.Itoa(numContainer)+"].additiveCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Specimen.Container["+strconv.Itoa(numContainer)+"].AdditiveCodeableConcept", resource.Container[numContainer].AdditiveCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("container["+strconv.Itoa(numContainer)+"].additiveCodeableConcept", resource.Container[numContainer].AdditiveCodeableConcept, optionsValueSet, htmlAttrs)
 }

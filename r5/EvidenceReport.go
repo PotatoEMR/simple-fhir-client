@@ -133,127 +133,127 @@ func (r EvidenceReport) ToRef() Reference {
 }
 func (resource *EvidenceReport) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EvidenceReport.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *EvidenceReport) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("EvidenceReport.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceReport.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_CiteAsMarkdown(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EvidenceReport.CiteAsMarkdown", nil, htmlAttrs)
+		return StringInput("citeAsMarkdown", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.CiteAsMarkdown", resource.CiteAsMarkdown, htmlAttrs)
+	return StringInput("citeAsMarkdown", resource.CiteAsMarkdown, htmlAttrs)
 }
 func (resource *EvidenceReport) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EvidenceReport.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("EvidenceReport.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EvidenceReport.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *EvidenceReport) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EvidenceReport.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SubjectNote(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Subject.Note) {
-		return AnnotationTextArea("EvidenceReport.Subject.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("subject.note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EvidenceReport.Subject.Note["+strconv.Itoa(numNote)+"]", &resource.Subject.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("subject.note["+strconv.Itoa(numNote)+"]", &resource.Subject.Note[numNote], htmlAttrs)
 }
 func (resource *EvidenceReport) T_SubjectCharacteristicCode(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Subject.Characteristic) {
-		return CodeableConceptSelect("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].Code", &resource.Subject.Characteristic[numCharacteristic].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].code", &resource.Subject.Characteristic[numCharacteristic].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SubjectCharacteristicValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Subject.Characteristic) {
-		return CodeableConceptSelect("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].ValueCodeableConcept", &resource.Subject.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].valueCodeableConcept", &resource.Subject.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SubjectCharacteristicValueBoolean(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Subject.Characteristic) {
-		return BoolInput("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].ValueBoolean", nil, htmlAttrs)
+		return BoolInput("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].ValueBoolean", &resource.Subject.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
+	return BoolInput("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", &resource.Subject.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SubjectCharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Subject.Characteristic) {
-		return BoolInput("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", nil, htmlAttrs)
+		return BoolInput("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", nil, htmlAttrs)
 	}
-	return BoolInput("EvidenceReport.Subject.Characteristic["+strconv.Itoa(numCharacteristic)+"].Exclude", resource.Subject.Characteristic[numCharacteristic].Exclude, htmlAttrs)
+	return BoolInput("subject.characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", resource.Subject.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
 func (resource *EvidenceReport) T_RelatesToCode(numRelatesTo int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_relation_type
 
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return CodeSelect("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("relatesTo["+strconv.Itoa(numRelatesTo)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet, htmlAttrs)
+	return CodeSelect("relatesTo["+strconv.Itoa(numRelatesTo)+"].code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_RelatesToTargetUrl(numRelatesTo int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return StringInput("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Target.Url", nil, htmlAttrs)
+		return StringInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target.url", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Target.Url", resource.RelatesTo[numRelatesTo].Target.Url, htmlAttrs)
+	return StringInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target.url", resource.RelatesTo[numRelatesTo].Target.Url, htmlAttrs)
 }
 func (resource *EvidenceReport) T_RelatesToTargetDisplay(numRelatesTo int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return StringInput("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Target.Display", nil, htmlAttrs)
+		return StringInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target.display", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.RelatesTo["+strconv.Itoa(numRelatesTo)+"].Target.Display", resource.RelatesTo[numRelatesTo].Target.Display, htmlAttrs)
+	return StringInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target.display", resource.RelatesTo[numRelatesTo].Target.Display, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionTitle(numSection int, htmlAttrs string) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
-		return StringInput("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Title", nil, htmlAttrs)
+		return StringInput("section["+strconv.Itoa(numSection)+"].title", nil, htmlAttrs)
 	}
-	return StringInput("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Title", resource.Section[numSection].Title, htmlAttrs)
+	return StringInput("section["+strconv.Itoa(numSection)+"].title", resource.Section[numSection].Title, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionFocus(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
-		return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Focus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].focus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Focus", resource.Section[numSection].Focus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].focus", resource.Section[numSection].Focus, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionMode(numSection int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil || numSection >= len(resource.Section) {
-		return CodeSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Mode", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("section["+strconv.Itoa(numSection)+"].mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].Mode", resource.Section[numSection].Mode, optionsValueSet, htmlAttrs)
+	return CodeSelect("section["+strconv.Itoa(numSection)+"].mode", resource.Section[numSection].Mode, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionOrderedBy(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
-		return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].OrderedBy", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].orderedBy", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].OrderedBy", resource.Section[numSection].OrderedBy, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].orderedBy", resource.Section[numSection].OrderedBy, optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionEntryClassifier(numSection int, numEntryClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) || numEntryClassifier >= len(resource.Section[numSection].EntryClassifier) {
-		return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].EntryClassifier["+strconv.Itoa(numEntryClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].entryClassifier["+strconv.Itoa(numEntryClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].EntryClassifier["+strconv.Itoa(numEntryClassifier)+"]", &resource.Section[numSection].EntryClassifier[numEntryClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].entryClassifier["+strconv.Itoa(numEntryClassifier)+"]", &resource.Section[numSection].EntryClassifier[numEntryClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *EvidenceReport) T_SectionEmptyReason(numSection int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
-		return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].EmptyReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].emptyReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EvidenceReport.Section["+strconv.Itoa(numSection)+"].EmptyReason", resource.Section[numSection].EmptyReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].emptyReason", resource.Section[numSection].EmptyReason, optionsValueSet, htmlAttrs)
 }

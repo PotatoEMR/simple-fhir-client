@@ -70,57 +70,57 @@ func (resource *Subscription) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("Subscription.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_End(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Subscription.End", nil, htmlAttrs)
+		return StringInput("end", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.End", resource.End, htmlAttrs)
+	return StringInput("end", resource.End, htmlAttrs)
 }
 func (resource *Subscription) T_Reason(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Subscription.Reason", nil, htmlAttrs)
+		return StringInput("reason", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Reason", &resource.Reason, htmlAttrs)
+	return StringInput("reason", &resource.Reason, htmlAttrs)
 }
 func (resource *Subscription) T_Criteria(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Subscription.Criteria", nil, htmlAttrs)
+		return StringInput("criteria", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Criteria", &resource.Criteria, htmlAttrs)
+	return StringInput("criteria", &resource.Criteria, htmlAttrs)
 }
 func (resource *Subscription) T_Error(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Subscription.Error", nil, htmlAttrs)
+		return StringInput("error", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Error", resource.Error, htmlAttrs)
+	return StringInput("error", resource.Error, htmlAttrs)
 }
 func (resource *Subscription) T_ChannelType(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_channel_type
 
 	if resource == nil {
-		return CodeSelect("Subscription.Channel.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("channel.type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Channel.Type", &resource.Channel.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("channel.type", &resource.Channel.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_ChannelEndpoint(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Subscription.Channel.Endpoint", nil, htmlAttrs)
+		return StringInput("channel.endpoint", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Channel.Endpoint", resource.Channel.Endpoint, htmlAttrs)
+	return StringInput("channel.endpoint", resource.Channel.Endpoint, htmlAttrs)
 }
 func (resource *Subscription) T_ChannelPayload(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeSelect("Subscription.Channel.Payload", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("channel.payload", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Subscription.Channel.Payload", resource.Channel.Payload, optionsValueSet, htmlAttrs)
+	return CodeSelect("channel.payload", resource.Channel.Payload, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_ChannelHeader(numHeader int, htmlAttrs string) templ.Component {
 	if resource == nil || numHeader >= len(resource.Channel.Header) {
-		return StringInput("Subscription.Channel.Header["+strconv.Itoa(numHeader)+"]", nil, htmlAttrs)
+		return StringInput("channel.header["+strconv.Itoa(numHeader)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Subscription.Channel.Header["+strconv.Itoa(numHeader)+"]", &resource.Channel.Header[numHeader], htmlAttrs)
+	return StringInput("channel.header["+strconv.Itoa(numHeader)+"]", &resource.Channel.Header[numHeader], htmlAttrs)
 }

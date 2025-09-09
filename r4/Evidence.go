@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +29,7 @@ type Evidence struct {
 	ShortTitle         *string           `json:"shortTitle,omitempty"`
 	Subtitle           *string           `json:"subtitle,omitempty"`
 	Status             string            `json:"status"`
-	Date               *time.Time        `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date               *string           `json:"date,omitempty"`
 	Publisher          *string           `json:"publisher,omitempty"`
 	Contact            []ContactDetail   `json:"contact,omitempty"`
 	Description        *string           `json:"description,omitempty"`
@@ -38,8 +37,8 @@ type Evidence struct {
 	UseContext         []UsageContext    `json:"useContext,omitempty"`
 	Jurisdiction       []CodeableConcept `json:"jurisdiction,omitempty"`
 	Copyright          *string           `json:"copyright,omitempty"`
-	ApprovalDate       *time.Time        `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate     *time.Time        `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate       *string           `json:"approvalDate,omitempty"`
+	LastReviewDate     *string           `json:"lastReviewDate,omitempty"`
 	EffectivePeriod    *Period           `json:"effectivePeriod,omitempty"`
 	Topic              []CodeableConcept `json:"topic,omitempty"`
 	Author             []ContactDetail   `json:"author,omitempty"`
@@ -81,99 +80,99 @@ func (r Evidence) ToRef() Reference {
 }
 func (resource *Evidence) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *Evidence) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *Evidence) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *Evidence) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *Evidence) T_ShortTitle(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.ShortTitle", nil, htmlAttrs)
+		return StringInput("shortTitle", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.ShortTitle", resource.ShortTitle, htmlAttrs)
+	return StringInput("shortTitle", resource.ShortTitle, htmlAttrs)
 }
 func (resource *Evidence) T_Subtitle(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Subtitle", nil, htmlAttrs)
+		return StringInput("subtitle", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *Evidence) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Evidence.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Evidence.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Evidence) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Evidence.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Evidence.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *Evidence) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *Evidence) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *Evidence) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Evidence.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Evidence.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Evidence) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("Evidence.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Evidence.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *Evidence) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Evidence.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("Evidence.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *Evidence) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Evidence.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("Evidence.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *Evidence) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Evidence.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("Evidence.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *Evidence) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("Evidence.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Evidence.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -31,8 +30,8 @@ type EncounterHistory struct {
 	Subject           *Reference                 `json:"subject,omitempty"`
 	SubjectStatus     *CodeableConcept           `json:"subjectStatus,omitempty"`
 	ActualPeriod      *Period                    `json:"actualPeriod,omitempty"`
-	PlannedStartDate  *time.Time                 `json:"plannedStartDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
-	PlannedEndDate    *time.Time                 `json:"plannedEndDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	PlannedStartDate  *string                    `json:"plannedStartDate,omitempty"`
+	PlannedEndDate    *string                    `json:"plannedEndDate,omitempty"`
 	Length            *Duration                  `json:"length,omitempty"`
 	Location          []EncounterHistoryLocation `json:"location,omitempty"`
 }
@@ -77,43 +76,43 @@ func (resource *EncounterHistory) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
-		return CodeSelect("EncounterHistory.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EncounterHistory.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EncounterHistory) T_Class(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EncounterHistory.Class", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("class", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Class", &resource.Class, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("class", &resource.Class, optionsValueSet, htmlAttrs)
 }
 func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EncounterHistory.SubjectStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.SubjectStatus", resource.SubjectStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *EncounterHistory) T_PlannedStartDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EncounterHistory.PlannedStartDate", nil, htmlAttrs)
+		return DateTimeInput("plannedStartDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("EncounterHistory.PlannedStartDate", resource.PlannedStartDate, htmlAttrs)
+	return DateTimeInput("plannedStartDate", resource.PlannedStartDate, htmlAttrs)
 }
 func (resource *EncounterHistory) T_PlannedEndDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EncounterHistory.PlannedEndDate", nil, htmlAttrs)
+		return DateTimeInput("plannedEndDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("EncounterHistory.PlannedEndDate", resource.PlannedEndDate, htmlAttrs)
+	return DateTimeInput("plannedEndDate", resource.PlannedEndDate, htmlAttrs)
 }
 func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
-		return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("location["+strconv.Itoa(numLocation)+"].form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EncounterHistory.Location["+strconv.Itoa(numLocation)+"].Form", resource.Location[numLocation].Form, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("location["+strconv.Itoa(numLocation)+"].form", resource.Location[numLocation].Form, optionsValueSet, htmlAttrs)
 }

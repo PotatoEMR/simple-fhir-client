@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -31,7 +30,7 @@ type ActorDefinition struct {
 	Title                  *string           `json:"title,omitempty"`
 	Status                 string            `json:"status"`
 	Experimental           *bool             `json:"experimental,omitempty"`
-	Date                   *time.Time        `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                   *string           `json:"date,omitempty"`
 	Publisher              *string           `json:"publisher,omitempty"`
 	Contact                []ContactDetail   `json:"contact,omitempty"`
 	Description            *string           `json:"description,omitempty"`
@@ -76,125 +75,125 @@ func (r ActorDefinition) ToRef() Reference {
 }
 func (resource *ActorDefinition) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *ActorDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("versionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("versionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *ActorDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodingSelect("ActorDefinition.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("versionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("ActorDefinition.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("versionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("ActorDefinition.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ActorDefinition.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("ActorDefinition.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("ActorDefinition.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ActorDefinition.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ActorDefinition.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("ActorDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ActorDefinition.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *ActorDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.CopyrightLabel", nil, htmlAttrs)
+		return StringInput("copyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("copyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSExamplescenario_actor_type
 
 	if resource == nil {
-		return CodeSelect("ActorDefinition.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ActorDefinition.Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Documentation(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Documentation", nil, htmlAttrs)
+		return StringInput("documentation", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Documentation", resource.Documentation, htmlAttrs)
+	return StringInput("documentation", resource.Documentation, htmlAttrs)
 }
 func (resource *ActorDefinition) T_Reference(numReference int, htmlAttrs string) templ.Component {
 	if resource == nil || numReference >= len(resource.Reference) {
-		return StringInput("ActorDefinition.Reference["+strconv.Itoa(numReference)+"]", nil, htmlAttrs)
+		return StringInput("reference["+strconv.Itoa(numReference)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Reference["+strconv.Itoa(numReference)+"]", &resource.Reference[numReference], htmlAttrs)
+	return StringInput("reference["+strconv.Itoa(numReference)+"]", &resource.Reference[numReference], htmlAttrs)
 }
 func (resource *ActorDefinition) T_Capabilities(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActorDefinition.Capabilities", nil, htmlAttrs)
+		return StringInput("capabilities", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.Capabilities", resource.Capabilities, htmlAttrs)
+	return StringInput("capabilities", resource.Capabilities, htmlAttrs)
 }
 func (resource *ActorDefinition) T_DerivedFrom(numDerivedFrom int, htmlAttrs string) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return StringInput("ActorDefinition.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return StringInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ActorDefinition.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return StringInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }

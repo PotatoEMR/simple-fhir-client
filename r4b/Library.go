@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -33,7 +32,7 @@ type Library struct {
 	Type                   CodeableConcept       `json:"type"`
 	SubjectCodeableConcept *CodeableConcept      `json:"subjectCodeableConcept,omitempty"`
 	SubjectReference       *Reference            `json:"subjectReference,omitempty"`
-	Date                   *time.Time            `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                   *string               `json:"date,omitempty"`
 	Publisher              *string               `json:"publisher,omitempty"`
 	Contact                []ContactDetail       `json:"contact,omitempty"`
 	Description            *string               `json:"description,omitempty"`
@@ -42,8 +41,8 @@ type Library struct {
 	Purpose                *string               `json:"purpose,omitempty"`
 	Usage                  *string               `json:"usage,omitempty"`
 	Copyright              *string               `json:"copyright,omitempty"`
-	ApprovalDate           *time.Time            `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate         *time.Time            `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate           *string               `json:"approvalDate,omitempty"`
+	LastReviewDate         *string               `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period               `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept     `json:"topic,omitempty"`
 	Author                 []ContactDetail       `json:"author,omitempty"`
@@ -85,117 +84,117 @@ func (r Library) ToRef() Reference {
 }
 func (resource *Library) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("Library.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *Library) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("Library.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *Library) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("Library.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *Library) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("Library.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *Library) T_Subtitle(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Subtitle", nil, htmlAttrs)
+		return StringInput("subtitle", nil, htmlAttrs)
 	}
-	return StringInput("Library.Subtitle", resource.Subtitle, htmlAttrs)
+	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
 func (resource *Library) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Library.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Library.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Library) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Library.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("Library.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *Library) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Library.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Library.Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Library) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Library.SubjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Library.SubjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Library) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Library.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Library.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *Library) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("Library.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *Library) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("Library.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *Library) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("Library.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Library.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *Library) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("Library.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *Library) T_Usage(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Usage", nil, htmlAttrs)
+		return StringInput("usage", nil, htmlAttrs)
 	}
-	return StringInput("Library.Usage", resource.Usage, htmlAttrs)
+	return StringInput("usage", resource.Usage, htmlAttrs)
 }
 func (resource *Library) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Library.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("Library.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *Library) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Library.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("Library.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *Library) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Library.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("Library.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *Library) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("Library.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Library.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }

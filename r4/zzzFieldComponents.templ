@@ -207,21 +207,20 @@ templ Int64Input(fieldname string, current *int64, htmlAttrs string) {
 	}
 }
 
-templ DateInput(fieldname string, current *time.Time, htmlAttrs string) {
+templ DateInput(fieldname string, current *string, htmlAttrs string) {
 	if current == nil {
 		<input type="date" name={fieldname} value=""/>
 	} else {
-		<input type="date" name={fieldname} value={current.Format("2006-01-02")}/>
+		<input type="date" name={fieldname} value={*current}/>
 	}
 }
 
-templ DateTimeInput(fieldname string, current *time.Time, htmlAttrs string) {
+templ DateTimeInput(fieldname string, current *string, htmlAttrs string) {
 	if current == nil {
 		<input type="datetime-local" name={fieldname} value=""/>
 	} else {
-		<input type="datetime-local" name={fieldname} value={current.Format("2006-01-02 15:04:05")}/>
+		<input type="datetime-local" name={fieldname} value={*current}/>
 	}
 }
-
 
 

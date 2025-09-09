@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -37,9 +36,9 @@ type CommunicationRequest struct {
 	About               []Reference                   `json:"about,omitempty"`
 	Encounter           *Reference                    `json:"encounter,omitempty"`
 	Payload             []CommunicationRequestPayload `json:"payload,omitempty"`
-	OccurrenceDateTime  *time.Time                    `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OccurrenceDateTime  *string                       `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod    *Period                       `json:"occurrencePeriod,omitempty"`
-	AuthoredOn          *time.Time                    `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	AuthoredOn          *string                       `json:"authoredOn,omitempty"`
 	Requester           *Reference                    `json:"requester,omitempty"`
 	Recipient           []Reference                   `json:"recipient,omitempty"`
 	InformationProvider []Reference                   `json:"informationProvider,omitempty"`
@@ -88,71 +87,71 @@ func (resource *CommunicationRequest) T_Status(htmlAttrs string) templ.Component
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("CommunicationRequest.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CommunicationRequest.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("CommunicationRequest.StatusReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("statusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CommunicationRequest.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
-		return CodeSelect("CommunicationRequest.Intent", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CommunicationRequest.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("CommunicationRequest.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CommunicationRequest.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("CommunicationRequest.Priority", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CommunicationRequest.Priority", resource.Priority, optionsValueSet, htmlAttrs)
+	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_DoNotPerform(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("CommunicationRequest.DoNotPerform", nil, htmlAttrs)
+		return BoolInput("doNotPerform", nil, htmlAttrs)
 	}
-	return BoolInput("CommunicationRequest.DoNotPerform", resource.DoNotPerform, htmlAttrs)
+	return BoolInput("doNotPerform", resource.DoNotPerform, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMedium >= len(resource.Medium) {
-		return CodeableConceptSelect("CommunicationRequest.Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CommunicationRequest.Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("CommunicationRequest.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("CommunicationRequest.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("CommunicationRequest.AuthoredOn", nil, htmlAttrs)
+		return DateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("CommunicationRequest.AuthoredOn", resource.AuthoredOn, htmlAttrs)
+	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("CommunicationRequest.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("CommunicationRequest.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *CommunicationRequest) T_PayloadContentCodeableConcept(numPayload int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) {
-		return CodeableConceptSelect("CommunicationRequest.Payload["+strconv.Itoa(numPayload)+"].ContentCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("payload["+strconv.Itoa(numPayload)+"].contentCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CommunicationRequest.Payload["+strconv.Itoa(numPayload)+"].ContentCodeableConcept", &resource.Payload[numPayload].ContentCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("payload["+strconv.Itoa(numPayload)+"].contentCodeableConcept", &resource.Payload[numPayload].ContentCodeableConcept, optionsValueSet, htmlAttrs)
 }

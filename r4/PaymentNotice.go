@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -25,10 +24,10 @@ type PaymentNotice struct {
 	Status            string           `json:"status"`
 	Request           *Reference       `json:"request,omitempty"`
 	Response          *Reference       `json:"response,omitempty"`
-	Created           time.Time        `json:"created,format:'2006-01-02T15:04:05Z07:00'"`
+	Created           string           `json:"created"`
 	Provider          *Reference       `json:"provider,omitempty"`
 	Payment           Reference        `json:"payment"`
-	PaymentDate       *time.Time       `json:"paymentDate,omitempty,format:'2006-01-02'"`
+	PaymentDate       *string          `json:"paymentDate,omitempty"`
 	Payee             *Reference       `json:"payee,omitempty"`
 	Recipient         Reference        `json:"recipient"`
 	Amount            Money            `json:"amount"`
@@ -66,25 +65,25 @@ func (resource *PaymentNotice) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("PaymentNotice.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("PaymentNotice.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *PaymentNotice) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("PaymentNotice.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("PaymentNotice.Created", &resource.Created, htmlAttrs)
+	return DateTimeInput("created", &resource.Created, htmlAttrs)
 }
 func (resource *PaymentNotice) T_PaymentDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("PaymentNotice.PaymentDate", nil, htmlAttrs)
+		return DateInput("paymentDate", nil, htmlAttrs)
 	}
-	return DateInput("PaymentNotice.PaymentDate", resource.PaymentDate, htmlAttrs)
+	return DateInput("paymentDate", resource.PaymentDate, htmlAttrs)
 }
 func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("PaymentNotice.PaymentStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("paymentStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PaymentNotice.PaymentStatus", resource.PaymentStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("paymentStatus", resource.PaymentStatus, optionsValueSet, htmlAttrs)
 }

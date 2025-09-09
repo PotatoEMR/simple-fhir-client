@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,13 +27,13 @@ type FamilyMemberHistory struct {
 	Status                string                           `json:"status"`
 	DataAbsentReason      *CodeableConcept                 `json:"dataAbsentReason,omitempty"`
 	Patient               Reference                        `json:"patient"`
-	Date                  *time.Time                       `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                  *string                          `json:"date,omitempty"`
 	Participant           []FamilyMemberHistoryParticipant `json:"participant,omitempty"`
 	Name                  *string                          `json:"name,omitempty"`
 	Relationship          CodeableConcept                  `json:"relationship"`
 	Sex                   *CodeableConcept                 `json:"sex,omitempty"`
 	BornPeriod            *Period                          `json:"bornPeriod,omitempty"`
-	BornDate              *time.Time                       `json:"bornDate,omitempty,format:'2006-01-02'"`
+	BornDate              *string                          `json:"bornDate,omitempty"`
 	BornString            *string                          `json:"bornString,omitempty"`
 	AgeAge                *Age                             `json:"ageAge,omitempty"`
 	AgeRange              *Range                           `json:"ageRange,omitempty"`
@@ -43,7 +42,7 @@ type FamilyMemberHistory struct {
 	DeceasedBoolean       *bool                            `json:"deceasedBoolean,omitempty"`
 	DeceasedAge           *Age                             `json:"deceasedAge,omitempty"`
 	DeceasedRange         *Range                           `json:"deceasedRange,omitempty"`
-	DeceasedDate          *time.Time                       `json:"deceasedDate,omitempty,format:'2006-01-02'"`
+	DeceasedDate          *string                          `json:"deceasedDate,omitempty"`
 	DeceasedString        *string                          `json:"deceasedString,omitempty"`
 	Reason                []CodeableReference              `json:"reason,omitempty"`
 	Note                  []Annotation                     `json:"note,omitempty"`
@@ -87,7 +86,7 @@ type FamilyMemberHistoryProcedure struct {
 	PerformedRange     *Range           `json:"performedRange,omitempty"`
 	PerformedPeriod    *Period          `json:"performedPeriod,omitempty"`
 	PerformedString    *string          `json:"performedString,omitempty"`
-	PerformedDateTime  *time.Time       `json:"performedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	PerformedDateTime  *string          `json:"performedDateTime,omitempty"`
 	Note               []Annotation     `json:"note,omitempty"`
 }
 
@@ -120,171 +119,171 @@ func (r FamilyMemberHistory) ToRef() Reference {
 }
 func (resource *FamilyMemberHistory) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("FamilyMemberHistory.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("FamilyMemberHistory.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSHistory_status
 
 	if resource == nil {
-		return CodeSelect("FamilyMemberHistory.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("FamilyMemberHistory.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_DataAbsentReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("FamilyMemberHistory.DataAbsentReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("dataAbsentReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.DataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("FamilyMemberHistory.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("FamilyMemberHistory.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("FamilyMemberHistory.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Relationship(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("FamilyMemberHistory.Relationship", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("relationship", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Relationship", &resource.Relationship, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("relationship", &resource.Relationship, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Sex(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("FamilyMemberHistory.Sex", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("sex", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Sex", resource.Sex, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("sex", resource.Sex, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_BornDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("FamilyMemberHistory.BornDate", nil, htmlAttrs)
+		return DateInput("bornDate", nil, htmlAttrs)
 	}
-	return DateInput("FamilyMemberHistory.BornDate", resource.BornDate, htmlAttrs)
+	return DateInput("bornDate", resource.BornDate, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_BornString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("FamilyMemberHistory.BornString", nil, htmlAttrs)
+		return StringInput("bornString", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.BornString", resource.BornString, htmlAttrs)
+	return StringInput("bornString", resource.BornString, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_AgeString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("FamilyMemberHistory.AgeString", nil, htmlAttrs)
+		return StringInput("ageString", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.AgeString", resource.AgeString, htmlAttrs)
+	return StringInput("ageString", resource.AgeString, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_EstimatedAge(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("FamilyMemberHistory.EstimatedAge", nil, htmlAttrs)
+		return BoolInput("estimatedAge", nil, htmlAttrs)
 	}
-	return BoolInput("FamilyMemberHistory.EstimatedAge", resource.EstimatedAge, htmlAttrs)
+	return BoolInput("estimatedAge", resource.EstimatedAge, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_DeceasedBoolean(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("FamilyMemberHistory.DeceasedBoolean", nil, htmlAttrs)
+		return BoolInput("deceasedBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("FamilyMemberHistory.DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
+	return BoolInput("deceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_DeceasedDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("FamilyMemberHistory.DeceasedDate", nil, htmlAttrs)
+		return DateInput("deceasedDate", nil, htmlAttrs)
 	}
-	return DateInput("FamilyMemberHistory.DeceasedDate", resource.DeceasedDate, htmlAttrs)
+	return DateInput("deceasedDate", resource.DeceasedDate, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_DeceasedString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("FamilyMemberHistory.DeceasedString", nil, htmlAttrs)
+		return StringInput("deceasedString", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.DeceasedString", resource.DeceasedString, htmlAttrs)
+	return StringInput("deceasedString", resource.DeceasedString, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("FamilyMemberHistory.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("FamilyMemberHistory.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return CodeableConceptSelect("FamilyMemberHistory.Participant["+strconv.Itoa(numParticipant)+"].Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Participant["+strconv.Itoa(numParticipant)+"].Function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionCode(numCondition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {
-		return CodeableConceptSelect("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Code", &resource.Condition[numCondition].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"].code", &resource.Condition[numCondition].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionOutcome(numCondition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {
-		return CodeableConceptSelect("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"].outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Outcome", resource.Condition[numCondition].Outcome, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"].outcome", resource.Condition[numCondition].Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionContributedToDeath(numCondition int, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {
-		return BoolInput("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].ContributedToDeath", nil, htmlAttrs)
+		return BoolInput("condition["+strconv.Itoa(numCondition)+"].contributedToDeath", nil, htmlAttrs)
 	}
-	return BoolInput("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].ContributedToDeath", resource.Condition[numCondition].ContributedToDeath, htmlAttrs)
+	return BoolInput("condition["+strconv.Itoa(numCondition)+"].contributedToDeath", resource.Condition[numCondition].ContributedToDeath, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionOnsetString(numCondition int, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {
-		return StringInput("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].OnsetString", nil, htmlAttrs)
+		return StringInput("condition["+strconv.Itoa(numCondition)+"].onsetString", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].OnsetString", resource.Condition[numCondition].OnsetString, htmlAttrs)
+	return StringInput("condition["+strconv.Itoa(numCondition)+"].onsetString", resource.Condition[numCondition].OnsetString, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionNote(numCondition int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) || numNote >= len(resource.Condition[numCondition].Note) {
-		return AnnotationTextArea("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("condition["+strconv.Itoa(numCondition)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("FamilyMemberHistory.Condition["+strconv.Itoa(numCondition)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Condition[numCondition].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("condition["+strconv.Itoa(numCondition)+"].note["+strconv.Itoa(numNote)+"]", &resource.Condition[numCondition].Note[numNote], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedureCode(numProcedure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return CodeableConceptSelect("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Code", &resource.Procedure[numProcedure].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].code", &resource.Procedure[numProcedure].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedureOutcome(numProcedure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return CodeableConceptSelect("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Outcome", resource.Procedure[numProcedure].Outcome, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].outcome", resource.Procedure[numProcedure].Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedureContributedToDeath(numProcedure int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return BoolInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].ContributedToDeath", nil, htmlAttrs)
+		return BoolInput("procedure["+strconv.Itoa(numProcedure)+"].contributedToDeath", nil, htmlAttrs)
 	}
-	return BoolInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].ContributedToDeath", resource.Procedure[numProcedure].ContributedToDeath, htmlAttrs)
+	return BoolInput("procedure["+strconv.Itoa(numProcedure)+"].contributedToDeath", resource.Procedure[numProcedure].ContributedToDeath, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedurePerformedString(numProcedure int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return StringInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].PerformedString", nil, htmlAttrs)
+		return StringInput("procedure["+strconv.Itoa(numProcedure)+"].performedString", nil, htmlAttrs)
 	}
-	return StringInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].PerformedString", resource.Procedure[numProcedure].PerformedString, htmlAttrs)
+	return StringInput("procedure["+strconv.Itoa(numProcedure)+"].performedString", resource.Procedure[numProcedure].PerformedString, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedurePerformedDateTime(numProcedure int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return DateTimeInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].PerformedDateTime", nil, htmlAttrs)
+		return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].performedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].PerformedDateTime", resource.Procedure[numProcedure].PerformedDateTime, htmlAttrs)
+	return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].performedDateTime", resource.Procedure[numProcedure].PerformedDateTime, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ProcedureNote(numProcedure int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) || numNote >= len(resource.Procedure[numProcedure].Note) {
-		return AnnotationTextArea("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("procedure["+strconv.Itoa(numProcedure)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("FamilyMemberHistory.Procedure["+strconv.Itoa(numProcedure)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Procedure[numProcedure].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("procedure["+strconv.Itoa(numProcedure)+"].note["+strconv.Itoa(numNote)+"]", &resource.Procedure[numProcedure].Note[numNote], htmlAttrs)
 }

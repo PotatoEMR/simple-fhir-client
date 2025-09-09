@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -36,7 +35,7 @@ type CarePlan struct {
 	Subject               Reference           `json:"subject"`
 	Encounter             *Reference          `json:"encounter,omitempty"`
 	Period                *Period             `json:"period,omitempty"`
-	Created               *time.Time          `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Created               *string             `json:"created,omitempty"`
 	Custodian             *Reference          `json:"custodian,omitempty"`
 	Contributor           []Reference         `json:"contributor,omitempty"`
 	CareTeam              []Reference         `json:"careTeam,omitempty"`
@@ -86,65 +85,65 @@ func (r CarePlan) ToRef() Reference {
 }
 func (resource *CarePlan) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("CarePlan.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("CarePlan.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *CarePlan) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("CarePlan.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("CarePlan.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *CarePlan) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("CarePlan.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CarePlan.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CarePlan) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCare_plan_intent
 
 	if resource == nil {
-		return CodeSelect("CarePlan.Intent", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("CarePlan.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
 func (resource *CarePlan) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("CarePlan.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CarePlan.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *CarePlan) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("CarePlan.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("CarePlan.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *CarePlan) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("CarePlan.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("CarePlan.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *CarePlan) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("CarePlan.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("CarePlan.Created", resource.Created, htmlAttrs)
+	return DateTimeInput("created", resource.Created, htmlAttrs)
 }
 func (resource *CarePlan) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("CarePlan.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("CarePlan.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *CarePlan) T_ActivityProgress(numActivity int, numProgress int, htmlAttrs string) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) || numProgress >= len(resource.Activity[numActivity].Progress) {
-		return AnnotationTextArea("CarePlan.Activity["+strconv.Itoa(numActivity)+"].Progress["+strconv.Itoa(numProgress)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("activity["+strconv.Itoa(numActivity)+"].progress["+strconv.Itoa(numProgress)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("CarePlan.Activity["+strconv.Itoa(numActivity)+"].Progress["+strconv.Itoa(numProgress)+"]", &resource.Activity[numActivity].Progress[numProgress], htmlAttrs)
+	return AnnotationTextArea("activity["+strconv.Itoa(numActivity)+"].progress["+strconv.Itoa(numProgress)+"]", &resource.Activity[numActivity].Progress[numProgress], htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,10 +23,10 @@ type VisionPrescription struct {
 	ModifierExtension []Extension                           `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier                          `json:"identifier,omitempty"`
 	Status            string                                `json:"status"`
-	Created           time.Time                             `json:"created,format:'2006-01-02T15:04:05Z07:00'"`
+	Created           string                                `json:"created"`
 	Patient           Reference                             `json:"patient"`
 	Encounter         *Reference                            `json:"encounter,omitempty"`
-	DateWritten       time.Time                             `json:"dateWritten,format:'2006-01-02T15:04:05Z07:00'"`
+	DateWritten       string                                `json:"dateWritten"`
 	Prescriber        Reference                             `json:"prescriber"`
 	LensSpecification []VisionPrescriptionLensSpecification `json:"lensSpecification"`
 }
@@ -93,107 +92,107 @@ func (resource *VisionPrescription) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("VisionPrescription.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("VisionPrescription.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *VisionPrescription) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("VisionPrescription.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("VisionPrescription.Created", &resource.Created, htmlAttrs)
+	return DateTimeInput("created", &resource.Created, htmlAttrs)
 }
 func (resource *VisionPrescription) T_DateWritten(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("VisionPrescription.DateWritten", nil, htmlAttrs)
+		return DateTimeInput("dateWritten", nil, htmlAttrs)
 	}
-	return DateTimeInput("VisionPrescription.DateWritten", &resource.DateWritten, htmlAttrs)
+	return DateTimeInput("dateWritten", &resource.DateWritten, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return CodeableConceptSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Product", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].product", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Product", &resource.LensSpecification[numLensSpecification].Product, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].product", &resource.LensSpecification[numLensSpecification].Product, optionsValueSet, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationEye(numLensSpecification int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSVision_eye_codes
 
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return CodeSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Eye", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].eye", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Eye", &resource.LensSpecification[numLensSpecification].Eye, optionsValueSet, htmlAttrs)
+	return CodeSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].eye", &resource.LensSpecification[numLensSpecification].Eye, optionsValueSet, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationSphere(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Sphere", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].sphere", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Sphere", resource.LensSpecification[numLensSpecification].Sphere, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].sphere", resource.LensSpecification[numLensSpecification].Sphere, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationCylinder(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Cylinder", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].cylinder", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Cylinder", resource.LensSpecification[numLensSpecification].Cylinder, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].cylinder", resource.LensSpecification[numLensSpecification].Cylinder, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationAxis(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return IntInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Axis", nil, htmlAttrs)
+		return IntInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].axis", nil, htmlAttrs)
 	}
-	return IntInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Axis", resource.LensSpecification[numLensSpecification].Axis, htmlAttrs)
+	return IntInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].axis", resource.LensSpecification[numLensSpecification].Axis, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationAdd(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Add", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].add", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Add", resource.LensSpecification[numLensSpecification].Add, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].add", resource.LensSpecification[numLensSpecification].Add, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationPower(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Power", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].power", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Power", resource.LensSpecification[numLensSpecification].Power, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].power", resource.LensSpecification[numLensSpecification].Power, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationBackCurve(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].BackCurve", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].backCurve", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].BackCurve", resource.LensSpecification[numLensSpecification].BackCurve, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].backCurve", resource.LensSpecification[numLensSpecification].BackCurve, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationDiameter(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Diameter", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].diameter", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Diameter", resource.LensSpecification[numLensSpecification].Diameter, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].diameter", resource.LensSpecification[numLensSpecification].Diameter, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationColor(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return StringInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Color", nil, htmlAttrs)
+		return StringInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].color", nil, htmlAttrs)
 	}
-	return StringInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Color", resource.LensSpecification[numLensSpecification].Color, htmlAttrs)
+	return StringInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].color", resource.LensSpecification[numLensSpecification].Color, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationBrand(numLensSpecification int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return StringInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Brand", nil, htmlAttrs)
+		return StringInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].brand", nil, htmlAttrs)
 	}
-	return StringInput("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Brand", resource.LensSpecification[numLensSpecification].Brand, htmlAttrs)
+	return StringInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].brand", resource.LensSpecification[numLensSpecification].Brand, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationNote(numLensSpecification int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) || numNote >= len(resource.LensSpecification[numLensSpecification].Note) {
-		return AnnotationTextArea("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("lensSpecification["+strconv.Itoa(numLensSpecification)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Note["+strconv.Itoa(numNote)+"]", &resource.LensSpecification[numLensSpecification].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("lensSpecification["+strconv.Itoa(numLensSpecification)+"].note["+strconv.Itoa(numNote)+"]", &resource.LensSpecification[numLensSpecification].Note[numNote], htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationPrismAmount(numLensSpecification int, numPrism int, htmlAttrs string) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) || numPrism >= len(resource.LensSpecification[numLensSpecification].Prism) {
-		return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Prism["+strconv.Itoa(numPrism)+"].Amount", nil, htmlAttrs)
+		return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].prism["+strconv.Itoa(numPrism)+"].amount", nil, htmlAttrs)
 	}
-	return Float64Input("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Prism["+strconv.Itoa(numPrism)+"].Amount", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Amount, htmlAttrs)
+	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].prism["+strconv.Itoa(numPrism)+"].amount", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Amount, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationPrismBase(numLensSpecification int, numPrism int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSVision_base_codes
 
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) || numPrism >= len(resource.LensSpecification[numLensSpecification].Prism) {
-		return CodeSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Prism["+strconv.Itoa(numPrism)+"].Base", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].prism["+strconv.Itoa(numPrism)+"].base", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("VisionPrescription.LensSpecification["+strconv.Itoa(numLensSpecification)+"].Prism["+strconv.Itoa(numPrism)+"].Base", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Base, optionsValueSet, htmlAttrs)
+	return CodeSelect("lensSpecification["+strconv.Itoa(numLensSpecification)+"].prism["+strconv.Itoa(numPrism)+"].base", &resource.LensSpecification[numLensSpecification].Prism[numPrism].Base, optionsValueSet, htmlAttrs)
 }

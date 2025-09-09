@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +27,7 @@ type SearchParameter struct {
 	DerivedFrom       *string                    `json:"derivedFrom,omitempty"`
 	Status            string                     `json:"status"`
 	Experimental      *bool                      `json:"experimental,omitempty"`
-	Date              *time.Time                 `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string                    `json:"date,omitempty"`
 	Publisher         *string                    `json:"publisher,omitempty"`
 	Contact           []ContactDetail            `json:"contact,omitempty"`
 	Description       string                     `json:"description"`
@@ -86,165 +85,165 @@ func (r SearchParameter) ToRef() Reference {
 }
 func (resource *SearchParameter) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Url", &resource.Url, htmlAttrs)
+	return StringInput("url", &resource.Url, htmlAttrs)
 }
 func (resource *SearchParameter) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *SearchParameter) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Name", &resource.Name, htmlAttrs)
+	return StringInput("name", &resource.Name, htmlAttrs)
 }
 func (resource *SearchParameter) T_DerivedFrom(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.DerivedFrom", nil, htmlAttrs)
+		return StringInput("derivedFrom", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.DerivedFrom", resource.DerivedFrom, htmlAttrs)
+	return StringInput("derivedFrom", resource.DerivedFrom, htmlAttrs)
 }
 func (resource *SearchParameter) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("SearchParameter.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("SearchParameter.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("SearchParameter.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *SearchParameter) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("SearchParameter.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("SearchParameter.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *SearchParameter) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *SearchParameter) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Description", &resource.Description, htmlAttrs)
+	return StringInput("description", &resource.Description, htmlAttrs)
 }
 func (resource *SearchParameter) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("SearchParameter.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SearchParameter.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *SearchParameter) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeSelect("SearchParameter.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Base(numBase int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil || numBase >= len(resource.Base) {
-		return CodeSelect("SearchParameter.Base["+strconv.Itoa(numBase)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("base["+strconv.Itoa(numBase)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Base["+strconv.Itoa(numBase)+"]", &resource.Base[numBase], optionsValueSet, htmlAttrs)
+	return CodeSelect("base["+strconv.Itoa(numBase)+"]", &resource.Base[numBase], optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
 	if resource == nil {
-		return CodeSelect("SearchParameter.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Expression(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Expression", nil, htmlAttrs)
+		return StringInput("expression", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Expression", resource.Expression, htmlAttrs)
+	return StringInput("expression", resource.Expression, htmlAttrs)
 }
 func (resource *SearchParameter) T_Xpath(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SearchParameter.Xpath", nil, htmlAttrs)
+		return StringInput("xpath", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Xpath", resource.Xpath, htmlAttrs)
+	return StringInput("xpath", resource.Xpath, htmlAttrs)
 }
 func (resource *SearchParameter) T_XpathUsage(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_xpath_usage
 
 	if resource == nil {
-		return CodeSelect("SearchParameter.XpathUsage", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("xpathUsage", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.XpathUsage", resource.XpathUsage, optionsValueSet, htmlAttrs)
+	return CodeSelect("xpathUsage", resource.XpathUsage, optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Target(numTarget int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSResource_types
 
 	if resource == nil || numTarget >= len(resource.Target) {
-		return CodeSelect("SearchParameter.Target["+strconv.Itoa(numTarget)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("target["+strconv.Itoa(numTarget)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], optionsValueSet, htmlAttrs)
+	return CodeSelect("target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_MultipleOr(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("SearchParameter.MultipleOr", nil, htmlAttrs)
+		return BoolInput("multipleOr", nil, htmlAttrs)
 	}
-	return BoolInput("SearchParameter.MultipleOr", resource.MultipleOr, htmlAttrs)
+	return BoolInput("multipleOr", resource.MultipleOr, htmlAttrs)
 }
 func (resource *SearchParameter) T_MultipleAnd(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("SearchParameter.MultipleAnd", nil, htmlAttrs)
+		return BoolInput("multipleAnd", nil, htmlAttrs)
 	}
-	return BoolInput("SearchParameter.MultipleAnd", resource.MultipleAnd, htmlAttrs)
+	return BoolInput("multipleAnd", resource.MultipleAnd, htmlAttrs)
 }
 func (resource *SearchParameter) T_Comparator(numComparator int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_comparator
 
 	if resource == nil || numComparator >= len(resource.Comparator) {
-		return CodeSelect("SearchParameter.Comparator["+strconv.Itoa(numComparator)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("comparator["+strconv.Itoa(numComparator)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Comparator["+strconv.Itoa(numComparator)+"]", &resource.Comparator[numComparator], optionsValueSet, htmlAttrs)
+	return CodeSelect("comparator["+strconv.Itoa(numComparator)+"]", &resource.Comparator[numComparator], optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Modifier(numModifier int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
 
 	if resource == nil || numModifier >= len(resource.Modifier) {
-		return CodeSelect("SearchParameter.Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SearchParameter.Modifier["+strconv.Itoa(numModifier)+"]", &resource.Modifier[numModifier], optionsValueSet, htmlAttrs)
+	return CodeSelect("modifier["+strconv.Itoa(numModifier)+"]", &resource.Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
 func (resource *SearchParameter) T_Chain(numChain int, htmlAttrs string) templ.Component {
 	if resource == nil || numChain >= len(resource.Chain) {
-		return StringInput("SearchParameter.Chain["+strconv.Itoa(numChain)+"]", nil, htmlAttrs)
+		return StringInput("chain["+strconv.Itoa(numChain)+"]", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Chain["+strconv.Itoa(numChain)+"]", &resource.Chain[numChain], htmlAttrs)
+	return StringInput("chain["+strconv.Itoa(numChain)+"]", &resource.Chain[numChain], htmlAttrs)
 }
 func (resource *SearchParameter) T_ComponentDefinition(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return StringInput("SearchParameter.Component["+strconv.Itoa(numComponent)+"].Definition", nil, htmlAttrs)
+		return StringInput("component["+strconv.Itoa(numComponent)+"].definition", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Component["+strconv.Itoa(numComponent)+"].Definition", &resource.Component[numComponent].Definition, htmlAttrs)
+	return StringInput("component["+strconv.Itoa(numComponent)+"].definition", &resource.Component[numComponent].Definition, htmlAttrs)
 }
 func (resource *SearchParameter) T_ComponentExpression(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return StringInput("SearchParameter.Component["+strconv.Itoa(numComponent)+"].Expression", nil, htmlAttrs)
+		return StringInput("component["+strconv.Itoa(numComponent)+"].expression", nil, htmlAttrs)
 	}
-	return StringInput("SearchParameter.Component["+strconv.Itoa(numComponent)+"].Expression", &resource.Component[numComponent].Expression, htmlAttrs)
+	return StringInput("component["+strconv.Itoa(numComponent)+"].expression", &resource.Component[numComponent].Expression, htmlAttrs)
 }

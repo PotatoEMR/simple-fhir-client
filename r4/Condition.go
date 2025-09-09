@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -31,17 +30,17 @@ type Condition struct {
 	BodySite           []CodeableConcept   `json:"bodySite,omitempty"`
 	Subject            Reference           `json:"subject"`
 	Encounter          *Reference          `json:"encounter,omitempty"`
-	OnsetDateTime      *time.Time          `json:"onsetDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OnsetDateTime      *string             `json:"onsetDateTime,omitempty"`
 	OnsetAge           *Age                `json:"onsetAge,omitempty"`
 	OnsetPeriod        *Period             `json:"onsetPeriod,omitempty"`
 	OnsetRange         *Range              `json:"onsetRange,omitempty"`
 	OnsetString        *string             `json:"onsetString,omitempty"`
-	AbatementDateTime  *time.Time          `json:"abatementDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	AbatementDateTime  *string             `json:"abatementDateTime,omitempty"`
 	AbatementAge       *Age                `json:"abatementAge,omitempty"`
 	AbatementPeriod    *Period             `json:"abatementPeriod,omitempty"`
 	AbatementRange     *Range              `json:"abatementRange,omitempty"`
 	AbatementString    *string             `json:"abatementString,omitempty"`
-	RecordedDate       *time.Time          `json:"recordedDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	RecordedDate       *string             `json:"recordedDate,omitempty"`
 	Recorder           *Reference          `json:"recorder,omitempty"`
 	Asserter           *Reference          `json:"asserter,omitempty"`
 	Stage              []ConditionStage    `json:"stage,omitempty"`
@@ -99,93 +98,93 @@ func (resource *Condition) T_ClinicalStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCondition_clinical
 
 	if resource == nil {
-		return CodeableConceptSelect("Condition.ClinicalStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("clinicalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.ClinicalStatus", resource.ClinicalStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("clinicalStatus", resource.ClinicalStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_VerificationStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSCondition_ver_status
 
 	if resource == nil {
-		return CodeableConceptSelect("Condition.VerificationStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("verificationStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.VerificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("verificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Condition.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_Severity(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Condition.Severity", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Severity", resource.Severity, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Condition.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
-		return CodeableConceptSelect("Condition.BodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.BodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_OnsetDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Condition.OnsetDateTime", nil, htmlAttrs)
+		return DateTimeInput("onsetDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Condition.OnsetDateTime", resource.OnsetDateTime, htmlAttrs)
+	return DateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
 }
 func (resource *Condition) T_OnsetString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Condition.OnsetString", nil, htmlAttrs)
+		return StringInput("onsetString", nil, htmlAttrs)
 	}
-	return StringInput("Condition.OnsetString", resource.OnsetString, htmlAttrs)
+	return StringInput("onsetString", resource.OnsetString, htmlAttrs)
 }
 func (resource *Condition) T_AbatementDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Condition.AbatementDateTime", nil, htmlAttrs)
+		return DateTimeInput("abatementDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Condition.AbatementDateTime", resource.AbatementDateTime, htmlAttrs)
+	return DateTimeInput("abatementDateTime", resource.AbatementDateTime, htmlAttrs)
 }
 func (resource *Condition) T_AbatementString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Condition.AbatementString", nil, htmlAttrs)
+		return StringInput("abatementString", nil, htmlAttrs)
 	}
-	return StringInput("Condition.AbatementString", resource.AbatementString, htmlAttrs)
+	return StringInput("abatementString", resource.AbatementString, htmlAttrs)
 }
 func (resource *Condition) T_RecordedDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Condition.RecordedDate", nil, htmlAttrs)
+		return DateTimeInput("recordedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("Condition.RecordedDate", resource.RecordedDate, htmlAttrs)
+	return DateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
 }
 func (resource *Condition) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Condition.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Condition.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
-		return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Summary", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
-		return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Stage["+strconv.Itoa(numStage)+"].Type", resource.Stage[numStage].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].type", resource.Stage[numStage].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Condition) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numCode >= len(resource.Evidence[numEvidence].Code) {
-		return CodeableConceptSelect("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Condition.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }

@@ -1,7 +1,5 @@
 package r5
 
-import "time"
-
 //generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
@@ -16,8 +14,8 @@ type TriggerDefinition struct {
 	SubscriptionTopic *string           `json:"subscriptionTopic,omitempty"`
 	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
 	TimingReference   *Reference        `json:"timingReference,omitempty"`
-	TimingDate        *time.Time        `json:"timingDate,omitempty,format:'2006-01-02'"`
-	TimingDateTime    *time.Time        `json:"timingDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	TimingDate        *string           `json:"timingDate,omitempty"`
+	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
 	Data              []DataRequirement `json:"data,omitempty"`
 	Condition         *Expression       `json:"condition,omitempty"`
 }

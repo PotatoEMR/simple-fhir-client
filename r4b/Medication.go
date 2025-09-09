@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -49,7 +48,7 @@ type MedicationBatch struct {
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	LotNumber         *string     `json:"lotNumber,omitempty"`
-	ExpirationDate    *time.Time  `json:"expirationDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	ExpirationDate    *string     `json:"expirationDate,omitempty"`
 }
 
 type OtherMedication Medication
@@ -81,45 +80,45 @@ func (r Medication) ToRef() Reference {
 }
 func (resource *Medication) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Medication.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Medication.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMedication_status
 
 	if resource == nil {
-		return CodeSelect("Medication.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Medication.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_Form(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Medication.Form", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Medication.Form", resource.Form, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("form", resource.Form, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_IngredientItemCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return CodeableConceptSelect("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].itemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].ItemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].itemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs string) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", nil, htmlAttrs)
+		return BoolInput("ingredient["+strconv.Itoa(numIngredient)+"].isActive", nil, htmlAttrs)
 	}
-	return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
+	return BoolInput("ingredient["+strconv.Itoa(numIngredient)+"].isActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
 }
 func (resource *Medication) T_BatchLotNumber(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Medication.Batch.LotNumber", nil, htmlAttrs)
+		return StringInput("batch.lotNumber", nil, htmlAttrs)
 	}
-	return StringInput("Medication.Batch.LotNumber", resource.Batch.LotNumber, htmlAttrs)
+	return StringInput("batch.lotNumber", resource.Batch.LotNumber, htmlAttrs)
 }
 func (resource *Medication) T_BatchExpirationDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Medication.Batch.ExpirationDate", nil, htmlAttrs)
+		return DateTimeInput("batch.expirationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("Medication.Batch.ExpirationDate", resource.Batch.ExpirationDate, htmlAttrs)
+	return DateTimeInput("batch.expirationDate", resource.Batch.ExpirationDate, htmlAttrs)
 }

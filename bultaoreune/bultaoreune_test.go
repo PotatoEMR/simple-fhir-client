@@ -25,7 +25,7 @@ func TestAllergy_r4(t *testing.T) {
 	note2 := r4.Annotation{Text: "fhir!"}
 	a.Note = append(a.Note, note2)
 	a.Criticality = r4.VSAllergy_intolerance_criticality[0].Code
-	onsetTime := time.Now()
+	onsetTime := time.Now().String()
 	a.OnsetDateTime = &onsetTime
 	j, err := json.Marshal(a)
 	if err != nil {
@@ -48,12 +48,8 @@ func TestAllergy_r4(t *testing.T) {
 	if a2.Id == nil || *a2.Id != "abc" {
 		t.Error("r4 get original id after marshal/unmarshal")
 	}
-	if a2.OnsetDateTime == nil || (*a2.OnsetDateTime).Format(r4.DateTimeFormat) != onsetTime.Format(r4.DateTimeFormat) {
-		if a2.OnsetDateTime == nil {
-			t.Error("r4 time nil, did not get onset datetime, must install Go v1.25 and set GOEXPERIMENT=jsonv2")
-		} else {
-			t.Error("r4 onset ", (*a2.OnsetDateTime).Format(r4.DateTimeFormat), " different from old onset", onsetTime.Format(r4.DateTimeFormat), "must install Go v1.25 and set GOEXPERIMENT=jsonv2")
-		}
+	if a2.OnsetDateTime == nil || *a2.OnsetDateTime != onsetTime {
+		t.Error("r4 onset ", *a2.OnsetDateTime, " different from old onset", onsetTime, "time just normal string field now though")
 	}
 	if a2.Criticality == nil || *a2.Criticality != "low" {
 		t.Error("r4 get original criticality after marshal/unmarshal...array of codings maybe awkward")
@@ -145,7 +141,7 @@ func TestClient(t *testing.T) {
 		t.Error("Server did not set newpat id?")
 	}
 	fmt.Println(*newPat.Id)
-	bday := time.Date(1849, 7, 12, 0, 0, 0, 0, time.UTC)
+	bday := time.Date(1849, 7, 12, 0, 0, 0, 0, time.UTC).Format(r4.DateFormat)
 	newPat.BirthDate = &bday
 	_, err = client.UpdatePatient(newPat)
 	if err != nil {
@@ -156,11 +152,11 @@ func TestClient(t *testing.T) {
 		t.Error("Error reading patient again", err)
 	}
 	if patAgain.BirthDate == nil {
-		t.Error("Birthday nil, maybe install Go v1.25 and set GOEXPERIMENT=jsonv2")
+		t.Error("Birthday nil, did time set properly or did it get 400 OperationOutcome?")
 	} else {
 		bdAgain := *patAgain.BirthDate
-		if bdAgain.Format(r4.DateFormat) != bday.Format(r4.DateFormat) {
-			fmt.Println("Birthday error", bdAgain.Format(r4.DateFormat), "does not match", bday, "maybe install Go v1.25 and set GOEXPERIMENT=jsonv2")
+		if bdAgain != bday {
+			fmt.Println("Birthday error", bdAgain, "does not match", bday, "date just string now though")
 		}
 	}
 	oo, err := client.DeletePatient(newPat)

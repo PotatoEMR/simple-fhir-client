@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +25,7 @@ type Person struct {
 	Name                 []HumanName    `json:"name,omitempty"`
 	Telecom              []ContactPoint `json:"telecom,omitempty"`
 	Gender               *string        `json:"gender,omitempty"`
-	BirthDate            *time.Time     `json:"birthDate,omitempty,format:'2006-01-02'"`
+	BirthDate            *string        `json:"birthDate,omitempty"`
 	Address              []Address      `json:"address,omitempty"`
 	Photo                *Attachment    `json:"photo,omitempty"`
 	ManagingOrganization *Reference     `json:"managingOrganization,omitempty"`
@@ -74,27 +73,27 @@ func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Person.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Person) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Person.BirthDate", nil, htmlAttrs)
+		return DateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("Person.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Person) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Person.Active", nil, htmlAttrs)
+		return BoolInput("active", nil, htmlAttrs)
 	}
-	return BoolInput("Person.Active", resource.Active, htmlAttrs)
+	return BoolInput("active", resource.Active, htmlAttrs)
 }
 func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
 	if resource == nil || numLink >= len(resource.Link) {
-		return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("link["+strconv.Itoa(numLink)+"].assurance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
+	return CodeSelect("link["+strconv.Itoa(numLink)+"].assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
 }

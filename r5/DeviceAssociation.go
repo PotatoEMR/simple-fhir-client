@@ -71,29 +71,29 @@ func (r DeviceAssociation) ToRef() Reference {
 }
 func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("DeviceAssociation.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceAssociation.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceAssociation) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDeviceassociation_status
 
 	if resource == nil {
-		return CodeableConceptSelect("DeviceAssociation.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceAssociation.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDeviceassociation_status_reason
 
 	if resource == nil || numStatusReason >= len(resource.StatusReason) {
-		return CodeableConceptSelect("DeviceAssociation.StatusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceAssociation.StatusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) {
-		return CodeableConceptSelect("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Status", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceAssociation.Operation["+strconv.Itoa(numOperation)+"].Status", &resource.Operation[numOperation].Status, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", &resource.Operation[numOperation].Status, optionsValueSet, htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -30,7 +29,7 @@ type GuidanceResponse struct {
 	Status                string            `json:"status"`
 	Subject               *Reference        `json:"subject,omitempty"`
 	Encounter             *Reference        `json:"encounter,omitempty"`
-	OccurrenceDateTime    *time.Time        `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OccurrenceDateTime    *string           `json:"occurrenceDateTime,omitempty"`
 	Performer             *Reference        `json:"performer,omitempty"`
 	ReasonCode            []CodeableConcept `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference       `json:"reasonReference,omitempty"`
@@ -70,45 +69,45 @@ func (r GuidanceResponse) ToRef() Reference {
 }
 func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("GuidanceResponse.ModuleUri", nil, htmlAttrs)
+		return StringInput("moduleUri", nil, htmlAttrs)
 	}
-	return StringInput("GuidanceResponse.ModuleUri", &resource.ModuleUri, htmlAttrs)
+	return StringInput("moduleUri", &resource.ModuleUri, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ModuleCanonical(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("GuidanceResponse.ModuleCanonical", nil, htmlAttrs)
+		return StringInput("moduleCanonical", nil, htmlAttrs)
 	}
-	return StringInput("GuidanceResponse.ModuleCanonical", &resource.ModuleCanonical, htmlAttrs)
+	return StringInput("moduleCanonical", &resource.ModuleCanonical, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ModuleCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("moduleCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("moduleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
-		return CodeSelect("GuidanceResponse.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("GuidanceResponse.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("GuidanceResponse.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("GuidanceResponse.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("GuidanceResponse.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("GuidanceResponse.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("GuidanceResponse.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("GuidanceResponse.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }

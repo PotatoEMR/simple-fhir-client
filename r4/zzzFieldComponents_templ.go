@@ -7,7 +7,6 @@ package r4
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/a-h/templ"
 	templruntime "github.com/a-h/templ/runtime"
@@ -1120,7 +1119,7 @@ func Int64Input(fieldname string, current *int64, htmlAttrs string) templ.Compon
 	})
 }
 
-func DateInput(fieldname string, current *time.Time, htmlAttrs string) templ.Component {
+func DateInput(fieldname string, current *string, htmlAttrs string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -1178,9 +1177,9 @@ func DateInput(fieldname string, current *time.Time, htmlAttrs string) templ.Com
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var65 string
-			templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinStringErrs(current.Format("2006-01-02"))
+			templ_7745c5c3_Var65, templ_7745c5c3_Err = templ.JoinStringErrs(*current)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 214, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 214, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var65))
 			if templ_7745c5c3_Err != nil {
@@ -1195,7 +1194,7 @@ func DateInput(fieldname string, current *time.Time, htmlAttrs string) templ.Com
 	})
 }
 
-func DateTimeInput(fieldname string, current *time.Time, htmlAttrs string) templ.Component {
+func DateTimeInput(fieldname string, current *string, htmlAttrs string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -1253,9 +1252,9 @@ func DateTimeInput(fieldname string, current *time.Time, htmlAttrs string) templ
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var69 string
-			templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(current.Format("2006-01-02 15:04:05"))
+			templ_7745c5c3_Var69, templ_7745c5c3_Err = templ.JoinStringErrs(*current)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 222, Col: 92}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 222, Col: 63}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var69))
 			if templ_7745c5c3_Err != nil {

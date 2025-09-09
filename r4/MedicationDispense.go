@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -39,8 +38,8 @@ type MedicationDispense struct {
 	Type                        *CodeableConcept                `json:"type,omitempty"`
 	Quantity                    *Quantity                       `json:"quantity,omitempty"`
 	DaysSupply                  *Quantity                       `json:"daysSupply,omitempty"`
-	WhenPrepared                *time.Time                      `json:"whenPrepared,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
-	WhenHandedOver              *time.Time                      `json:"whenHandedOver,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	WhenPrepared                *string                         `json:"whenPrepared,omitempty"`
+	WhenHandedOver              *string                         `json:"whenHandedOver,omitempty"`
 	Destination                 *Reference                      `json:"destination,omitempty"`
 	Receiver                    []Reference                     `json:"receiver,omitempty"`
 	Note                        []Annotation                    `json:"note,omitempty"`
@@ -101,73 +100,73 @@ func (resource *MedicationDispense) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMedicationdispense_status
 
 	if resource == nil {
-		return CodeSelect("MedicationDispense.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicationDispense.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_StatusReasonCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationDispense.StatusReasonCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("statusReasonCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.StatusReasonCodeableConcept", resource.StatusReasonCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("statusReasonCodeableConcept", resource.StatusReasonCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_Category(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationDispense.Category", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.Category", resource.Category, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category", resource.Category, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_MedicationCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationDispense.MedicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("medicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.MedicationCodeableConcept", &resource.MedicationCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("medicationCodeableConcept", &resource.MedicationCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationDispense.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_WhenPrepared(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("MedicationDispense.WhenPrepared", nil, htmlAttrs)
+		return DateTimeInput("whenPrepared", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationDispense.WhenPrepared", resource.WhenPrepared, htmlAttrs)
+	return DateTimeInput("whenPrepared", resource.WhenPrepared, htmlAttrs)
 }
 func (resource *MedicationDispense) T_WhenHandedOver(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("MedicationDispense.WhenHandedOver", nil, htmlAttrs)
+		return DateTimeInput("whenHandedOver", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationDispense.WhenHandedOver", resource.WhenHandedOver, htmlAttrs)
+	return DateTimeInput("whenHandedOver", resource.WhenHandedOver, htmlAttrs)
 }
 func (resource *MedicationDispense) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("MedicationDispense.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("MedicationDispense.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *MedicationDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return CodeableConceptSelect("MedicationDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.Performer["+strconv.Itoa(numPerformer)+"].Function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_SubstitutionWasSubstituted(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("MedicationDispense.Substitution.WasSubstituted", nil, htmlAttrs)
+		return BoolInput("substitution.wasSubstituted", nil, htmlAttrs)
 	}
-	return BoolInput("MedicationDispense.Substitution.WasSubstituted", &resource.Substitution.WasSubstituted, htmlAttrs)
+	return BoolInput("substitution.wasSubstituted", &resource.Substitution.WasSubstituted, htmlAttrs)
 }
 func (resource *MedicationDispense) T_SubstitutionType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationDispense.Substitution.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("substitution.type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.Substitution.Type", resource.Substitution.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("substitution.type", resource.Substitution.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationDispense) T_SubstitutionReason(numReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReason >= len(resource.Substitution.Reason) {
-		return CodeableConceptSelect("MedicationDispense.Substitution.Reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("substitution.reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationDispense.Substitution.Reason["+strconv.Itoa(numReason)+"]", &resource.Substitution.Reason[numReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("substitution.reason["+strconv.Itoa(numReason)+"]", &resource.Substitution.Reason[numReason], optionsValueSet, htmlAttrs)
 }

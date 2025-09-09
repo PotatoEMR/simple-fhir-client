@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -31,7 +30,7 @@ type TestPlan struct {
 	Title                  *string              `json:"title,omitempty"`
 	Status                 string               `json:"status"`
 	Experimental           *bool                `json:"experimental,omitempty"`
-	Date                   *time.Time           `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                   *string              `json:"date,omitempty"`
 	Publisher              *string              `json:"publisher,omitempty"`
 	Contact                []ContactDetail      `json:"contact,omitempty"`
 	Description            *string              `json:"description,omitempty"`
@@ -148,159 +147,159 @@ func (r TestPlan) ToRef() Reference {
 }
 func (resource *TestPlan) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *TestPlan) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *TestPlan) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("versionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("versionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *TestPlan) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodingSelect("TestPlan.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("versionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("TestPlan.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("versionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *TestPlan) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *TestPlan) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *TestPlan) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("TestPlan.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestPlan.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *TestPlan) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("TestPlan.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("TestPlan.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *TestPlan) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("TestPlan.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("TestPlan.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *TestPlan) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *TestPlan) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *TestPlan) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("TestPlan.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("TestPlan.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *TestPlan) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *TestPlan) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *TestPlan) T_CopyrightLabel(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.CopyrightLabel", nil, htmlAttrs)
+		return StringInput("copyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("copyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
 func (resource *TestPlan) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("TestPlan.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("TestPlan.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *TestPlan) T_TestTools(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.TestTools", nil, htmlAttrs)
+		return StringInput("testTools", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.TestTools", resource.TestTools, htmlAttrs)
+	return StringInput("testTools", resource.TestTools, htmlAttrs)
 }
 func (resource *TestPlan) T_ExitCriteria(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestPlan.ExitCriteria", nil, htmlAttrs)
+		return StringInput("exitCriteria", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.ExitCriteria", resource.ExitCriteria, htmlAttrs)
+	return StringInput("exitCriteria", resource.ExitCriteria, htmlAttrs)
 }
 func (resource *TestPlan) T_DependencyDescription(numDependency int, htmlAttrs string) templ.Component {
 	if resource == nil || numDependency >= len(resource.Dependency) {
-		return StringInput("TestPlan.Dependency["+strconv.Itoa(numDependency)+"].Description", nil, htmlAttrs)
+		return StringInput("dependency["+strconv.Itoa(numDependency)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.Dependency["+strconv.Itoa(numDependency)+"].Description", resource.Dependency[numDependency].Description, htmlAttrs)
+	return StringInput("dependency["+strconv.Itoa(numDependency)+"].description", resource.Dependency[numDependency].Description, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseSequence(numTestCase int, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) {
-		return IntInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Sequence", nil, htmlAttrs)
+		return IntInput("testCase["+strconv.Itoa(numTestCase)+"].sequence", nil, htmlAttrs)
 	}
-	return IntInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Sequence", resource.TestCase[numTestCase].Sequence, htmlAttrs)
+	return IntInput("testCase["+strconv.Itoa(numTestCase)+"].sequence", resource.TestCase[numTestCase].Sequence, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseDependencyDescription(numTestCase int, numDependency int, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numDependency >= len(resource.TestCase[numTestCase].Dependency) {
-		return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Dependency["+strconv.Itoa(numDependency)+"].Description", nil, htmlAttrs)
+		return StringInput("testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Dependency["+strconv.Itoa(numDependency)+"].Description", resource.TestCase[numTestCase].Dependency[numDependency].Description, htmlAttrs)
+	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].description", resource.TestCase[numTestCase].Dependency[numDependency].Description, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestRunNarrative(numTestCase int, numTestRun int, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestRun >= len(resource.TestCase[numTestCase].TestRun) {
-		return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestRun["+strconv.Itoa(numTestRun)+"].Narrative", nil, htmlAttrs)
+		return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].narrative", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestRun["+strconv.Itoa(numTestRun)+"].Narrative", resource.TestCase[numTestCase].TestRun[numTestRun].Narrative, htmlAttrs)
+	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].narrative", resource.TestCase[numTestCase].TestRun[numTestRun].Narrative, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestRunScriptSourceString(numTestCase int, numTestRun int, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestRun >= len(resource.TestCase[numTestCase].TestRun) {
-		return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestRun["+strconv.Itoa(numTestRun)+"].Script.SourceString", nil, htmlAttrs)
+		return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceString", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestRun["+strconv.Itoa(numTestRun)+"].Script.SourceString", resource.TestCase[numTestCase].TestRun[numTestRun].Script.SourceString, htmlAttrs)
+	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceString", resource.TestCase[numTestCase].TestRun[numTestRun].Script.SourceString, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestDataType(numTestCase int, numTestData int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
-		return CodingSelect("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestData["+strconv.Itoa(numTestData)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestData["+strconv.Itoa(numTestData)+"].Type", &resource.TestCase[numTestCase].TestData[numTestData].Type, optionsValueSet, htmlAttrs)
+	return CodingSelect("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].type", &resource.TestCase[numTestCase].TestData[numTestData].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestDataSourceString(numTestCase int, numTestData int, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
-		return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestData["+strconv.Itoa(numTestData)+"].SourceString", nil, htmlAttrs)
+		return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceString", nil, htmlAttrs)
 	}
-	return StringInput("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].TestData["+strconv.Itoa(numTestData)+"].SourceString", resource.TestCase[numTestCase].TestData[numTestData].SourceString, htmlAttrs)
+	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceString", resource.TestCase[numTestCase].TestData[numTestData].SourceString, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseAssertionType(numTestCase int, numAssertion int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numAssertion >= len(resource.TestCase[numTestCase].Assertion) || numType >= len(resource.TestCase[numTestCase].Assertion[numAssertion].Type) {
-		return CodeableConceptSelect("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Assertion["+strconv.Itoa(numAssertion)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("testCase["+strconv.Itoa(numTestCase)+"].assertion["+strconv.Itoa(numAssertion)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("TestPlan.TestCase["+strconv.Itoa(numTestCase)+"].Assertion["+strconv.Itoa(numAssertion)+"].Type["+strconv.Itoa(numType)+"]", &resource.TestCase[numTestCase].Assertion[numAssertion].Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("testCase["+strconv.Itoa(numTestCase)+"].assertion["+strconv.Itoa(numAssertion)+"].type["+strconv.Itoa(numType)+"]", &resource.TestCase[numTestCase].Assertion[numAssertion].Type[numType], optionsValueSet, htmlAttrs)
 }

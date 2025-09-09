@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,12 +25,12 @@ type VerificationResult struct {
 	TargetLocation    []string                          `json:"targetLocation,omitempty"`
 	Need              *CodeableConcept                  `json:"need,omitempty"`
 	Status            string                            `json:"status"`
-	StatusDate        *time.Time                        `json:"statusDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	StatusDate        *string                           `json:"statusDate,omitempty"`
 	ValidationType    *CodeableConcept                  `json:"validationType,omitempty"`
 	ValidationProcess []CodeableConcept                 `json:"validationProcess,omitempty"`
 	Frequency         *Timing                           `json:"frequency,omitempty"`
-	LastPerformed     *time.Time                        `json:"lastPerformed,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
-	NextScheduled     *time.Time                        `json:"nextScheduled,omitempty,format:'2006-01-02'"`
+	LastPerformed     *string                           `json:"lastPerformed,omitempty"`
+	NextScheduled     *string                           `json:"nextScheduled,omitempty"`
 	FailureAction     *CodeableConcept                  `json:"failureAction,omitempty"`
 	PrimarySource     []VerificationResultPrimarySource `json:"primarySource,omitempty"`
 	Attestation       *VerificationResultAttestation    `json:"attestation,omitempty"`
@@ -47,7 +46,7 @@ type VerificationResultPrimarySource struct {
 	Type                []CodeableConcept `json:"type,omitempty"`
 	CommunicationMethod []CodeableConcept `json:"communicationMethod,omitempty"`
 	ValidationStatus    *CodeableConcept  `json:"validationStatus,omitempty"`
-	ValidationDate      *time.Time        `json:"validationDate,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	ValidationDate      *string           `json:"validationDate,omitempty"`
 	CanPushUpdates      *CodeableConcept  `json:"canPushUpdates,omitempty"`
 	PushTypeAvailable   []CodeableConcept `json:"pushTypeAvailable,omitempty"`
 }
@@ -60,7 +59,7 @@ type VerificationResultAttestation struct {
 	Who                       *Reference       `json:"who,omitempty"`
 	OnBehalfOf                *Reference       `json:"onBehalfOf,omitempty"`
 	CommunicationMethod       *CodeableConcept `json:"communicationMethod,omitempty"`
-	Date                      *time.Time       `json:"date,omitempty,format:'2006-01-02'"`
+	Date                      *string          `json:"date,omitempty"`
 	SourceIdentityCertificate *string          `json:"sourceIdentityCertificate,omitempty"`
 	ProxyIdentityCertificate  *string          `json:"proxyIdentityCertificate,omitempty"`
 	ProxySignature            *Signature       `json:"proxySignature,omitempty"`
@@ -104,121 +103,121 @@ func (r VerificationResult) ToRef() Reference {
 }
 func (resource *VerificationResult) T_TargetLocation(numTargetLocation int, htmlAttrs string) templ.Component {
 	if resource == nil || numTargetLocation >= len(resource.TargetLocation) {
-		return StringInput("VerificationResult.TargetLocation["+strconv.Itoa(numTargetLocation)+"]", nil, htmlAttrs)
+		return StringInput("targetLocation["+strconv.Itoa(numTargetLocation)+"]", nil, htmlAttrs)
 	}
-	return StringInput("VerificationResult.TargetLocation["+strconv.Itoa(numTargetLocation)+"]", &resource.TargetLocation[numTargetLocation], htmlAttrs)
+	return StringInput("targetLocation["+strconv.Itoa(numTargetLocation)+"]", &resource.TargetLocation[numTargetLocation], htmlAttrs)
 }
 func (resource *VerificationResult) T_Need(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("VerificationResult.Need", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("need", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.Need", resource.Need, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("need", resource.Need, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_Status(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeSelect("VerificationResult.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("VerificationResult.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_StatusDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("VerificationResult.StatusDate", nil, htmlAttrs)
+		return DateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("VerificationResult.StatusDate", resource.StatusDate, htmlAttrs)
+	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *VerificationResult) T_ValidationType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("VerificationResult.ValidationType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("validationType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.ValidationType", resource.ValidationType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("validationType", resource.ValidationType, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_ValidationProcess(numValidationProcess int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numValidationProcess >= len(resource.ValidationProcess) {
-		return CodeableConceptSelect("VerificationResult.ValidationProcess["+strconv.Itoa(numValidationProcess)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("validationProcess["+strconv.Itoa(numValidationProcess)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.ValidationProcess["+strconv.Itoa(numValidationProcess)+"]", &resource.ValidationProcess[numValidationProcess], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("validationProcess["+strconv.Itoa(numValidationProcess)+"]", &resource.ValidationProcess[numValidationProcess], optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_LastPerformed(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("VerificationResult.LastPerformed", nil, htmlAttrs)
+		return DateTimeInput("lastPerformed", nil, htmlAttrs)
 	}
-	return DateTimeInput("VerificationResult.LastPerformed", resource.LastPerformed, htmlAttrs)
+	return DateTimeInput("lastPerformed", resource.LastPerformed, htmlAttrs)
 }
 func (resource *VerificationResult) T_NextScheduled(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("VerificationResult.NextScheduled", nil, htmlAttrs)
+		return DateInput("nextScheduled", nil, htmlAttrs)
 	}
-	return DateInput("VerificationResult.NextScheduled", resource.NextScheduled, htmlAttrs)
+	return DateInput("nextScheduled", resource.NextScheduled, htmlAttrs)
 }
 func (resource *VerificationResult) T_FailureAction(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("VerificationResult.FailureAction", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("failureAction", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.FailureAction", resource.FailureAction, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("failureAction", resource.FailureAction, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceType(numPrimarySource int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) || numType >= len(resource.PrimarySource[numPrimarySource].Type) {
-		return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].Type["+strconv.Itoa(numType)+"]", &resource.PrimarySource[numPrimarySource].Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].type["+strconv.Itoa(numType)+"]", &resource.PrimarySource[numPrimarySource].Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceCommunicationMethod(numPrimarySource int, numCommunicationMethod int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) || numCommunicationMethod >= len(resource.PrimarySource[numPrimarySource].CommunicationMethod) {
-		return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].CommunicationMethod["+strconv.Itoa(numCommunicationMethod)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].communicationMethod["+strconv.Itoa(numCommunicationMethod)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].CommunicationMethod["+strconv.Itoa(numCommunicationMethod)+"]", &resource.PrimarySource[numPrimarySource].CommunicationMethod[numCommunicationMethod], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].communicationMethod["+strconv.Itoa(numCommunicationMethod)+"]", &resource.PrimarySource[numPrimarySource].CommunicationMethod[numCommunicationMethod], optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceValidationStatus(numPrimarySource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
-		return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].ValidationStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].validationStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].ValidationStatus", resource.PrimarySource[numPrimarySource].ValidationStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].validationStatus", resource.PrimarySource[numPrimarySource].ValidationStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceValidationDate(numPrimarySource int, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
-		return DateTimeInput("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].ValidationDate", nil, htmlAttrs)
+		return DateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].ValidationDate", resource.PrimarySource[numPrimarySource].ValidationDate, htmlAttrs)
+	return DateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", resource.PrimarySource[numPrimarySource].ValidationDate, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceCanPushUpdates(numPrimarySource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
-		return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].CanPushUpdates", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].canPushUpdates", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].CanPushUpdates", resource.PrimarySource[numPrimarySource].CanPushUpdates, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].canPushUpdates", resource.PrimarySource[numPrimarySource].CanPushUpdates, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourcePushTypeAvailable(numPrimarySource int, numPushTypeAvailable int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) || numPushTypeAvailable >= len(resource.PrimarySource[numPrimarySource].PushTypeAvailable) {
-		return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].PushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].pushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.PrimarySource["+strconv.Itoa(numPrimarySource)+"].PushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", &resource.PrimarySource[numPrimarySource].PushTypeAvailable[numPushTypeAvailable], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].pushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", &resource.PrimarySource[numPrimarySource].PushTypeAvailable[numPushTypeAvailable], optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationCommunicationMethod(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("VerificationResult.Attestation.CommunicationMethod", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("attestation.communicationMethod", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationResult.Attestation.CommunicationMethod", resource.Attestation.CommunicationMethod, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("attestation.communicationMethod", resource.Attestation.CommunicationMethod, optionsValueSet, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("VerificationResult.Attestation.Date", nil, htmlAttrs)
+		return DateInput("attestation.date", nil, htmlAttrs)
 	}
-	return DateInput("VerificationResult.Attestation.Date", resource.Attestation.Date, htmlAttrs)
+	return DateInput("attestation.date", resource.Attestation.Date, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationSourceIdentityCertificate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("VerificationResult.Attestation.SourceIdentityCertificate", nil, htmlAttrs)
+		return StringInput("attestation.sourceIdentityCertificate", nil, htmlAttrs)
 	}
-	return StringInput("VerificationResult.Attestation.SourceIdentityCertificate", resource.Attestation.SourceIdentityCertificate, htmlAttrs)
+	return StringInput("attestation.sourceIdentityCertificate", resource.Attestation.SourceIdentityCertificate, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationProxyIdentityCertificate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("VerificationResult.Attestation.ProxyIdentityCertificate", nil, htmlAttrs)
+		return StringInput("attestation.proxyIdentityCertificate", nil, htmlAttrs)
 	}
-	return StringInput("VerificationResult.Attestation.ProxyIdentityCertificate", resource.Attestation.ProxyIdentityCertificate, htmlAttrs)
+	return StringInput("attestation.proxyIdentityCertificate", resource.Attestation.ProxyIdentityCertificate, htmlAttrs)
 }
 func (resource *VerificationResult) T_ValidatorIdentityCertificate(numValidator int, htmlAttrs string) templ.Component {
 	if resource == nil || numValidator >= len(resource.Validator) {
-		return StringInput("VerificationResult.Validator["+strconv.Itoa(numValidator)+"].IdentityCertificate", nil, htmlAttrs)
+		return StringInput("validator["+strconv.Itoa(numValidator)+"].identityCertificate", nil, htmlAttrs)
 	}
-	return StringInput("VerificationResult.Validator["+strconv.Itoa(numValidator)+"].IdentityCertificate", resource.Validator[numValidator].IdentityCertificate, htmlAttrs)
+	return StringInput("validator["+strconv.Itoa(numValidator)+"].identityCertificate", resource.Validator[numValidator].IdentityCertificate, htmlAttrs)
 }

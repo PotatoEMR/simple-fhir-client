@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -37,10 +36,10 @@ type DeviceRequest struct {
 	Parameter             []DeviceRequestParameter `json:"parameter,omitempty"`
 	Subject               Reference                `json:"subject"`
 	Encounter             *Reference               `json:"encounter,omitempty"`
-	OccurrenceDateTime    *time.Time               `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OccurrenceDateTime    *string                  `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod      *Period                  `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming      *Timing                  `json:"occurrenceTiming,omitempty"`
-	AuthoredOn            *time.Time               `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	AuthoredOn            *string                  `json:"authoredOn,omitempty"`
 	Requester             *Reference               `json:"requester,omitempty"`
 	Performer             *CodeableReference       `json:"performer,omitempty"`
 	Reason                []CodeableReference      `json:"reason,omitempty"`
@@ -93,97 +92,97 @@ func (r DeviceRequest) ToRef() Reference {
 }
 func (resource *DeviceRequest) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("DeviceRequest.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("DeviceRequest.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *DeviceRequest) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("DeviceRequest.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("DeviceRequest.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *DeviceRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("DeviceRequest.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceRequest.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
-		return CodeSelect("DeviceRequest.Intent", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceRequest.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("DeviceRequest.Priority", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceRequest.Priority", resource.Priority, optionsValueSet, htmlAttrs)
+	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_DoNotPerform(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("DeviceRequest.DoNotPerform", nil, htmlAttrs)
+		return BoolInput("doNotPerform", nil, htmlAttrs)
 	}
-	return BoolInput("DeviceRequest.DoNotPerform", resource.DoNotPerform, htmlAttrs)
+	return BoolInput("doNotPerform", resource.DoNotPerform, htmlAttrs)
 }
 func (resource *DeviceRequest) T_Quantity(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("DeviceRequest.Quantity", nil, htmlAttrs)
+		return IntInput("quantity", nil, htmlAttrs)
 	}
-	return IntInput("DeviceRequest.Quantity", resource.Quantity, htmlAttrs)
+	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
 func (resource *DeviceRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DeviceRequest.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceRequest.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *DeviceRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DeviceRequest.AuthoredOn", nil, htmlAttrs)
+		return DateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceRequest.AuthoredOn", resource.AuthoredOn, htmlAttrs)
+	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
 func (resource *DeviceRequest) T_AsNeeded(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("DeviceRequest.AsNeeded", nil, htmlAttrs)
+		return BoolInput("asNeeded", nil, htmlAttrs)
 	}
-	return BoolInput("DeviceRequest.AsNeeded", resource.AsNeeded, htmlAttrs)
+	return BoolInput("asNeeded", resource.AsNeeded, htmlAttrs)
 }
 func (resource *DeviceRequest) T_AsNeededFor(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("DeviceRequest.AsNeededFor", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("asNeededFor", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceRequest.AsNeededFor", resource.AsNeededFor, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("asNeededFor", resource.AsNeededFor, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("DeviceRequest.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("DeviceRequest.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *DeviceRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return CodeableConceptSelect("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].Code", resource.Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].code", resource.Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_ParameterValueCodeableConcept(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return CodeableConceptSelect("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].ValueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_ParameterValueBoolean(numParameter int, htmlAttrs string) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return BoolInput("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].ValueBoolean", nil, htmlAttrs)
+		return BoolInput("parameter["+strconv.Itoa(numParameter)+"].valueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("DeviceRequest.Parameter["+strconv.Itoa(numParameter)+"].ValueBoolean", resource.Parameter[numParameter].ValueBoolean, htmlAttrs)
+	return BoolInput("parameter["+strconv.Itoa(numParameter)+"].valueBoolean", resource.Parameter[numParameter].ValueBoolean, htmlAttrs)
 }

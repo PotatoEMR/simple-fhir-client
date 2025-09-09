@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +28,7 @@ type RelatedPerson struct {
 	Name              []HumanName                  `json:"name,omitempty"`
 	Telecom           []ContactPoint               `json:"telecom,omitempty"`
 	Gender            *string                      `json:"gender,omitempty"`
-	BirthDate         *time.Time                   `json:"birthDate,omitempty,format:'2006-01-02'"`
+	BirthDate         *string                      `json:"birthDate,omitempty"`
 	Address           []Address                    `json:"address,omitempty"`
 	Photo             []Attachment                 `json:"photo,omitempty"`
 	Period            *Period                      `json:"period,omitempty"`
@@ -74,33 +73,33 @@ func (r RelatedPerson) ToRef() Reference {
 }
 func (resource *RelatedPerson) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("RelatedPerson.Active", nil, htmlAttrs)
+		return BoolInput("active", nil, htmlAttrs)
 	}
-	return BoolInput("RelatedPerson.Active", resource.Active, htmlAttrs)
+	return BoolInput("active", resource.Active, htmlAttrs)
 }
 func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelationship >= len(resource.Relationship) {
-		return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
 }
 func (resource *RelatedPerson) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("RelatedPerson.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("RelatedPerson.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *RelatedPerson) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("RelatedPerson.BirthDate", nil, htmlAttrs)
+		return DateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("RelatedPerson.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil, htmlAttrs)
+		return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", nil, htmlAttrs)
 	}
-	return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
+	return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }

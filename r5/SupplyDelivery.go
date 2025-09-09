@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +28,7 @@ type SupplyDelivery struct {
 	Patient            *Reference                   `json:"patient,omitempty"`
 	Type               *CodeableConcept             `json:"type,omitempty"`
 	SuppliedItem       []SupplyDeliverySuppliedItem `json:"suppliedItem,omitempty"`
-	OccurrenceDateTime *time.Time                   `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OccurrenceDateTime *string                      `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod   *Period                      `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming   *Timing                      `json:"occurrenceTiming,omitempty"`
 	Supplier           *Reference                   `json:"supplier,omitempty"`
@@ -78,27 +77,27 @@ func (resource *SupplyDelivery) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
 	if resource == nil {
-		return CodeSelect("SupplyDelivery.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SupplyDelivery.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplydelivery_supplyitemtype
 
 	if resource == nil {
-		return CodeableConceptSelect("SupplyDelivery.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SupplyDelivery.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("SupplyDelivery.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("SupplyDelivery.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(numSuppliedItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSuppliedItem >= len(resource.SuppliedItem) {
-		return CodeableConceptSelect("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("suppliedItem["+strconv.Itoa(numSuppliedItem)+"].itemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].ItemCodeableConcept", resource.SuppliedItem[numSuppliedItem].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("suppliedItem["+strconv.Itoa(numSuppliedItem)+"].itemCodeableConcept", resource.SuppliedItem[numSuppliedItem].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }

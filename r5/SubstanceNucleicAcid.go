@@ -91,85 +91,85 @@ func (r SubstanceNucleicAcid) ToRef() Reference {
 }
 func (resource *SubstanceNucleicAcid) T_SequenceType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceNucleicAcid.SequenceType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("sequenceType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceNucleicAcid.SequenceType", resource.SequenceType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("sequenceType", resource.SequenceType, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_NumberOfSubunits(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("SubstanceNucleicAcid.NumberOfSubunits", nil, htmlAttrs)
+		return IntInput("numberOfSubunits", nil, htmlAttrs)
 	}
-	return IntInput("SubstanceNucleicAcid.NumberOfSubunits", resource.NumberOfSubunits, htmlAttrs)
+	return IntInput("numberOfSubunits", resource.NumberOfSubunits, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_AreaOfHybridisation(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubstanceNucleicAcid.AreaOfHybridisation", nil, htmlAttrs)
+		return StringInput("areaOfHybridisation", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.AreaOfHybridisation", resource.AreaOfHybridisation, htmlAttrs)
+	return StringInput("areaOfHybridisation", resource.AreaOfHybridisation, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_OligoNucleotideType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("SubstanceNucleicAcid.OligoNucleotideType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("oligoNucleotideType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceNucleicAcid.OligoNucleotideType", resource.OligoNucleotideType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("oligoNucleotideType", resource.OligoNucleotideType, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitSubunit(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return IntInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Subunit", nil, htmlAttrs)
+		return IntInput("subunit["+strconv.Itoa(numSubunit)+"].subunit", nil, htmlAttrs)
 	}
-	return IntInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Subunit", resource.Subunit[numSubunit].Subunit, htmlAttrs)
+	return IntInput("subunit["+strconv.Itoa(numSubunit)+"].subunit", resource.Subunit[numSubunit].Subunit, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitSequence(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sequence", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sequence", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sequence", resource.Subunit[numSubunit].Sequence, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sequence", resource.Subunit[numSubunit].Sequence, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitLength(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return IntInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Length", nil, htmlAttrs)
+		return IntInput("subunit["+strconv.Itoa(numSubunit)+"].length", nil, htmlAttrs)
 	}
-	return IntInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Length", resource.Subunit[numSubunit].Length, htmlAttrs)
+	return IntInput("subunit["+strconv.Itoa(numSubunit)+"].length", resource.Subunit[numSubunit].Length, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitFivePrime(numSubunit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return CodeableConceptSelect("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].FivePrime", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subunit["+strconv.Itoa(numSubunit)+"].fivePrime", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].FivePrime", resource.Subunit[numSubunit].FivePrime, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subunit["+strconv.Itoa(numSubunit)+"].fivePrime", resource.Subunit[numSubunit].FivePrime, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitThreePrime(numSubunit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return CodeableConceptSelect("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].ThreePrime", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("subunit["+strconv.Itoa(numSubunit)+"].threePrime", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].ThreePrime", resource.Subunit[numSubunit].ThreePrime, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("subunit["+strconv.Itoa(numSubunit)+"].threePrime", resource.Subunit[numSubunit].ThreePrime, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitLinkageConnectivity(numSubunit int, numLinkage int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) || numLinkage >= len(resource.Subunit[numSubunit].Linkage) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].Connectivity", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].connectivity", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].Connectivity", resource.Subunit[numSubunit].Linkage[numLinkage].Connectivity, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].connectivity", resource.Subunit[numSubunit].Linkage[numLinkage].Connectivity, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitLinkageName(numSubunit int, numLinkage int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) || numLinkage >= len(resource.Subunit[numSubunit].Linkage) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].Name", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].name", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].Name", resource.Subunit[numSubunit].Linkage[numLinkage].Name, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].name", resource.Subunit[numSubunit].Linkage[numLinkage].Name, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitLinkageResidueSite(numSubunit int, numLinkage int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) || numLinkage >= len(resource.Subunit[numSubunit].Linkage) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].ResidueSite", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].residueSite", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Linkage["+strconv.Itoa(numLinkage)+"].ResidueSite", resource.Subunit[numSubunit].Linkage[numLinkage].ResidueSite, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].linkage["+strconv.Itoa(numLinkage)+"].residueSite", resource.Subunit[numSubunit].Linkage[numLinkage].ResidueSite, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitSugarName(numSubunit int, numSugar int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) || numSugar >= len(resource.Subunit[numSubunit].Sugar) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sugar["+strconv.Itoa(numSugar)+"].Name", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sugar["+strconv.Itoa(numSugar)+"].name", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sugar["+strconv.Itoa(numSugar)+"].Name", resource.Subunit[numSubunit].Sugar[numSugar].Name, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sugar["+strconv.Itoa(numSugar)+"].name", resource.Subunit[numSubunit].Sugar[numSugar].Name, htmlAttrs)
 }
 func (resource *SubstanceNucleicAcid) T_SubunitSugarResidueSite(numSubunit int, numSugar int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) || numSugar >= len(resource.Subunit[numSubunit].Sugar) {
-		return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sugar["+strconv.Itoa(numSugar)+"].ResidueSite", nil, htmlAttrs)
+		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sugar["+strconv.Itoa(numSugar)+"].residueSite", nil, htmlAttrs)
 	}
-	return StringInput("SubstanceNucleicAcid.Subunit["+strconv.Itoa(numSubunit)+"].Sugar["+strconv.Itoa(numSugar)+"].ResidueSite", resource.Subunit[numSubunit].Sugar[numSugar].ResidueSite, htmlAttrs)
+	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].sugar["+strconv.Itoa(numSugar)+"].residueSite", resource.Subunit[numSubunit].Sugar[numSugar].ResidueSite, htmlAttrs)
 }

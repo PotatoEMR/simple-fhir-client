@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +27,7 @@ type Practitioner struct {
 	Telecom           []ContactPoint              `json:"telecom,omitempty"`
 	Address           []Address                   `json:"address,omitempty"`
 	Gender            *string                     `json:"gender,omitempty"`
-	BirthDate         *time.Time                  `json:"birthDate,omitempty,format:'2006-01-02'"`
+	BirthDate         *string                     `json:"birthDate,omitempty"`
 	Photo             []Attachment                `json:"photo,omitempty"`
 	Qualification     []PractitionerQualification `json:"qualification,omitempty"`
 	Communication     []CodeableConcept           `json:"communication,omitempty"`
@@ -74,33 +73,33 @@ func (r Practitioner) ToRef() Reference {
 }
 func (resource *Practitioner) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Practitioner.Active", nil, htmlAttrs)
+		return BoolInput("active", nil, htmlAttrs)
 	}
-	return BoolInput("Practitioner.Active", resource.Active, htmlAttrs)
+	return BoolInput("active", resource.Active, htmlAttrs)
 }
 func (resource *Practitioner) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Practitioner.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Practitioner.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Practitioner.BirthDate", nil, htmlAttrs)
+		return DateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("Practitioner.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Practitioner) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return CodeableConceptSelect("Practitioner.Communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
-		return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
 }

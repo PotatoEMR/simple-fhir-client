@@ -1,7 +1,5 @@
 package r4b
 
-import "time"
-
 //generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
@@ -15,8 +13,8 @@ type Extension struct {
 	ValueBoolean             *bool                `json:"valueBoolean,omitempty"`
 	ValueCanonical           *string              `json:"valueCanonical,omitempty"`
 	ValueCode                *string              `json:"valueCode,omitempty"`
-	ValueDate                *time.Time           `json:"valueDate,omitempty,format:'2006-01-02'"`
-	ValueDateTime            *time.Time           `json:"valueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	ValueDate                *string              `json:"valueDate,omitempty"`
+	ValueDateTime            *string              `json:"valueDateTime,omitempty"`
 	ValueDecimal             *float64             `json:"valueDecimal,omitempty"`
 	ValueId                  *string              `json:"valueId,omitempty"`
 	ValueInstant             *string              `json:"valueInstant,omitempty"`

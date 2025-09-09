@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -41,12 +40,12 @@ type ServiceRequest struct {
 	Subject                 Reference                          `json:"subject"`
 	Focus                   []Reference                        `json:"focus,omitempty"`
 	Encounter               *Reference                         `json:"encounter,omitempty"`
-	OccurrenceDateTime      *time.Time                         `json:"occurrenceDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	OccurrenceDateTime      *string                            `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod        *Period                            `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming        *Timing                            `json:"occurrenceTiming,omitempty"`
 	AsNeededBoolean         *bool                              `json:"asNeededBoolean,omitempty"`
 	AsNeededCodeableConcept *CodeableConcept                   `json:"asNeededCodeableConcept,omitempty"`
-	AuthoredOn              *time.Time                         `json:"authoredOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	AuthoredOn              *string                            `json:"authoredOn,omitempty"`
 	Requester               *Reference                         `json:"requester,omitempty"`
 	PerformerType           *CodeableConcept                   `json:"performerType,omitempty"`
 	Performer               []Reference                        `json:"performer,omitempty"`
@@ -124,121 +123,121 @@ func (r ServiceRequest) ToRef() Reference {
 }
 func (resource *ServiceRequest) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("ServiceRequest.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ServiceRequest.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *ServiceRequest) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("ServiceRequest.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ServiceRequest.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *ServiceRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("ServiceRequest.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ServiceRequest.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_Intent(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
-		return CodeSelect("ServiceRequest.Intent", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("intent", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ServiceRequest.Intent", &resource.Intent, optionsValueSet, htmlAttrs)
+	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("ServiceRequest.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("ServiceRequest.Priority", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ServiceRequest.Priority", resource.Priority, optionsValueSet, htmlAttrs)
+	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_DoNotPerform(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("ServiceRequest.DoNotPerform", nil, htmlAttrs)
+		return BoolInput("doNotPerform", nil, htmlAttrs)
 	}
-	return BoolInput("ServiceRequest.DoNotPerform", resource.DoNotPerform, htmlAttrs)
+	return BoolInput("doNotPerform", resource.DoNotPerform, htmlAttrs)
 }
 func (resource *ServiceRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ServiceRequest.OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("ServiceRequest.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *ServiceRequest) T_AsNeededBoolean(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("ServiceRequest.AsNeededBoolean", nil, htmlAttrs)
+		return BoolInput("asNeededBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("ServiceRequest.AsNeededBoolean", resource.AsNeededBoolean, htmlAttrs)
+	return BoolInput("asNeededBoolean", resource.AsNeededBoolean, htmlAttrs)
 }
 func (resource *ServiceRequest) T_AsNeededCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ServiceRequest.AsNeededCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("asNeededCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.AsNeededCodeableConcept", resource.AsNeededCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("asNeededCodeableConcept", resource.AsNeededCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ServiceRequest.AuthoredOn", nil, htmlAttrs)
+		return DateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("ServiceRequest.AuthoredOn", resource.AuthoredOn, htmlAttrs)
+	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
 func (resource *ServiceRequest) T_PerformerType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ServiceRequest.PerformerType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("performerType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.PerformerType", resource.PerformerType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
-		return CodeableConceptSelect("ServiceRequest.BodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.BodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("ServiceRequest.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("ServiceRequest.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *ServiceRequest) T_OrderDetailParameterCode(numOrderDetail int, numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numOrderDetail >= len(resource.OrderDetail) || numParameter >= len(resource.OrderDetail[numOrderDetail].Parameter) {
-		return CodeableConceptSelect("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].Code", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].code", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_OrderDetailParameterValueBoolean(numOrderDetail int, numParameter int, htmlAttrs string) templ.Component {
 	if resource == nil || numOrderDetail >= len(resource.OrderDetail) || numParameter >= len(resource.OrderDetail[numOrderDetail].Parameter) {
-		return BoolInput("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueBoolean", nil, htmlAttrs)
+		return BoolInput("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueBoolean", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueBoolean, htmlAttrs)
+	return BoolInput("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueBoolean", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueBoolean, htmlAttrs)
 }
 func (resource *ServiceRequest) T_OrderDetailParameterValueCodeableConcept(numOrderDetail int, numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numOrderDetail >= len(resource.OrderDetail) || numParameter >= len(resource.OrderDetail[numOrderDetail].Parameter) {
-		return CodeableConceptSelect("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueCodeableConcept", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *ServiceRequest) T_OrderDetailParameterValueString(numOrderDetail int, numParameter int, htmlAttrs string) templ.Component {
 	if resource == nil || numOrderDetail >= len(resource.OrderDetail) || numParameter >= len(resource.OrderDetail[numOrderDetail].Parameter) {
-		return StringInput("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueString", nil, htmlAttrs)
+		return StringInput("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueString", nil, htmlAttrs)
 	}
-	return StringInput("ServiceRequest.OrderDetail["+strconv.Itoa(numOrderDetail)+"].Parameter["+strconv.Itoa(numParameter)+"].ValueString", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueString, htmlAttrs)
+	return StringInput("orderDetail["+strconv.Itoa(numOrderDetail)+"].parameter["+strconv.Itoa(numParameter)+"].valueString", &resource.OrderDetail[numOrderDetail].Parameter[numParameter].ValueString, htmlAttrs)
 }
 func (resource *ServiceRequest) T_PatientInstructionInstructionMarkdown(numPatientInstruction int, htmlAttrs string) templ.Component {
 	if resource == nil || numPatientInstruction >= len(resource.PatientInstruction) {
-		return StringInput("ServiceRequest.PatientInstruction["+strconv.Itoa(numPatientInstruction)+"].InstructionMarkdown", nil, htmlAttrs)
+		return StringInput("patientInstruction["+strconv.Itoa(numPatientInstruction)+"].instructionMarkdown", nil, htmlAttrs)
 	}
-	return StringInput("ServiceRequest.PatientInstruction["+strconv.Itoa(numPatientInstruction)+"].InstructionMarkdown", resource.PatientInstruction[numPatientInstruction].InstructionMarkdown, htmlAttrs)
+	return StringInput("patientInstruction["+strconv.Itoa(numPatientInstruction)+"].instructionMarkdown", resource.PatientInstruction[numPatientInstruction].InstructionMarkdown, htmlAttrs)
 }

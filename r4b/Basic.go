@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,7 +23,7 @@ type Basic struct {
 	Identifier        []Identifier    `json:"identifier,omitempty"`
 	Code              CodeableConcept `json:"code"`
 	Subject           *Reference      `json:"subject,omitempty"`
-	Created           *time.Time      `json:"created,omitempty,format:'2006-01-02'"`
+	Created           *string         `json:"created,omitempty"`
 	Author            *Reference      `json:"author,omitempty"`
 }
 
@@ -57,13 +56,13 @@ func (r Basic) ToRef() Reference {
 }
 func (resource *Basic) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Basic.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Basic.Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Basic) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Basic.Created", nil, htmlAttrs)
+		return DateInput("created", nil, htmlAttrs)
 	}
-	return DateInput("Basic.Created", resource.Created, htmlAttrs)
+	return DateInput("created", resource.Created, htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +27,7 @@ type EffectEvidenceSynthesis struct {
 	Name                *string                                    `json:"name,omitempty"`
 	Title               *string                                    `json:"title,omitempty"`
 	Status              string                                     `json:"status"`
-	Date                *time.Time                                 `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date                *string                                    `json:"date,omitempty"`
 	Publisher           *string                                    `json:"publisher,omitempty"`
 	Contact             []ContactDetail                            `json:"contact,omitempty"`
 	Description         *string                                    `json:"description,omitempty"`
@@ -36,8 +35,8 @@ type EffectEvidenceSynthesis struct {
 	UseContext          []UsageContext                             `json:"useContext,omitempty"`
 	Jurisdiction        []CodeableConcept                          `json:"jurisdiction,omitempty"`
 	Copyright           *string                                    `json:"copyright,omitempty"`
-	ApprovalDate        *time.Time                                 `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate      *time.Time                                 `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate        *string                                    `json:"approvalDate,omitempty"`
+	LastReviewDate      *string                                    `json:"lastReviewDate,omitempty"`
 	EffectivePeriod     *Period                                    `json:"effectivePeriod,omitempty"`
 	Topic               []CodeableConcept                          `json:"topic,omitempty"`
 	Author              []ContactDetail                            `json:"author,omitempty"`
@@ -151,221 +150,221 @@ func (r EffectEvidenceSynthesis) ToRef() Reference {
 }
 func (resource *EffectEvidenceSynthesis) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Url", resource.Url, htmlAttrs)
+	return StringInput("url", resource.Url, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("EffectEvidenceSynthesis.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EffectEvidenceSynthesis.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EffectEvidenceSynthesis.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("EffectEvidenceSynthesis.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("EffectEvidenceSynthesis.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EffectEvidenceSynthesis.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("EffectEvidenceSynthesis.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("EffectEvidenceSynthesis.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("EffectEvidenceSynthesis.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("EffectEvidenceSynthesis.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_SynthesisType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.SynthesisType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("synthesisType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.SynthesisType", resource.SynthesisType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_StudyType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.StudyType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("studyType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.StudyType", resource.StudyType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_SampleSizeDescription(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectEvidenceSynthesis.SampleSize.Description", nil, htmlAttrs)
+		return StringInput("sampleSize.description", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.SampleSize.Description", resource.SampleSize.Description, htmlAttrs)
+	return StringInput("sampleSize.description", resource.SampleSize.Description, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_SampleSizeNumberOfStudies(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfStudies", nil, htmlAttrs)
+		return IntInput("sampleSize.numberOfStudies", nil, htmlAttrs)
 	}
-	return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfStudies", resource.SampleSize.NumberOfStudies, htmlAttrs)
+	return IntInput("sampleSize.numberOfStudies", resource.SampleSize.NumberOfStudies, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_SampleSizeNumberOfParticipants(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfParticipants", nil, htmlAttrs)
+		return IntInput("sampleSize.numberOfParticipants", nil, htmlAttrs)
 	}
-	return IntInput("EffectEvidenceSynthesis.SampleSize.NumberOfParticipants", resource.SampleSize.NumberOfParticipants, htmlAttrs)
+	return IntInput("sampleSize.numberOfParticipants", resource.SampleSize.NumberOfParticipants, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_ResultsByExposureDescription(numResultsByExposure int, htmlAttrs string) templ.Component {
 	if resource == nil || numResultsByExposure >= len(resource.ResultsByExposure) {
-		return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Description", nil, htmlAttrs)
+		return StringInput("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].Description", resource.ResultsByExposure[numResultsByExposure].Description, htmlAttrs)
+	return StringInput("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].description", resource.ResultsByExposure[numResultsByExposure].Description, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_ResultsByExposureExposureState(numResultsByExposure int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSExposure_state
 
 	if resource == nil || numResultsByExposure >= len(resource.ResultsByExposure) {
-		return CodeSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].ExposureState", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].exposureState", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].ExposureState", resource.ResultsByExposure[numResultsByExposure].ExposureState, optionsValueSet, htmlAttrs)
+	return CodeSelect("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].exposureState", resource.ResultsByExposure[numResultsByExposure].ExposureState, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_ResultsByExposureVariantState(numResultsByExposure int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numResultsByExposure >= len(resource.ResultsByExposure) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].VariantState", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].variantState", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.ResultsByExposure["+strconv.Itoa(numResultsByExposure)+"].VariantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].variantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateDescription(numEffectEstimate int, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {
-		return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Description", nil, htmlAttrs)
+		return StringInput("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Description", resource.EffectEstimate[numEffectEstimate].Description, htmlAttrs)
+	return StringInput("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].description", resource.EffectEstimate[numEffectEstimate].Description, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateType(numEffectEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Type", resource.EffectEstimate[numEffectEstimate].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].type", resource.EffectEstimate[numEffectEstimate].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateVariantState(numEffectEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].VariantState", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].variantState", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].VariantState", resource.EffectEstimate[numEffectEstimate].VariantState, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].variantState", resource.EffectEstimate[numEffectEstimate].VariantState, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateValue(numEffectEstimate int, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {
-		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Value", nil, htmlAttrs)
+		return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].value", nil, htmlAttrs)
 	}
-	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].Value", resource.EffectEstimate[numEffectEstimate].Value, htmlAttrs)
+	return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].value", resource.EffectEstimate[numEffectEstimate].Value, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateUnitOfMeasure(numEffectEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].UnitOfMeasure", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].unitOfMeasure", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].UnitOfMeasure", resource.EffectEstimate[numEffectEstimate].UnitOfMeasure, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].unitOfMeasure", resource.EffectEstimate[numEffectEstimate].UnitOfMeasure, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateType(numEffectEstimate int, numPrecisionEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) || numPrecisionEstimate >= len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Type", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].type", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateLevel(numEffectEstimate int, numPrecisionEstimate int, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) || numPrecisionEstimate >= len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) {
-		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", nil, htmlAttrs)
+		return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].level", nil, htmlAttrs)
 	}
-	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].Level", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Level, htmlAttrs)
+	return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].level", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].Level, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateFrom(numEffectEstimate int, numPrecisionEstimate int, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) || numPrecisionEstimate >= len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) {
-		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", nil, htmlAttrs)
+		return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].from", nil, htmlAttrs)
 	}
-	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].From", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].From, htmlAttrs)
+	return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].from", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].From, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimatePrecisionEstimateTo(numEffectEstimate int, numPrecisionEstimate int, htmlAttrs string) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) || numPrecisionEstimate >= len(resource.EffectEstimate[numEffectEstimate].PrecisionEstimate) {
-		return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", nil, htmlAttrs)
+		return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].to", nil, htmlAttrs)
 	}
-	return Float64Input("EffectEvidenceSynthesis.EffectEstimate["+strconv.Itoa(numEffectEstimate)+"].PrecisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].To", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].To, htmlAttrs)
+	return Float64Input("effectEstimate["+strconv.Itoa(numEffectEstimate)+"].precisionEstimate["+strconv.Itoa(numPrecisionEstimate)+"].to", resource.EffectEstimate[numEffectEstimate].PrecisionEstimate[numPrecisionEstimate].To, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyRating(numCertainty int, numRating int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numRating >= len(resource.Certainty[numCertainty].Rating) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].Rating[numRating], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].Rating[numRating], optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyNote(numCertainty int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numNote >= len(resource.Certainty[numCertainty].Note) {
-		return AnnotationTextArea("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Certainty[numCertainty].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].note["+strconv.Itoa(numNote)+"]", &resource.Certainty[numCertainty].Note[numNote], htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentType(numCertainty int, numCertaintySubcomponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].type", resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentRating(numCertainty int, numCertaintySubcomponent int, numRating int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) || numRating >= len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating) {
-		return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].rating["+strconv.Itoa(numRating)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[numRating], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].rating["+strconv.Itoa(numRating)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Rating[numRating], optionsValueSet, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_CertaintyCertaintySubcomponentNote(numCertainty int, numCertaintySubcomponent int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numCertaintySubcomponent >= len(resource.Certainty[numCertainty].CertaintySubcomponent) || numNote >= len(resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Note) {
-		return AnnotationTextArea("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("EffectEvidenceSynthesis.Certainty["+strconv.Itoa(numCertainty)+"].CertaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].certaintySubcomponent["+strconv.Itoa(numCertaintySubcomponent)+"].note["+strconv.Itoa(numNote)+"]", &resource.Certainty[numCertainty].CertaintySubcomponent[numCertaintySubcomponent].Note[numNote], htmlAttrs)
 }

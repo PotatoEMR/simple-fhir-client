@@ -85,33 +85,33 @@ func (resource *EpisodeOfCare) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil {
-		return CodeSelect("EpisodeOfCare.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EpisodeOfCare.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
-		return CodeableConceptSelect("EpisodeOfCare.Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EpisodeOfCare.Type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil || numStatusHistory >= len(resource.StatusHistory) {
-		return CodeSelect("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EpisodeOfCare.StatusHistory["+strconv.Itoa(numStatusHistory)+"].Status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EpisodeOfCare) T_DiagnosisRole(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
-		return CodeableConceptSelect("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Role", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Role", resource.Diagnosis[numDiagnosis].Role, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].role", resource.Diagnosis[numDiagnosis].Role, optionsValueSet, htmlAttrs)
 }
 func (resource *EpisodeOfCare) T_DiagnosisRank(numDiagnosis int, htmlAttrs string) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
-		return IntInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Rank", nil, htmlAttrs)
+		return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].rank", nil, htmlAttrs)
 	}
-	return IntInput("EpisodeOfCare.Diagnosis["+strconv.Itoa(numDiagnosis)+"].Rank", resource.Diagnosis[numDiagnosis].Rank, htmlAttrs)
+	return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].rank", resource.Diagnosis[numDiagnosis].Rank, htmlAttrs)
 }

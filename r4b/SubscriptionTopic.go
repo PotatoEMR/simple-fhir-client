@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +28,7 @@ type SubscriptionTopic struct {
 	DerivedFrom       []string                             `json:"derivedFrom,omitempty"`
 	Status            string                               `json:"status"`
 	Experimental      *bool                                `json:"experimental,omitempty"`
-	Date              *time.Time                           `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string                              `json:"date,omitempty"`
 	Publisher         *string                              `json:"publisher,omitempty"`
 	Contact           []ContactDetail                      `json:"contact,omitempty"`
 	Description       *string                              `json:"description,omitempty"`
@@ -37,8 +36,8 @@ type SubscriptionTopic struct {
 	Jurisdiction      []CodeableConcept                    `json:"jurisdiction,omitempty"`
 	Purpose           *string                              `json:"purpose,omitempty"`
 	Copyright         *string                              `json:"copyright,omitempty"`
-	ApprovalDate      *time.Time                           `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate    *time.Time                           `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate      *string                              `json:"approvalDate,omitempty"`
+	LastReviewDate    *string                              `json:"lastReviewDate,omitempty"`
 	EffectivePeriod   *Period                              `json:"effectivePeriod,omitempty"`
 	ResourceTrigger   []SubscriptionTopicResourceTrigger   `json:"resourceTrigger,omitempty"`
 	EventTrigger      []SubscriptionTopicEventTrigger      `json:"eventTrigger,omitempty"`
@@ -131,215 +130,215 @@ func (r SubscriptionTopic) ToRef() Reference {
 }
 func (resource *SubscriptionTopic) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Url", nil, htmlAttrs)
+		return StringInput("url", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Url", &resource.Url, htmlAttrs)
+	return StringInput("url", &resource.Url, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Version", nil, htmlAttrs)
+		return StringInput("version", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Version", resource.Version, htmlAttrs)
+	return StringInput("version", resource.Version, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_DerivedFrom(numDerivedFrom int, htmlAttrs string) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return StringInput("SubscriptionTopic.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return StringInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.DerivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return StringInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("SubscriptionTopic.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionTopic.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("SubscriptionTopic.Experimental", nil, htmlAttrs)
+		return BoolInput("experimental", nil, htmlAttrs)
 	}
-	return BoolInput("SubscriptionTopic.Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("SubscriptionTopic.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("SubscriptionTopic.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Publisher", nil, htmlAttrs)
+		return StringInput("publisher", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("SubscriptionTopic.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubscriptionTopic.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Purpose", nil, htmlAttrs)
+		return StringInput("purpose", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("SubscriptionTopic.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("SubscriptionTopic.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("SubscriptionTopic.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("SubscriptionTopic.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("SubscriptionTopic.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerDescription(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].Description", nil, htmlAttrs)
+		return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].Description", resource.ResourceTrigger[numResourceTrigger].Description, htmlAttrs)
+	return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].description", resource.ResourceTrigger[numResourceTrigger].Description, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerResource(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].Resource", nil, htmlAttrs)
+		return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].resource", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].Resource", &resource.ResourceTrigger[numResourceTrigger].Resource, htmlAttrs)
+	return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].resource", &resource.ResourceTrigger[numResourceTrigger].Resource, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerSupportedInteraction(numResourceTrigger int, numSupportedInteraction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSInteraction_trigger
 
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) || numSupportedInteraction >= len(resource.ResourceTrigger[numResourceTrigger].SupportedInteraction) {
-		return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].SupportedInteraction["+strconv.Itoa(numSupportedInteraction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].supportedInteraction["+strconv.Itoa(numSupportedInteraction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].SupportedInteraction["+strconv.Itoa(numSupportedInteraction)+"]", &resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[numSupportedInteraction], optionsValueSet, htmlAttrs)
+	return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].supportedInteraction["+strconv.Itoa(numSupportedInteraction)+"]", &resource.ResourceTrigger[numResourceTrigger].SupportedInteraction[numSupportedInteraction], optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerFhirPathCriteria(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].FhirPathCriteria", nil, htmlAttrs)
+		return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].fhirPathCriteria", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].FhirPathCriteria", resource.ResourceTrigger[numResourceTrigger].FhirPathCriteria, htmlAttrs)
+	return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].fhirPathCriteria", resource.ResourceTrigger[numResourceTrigger].FhirPathCriteria, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaPrevious(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.Previous", nil, htmlAttrs)
+		return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.previous", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.Previous", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.Previous, htmlAttrs)
+	return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.previous", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.Previous, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaResultForCreate(numResourceTrigger int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.ResultForCreate", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.resultForCreate", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.ResultForCreate", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate, optionsValueSet, htmlAttrs)
+	return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.resultForCreate", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForCreate, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaCurrent(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.Current", nil, htmlAttrs)
+		return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.current", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.Current", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.Current, htmlAttrs)
+	return StringInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.current", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.Current, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaResultForDelete(numResourceTrigger int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscriptiontopic_cr_behavior
 
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.ResultForDelete", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.resultForDelete", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.ResultForDelete", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete, optionsValueSet, htmlAttrs)
+	return CodeSelect("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.resultForDelete", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.ResultForDelete, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_ResourceTriggerQueryCriteriaRequireBoth(numResourceTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numResourceTrigger >= len(resource.ResourceTrigger) {
-		return BoolInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.RequireBoth", nil, htmlAttrs)
+		return BoolInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.requireBoth", nil, htmlAttrs)
 	}
-	return BoolInput("SubscriptionTopic.ResourceTrigger["+strconv.Itoa(numResourceTrigger)+"].QueryCriteria.RequireBoth", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.RequireBoth, htmlAttrs)
+	return BoolInput("resourceTrigger["+strconv.Itoa(numResourceTrigger)+"].queryCriteria.requireBoth", resource.ResourceTrigger[numResourceTrigger].QueryCriteria.RequireBoth, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_EventTriggerDescription(numEventTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numEventTrigger >= len(resource.EventTrigger) {
-		return StringInput("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Description", nil, htmlAttrs)
+		return StringInput("eventTrigger["+strconv.Itoa(numEventTrigger)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Description", resource.EventTrigger[numEventTrigger].Description, htmlAttrs)
+	return StringInput("eventTrigger["+strconv.Itoa(numEventTrigger)+"].description", resource.EventTrigger[numEventTrigger].Description, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_EventTriggerEvent(numEventTrigger int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEventTrigger >= len(resource.EventTrigger) {
-		return CodeableConceptSelect("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Event", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("eventTrigger["+strconv.Itoa(numEventTrigger)+"].event", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Event", &resource.EventTrigger[numEventTrigger].Event, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("eventTrigger["+strconv.Itoa(numEventTrigger)+"].event", &resource.EventTrigger[numEventTrigger].Event, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_EventTriggerResource(numEventTrigger int, htmlAttrs string) templ.Component {
 	if resource == nil || numEventTrigger >= len(resource.EventTrigger) {
-		return StringInput("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Resource", nil, htmlAttrs)
+		return StringInput("eventTrigger["+strconv.Itoa(numEventTrigger)+"].resource", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.EventTrigger["+strconv.Itoa(numEventTrigger)+"].Resource", &resource.EventTrigger[numEventTrigger].Resource, htmlAttrs)
+	return StringInput("eventTrigger["+strconv.Itoa(numEventTrigger)+"].resource", &resource.EventTrigger[numEventTrigger].Resource, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_CanFilterByDescription(numCanFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numCanFilterBy >= len(resource.CanFilterBy) {
-		return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Description", nil, htmlAttrs)
+		return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Description", resource.CanFilterBy[numCanFilterBy].Description, htmlAttrs)
+	return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].description", resource.CanFilterBy[numCanFilterBy].Description, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_CanFilterByResource(numCanFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numCanFilterBy >= len(resource.CanFilterBy) {
-		return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Resource", nil, htmlAttrs)
+		return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].resource", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Resource", resource.CanFilterBy[numCanFilterBy].Resource, htmlAttrs)
+	return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].resource", resource.CanFilterBy[numCanFilterBy].Resource, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_CanFilterByFilterParameter(numCanFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numCanFilterBy >= len(resource.CanFilterBy) {
-		return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].FilterParameter", nil, htmlAttrs)
+		return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].filterParameter", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].FilterParameter", &resource.CanFilterBy[numCanFilterBy].FilterParameter, htmlAttrs)
+	return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].filterParameter", &resource.CanFilterBy[numCanFilterBy].FilterParameter, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_CanFilterByFilterDefinition(numCanFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numCanFilterBy >= len(resource.CanFilterBy) {
-		return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].FilterDefinition", nil, htmlAttrs)
+		return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].filterDefinition", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].FilterDefinition", resource.CanFilterBy[numCanFilterBy].FilterDefinition, htmlAttrs)
+	return StringInput("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].filterDefinition", resource.CanFilterBy[numCanFilterBy].FilterDefinition, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_CanFilterByModifier(numCanFilterBy int, numModifier int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_search_modifier
 
 	if resource == nil || numCanFilterBy >= len(resource.CanFilterBy) || numModifier >= len(resource.CanFilterBy[numCanFilterBy].Modifier) {
-		return CodeSelect("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].modifier["+strconv.Itoa(numModifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("SubscriptionTopic.CanFilterBy["+strconv.Itoa(numCanFilterBy)+"].Modifier["+strconv.Itoa(numModifier)+"]", &resource.CanFilterBy[numCanFilterBy].Modifier[numModifier], optionsValueSet, htmlAttrs)
+	return CodeSelect("canFilterBy["+strconv.Itoa(numCanFilterBy)+"].modifier["+strconv.Itoa(numModifier)+"]", &resource.CanFilterBy[numCanFilterBy].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_NotificationShapeResource(numNotificationShape int, htmlAttrs string) templ.Component {
 	if resource == nil || numNotificationShape >= len(resource.NotificationShape) {
-		return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].Resource", nil, htmlAttrs)
+		return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].resource", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].Resource", &resource.NotificationShape[numNotificationShape].Resource, htmlAttrs)
+	return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].resource", &resource.NotificationShape[numNotificationShape].Resource, htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_NotificationShapeInclude(numNotificationShape int, numInclude int, htmlAttrs string) templ.Component {
 	if resource == nil || numNotificationShape >= len(resource.NotificationShape) || numInclude >= len(resource.NotificationShape[numNotificationShape].Include) {
-		return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].Include["+strconv.Itoa(numInclude)+"]", nil, htmlAttrs)
+		return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].include["+strconv.Itoa(numInclude)+"]", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].Include["+strconv.Itoa(numInclude)+"]", &resource.NotificationShape[numNotificationShape].Include[numInclude], htmlAttrs)
+	return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].include["+strconv.Itoa(numInclude)+"]", &resource.NotificationShape[numNotificationShape].Include[numInclude], htmlAttrs)
 }
 func (resource *SubscriptionTopic) T_NotificationShapeRevInclude(numNotificationShape int, numRevInclude int, htmlAttrs string) templ.Component {
 	if resource == nil || numNotificationShape >= len(resource.NotificationShape) || numRevInclude >= len(resource.NotificationShape[numNotificationShape].RevInclude) {
-		return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].RevInclude["+strconv.Itoa(numRevInclude)+"]", nil, htmlAttrs)
+		return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].revInclude["+strconv.Itoa(numRevInclude)+"]", nil, htmlAttrs)
 	}
-	return StringInput("SubscriptionTopic.NotificationShape["+strconv.Itoa(numNotificationShape)+"].RevInclude["+strconv.Itoa(numRevInclude)+"]", &resource.NotificationShape[numNotificationShape].RevInclude[numRevInclude], htmlAttrs)
+	return StringInput("notificationShape["+strconv.Itoa(numNotificationShape)+"].revInclude["+strconv.Itoa(numRevInclude)+"]", &resource.NotificationShape[numNotificationShape].RevInclude[numRevInclude], htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -24,7 +23,7 @@ type Permission struct {
 	ModifierExtension []Extension              `json:"modifierExtension,omitempty"`
 	Status            string                   `json:"status"`
 	Asserter          *Reference               `json:"asserter,omitempty"`
-	Date              []time.Time              `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              []string                 `json:"date,omitempty"`
 	Validity          *Period                  `json:"validity,omitempty"`
 	Justification     *PermissionJustification `json:"justification,omitempty"`
 	Combining         string                   `json:"combining"`
@@ -110,67 +109,67 @@ func (resource *Permission) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPermission_status
 
 	if resource == nil {
-		return CodeSelect("Permission.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Permission.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_Date(numDate int, htmlAttrs string) templ.Component {
 	if resource == nil || numDate >= len(resource.Date) {
-		return DateTimeInput("Permission.Date["+strconv.Itoa(numDate)+"]", nil, htmlAttrs)
+		return DateTimeInput("date["+strconv.Itoa(numDate)+"]", nil, htmlAttrs)
 	}
-	return DateTimeInput("Permission.Date["+strconv.Itoa(numDate)+"]", &resource.Date[numDate], htmlAttrs)
+	return DateTimeInput("date["+strconv.Itoa(numDate)+"]", &resource.Date[numDate], htmlAttrs)
 }
 func (resource *Permission) T_Combining(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPermission_rule_combining
 
 	if resource == nil {
-		return CodeSelect("Permission.Combining", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("combining", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Permission.Combining", &resource.Combining, optionsValueSet, htmlAttrs)
+	return CodeSelect("combining", &resource.Combining, optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_JustificationBasis(numBasis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numBasis >= len(resource.Justification.Basis) {
-		return CodeableConceptSelect("Permission.Justification.Basis["+strconv.Itoa(numBasis)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("justification.basis["+strconv.Itoa(numBasis)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Permission.Justification.Basis["+strconv.Itoa(numBasis)+"]", &resource.Justification.Basis[numBasis], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("justification.basis["+strconv.Itoa(numBasis)+"]", &resource.Justification.Basis[numBasis], optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleType(numRule int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConsent_provision_type
 
 	if resource == nil || numRule >= len(resource.Rule) {
-		return CodeSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("rule["+strconv.Itoa(numRule)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Type", resource.Rule[numRule].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("rule["+strconv.Itoa(numRule)+"].type", resource.Rule[numRule].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleLimit(numRule int, numLimit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRule >= len(resource.Rule) || numLimit >= len(resource.Rule[numRule].Limit) {
-		return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Limit["+strconv.Itoa(numLimit)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].limit["+strconv.Itoa(numLimit)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Limit["+strconv.Itoa(numLimit)+"]", &resource.Rule[numRule].Limit[numLimit], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].limit["+strconv.Itoa(numLimit)+"]", &resource.Rule[numRule].Limit[numLimit], optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleDataSecurity(numRule int, numData int, numSecurity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRule >= len(resource.Rule) || numData >= len(resource.Rule[numRule].Data) || numSecurity >= len(resource.Rule[numRule].Data[numData].Security) {
-		return CodingSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Data["+strconv.Itoa(numData)+"].Security["+strconv.Itoa(numSecurity)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].security["+strconv.Itoa(numSecurity)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Data["+strconv.Itoa(numData)+"].Security["+strconv.Itoa(numSecurity)+"]", &resource.Rule[numRule].Data[numData].Security[numSecurity], optionsValueSet, htmlAttrs)
+	return CodingSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].security["+strconv.Itoa(numSecurity)+"]", &resource.Rule[numRule].Data[numData].Security[numSecurity], optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleDataResourceMeaning(numRule int, numData int, numResource int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
 	if resource == nil || numRule >= len(resource.Rule) || numData >= len(resource.Rule[numRule].Data) || numResource >= len(resource.Rule[numRule].Data[numData].Resource) {
-		return CodeSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Data["+strconv.Itoa(numData)+"].Resource["+strconv.Itoa(numResource)+"].Meaning", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].meaning", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Data["+strconv.Itoa(numData)+"].Resource["+strconv.Itoa(numResource)+"].Meaning", &resource.Rule[numRule].Data[numData].Resource[numResource].Meaning, optionsValueSet, htmlAttrs)
+	return CodeSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].meaning", &resource.Rule[numRule].Data[numData].Resource[numResource].Meaning, optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleActivityAction(numRule int, numActivity int, numAction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRule >= len(resource.Rule) || numActivity >= len(resource.Rule[numRule].Activity) || numAction >= len(resource.Rule[numRule].Activity[numActivity].Action) {
-		return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Activity["+strconv.Itoa(numActivity)+"].Action["+strconv.Itoa(numAction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].action["+strconv.Itoa(numAction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Activity["+strconv.Itoa(numActivity)+"].Action["+strconv.Itoa(numAction)+"]", &resource.Rule[numRule].Activity[numActivity].Action[numAction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].action["+strconv.Itoa(numAction)+"]", &resource.Rule[numRule].Activity[numActivity].Action[numAction], optionsValueSet, htmlAttrs)
 }
 func (resource *Permission) T_RuleActivityPurpose(numRule int, numActivity int, numPurpose int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRule >= len(resource.Rule) || numActivity >= len(resource.Rule[numRule].Activity) || numPurpose >= len(resource.Rule[numRule].Activity[numActivity].Purpose) {
-		return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Activity["+strconv.Itoa(numActivity)+"].Purpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].purpose["+strconv.Itoa(numPurpose)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Permission.Rule["+strconv.Itoa(numRule)+"].Activity["+strconv.Itoa(numActivity)+"].Purpose["+strconv.Itoa(numPurpose)+"]", &resource.Rule[numRule].Activity[numActivity].Purpose[numPurpose], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].purpose["+strconv.Itoa(numPurpose)+"]", &resource.Rule[numRule].Activity[numActivity].Purpose[numPurpose], optionsValueSet, htmlAttrs)
 }

@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -37,7 +36,7 @@ type SubstanceInstance struct {
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	Identifier        *Identifier `json:"identifier,omitempty"`
-	Expiry            *time.Time  `json:"expiry,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Expiry            *string     `json:"expiry,omitempty"`
 	Quantity          *Quantity   `json:"quantity,omitempty"`
 }
 
@@ -82,37 +81,37 @@ func (resource *Substance) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubstance_status
 
 	if resource == nil {
-		return CodeSelect("Substance.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Substance.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Substance) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Substance.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Substance.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Substance) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Substance.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Substance.Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Substance) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Substance.Description", nil, htmlAttrs)
+		return StringInput("description", nil, htmlAttrs)
 	}
-	return StringInput("Substance.Description", resource.Description, htmlAttrs)
+	return StringInput("description", resource.Description, htmlAttrs)
 }
 func (resource *Substance) T_InstanceExpiry(numInstance int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return DateTimeInput("Substance.Instance["+strconv.Itoa(numInstance)+"].Expiry", nil, htmlAttrs)
+		return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", nil, htmlAttrs)
 	}
-	return DateTimeInput("Substance.Instance["+strconv.Itoa(numInstance)+"].Expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
+	return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
 }
 func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return CodeableConceptSelect("Substance.Ingredient["+strconv.Itoa(numIngredient)+"].SubstanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].substanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Substance.Ingredient["+strconv.Itoa(numIngredient)+"].SubstanceCodeableConcept", &resource.Ingredient[numIngredient].SubstanceCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].substanceCodeableConcept", &resource.Ingredient[numIngredient].SubstanceCodeableConcept, optionsValueSet, htmlAttrs)
 }

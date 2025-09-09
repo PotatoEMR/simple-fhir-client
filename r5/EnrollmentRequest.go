@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -23,7 +22,7 @@ type EnrollmentRequest struct {
 	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier `json:"identifier,omitempty"`
 	Status            *string      `json:"status,omitempty"`
-	Created           *time.Time   `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Created           *string      `json:"created,omitempty"`
 	Insurer           *Reference   `json:"insurer,omitempty"`
 	Provider          *Reference   `json:"provider,omitempty"`
 	Candidate         *Reference   `json:"candidate,omitempty"`
@@ -61,13 +60,13 @@ func (resource *EnrollmentRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("EnrollmentRequest.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentRequest.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentRequest) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EnrollmentRequest.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("EnrollmentRequest.Created", resource.Created, htmlAttrs)
+	return DateTimeInput("created", resource.Created, htmlAttrs)
 }

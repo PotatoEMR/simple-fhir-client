@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,9 +26,9 @@ type Practitioner struct {
 	Name              []HumanName                 `json:"name,omitempty"`
 	Telecom           []ContactPoint              `json:"telecom,omitempty"`
 	Gender            *string                     `json:"gender,omitempty"`
-	BirthDate         *time.Time                  `json:"birthDate,omitempty,format:'2006-01-02'"`
+	BirthDate         *string                     `json:"birthDate,omitempty"`
 	DeceasedBoolean   *bool                       `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime  *time.Time                  `json:"deceasedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	DeceasedDateTime  *string                     `json:"deceasedDateTime,omitempty"`
 	Address           []Address                   `json:"address,omitempty"`
 	Photo             []Attachment                `json:"photo,omitempty"`
 	Qualification     []PractitionerQualification `json:"qualification,omitempty"`
@@ -85,45 +84,45 @@ func (r Practitioner) ToRef() Reference {
 }
 func (resource *Practitioner) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Practitioner.Active", nil, htmlAttrs)
+		return BoolInput("active", nil, htmlAttrs)
 	}
-	return BoolInput("Practitioner.Active", resource.Active, htmlAttrs)
+	return BoolInput("active", resource.Active, htmlAttrs)
 }
 func (resource *Practitioner) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Practitioner.Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Practitioner.Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("Practitioner.BirthDate", nil, htmlAttrs)
+		return DateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("Practitioner.BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Practitioner) T_DeceasedBoolean(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Practitioner.DeceasedBoolean", nil, htmlAttrs)
+		return BoolInput("deceasedBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("Practitioner.DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
+	return BoolInput("deceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
 func (resource *Practitioner) T_DeceasedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Practitioner.DeceasedDateTime", nil, htmlAttrs)
+		return DateTimeInput("deceasedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Practitioner.DeceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+	return DateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
 }
 func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
-		return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Practitioner.Qualification["+strconv.Itoa(numQualification)+"].Code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Practitioner) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return BoolInput("Practitioner.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil, htmlAttrs)
+		return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", nil, htmlAttrs)
 	}
-	return BoolInput("Practitioner.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
+	return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }

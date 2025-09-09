@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,8 +28,8 @@ type DeviceUseStatement struct {
 	DerivedFrom       []Reference       `json:"derivedFrom,omitempty"`
 	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
 	TimingPeriod      *Period           `json:"timingPeriod,omitempty"`
-	TimingDateTime    *time.Time        `json:"timingDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
-	RecordedOn        *time.Time        `json:"recordedOn,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
+	RecordedOn        *string           `json:"recordedOn,omitempty"`
 	Source            *Reference        `json:"source,omitempty"`
 	Device            Reference         `json:"device"`
 	ReasonCode        []CodeableConcept `json:"reasonCode,omitempty"`
@@ -70,37 +69,37 @@ func (resource *DeviceUseStatement) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
 	if resource == nil {
-		return CodeSelect("DeviceUseStatement.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceUseStatement.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_TimingDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DeviceUseStatement.TimingDateTime", nil, htmlAttrs)
+		return DateTimeInput("timingDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceUseStatement.TimingDateTime", resource.TimingDateTime, htmlAttrs)
+	return DateTimeInput("timingDateTime", resource.TimingDateTime, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_RecordedOn(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DeviceUseStatement.RecordedOn", nil, htmlAttrs)
+		return DateTimeInput("recordedOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeviceUseStatement.RecordedOn", resource.RecordedOn, htmlAttrs)
+	return DateTimeInput("recordedOn", resource.RecordedOn, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceUseStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("DeviceUseStatement.BodySite", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("bodySite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DeviceUseStatement.BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("DeviceUseStatement.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("DeviceUseStatement.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }

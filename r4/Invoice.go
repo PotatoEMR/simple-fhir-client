@@ -7,7 +7,6 @@ package r4
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -28,7 +27,7 @@ type Invoice struct {
 	Type              *CodeableConcept     `json:"type,omitempty"`
 	Subject           *Reference           `json:"subject,omitempty"`
 	Recipient         *Reference           `json:"recipient,omitempty"`
-	Date              *time.Time           `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string              `json:"date,omitempty"`
 	Participant       []InvoiceParticipant `json:"participant,omitempty"`
 	Issuer            *Reference           `json:"issuer,omitempty"`
 	Account           *Reference           `json:"account,omitempty"`
@@ -101,75 +100,75 @@ func (resource *Invoice) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSInvoice_status
 
 	if resource == nil {
-		return CodeSelect("Invoice.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Invoice.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_CancelledReason(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Invoice.CancelledReason", nil, htmlAttrs)
+		return StringInput("cancelledReason", nil, htmlAttrs)
 	}
-	return StringInput("Invoice.CancelledReason", resource.CancelledReason, htmlAttrs)
+	return StringInput("cancelledReason", resource.CancelledReason, htmlAttrs)
 }
 func (resource *Invoice) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Invoice.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Invoice.Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Invoice.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Invoice.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *Invoice) T_PaymentTerms(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Invoice.PaymentTerms", nil, htmlAttrs)
+		return StringInput("paymentTerms", nil, htmlAttrs)
 	}
-	return StringInput("Invoice.PaymentTerms", resource.PaymentTerms, htmlAttrs)
+	return StringInput("paymentTerms", resource.PaymentTerms, htmlAttrs)
 }
 func (resource *Invoice) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Invoice.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Invoice.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Invoice) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return CodeableConceptSelect("Invoice.Participant["+strconv.Itoa(numParticipant)+"].Role", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Invoice.Participant["+strconv.Itoa(numParticipant)+"].Role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemSequence(numLineItem int, htmlAttrs string) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
-		return IntInput("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].Sequence", nil, htmlAttrs)
+		return IntInput("lineItem["+strconv.Itoa(numLineItem)+"].sequence", nil, htmlAttrs)
 	}
-	return IntInput("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].Sequence", resource.LineItem[numLineItem].Sequence, htmlAttrs)
+	return IntInput("lineItem["+strconv.Itoa(numLineItem)+"].sequence", resource.LineItem[numLineItem].Sequence, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemChargeItemCodeableConcept(numLineItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
-		return CodeableConceptSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].ChargeItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("lineItem["+strconv.Itoa(numLineItem)+"].chargeItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].ChargeItemCodeableConcept", &resource.LineItem[numLineItem].ChargeItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("lineItem["+strconv.Itoa(numLineItem)+"].chargeItemCodeableConcept", &resource.LineItem[numLineItem].ChargeItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemPriceComponentType(numLineItem int, numPriceComponent int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSInvoice_priceComponentType
 
 	if resource == nil || numLineItem >= len(resource.LineItem) || numPriceComponent >= len(resource.LineItem[numLineItem].PriceComponent) {
-		return CodeSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Type", &resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].type", &resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemPriceComponentCode(numLineItem int, numPriceComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) || numPriceComponent >= len(resource.LineItem[numLineItem].PriceComponent) {
-		return CodeableConceptSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Code", resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].code", resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemPriceComponentFactor(numLineItem int, numPriceComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) || numPriceComponent >= len(resource.LineItem[numLineItem].PriceComponent) {
-		return Float64Input("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Factor", nil, htmlAttrs)
+		return Float64Input("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].factor", nil, htmlAttrs)
 	}
-	return Float64Input("Invoice.LineItem["+strconv.Itoa(numLineItem)+"].PriceComponent["+strconv.Itoa(numPriceComponent)+"].Factor", resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Factor, htmlAttrs)
+	return Float64Input("lineItem["+strconv.Itoa(numLineItem)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"].factor", resource.LineItem[numLineItem].PriceComponent[numPriceComponent].Factor, htmlAttrs)
 }

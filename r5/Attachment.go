@@ -1,7 +1,5 @@
 package r5
 
-import "time"
-
 //generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r5/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
@@ -17,7 +15,7 @@ type Attachment struct {
 	Size        *int64      `json:"size,omitempty"`
 	Hash        *string     `json:"hash,omitempty"`
 	Title       *string     `json:"title,omitempty"`
-	Creation    *time.Time  `json:"creation,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Creation    *string     `json:"creation,omitempty"`
 	Height      *int        `json:"height,omitempty"`
 	Width       *int        `json:"width,omitempty"`
 	Frames      *int        `json:"frames,omitempty"`

@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +28,7 @@ type TestReport struct {
 	Result            string                  `json:"result"`
 	Score             *float64                `json:"score,omitempty"`
 	Tester            *string                 `json:"tester,omitempty"`
-	Issued            *time.Time              `json:"issued,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Issued            *string                 `json:"issued,omitempty"`
 	Participant       []TestReportParticipant `json:"participant,omitempty"`
 	Setup             *TestReportSetup        `json:"setup,omitempty"`
 	Test              []TestReportTest        `json:"test,omitempty"`
@@ -152,131 +151,131 @@ func (r TestReport) ToRef() Reference {
 }
 func (resource *TestReport) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestReport.Name", nil, htmlAttrs)
+		return StringInput("name", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Name", resource.Name, htmlAttrs)
+	return StringInput("name", resource.Name, htmlAttrs)
 }
 func (resource *TestReport) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_status_codes
 
 	if resource == nil {
-		return CodeSelect("TestReport.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestReport.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *TestReport) T_TestScript(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestReport.TestScript", nil, htmlAttrs)
+		return StringInput("testScript", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.TestScript", &resource.TestScript, htmlAttrs)
+	return StringInput("testScript", &resource.TestScript, htmlAttrs)
 }
 func (resource *TestReport) T_Result(htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_result_codes
 
 	if resource == nil {
-		return CodeSelect("TestReport.Result", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("result", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestReport.Result", &resource.Result, optionsValueSet, htmlAttrs)
+	return CodeSelect("result", &resource.Result, optionsValueSet, htmlAttrs)
 }
 func (resource *TestReport) T_Score(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return Float64Input("TestReport.Score", nil, htmlAttrs)
+		return Float64Input("score", nil, htmlAttrs)
 	}
-	return Float64Input("TestReport.Score", resource.Score, htmlAttrs)
+	return Float64Input("score", resource.Score, htmlAttrs)
 }
 func (resource *TestReport) T_Tester(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("TestReport.Tester", nil, htmlAttrs)
+		return StringInput("tester", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Tester", resource.Tester, htmlAttrs)
+	return StringInput("tester", resource.Tester, htmlAttrs)
 }
 func (resource *TestReport) T_Issued(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("TestReport.Issued", nil, htmlAttrs)
+		return DateTimeInput("issued", nil, htmlAttrs)
 	}
-	return DateTimeInput("TestReport.Issued", resource.Issued, htmlAttrs)
+	return DateTimeInput("issued", resource.Issued, htmlAttrs)
 }
 func (resource *TestReport) T_ParticipantType(numParticipant int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_participant_type
 
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return CodeSelect("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("participant["+strconv.Itoa(numParticipant)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Type", &resource.Participant[numParticipant].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("participant["+strconv.Itoa(numParticipant)+"].type", &resource.Participant[numParticipant].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *TestReport) T_ParticipantUri(numParticipant int, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return StringInput("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Uri", nil, htmlAttrs)
+		return StringInput("participant["+strconv.Itoa(numParticipant)+"].uri", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Uri", &resource.Participant[numParticipant].Uri, htmlAttrs)
+	return StringInput("participant["+strconv.Itoa(numParticipant)+"].uri", &resource.Participant[numParticipant].Uri, htmlAttrs)
 }
 func (resource *TestReport) T_ParticipantDisplay(numParticipant int, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return StringInput("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Display", nil, htmlAttrs)
+		return StringInput("participant["+strconv.Itoa(numParticipant)+"].display", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Participant["+strconv.Itoa(numParticipant)+"].Display", resource.Participant[numParticipant].Display, htmlAttrs)
+	return StringInput("participant["+strconv.Itoa(numParticipant)+"].display", resource.Participant[numParticipant].Display, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionOperationResult(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return CodeSelect("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Result", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("setup.action["+strconv.Itoa(numAction)+"].operation.result", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Result", &resource.Setup.Action[numAction].Operation.Result, optionsValueSet, htmlAttrs)
+	return CodeSelect("setup.action["+strconv.Itoa(numAction)+"].operation.result", &resource.Setup.Action[numAction].Operation.Result, optionsValueSet, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionOperationMessage(numAction int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Message", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].operation.message", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Message", resource.Setup.Action[numAction].Operation.Message, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].operation.message", resource.Setup.Action[numAction].Operation.Message, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionOperationDetail(numAction int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Detail", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].operation.detail", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Operation.Detail", resource.Setup.Action[numAction].Operation.Detail, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].operation.detail", resource.Setup.Action[numAction].Operation.Detail, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionAssertResult(numAction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReport_action_result_codes
 
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return CodeSelect("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Result", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("setup.action["+strconv.Itoa(numAction)+"].assert.result", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Result", &resource.Setup.Action[numAction].Assert.Result, optionsValueSet, htmlAttrs)
+	return CodeSelect("setup.action["+strconv.Itoa(numAction)+"].assert.result", &resource.Setup.Action[numAction].Assert.Result, optionsValueSet, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionAssertMessage(numAction int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Message", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.message", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Message", resource.Setup.Action[numAction].Assert.Message, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.message", resource.Setup.Action[numAction].Assert.Message, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionAssertDetail(numAction int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Detail", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.detail", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Detail", resource.Setup.Action[numAction].Assert.Detail, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.detail", resource.Setup.Action[numAction].Assert.Detail, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionAssertRequirementLinkUri(numAction int, numRequirement int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) || numRequirement >= len(resource.Setup.Action[numAction].Assert.Requirement) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Requirement["+strconv.Itoa(numRequirement)+"].LinkUri", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.requirement["+strconv.Itoa(numRequirement)+"].linkUri", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Requirement["+strconv.Itoa(numRequirement)+"].LinkUri", resource.Setup.Action[numAction].Assert.Requirement[numRequirement].LinkUri, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.requirement["+strconv.Itoa(numRequirement)+"].linkUri", resource.Setup.Action[numAction].Assert.Requirement[numRequirement].LinkUri, htmlAttrs)
 }
 func (resource *TestReport) T_SetupActionAssertRequirementLinkCanonical(numAction int, numRequirement int, htmlAttrs string) templ.Component {
 	if resource == nil || numAction >= len(resource.Setup.Action) || numRequirement >= len(resource.Setup.Action[numAction].Assert.Requirement) {
-		return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Requirement["+strconv.Itoa(numRequirement)+"].LinkCanonical", nil, htmlAttrs)
+		return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.requirement["+strconv.Itoa(numRequirement)+"].linkCanonical", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Setup.Action["+strconv.Itoa(numAction)+"].Assert.Requirement["+strconv.Itoa(numRequirement)+"].LinkCanonical", resource.Setup.Action[numAction].Assert.Requirement[numRequirement].LinkCanonical, htmlAttrs)
+	return StringInput("setup.action["+strconv.Itoa(numAction)+"].assert.requirement["+strconv.Itoa(numRequirement)+"].linkCanonical", resource.Setup.Action[numAction].Assert.Requirement[numRequirement].LinkCanonical, htmlAttrs)
 }
 func (resource *TestReport) T_TestName(numTest int, htmlAttrs string) templ.Component {
 	if resource == nil || numTest >= len(resource.Test) {
-		return StringInput("TestReport.Test["+strconv.Itoa(numTest)+"].Name", nil, htmlAttrs)
+		return StringInput("test["+strconv.Itoa(numTest)+"].name", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Test["+strconv.Itoa(numTest)+"].Name", resource.Test[numTest].Name, htmlAttrs)
+	return StringInput("test["+strconv.Itoa(numTest)+"].name", resource.Test[numTest].Name, htmlAttrs)
 }
 func (resource *TestReport) T_TestDescription(numTest int, htmlAttrs string) templ.Component {
 	if resource == nil || numTest >= len(resource.Test) {
-		return StringInput("TestReport.Test["+strconv.Itoa(numTest)+"].Description", nil, htmlAttrs)
+		return StringInput("test["+strconv.Itoa(numTest)+"].description", nil, htmlAttrs)
 	}
-	return StringInput("TestReport.Test["+strconv.Itoa(numTest)+"].Description", resource.Test[numTest].Description, htmlAttrs)
+	return StringInput("test["+strconv.Itoa(numTest)+"].description", resource.Test[numTest].Description, htmlAttrs)
 }

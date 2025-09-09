@@ -7,7 +7,6 @@ package r5
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,10 +25,10 @@ type ArtifactAssessment struct {
 	Title             *string                     `json:"title,omitempty"`
 	CiteAsReference   *Reference                  `json:"citeAsReference,omitempty"`
 	CiteAsMarkdown    *string                     `json:"citeAsMarkdown,omitempty"`
-	Date              *time.Time                  `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string                     `json:"date,omitempty"`
 	Copyright         *string                     `json:"copyright,omitempty"`
-	ApprovalDate      *time.Time                  `json:"approvalDate,omitempty,format:'2006-01-02'"`
-	LastReviewDate    *time.Time                  `json:"lastReviewDate,omitempty,format:'2006-01-02'"`
+	ApprovalDate      *string                     `json:"approvalDate,omitempty"`
+	LastReviewDate    *string                     `json:"lastReviewDate,omitempty"`
 	ArtifactReference Reference                   `json:"artifactReference"`
 	ArtifactCanonical string                      `json:"artifactCanonical"`
 	ArtifactUri       string                      `json:"artifactUri"`
@@ -83,103 +82,103 @@ func (r ArtifactAssessment) ToRef() Reference {
 }
 func (resource *ArtifactAssessment) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ArtifactAssessment.Title", nil, htmlAttrs)
+		return StringInput("title", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.Title", resource.Title, htmlAttrs)
+	return StringInput("title", resource.Title, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_CiteAsMarkdown(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ArtifactAssessment.CiteAsMarkdown", nil, htmlAttrs)
+		return StringInput("citeAsMarkdown", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.CiteAsMarkdown", resource.CiteAsMarkdown, htmlAttrs)
+	return StringInput("citeAsMarkdown", resource.CiteAsMarkdown, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ArtifactAssessment.Date", nil, htmlAttrs)
+		return DateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("ArtifactAssessment.Date", resource.Date, htmlAttrs)
+	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ArtifactAssessment.Copyright", nil, htmlAttrs)
+		return StringInput("copyright", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ArtifactAssessment.ApprovalDate", nil, htmlAttrs)
+		return DateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("ArtifactAssessment.ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ArtifactAssessment.LastReviewDate", nil, htmlAttrs)
+		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("ArtifactAssessment.LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ArtifactCanonical(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ArtifactAssessment.ArtifactCanonical", nil, htmlAttrs)
+		return StringInput("artifactCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.ArtifactCanonical", &resource.ArtifactCanonical, htmlAttrs)
+	return StringInput("artifactCanonical", &resource.ArtifactCanonical, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ArtifactUri(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ArtifactAssessment.ArtifactUri", nil, htmlAttrs)
+		return StringInput("artifactUri", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.ArtifactUri", &resource.ArtifactUri, htmlAttrs)
+	return StringInput("artifactUri", &resource.ArtifactUri, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_WorkflowStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSArtifactassessment_workflow_status
 
 	if resource == nil {
-		return CodeSelect("ArtifactAssessment.WorkflowStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("workflowStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ArtifactAssessment.WorkflowStatus", resource.WorkflowStatus, optionsValueSet, htmlAttrs)
+	return CodeSelect("workflowStatus", resource.WorkflowStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_Disposition(htmlAttrs string) templ.Component {
 	optionsValueSet := VSArtifactassessment_disposition
 
 	if resource == nil {
-		return CodeSelect("ArtifactAssessment.Disposition", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("disposition", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ArtifactAssessment.Disposition", resource.Disposition, optionsValueSet, htmlAttrs)
+	return CodeSelect("disposition", resource.Disposition, optionsValueSet, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentInformationType(numContent int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSArtifactassessment_information_type
 
 	if resource == nil || numContent >= len(resource.Content) {
-		return CodeSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].InformationType", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("content["+strconv.Itoa(numContent)+"].informationType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].InformationType", resource.Content[numContent].InformationType, optionsValueSet, htmlAttrs)
+	return CodeSelect("content["+strconv.Itoa(numContent)+"].informationType", resource.Content[numContent].InformationType, optionsValueSet, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentSummary(numContent int, htmlAttrs string) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) {
-		return StringInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Summary", nil, htmlAttrs)
+		return StringInput("content["+strconv.Itoa(numContent)+"].summary", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Summary", resource.Content[numContent].Summary, htmlAttrs)
+	return StringInput("content["+strconv.Itoa(numContent)+"].summary", resource.Content[numContent].Summary, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentType(numContent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) {
-		return CodeableConceptSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("content["+strconv.Itoa(numContent)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Type", resource.Content[numContent].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("content["+strconv.Itoa(numContent)+"].type", resource.Content[numContent].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentClassifier(numContent int, numClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) || numClassifier >= len(resource.Content[numContent].Classifier) {
-		return CodeableConceptSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("content["+strconv.Itoa(numContent)+"].classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Classifier["+strconv.Itoa(numClassifier)+"]", &resource.Content[numContent].Classifier[numClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("content["+strconv.Itoa(numContent)+"].classifier["+strconv.Itoa(numClassifier)+"]", &resource.Content[numContent].Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentPath(numContent int, numPath int, htmlAttrs string) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) || numPath >= len(resource.Content[numContent].Path) {
-		return StringInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Path["+strconv.Itoa(numPath)+"]", nil, htmlAttrs)
+		return StringInput("content["+strconv.Itoa(numContent)+"].path["+strconv.Itoa(numPath)+"]", nil, htmlAttrs)
 	}
-	return StringInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].Path["+strconv.Itoa(numPath)+"]", &resource.Content[numContent].Path[numPath], htmlAttrs)
+	return StringInput("content["+strconv.Itoa(numContent)+"].path["+strconv.Itoa(numPath)+"]", &resource.Content[numContent].Path[numPath], htmlAttrs)
 }
 func (resource *ArtifactAssessment) T_ContentFreeToShare(numContent int, htmlAttrs string) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) {
-		return BoolInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].FreeToShare", nil, htmlAttrs)
+		return BoolInput("content["+strconv.Itoa(numContent)+"].freeToShare", nil, htmlAttrs)
 	}
-	return BoolInput("ArtifactAssessment.Content["+strconv.Itoa(numContent)+"].FreeToShare", resource.Content[numContent].FreeToShare, htmlAttrs)
+	return BoolInput("content["+strconv.Itoa(numContent)+"].freeToShare", resource.Content[numContent].FreeToShare, htmlAttrs)
 }

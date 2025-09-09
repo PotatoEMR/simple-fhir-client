@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -27,7 +26,7 @@ type DetectedIssue struct {
 	Code               *CodeableConcept          `json:"code,omitempty"`
 	Severity           *string                   `json:"severity,omitempty"`
 	Patient            *Reference                `json:"patient,omitempty"`
-	IdentifiedDateTime *time.Time                `json:"identifiedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	IdentifiedDateTime *string                   `json:"identifiedDateTime,omitempty"`
 	IdentifiedPeriod   *Period                   `json:"identifiedPeriod,omitempty"`
 	Author             *Reference                `json:"author,omitempty"`
 	Implicated         []Reference               `json:"implicated,omitempty"`
@@ -52,7 +51,7 @@ type DetectedIssueMitigation struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Action            CodeableConcept `json:"action"`
-	Date              *time.Time      `json:"date,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Date              *string         `json:"date,omitempty"`
 	Author            *Reference      `json:"author,omitempty"`
 }
 
@@ -87,57 +86,57 @@ func (resource *DetectedIssue) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
-		return CodeSelect("DetectedIssue.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DetectedIssue.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("DetectedIssue.Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DetectedIssue.Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Severity(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDetectedissue_severity
 
 	if resource == nil {
-		return CodeSelect("DetectedIssue.Severity", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DetectedIssue.Severity", resource.Severity, optionsValueSet, htmlAttrs)
+	return CodeSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_IdentifiedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DetectedIssue.IdentifiedDateTime", nil, htmlAttrs)
+		return DateTimeInput("identifiedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("DetectedIssue.IdentifiedDateTime", resource.IdentifiedDateTime, htmlAttrs)
+	return DateTimeInput("identifiedDateTime", resource.IdentifiedDateTime, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Detail(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("DetectedIssue.Detail", nil, htmlAttrs)
+		return StringInput("detail", nil, htmlAttrs)
 	}
-	return StringInput("DetectedIssue.Detail", resource.Detail, htmlAttrs)
+	return StringInput("detail", resource.Detail, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Reference(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("DetectedIssue.Reference", nil, htmlAttrs)
+		return StringInput("reference", nil, htmlAttrs)
 	}
-	return StringInput("DetectedIssue.Reference", resource.Reference, htmlAttrs)
+	return StringInput("reference", resource.Reference, htmlAttrs)
 }
 func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numCode >= len(resource.Evidence[numEvidence].Code) {
-		return CodeableConceptSelect("DetectedIssue.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DetectedIssue.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
-		return CodeableConceptSelect("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Action", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("mitigation["+strconv.Itoa(numMitigation)+"].action", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Action", &resource.Mitigation[numMitigation].Action, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("mitigation["+strconv.Itoa(numMitigation)+"].action", &resource.Mitigation[numMitigation].Action, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationDate(numMitigation int, htmlAttrs string) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
-		return DateTimeInput("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Date", nil, htmlAttrs)
+		return DateTimeInput("mitigation["+strconv.Itoa(numMitigation)+"].date", nil, htmlAttrs)
 	}
-	return DateTimeInput("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Date", resource.Mitigation[numMitigation].Date, htmlAttrs)
+	return DateTimeInput("mitigation["+strconv.Itoa(numMitigation)+"].date", resource.Mitigation[numMitigation].Date, htmlAttrs)
 }

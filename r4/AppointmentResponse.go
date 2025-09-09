@@ -60,33 +60,33 @@ func (r AppointmentResponse) ToRef() Reference {
 }
 func (resource *AppointmentResponse) T_Start(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("AppointmentResponse.Start", nil, htmlAttrs)
+		return StringInput("start", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Start", resource.Start, htmlAttrs)
+	return StringInput("start", resource.Start, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_End(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("AppointmentResponse.End", nil, htmlAttrs)
+		return StringInput("end", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.End", resource.End, htmlAttrs)
+	return StringInput("end", resource.End, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipantType >= len(resource.ParticipantType) {
-		return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("participantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("AppointmentResponse.ParticipantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("participantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_ParticipantStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
 	if resource == nil {
-		return CodeSelect("AppointmentResponse.ParticipantStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("participantStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("AppointmentResponse.ParticipantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
+	return CodeSelect("participantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_Comment(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("AppointmentResponse.Comment", nil, htmlAttrs)
+		return StringInput("comment", nil, htmlAttrs)
 	}
-	return StringInput("AppointmentResponse.Comment", resource.Comment, htmlAttrs)
+	return StringInput("comment", resource.Comment, htmlAttrs)
 }

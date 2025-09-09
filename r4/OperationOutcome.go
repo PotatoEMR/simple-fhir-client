@@ -88,39 +88,39 @@ func (resource *OperationOutcome) T_IssueSeverity(numIssue int, htmlAttrs string
 	optionsValueSet := VSIssue_severity
 
 	if resource == nil || numIssue >= len(resource.Issue) {
-		return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Severity", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("issue["+strconv.Itoa(numIssue)+"].severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Severity", &resource.Issue[numIssue].Severity, optionsValueSet, htmlAttrs)
+	return CodeSelect("issue["+strconv.Itoa(numIssue)+"].severity", &resource.Issue[numIssue].Severity, optionsValueSet, htmlAttrs)
 }
 func (resource *OperationOutcome) T_IssueCode(numIssue int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIssue_type
 
 	if resource == nil || numIssue >= len(resource.Issue) {
-		return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Code", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("issue["+strconv.Itoa(numIssue)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Code", &resource.Issue[numIssue].Code, optionsValueSet, htmlAttrs)
+	return CodeSelect("issue["+strconv.Itoa(numIssue)+"].code", &resource.Issue[numIssue].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *OperationOutcome) T_IssueDetails(numIssue int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numIssue >= len(resource.Issue) {
-		return CodeableConceptSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Details", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("issue["+strconv.Itoa(numIssue)+"].details", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Details", resource.Issue[numIssue].Details, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("issue["+strconv.Itoa(numIssue)+"].details", resource.Issue[numIssue].Details, optionsValueSet, htmlAttrs)
 }
 func (resource *OperationOutcome) T_IssueDiagnostics(numIssue int, htmlAttrs string) templ.Component {
 	if resource == nil || numIssue >= len(resource.Issue) {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Diagnostics", nil, htmlAttrs)
+		return StringInput("issue["+strconv.Itoa(numIssue)+"].diagnostics", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Diagnostics", resource.Issue[numIssue].Diagnostics, htmlAttrs)
+	return StringInput("issue["+strconv.Itoa(numIssue)+"].diagnostics", resource.Issue[numIssue].Diagnostics, htmlAttrs)
 }
 func (resource *OperationOutcome) T_IssueLocation(numIssue int, numLocation int, htmlAttrs string) templ.Component {
 	if resource == nil || numIssue >= len(resource.Issue) || numLocation >= len(resource.Issue[numIssue].Location) {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+		return StringInput("issue["+strconv.Itoa(numIssue)+"].location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Location["+strconv.Itoa(numLocation)+"]", &resource.Issue[numIssue].Location[numLocation], htmlAttrs)
+	return StringInput("issue["+strconv.Itoa(numIssue)+"].location["+strconv.Itoa(numLocation)+"]", &resource.Issue[numIssue].Location[numLocation], htmlAttrs)
 }
 func (resource *OperationOutcome) T_IssueExpression(numIssue int, numExpression int, htmlAttrs string) templ.Component {
 	if resource == nil || numIssue >= len(resource.Issue) || numExpression >= len(resource.Issue[numIssue].Expression) {
-		return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Expression["+strconv.Itoa(numExpression)+"]", nil, htmlAttrs)
+		return StringInput("issue["+strconv.Itoa(numIssue)+"].expression["+strconv.Itoa(numExpression)+"]", nil, htmlAttrs)
 	}
-	return StringInput("OperationOutcome.Issue["+strconv.Itoa(numIssue)+"].Expression["+strconv.Itoa(numExpression)+"]", &resource.Issue[numIssue].Expression[numExpression], htmlAttrs)
+	return StringInput("issue["+strconv.Itoa(numIssue)+"].expression["+strconv.Itoa(numExpression)+"]", &resource.Issue[numIssue].Expression[numExpression], htmlAttrs)
 }

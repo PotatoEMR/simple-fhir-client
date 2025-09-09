@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -26,7 +25,7 @@ type EnrollmentResponse struct {
 	Request           *Reference   `json:"request,omitempty"`
 	Outcome           *string      `json:"outcome,omitempty"`
 	Disposition       *string      `json:"disposition,omitempty"`
-	Created           *time.Time   `json:"created,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	Created           *string      `json:"created,omitempty"`
 	Organization      *Reference   `json:"organization,omitempty"`
 	RequestProvider   *Reference   `json:"requestProvider,omitempty"`
 }
@@ -62,27 +61,27 @@ func (resource *EnrollmentResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Outcome(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEnrollment_outcome
 
 	if resource == nil {
-		return CodeSelect("EnrollmentResponse.Outcome", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("outcome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("EnrollmentResponse.Outcome", resource.Outcome, optionsValueSet, htmlAttrs)
+	return CodeSelect("outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Disposition(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EnrollmentResponse.Disposition", nil, htmlAttrs)
+		return StringInput("disposition", nil, htmlAttrs)
 	}
-	return StringInput("EnrollmentResponse.Disposition", resource.Disposition, htmlAttrs)
+	return StringInput("disposition", resource.Disposition, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EnrollmentResponse.Created", nil, htmlAttrs)
+		return DateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("EnrollmentResponse.Created", resource.Created, htmlAttrs)
+	return DateTimeInput("created", resource.Created, htmlAttrs)
 }

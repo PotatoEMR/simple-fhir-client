@@ -7,7 +7,6 @@ package r4b
 import (
 	"encoding/json"
 	"strconv"
-	"time"
 
 	"github.com/a-h/templ"
 )
@@ -32,9 +31,9 @@ type MedicationStatement struct {
 	MedicationReference       Reference         `json:"medicationReference"`
 	Subject                   Reference         `json:"subject"`
 	Context                   *Reference        `json:"context,omitempty"`
-	EffectiveDateTime         *time.Time        `json:"effectiveDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	EffectiveDateTime         *string           `json:"effectiveDateTime,omitempty"`
 	EffectivePeriod           *Period           `json:"effectivePeriod,omitempty"`
-	DateAsserted              *time.Time        `json:"dateAsserted,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	DateAsserted              *string           `json:"dateAsserted,omitempty"`
 	InformationSource         *Reference        `json:"informationSource,omitempty"`
 	DerivedFrom               []Reference       `json:"derivedFrom,omitempty"`
 	ReasonCode                []CodeableConcept `json:"reasonCode,omitempty"`
@@ -74,49 +73,49 @@ func (resource *MedicationStatement) T_Status(htmlAttrs string) templ.Component 
 	optionsValueSet := VSMedication_statement_status
 
 	if resource == nil {
-		return CodeSelect("MedicationStatement.Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("MedicationStatement.Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationStatement) T_StatusReason(numStatusReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numStatusReason >= len(resource.StatusReason) {
-		return CodeableConceptSelect("MedicationStatement.StatusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationStatement.StatusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationStatement) T_Category(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationStatement.Category", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationStatement.Category", resource.Category, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("category", resource.Category, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationStatement) T_MedicationCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MedicationStatement.MedicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("medicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationStatement.MedicationCodeableConcept", &resource.MedicationCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("medicationCodeableConcept", &resource.MedicationCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationStatement) T_EffectiveDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("MedicationStatement.EffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("effectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationStatement.EffectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
+	return DateTimeInput("effectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
 }
 func (resource *MedicationStatement) T_DateAsserted(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("MedicationStatement.DateAsserted", nil, htmlAttrs)
+		return DateTimeInput("dateAsserted", nil, htmlAttrs)
 	}
-	return DateTimeInput("MedicationStatement.DateAsserted", resource.DateAsserted, htmlAttrs)
+	return DateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
 }
 func (resource *MedicationStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("MedicationStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MedicationStatement.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("MedicationStatement.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("MedicationStatement.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }

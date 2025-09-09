@@ -1,7 +1,5 @@
 package r4b
 
-import "time"
-
 //generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4b/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
@@ -32,8 +30,8 @@ type ElementDefinition struct {
 	DefaultValueBoolean             *bool                `json:"defaultValueBoolean,omitempty"`
 	DefaultValueCanonical           *string              `json:"defaultValueCanonical,omitempty"`
 	DefaultValueCode                *string              `json:"defaultValueCode,omitempty"`
-	DefaultValueDate                *time.Time           `json:"defaultValueDate,omitempty,format:'2006-01-02'"`
-	DefaultValueDateTime            *time.Time           `json:"defaultValueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	DefaultValueDate                *string              `json:"defaultValueDate,omitempty"`
+	DefaultValueDateTime            *string              `json:"defaultValueDateTime,omitempty"`
 	DefaultValueDecimal             *float64             `json:"defaultValueDecimal,omitempty"`
 	DefaultValueId                  *string              `json:"defaultValueId,omitempty"`
 	DefaultValueInstant             *string              `json:"defaultValueInstant,omitempty"`
@@ -85,8 +83,8 @@ type ElementDefinition struct {
 	FixedBoolean                    *bool                `json:"fixedBoolean,omitempty"`
 	FixedCanonical                  *string              `json:"fixedCanonical,omitempty"`
 	FixedCode                       *string              `json:"fixedCode,omitempty"`
-	FixedDate                       *time.Time           `json:"fixedDate,omitempty,format:'2006-01-02'"`
-	FixedDateTime                   *time.Time           `json:"fixedDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	FixedDate                       *string              `json:"fixedDate,omitempty"`
+	FixedDateTime                   *string              `json:"fixedDateTime,omitempty"`
 	FixedDecimal                    *float64             `json:"fixedDecimal,omitempty"`
 	FixedId                         *string              `json:"fixedId,omitempty"`
 	FixedInstant                    *string              `json:"fixedInstant,omitempty"`
@@ -136,8 +134,8 @@ type ElementDefinition struct {
 	PatternBoolean                  *bool                `json:"patternBoolean,omitempty"`
 	PatternCanonical                *string              `json:"patternCanonical,omitempty"`
 	PatternCode                     *string              `json:"patternCode,omitempty"`
-	PatternDate                     *time.Time           `json:"patternDate,omitempty,format:'2006-01-02'"`
-	PatternDateTime                 *time.Time           `json:"patternDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	PatternDate                     *string              `json:"patternDate,omitempty"`
+	PatternDateTime                 *string              `json:"patternDateTime,omitempty"`
 	PatternDecimal                  *float64             `json:"patternDecimal,omitempty"`
 	PatternId                       *string              `json:"patternId,omitempty"`
 	PatternInstant                  *string              `json:"patternInstant,omitempty"`
@@ -184,8 +182,8 @@ type ElementDefinition struct {
 	PatternUsageContext             *UsageContext        `json:"patternUsageContext,omitempty"`
 	PatternDosage                   *Dosage              `json:"patternDosage,omitempty"`
 	Example                         []Element            `json:"example,omitempty"`
-	MinValueDate                    *time.Time           `json:"minValueDate,omitempty,format:'2006-01-02'"`
-	MinValueDateTime                *time.Time           `json:"minValueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	MinValueDate                    *string              `json:"minValueDate,omitempty"`
+	MinValueDateTime                *string              `json:"minValueDateTime,omitempty"`
 	MinValueInstant                 *string              `json:"minValueInstant,omitempty"`
 	MinValueTime                    *string              `json:"minValueTime,omitempty"`
 	MinValueDecimal                 *float64             `json:"minValueDecimal,omitempty"`
@@ -193,8 +191,8 @@ type ElementDefinition struct {
 	MinValuePositiveInt             *int                 `json:"minValuePositiveInt,omitempty"`
 	MinValueUnsignedInt             *int                 `json:"minValueUnsignedInt,omitempty"`
 	MinValueQuantity                *Quantity            `json:"minValueQuantity,omitempty"`
-	MaxValueDate                    *time.Time           `json:"maxValueDate,omitempty,format:'2006-01-02'"`
-	MaxValueDateTime                *time.Time           `json:"maxValueDateTime,omitempty,format:'2006-01-02T15:04:05Z07:00'"`
+	MaxValueDate                    *string              `json:"maxValueDate,omitempty"`
+	MaxValueDateTime                *string              `json:"maxValueDateTime,omitempty"`
 	MaxValueInstant                 *string              `json:"maxValueInstant,omitempty"`
 	MaxValueTime                    *string              `json:"maxValueTime,omitempty"`
 	MaxValueDecimal                 *float64             `json:"maxValueDecimal,omitempty"`
