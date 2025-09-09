@@ -82,51 +82,51 @@ func (r Provenance) ToRef() Reference {
 }
 func (resource *Provenance) T_OccurredDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("OccurredDateTime", nil, htmlAttrs)
+		return DateTimeInput("Provenance.OccurredDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("OccurredDateTime", resource.OccurredDateTime, htmlAttrs)
+	return DateTimeInput("Provenance.OccurredDateTime", resource.OccurredDateTime, htmlAttrs)
 }
 func (resource *Provenance) T_Recorded(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Recorded", nil, htmlAttrs)
+		return StringInput("Provenance.Recorded", nil, htmlAttrs)
 	}
-	return StringInput("Recorded", &resource.Recorded, htmlAttrs)
+	return StringInput("Provenance.Recorded", &resource.Recorded, htmlAttrs)
 }
 func (resource *Provenance) T_Policy(numPolicy int, htmlAttrs string) templ.Component {
 	if resource == nil || numPolicy >= len(resource.Policy) {
-		return StringInput("Policy["+strconv.Itoa(numPolicy)+"]", nil, htmlAttrs)
+		return StringInput("Provenance.Policy["+strconv.Itoa(numPolicy)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Policy["+strconv.Itoa(numPolicy)+"]", &resource.Policy[numPolicy], htmlAttrs)
+	return StringInput("Provenance.Policy["+strconv.Itoa(numPolicy)+"]", &resource.Policy[numPolicy], htmlAttrs)
 }
 func (resource *Provenance) T_Reason(numReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
-		return CodeableConceptSelect("Reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Provenance.Reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Provenance.Reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], optionsValueSet, htmlAttrs)
 }
 func (resource *Provenance) T_Activity(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Activity", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Provenance.Activity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Activity", resource.Activity, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Provenance.Activity", resource.Activity, optionsValueSet, htmlAttrs)
 }
 func (resource *Provenance) T_AgentType(numAgent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
-		return CodeableConceptSelect("Agent["+strconv.Itoa(numAgent)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Provenance.Agent["+strconv.Itoa(numAgent)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Agent["+strconv.Itoa(numAgent)+"]Type", resource.Agent[numAgent].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Provenance.Agent["+strconv.Itoa(numAgent)+"].Type", resource.Agent[numAgent].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Provenance) T_AgentRole(numAgent int, numRole int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) || numRole >= len(resource.Agent[numAgent].Role) {
-		return CodeableConceptSelect("Agent["+strconv.Itoa(numAgent)+"]Role["+strconv.Itoa(numRole)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Provenance.Agent["+strconv.Itoa(numAgent)+"].Role["+strconv.Itoa(numRole)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Agent["+strconv.Itoa(numAgent)+"]Role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Provenance.Agent["+strconv.Itoa(numAgent)+"].Role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
 }
 func (resource *Provenance) T_EntityRole(numEntity int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSProvenance_entity_role
 
 	if resource == nil || numEntity >= len(resource.Entity) {
-		return CodeSelect("Entity["+strconv.Itoa(numEntity)+"]Role", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Provenance.Entity["+strconv.Itoa(numEntity)+"].Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Entity["+strconv.Itoa(numEntity)+"]Role", &resource.Entity[numEntity].Role, optionsValueSet, htmlAttrs)
+	return CodeSelect("Provenance.Entity["+strconv.Itoa(numEntity)+"].Role", &resource.Entity[numEntity].Role, optionsValueSet, htmlAttrs)
 }

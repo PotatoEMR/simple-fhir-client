@@ -90,123 +90,123 @@ func (r Subscription) ToRef() Reference {
 }
 func (resource *Subscription) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Name", nil, htmlAttrs)
+		return StringInput("Subscription.Name", nil, htmlAttrs)
 	}
-	return StringInput("Name", resource.Name, htmlAttrs)
+	return StringInput("Subscription.Name", resource.Name, htmlAttrs)
 }
 func (resource *Subscription) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Subscription.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Subscription.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_Topic(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Topic", nil, htmlAttrs)
+		return StringInput("Subscription.Topic", nil, htmlAttrs)
 	}
-	return StringInput("Topic", &resource.Topic, htmlAttrs)
+	return StringInput("Subscription.Topic", &resource.Topic, htmlAttrs)
 }
 func (resource *Subscription) T_End(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("End", nil, htmlAttrs)
+		return StringInput("Subscription.End", nil, htmlAttrs)
 	}
-	return StringInput("End", resource.End, htmlAttrs)
+	return StringInput("Subscription.End", resource.End, htmlAttrs)
 }
 func (resource *Subscription) T_Reason(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Reason", nil, htmlAttrs)
+		return StringInput("Subscription.Reason", nil, htmlAttrs)
 	}
-	return StringInput("Reason", resource.Reason, htmlAttrs)
+	return StringInput("Subscription.Reason", resource.Reason, htmlAttrs)
 }
 func (resource *Subscription) T_ChannelType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodingSelect("ChannelType", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("Subscription.ChannelType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("ChannelType", &resource.ChannelType, optionsValueSet, htmlAttrs)
+	return CodingSelect("Subscription.ChannelType", &resource.ChannelType, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_Endpoint(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Endpoint", nil, htmlAttrs)
+		return StringInput("Subscription.Endpoint", nil, htmlAttrs)
 	}
-	return StringInput("Endpoint", resource.Endpoint, htmlAttrs)
+	return StringInput("Subscription.Endpoint", resource.Endpoint, htmlAttrs)
 }
 func (resource *Subscription) T_HeartbeatPeriod(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("HeartbeatPeriod", nil, htmlAttrs)
+		return IntInput("Subscription.HeartbeatPeriod", nil, htmlAttrs)
 	}
-	return IntInput("HeartbeatPeriod", resource.HeartbeatPeriod, htmlAttrs)
+	return IntInput("Subscription.HeartbeatPeriod", resource.HeartbeatPeriod, htmlAttrs)
 }
 func (resource *Subscription) T_Timeout(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("Timeout", nil, htmlAttrs)
+		return IntInput("Subscription.Timeout", nil, htmlAttrs)
 	}
-	return IntInput("Timeout", resource.Timeout, htmlAttrs)
+	return IntInput("Subscription.Timeout", resource.Timeout, htmlAttrs)
 }
 func (resource *Subscription) T_ContentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeSelect("ContentType", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Subscription.ContentType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("ContentType", resource.ContentType, optionsValueSet, htmlAttrs)
+	return CodeSelect("Subscription.ContentType", resource.ContentType, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_Content(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_payload_content
 
 	if resource == nil {
-		return CodeSelect("Content", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Subscription.Content", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Content", resource.Content, optionsValueSet, htmlAttrs)
+	return CodeSelect("Subscription.Content", resource.Content, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_MaxCount(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("MaxCount", nil, htmlAttrs)
+		return IntInput("Subscription.MaxCount", nil, htmlAttrs)
 	}
-	return IntInput("MaxCount", resource.MaxCount, htmlAttrs)
+	return IntInput("Subscription.MaxCount", resource.MaxCount, htmlAttrs)
 }
 func (resource *Subscription) T_FilterByResourceType(numFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numFilterBy >= len(resource.FilterBy) {
-		return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]ResourceType", nil, htmlAttrs)
+		return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].ResourceType", nil, htmlAttrs)
 	}
-	return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]ResourceType", resource.FilterBy[numFilterBy].ResourceType, htmlAttrs)
+	return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].ResourceType", resource.FilterBy[numFilterBy].ResourceType, htmlAttrs)
 }
 func (resource *Subscription) T_FilterByFilterParameter(numFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numFilterBy >= len(resource.FilterBy) {
-		return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]FilterParameter", nil, htmlAttrs)
+		return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].FilterParameter", nil, htmlAttrs)
 	}
-	return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]FilterParameter", &resource.FilterBy[numFilterBy].FilterParameter, htmlAttrs)
+	return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].FilterParameter", &resource.FilterBy[numFilterBy].FilterParameter, htmlAttrs)
 }
 func (resource *Subscription) T_FilterByComparator(numFilterBy int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_comparator
 
 	if resource == nil || numFilterBy >= len(resource.FilterBy) {
-		return CodeSelect("FilterBy["+strconv.Itoa(numFilterBy)+"]Comparator", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Comparator", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("FilterBy["+strconv.Itoa(numFilterBy)+"]Comparator", resource.FilterBy[numFilterBy].Comparator, optionsValueSet, htmlAttrs)
+	return CodeSelect("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Comparator", resource.FilterBy[numFilterBy].Comparator, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_FilterByModifier(numFilterBy int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSSearch_modifier_code
 
 	if resource == nil || numFilterBy >= len(resource.FilterBy) {
-		return CodeSelect("FilterBy["+strconv.Itoa(numFilterBy)+"]Modifier", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Modifier", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("FilterBy["+strconv.Itoa(numFilterBy)+"]Modifier", resource.FilterBy[numFilterBy].Modifier, optionsValueSet, htmlAttrs)
+	return CodeSelect("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Modifier", resource.FilterBy[numFilterBy].Modifier, optionsValueSet, htmlAttrs)
 }
 func (resource *Subscription) T_FilterByValue(numFilterBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numFilterBy >= len(resource.FilterBy) {
-		return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]Value", nil, htmlAttrs)
+		return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Value", nil, htmlAttrs)
 	}
-	return StringInput("FilterBy["+strconv.Itoa(numFilterBy)+"]Value", &resource.FilterBy[numFilterBy].Value, htmlAttrs)
+	return StringInput("Subscription.FilterBy["+strconv.Itoa(numFilterBy)+"].Value", &resource.FilterBy[numFilterBy].Value, htmlAttrs)
 }
 func (resource *Subscription) T_ParameterName(numParameter int, htmlAttrs string) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Name", nil, htmlAttrs)
+		return StringInput("Subscription.Parameter["+strconv.Itoa(numParameter)+"].Name", nil, htmlAttrs)
 	}
-	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Name", &resource.Parameter[numParameter].Name, htmlAttrs)
+	return StringInput("Subscription.Parameter["+strconv.Itoa(numParameter)+"].Name", &resource.Parameter[numParameter].Name, htmlAttrs)
 }
 func (resource *Subscription) T_ParameterValue(numParameter int, htmlAttrs string) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Value", nil, htmlAttrs)
+		return StringInput("Subscription.Parameter["+strconv.Itoa(numParameter)+"].Value", nil, htmlAttrs)
 	}
-	return StringInput("Parameter["+strconv.Itoa(numParameter)+"]Value", &resource.Parameter[numParameter].Value, htmlAttrs)
+	return StringInput("Subscription.Parameter["+strconv.Itoa(numParameter)+"].Value", &resource.Parameter[numParameter].Value, htmlAttrs)
 }

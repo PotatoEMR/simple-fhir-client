@@ -71,57 +71,57 @@ func (r DeviceMetric) ToRef() Reference {
 }
 func (resource *DeviceMetric) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceMetric.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceMetric.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Unit", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceMetric.Unit", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Unit", resource.Unit, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceMetric.Unit", resource.Unit, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMetric_operational_status
 
 	if resource == nil {
-		return CodeSelect("OperationalStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceMetric.OperationalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("OperationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceMetric.OperationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_Color(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeSelect("Color", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceMetric.Color", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Color", resource.Color, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceMetric.Color", resource.Color, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_Category(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMetric_category
 
 	if resource == nil {
-		return CodeSelect("Category", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceMetric.Category", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Category", &resource.Category, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceMetric.Category", &resource.Category, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_CalibrationType(numCalibration int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMetric_calibration_type
 
 	if resource == nil || numCalibration >= len(resource.Calibration) {
-		return CodeSelect("Calibration["+strconv.Itoa(numCalibration)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Calibration["+strconv.Itoa(numCalibration)+"]Type", resource.Calibration[numCalibration].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].Type", resource.Calibration[numCalibration].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_CalibrationState(numCalibration int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSMetric_calibration_state
 
 	if resource == nil || numCalibration >= len(resource.Calibration) {
-		return CodeSelect("Calibration["+strconv.Itoa(numCalibration)+"]State", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].State", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Calibration["+strconv.Itoa(numCalibration)+"]State", resource.Calibration[numCalibration].State, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].State", resource.Calibration[numCalibration].State, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceMetric) T_CalibrationTime(numCalibration int, htmlAttrs string) templ.Component {
 	if resource == nil || numCalibration >= len(resource.Calibration) {
-		return StringInput("Calibration["+strconv.Itoa(numCalibration)+"]Time", nil, htmlAttrs)
+		return StringInput("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].Time", nil, htmlAttrs)
 	}
-	return StringInput("Calibration["+strconv.Itoa(numCalibration)+"]Time", resource.Calibration[numCalibration].Time, htmlAttrs)
+	return StringInput("DeviceMetric.Calibration["+strconv.Itoa(numCalibration)+"].Time", resource.Calibration[numCalibration].Time, htmlAttrs)
 }

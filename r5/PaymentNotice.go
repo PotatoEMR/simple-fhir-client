@@ -66,25 +66,25 @@ func (resource *PaymentNotice) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("PaymentNotice.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("PaymentNotice.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *PaymentNotice) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Created", nil, htmlAttrs)
+		return DateTimeInput("PaymentNotice.Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("Created", &resource.Created, htmlAttrs)
+	return DateTimeInput("PaymentNotice.Created", &resource.Created, htmlAttrs)
 }
 func (resource *PaymentNotice) T_PaymentDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("PaymentDate", nil, htmlAttrs)
+		return DateInput("PaymentNotice.PaymentDate", nil, htmlAttrs)
 	}
-	return DateInput("PaymentDate", resource.PaymentDate, htmlAttrs)
+	return DateInput("PaymentNotice.PaymentDate", resource.PaymentDate, htmlAttrs)
 }
 func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("PaymentStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("PaymentNotice.PaymentStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("PaymentStatus", resource.PaymentStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("PaymentNotice.PaymentStatus", resource.PaymentStatus, optionsValueSet, htmlAttrs)
 }

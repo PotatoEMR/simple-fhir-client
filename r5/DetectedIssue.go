@@ -90,69 +90,69 @@ func (resource *DetectedIssue) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDetectedissue_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DetectedIssue.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("DetectedIssue.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DetectedIssue.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DetectedIssue.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DetectedIssue.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DetectedIssue.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Severity(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDetectedissue_severity
 
 	if resource == nil {
-		return CodeSelect("Severity", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DetectedIssue.Severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Severity", resource.Severity, optionsValueSet, htmlAttrs)
+	return CodeSelect("DetectedIssue.Severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_IdentifiedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("IdentifiedDateTime", nil, htmlAttrs)
+		return DateTimeInput("DetectedIssue.IdentifiedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("IdentifiedDateTime", resource.IdentifiedDateTime, htmlAttrs)
+	return DateTimeInput("DetectedIssue.IdentifiedDateTime", resource.IdentifiedDateTime, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Detail(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Detail", nil, htmlAttrs)
+		return StringInput("DetectedIssue.Detail", nil, htmlAttrs)
 	}
-	return StringInput("Detail", resource.Detail, htmlAttrs)
+	return StringInput("DetectedIssue.Detail", resource.Detail, htmlAttrs)
 }
 func (resource *DetectedIssue) T_Reference(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Reference", nil, htmlAttrs)
+		return StringInput("DetectedIssue.Reference", nil, htmlAttrs)
 	}
-	return StringInput("Reference", resource.Reference, htmlAttrs)
+	return StringInput("DetectedIssue.Reference", resource.Reference, htmlAttrs)
 }
 func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numCode >= len(resource.Evidence[numEvidence].Code) {
-		return CodeableConceptSelect("Evidence["+strconv.Itoa(numEvidence)+"]Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DetectedIssue.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Evidence["+strconv.Itoa(numEvidence)+"]Code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DetectedIssue.Evidence["+strconv.Itoa(numEvidence)+"].Code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
-		return CodeableConceptSelect("Mitigation["+strconv.Itoa(numMitigation)+"]Action", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Action", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Mitigation["+strconv.Itoa(numMitigation)+"]Action", &resource.Mitigation[numMitigation].Action, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Action", &resource.Mitigation[numMitigation].Action, optionsValueSet, htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationDate(numMitigation int, htmlAttrs string) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
-		return DateTimeInput("Mitigation["+strconv.Itoa(numMitigation)+"]Date", nil, htmlAttrs)
+		return DateTimeInput("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Mitigation["+strconv.Itoa(numMitigation)+"]Date", resource.Mitigation[numMitigation].Date, htmlAttrs)
+	return DateTimeInput("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Date", resource.Mitigation[numMitigation].Date, htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationNote(numMitigation int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) || numNote >= len(resource.Mitigation[numMitigation].Note) {
-		return AnnotationTextArea("Mitigation["+strconv.Itoa(numMitigation)+"]Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Mitigation["+strconv.Itoa(numMitigation)+"]Note["+strconv.Itoa(numNote)+"]", &resource.Mitigation[numMitigation].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("DetectedIssue.Mitigation["+strconv.Itoa(numMitigation)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Mitigation[numMitigation].Note[numNote], htmlAttrs)
 }

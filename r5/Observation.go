@@ -143,203 +143,203 @@ func (r Observation) ToRef() Reference {
 }
 func (resource *Observation) T_InstantiatesCanonical(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("InstantiatesCanonical", nil, htmlAttrs)
+		return StringInput("Observation.InstantiatesCanonical", nil, htmlAttrs)
 	}
-	return StringInput("InstantiatesCanonical", resource.InstantiatesCanonical, htmlAttrs)
+	return StringInput("Observation.InstantiatesCanonical", resource.InstantiatesCanonical, htmlAttrs)
 }
 func (resource *Observation) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Observation.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Observation.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_EffectiveDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("EffectiveDateTime", nil, htmlAttrs)
+		return DateTimeInput("Observation.EffectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("EffectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
+	return DateTimeInput("Observation.EffectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
 }
 func (resource *Observation) T_EffectiveInstant(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("EffectiveInstant", nil, htmlAttrs)
+		return StringInput("Observation.EffectiveInstant", nil, htmlAttrs)
 	}
-	return StringInput("EffectiveInstant", resource.EffectiveInstant, htmlAttrs)
+	return StringInput("Observation.EffectiveInstant", resource.EffectiveInstant, htmlAttrs)
 }
 func (resource *Observation) T_Issued(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Issued", nil, htmlAttrs)
+		return StringInput("Observation.Issued", nil, htmlAttrs)
 	}
-	return StringInput("Issued", resource.Issued, htmlAttrs)
+	return StringInput("Observation.Issued", resource.Issued, htmlAttrs)
 }
 func (resource *Observation) T_ValueCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ValueCodeableConcept", resource.ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.ValueCodeableConcept", resource.ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ValueString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ValueString", nil, htmlAttrs)
+		return StringInput("Observation.ValueString", nil, htmlAttrs)
 	}
-	return StringInput("ValueString", resource.ValueString, htmlAttrs)
+	return StringInput("Observation.ValueString", resource.ValueString, htmlAttrs)
 }
 func (resource *Observation) T_ValueBoolean(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Observation.ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("ValueBoolean", resource.ValueBoolean, htmlAttrs)
+	return BoolInput("Observation.ValueBoolean", resource.ValueBoolean, htmlAttrs)
 }
 func (resource *Observation) T_ValueInteger(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("ValueInteger", nil, htmlAttrs)
+		return IntInput("Observation.ValueInteger", nil, htmlAttrs)
 	}
-	return IntInput("ValueInteger", resource.ValueInteger, htmlAttrs)
+	return IntInput("Observation.ValueInteger", resource.ValueInteger, htmlAttrs)
 }
 func (resource *Observation) T_ValueTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ValueTime", nil, htmlAttrs)
+		return StringInput("Observation.ValueTime", nil, htmlAttrs)
 	}
-	return StringInput("ValueTime", resource.ValueTime, htmlAttrs)
+	return StringInput("Observation.ValueTime", resource.ValueTime, htmlAttrs)
 }
 func (resource *Observation) T_ValueDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("ValueDateTime", nil, htmlAttrs)
+		return DateTimeInput("Observation.ValueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("ValueDateTime", resource.ValueDateTime, htmlAttrs)
+	return DateTimeInput("Observation.ValueDateTime", resource.ValueDateTime, htmlAttrs)
 }
 func (resource *Observation) T_DataAbsentReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("DataAbsentReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.DataAbsentReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("DataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.DataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_Interpretation(numInterpretation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numInterpretation >= len(resource.Interpretation) {
-		return CodeableConceptSelect("Interpretation["+strconv.Itoa(numInterpretation)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Interpretation["+strconv.Itoa(numInterpretation)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Interpretation["+strconv.Itoa(numInterpretation)+"]", &resource.Interpretation[numInterpretation], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Interpretation["+strconv.Itoa(numInterpretation)+"]", &resource.Interpretation[numInterpretation], optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("Observation.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Observation.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Observation) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("BodySite", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.BodySite", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.BodySite", resource.BodySite, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_Method(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Method", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Method", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Method", resource.Method, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Method", resource.Method, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_TriggeredByType(numTriggeredBy int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSObservation_triggeredbytype
 
 	if resource == nil || numTriggeredBy >= len(resource.TriggeredBy) {
-		return CodeSelect("TriggeredBy["+strconv.Itoa(numTriggeredBy)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Observation.TriggeredBy["+strconv.Itoa(numTriggeredBy)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("TriggeredBy["+strconv.Itoa(numTriggeredBy)+"]Type", &resource.TriggeredBy[numTriggeredBy].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("Observation.TriggeredBy["+strconv.Itoa(numTriggeredBy)+"].Type", &resource.TriggeredBy[numTriggeredBy].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_TriggeredByReason(numTriggeredBy int, htmlAttrs string) templ.Component {
 	if resource == nil || numTriggeredBy >= len(resource.TriggeredBy) {
-		return StringInput("TriggeredBy["+strconv.Itoa(numTriggeredBy)+"]Reason", nil, htmlAttrs)
+		return StringInput("Observation.TriggeredBy["+strconv.Itoa(numTriggeredBy)+"].Reason", nil, htmlAttrs)
 	}
-	return StringInput("TriggeredBy["+strconv.Itoa(numTriggeredBy)+"]Reason", resource.TriggeredBy[numTriggeredBy].Reason, htmlAttrs)
+	return StringInput("Observation.TriggeredBy["+strconv.Itoa(numTriggeredBy)+"].Reason", resource.TriggeredBy[numTriggeredBy].Reason, htmlAttrs)
 }
 func (resource *Observation) T_ReferenceRangeNormalValue(numReferenceRange int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
-		return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]NormalValue", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].NormalValue", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]NormalValue", resource.ReferenceRange[numReferenceRange].NormalValue, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].NormalValue", resource.ReferenceRange[numReferenceRange].NormalValue, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ReferenceRangeType(numReferenceRange int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
-		return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]Type", resource.ReferenceRange[numReferenceRange].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].Type", resource.ReferenceRange[numReferenceRange].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ReferenceRangeAppliesTo(numReferenceRange int, numAppliesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) || numAppliesTo >= len(resource.ReferenceRange[numReferenceRange].AppliesTo) {
-		return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]AppliesTo["+strconv.Itoa(numAppliesTo)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].AppliesTo["+strconv.Itoa(numAppliesTo)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]AppliesTo["+strconv.Itoa(numAppliesTo)+"]", &resource.ReferenceRange[numReferenceRange].AppliesTo[numAppliesTo], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].AppliesTo["+strconv.Itoa(numAppliesTo)+"]", &resource.ReferenceRange[numReferenceRange].AppliesTo[numAppliesTo], optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ReferenceRangeText(numReferenceRange int, htmlAttrs string) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
-		return StringInput("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]Text", nil, htmlAttrs)
+		return StringInput("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].Text", nil, htmlAttrs)
 	}
-	return StringInput("ReferenceRange["+strconv.Itoa(numReferenceRange)+"]Text", resource.ReferenceRange[numReferenceRange].Text, htmlAttrs)
+	return StringInput("Observation.ReferenceRange["+strconv.Itoa(numReferenceRange)+"].Text", resource.ReferenceRange[numReferenceRange].Text, htmlAttrs)
 }
 func (resource *Observation) T_ComponentCode(numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]Code", &resource.Component[numComponent].Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].Code", &resource.Component[numComponent].Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueCodeableConcept(numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].ValueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]ValueCodeableConcept", resource.Component[numComponent].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].ValueCodeableConcept", resource.Component[numComponent].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueString(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return StringInput("Component["+strconv.Itoa(numComponent)+"]ValueString", nil, htmlAttrs)
+		return StringInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueString", nil, htmlAttrs)
 	}
-	return StringInput("Component["+strconv.Itoa(numComponent)+"]ValueString", resource.Component[numComponent].ValueString, htmlAttrs)
+	return StringInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueString", resource.Component[numComponent].ValueString, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueBoolean(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return BoolInput("Component["+strconv.Itoa(numComponent)+"]ValueBoolean", nil, htmlAttrs)
+		return BoolInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("Component["+strconv.Itoa(numComponent)+"]ValueBoolean", resource.Component[numComponent].ValueBoolean, htmlAttrs)
+	return BoolInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueBoolean", resource.Component[numComponent].ValueBoolean, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueInteger(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return IntInput("Component["+strconv.Itoa(numComponent)+"]ValueInteger", nil, htmlAttrs)
+		return IntInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueInteger", nil, htmlAttrs)
 	}
-	return IntInput("Component["+strconv.Itoa(numComponent)+"]ValueInteger", resource.Component[numComponent].ValueInteger, htmlAttrs)
+	return IntInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueInteger", resource.Component[numComponent].ValueInteger, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueTime(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return StringInput("Component["+strconv.Itoa(numComponent)+"]ValueTime", nil, htmlAttrs)
+		return StringInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueTime", nil, htmlAttrs)
 	}
-	return StringInput("Component["+strconv.Itoa(numComponent)+"]ValueTime", resource.Component[numComponent].ValueTime, htmlAttrs)
+	return StringInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueTime", resource.Component[numComponent].ValueTime, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueDateTime(numComponent int, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return DateTimeInput("Component["+strconv.Itoa(numComponent)+"]ValueDateTime", nil, htmlAttrs)
+		return DateTimeInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("Component["+strconv.Itoa(numComponent)+"]ValueDateTime", resource.Component[numComponent].ValueDateTime, htmlAttrs)
+	return DateTimeInput("Observation.Component["+strconv.Itoa(numComponent)+"].ValueDateTime", resource.Component[numComponent].ValueDateTime, htmlAttrs)
 }
 func (resource *Observation) T_ComponentDataAbsentReason(numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]DataAbsentReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].DataAbsentReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]DataAbsentReason", resource.Component[numComponent].DataAbsentReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].DataAbsentReason", resource.Component[numComponent].DataAbsentReason, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ComponentInterpretation(numComponent int, numInterpretation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) || numInterpretation >= len(resource.Component[numComponent].Interpretation) {
-		return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]Interpretation["+strconv.Itoa(numInterpretation)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].Interpretation["+strconv.Itoa(numInterpretation)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Component["+strconv.Itoa(numComponent)+"]Interpretation["+strconv.Itoa(numInterpretation)+"]", &resource.Component[numComponent].Interpretation[numInterpretation], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Observation.Component["+strconv.Itoa(numComponent)+"].Interpretation["+strconv.Itoa(numInterpretation)+"]", &resource.Component[numComponent].Interpretation[numInterpretation], optionsValueSet, htmlAttrs)
 }

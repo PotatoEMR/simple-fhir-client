@@ -80,111 +80,111 @@ func (r MetadataResource) ToRef() Reference {
 }
 func (resource *MetadataResource) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Url", nil, htmlAttrs)
+		return StringInput("MetadataResource.Url", nil, htmlAttrs)
 	}
-	return StringInput("Url", resource.Url, htmlAttrs)
+	return StringInput("MetadataResource.Url", resource.Url, htmlAttrs)
 }
 func (resource *MetadataResource) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Version", nil, htmlAttrs)
+		return StringInput("MetadataResource.Version", nil, htmlAttrs)
 	}
-	return StringInput("Version", resource.Version, htmlAttrs)
+	return StringInput("MetadataResource.Version", resource.Version, htmlAttrs)
 }
 func (resource *MetadataResource) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("VersionAlgorithmString", nil, htmlAttrs)
+		return StringInput("MetadataResource.VersionAlgorithmString", nil, htmlAttrs)
 	}
-	return StringInput("VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
+	return StringInput("MetadataResource.VersionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
 func (resource *MetadataResource) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodingSelect("VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
+		return CodingSelect("MetadataResource.VersionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodingSelect("VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
+	return CodingSelect("MetadataResource.VersionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
 func (resource *MetadataResource) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Name", nil, htmlAttrs)
+		return StringInput("MetadataResource.Name", nil, htmlAttrs)
 	}
-	return StringInput("Name", resource.Name, htmlAttrs)
+	return StringInput("MetadataResource.Name", resource.Name, htmlAttrs)
 }
 func (resource *MetadataResource) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Title", nil, htmlAttrs)
+		return StringInput("MetadataResource.Title", nil, htmlAttrs)
 	}
-	return StringInput("Title", resource.Title, htmlAttrs)
+	return StringInput("MetadataResource.Title", resource.Title, htmlAttrs)
 }
 func (resource *MetadataResource) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("MetadataResource.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("MetadataResource.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *MetadataResource) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Experimental", nil, htmlAttrs)
+		return BoolInput("MetadataResource.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("MetadataResource.Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *MetadataResource) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Date", nil, htmlAttrs)
+		return DateTimeInput("MetadataResource.Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Date", resource.Date, htmlAttrs)
+	return DateTimeInput("MetadataResource.Date", resource.Date, htmlAttrs)
 }
 func (resource *MetadataResource) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Publisher", nil, htmlAttrs)
+		return StringInput("MetadataResource.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("MetadataResource.Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *MetadataResource) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Description", nil, htmlAttrs)
+		return StringInput("MetadataResource.Description", nil, htmlAttrs)
 	}
-	return StringInput("Description", resource.Description, htmlAttrs)
+	return StringInput("MetadataResource.Description", resource.Description, htmlAttrs)
 }
 func (resource *MetadataResource) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MetadataResource.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MetadataResource.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *MetadataResource) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Purpose", nil, htmlAttrs)
+		return StringInput("MetadataResource.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("MetadataResource.Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *MetadataResource) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Copyright", nil, htmlAttrs)
+		return StringInput("MetadataResource.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("MetadataResource.Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *MetadataResource) T_CopyrightLabel(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("CopyrightLabel", nil, htmlAttrs)
+		return StringInput("MetadataResource.CopyrightLabel", nil, htmlAttrs)
 	}
-	return StringInput("CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
+	return StringInput("MetadataResource.CopyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
 func (resource *MetadataResource) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ApprovalDate", nil, htmlAttrs)
+		return DateInput("MetadataResource.ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("MetadataResource.ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *MetadataResource) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("LastReviewDate", nil, htmlAttrs)
+		return DateInput("MetadataResource.LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("MetadataResource.LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *MetadataResource) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
-		return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MetadataResource.Topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MetadataResource.Topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }

@@ -88,69 +88,69 @@ func (resource *CommunicationRequest) T_Status(htmlAttrs string) templ.Component
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("CommunicationRequest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("CommunicationRequest.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("StatusReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("CommunicationRequest.StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("CommunicationRequest.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("CommunicationRequest.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("CommunicationRequest.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("Priority", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("CommunicationRequest.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Priority", resource.Priority, optionsValueSet, htmlAttrs)
+	return CodeSelect("CommunicationRequest.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_DoNotPerform(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("DoNotPerform", nil, htmlAttrs)
+		return BoolInput("CommunicationRequest.DoNotPerform", nil, htmlAttrs)
 	}
-	return BoolInput("DoNotPerform", resource.DoNotPerform, htmlAttrs)
+	return BoolInput("CommunicationRequest.DoNotPerform", resource.DoNotPerform, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMedium >= len(resource.Medium) {
-		return CodeableConceptSelect("Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("CommunicationRequest.Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("CommunicationRequest.Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("CommunicationRequest.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("CommunicationRequest.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("AuthoredOn", nil, htmlAttrs)
+		return DateTimeInput("CommunicationRequest.AuthoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("AuthoredOn", resource.AuthoredOn, htmlAttrs)
+	return DateTimeInput("CommunicationRequest.AuthoredOn", resource.AuthoredOn, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("CommunicationRequest.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("CommunicationRequest.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *CommunicationRequest) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("CommunicationRequest.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("CommunicationRequest.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *CommunicationRequest) T_PayloadContentString(numPayload int, htmlAttrs string) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) {
-		return StringInput("Payload["+strconv.Itoa(numPayload)+"]ContentString", nil, htmlAttrs)
+		return StringInput("CommunicationRequest.Payload["+strconv.Itoa(numPayload)+"].ContentString", nil, htmlAttrs)
 	}
-	return StringInput("Payload["+strconv.Itoa(numPayload)+"]ContentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
+	return StringInput("CommunicationRequest.Payload["+strconv.Itoa(numPayload)+"].ContentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
 }

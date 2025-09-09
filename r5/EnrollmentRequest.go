@@ -61,13 +61,13 @@ func (resource *EnrollmentRequest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("EnrollmentRequest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("EnrollmentRequest.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *EnrollmentRequest) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Created", nil, htmlAttrs)
+		return DateTimeInput("EnrollmentRequest.Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("Created", resource.Created, htmlAttrs)
+	return DateTimeInput("EnrollmentRequest.Created", resource.Created, htmlAttrs)
 }

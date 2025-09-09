@@ -86,83 +86,83 @@ func (r Communication) ToRef() Reference {
 }
 func (resource *Communication) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
-		return StringInput("InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
+		return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
-	return StringInput("InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
+	return StringInput("Communication.InstantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
 func (resource *Communication) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
-		return StringInput("InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
+		return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
-	return StringInput("InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
+	return StringInput("Communication.InstantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
 func (resource *Communication) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Communication.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Communication.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("StatusReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication.StatusReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication.StatusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Priority(htmlAttrs string) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
-		return CodeSelect("Priority", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Communication.Priority", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Priority", resource.Priority, optionsValueSet, htmlAttrs)
+	return CodeSelect("Communication.Priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMedium >= len(resource.Medium) {
-		return CodeableConceptSelect("Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication.Medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Topic(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Topic", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication.Topic", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Topic", resource.Topic, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication.Topic", resource.Topic, optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Sent(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Sent", nil, htmlAttrs)
+		return DateTimeInput("Communication.Sent", nil, htmlAttrs)
 	}
-	return DateTimeInput("Sent", resource.Sent, htmlAttrs)
+	return DateTimeInput("Communication.Sent", resource.Sent, htmlAttrs)
 }
 func (resource *Communication) T_Received(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Received", nil, htmlAttrs)
+		return DateTimeInput("Communication.Received", nil, htmlAttrs)
 	}
-	return DateTimeInput("Received", resource.Received, htmlAttrs)
+	return DateTimeInput("Communication.Received", resource.Received, htmlAttrs)
 }
 func (resource *Communication) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
-		return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Communication.ReasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Communication.ReasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
 func (resource *Communication) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("Communication.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Communication.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Communication) T_PayloadContentString(numPayload int, htmlAttrs string) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) {
-		return StringInput("Payload["+strconv.Itoa(numPayload)+"]ContentString", nil, htmlAttrs)
+		return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].ContentString", nil, htmlAttrs)
 	}
-	return StringInput("Payload["+strconv.Itoa(numPayload)+"]ContentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
+	return StringInput("Communication.Payload["+strconv.Itoa(numPayload)+"].ContentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
 }

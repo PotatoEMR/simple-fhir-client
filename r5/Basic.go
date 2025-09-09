@@ -57,13 +57,13 @@ func (r Basic) ToRef() Reference {
 }
 func (resource *Basic) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Basic.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", &resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Basic.Code", &resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Basic) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Created", nil, htmlAttrs)
+		return DateTimeInput("Basic.Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("Created", resource.Created, htmlAttrs)
+	return DateTimeInput("Basic.Created", resource.Created, htmlAttrs)
 }

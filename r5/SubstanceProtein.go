@@ -69,49 +69,49 @@ func (r SubstanceProtein) ToRef() Reference {
 }
 func (resource *SubstanceProtein) T_SequenceType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("SequenceType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstanceProtein.SequenceType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SequenceType", resource.SequenceType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstanceProtein.SequenceType", resource.SequenceType, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_NumberOfSubunits(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return IntInput("NumberOfSubunits", nil, htmlAttrs)
+		return IntInput("SubstanceProtein.NumberOfSubunits", nil, htmlAttrs)
 	}
-	return IntInput("NumberOfSubunits", resource.NumberOfSubunits, htmlAttrs)
+	return IntInput("SubstanceProtein.NumberOfSubunits", resource.NumberOfSubunits, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_DisulfideLinkage(numDisulfideLinkage int, htmlAttrs string) templ.Component {
 	if resource == nil || numDisulfideLinkage >= len(resource.DisulfideLinkage) {
-		return StringInput("DisulfideLinkage["+strconv.Itoa(numDisulfideLinkage)+"]", nil, htmlAttrs)
+		return StringInput("SubstanceProtein.DisulfideLinkage["+strconv.Itoa(numDisulfideLinkage)+"]", nil, htmlAttrs)
 	}
-	return StringInput("DisulfideLinkage["+strconv.Itoa(numDisulfideLinkage)+"]", &resource.DisulfideLinkage[numDisulfideLinkage], htmlAttrs)
+	return StringInput("SubstanceProtein.DisulfideLinkage["+strconv.Itoa(numDisulfideLinkage)+"]", &resource.DisulfideLinkage[numDisulfideLinkage], htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitSubunit(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return IntInput("Subunit["+strconv.Itoa(numSubunit)+"]Subunit", nil, htmlAttrs)
+		return IntInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Subunit", nil, htmlAttrs)
 	}
-	return IntInput("Subunit["+strconv.Itoa(numSubunit)+"]Subunit", resource.Subunit[numSubunit].Subunit, htmlAttrs)
+	return IntInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Subunit", resource.Subunit[numSubunit].Subunit, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitSequence(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]Sequence", nil, htmlAttrs)
+		return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Sequence", nil, htmlAttrs)
 	}
-	return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]Sequence", resource.Subunit[numSubunit].Sequence, htmlAttrs)
+	return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Sequence", resource.Subunit[numSubunit].Sequence, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitLength(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return IntInput("Subunit["+strconv.Itoa(numSubunit)+"]Length", nil, htmlAttrs)
+		return IntInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Length", nil, htmlAttrs)
 	}
-	return IntInput("Subunit["+strconv.Itoa(numSubunit)+"]Length", resource.Subunit[numSubunit].Length, htmlAttrs)
+	return IntInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].Length", resource.Subunit[numSubunit].Length, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitNTerminalModification(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]NTerminalModification", nil, htmlAttrs)
+		return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].NTerminalModification", nil, htmlAttrs)
 	}
-	return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]NTerminalModification", resource.Subunit[numSubunit].NTerminalModification, htmlAttrs)
+	return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].NTerminalModification", resource.Subunit[numSubunit].NTerminalModification, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitCTerminalModification(numSubunit int, htmlAttrs string) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
-		return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]CTerminalModification", nil, htmlAttrs)
+		return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].CTerminalModification", nil, htmlAttrs)
 	}
-	return StringInput("Subunit["+strconv.Itoa(numSubunit)+"]CTerminalModification", resource.Subunit[numSubunit].CTerminalModification, htmlAttrs)
+	return StringInput("SubstanceProtein.Subunit["+strconv.Itoa(numSubunit)+"].CTerminalModification", resource.Subunit[numSubunit].CTerminalModification, htmlAttrs)
 }

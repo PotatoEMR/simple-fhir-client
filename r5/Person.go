@@ -85,53 +85,53 @@ func (r Person) ToRef() Reference {
 }
 func (resource *Person) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Active", nil, htmlAttrs)
+		return BoolInput("Person.Active", nil, htmlAttrs)
 	}
-	return BoolInput("Active", resource.Active, htmlAttrs)
+	return BoolInput("Person.Active", resource.Active, htmlAttrs)
 }
 func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Person.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("Person.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *Person) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("BirthDate", nil, htmlAttrs)
+		return DateInput("Person.BirthDate", nil, htmlAttrs)
 	}
-	return DateInput("BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("Person.BirthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Person) T_DeceasedBoolean(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("DeceasedBoolean", nil, htmlAttrs)
+		return BoolInput("Person.DeceasedBoolean", nil, htmlAttrs)
 	}
-	return BoolInput("DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
+	return BoolInput("Person.DeceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
 func (resource *Person) T_DeceasedDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("DeceasedDateTime", nil, htmlAttrs)
+		return DateTimeInput("Person.DeceasedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("DeceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+	return DateTimeInput("Person.DeceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
 }
 func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("MaritalStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Person.MaritalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MaritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Person.MaritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *Person) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return BoolInput("Communication["+strconv.Itoa(numCommunication)+"]Preferred", nil, htmlAttrs)
+		return BoolInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil, htmlAttrs)
 	}
-	return BoolInput("Communication["+strconv.Itoa(numCommunication)+"]Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
+	return BoolInput("Person.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }
 func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
 	if resource == nil || numLink >= len(resource.Link) {
-		return CodeSelect("Link["+strconv.Itoa(numLink)+"]Assurance", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Link["+strconv.Itoa(numLink)+"]Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
+	return CodeSelect("Person.Link["+strconv.Itoa(numLink)+"].Assurance", resource.Link[numLink].Assurance, optionsValueSet, htmlAttrs)
 }

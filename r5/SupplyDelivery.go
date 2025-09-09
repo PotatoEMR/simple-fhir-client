@@ -78,27 +78,27 @@ func (resource *SupplyDelivery) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("SupplyDelivery.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("SupplyDelivery.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSupplydelivery_supplyitemtype
 
 	if resource == nil {
-		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SupplyDelivery.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SupplyDelivery.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("SupplyDelivery.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("SupplyDelivery.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(numSuppliedItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSuppliedItem >= len(resource.SuppliedItem) {
-		return CodeableConceptSelect("SuppliedItem["+strconv.Itoa(numSuppliedItem)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("SuppliedItem["+strconv.Itoa(numSuppliedItem)+"]ItemCodeableConcept", resource.SuppliedItem[numSuppliedItem].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SupplyDelivery.SuppliedItem["+strconv.Itoa(numSuppliedItem)+"].ItemCodeableConcept", resource.SuppliedItem[numSuppliedItem].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }

@@ -132,141 +132,141 @@ func (r DeviceDefinition) ToRef() Reference {
 }
 func (resource *DeviceDefinition) T_ManufacturerString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ManufacturerString", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.ManufacturerString", nil, htmlAttrs)
 	}
-	return StringInput("ManufacturerString", resource.ManufacturerString, htmlAttrs)
+	return StringInput("DeviceDefinition.ManufacturerString", resource.ManufacturerString, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_ModelNumber(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ModelNumber", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.ModelNumber", nil, htmlAttrs)
 	}
-	return StringInput("ModelNumber", resource.ModelNumber, htmlAttrs)
+	return StringInput("DeviceDefinition.ModelNumber", resource.ModelNumber, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Version(numVersion int, htmlAttrs string) templ.Component {
 	if resource == nil || numVersion >= len(resource.Version) {
-		return StringInput("Version["+strconv.Itoa(numVersion)+"]", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.Version["+strconv.Itoa(numVersion)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Version["+strconv.Itoa(numVersion)+"]", &resource.Version[numVersion], htmlAttrs)
+	return StringInput("DeviceDefinition.Version["+strconv.Itoa(numVersion)+"]", &resource.Version[numVersion], htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Safety(numSafety int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSafety >= len(resource.Safety) {
-		return CodeableConceptSelect("Safety["+strconv.Itoa(numSafety)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Safety["+strconv.Itoa(numSafety)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Safety["+strconv.Itoa(numSafety)+"]", &resource.Safety[numSafety], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Safety["+strconv.Itoa(numSafety)+"]", &resource.Safety[numSafety], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_LanguageCode(numLanguageCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numLanguageCode >= len(resource.LanguageCode) {
-		return CodeableConceptSelect("LanguageCode["+strconv.Itoa(numLanguageCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.LanguageCode["+strconv.Itoa(numLanguageCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("LanguageCode["+strconv.Itoa(numLanguageCode)+"]", &resource.LanguageCode[numLanguageCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.LanguageCode["+strconv.Itoa(numLanguageCode)+"]", &resource.LanguageCode[numLanguageCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Url", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.Url", nil, htmlAttrs)
 	}
-	return StringInput("Url", resource.Url, htmlAttrs)
+	return StringInput("DeviceDefinition.Url", resource.Url, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_OnlineInformation(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("OnlineInformation", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.OnlineInformation", nil, htmlAttrs)
 	}
-	return StringInput("OnlineInformation", resource.OnlineInformation, htmlAttrs)
+	return StringInput("DeviceDefinition.OnlineInformation", resource.OnlineInformation, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("DeviceDefinition.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("DeviceDefinition.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *DeviceDefinition) T_UdiDeviceIdentifierDeviceIdentifier(numUdiDeviceIdentifier int, htmlAttrs string) templ.Component {
 	if resource == nil || numUdiDeviceIdentifier >= len(resource.UdiDeviceIdentifier) {
-		return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]DeviceIdentifier", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].DeviceIdentifier", nil, htmlAttrs)
 	}
-	return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]DeviceIdentifier", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].DeviceIdentifier, htmlAttrs)
+	return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].DeviceIdentifier", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].DeviceIdentifier, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_UdiDeviceIdentifierIssuer(numUdiDeviceIdentifier int, htmlAttrs string) templ.Component {
 	if resource == nil || numUdiDeviceIdentifier >= len(resource.UdiDeviceIdentifier) {
-		return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]Issuer", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].Issuer", nil, htmlAttrs)
 	}
-	return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]Issuer", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].Issuer, htmlAttrs)
+	return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].Issuer", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].Issuer, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_UdiDeviceIdentifierJurisdiction(numUdiDeviceIdentifier int, htmlAttrs string) templ.Component {
 	if resource == nil || numUdiDeviceIdentifier >= len(resource.UdiDeviceIdentifier) {
-		return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]Jurisdiction", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].Jurisdiction", nil, htmlAttrs)
 	}
-	return StringInput("UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"]Jurisdiction", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].Jurisdiction, htmlAttrs)
+	return StringInput("DeviceDefinition.UdiDeviceIdentifier["+strconv.Itoa(numUdiDeviceIdentifier)+"].Jurisdiction", &resource.UdiDeviceIdentifier[numUdiDeviceIdentifier].Jurisdiction, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_DeviceNameName(numDeviceName int, htmlAttrs string) templ.Component {
 	if resource == nil || numDeviceName >= len(resource.DeviceName) {
-		return StringInput("DeviceName["+strconv.Itoa(numDeviceName)+"]Name", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.DeviceName["+strconv.Itoa(numDeviceName)+"].Name", nil, htmlAttrs)
 	}
-	return StringInput("DeviceName["+strconv.Itoa(numDeviceName)+"]Name", &resource.DeviceName[numDeviceName].Name, htmlAttrs)
+	return StringInput("DeviceDefinition.DeviceName["+strconv.Itoa(numDeviceName)+"].Name", &resource.DeviceName[numDeviceName].Name, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_DeviceNameType(numDeviceName int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSDevice_nametype
 
 	if resource == nil || numDeviceName >= len(resource.DeviceName) {
-		return CodeSelect("DeviceName["+strconv.Itoa(numDeviceName)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DeviceDefinition.DeviceName["+strconv.Itoa(numDeviceName)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("DeviceName["+strconv.Itoa(numDeviceName)+"]Type", &resource.DeviceName[numDeviceName].Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("DeviceDefinition.DeviceName["+strconv.Itoa(numDeviceName)+"].Type", &resource.DeviceName[numDeviceName].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_SpecializationSystemType(numSpecialization int, htmlAttrs string) templ.Component {
 	if resource == nil || numSpecialization >= len(resource.Specialization) {
-		return StringInput("Specialization["+strconv.Itoa(numSpecialization)+"]SystemType", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.Specialization["+strconv.Itoa(numSpecialization)+"].SystemType", nil, htmlAttrs)
 	}
-	return StringInput("Specialization["+strconv.Itoa(numSpecialization)+"]SystemType", &resource.Specialization[numSpecialization].SystemType, htmlAttrs)
+	return StringInput("DeviceDefinition.Specialization["+strconv.Itoa(numSpecialization)+"].SystemType", &resource.Specialization[numSpecialization].SystemType, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_SpecializationVersion(numSpecialization int, htmlAttrs string) templ.Component {
 	if resource == nil || numSpecialization >= len(resource.Specialization) {
-		return StringInput("Specialization["+strconv.Itoa(numSpecialization)+"]Version", nil, htmlAttrs)
+		return StringInput("DeviceDefinition.Specialization["+strconv.Itoa(numSpecialization)+"].Version", nil, htmlAttrs)
 	}
-	return StringInput("Specialization["+strconv.Itoa(numSpecialization)+"]Version", resource.Specialization[numSpecialization].Version, htmlAttrs)
+	return StringInput("DeviceDefinition.Specialization["+strconv.Itoa(numSpecialization)+"].Version", resource.Specialization[numSpecialization].Version, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_CapabilityType(numCapability int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCapability >= len(resource.Capability) {
-		return CodeableConceptSelect("Capability["+strconv.Itoa(numCapability)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Capability["+strconv.Itoa(numCapability)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Capability["+strconv.Itoa(numCapability)+"]Type", &resource.Capability[numCapability].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Capability["+strconv.Itoa(numCapability)+"].Type", &resource.Capability[numCapability].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_CapabilityDescription(numCapability int, numDescription int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCapability >= len(resource.Capability) || numDescription >= len(resource.Capability[numCapability].Description) {
-		return CodeableConceptSelect("Capability["+strconv.Itoa(numCapability)+"]Description["+strconv.Itoa(numDescription)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Capability["+strconv.Itoa(numCapability)+"].Description["+strconv.Itoa(numDescription)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Capability["+strconv.Itoa(numCapability)+"]Description["+strconv.Itoa(numDescription)+"]", &resource.Capability[numCapability].Description[numDescription], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Capability["+strconv.Itoa(numCapability)+"].Description["+strconv.Itoa(numDescription)+"]", &resource.Capability[numCapability].Description[numDescription], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_PropertyType(numProperty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Property["+strconv.Itoa(numProperty)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Property["+strconv.Itoa(numProperty)+"].Type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_PropertyValueCode(numProperty int, numValueCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) || numValueCode >= len(resource.Property[numProperty].ValueCode) {
-		return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCode["+strconv.Itoa(numValueCode)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Property["+strconv.Itoa(numProperty)+"].ValueCode["+strconv.Itoa(numValueCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Property["+strconv.Itoa(numProperty)+"]ValueCode["+strconv.Itoa(numValueCode)+"]", &resource.Property[numProperty].ValueCode[numValueCode], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Property["+strconv.Itoa(numProperty)+"].ValueCode["+strconv.Itoa(numValueCode)+"]", &resource.Property[numProperty].ValueCode[numValueCode], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_MaterialSubstance(numMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMaterial >= len(resource.Material) {
-		return CodeableConceptSelect("Material["+strconv.Itoa(numMaterial)+"]Substance", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].Substance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Material["+strconv.Itoa(numMaterial)+"]Substance", &resource.Material[numMaterial].Substance, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].Substance", &resource.Material[numMaterial].Substance, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_MaterialAlternate(numMaterial int, htmlAttrs string) templ.Component {
 	if resource == nil || numMaterial >= len(resource.Material) {
-		return BoolInput("Material["+strconv.Itoa(numMaterial)+"]Alternate", nil, htmlAttrs)
+		return BoolInput("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].Alternate", nil, htmlAttrs)
 	}
-	return BoolInput("Material["+strconv.Itoa(numMaterial)+"]Alternate", resource.Material[numMaterial].Alternate, htmlAttrs)
+	return BoolInput("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].Alternate", resource.Material[numMaterial].Alternate, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_MaterialAllergenicIndicator(numMaterial int, htmlAttrs string) templ.Component {
 	if resource == nil || numMaterial >= len(resource.Material) {
-		return BoolInput("Material["+strconv.Itoa(numMaterial)+"]AllergenicIndicator", nil, htmlAttrs)
+		return BoolInput("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].AllergenicIndicator", nil, htmlAttrs)
 	}
-	return BoolInput("Material["+strconv.Itoa(numMaterial)+"]AllergenicIndicator", resource.Material[numMaterial].AllergenicIndicator, htmlAttrs)
+	return BoolInput("DeviceDefinition.Material["+strconv.Itoa(numMaterial)+"].AllergenicIndicator", resource.Material[numMaterial].AllergenicIndicator, htmlAttrs)
 }

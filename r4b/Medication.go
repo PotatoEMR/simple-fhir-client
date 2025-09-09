@@ -81,45 +81,45 @@ func (r Medication) ToRef() Reference {
 }
 func (resource *Medication) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Medication.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Medication.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSMedication_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Medication.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Medication.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_Form(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Form", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Medication.Form", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Form", resource.Form, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Medication.Form", resource.Form, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_IngredientItemCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return CodeableConceptSelect("Ingredient["+strconv.Itoa(numIngredient)+"]ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].ItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Ingredient["+strconv.Itoa(numIngredient)+"]ItemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].ItemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs string) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return BoolInput("Ingredient["+strconv.Itoa(numIngredient)+"]IsActive", nil, htmlAttrs)
+		return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", nil, htmlAttrs)
 	}
-	return BoolInput("Ingredient["+strconv.Itoa(numIngredient)+"]IsActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
+	return BoolInput("Medication.Ingredient["+strconv.Itoa(numIngredient)+"].IsActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
 }
 func (resource *Medication) T_BatchLotNumber(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("BatchLotNumber", nil, htmlAttrs)
+		return StringInput("Medication.Batch.LotNumber", nil, htmlAttrs)
 	}
-	return StringInput("BatchLotNumber", resource.Batch.LotNumber, htmlAttrs)
+	return StringInput("Medication.Batch.LotNumber", resource.Batch.LotNumber, htmlAttrs)
 }
 func (resource *Medication) T_BatchExpirationDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("BatchExpirationDate", nil, htmlAttrs)
+		return DateTimeInput("Medication.Batch.ExpirationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("BatchExpirationDate", resource.Batch.ExpirationDate, htmlAttrs)
+	return DateTimeInput("Medication.Batch.ExpirationDate", resource.Batch.ExpirationDate, htmlAttrs)
 }

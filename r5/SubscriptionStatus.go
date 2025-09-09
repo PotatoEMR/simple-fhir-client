@@ -70,45 +70,45 @@ func (resource *SubscriptionStatus) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("SubscriptionStatus.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("SubscriptionStatus.Status", resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSubscription_notification_type
 
 	if resource == nil {
-		return CodeSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("SubscriptionStatus.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Type", &resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("SubscriptionStatus.Type", &resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_EventsSinceSubscriptionStart(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return Int64Input("EventsSinceSubscriptionStart", nil, htmlAttrs)
+		return Int64Input("SubscriptionStatus.EventsSinceSubscriptionStart", nil, htmlAttrs)
 	}
-	return Int64Input("EventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart, htmlAttrs)
+	return Int64Input("SubscriptionStatus.EventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_Topic(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Topic", nil, htmlAttrs)
+		return StringInput("SubscriptionStatus.Topic", nil, htmlAttrs)
 	}
-	return StringInput("Topic", resource.Topic, htmlAttrs)
+	return StringInput("SubscriptionStatus.Topic", resource.Topic, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_Error(numError int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numError >= len(resource.Error) {
-		return CodeableConceptSelect("Error["+strconv.Itoa(numError)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Error["+strconv.Itoa(numError)+"]", &resource.Error[numError], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubscriptionStatus.Error["+strconv.Itoa(numError)+"]", &resource.Error[numError], optionsValueSet, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_NotificationEventEventNumber(numNotificationEvent int, htmlAttrs string) templ.Component {
 	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) {
-		return Int64Input("NotificationEvent["+strconv.Itoa(numNotificationEvent)+"]EventNumber", nil, htmlAttrs)
+		return Int64Input("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", nil, htmlAttrs)
 	}
-	return Int64Input("NotificationEvent["+strconv.Itoa(numNotificationEvent)+"]EventNumber", &resource.NotificationEvent[numNotificationEvent].EventNumber, htmlAttrs)
+	return Int64Input("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].EventNumber", &resource.NotificationEvent[numNotificationEvent].EventNumber, htmlAttrs)
 }
 func (resource *SubscriptionStatus) T_NotificationEventTimestamp(numNotificationEvent int, htmlAttrs string) templ.Component {
 	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) {
-		return StringInput("NotificationEvent["+strconv.Itoa(numNotificationEvent)+"]Timestamp", nil, htmlAttrs)
+		return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", nil, htmlAttrs)
 	}
-	return StringInput("NotificationEvent["+strconv.Itoa(numNotificationEvent)+"]Timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp, htmlAttrs)
+	return StringInput("SubscriptionStatus.NotificationEvent["+strconv.Itoa(numNotificationEvent)+"].Timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp, htmlAttrs)
 }

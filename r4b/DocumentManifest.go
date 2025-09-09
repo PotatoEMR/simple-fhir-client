@@ -75,31 +75,31 @@ func (resource *DocumentManifest) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("DocumentManifest.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("DocumentManifest.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("DocumentManifest.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("DocumentManifest.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Created(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Created", nil, htmlAttrs)
+		return DateTimeInput("DocumentManifest.Created", nil, htmlAttrs)
 	}
-	return DateTimeInput("Created", resource.Created, htmlAttrs)
+	return DateTimeInput("DocumentManifest.Created", resource.Created, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Source(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Source", nil, htmlAttrs)
+		return StringInput("DocumentManifest.Source", nil, htmlAttrs)
 	}
-	return StringInput("Source", resource.Source, htmlAttrs)
+	return StringInput("DocumentManifest.Source", resource.Source, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Description", nil, htmlAttrs)
+		return StringInput("DocumentManifest.Description", nil, htmlAttrs)
 	}
-	return StringInput("Description", resource.Description, htmlAttrs)
+	return StringInput("DocumentManifest.Description", resource.Description, htmlAttrs)
 }

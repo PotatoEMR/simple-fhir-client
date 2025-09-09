@@ -74,33 +74,33 @@ func (r RelatedPerson) ToRef() Reference {
 }
 func (resource *RelatedPerson) T_Active(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Active", nil, htmlAttrs)
+		return BoolInput("RelatedPerson.Active", nil, htmlAttrs)
 	}
-	return BoolInput("Active", resource.Active, htmlAttrs)
+	return BoolInput("RelatedPerson.Active", resource.Active, htmlAttrs)
 }
 func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelationship >= len(resource.Relationship) {
-		return CodeableConceptSelect("Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("RelatedPerson.Relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
 }
 func (resource *RelatedPerson) T_Gender(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
-		return CodeSelect("Gender", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("RelatedPerson.Gender", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Gender", resource.Gender, optionsValueSet, htmlAttrs)
+	return CodeSelect("RelatedPerson.Gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
 func (resource *RelatedPerson) T_BirthDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("BirthDate", nil, htmlAttrs)
+		return DateInput("RelatedPerson.BirthDate", nil, htmlAttrs)
 	}
-	return DateInput("BirthDate", resource.BirthDate, htmlAttrs)
+	return DateInput("RelatedPerson.BirthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
-		return BoolInput("Communication["+strconv.Itoa(numCommunication)+"]Preferred", nil, htmlAttrs)
+		return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", nil, htmlAttrs)
 	}
-	return BoolInput("Communication["+strconv.Itoa(numCommunication)+"]Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
+	return BoolInput("RelatedPerson.Communication["+strconv.Itoa(numCommunication)+"].Preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }

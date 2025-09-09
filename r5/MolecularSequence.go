@@ -103,101 +103,101 @@ func (resource *MolecularSequence) T_Type(htmlAttrs string) templ.Component {
 	optionsValueSet := VSSequence_type
 
 	if resource == nil {
-		return CodeSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("MolecularSequence.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeSelect("MolecularSequence.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_Literal(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Literal", nil, htmlAttrs)
+		return StringInput("MolecularSequence.Literal", nil, htmlAttrs)
 	}
-	return StringInput("Literal", resource.Literal, htmlAttrs)
+	return StringInput("MolecularSequence.Literal", resource.Literal, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeCoordinateSystem(numRelative int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]CoordinateSystem", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].CoordinateSystem", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]CoordinateSystem", &resource.Relative[numRelative].CoordinateSystem, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].CoordinateSystem", &resource.Relative[numRelative].CoordinateSystem, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeOrdinalPosition(numRelative int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return IntInput("Relative["+strconv.Itoa(numRelative)+"]OrdinalPosition", nil, htmlAttrs)
+		return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].OrdinalPosition", nil, htmlAttrs)
 	}
-	return IntInput("Relative["+strconv.Itoa(numRelative)+"]OrdinalPosition", resource.Relative[numRelative].OrdinalPosition, htmlAttrs)
+	return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].OrdinalPosition", resource.Relative[numRelative].OrdinalPosition, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceGenomeAssembly(numRelative int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.GenomeAssembly", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.GenomeAssembly", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.GenomeAssembly", resource.Relative[numRelative].StartingSequence.GenomeAssembly, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.GenomeAssembly", resource.Relative[numRelative].StartingSequence.GenomeAssembly, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceChromosome(numRelative int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Chromosome", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Chromosome", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Chromosome", resource.Relative[numRelative].StartingSequence.Chromosome, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Chromosome", resource.Relative[numRelative].StartingSequence.Chromosome, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceSequenceCodeableConcept(numRelative int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.SequenceCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.SequenceCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.SequenceCodeableConcept", resource.Relative[numRelative].StartingSequence.SequenceCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.SequenceCodeableConcept", resource.Relative[numRelative].StartingSequence.SequenceCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceSequenceString(numRelative int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return StringInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.SequenceString", nil, htmlAttrs)
+		return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.SequenceString", nil, htmlAttrs)
 	}
-	return StringInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.SequenceString", resource.Relative[numRelative].StartingSequence.SequenceString, htmlAttrs)
+	return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.SequenceString", resource.Relative[numRelative].StartingSequence.SequenceString, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceWindowStart(numRelative int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return IntInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.WindowStart", nil, htmlAttrs)
+		return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.WindowStart", nil, htmlAttrs)
 	}
-	return IntInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.WindowStart", resource.Relative[numRelative].StartingSequence.WindowStart, htmlAttrs)
+	return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.WindowStart", resource.Relative[numRelative].StartingSequence.WindowStart, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceWindowEnd(numRelative int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return IntInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.WindowEnd", nil, htmlAttrs)
+		return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.WindowEnd", nil, htmlAttrs)
 	}
-	return IntInput("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.WindowEnd", resource.Relative[numRelative].StartingSequence.WindowEnd, htmlAttrs)
+	return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.WindowEnd", resource.Relative[numRelative].StartingSequence.WindowEnd, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceOrientation(numRelative int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSOrientation_type
 
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Orientation", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Orientation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Orientation", resource.Relative[numRelative].StartingSequence.Orientation, optionsValueSet, htmlAttrs)
+	return CodeSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Orientation", resource.Relative[numRelative].StartingSequence.Orientation, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceStrand(numRelative int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSStrand_type
 
 	if resource == nil || numRelative >= len(resource.Relative) {
-		return CodeSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Strand", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Strand", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Relative["+strconv.Itoa(numRelative)+"]StartingSequence.Strand", resource.Relative[numRelative].StartingSequence.Strand, optionsValueSet, htmlAttrs)
+	return CodeSelect("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].StartingSequence.Strand", resource.Relative[numRelative].StartingSequence.Strand, optionsValueSet, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeEditStart(numRelative int, numEdit int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) || numEdit >= len(resource.Relative[numRelative].Edit) {
-		return IntInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].Start", nil, htmlAttrs)
+		return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].Start", nil, htmlAttrs)
 	}
-	return IntInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].Start", resource.Relative[numRelative].Edit[numEdit].Start, htmlAttrs)
+	return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].Start", resource.Relative[numRelative].Edit[numEdit].Start, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeEditEnd(numRelative int, numEdit int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) || numEdit >= len(resource.Relative[numRelative].Edit) {
-		return IntInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].End", nil, htmlAttrs)
+		return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].End", nil, htmlAttrs)
 	}
-	return IntInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].End", resource.Relative[numRelative].Edit[numEdit].End, htmlAttrs)
+	return IntInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].End", resource.Relative[numRelative].Edit[numEdit].End, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeEditReplacementSequence(numRelative int, numEdit int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) || numEdit >= len(resource.Relative[numRelative].Edit) {
-		return StringInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].ReplacementSequence", nil, htmlAttrs)
+		return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].ReplacementSequence", nil, htmlAttrs)
 	}
-	return StringInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].ReplacementSequence", resource.Relative[numRelative].Edit[numEdit].ReplacementSequence, htmlAttrs)
+	return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].ReplacementSequence", resource.Relative[numRelative].Edit[numEdit].ReplacementSequence, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeEditReplacedSequence(numRelative int, numEdit int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) || numEdit >= len(resource.Relative[numRelative].Edit) {
-		return StringInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].ReplacedSequence", nil, htmlAttrs)
+		return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].ReplacedSequence", nil, htmlAttrs)
 	}
-	return StringInput("Relative["+strconv.Itoa(numRelative)+"]Edit["+strconv.Itoa(numEdit)+"].ReplacedSequence", resource.Relative[numRelative].Edit[numEdit].ReplacedSequence, htmlAttrs)
+	return StringInput("MolecularSequence.Relative["+strconv.Itoa(numRelative)+"].Edit["+strconv.Itoa(numEdit)+"].ReplacedSequence", resource.Relative[numRelative].Edit[numEdit].ReplacedSequence, htmlAttrs)
 }

@@ -57,19 +57,19 @@ func (r MedicinalProductManufactured) ToRef() Reference {
 }
 func (resource *MedicinalProductManufactured) T_ManufacturedDoseForm(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ManufacturedDoseForm", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MedicinalProductManufactured.ManufacturedDoseForm", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MedicinalProductManufactured.ManufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicinalProductManufactured) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("UnitOfPresentation", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MedicinalProductManufactured.UnitOfPresentation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MedicinalProductManufactured.UnitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
 func (resource *MedicinalProductManufactured) T_OtherCharacteristics(numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numOtherCharacteristics >= len(resource.OtherCharacteristics) {
-		return CodeableConceptSelect("OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("MedicinalProductManufactured.OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", &resource.OtherCharacteristics[numOtherCharacteristics], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("MedicinalProductManufactured.OtherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", &resource.OtherCharacteristics[numOtherCharacteristics], optionsValueSet, htmlAttrs)
 }

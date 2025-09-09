@@ -118,97 +118,97 @@ func (r SubstancePolymer) ToRef() Reference {
 }
 func (resource *SubstancePolymer) T_Class(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Class", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Class", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Class", resource.Class, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Class", resource.Class, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_Geometry(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Geometry", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Geometry", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Geometry", resource.Geometry, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Geometry", resource.Geometry, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_CopolymerConnectivity(numCopolymerConnectivity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCopolymerConnectivity >= len(resource.CopolymerConnectivity) {
-		return CodeableConceptSelect("CopolymerConnectivity["+strconv.Itoa(numCopolymerConnectivity)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.CopolymerConnectivity["+strconv.Itoa(numCopolymerConnectivity)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CopolymerConnectivity["+strconv.Itoa(numCopolymerConnectivity)+"]", &resource.CopolymerConnectivity[numCopolymerConnectivity], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.CopolymerConnectivity["+strconv.Itoa(numCopolymerConnectivity)+"]", &resource.CopolymerConnectivity[numCopolymerConnectivity], optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_Modification(numModification int, htmlAttrs string) templ.Component {
 	if resource == nil || numModification >= len(resource.Modification) {
-		return StringInput("Modification["+strconv.Itoa(numModification)+"]", nil, htmlAttrs)
+		return StringInput("SubstancePolymer.Modification["+strconv.Itoa(numModification)+"]", nil, htmlAttrs)
 	}
-	return StringInput("Modification["+strconv.Itoa(numModification)+"]", &resource.Modification[numModification], htmlAttrs)
+	return StringInput("SubstancePolymer.Modification["+strconv.Itoa(numModification)+"]", &resource.Modification[numModification], htmlAttrs)
 }
 func (resource *SubstancePolymer) T_MonomerSetRatioType(numMonomerSet int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMonomerSet >= len(resource.MonomerSet) {
-		return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]RatioType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].RatioType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]RatioType", resource.MonomerSet[numMonomerSet].RatioType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].RatioType", resource.MonomerSet[numMonomerSet].RatioType, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_MonomerSetStartingMaterialMaterial(numMonomerSet int, numStartingMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
-		return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Material", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Material", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Material", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Material, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Material", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Material, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_MonomerSetStartingMaterialType(numMonomerSet int, numStartingMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
-		return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Type", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].Type", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_MonomerSetStartingMaterialIsDefining(numMonomerSet int, numStartingMaterial int, htmlAttrs string) templ.Component {
 	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
-		return BoolInput("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].IsDefining", nil, htmlAttrs)
+		return BoolInput("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].IsDefining", nil, htmlAttrs)
 	}
-	return BoolInput("MonomerSet["+strconv.Itoa(numMonomerSet)+"]StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].IsDefining", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].IsDefining, htmlAttrs)
+	return BoolInput("SubstancePolymer.MonomerSet["+strconv.Itoa(numMonomerSet)+"].StartingMaterial["+strconv.Itoa(numStartingMaterial)+"].IsDefining", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].IsDefining, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatNumberOfUnits(numRepeat int, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {
-		return IntInput("Repeat["+strconv.Itoa(numRepeat)+"]NumberOfUnits", nil, htmlAttrs)
+		return IntInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].NumberOfUnits", nil, htmlAttrs)
 	}
-	return IntInput("Repeat["+strconv.Itoa(numRepeat)+"]NumberOfUnits", resource.Repeat[numRepeat].NumberOfUnits, htmlAttrs)
+	return IntInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].NumberOfUnits", resource.Repeat[numRepeat].NumberOfUnits, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatAverageMolecularFormula(numRepeat int, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {
-		return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]AverageMolecularFormula", nil, htmlAttrs)
+		return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].AverageMolecularFormula", nil, htmlAttrs)
 	}
-	return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]AverageMolecularFormula", resource.Repeat[numRepeat].AverageMolecularFormula, htmlAttrs)
+	return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].AverageMolecularFormula", resource.Repeat[numRepeat].AverageMolecularFormula, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitAmountType(numRepeat int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {
-		return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnitAmountType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnitAmountType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnitAmountType", resource.Repeat[numRepeat].RepeatUnitAmountType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnitAmountType", resource.Repeat[numRepeat].RepeatUnitAmountType, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitOrientationOfPolymerisation(numRepeat int, numRepeatUnit int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) {
-		return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].OrientationOfPolymerisation", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].OrientationOfPolymerisation", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].OrientationOfPolymerisation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].OrientationOfPolymerisation, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].OrientationOfPolymerisation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].OrientationOfPolymerisation, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitRepeatUnit(numRepeat int, numRepeatUnit int, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) {
-		return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].RepeatUnit", nil, htmlAttrs)
+		return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].RepeatUnit", nil, htmlAttrs)
 	}
-	return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].RepeatUnit", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].RepeatUnit, htmlAttrs)
+	return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].RepeatUnit", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].RepeatUnit, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitDegreeOfPolymerisationDegree(numRepeat int, numRepeatUnit int, numDegreeOfPolymerisation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numDegreeOfPolymerisation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation) {
-		return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].DegreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].Degree", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].DegreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].Degree", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].DegreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].Degree", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation[numDegreeOfPolymerisation].Degree, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].DegreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].Degree", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation[numDegreeOfPolymerisation].Degree, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationType(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numStructuralRepresentation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) {
-		return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Type", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Type", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationRepresentation(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, htmlAttrs string) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numStructuralRepresentation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) {
-		return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Representation", nil, htmlAttrs)
+		return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Representation", nil, htmlAttrs)
 	}
-	return StringInput("Repeat["+strconv.Itoa(numRepeat)+"]RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Representation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Representation, htmlAttrs)
+	return StringInput("SubstancePolymer.Repeat["+strconv.Itoa(numRepeat)+"].RepeatUnit["+strconv.Itoa(numRepeatUnit)+"].StructuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].Representation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Representation, htmlAttrs)
 }

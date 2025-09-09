@@ -352,495 +352,495 @@ func (r Citation) ToRef() Reference {
 }
 func (resource *Citation) T_Url(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Url", nil, htmlAttrs)
+		return StringInput("Citation.Url", nil, htmlAttrs)
 	}
-	return StringInput("Url", resource.Url, htmlAttrs)
+	return StringInput("Citation.Url", resource.Url, htmlAttrs)
 }
 func (resource *Citation) T_Version(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Version", nil, htmlAttrs)
+		return StringInput("Citation.Version", nil, htmlAttrs)
 	}
-	return StringInput("Version", resource.Version, htmlAttrs)
+	return StringInput("Citation.Version", resource.Version, htmlAttrs)
 }
 func (resource *Citation) T_Name(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Name", nil, htmlAttrs)
+		return StringInput("Citation.Name", nil, htmlAttrs)
 	}
-	return StringInput("Name", resource.Name, htmlAttrs)
+	return StringInput("Citation.Name", resource.Name, htmlAttrs)
 }
 func (resource *Citation) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Title", nil, htmlAttrs)
+		return StringInput("Citation.Title", nil, htmlAttrs)
 	}
-	return StringInput("Title", resource.Title, htmlAttrs)
+	return StringInput("Citation.Title", resource.Title, htmlAttrs)
 }
 func (resource *Citation) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("Citation.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("Citation.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_Experimental(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("Experimental", nil, htmlAttrs)
+		return BoolInput("Citation.Experimental", nil, htmlAttrs)
 	}
-	return BoolInput("Experimental", resource.Experimental, htmlAttrs)
+	return BoolInput("Citation.Experimental", resource.Experimental, htmlAttrs)
 }
 func (resource *Citation) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Date", nil, htmlAttrs)
+		return DateTimeInput("Citation.Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Date", resource.Date, htmlAttrs)
+	return DateTimeInput("Citation.Date", resource.Date, htmlAttrs)
 }
 func (resource *Citation) T_Publisher(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Publisher", nil, htmlAttrs)
+		return StringInput("Citation.Publisher", nil, htmlAttrs)
 	}
-	return StringInput("Publisher", resource.Publisher, htmlAttrs)
+	return StringInput("Citation.Publisher", resource.Publisher, htmlAttrs)
 }
 func (resource *Citation) T_Description(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Description", nil, htmlAttrs)
+		return StringInput("Citation.Description", nil, htmlAttrs)
 	}
-	return StringInput("Description", resource.Description, htmlAttrs)
+	return StringInput("Citation.Description", resource.Description, htmlAttrs)
 }
 func (resource *Citation) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
-		return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.Jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_Purpose(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Purpose", nil, htmlAttrs)
+		return StringInput("Citation.Purpose", nil, htmlAttrs)
 	}
-	return StringInput("Purpose", resource.Purpose, htmlAttrs)
+	return StringInput("Citation.Purpose", resource.Purpose, htmlAttrs)
 }
 func (resource *Citation) T_Copyright(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Copyright", nil, htmlAttrs)
+		return StringInput("Citation.Copyright", nil, htmlAttrs)
 	}
-	return StringInput("Copyright", resource.Copyright, htmlAttrs)
+	return StringInput("Citation.Copyright", resource.Copyright, htmlAttrs)
 }
 func (resource *Citation) T_ApprovalDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("ApprovalDate", nil, htmlAttrs)
+		return DateInput("Citation.ApprovalDate", nil, htmlAttrs)
 	}
-	return DateInput("ApprovalDate", resource.ApprovalDate, htmlAttrs)
+	return DateInput("Citation.ApprovalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *Citation) T_LastReviewDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateInput("LastReviewDate", nil, htmlAttrs)
+		return DateInput("Citation.LastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("LastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return DateInput("Citation.LastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *Citation) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("Citation.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Citation.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *Citation) T_CurrentState(numCurrentState int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCurrentState >= len(resource.CurrentState) {
-		return CodeableConceptSelect("CurrentState["+strconv.Itoa(numCurrentState)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CurrentState["+strconv.Itoa(numCurrentState)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CurrentState["+strconv.Itoa(numCurrentState)+"]", &resource.CurrentState[numCurrentState], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CurrentState["+strconv.Itoa(numCurrentState)+"]", &resource.CurrentState[numCurrentState], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_SummaryStyle(numSummary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.Summary) {
-		return CodeableConceptSelect("Summary["+strconv.Itoa(numSummary)+"]Style", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.Summary["+strconv.Itoa(numSummary)+"].Style", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Summary["+strconv.Itoa(numSummary)+"]Style", resource.Summary[numSummary].Style, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.Summary["+strconv.Itoa(numSummary)+"].Style", resource.Summary[numSummary].Style, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_SummaryText(numSummary int, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.Summary) {
-		return StringInput("Summary["+strconv.Itoa(numSummary)+"]Text", nil, htmlAttrs)
+		return StringInput("Citation.Summary["+strconv.Itoa(numSummary)+"].Text", nil, htmlAttrs)
 	}
-	return StringInput("Summary["+strconv.Itoa(numSummary)+"]Text", &resource.Summary[numSummary].Text, htmlAttrs)
+	return StringInput("Citation.Summary["+strconv.Itoa(numSummary)+"].Text", &resource.Summary[numSummary].Text, htmlAttrs)
 }
 func (resource *Citation) T_ClassificationType(numClassification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.Classification) {
-		return CodeableConceptSelect("Classification["+strconv.Itoa(numClassification)+"]Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.Classification["+strconv.Itoa(numClassification)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Classification["+strconv.Itoa(numClassification)+"]Type", resource.Classification[numClassification].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.Classification["+strconv.Itoa(numClassification)+"].Type", resource.Classification[numClassification].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_ClassificationClassifier(numClassification int, numClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.Classification) || numClassifier >= len(resource.Classification[numClassification].Classifier) {
-		return CodeableConceptSelect("Classification["+strconv.Itoa(numClassification)+"]Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.Classification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Classification["+strconv.Itoa(numClassification)+"]Classifier["+strconv.Itoa(numClassifier)+"]", &resource.Classification[numClassification].Classifier[numClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.Classification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", &resource.Classification[numClassification].Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_StatusDateActivity(numStatusDate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numStatusDate >= len(resource.StatusDate) {
-		return CodeableConceptSelect("StatusDate["+strconv.Itoa(numStatusDate)+"]Activity", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.StatusDate["+strconv.Itoa(numStatusDate)+"].Activity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("StatusDate["+strconv.Itoa(numStatusDate)+"]Activity", &resource.StatusDate[numStatusDate].Activity, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.StatusDate["+strconv.Itoa(numStatusDate)+"].Activity", &resource.StatusDate[numStatusDate].Activity, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_StatusDateActual(numStatusDate int, htmlAttrs string) templ.Component {
 	if resource == nil || numStatusDate >= len(resource.StatusDate) {
-		return BoolInput("StatusDate["+strconv.Itoa(numStatusDate)+"]Actual", nil, htmlAttrs)
+		return BoolInput("Citation.StatusDate["+strconv.Itoa(numStatusDate)+"].Actual", nil, htmlAttrs)
 	}
-	return BoolInput("StatusDate["+strconv.Itoa(numStatusDate)+"]Actual", resource.StatusDate[numStatusDate].Actual, htmlAttrs)
+	return BoolInput("Citation.StatusDate["+strconv.Itoa(numStatusDate)+"].Actual", resource.StatusDate[numStatusDate].Actual, htmlAttrs)
 }
 func (resource *Citation) T_RelatesToRelationshipType(numRelatesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return CodeableConceptSelect("RelatesTo["+strconv.Itoa(numRelatesTo)+"]RelationshipType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RelatesTo["+strconv.Itoa(numRelatesTo)+"]RelationshipType", &resource.RelatesTo[numRelatesTo].RelationshipType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", &resource.RelatesTo[numRelatesTo].RelationshipType, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_RelatesToTargetClassifier(numRelatesTo int, numTargetClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) || numTargetClassifier >= len(resource.RelatesTo[numRelatesTo].TargetClassifier) {
-		return CodeableConceptSelect("RelatesTo["+strconv.Itoa(numRelatesTo)+"]TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("RelatesTo["+strconv.Itoa(numRelatesTo)+"]TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", &resource.RelatesTo[numRelatesTo].TargetClassifier[numTargetClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", &resource.RelatesTo[numRelatesTo].TargetClassifier[numTargetClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_RelatesToTargetUri(numRelatesTo int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return StringInput("RelatesTo["+strconv.Itoa(numRelatesTo)+"]TargetUri", nil, htmlAttrs)
+		return StringInput("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", nil, htmlAttrs)
 	}
-	return StringInput("RelatesTo["+strconv.Itoa(numRelatesTo)+"]TargetUri", &resource.RelatesTo[numRelatesTo].TargetUri, htmlAttrs)
+	return StringInput("Citation.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", &resource.RelatesTo[numRelatesTo].TargetUri, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactDateAccessed(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("CitedArtifactDateAccessed", nil, htmlAttrs)
+		return DateTimeInput("Citation.CitedArtifact.DateAccessed", nil, htmlAttrs)
 	}
-	return DateTimeInput("CitedArtifactDateAccessed", resource.CitedArtifact.DateAccessed, htmlAttrs)
+	return DateTimeInput("Citation.CitedArtifact.DateAccessed", resource.CitedArtifact.DateAccessed, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactCurrentState(numCurrentState int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numCurrentState >= len(resource.CitedArtifact.CurrentState) {
-		return CodeableConceptSelect("CitedArtifactCurrentState["+strconv.Itoa(numCurrentState)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.CurrentState["+strconv.Itoa(numCurrentState)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactCurrentState["+strconv.Itoa(numCurrentState)+"]", &resource.CitedArtifact.CurrentState[numCurrentState], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.CurrentState["+strconv.Itoa(numCurrentState)+"]", &resource.CitedArtifact.CurrentState[numCurrentState], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactNote(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.CitedArtifact.Note) {
-		return AnnotationTextArea("CitedArtifactNote["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("Citation.CitedArtifact.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("CitedArtifactNote["+strconv.Itoa(numNote)+"]", &resource.CitedArtifact.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("Citation.CitedArtifact.Note["+strconv.Itoa(numNote)+"]", &resource.CitedArtifact.Note[numNote], htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactVersionValue(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("CitedArtifactVersion.Value", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Version.Value", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactVersion.Value", &resource.CitedArtifact.Version.Value, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Version.Value", &resource.CitedArtifact.Version.Value, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactStatusDateActivity(numStatusDate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numStatusDate >= len(resource.CitedArtifact.StatusDate) {
-		return CodeableConceptSelect("CitedArtifactStatusDate["+strconv.Itoa(numStatusDate)+"].Activity", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.StatusDate["+strconv.Itoa(numStatusDate)+"].Activity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactStatusDate["+strconv.Itoa(numStatusDate)+"].Activity", &resource.CitedArtifact.StatusDate[numStatusDate].Activity, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.StatusDate["+strconv.Itoa(numStatusDate)+"].Activity", &resource.CitedArtifact.StatusDate[numStatusDate].Activity, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactStatusDateActual(numStatusDate int, htmlAttrs string) templ.Component {
 	if resource == nil || numStatusDate >= len(resource.CitedArtifact.StatusDate) {
-		return BoolInput("CitedArtifactStatusDate["+strconv.Itoa(numStatusDate)+"].Actual", nil, htmlAttrs)
+		return BoolInput("Citation.CitedArtifact.StatusDate["+strconv.Itoa(numStatusDate)+"].Actual", nil, htmlAttrs)
 	}
-	return BoolInput("CitedArtifactStatusDate["+strconv.Itoa(numStatusDate)+"].Actual", resource.CitedArtifact.StatusDate[numStatusDate].Actual, htmlAttrs)
+	return BoolInput("Citation.CitedArtifact.StatusDate["+strconv.Itoa(numStatusDate)+"].Actual", resource.CitedArtifact.StatusDate[numStatusDate].Actual, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactTitleType(numTitle int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numTitle >= len(resource.CitedArtifact.Title) || numType >= len(resource.CitedArtifact.Title[numTitle].Type) {
-		return CodeableConceptSelect("CitedArtifactTitle["+strconv.Itoa(numTitle)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Title["+strconv.Itoa(numTitle)+"].Type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactTitle["+strconv.Itoa(numTitle)+"].Type["+strconv.Itoa(numType)+"]", &resource.CitedArtifact.Title[numTitle].Type[numType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Title["+strconv.Itoa(numTitle)+"].Type["+strconv.Itoa(numType)+"]", &resource.CitedArtifact.Title[numTitle].Type[numType], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactTitleText(numTitle int, htmlAttrs string) templ.Component {
 	if resource == nil || numTitle >= len(resource.CitedArtifact.Title) {
-		return StringInput("CitedArtifactTitle["+strconv.Itoa(numTitle)+"].Text", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Title["+strconv.Itoa(numTitle)+"].Text", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactTitle["+strconv.Itoa(numTitle)+"].Text", &resource.CitedArtifact.Title[numTitle].Text, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Title["+strconv.Itoa(numTitle)+"].Text", &resource.CitedArtifact.Title[numTitle].Text, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactAbstractType(numAbstract int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numAbstract >= len(resource.CitedArtifact.Abstract) {
-		return CodeableConceptSelect("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Type", resource.CitedArtifact.Abstract[numAbstract].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Type", resource.CitedArtifact.Abstract[numAbstract].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactAbstractText(numAbstract int, htmlAttrs string) templ.Component {
 	if resource == nil || numAbstract >= len(resource.CitedArtifact.Abstract) {
-		return StringInput("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Text", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Text", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Text", &resource.CitedArtifact.Abstract[numAbstract].Text, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Text", &resource.CitedArtifact.Abstract[numAbstract].Text, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactAbstractCopyright(numAbstract int, htmlAttrs string) templ.Component {
 	if resource == nil || numAbstract >= len(resource.CitedArtifact.Abstract) {
-		return StringInput("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Copyright", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Copyright", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactAbstract["+strconv.Itoa(numAbstract)+"].Copyright", resource.CitedArtifact.Abstract[numAbstract].Copyright, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Abstract["+strconv.Itoa(numAbstract)+"].Copyright", resource.CitedArtifact.Abstract[numAbstract].Copyright, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPartType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("CitedArtifactPart.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Part.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactPart.Type", resource.CitedArtifact.Part.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Part.Type", resource.CitedArtifact.Part.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPartValue(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("CitedArtifactPart.Value", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Part.Value", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPart.Value", resource.CitedArtifact.Part.Value, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Part.Value", resource.CitedArtifact.Part.Value, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactRelatesToRelationshipType(numRelatesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) {
-		return CodeableConceptSelect("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", &resource.CitedArtifact.RelatesTo[numRelatesTo].RelationshipType, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].RelationshipType", &resource.CitedArtifact.RelatesTo[numRelatesTo].RelationshipType, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactRelatesToTargetClassifier(numRelatesTo int, numTargetClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) || numTargetClassifier >= len(resource.CitedArtifact.RelatesTo[numRelatesTo].TargetClassifier) {
-		return CodeableConceptSelect("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetClassifier[numTargetClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetClassifier["+strconv.Itoa(numTargetClassifier)+"]", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetClassifier[numTargetClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactRelatesToTargetUri(numRelatesTo int, htmlAttrs string) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) {
-		return StringInput("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactRelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetUri, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.RelatesTo["+strconv.Itoa(numRelatesTo)+"].TargetUri", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetUri, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormArticleDate(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return DateTimeInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].ArticleDate", nil, htmlAttrs)
+		return DateTimeInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].ArticleDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].ArticleDate", resource.CitedArtifact.PublicationForm[numPublicationForm].ArticleDate, htmlAttrs)
+	return DateTimeInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].ArticleDate", resource.CitedArtifact.PublicationForm[numPublicationForm].ArticleDate, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormLastRevisionDate(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return DateTimeInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].LastRevisionDate", nil, htmlAttrs)
+		return DateTimeInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].LastRevisionDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].LastRevisionDate", resource.CitedArtifact.PublicationForm[numPublicationForm].LastRevisionDate, htmlAttrs)
+	return DateTimeInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].LastRevisionDate", resource.CitedArtifact.PublicationForm[numPublicationForm].LastRevisionDate, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormAccessionNumber(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].AccessionNumber", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].AccessionNumber", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].AccessionNumber", resource.CitedArtifact.PublicationForm[numPublicationForm].AccessionNumber, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].AccessionNumber", resource.CitedArtifact.PublicationForm[numPublicationForm].AccessionNumber, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPageString(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PageString", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PageString", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PageString", resource.CitedArtifact.PublicationForm[numPublicationForm].PageString, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PageString", resource.CitedArtifact.PublicationForm[numPublicationForm].PageString, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormFirstPage(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].FirstPage", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].FirstPage", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].FirstPage", resource.CitedArtifact.PublicationForm[numPublicationForm].FirstPage, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].FirstPage", resource.CitedArtifact.PublicationForm[numPublicationForm].FirstPage, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormLastPage(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].LastPage", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].LastPage", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].LastPage", resource.CitedArtifact.PublicationForm[numPublicationForm].LastPage, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].LastPage", resource.CitedArtifact.PublicationForm[numPublicationForm].LastPage, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPageCount(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PageCount", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PageCount", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PageCount", resource.CitedArtifact.PublicationForm[numPublicationForm].PageCount, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PageCount", resource.CitedArtifact.PublicationForm[numPublicationForm].PageCount, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormCopyright(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].Copyright", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].Copyright", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].Copyright", resource.CitedArtifact.PublicationForm[numPublicationForm].Copyright, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].Copyright", resource.CitedArtifact.PublicationForm[numPublicationForm].Copyright, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPublishedInType(numPublicationForm int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return CodeableConceptSelect("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Type", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Type", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPublishedInTitle(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Title", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Title", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Title", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Title, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.Title", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Title, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPublishedInPublisherLocation(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.PublisherLocation", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.PublisherLocation", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.PublisherLocation", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.PublisherLocation, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PublishedIn.PublisherLocation", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.PublisherLocation, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseCitedMedium(numPublicationForm int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return CodeableConceptSelect("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.CitedMedium", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.CitedMedium", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.CitedMedium", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.CitedMedium, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.CitedMedium", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.CitedMedium, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseVolume(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Volume", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Volume", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Volume", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.Volume, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Volume", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.Volume, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseIssue(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Issue", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Issue", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Issue", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.Issue, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.Issue", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.Issue, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationDate(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return DateInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Date", nil, htmlAttrs)
+		return DateInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Date", nil, htmlAttrs)
 	}
-	return DateInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Date", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Date, htmlAttrs)
+	return DateInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Date", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Date, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationYear(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Year", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Year", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Year", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Year, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Year", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Year, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationMonth(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Month", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Month", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Month", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Month, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Month", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Month, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationDay(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Day", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Day", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Day", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Day, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Day", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Day, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationSeason(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Season", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Season", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Season", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Season, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Season", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Season, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPeriodicReleaseDateOfPublicationText(numPublicationForm int, htmlAttrs string) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Text", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Text", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactPublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Text", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Text, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.PublicationForm["+strconv.Itoa(numPublicationForm)+"].PeriodicRelease.DateOfPublication.Text", resource.CitedArtifact.PublicationForm[numPublicationForm].PeriodicRelease.DateOfPublication.Text, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactWebLocationType(numWebLocation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numWebLocation >= len(resource.CitedArtifact.WebLocation) {
-		return CodeableConceptSelect("CitedArtifactWebLocation["+strconv.Itoa(numWebLocation)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.WebLocation["+strconv.Itoa(numWebLocation)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactWebLocation["+strconv.Itoa(numWebLocation)+"].Type", resource.CitedArtifact.WebLocation[numWebLocation].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.WebLocation["+strconv.Itoa(numWebLocation)+"].Type", resource.CitedArtifact.WebLocation[numWebLocation].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactWebLocationUrl(numWebLocation int, htmlAttrs string) templ.Component {
 	if resource == nil || numWebLocation >= len(resource.CitedArtifact.WebLocation) {
-		return StringInput("CitedArtifactWebLocation["+strconv.Itoa(numWebLocation)+"].Url", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.WebLocation["+strconv.Itoa(numWebLocation)+"].Url", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactWebLocation["+strconv.Itoa(numWebLocation)+"].Url", resource.CitedArtifact.WebLocation[numWebLocation].Url, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.WebLocation["+strconv.Itoa(numWebLocation)+"].Url", resource.CitedArtifact.WebLocation[numWebLocation].Url, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactClassificationType(numClassification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return CodeableConceptSelect("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].Type", resource.CitedArtifact.Classification[numClassification].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].Type", resource.CitedArtifact.Classification[numClassification].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactClassificationClassifier(numClassification int, numClassifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) || numClassifier >= len(resource.CitedArtifact.Classification[numClassification].Classifier) {
-		return CodeableConceptSelect("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", &resource.CitedArtifact.Classification[numClassification].Classifier[numClassifier], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].Classifier["+strconv.Itoa(numClassifier)+"]", &resource.CitedArtifact.Classification[numClassification].Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedClassifierCopyright(numClassification int, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return StringInput("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].WhoClassified.ClassifierCopyright", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].WhoClassified.ClassifierCopyright", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].WhoClassified.ClassifierCopyright", resource.CitedArtifact.Classification[numClassification].WhoClassified.ClassifierCopyright, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].WhoClassified.ClassifierCopyright", resource.CitedArtifact.Classification[numClassification].WhoClassified.ClassifierCopyright, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedFreeToShare(numClassification int, htmlAttrs string) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return BoolInput("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].WhoClassified.FreeToShare", nil, htmlAttrs)
+		return BoolInput("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].WhoClassified.FreeToShare", nil, htmlAttrs)
 	}
-	return BoolInput("CitedArtifactClassification["+strconv.Itoa(numClassification)+"].WhoClassified.FreeToShare", resource.CitedArtifact.Classification[numClassification].WhoClassified.FreeToShare, htmlAttrs)
+	return BoolInput("Citation.CitedArtifact.Classification["+strconv.Itoa(numClassification)+"].WhoClassified.FreeToShare", resource.CitedArtifact.Classification[numClassification].WhoClassified.FreeToShare, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipComplete(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return BoolInput("CitedArtifactContributorship.Complete", nil, htmlAttrs)
+		return BoolInput("Citation.CitedArtifact.Contributorship.Complete", nil, htmlAttrs)
 	}
-	return BoolInput("CitedArtifactContributorship.Complete", resource.CitedArtifact.Contributorship.Complete, htmlAttrs)
+	return BoolInput("Citation.CitedArtifact.Contributorship.Complete", resource.CitedArtifact.Contributorship.Complete, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryInitials(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) {
-		return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].Initials", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].Initials", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].Initials", resource.CitedArtifact.Contributorship.Entry[numEntry].Initials, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].Initials", resource.CitedArtifact.Contributorship.Entry[numEntry].Initials, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryCollectiveName(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) {
-		return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].CollectiveName", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].CollectiveName", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].CollectiveName", resource.CitedArtifact.Contributorship.Entry[numEntry].CollectiveName, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].CollectiveName", resource.CitedArtifact.Contributorship.Entry[numEntry].CollectiveName, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryContributionType(numEntry int, numContributionType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) || numContributionType >= len(resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionType) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionType["+strconv.Itoa(numContributionType)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionType["+strconv.Itoa(numContributionType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionType["+strconv.Itoa(numContributionType)+"]", &resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionType[numContributionType], optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionType["+strconv.Itoa(numContributionType)+"]", &resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionType[numContributionType], optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryRole(numEntry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].Role", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].Role", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].Role", resource.CitedArtifact.Contributorship.Entry[numEntry].Role, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].Role", resource.CitedArtifact.Contributorship.Entry[numEntry].Role, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryCorrespondingContact(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) {
-		return BoolInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].CorrespondingContact", nil, htmlAttrs)
+		return BoolInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].CorrespondingContact", nil, htmlAttrs)
 	}
-	return BoolInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].CorrespondingContact", resource.CitedArtifact.Contributorship.Entry[numEntry].CorrespondingContact, htmlAttrs)
+	return BoolInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].CorrespondingContact", resource.CitedArtifact.Contributorship.Entry[numEntry].CorrespondingContact, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryListOrder(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) {
-		return IntInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ListOrder", nil, htmlAttrs)
+		return IntInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ListOrder", nil, htmlAttrs)
 	}
-	return IntInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ListOrder", resource.CitedArtifact.Contributorship.Entry[numEntry].ListOrder, htmlAttrs)
+	return IntInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ListOrder", resource.CitedArtifact.Contributorship.Entry[numEntry].ListOrder, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryAffiliationInfoAffiliation(numEntry int, numAffiliationInfo int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) || numAffiliationInfo >= len(resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo) {
-		return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Affiliation", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Affiliation", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Affiliation", resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo[numAffiliationInfo].Affiliation, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Affiliation", resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo[numAffiliationInfo].Affiliation, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryAffiliationInfoRole(numEntry int, numAffiliationInfo int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) || numAffiliationInfo >= len(resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo) {
-		return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Role", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Role", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Role", resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo[numAffiliationInfo].Role, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].AffiliationInfo["+strconv.Itoa(numAffiliationInfo)+"].Role", resource.CitedArtifact.Contributorship.Entry[numEntry].AffiliationInfo[numAffiliationInfo].Role, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryContributionInstanceType(numEntry int, numContributionInstance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) || numContributionInstance >= len(resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Type", &resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance[numContributionInstance].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Type", &resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance[numContributionInstance].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipEntryContributionInstanceTime(numEntry int, numContributionInstance int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.CitedArtifact.Contributorship.Entry) || numContributionInstance >= len(resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance) {
-		return DateTimeInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Time", nil, htmlAttrs)
+		return DateTimeInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Time", nil, htmlAttrs)
 	}
-	return DateTimeInput("CitedArtifactContributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Time", resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance[numContributionInstance].Time, htmlAttrs)
+	return DateTimeInput("Citation.CitedArtifact.Contributorship.Entry["+strconv.Itoa(numEntry)+"].ContributionInstance["+strconv.Itoa(numContributionInstance)+"].Time", resource.CitedArtifact.Contributorship.Entry[numEntry].ContributionInstance[numContributionInstance].Time, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipSummaryType(numSummary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.CitedArtifact.Contributorship.Summary) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Type", resource.CitedArtifact.Contributorship.Summary[numSummary].Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Type", resource.CitedArtifact.Contributorship.Summary[numSummary].Type, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipSummaryStyle(numSummary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.CitedArtifact.Contributorship.Summary) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Style", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Style", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Style", resource.CitedArtifact.Contributorship.Summary[numSummary].Style, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Style", resource.CitedArtifact.Contributorship.Summary[numSummary].Style, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipSummarySource(numSummary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.CitedArtifact.Contributorship.Summary) {
-		return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Source", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Source", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Source", resource.CitedArtifact.Contributorship.Summary[numSummary].Source, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Source", resource.CitedArtifact.Contributorship.Summary[numSummary].Source, optionsValueSet, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactContributorshipSummaryValue(numSummary int, htmlAttrs string) templ.Component {
 	if resource == nil || numSummary >= len(resource.CitedArtifact.Contributorship.Summary) {
-		return StringInput("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Value", nil, htmlAttrs)
+		return StringInput("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Value", nil, htmlAttrs)
 	}
-	return StringInput("CitedArtifactContributorship.Summary["+strconv.Itoa(numSummary)+"].Value", &resource.CitedArtifact.Contributorship.Summary[numSummary].Value, htmlAttrs)
+	return StringInput("Citation.CitedArtifact.Contributorship.Summary["+strconv.Itoa(numSummary)+"].Value", &resource.CitedArtifact.Contributorship.Summary[numSummary].Value, htmlAttrs)
 }

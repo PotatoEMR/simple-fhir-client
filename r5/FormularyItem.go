@@ -54,15 +54,15 @@ func (r FormularyItem) ToRef() Reference {
 }
 func (resource *FormularyItem) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("FormularyItem.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("FormularyItem.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *FormularyItem) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("FormularyItem.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("FormularyItem.Status", resource.Status, optionsValueSet, htmlAttrs)
 }

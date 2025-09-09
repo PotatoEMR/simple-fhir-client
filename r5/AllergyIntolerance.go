@@ -95,115 +95,115 @@ func (r AllergyIntolerance) ToRef() Reference {
 }
 func (resource *AllergyIntolerance) T_ClinicalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ClinicalStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.ClinicalStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ClinicalStatus", resource.ClinicalStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.ClinicalStatus", resource.ClinicalStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_VerificationStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("VerificationStatus", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.VerificationStatus", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("VerificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.VerificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Type", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.Type", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Type", resource.Type, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.Type", resource.Type, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Category(numCategory int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSAllergy_intolerance_category
 
 	if resource == nil || numCategory >= len(resource.Category) {
-		return CodeSelect("Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("AllergyIntolerance.Category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
+	return CodeSelect("AllergyIntolerance.Category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Criticality(htmlAttrs string) templ.Component {
 	optionsValueSet := VSAllergy_intolerance_criticality
 
 	if resource == nil {
-		return CodeSelect("Criticality", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("AllergyIntolerance.Criticality", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Criticality", resource.Criticality, optionsValueSet, htmlAttrs)
+	return CodeSelect("AllergyIntolerance.Criticality", resource.Criticality, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_OnsetDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("OnsetDateTime", nil, htmlAttrs)
+		return DateTimeInput("AllergyIntolerance.OnsetDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("OnsetDateTime", resource.OnsetDateTime, htmlAttrs)
+	return DateTimeInput("AllergyIntolerance.OnsetDateTime", resource.OnsetDateTime, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_OnsetString(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("OnsetString", nil, htmlAttrs)
+		return StringInput("AllergyIntolerance.OnsetString", nil, htmlAttrs)
 	}
-	return StringInput("OnsetString", resource.OnsetString, htmlAttrs)
+	return StringInput("AllergyIntolerance.OnsetString", resource.OnsetString, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_RecordedDate(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("RecordedDate", nil, htmlAttrs)
+		return DateTimeInput("AllergyIntolerance.RecordedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("RecordedDate", resource.RecordedDate, htmlAttrs)
+	return DateTimeInput("AllergyIntolerance.RecordedDate", resource.RecordedDate, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_LastOccurrence(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("LastOccurrence", nil, htmlAttrs)
+		return DateTimeInput("AllergyIntolerance.LastOccurrence", nil, htmlAttrs)
 	}
-	return DateTimeInput("LastOccurrence", resource.LastOccurrence, htmlAttrs)
+	return DateTimeInput("AllergyIntolerance.LastOccurrence", resource.LastOccurrence, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("AllergyIntolerance.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("AllergyIntolerance.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return CodeableConceptSelect("Participant["+strconv.Itoa(numParticipant)+"]Function", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.Participant["+strconv.Itoa(numParticipant)+"].Function", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Participant["+strconv.Itoa(numParticipant)+"]Function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.Participant["+strconv.Itoa(numParticipant)+"].Function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionSubstance(numReaction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return CodeableConceptSelect("Reaction["+strconv.Itoa(numReaction)+"]Substance", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Substance", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Reaction["+strconv.Itoa(numReaction)+"]Substance", resource.Reaction[numReaction].Substance, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Substance", resource.Reaction[numReaction].Substance, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionDescription(numReaction int, htmlAttrs string) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return StringInput("Reaction["+strconv.Itoa(numReaction)+"]Description", nil, htmlAttrs)
+		return StringInput("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Description", nil, htmlAttrs)
 	}
-	return StringInput("Reaction["+strconv.Itoa(numReaction)+"]Description", resource.Reaction[numReaction].Description, htmlAttrs)
+	return StringInput("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Description", resource.Reaction[numReaction].Description, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionOnset(numReaction int, htmlAttrs string) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return DateTimeInput("Reaction["+strconv.Itoa(numReaction)+"]Onset", nil, htmlAttrs)
+		return DateTimeInput("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Onset", nil, htmlAttrs)
 	}
-	return DateTimeInput("Reaction["+strconv.Itoa(numReaction)+"]Onset", resource.Reaction[numReaction].Onset, htmlAttrs)
+	return DateTimeInput("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Onset", resource.Reaction[numReaction].Onset, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionSeverity(numReaction int, htmlAttrs string) templ.Component {
 	optionsValueSet := VSReaction_event_severity
 
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return CodeSelect("Reaction["+strconv.Itoa(numReaction)+"]Severity", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Severity", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Reaction["+strconv.Itoa(numReaction)+"]Severity", resource.Reaction[numReaction].Severity, optionsValueSet, htmlAttrs)
+	return CodeSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Severity", resource.Reaction[numReaction].Severity, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionExposureRoute(numReaction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return CodeableConceptSelect("Reaction["+strconv.Itoa(numReaction)+"]ExposureRoute", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].ExposureRoute", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Reaction["+strconv.Itoa(numReaction)+"]ExposureRoute", resource.Reaction[numReaction].ExposureRoute, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].ExposureRoute", resource.Reaction[numReaction].ExposureRoute, optionsValueSet, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionNote(numReaction int, numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) || numNote >= len(resource.Reaction[numReaction].Note) {
-		return AnnotationTextArea("Reaction["+strconv.Itoa(numReaction)+"]Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Reaction["+strconv.Itoa(numReaction)+"]Note["+strconv.Itoa(numNote)+"]", &resource.Reaction[numReaction].Note[numNote], htmlAttrs)
+	return AnnotationTextArea("AllergyIntolerance.Reaction["+strconv.Itoa(numReaction)+"].Note["+strconv.Itoa(numNote)+"]", &resource.Reaction[numReaction].Note[numNote], htmlAttrs)
 }

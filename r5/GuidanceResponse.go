@@ -69,39 +69,39 @@ func (r GuidanceResponse) ToRef() Reference {
 }
 func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ModuleUri", nil, htmlAttrs)
+		return StringInput("GuidanceResponse.ModuleUri", nil, htmlAttrs)
 	}
-	return StringInput("ModuleUri", &resource.ModuleUri, htmlAttrs)
+	return StringInput("GuidanceResponse.ModuleUri", &resource.ModuleUri, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ModuleCanonical(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ModuleCanonical", nil, htmlAttrs)
+		return StringInput("GuidanceResponse.ModuleCanonical", nil, htmlAttrs)
 	}
-	return StringInput("ModuleCanonical", &resource.ModuleCanonical, htmlAttrs)
+	return StringInput("GuidanceResponse.ModuleCanonical", &resource.ModuleCanonical, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ModuleCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("ModuleCodeableConcept", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("ModuleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("GuidanceResponse.ModuleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("GuidanceResponse.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("GuidanceResponse.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("OccurrenceDateTime", nil, htmlAttrs)
+		return DateTimeInput("GuidanceResponse.OccurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return DateTimeInput("GuidanceResponse.OccurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("GuidanceResponse.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("GuidanceResponse.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }

@@ -79,69 +79,69 @@ func (resource *List) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("List.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("List.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_Mode(htmlAttrs string) templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil {
-		return CodeSelect("Mode", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("List.Mode", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Mode", &resource.Mode, optionsValueSet, htmlAttrs)
+	return CodeSelect("List.Mode", &resource.Mode, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_Title(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("Title", nil, htmlAttrs)
+		return StringInput("List.Title", nil, htmlAttrs)
 	}
-	return StringInput("Title", resource.Title, htmlAttrs)
+	return StringInput("List.Title", resource.Title, htmlAttrs)
 }
 func (resource *List) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("Code", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("List.Code", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Code", resource.Code, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("List.Code", resource.Code, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_Date(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return DateTimeInput("Date", nil, htmlAttrs)
+		return DateTimeInput("List.Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Date", resource.Date, htmlAttrs)
+	return DateTimeInput("List.Date", resource.Date, htmlAttrs)
 }
 func (resource *List) T_OrderedBy(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("OrderedBy", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("List.OrderedBy", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("OrderedBy", resource.OrderedBy, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("List.OrderedBy", resource.OrderedBy, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_Note(numNote int, htmlAttrs string) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
-		return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
+		return AnnotationTextArea("List.Note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
-	return AnnotationTextArea("Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+	return AnnotationTextArea("List.Note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
 func (resource *List) T_EmptyReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil {
-		return CodeableConceptSelect("EmptyReason", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("List.EmptyReason", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("EmptyReason", resource.EmptyReason, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("List.EmptyReason", resource.EmptyReason, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
-		return CodeableConceptSelect("Entry["+strconv.Itoa(numEntry)+"]Flag", nil, optionsValueSet, htmlAttrs)
+		return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeableConceptSelect("Entry["+strconv.Itoa(numEntry)+"]Flag", resource.Entry[numEntry].Flag, optionsValueSet, htmlAttrs)
+	return CodeableConceptSelect("List.Entry["+strconv.Itoa(numEntry)+"].Flag", resource.Entry[numEntry].Flag, optionsValueSet, htmlAttrs)
 }
 func (resource *List) T_EntryDeleted(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
-		return BoolInput("Entry["+strconv.Itoa(numEntry)+"]Deleted", nil, htmlAttrs)
+		return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", nil, htmlAttrs)
 	}
-	return BoolInput("Entry["+strconv.Itoa(numEntry)+"]Deleted", resource.Entry[numEntry].Deleted, htmlAttrs)
+	return BoolInput("List.Entry["+strconv.Itoa(numEntry)+"].Deleted", resource.Entry[numEntry].Deleted, htmlAttrs)
 }
 func (resource *List) T_EntryDate(numEntry int, htmlAttrs string) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
-		return DateTimeInput("Entry["+strconv.Itoa(numEntry)+"]Date", nil, htmlAttrs)
+		return DateTimeInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", nil, htmlAttrs)
 	}
-	return DateTimeInput("Entry["+strconv.Itoa(numEntry)+"]Date", resource.Entry[numEntry].Date, htmlAttrs)
+	return DateTimeInput("List.Entry["+strconv.Itoa(numEntry)+"].Date", resource.Entry[numEntry].Date, htmlAttrs)
 }

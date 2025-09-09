@@ -61,19 +61,19 @@ func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
 	optionsValueSet := VSResearch_subject_status
 
 	if resource == nil {
-		return CodeSelect("Status", nil, optionsValueSet, htmlAttrs)
+		return CodeSelect("ResearchSubject.Status", nil, optionsValueSet, htmlAttrs)
 	}
-	return CodeSelect("Status", &resource.Status, optionsValueSet, htmlAttrs)
+	return CodeSelect("ResearchSubject.Status", &resource.Status, optionsValueSet, htmlAttrs)
 }
 func (resource *ResearchSubject) T_AssignedArm(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("AssignedArm", nil, htmlAttrs)
+		return StringInput("ResearchSubject.AssignedArm", nil, htmlAttrs)
 	}
-	return StringInput("AssignedArm", resource.AssignedArm, htmlAttrs)
+	return StringInput("ResearchSubject.AssignedArm", resource.AssignedArm, htmlAttrs)
 }
 func (resource *ResearchSubject) T_ActualArm(htmlAttrs string) templ.Component {
 	if resource == nil {
-		return StringInput("ActualArm", nil, htmlAttrs)
+		return StringInput("ResearchSubject.ActualArm", nil, htmlAttrs)
 	}
-	return StringInput("ActualArm", resource.ActualArm, htmlAttrs)
+	return StringInput("ResearchSubject.ActualArm", resource.ActualArm, htmlAttrs)
 }
