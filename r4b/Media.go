@@ -73,7 +73,7 @@ func (r Media) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Media) T_Status(htmlAttrs string) templ.Component {
+func (resource *Media) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
 
 	if resource == nil {
@@ -81,79 +81,79 @@ func (resource *Media) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Media) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_Modality(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Media) T_Modality(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("modality", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("modality", resource.Modality, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_View(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Media) T_View(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("view", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("view", resource.View, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_CreatedDateTime(htmlAttrs string) templ.Component {
+func (resource *Media) T_CreatedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("createdDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("createdDateTime", resource.CreatedDateTime, htmlAttrs)
 }
-func (resource *Media) T_Issued(htmlAttrs string) templ.Component {
+func (resource *Media) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("issued", nil, htmlAttrs)
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
 }
-func (resource *Media) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Media) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_BodySite(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Media) T_BodySite(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("bodySite", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("bodySite", resource.BodySite, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_DeviceName(htmlAttrs string) templ.Component {
+func (resource *Media) T_DeviceName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("deviceName", nil, htmlAttrs)
 	}
 	return StringInput("deviceName", resource.DeviceName, htmlAttrs)
 }
-func (resource *Media) T_Height(htmlAttrs string) templ.Component {
+func (resource *Media) T_Height(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("height", nil, htmlAttrs)
 	}
 	return IntInput("height", resource.Height, htmlAttrs)
 }
-func (resource *Media) T_Width(htmlAttrs string) templ.Component {
+func (resource *Media) T_Width(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("width", nil, htmlAttrs)
 	}
 	return IntInput("width", resource.Width, htmlAttrs)
 }
-func (resource *Media) T_Frames(htmlAttrs string) templ.Component {
+func (resource *Media) T_Frames(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("frames", nil, htmlAttrs)
 	}
 	return IntInput("frames", resource.Frames, htmlAttrs)
 }
-func (resource *Media) T_Duration(htmlAttrs string) templ.Component {
+func (resource *Media) T_Duration(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return Float64Input("duration", nil, htmlAttrs)
 	}
 	return Float64Input("duration", resource.Duration, htmlAttrs)
 }
-func (resource *Media) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *Media) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}

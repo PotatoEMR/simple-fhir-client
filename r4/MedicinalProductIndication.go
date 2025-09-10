@@ -67,37 +67,37 @@ func (r MedicinalProductIndication) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductIndication) T_DiseaseSymptomProcedure(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_DiseaseSymptomProcedure(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("diseaseSymptomProcedure", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diseaseSymptomProcedure", resource.DiseaseSymptomProcedure, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIndication) T_DiseaseStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_DiseaseStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("diseaseStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diseaseStatus", resource.DiseaseStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIndication) T_Comorbidity(numComorbidity int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_Comorbidity(numComorbidity int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComorbidity >= len(resource.Comorbidity) {
 		return CodeableConceptSelect("comorbidity["+strconv.Itoa(numComorbidity)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("comorbidity["+strconv.Itoa(numComorbidity)+"]", &resource.Comorbidity[numComorbidity], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIndication) T_IntendedEffect(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_IntendedEffect(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("intendedEffect", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("intendedEffect", resource.IntendedEffect, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIndication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
 		return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].therapyRelationshipType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].therapyRelationshipType", &resource.OtherTherapy[numOtherTherapy].TherapyRelationshipType, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductIndication) T_OtherTherapyMedicationCodeableConcept(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductIndication) T_OtherTherapyMedicationCodeableConcept(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
 		return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].medicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

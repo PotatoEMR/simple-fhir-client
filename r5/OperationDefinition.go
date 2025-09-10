@@ -127,43 +127,43 @@ func (r OperationDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *OperationDefinition) T_Url(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Version(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *OperationDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_VersionAlgorithmString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("versionAlgorithmString", nil, htmlAttrs)
 	}
 	return StringInput("versionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *OperationDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodingSelect("versionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("versionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Name(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", &resource.Name, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Title(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Status(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -171,7 +171,7 @@ func (resource *OperationDefinition) T_Status(htmlAttrs string) templ.Component 
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Kind(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Kind(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSOperation_kind
 
 	if resource == nil {
@@ -179,121 +179,121 @@ func (resource *OperationDefinition) T_Kind(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Experimental(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Experimental(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("experimental", nil, htmlAttrs)
 	}
 	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Date(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Description(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Purpose(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("purpose", nil, htmlAttrs)
 	}
 	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *OperationDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyrightLabel", nil, htmlAttrs)
 	}
 	return StringInput("copyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
-func (resource *OperationDefinition) T_AffectsState(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_AffectsState(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("affectsState", nil, htmlAttrs)
 	}
 	return BoolInput("affectsState", resource.AffectsState, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Comment(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("comment", nil, htmlAttrs)
 	}
 	return StringInput("comment", resource.Comment, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Base(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Base(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("base", nil, htmlAttrs)
 	}
 	return StringInput("base", resource.Base, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Resource(numResource int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Resource(numResource int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Resource) {
 		return CodeSelect("resource["+strconv.Itoa(numResource)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("resource["+strconv.Itoa(numResource)+"]", &resource.Resource[numResource], optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_System(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_System(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("system", nil, htmlAttrs)
 	}
 	return BoolInput("system", &resource.System, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Type(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("type", nil, htmlAttrs)
 	}
 	return BoolInput("type", &resource.Type, htmlAttrs)
 }
-func (resource *OperationDefinition) T_Instance(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_Instance(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("instance", nil, htmlAttrs)
 	}
 	return BoolInput("instance", &resource.Instance, htmlAttrs)
 }
-func (resource *OperationDefinition) T_InputProfile(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_InputProfile(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("inputProfile", nil, htmlAttrs)
 	}
 	return StringInput("inputProfile", resource.InputProfile, htmlAttrs)
 }
-func (resource *OperationDefinition) T_OutputProfile(htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_OutputProfile(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("outputProfile", nil, htmlAttrs)
 	}
 	return StringInput("outputProfile", resource.OutputProfile, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterName(numParameter int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterName(numParameter int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
 		return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].name", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].name", &resource.Parameter[numParameter].Name, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterUse(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterUse(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSOperation_parameter_use
 
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -301,7 +301,7 @@ func (resource *OperationDefinition) T_ParameterUse(numParameter int, htmlAttrs 
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].use", &resource.Parameter[numParameter].Use, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterScope(numParameter int, numScope int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterScope(numParameter int, numScope int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSOperation_parameter_scope
 
 	if resource == nil || numParameter >= len(resource.Parameter) || numScope >= len(resource.Parameter[numParameter].Scope) {
@@ -309,25 +309,25 @@ func (resource *OperationDefinition) T_ParameterScope(numParameter int, numScope
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].scope["+strconv.Itoa(numScope)+"]", &resource.Parameter[numParameter].Scope[numScope], optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterMin(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterMin(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
 		return IntInput("parameter["+strconv.Itoa(numParameter)+"].min", nil, htmlAttrs)
 	}
 	return IntInput("parameter["+strconv.Itoa(numParameter)+"].min", &resource.Parameter[numParameter].Min, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterMax(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterMax(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].max", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].max", &resource.Parameter[numParameter].Max, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterDocumentation(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterDocumentation(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].documentation", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].documentation", resource.Parameter[numParameter].Documentation, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterType(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterType(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFhir_types
 
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -335,7 +335,7 @@ func (resource *OperationDefinition) T_ParameterType(numParameter int, htmlAttrs
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].type", resource.Parameter[numParameter].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterAllowedType(numParameter int, numAllowedType int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterAllowedType(numParameter int, numAllowedType int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFhir_types
 
 	if resource == nil || numParameter >= len(resource.Parameter) || numAllowedType >= len(resource.Parameter[numParameter].AllowedType) {
@@ -343,13 +343,13 @@ func (resource *OperationDefinition) T_ParameterAllowedType(numParameter int, nu
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].allowedType["+strconv.Itoa(numAllowedType)+"]", &resource.Parameter[numParameter].AllowedType[numAllowedType], optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterTargetProfile(numParameter int, numTargetProfile int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterTargetProfile(numParameter int, numTargetProfile int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) || numTargetProfile >= len(resource.Parameter[numParameter].TargetProfile) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].targetProfile["+strconv.Itoa(numTargetProfile)+"]", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].targetProfile["+strconv.Itoa(numTargetProfile)+"]", &resource.Parameter[numParameter].TargetProfile[numTargetProfile], htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterSearchType(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterSearchType(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSearch_param_type
 
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -357,7 +357,7 @@ func (resource *OperationDefinition) T_ParameterSearchType(numParameter int, htm
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].searchType", resource.Parameter[numParameter].SearchType, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterBindingStrength(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterBindingStrength(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBinding_strength
 
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -365,31 +365,31 @@ func (resource *OperationDefinition) T_ParameterBindingStrength(numParameter int
 	}
 	return CodeSelect("parameter["+strconv.Itoa(numParameter)+"].binding.strength", &resource.Parameter[numParameter].Binding.Strength, optionsValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterBindingValueSet(numParameter int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterBindingValueSet(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].binding.valueSet", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].binding.valueSet", &resource.Parameter[numParameter].Binding.ValueSet, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterReferencedFromSource(numParameter int, numReferencedFrom int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterReferencedFromSource(numParameter int, numReferencedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) || numReferencedFrom >= len(resource.Parameter[numParameter].ReferencedFrom) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].referencedFrom["+strconv.Itoa(numReferencedFrom)+"].source", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].referencedFrom["+strconv.Itoa(numReferencedFrom)+"].source", &resource.Parameter[numParameter].ReferencedFrom[numReferencedFrom].Source, htmlAttrs)
 }
-func (resource *OperationDefinition) T_ParameterReferencedFromSourceId(numParameter int, numReferencedFrom int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_ParameterReferencedFromSourceId(numParameter int, numReferencedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) || numReferencedFrom >= len(resource.Parameter[numParameter].ReferencedFrom) {
 		return StringInput("parameter["+strconv.Itoa(numParameter)+"].referencedFrom["+strconv.Itoa(numReferencedFrom)+"].sourceId", nil, htmlAttrs)
 	}
 	return StringInput("parameter["+strconv.Itoa(numParameter)+"].referencedFrom["+strconv.Itoa(numReferencedFrom)+"].sourceId", resource.Parameter[numParameter].ReferencedFrom[numReferencedFrom].SourceId, htmlAttrs)
 }
-func (resource *OperationDefinition) T_OverloadParameterName(numOverload int, numParameterName int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_OverloadParameterName(numOverload int, numParameterName int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOverload >= len(resource.Overload) || numParameterName >= len(resource.Overload[numOverload].ParameterName) {
 		return StringInput("overload["+strconv.Itoa(numOverload)+"].parameterName["+strconv.Itoa(numParameterName)+"]", nil, htmlAttrs)
 	}
 	return StringInput("overload["+strconv.Itoa(numOverload)+"].parameterName["+strconv.Itoa(numParameterName)+"]", &resource.Overload[numOverload].ParameterName[numParameterName], htmlAttrs)
 }
-func (resource *OperationDefinition) T_OverloadComment(numOverload int, htmlAttrs string) templ.Component {
+func (resource *OperationDefinition) T_OverloadComment(numOverload int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOverload >= len(resource.Overload) {
 		return StringInput("overload["+strconv.Itoa(numOverload)+"].comment", nil, htmlAttrs)
 	}

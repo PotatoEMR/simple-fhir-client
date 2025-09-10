@@ -93,91 +93,91 @@ func (r Condition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Condition) T_ClinicalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_ClinicalStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("clinicalStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("clinicalStatus", &resource.ClinicalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_VerificationStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_VerificationStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("verificationStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("verificationStatus", resource.VerificationStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Severity(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_Severity(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("severity", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
 		return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_OnsetDateTime(htmlAttrs string) templ.Component {
+func (resource *Condition) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("onsetDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
 }
-func (resource *Condition) T_OnsetString(htmlAttrs string) templ.Component {
+func (resource *Condition) T_OnsetString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("onsetString", nil, htmlAttrs)
 	}
 	return StringInput("onsetString", resource.OnsetString, htmlAttrs)
 }
-func (resource *Condition) T_AbatementDateTime(htmlAttrs string) templ.Component {
+func (resource *Condition) T_AbatementDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("abatementDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("abatementDateTime", resource.AbatementDateTime, htmlAttrs)
 }
-func (resource *Condition) T_AbatementString(htmlAttrs string) templ.Component {
+func (resource *Condition) T_AbatementString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("abatementString", nil, htmlAttrs)
 	}
 	return StringInput("abatementString", resource.AbatementString, htmlAttrs)
 }
-func (resource *Condition) T_RecordedDate(htmlAttrs string) templ.Component {
+func (resource *Condition) T_RecordedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("recordedDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
 }
-func (resource *Condition) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *Condition) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *Condition) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
 		return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
 		return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].type", nil, optionsValueSet, htmlAttrs)
 	}

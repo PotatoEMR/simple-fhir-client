@@ -57,7 +57,7 @@ func (r EnrollmentResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EnrollmentResponse) T_Status(htmlAttrs string) templ.Component {
+func (resource *EnrollmentResponse) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -65,7 +65,7 @@ func (resource *EnrollmentResponse) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Outcome(htmlAttrs string) templ.Component {
+func (resource *EnrollmentResponse) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRemittance_outcome
 
 	if resource == nil {
@@ -73,13 +73,13 @@ func (resource *EnrollmentResponse) T_Outcome(htmlAttrs string) templ.Component 
 	}
 	return CodeSelect("outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Disposition(htmlAttrs string) templ.Component {
+func (resource *EnrollmentResponse) T_Disposition(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("disposition", nil, htmlAttrs)
 	}
 	return StringInput("disposition", resource.Disposition, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Created(htmlAttrs string) templ.Component {
+func (resource *EnrollmentResponse) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("created", nil, htmlAttrs)
 	}

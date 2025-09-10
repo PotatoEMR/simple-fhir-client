@@ -72,7 +72,7 @@ func (r ResearchSubject) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -80,49 +80,49 @@ func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_AssignedComparisonGroup(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_AssignedComparisonGroup(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("assignedComparisonGroup", nil, htmlAttrs)
 	}
 	return StringInput("assignedComparisonGroup", resource.AssignedComparisonGroup, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ActualComparisonGroup(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ActualComparisonGroup(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("actualComparisonGroup", nil, htmlAttrs)
 	}
 	return StringInput("actualComparisonGroup", resource.ActualComparisonGroup, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].type", resource.Progress[numProgress].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressSubjectState(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressSubjectState(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].subjectState", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].subjectState", resource.Progress[numProgress].SubjectState, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressMilestone(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressMilestone(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].milestone", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].milestone", resource.Progress[numProgress].Milestone, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].reason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("progress["+strconv.Itoa(numProgress)+"].reason", resource.Progress[numProgress].Reason, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressStartDate(numProgress int, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressStartDate(numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", resource.Progress[numProgress].StartDate, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ProgressEndDate(numProgress int, htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ProgressEndDate(numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
 		return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].endDate", nil, htmlAttrs)
 	}

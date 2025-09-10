@@ -70,19 +70,19 @@ func (r DeviceMetric) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DeviceMetric) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("unit", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("unit", resource.Unit, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_operational_status
 
 	if resource == nil {
@@ -90,7 +90,7 @@ func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs string) templ.Compon
 	}
 	return CodeSelect("operationalStatus", resource.OperationalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_Color(htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_Color(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_color
 
 	if resource == nil {
@@ -98,7 +98,7 @@ func (resource *DeviceMetric) T_Color(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("color", resource.Color, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_Category(htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_Category(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_category
 
 	if resource == nil {
@@ -106,7 +106,7 @@ func (resource *DeviceMetric) T_Category(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("category", &resource.Category, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_CalibrationType(numCalibration int, htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_CalibrationType(numCalibration int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_calibration_type
 
 	if resource == nil || numCalibration >= len(resource.Calibration) {
@@ -114,7 +114,7 @@ func (resource *DeviceMetric) T_CalibrationType(numCalibration int, htmlAttrs st
 	}
 	return CodeSelect("calibration["+strconv.Itoa(numCalibration)+"].type", resource.Calibration[numCalibration].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_CalibrationState(numCalibration int, htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_CalibrationState(numCalibration int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_calibration_state
 
 	if resource == nil || numCalibration >= len(resource.Calibration) {
@@ -122,7 +122,7 @@ func (resource *DeviceMetric) T_CalibrationState(numCalibration int, htmlAttrs s
 	}
 	return CodeSelect("calibration["+strconv.Itoa(numCalibration)+"].state", resource.Calibration[numCalibration].State, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_CalibrationTime(numCalibration int, htmlAttrs string) templ.Component {
+func (resource *DeviceMetric) T_CalibrationTime(numCalibration int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCalibration >= len(resource.Calibration) {
 		return StringInput("calibration["+strconv.Itoa(numCalibration)+"].time", nil, htmlAttrs)
 	}

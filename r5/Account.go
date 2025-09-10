@@ -132,7 +132,7 @@ func (r Account) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Account) T_Status(htmlAttrs string) templ.Component {
+func (resource *Account) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAccount_status
 
 	if resource == nil {
@@ -140,127 +140,127 @@ func (resource *Account) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_BillingStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_BillingStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("billingStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("billingStatus", resource.BillingStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_Name(htmlAttrs string) templ.Component {
+func (resource *Account) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Account) T_Description(htmlAttrs string) templ.Component {
+func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Account) T_Currency(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_Currency(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("currency", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("currency", resource.Currency, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_CalculatedAt(htmlAttrs string) templ.Component {
+func (resource *Account) T_CalculatedAt(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("calculatedAt", nil, htmlAttrs)
 	}
 	return StringInput("calculatedAt", resource.CalculatedAt, htmlAttrs)
 }
-func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs string) templ.Component {
+func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
 		return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", nil, htmlAttrs)
 	}
 	return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", resource.Coverage[numCoverage].Priority, htmlAttrs)
 }
-func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs string) templ.Component {
+func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {
 		return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", nil, htmlAttrs)
 	}
 	return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", resource.Guarantor[numGuarantor].OnHold, htmlAttrs)
 }
-func (resource *Account) T_DiagnosisSequence(numDiagnosis int, htmlAttrs string) templ.Component {
+func (resource *Account) T_DiagnosisSequence(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].sequence", nil, htmlAttrs)
 	}
 	return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].sequence", resource.Diagnosis[numDiagnosis].Sequence, htmlAttrs)
 }
-func (resource *Account) T_DiagnosisDateOfDiagnosis(numDiagnosis int, htmlAttrs string) templ.Component {
+func (resource *Account) T_DiagnosisDateOfDiagnosis(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return DateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", nil, htmlAttrs)
 	}
 	return DateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", resource.Diagnosis[numDiagnosis].DateOfDiagnosis, htmlAttrs)
 }
-func (resource *Account) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) || numType >= len(resource.Diagnosis[numDiagnosis].Type) {
 		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].type["+strconv.Itoa(numType)+"]", &resource.Diagnosis[numDiagnosis].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_DiagnosisOnAdmission(numDiagnosis int, htmlAttrs string) templ.Component {
+func (resource *Account) T_DiagnosisOnAdmission(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return BoolInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].onAdmission", nil, htmlAttrs)
 	}
 	return BoolInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].onAdmission", resource.Diagnosis[numDiagnosis].OnAdmission, htmlAttrs)
 }
-func (resource *Account) T_DiagnosisPackageCode(numDiagnosis int, numPackageCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_DiagnosisPackageCode(numDiagnosis int, numPackageCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) || numPackageCode >= len(resource.Diagnosis[numDiagnosis].PackageCode) {
 		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].packageCode["+strconv.Itoa(numPackageCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].packageCode["+strconv.Itoa(numPackageCode)+"]", &resource.Diagnosis[numDiagnosis].PackageCode[numPackageCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_ProcedureSequence(numProcedure int, htmlAttrs string) templ.Component {
+func (resource *Account) T_ProcedureSequence(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
 		return IntInput("procedure["+strconv.Itoa(numProcedure)+"].sequence", nil, htmlAttrs)
 	}
 	return IntInput("procedure["+strconv.Itoa(numProcedure)+"].sequence", resource.Procedure[numProcedure].Sequence, htmlAttrs)
 }
-func (resource *Account) T_ProcedureDateOfService(numProcedure int, htmlAttrs string) templ.Component {
+func (resource *Account) T_ProcedureDateOfService(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
 		return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", nil, htmlAttrs)
 	}
 	return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", resource.Procedure[numProcedure].DateOfService, htmlAttrs)
 }
-func (resource *Account) T_ProcedureType(numProcedure int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_ProcedureType(numProcedure int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) || numType >= len(resource.Procedure[numProcedure].Type) {
 		return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].type["+strconv.Itoa(numType)+"]", &resource.Procedure[numProcedure].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_ProcedurePackageCode(numProcedure int, numPackageCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_ProcedurePackageCode(numProcedure int, numPackageCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) || numPackageCode >= len(resource.Procedure[numProcedure].PackageCode) {
 		return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].packageCode["+strconv.Itoa(numPackageCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].packageCode["+strconv.Itoa(numPackageCode)+"]", &resource.Procedure[numProcedure].PackageCode[numPackageCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_RelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_RelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedAccount >= len(resource.RelatedAccount) {
 		return CodeableConceptSelect("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].relationship", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].relationship", resource.RelatedAccount[numRelatedAccount].Relationship, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_BalanceAggregate(numBalance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_BalanceAggregate(numBalance int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBalance >= len(resource.Balance) {
 		return CodeableConceptSelect("balance["+strconv.Itoa(numBalance)+"].aggregate", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("balance["+strconv.Itoa(numBalance)+"].aggregate", resource.Balance[numBalance].Aggregate, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_BalanceTerm(numBalance int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_BalanceTerm(numBalance int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBalance >= len(resource.Balance) {
 		return CodeableConceptSelect("balance["+strconv.Itoa(numBalance)+"].term", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("balance["+strconv.Itoa(numBalance)+"].term", resource.Balance[numBalance].Term, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_BalanceEstimate(numBalance int, htmlAttrs string) templ.Component {
+func (resource *Account) T_BalanceEstimate(numBalance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBalance >= len(resource.Balance) {
 		return BoolInput("balance["+strconv.Itoa(numBalance)+"].estimate", nil, htmlAttrs)
 	}

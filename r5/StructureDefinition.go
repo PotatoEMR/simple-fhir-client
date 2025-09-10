@@ -116,43 +116,43 @@ func (r StructureDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *StructureDefinition) T_Url(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", &resource.Url, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Version(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *StructureDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_VersionAlgorithmString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("versionAlgorithmString", nil, htmlAttrs)
 	}
 	return StringInput("versionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *StructureDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodingSelect("versionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("versionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Name(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", &resource.Name, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Title(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Status(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -160,61 +160,61 @@ func (resource *StructureDefinition) T_Status(htmlAttrs string) templ.Component 
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Experimental(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Experimental(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("experimental", nil, htmlAttrs)
 	}
 	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Date(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Description(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Purpose(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("purpose", nil, htmlAttrs)
 	}
 	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *StructureDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyrightLabel", nil, htmlAttrs)
 	}
 	return StringInput("copyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Keyword(numKeyword int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Keyword(numKeyword int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numKeyword >= len(resource.Keyword) {
 		return CodingSelect("keyword["+strconv.Itoa(numKeyword)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("keyword["+strconv.Itoa(numKeyword)+"]", &resource.Keyword[numKeyword], optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_FhirVersion(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_FhirVersion(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFHIR_version
 
 	if resource == nil {
@@ -222,7 +222,7 @@ func (resource *StructureDefinition) T_FhirVersion(htmlAttrs string) templ.Compo
 	}
 	return CodeSelect("fhirVersion", resource.FhirVersion, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Kind(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Kind(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSStructure_definition_kind
 
 	if resource == nil {
@@ -230,31 +230,31 @@ func (resource *StructureDefinition) T_Kind(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Abstract(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Abstract(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("abstract", nil, htmlAttrs)
 	}
 	return BoolInput("abstract", &resource.Abstract, htmlAttrs)
 }
-func (resource *StructureDefinition) T_ContextInvariant(numContextInvariant int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_ContextInvariant(numContextInvariant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContextInvariant >= len(resource.ContextInvariant) {
 		return StringInput("contextInvariant["+strconv.Itoa(numContextInvariant)+"]", nil, htmlAttrs)
 	}
 	return StringInput("contextInvariant["+strconv.Itoa(numContextInvariant)+"]", &resource.ContextInvariant[numContextInvariant], htmlAttrs)
 }
-func (resource *StructureDefinition) T_Type(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("type", nil, htmlAttrs)
 	}
 	return StringInput("type", &resource.Type, htmlAttrs)
 }
-func (resource *StructureDefinition) T_BaseDefinition(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_BaseDefinition(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("baseDefinition", nil, htmlAttrs)
 	}
 	return StringInput("baseDefinition", resource.BaseDefinition, htmlAttrs)
 }
-func (resource *StructureDefinition) T_Derivation(htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_Derivation(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSType_derivation_rule
 
 	if resource == nil {
@@ -262,31 +262,31 @@ func (resource *StructureDefinition) T_Derivation(htmlAttrs string) templ.Compon
 	}
 	return CodeSelect("derivation", resource.Derivation, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_MappingIdentity(numMapping int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_MappingIdentity(numMapping int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
 		return StringInput("mapping["+strconv.Itoa(numMapping)+"].identity", nil, htmlAttrs)
 	}
 	return StringInput("mapping["+strconv.Itoa(numMapping)+"].identity", &resource.Mapping[numMapping].Identity, htmlAttrs)
 }
-func (resource *StructureDefinition) T_MappingUri(numMapping int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_MappingUri(numMapping int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
 		return StringInput("mapping["+strconv.Itoa(numMapping)+"].uri", nil, htmlAttrs)
 	}
 	return StringInput("mapping["+strconv.Itoa(numMapping)+"].uri", resource.Mapping[numMapping].Uri, htmlAttrs)
 }
-func (resource *StructureDefinition) T_MappingName(numMapping int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_MappingName(numMapping int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
 		return StringInput("mapping["+strconv.Itoa(numMapping)+"].name", nil, htmlAttrs)
 	}
 	return StringInput("mapping["+strconv.Itoa(numMapping)+"].name", resource.Mapping[numMapping].Name, htmlAttrs)
 }
-func (resource *StructureDefinition) T_MappingComment(numMapping int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_MappingComment(numMapping int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMapping >= len(resource.Mapping) {
 		return StringInput("mapping["+strconv.Itoa(numMapping)+"].comment", nil, htmlAttrs)
 	}
 	return StringInput("mapping["+strconv.Itoa(numMapping)+"].comment", resource.Mapping[numMapping].Comment, htmlAttrs)
 }
-func (resource *StructureDefinition) T_ContextType(numContext int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_ContextType(numContext int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSExtension_context_type
 
 	if resource == nil || numContext >= len(resource.Context) {
@@ -294,7 +294,7 @@ func (resource *StructureDefinition) T_ContextType(numContext int, htmlAttrs str
 	}
 	return CodeSelect("context["+strconv.Itoa(numContext)+"].type", &resource.Context[numContext].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *StructureDefinition) T_ContextExpression(numContext int, htmlAttrs string) templ.Component {
+func (resource *StructureDefinition) T_ContextExpression(numContext int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContext >= len(resource.Context) {
 		return StringInput("context["+strconv.Itoa(numContext)+"].expression", nil, htmlAttrs)
 	}

@@ -56,7 +56,7 @@ func (r EnrollmentRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EnrollmentRequest) T_Status(htmlAttrs string) templ.Component {
+func (resource *EnrollmentRequest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -64,7 +64,7 @@ func (resource *EnrollmentRequest) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Created(htmlAttrs string) templ.Component {
+func (resource *EnrollmentRequest) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("created", nil, htmlAttrs)
 	}

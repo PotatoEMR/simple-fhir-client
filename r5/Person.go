@@ -82,13 +82,13 @@ func (r Person) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Person) T_Active(htmlAttrs string) templ.Component {
+func (resource *Person) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
+func (resource *Person) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
@@ -96,37 +96,37 @@ func (resource *Person) T_Gender(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Person) T_BirthDate(htmlAttrs string) templ.Component {
+func (resource *Person) T_BirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("birthDate", nil, htmlAttrs)
 	}
 	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *Person) T_DeceasedBoolean(htmlAttrs string) templ.Component {
+func (resource *Person) T_DeceasedBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("deceasedBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("deceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
-func (resource *Person) T_DeceasedDateTime(htmlAttrs string) templ.Component {
+func (resource *Person) T_DeceasedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("deceasedDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
 }
-func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("maritalStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Person) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
+func (resource *Person) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
 		return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", nil, htmlAttrs)
 	}
 	return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }
-func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs string) templ.Component {
+func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel
 
 	if resource == nil || numLink >= len(resource.Link) {

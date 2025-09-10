@@ -99,43 +99,43 @@ func (r EvidenceVariable) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EvidenceVariable) T_Url(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Version(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Name(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Title(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_ShortTitle(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_ShortTitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("shortTitle", nil, htmlAttrs)
 	}
 	return StringInput("shortTitle", resource.ShortTitle, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Subtitle(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Subtitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("subtitle", nil, htmlAttrs)
 	}
 	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Status(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -143,61 +143,61 @@ func (resource *EvidenceVariable) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Date(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Description(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_ApprovalDate(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("approvalDate", nil, htmlAttrs)
 	}
 	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_LastReviewDate(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
 	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_Type(htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSVariable_type
 
 	if resource == nil {
@@ -205,37 +205,37 @@ func (resource *EvidenceVariable) T_Type(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicDescription(numCharacteristic int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDescription(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].description", resource.Characteristic[numCharacteristic].Description, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCanonical", nil, htmlAttrs)
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCanonical", &resource.Characteristic[numCharacteristic].DefinitionCanonical, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCodeableConcept", &resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicExclude(numCharacteristic int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicExclude(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", nil, htmlAttrs)
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicParticipantEffectiveDateTime(numCharacteristic int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicParticipantEffectiveDateTime(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].participantEffectiveDateTime", resource.Characteristic[numCharacteristic].ParticipantEffectiveDateTime, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int, htmlAttrs string) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicGroupMeasure(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSGroup_measure
 
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {

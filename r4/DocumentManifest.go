@@ -70,7 +70,7 @@ func (r DocumentManifest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DocumentManifest) T_Status(htmlAttrs string) templ.Component {
+func (resource *DocumentManifest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
 	if resource == nil {
@@ -78,25 +78,25 @@ func (resource *DocumentManifest) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Created(htmlAttrs string) templ.Component {
+func (resource *DocumentManifest) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("created", nil, htmlAttrs)
 	}
 	return DateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Source(htmlAttrs string) templ.Component {
+func (resource *DocumentManifest) T_Source(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("source", nil, htmlAttrs)
 	}
 	return StringInput("source", resource.Source, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Description(htmlAttrs string) templ.Component {
+func (resource *DocumentManifest) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}

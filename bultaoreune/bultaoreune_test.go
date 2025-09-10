@@ -12,6 +12,7 @@ import (
 	fhirClient "github.com/PotatoEMR/simple-fhir-client/r4Client"
 	r4b "github.com/PotatoEMR/simple-fhir-client/r4b"
 	r5 "github.com/PotatoEMR/simple-fhir-client/r5"
+	"github.com/a-h/templ"
 )
 
 type rtTest struct {
@@ -58,10 +59,10 @@ func TestAllergy_r4(t *testing.T) {
 		t.Error("r4 get original note text after marshal/unmarshal")
 	}
 	fmt.Println("does criticality look right? selected should be low")
-	allergyCritField := a2.T_Criticality("")
+	allergyCritField := a2.T_Criticality(nil)
 	allergyCritField.Render(context.Background(), os.Stdout)
 	fmt.Println("does reaction[0].severity look right? it was never set, should be no selected")
-	allergyReactionSeverityField := a2.T_ReactionSeverity(0, "")
+	allergyReactionSeverityField := a2.T_ReactionSeverity(0, templ.Attributes{"class": "bg-red-400 m-4 p-2", "style": "border-color: yellow"})
 	allergyReactionSeverityField.Render(context.Background(), os.Stdout)
 }
 

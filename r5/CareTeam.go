@@ -73,7 +73,7 @@ func (r CareTeam) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *CareTeam) T_Status(htmlAttrs string) templ.Component {
+func (resource *CareTeam) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCare_team_status
 
 	if resource == nil {
@@ -81,25 +81,25 @@ func (resource *CareTeam) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CareTeam) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_Name(htmlAttrs string) templ.Component {
+func (resource *CareTeam) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *CareTeam) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *CareTeam) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *CareTeam) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CareTeam) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", nil, optionsValueSet, htmlAttrs)
 	}

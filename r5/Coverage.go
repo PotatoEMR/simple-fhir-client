@@ -113,7 +113,7 @@ func (r Coverage) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Coverage) T_Status(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -121,7 +121,7 @@ func (resource *Coverage) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_Kind(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Kind(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCoverage_kind
 
 	if resource == nil {
@@ -129,91 +129,91 @@ func (resource *Coverage) T_Kind(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("kind", &resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_Dependent(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Dependent(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("dependent", nil, htmlAttrs)
 	}
 	return StringInput("dependent", resource.Dependent, htmlAttrs)
 }
-func (resource *Coverage) T_Relationship(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Relationship(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("relationship", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relationship", resource.Relationship, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_Order(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Order(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("order", nil, htmlAttrs)
 	}
 	return IntInput("order", resource.Order, htmlAttrs)
 }
-func (resource *Coverage) T_Network(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Network(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("network", nil, htmlAttrs)
 	}
 	return StringInput("network", resource.Network, htmlAttrs)
 }
-func (resource *Coverage) T_Subrogation(htmlAttrs string) templ.Component {
+func (resource *Coverage) T_Subrogation(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("subrogation", nil, htmlAttrs)
 	}
 	return BoolInput("subrogation", resource.Subrogation, htmlAttrs)
 }
-func (resource *Coverage) T_PaymentByResponsibility(numPaymentBy int, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_PaymentByResponsibility(numPaymentBy int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPaymentBy >= len(resource.PaymentBy) {
 		return StringInput("paymentBy["+strconv.Itoa(numPaymentBy)+"].responsibility", nil, htmlAttrs)
 	}
 	return StringInput("paymentBy["+strconv.Itoa(numPaymentBy)+"].responsibility", resource.PaymentBy[numPaymentBy].Responsibility, htmlAttrs)
 }
-func (resource *Coverage) T_ClassType(numClass int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_ClassType(numClass int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClass >= len(resource.Class) {
 		return CodeableConceptSelect("class["+strconv.Itoa(numClass)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("class["+strconv.Itoa(numClass)+"].type", &resource.Class[numClass].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_ClassName(numClass int, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_ClassName(numClass int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClass >= len(resource.Class) {
 		return StringInput("class["+strconv.Itoa(numClass)+"].name", nil, htmlAttrs)
 	}
 	return StringInput("class["+strconv.Itoa(numClass)+"].name", resource.Class[numClass].Name, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryType(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryType(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].type", resource.CostToBeneficiary[numCostToBeneficiary].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryCategory(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryCategory(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].category", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].category", resource.CostToBeneficiary[numCostToBeneficiary].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryNetwork(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryNetwork(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].network", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].network", resource.CostToBeneficiary[numCostToBeneficiary].Network, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryUnit(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryUnit(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].unit", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].unit", resource.CostToBeneficiary[numCostToBeneficiary].Unit, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryTerm(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryTerm(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].term", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].term", resource.CostToBeneficiary[numCostToBeneficiary].Term, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryExceptionType(numCostToBeneficiary int, numException int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryExceptionType(numCostToBeneficiary int, numException int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) || numException >= len(resource.CostToBeneficiary[numCostToBeneficiary].Exception) {
 		return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].exception["+strconv.Itoa(numException)+"].type", nil, optionsValueSet, htmlAttrs)
 	}

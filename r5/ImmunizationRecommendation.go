@@ -83,73 +83,73 @@ func (r ImmunizationRecommendation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ImmunizationRecommendation) T_Date(htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", &resource.Date, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationVaccineCode(numRecommendation int, numVaccineCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationVaccineCode(numRecommendation int, numVaccineCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numVaccineCode >= len(resource.Recommendation[numRecommendation].VaccineCode) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].vaccineCode["+strconv.Itoa(numVaccineCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].vaccineCode["+strconv.Itoa(numVaccineCode)+"]", &resource.Recommendation[numRecommendation].VaccineCode[numVaccineCode], optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationTargetDisease(numRecommendation int, numTargetDisease int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationTargetDisease(numRecommendation int, numTargetDisease int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numTargetDisease >= len(resource.Recommendation[numRecommendation].TargetDisease) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].targetDisease["+strconv.Itoa(numTargetDisease)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].targetDisease["+strconv.Itoa(numTargetDisease)+"]", &resource.Recommendation[numRecommendation].TargetDisease[numTargetDisease], optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationContraindicatedVaccineCode(numRecommendation int, numContraindicatedVaccineCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationContraindicatedVaccineCode(numRecommendation int, numContraindicatedVaccineCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numContraindicatedVaccineCode >= len(resource.Recommendation[numRecommendation].ContraindicatedVaccineCode) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].contraindicatedVaccineCode["+strconv.Itoa(numContraindicatedVaccineCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].contraindicatedVaccineCode["+strconv.Itoa(numContraindicatedVaccineCode)+"]", &resource.Recommendation[numRecommendation].ContraindicatedVaccineCode[numContraindicatedVaccineCode], optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationForecastStatus(numRecommendation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationForecastStatus(numRecommendation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].forecastStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].forecastStatus", &resource.Recommendation[numRecommendation].ForecastStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationForecastReason(numRecommendation int, numForecastReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationForecastReason(numRecommendation int, numForecastReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numForecastReason >= len(resource.Recommendation[numRecommendation].ForecastReason) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].forecastReason["+strconv.Itoa(numForecastReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].forecastReason["+strconv.Itoa(numForecastReason)+"]", &resource.Recommendation[numRecommendation].ForecastReason[numForecastReason], optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationDescription(numRecommendation int, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationDescription(numRecommendation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) {
 		return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].description", resource.Recommendation[numRecommendation].Description, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationSeries(numRecommendation int, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationSeries(numRecommendation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) {
 		return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].series", nil, htmlAttrs)
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].series", resource.Recommendation[numRecommendation].Series, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationDoseNumber(numRecommendation int, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationDoseNumber(numRecommendation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) {
 		return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].doseNumber", nil, htmlAttrs)
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].doseNumber", resource.Recommendation[numRecommendation].DoseNumber, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationSeriesDoses(numRecommendation int, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationSeriesDoses(numRecommendation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) {
 		return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].seriesDoses", nil, htmlAttrs)
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].seriesDoses", resource.Recommendation[numRecommendation].SeriesDoses, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionCode(numRecommendation int, numDateCriterion int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionCode(numRecommendation int, numDateCriterion int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numDateCriterion >= len(resource.Recommendation[numRecommendation].DateCriterion) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].code", &resource.Recommendation[numRecommendation].DateCriterion[numDateCriterion].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionValue(numRecommendation int, numDateCriterion int, htmlAttrs string) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionValue(numRecommendation int, numDateCriterion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numDateCriterion >= len(resource.Recommendation[numRecommendation].DateCriterion) {
 		return DateTimeInput("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].value", nil, htmlAttrs)
 	}

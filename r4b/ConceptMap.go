@@ -125,31 +125,31 @@ func (r ConceptMap) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ConceptMap) T_Url(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *ConceptMap) T_Version(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *ConceptMap) T_Name(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *ConceptMap) T_Title(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *ConceptMap) T_Status(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -157,121 +157,121 @@ func (resource *ConceptMap) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_Experimental(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Experimental(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("experimental", nil, htmlAttrs)
 	}
 	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ConceptMap) T_Date(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *ConceptMap) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ConceptMap) T_Description(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *ConceptMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_Purpose(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("purpose", nil, htmlAttrs)
 	}
 	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ConceptMap) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ConceptMap) T_SourceUri(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_SourceUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("sourceUri", nil, htmlAttrs)
 	}
 	return StringInput("sourceUri", resource.SourceUri, htmlAttrs)
 }
-func (resource *ConceptMap) T_SourceCanonical(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_SourceCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("sourceCanonical", nil, htmlAttrs)
 	}
 	return StringInput("sourceCanonical", resource.SourceCanonical, htmlAttrs)
 }
-func (resource *ConceptMap) T_TargetUri(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_TargetUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("targetUri", nil, htmlAttrs)
 	}
 	return StringInput("targetUri", resource.TargetUri, htmlAttrs)
 }
-func (resource *ConceptMap) T_TargetCanonical(htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_TargetCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("targetCanonical", nil, htmlAttrs)
 	}
 	return StringInput("targetCanonical", resource.TargetCanonical, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupSource(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupSource(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].source", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].source", resource.Group[numGroup].Source, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupSourceVersion(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupSourceVersion(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].sourceVersion", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].sourceVersion", resource.Group[numGroup].SourceVersion, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupTarget(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupTarget(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].target", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].target", resource.Group[numGroup].Target, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupTargetVersion(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupTargetVersion(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].targetVersion", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].targetVersion", resource.Group[numGroup].TargetVersion, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementCode(numGroup int, numElement int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) {
 		return CodeSelect("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].code", resource.Group[numGroup].Element[numElement].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementDisplay(numGroup int, numElement int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementDisplay(numGroup int, numElement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].display", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].display", resource.Group[numGroup].Element[numElement].Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetCode(numGroup int, numElement int, numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
 		return CodeSelect("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].code", resource.Group[numGroup].Element[numElement].Target[numTarget].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDisplay(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDisplay(numGroup int, numElement int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].display", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].display", resource.Group[numGroup].Element[numElement].Target[numTarget].Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numElement int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConcept_map_equivalence
 
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
@@ -279,37 +279,37 @@ func (resource *ConceptMap) T_GroupElementTargetEquivalence(numGroup int, numEle
 	}
 	return CodeSelect("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].equivalence", &resource.Group[numGroup].Element[numElement].Target[numTarget].Equivalence, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetComment(numGroup int, numElement int, numTarget int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetComment(numGroup int, numElement int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].comment", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].comment", resource.Group[numGroup].Element[numElement].Target[numTarget].Comment, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnProperty(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnProperty(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].property", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].property", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Property, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnSystem(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnSystem(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].system", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].system", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].System, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnValue(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnValue(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].value", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].value", &resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Value, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnDisplay(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnDisplay(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].display", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].display", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConceptmap_unmapped_mode
 
 	if resource == nil || numGroup >= len(resource.Group) {
@@ -317,19 +317,19 @@ func (resource *ConceptMap) T_GroupUnmappedMode(numGroup int, htmlAttrs string) 
 	}
 	return CodeSelect("group["+strconv.Itoa(numGroup)+"].unmapped.mode", &resource.Group[numGroup].Unmapped.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedCode(numGroup int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return CodeSelect("group["+strconv.Itoa(numGroup)+"].unmapped.code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("group["+strconv.Itoa(numGroup)+"].unmapped.code", resource.Group[numGroup].Unmapped.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedDisplay(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedDisplay(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].unmapped.display", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].unmapped.display", resource.Group[numGroup].Unmapped.Display, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupUnmappedUrl(numGroup int, htmlAttrs string) templ.Component {
+func (resource *ConceptMap) T_GroupUnmappedUrl(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].unmapped.url", nil, htmlAttrs)
 	}

@@ -75,7 +75,7 @@ func (r BiologicallyDerivedProductDispense) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *BiologicallyDerivedProductDispense) T_Status(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBiologicallyderivedproductdispense_status
 
 	if resource == nil {
@@ -83,43 +83,43 @@ func (resource *BiologicallyDerivedProductDispense) T_Status(htmlAttrs string) t
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_OriginRelationshipType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_OriginRelationshipType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("originRelationshipType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("originRelationshipType", resource.OriginRelationshipType, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("matchStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("matchStatus", resource.MatchStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_PreparedDate(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_PreparedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("preparedDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("preparedDate", resource.PreparedDate, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_WhenHandedOver(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_WhenHandedOver(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("whenHandedOver", nil, htmlAttrs)
 	}
 	return DateTimeInput("whenHandedOver", resource.WhenHandedOver, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_UsageInstruction(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_UsageInstruction(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("usageInstruction", nil, htmlAttrs)
 	}
 	return StringInput("usageInstruction", resource.UsageInstruction, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
 		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}

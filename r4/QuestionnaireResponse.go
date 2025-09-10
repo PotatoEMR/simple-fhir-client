@@ -89,13 +89,13 @@ func (r QuestionnaireResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *QuestionnaireResponse) T_Questionnaire(htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_Questionnaire(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("questionnaire", nil, htmlAttrs)
 	}
 	return StringInput("questionnaire", resource.Questionnaire, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Status(htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSQuestionnaire_answers_status
 
 	if resource == nil {
@@ -103,79 +103,79 @@ func (resource *QuestionnaireResponse) T_Status(htmlAttrs string) templ.Componen
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Authored(htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_Authored(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("authored", nil, htmlAttrs)
 	}
 	return DateTimeInput("authored", resource.Authored, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemLinkId(numItem int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemLinkId(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].linkId", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].linkId", &resource.Item[numItem].LinkId, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemDefinition(numItem int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemDefinition(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].definition", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].definition", resource.Item[numItem].Definition, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemText(numItem int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemText(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].text", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].text", resource.Item[numItem].Text, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueBoolean(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueBoolean(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return BoolInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueBoolean", resource.Item[numItem].Answer[numAnswer].ValueBoolean, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueDecimal(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueDecimal(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return Float64Input("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDecimal", nil, htmlAttrs)
 	}
 	return Float64Input("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDecimal", resource.Item[numItem].Answer[numAnswer].ValueDecimal, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueInteger(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueInteger(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return IntInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueInteger", nil, htmlAttrs)
 	}
 	return IntInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueInteger", resource.Item[numItem].Answer[numAnswer].ValueInteger, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueDate(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueDate(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return DateInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDate", nil, htmlAttrs)
 	}
 	return DateInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDate", resource.Item[numItem].Answer[numAnswer].ValueDate, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueDateTime(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueDateTime(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return DateTimeInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueDateTime", resource.Item[numItem].Answer[numAnswer].ValueDateTime, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueTime(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueTime(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueTime", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueTime", resource.Item[numItem].Answer[numAnswer].ValueTime, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueString(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueString(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueString", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueString", resource.Item[numItem].Answer[numAnswer].ValueString, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueUri(numItem int, numAnswer int, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueUri(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueUri", nil, htmlAttrs)
 	}
 	return StringInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueUri", resource.Item[numItem].Answer[numAnswer].ValueUri, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueCoding(numItem int, numAnswer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueCoding(numItem int, numAnswer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
 		return CodingSelect("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueCoding", nil, optionsValueSet, htmlAttrs)
 	}

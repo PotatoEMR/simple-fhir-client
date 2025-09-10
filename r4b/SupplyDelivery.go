@@ -72,7 +72,7 @@ func (r SupplyDelivery) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *SupplyDelivery) T_Status(htmlAttrs string) templ.Component {
+func (resource *SupplyDelivery) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSupplydelivery_status
 
 	if resource == nil {
@@ -80,19 +80,19 @@ func (resource *SupplyDelivery) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *SupplyDelivery) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
+func (resource *SupplyDelivery) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("suppliedItem.itemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

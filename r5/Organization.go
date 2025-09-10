@@ -71,37 +71,37 @@ func (r Organization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Organization) T_Active(htmlAttrs string) templ.Component {
+func (resource *Organization) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Organization) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Organization) T_Type(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
 		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Organization) T_Name(htmlAttrs string) templ.Component {
+func (resource *Organization) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Organization) T_Alias(numAlias int, htmlAttrs string) templ.Component {
+func (resource *Organization) T_Alias(numAlias int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAlias >= len(resource.Alias) {
 		return StringInput("alias["+strconv.Itoa(numAlias)+"]", nil, htmlAttrs)
 	}
 	return StringInput("alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
-func (resource *Organization) T_Description(htmlAttrs string) templ.Component {
+func (resource *Organization) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Organization) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Organization) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
 		return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", nil, optionsValueSet, htmlAttrs)
 	}

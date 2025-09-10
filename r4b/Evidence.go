@@ -165,31 +165,31 @@ func (r Evidence) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Evidence) T_Url(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *Evidence) T_Version(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *Evidence) T_Title(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *Evidence) T_CiteAsMarkdown(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CiteAsMarkdown(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("citeAsMarkdown", nil, htmlAttrs)
 	}
 	return StringInput("citeAsMarkdown", resource.CiteAsMarkdown, htmlAttrs)
 }
-func (resource *Evidence) T_Status(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -197,181 +197,181 @@ func (resource *Evidence) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_Date(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *Evidence) T_ApprovalDate(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("approvalDate", nil, htmlAttrs)
 	}
 	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *Evidence) T_LastReviewDate(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
 	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *Evidence) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *Evidence) T_Description(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Evidence) T_Assertion(htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Assertion(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("assertion", nil, htmlAttrs)
 	}
 	return StringInput("assertion", resource.Assertion, htmlAttrs)
 }
-func (resource *Evidence) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_SynthesisType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_SynthesisType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("synthesisType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("synthesisType", resource.SynthesisType, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StudyType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StudyType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("studyType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_VariableDefinitionDescription(numVariableDefinition int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_VariableDefinitionDescription(numVariableDefinition int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariableDefinition >= len(resource.VariableDefinition) {
 		return StringInput("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].description", resource.VariableDefinition[numVariableDefinition].Description, htmlAttrs)
 }
-func (resource *Evidence) T_VariableDefinitionNote(numVariableDefinition int, numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_VariableDefinitionNote(numVariableDefinition int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariableDefinition >= len(resource.VariableDefinition) || numNote >= len(resource.VariableDefinition[numVariableDefinition].Note) {
 		return AnnotationTextArea("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].note["+strconv.Itoa(numNote)+"]", &resource.VariableDefinition[numVariableDefinition].Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_VariableDefinitionVariableRole(numVariableDefinition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_VariableDefinitionVariableRole(numVariableDefinition int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariableDefinition >= len(resource.VariableDefinition) {
 		return CodeableConceptSelect("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].variableRole", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].variableRole", &resource.VariableDefinition[numVariableDefinition].VariableRole, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_VariableDefinitionDirectnessMatch(numVariableDefinition int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_VariableDefinitionDirectnessMatch(numVariableDefinition int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariableDefinition >= len(resource.VariableDefinition) {
 		return CodeableConceptSelect("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].directnessMatch", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("variableDefinition["+strconv.Itoa(numVariableDefinition)+"].directnessMatch", resource.VariableDefinition[numVariableDefinition].DirectnessMatch, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticDescription(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticDescription(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return StringInput("statistic["+strconv.Itoa(numStatistic)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("statistic["+strconv.Itoa(numStatistic)+"].description", resource.Statistic[numStatistic].Description, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticNote(numStatistic int, numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticNote(numStatistic int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numNote >= len(resource.Statistic[numStatistic].Note) {
 		return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].note["+strconv.Itoa(numNote)+"]", &resource.Statistic[numStatistic].Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_StatisticStatisticType(numStatistic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticStatisticType(numStatistic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].statisticType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].statisticType", resource.Statistic[numStatistic].StatisticType, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticCategory(numStatistic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticCategory(numStatistic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].category", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].category", resource.Statistic[numStatistic].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticNumberOfEvents(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticNumberOfEvents(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return IntInput("statistic["+strconv.Itoa(numStatistic)+"].numberOfEvents", nil, htmlAttrs)
 	}
 	return IntInput("statistic["+strconv.Itoa(numStatistic)+"].numberOfEvents", resource.Statistic[numStatistic].NumberOfEvents, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticNumberAffected(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticNumberAffected(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return IntInput("statistic["+strconv.Itoa(numStatistic)+"].numberAffected", nil, htmlAttrs)
 	}
 	return IntInput("statistic["+strconv.Itoa(numStatistic)+"].numberAffected", resource.Statistic[numStatistic].NumberAffected, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticSampleSizeDescription(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticSampleSizeDescription(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return StringInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.description", nil, htmlAttrs)
 	}
 	return StringInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.description", resource.Statistic[numStatistic].SampleSize.Description, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticSampleSizeNote(numStatistic int, numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticSampleSizeNote(numStatistic int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numNote >= len(resource.Statistic[numStatistic].SampleSize.Note) {
 		return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.note["+strconv.Itoa(numNote)+"]", &resource.Statistic[numStatistic].SampleSize.Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_StatisticSampleSizeNumberOfStudies(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticSampleSizeNumberOfStudies(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.numberOfStudies", nil, htmlAttrs)
 	}
 	return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.numberOfStudies", resource.Statistic[numStatistic].SampleSize.NumberOfStudies, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticSampleSizeNumberOfParticipants(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticSampleSizeNumberOfParticipants(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.numberOfParticipants", nil, htmlAttrs)
 	}
 	return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.numberOfParticipants", resource.Statistic[numStatistic].SampleSize.NumberOfParticipants, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticSampleSizeKnownDataCount(numStatistic int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticSampleSizeKnownDataCount(numStatistic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) {
 		return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.knownDataCount", nil, htmlAttrs)
 	}
 	return IntInput("statistic["+strconv.Itoa(numStatistic)+"].sampleSize.knownDataCount", resource.Statistic[numStatistic].SampleSize.KnownDataCount, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticAttributeEstimateDescription(numStatistic int, numAttributeEstimate int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticAttributeEstimateDescription(numStatistic int, numAttributeEstimate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numAttributeEstimate >= len(resource.Statistic[numStatistic].AttributeEstimate) {
 		return StringInput("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].description", resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Description, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticAttributeEstimateNote(numStatistic int, numAttributeEstimate int, numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticAttributeEstimateNote(numStatistic int, numAttributeEstimate int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numAttributeEstimate >= len(resource.Statistic[numStatistic].AttributeEstimate) || numNote >= len(resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Note) {
 		return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].note["+strconv.Itoa(numNote)+"]", &resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_StatisticAttributeEstimateType(numStatistic int, numAttributeEstimate int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticAttributeEstimateType(numStatistic int, numAttributeEstimate int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numAttributeEstimate >= len(resource.Statistic[numStatistic].AttributeEstimate) {
 		return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].type", resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticAttributeEstimateLevel(numStatistic int, numAttributeEstimate int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticAttributeEstimateLevel(numStatistic int, numAttributeEstimate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numAttributeEstimate >= len(resource.Statistic[numStatistic].AttributeEstimate) {
 		return Float64Input("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].level", nil, htmlAttrs)
 	}
 	return Float64Input("statistic["+strconv.Itoa(numStatistic)+"].attributeEstimate["+strconv.Itoa(numAttributeEstimate)+"].level", resource.Statistic[numStatistic].AttributeEstimate[numAttributeEstimate].Level, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticModelCharacteristicCode(numStatistic int, numModelCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticModelCharacteristicCode(numStatistic int, numModelCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numModelCharacteristic >= len(resource.Statistic[numStatistic].ModelCharacteristic) {
 		return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].modelCharacteristic["+strconv.Itoa(numModelCharacteristic)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].modelCharacteristic["+strconv.Itoa(numModelCharacteristic)+"].code", &resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticModelCharacteristicVariableHandling(numStatistic int, numModelCharacteristic int, numVariable int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticModelCharacteristicVariableHandling(numStatistic int, numModelCharacteristic int, numVariable int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSVariable_handling
 
 	if resource == nil || numStatistic >= len(resource.Statistic) || numModelCharacteristic >= len(resource.Statistic[numStatistic].ModelCharacteristic) || numVariable >= len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable) {
@@ -379,37 +379,37 @@ func (resource *Evidence) T_StatisticModelCharacteristicVariableHandling(numStat
 	}
 	return CodeSelect("statistic["+strconv.Itoa(numStatistic)+"].modelCharacteristic["+strconv.Itoa(numModelCharacteristic)+"].variable["+strconv.Itoa(numVariable)+"].handling", resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].Handling, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_StatisticModelCharacteristicVariableValueCategory(numStatistic int, numModelCharacteristic int, numVariable int, numValueCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_StatisticModelCharacteristicVariableValueCategory(numStatistic int, numModelCharacteristic int, numVariable int, numValueCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatistic >= len(resource.Statistic) || numModelCharacteristic >= len(resource.Statistic[numStatistic].ModelCharacteristic) || numVariable >= len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable) || numValueCategory >= len(resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].ValueCategory) {
 		return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].modelCharacteristic["+strconv.Itoa(numModelCharacteristic)+"].variable["+strconv.Itoa(numVariable)+"].valueCategory["+strconv.Itoa(numValueCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statistic["+strconv.Itoa(numStatistic)+"].modelCharacteristic["+strconv.Itoa(numModelCharacteristic)+"].variable["+strconv.Itoa(numVariable)+"].valueCategory["+strconv.Itoa(numValueCategory)+"]", &resource.Statistic[numStatistic].ModelCharacteristic[numModelCharacteristic].Variable[numVariable].ValueCategory[numValueCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_CertaintyDescription(numCertainty int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CertaintyDescription(numCertainty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) {
 		return StringInput("certainty["+strconv.Itoa(numCertainty)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("certainty["+strconv.Itoa(numCertainty)+"].description", resource.Certainty[numCertainty].Description, htmlAttrs)
 }
-func (resource *Evidence) T_CertaintyNote(numCertainty int, numNote int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CertaintyNote(numCertainty int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) || numNote >= len(resource.Certainty[numCertainty].Note) {
 		return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("certainty["+strconv.Itoa(numCertainty)+"].note["+strconv.Itoa(numNote)+"]", &resource.Certainty[numCertainty].Note[numNote], htmlAttrs)
 }
-func (resource *Evidence) T_CertaintyType(numCertainty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CertaintyType(numCertainty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) {
 		return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].type", resource.Certainty[numCertainty].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_CertaintyRating(numCertainty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CertaintyRating(numCertainty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) {
 		return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].rating", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("certainty["+strconv.Itoa(numCertainty)+"].rating", resource.Certainty[numCertainty].Rating, optionsValueSet, htmlAttrs)
 }
-func (resource *Evidence) T_CertaintyRater(numCertainty int, htmlAttrs string) templ.Component {
+func (resource *Evidence) T_CertaintyRater(numCertainty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCertainty >= len(resource.Certainty) {
 		return StringInput("certainty["+strconv.Itoa(numCertainty)+"].rater", nil, htmlAttrs)
 	}

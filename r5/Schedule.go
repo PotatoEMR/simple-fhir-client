@@ -59,31 +59,31 @@ func (r Schedule) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Schedule) T_Active(htmlAttrs string) templ.Component {
+func (resource *Schedule) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Schedule) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Schedule) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numServiceCategory >= len(resource.ServiceCategory) {
 		return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *Schedule) T_Name(htmlAttrs string) templ.Component {
+func (resource *Schedule) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Schedule) T_Comment(htmlAttrs string) templ.Component {
+func (resource *Schedule) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("comment", nil, htmlAttrs)
 	}

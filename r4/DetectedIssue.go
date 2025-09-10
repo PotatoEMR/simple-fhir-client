@@ -82,7 +82,7 @@ func (r DetectedIssue) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DetectedIssue) T_Status(htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_status
 
 	if resource == nil {
@@ -90,13 +90,13 @@ func (resource *DetectedIssue) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Severity(htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_Severity(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDetectedissue_severity
 
 	if resource == nil {
@@ -104,37 +104,37 @@ func (resource *DetectedIssue) T_Severity(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_IdentifiedDateTime(htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_IdentifiedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("identifiedDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("identifiedDateTime", resource.IdentifiedDateTime, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Detail(htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_Detail(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("detail", nil, htmlAttrs)
 	}
 	return StringInput("detail", resource.Detail, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Reference(htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_Reference(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("reference", nil, htmlAttrs)
 	}
 	return StringInput("reference", resource.Reference, htmlAttrs)
 }
-func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numCode >= len(resource.Evidence[numEvidence].Code) {
 		return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
 		return CodeableConceptSelect("mitigation["+strconv.Itoa(numMitigation)+"].action", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("mitigation["+strconv.Itoa(numMitigation)+"].action", &resource.Mitigation[numMitigation].Action, optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_MitigationDate(numMitigation int, htmlAttrs string) templ.Component {
+func (resource *DetectedIssue) T_MitigationDate(numMitigation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
 		return DateTimeInput("mitigation["+strconv.Itoa(numMitigation)+"].date", nil, htmlAttrs)
 	}

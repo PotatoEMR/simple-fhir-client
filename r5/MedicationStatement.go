@@ -78,7 +78,7 @@ func (r MedicationStatement) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicationStatement) T_Status(htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMedication_statement_status
 
 	if resource == nil {
@@ -86,43 +86,43 @@ func (resource *MedicationStatement) T_Status(htmlAttrs string) templ.Component 
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicationStatement) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicationStatement) T_EffectiveDateTime(htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("effectiveDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("effectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
 }
-func (resource *MedicationStatement) T_DateAsserted(htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_DateAsserted(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("dateAsserted", nil, htmlAttrs)
 	}
 	return DateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
 }
-func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *MedicationStatement) T_RenderedDosageInstruction(htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_RenderedDosageInstruction(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("renderedDosageInstruction", nil, htmlAttrs)
 	}
 	return StringInput("renderedDosageInstruction", resource.RenderedDosageInstruction, htmlAttrs)
 }
-func (resource *MedicationStatement) T_AdherenceCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_AdherenceCode(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("adherence.code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("adherence.code", &resource.Adherence.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicationStatement) T_AdherenceReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicationStatement) T_AdherenceReason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("adherence.reason", nil, optionsValueSet, htmlAttrs)
 	}

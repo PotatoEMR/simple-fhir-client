@@ -78,7 +78,7 @@ func (r DeviceUsage) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DeviceUsage) T_Status(htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
@@ -86,25 +86,25 @@ func (resource *DeviceUsage) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_TimingDateTime(htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_TimingDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("timingDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("timingDateTime", resource.TimingDateTime, htmlAttrs)
 }
-func (resource *DeviceUsage) T_DateAsserted(htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_DateAsserted(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("dateAsserted", nil, htmlAttrs)
 	}
 	return DateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
 }
-func (resource *DeviceUsage) T_UsageStatus(htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_UsageStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDeviceusage_status
 
 	if resource == nil {
@@ -112,25 +112,25 @@ func (resource *DeviceUsage) T_UsageStatus(htmlAttrs string) templ.Component {
 	}
 	return CodeableConceptSelect("usageStatus", resource.UsageStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_UsageReason(numUsageReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_UsageReason(numUsageReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numUsageReason >= len(resource.UsageReason) {
 		return CodeableConceptSelect("usageReason["+strconv.Itoa(numUsageReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("usageReason["+strconv.Itoa(numUsageReason)+"]", &resource.UsageReason[numUsageReason], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *DeviceUsage) T_AdherenceCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_AdherenceCode(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("adherence.code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("adherence.code", &resource.Adherence.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_AdherenceReason(numReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceUsage) T_AdherenceReason(numReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Adherence.Reason) {
 		return CodeableConceptSelect("adherence.reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}

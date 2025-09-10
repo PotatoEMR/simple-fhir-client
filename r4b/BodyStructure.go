@@ -58,31 +58,31 @@ func (r BodyStructure) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *BodyStructure) T_Active(htmlAttrs string) templ.Component {
+func (resource *BodyStructure) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BodyStructure) T_Morphology(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("morphology", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("morphology", resource.Morphology, optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_Location(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BodyStructure) T_Location(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("location", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("location", resource.Location, optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_LocationQualifier(numLocationQualifier int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BodyStructure) T_LocationQualifier(numLocationQualifier int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocationQualifier >= len(resource.LocationQualifier) {
 		return CodeableConceptSelect("locationQualifier["+strconv.Itoa(numLocationQualifier)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("locationQualifier["+strconv.Itoa(numLocationQualifier)+"]", &resource.LocationQualifier[numLocationQualifier], optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_Description(htmlAttrs string) templ.Component {
+func (resource *BodyStructure) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}

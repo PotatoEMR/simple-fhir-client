@@ -64,31 +64,31 @@ func (r PractitionerRole) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *PractitionerRole) T_Active(htmlAttrs string) templ.Component {
+func (resource *PractitionerRole) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *PractitionerRole) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *PractitionerRole) T_Communication(numCommunication int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
 		return CodeableConceptSelect("communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
 	}

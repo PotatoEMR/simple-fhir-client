@@ -17,13 +17,13 @@ type Binary struct {
 	Data            *string    `json:"data,omitempty"`
 }
 
-func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("contentType", &resource.ContentType, optionsValueSet, htmlAttrs)
 }
-func (resource *Binary) T_Data(htmlAttrs string) templ.Component {
+func (resource *Binary) T_Data(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("data", nil, htmlAttrs)
 	}

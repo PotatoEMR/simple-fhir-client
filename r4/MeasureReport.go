@@ -121,7 +121,7 @@ func (r MeasureReport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MeasureReport) T_Status(htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMeasure_report_status
 
 	if resource == nil {
@@ -129,7 +129,7 @@ func (resource *MeasureReport) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_Type(htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMeasure_report_type
 
 	if resource == nil {
@@ -137,19 +137,19 @@ func (resource *MeasureReport) T_Type(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_Measure(htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_Measure(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("measure", nil, htmlAttrs)
 	}
 	return StringInput("measure", &resource.Measure, htmlAttrs)
 }
-func (resource *MeasureReport) T_Date(htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *MeasureReport) T_ImprovementNotation(htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_ImprovementNotation(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMeasure_improvement_notation
 
 	if resource == nil {
@@ -157,55 +157,55 @@ func (resource *MeasureReport) T_ImprovementNotation(htmlAttrs string) templ.Com
 	}
 	return CodeableConceptSelect("improvementNotation", resource.ImprovementNotation, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupCode(numGroup int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupCode(numGroup int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].code", resource.Group[numGroup].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupPopulationCode(numGroup int, numPopulation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupPopulationCode(numGroup int, numPopulation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].code", resource.Group[numGroup].Population[numPopulation].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupPopulationCount(numGroup int, numPopulation int, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupPopulationCount(numGroup int, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
 		return IntInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].count", nil, htmlAttrs)
 	}
 	return IntInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].count", resource.Group[numGroup].Population[numPopulation].Count, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierCode(numGroup int, numStratifier int, numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierCode(numGroup int, numStratifier int, numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numCode >= len(resource.Group[numGroup].Stratifier[numStratifier].Code) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].code["+strconv.Itoa(numCode)+"]", &resource.Group[numGroup].Stratifier[numStratifier].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierStratumValue(numGroup int, numStratifier int, numStratum int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierStratumValue(numGroup int, numStratifier int, numStratum int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numStratum >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].value", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].value", resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Value, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierStratumComponentCode(numGroup int, numStratifier int, numStratum int, numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierStratumComponentCode(numGroup int, numStratifier int, numStratum int, numComponent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numStratum >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].component["+strconv.Itoa(numComponent)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].component["+strconv.Itoa(numComponent)+"].code", &resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component[numComponent].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierStratumComponentValue(numGroup int, numStratifier int, numStratum int, numComponent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierStratumComponentValue(numGroup int, numStratifier int, numStratum int, numComponent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numStratum >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].component["+strconv.Itoa(numComponent)+"].value", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].component["+strconv.Itoa(numComponent)+"].value", &resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Component[numComponent].Value, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierStratumPopulationCode(numGroup int, numStratifier int, numStratum int, numPopulation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierStratumPopulationCode(numGroup int, numStratifier int, numStratum int, numPopulation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numStratum >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum) || numPopulation >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Population) {
 		return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].population["+strconv.Itoa(numPopulation)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].population["+strconv.Itoa(numPopulation)+"].code", resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Population[numPopulation].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MeasureReport) T_GroupStratifierStratumPopulationCount(numGroup int, numStratifier int, numStratum int, numPopulation int, htmlAttrs string) templ.Component {
+func (resource *MeasureReport) T_GroupStratifierStratumPopulationCount(numGroup int, numStratifier int, numStratum int, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numStratum >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum) || numPopulation >= len(resource.Group[numGroup].Stratifier[numStratifier].Stratum[numStratum].Population) {
 		return IntInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].stratum["+strconv.Itoa(numStratum)+"].population["+strconv.Itoa(numPopulation)+"].count", nil, htmlAttrs)
 	}

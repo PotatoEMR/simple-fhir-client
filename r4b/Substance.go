@@ -77,7 +77,7 @@ func (r Substance) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Substance) T_Status(htmlAttrs string) templ.Component {
+func (resource *Substance) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSubstance_status
 
 	if resource == nil {
@@ -85,31 +85,31 @@ func (resource *Substance) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Substance) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Substance) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_Description(htmlAttrs string) templ.Component {
+func (resource *Substance) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Substance) T_InstanceExpiry(numInstance int, htmlAttrs string) templ.Component {
+func (resource *Substance) T_InstanceExpiry(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
 		return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", nil, htmlAttrs)
 	}
 	return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
 }
-func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
 		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].substanceCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

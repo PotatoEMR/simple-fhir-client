@@ -79,49 +79,49 @@ func (r Provenance) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Provenance) T_OccurredDateTime(htmlAttrs string) templ.Component {
+func (resource *Provenance) T_OccurredDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("occurredDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("occurredDateTime", resource.OccurredDateTime, htmlAttrs)
 }
-func (resource *Provenance) T_Recorded(htmlAttrs string) templ.Component {
+func (resource *Provenance) T_Recorded(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("recorded", nil, htmlAttrs)
 	}
 	return StringInput("recorded", &resource.Recorded, htmlAttrs)
 }
-func (resource *Provenance) T_Policy(numPolicy int, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_Policy(numPolicy int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPolicy >= len(resource.Policy) {
 		return StringInput("policy["+strconv.Itoa(numPolicy)+"]", nil, htmlAttrs)
 	}
 	return StringInput("policy["+strconv.Itoa(numPolicy)+"]", &resource.Policy[numPolicy], htmlAttrs)
 }
-func (resource *Provenance) T_Reason(numReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_Reason(numReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
 		return CodeableConceptSelect("reason["+strconv.Itoa(numReason)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_Activity(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_Activity(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("activity", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("activity", resource.Activity, optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_AgentType(numAgent int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_AgentType(numAgent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
 		return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].type", resource.Agent[numAgent].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_AgentRole(numAgent int, numRole int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_AgentRole(numAgent int, numRole int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) || numRole >= len(resource.Agent[numAgent].Role) {
 		return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].role["+strconv.Itoa(numRole)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_EntityRole(numEntity int, htmlAttrs string) templ.Component {
+func (resource *Provenance) T_EntityRole(numEntity int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProvenance_entity_role
 
 	if resource == nil || numEntity >= len(resource.Entity) {

@@ -72,7 +72,7 @@ func (r EncounterHistory) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EncounterHistory) T_Status(htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
@@ -80,37 +80,37 @@ func (resource *EncounterHistory) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_Class(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_Class(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("class", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("class", &resource.Class, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_Type(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
 		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("subjectStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *EncounterHistory) T_PlannedStartDate(htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_PlannedStartDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("plannedStartDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("plannedStartDate", resource.PlannedStartDate, htmlAttrs)
 }
-func (resource *EncounterHistory) T_PlannedEndDate(htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_PlannedEndDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("plannedEndDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("plannedEndDate", resource.PlannedEndDate, htmlAttrs)
 }
-func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
 		return CodeableConceptSelect("location["+strconv.Itoa(numLocation)+"].form", nil, optionsValueSet, htmlAttrs)
 	}

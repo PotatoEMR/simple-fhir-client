@@ -3,8 +3,8 @@ package r4b
 import "fmt"
 
 //html Select for code, from valueset list
-templ CodeSelect(fieldname string, current *string, valueset []Coding, htmlAttrs string) {
-		<select name={ fieldname }>
+templ CodeSelect(fieldname string, current *string, valueset []Coding, attrs templ.Attributes) {
+		<select name={ fieldname } {attrs...}>
 			<option value="">--</option>
 			for _, c := range valueset {
 				if c.Code != nil {
@@ -25,7 +25,7 @@ templ CodeSelect(fieldname string, current *string, valueset []Coding, htmlAttrs
 		</select>
 }
 
-templ CodingSelect(fieldname string, current *Coding, valueset []Coding, htmlAttrs string) {
+templ CodingSelect(fieldname string, current *Coding, valueset []Coding, attrs templ.Attributes) {
 <script>
 function setCodingFromOptions(selectElement) {
   const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -53,7 +53,7 @@ function setCodingFromOptions(selectElement) {
   </script>
 		<select
 			name={ fieldname + ".display" }
-			onblur="setCodingFromOptions(this)"
+			onblur="setCodingFromOptions(this)" {attrs...}
 		>
 			<option value="">--</option>
 			for _, c := range valueset {
@@ -92,7 +92,7 @@ function setCodingFromOptions(selectElement) {
 		}
 }
 
-templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding, htmlAttrs string) {
+templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding, attrs templ.Attributes) {
 <script>
 function setCodingFromOptions(selectElement) {
   const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -120,7 +120,7 @@ function setCodingFromOptions(selectElement) {
   </script>
 	{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
 	<select
-		onblur="setCodingFromOptions(this)"
+		onblur="setCodingFromOptions(this)" {attrs...}
 	>
 		<option>--</option>
 		for _, c := range valueset {
@@ -143,84 +143,85 @@ function setCodingFromOptions(selectElement) {
 		}
 	</select>
 	if hasOneCoding && current.Coding[0].Code != nil {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code }/>
+		<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code } {attrs...}/>
 	} else {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value=""/>
+		<input name={ fieldname + ".coding[0].code" } type="hidden" value="" {attrs...}/>
 	}
 	if hasOneCoding && current.Coding[0].System != nil {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System }/>
+		<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System } {attrs...}/>
 	} else {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value=""/>
+		<input name={ fieldname + ".coding[0].system" } type="hidden" value="" {attrs...}/>
 	}
 	if hasOneCoding && current.Coding[0].Display != nil {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display }/>
+		<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display } {attrs...}/>
 	} else {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value=""/>
+		<input name={ fieldname + ".coding[0].display" } type="hidden" value="" {attrs...}/>
 	}
 }
 
-templ AnnotationTextArea(fieldname string, current *Annotation, htmlAttrs string) {
+templ AnnotationTextArea(fieldname string, current *Annotation, attrs templ.Attributes) {
 	if current == nil {
-		<textarea name={ fieldname + ".Text" } value=""></textarea>
+		<textarea name={ fieldname + ".Text" } value="" {attrs...}></textarea>
 	} else {
-		<textarea name={ fieldname + ".Text" } value={ current.Text }></textarea>
+		<textarea name={ fieldname + ".Text" } value={ current.Text } {attrs...}></textarea>
 	}
 }
 
-templ StringInput(fieldname string, current *string, htmlAttrs string) {
+templ StringInput(fieldname string, current *string, attrs templ.Attributes) {
 	if current == nil {
-		<input name={fieldname} value=""/>
+		<input name={fieldname} value="" {attrs...}/>
 	} else {
-		<input name={fieldname} value={*current}/>
+		<input name={fieldname} value={*current} {attrs...}/>
 	}
 }
 
-templ BoolInput(fieldname string, current *bool, htmlAttrs string) {
-	<select name={fieldname}>
+templ BoolInput(fieldname string, current *bool, attrs templ.Attributes) {
+	<select name={fieldname} {attrs...}>
 		<option value="" selected={current == nil}>--</option>
 		<option value="true" selected={current != nil && *current}>Yes</option>
 		<option value="false" selected={current != nil && !*current}>No</option>
 	</select>
 }
 
-templ Float64Input(fieldname string, current *float64, htmlAttrs string) {
+templ Float64Input(fieldname string, current *float64, attrs templ.Attributes) {
 	if current == nil {
-		<input type="number" step="any" name={fieldname} value=""/>
+		<input type="number" step="any" name={fieldname} value="" {attrs...}/>
 	} else {
-		<input type="number" step="any" name={fieldname} value={fmt.Sprintf("%f", *current)}/>
+		<input type="number" step="any" name={fieldname} value={fmt.Sprintf("%f", *current)} {attrs...}/>
 	}
 }
 
-templ IntInput(fieldname string, current *int, htmlAttrs string) {
+templ IntInput(fieldname string, current *int, attrs templ.Attributes) {
 	if current == nil {
-		<input type="number" name={fieldname} value=""/>
+		<input type="number" name={fieldname} value="" {attrs...}/>
 	} else {
-		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)}/>
+		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)} {attrs...}/>
 	}
 }
 
-templ Int64Input(fieldname string, current *int64, htmlAttrs string) {
+templ Int64Input(fieldname string, current *int64, attrs templ.Attributes) {
 	if current == nil {
-		<input type="number" name={fieldname} value=""/>
+		<input type="number" name={fieldname} value="" {attrs...}/>
 	} else {
-		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)}/>
+		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)} {attrs...}/>
 	}
 }
 
-templ DateInput(fieldname string, current *string, htmlAttrs string) {
+templ DateInput(fieldname string, current *string, attrs templ.Attributes) {
 	if current == nil {
-		<input type="date" name={fieldname} value=""/>
+		<input type="date" name={fieldname} value="" {attrs...}/>
 	} else {
-		<input type="date" name={fieldname} value={*current}/>
+		<input type="date" name={fieldname} value={*current} {attrs...}/>
 	}
 }
 
-templ DateTimeInput(fieldname string, current *string, htmlAttrs string) {
+templ DateTimeInput(fieldname string, current *string, attrs templ.Attributes) {
 	if current == nil {
-		<input type="datetime-local" name={fieldname} value=""/>
+		<input type="datetime-local" name={fieldname} value="" {attrs...}/>
 	} else {
-		<input type="datetime-local" name={fieldname} value={*current}/>
+		<input type="datetime-local" name={fieldname} value={*current} {attrs...}/>
 	}
 }
+
 
 

@@ -60,13 +60,13 @@ func (r Linkage) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Linkage) T_Active(htmlAttrs string) templ.Component {
+func (resource *Linkage) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Linkage) T_ItemType(numItem int, htmlAttrs string) templ.Component {
+func (resource *Linkage) T_ItemType(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSLinkage_type
 
 	if resource == nil || numItem >= len(resource.Item) {

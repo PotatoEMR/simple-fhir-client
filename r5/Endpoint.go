@@ -71,7 +71,7 @@ func (r Endpoint) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Endpoint) T_Status(htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEndpoint_status
 
 	if resource == nil {
@@ -79,49 +79,49 @@ func (resource *Endpoint) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Endpoint) T_ConnectionType(numConnectionType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_ConnectionType(numConnectionType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConnectionType >= len(resource.ConnectionType) {
 		return CodeableConceptSelect("connectionType["+strconv.Itoa(numConnectionType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("connectionType["+strconv.Itoa(numConnectionType)+"]", &resource.ConnectionType[numConnectionType], optionsValueSet, htmlAttrs)
 }
-func (resource *Endpoint) T_Name(htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Endpoint) T_Description(htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Endpoint) T_EnvironmentType(numEnvironmentType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_EnvironmentType(numEnvironmentType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEnvironmentType >= len(resource.EnvironmentType) {
 		return CodeableConceptSelect("environmentType["+strconv.Itoa(numEnvironmentType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("environmentType["+strconv.Itoa(numEnvironmentType)+"]", &resource.EnvironmentType[numEnvironmentType], optionsValueSet, htmlAttrs)
 }
-func (resource *Endpoint) T_Address(htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_Address(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("address", nil, htmlAttrs)
 	}
 	return StringInput("address", &resource.Address, htmlAttrs)
 }
-func (resource *Endpoint) T_Header(numHeader int, htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_Header(numHeader int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHeader >= len(resource.Header) {
 		return StringInput("header["+strconv.Itoa(numHeader)+"]", nil, htmlAttrs)
 	}
 	return StringInput("header["+strconv.Itoa(numHeader)+"]", &resource.Header[numHeader], htmlAttrs)
 }
-func (resource *Endpoint) T_PayloadType(numPayload int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_PayloadType(numPayload int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) || numType >= len(resource.Payload[numPayload].Type) {
 		return CodeableConceptSelect("payload["+strconv.Itoa(numPayload)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("payload["+strconv.Itoa(numPayload)+"].type["+strconv.Itoa(numType)+"]", &resource.Payload[numPayload].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Endpoint) T_PayloadMimeType(numPayload int, numMimeType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Endpoint) T_PayloadMimeType(numPayload int, numMimeType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) || numMimeType >= len(resource.Payload[numPayload].MimeType) {
 		return CodeSelect("payload["+strconv.Itoa(numPayload)+"].mimeType["+strconv.Itoa(numMimeType)+"]", nil, optionsValueSet, htmlAttrs)
 	}

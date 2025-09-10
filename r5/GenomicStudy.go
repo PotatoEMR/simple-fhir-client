@@ -128,7 +128,7 @@ func (r GenomicStudy) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *GenomicStudy) T_Status(htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSGenomicstudy_status
 
 	if resource == nil {
@@ -136,109 +136,109 @@ func (resource *GenomicStudy) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_Type(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
 		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_StartDate(htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_StartDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("startDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("startDate", resource.StartDate, htmlAttrs)
 }
-func (resource *GenomicStudy) T_InstantiatesCanonical(htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_InstantiatesCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesCanonical", nil, htmlAttrs)
 	}
 	return StringInput("instantiatesCanonical", resource.InstantiatesCanonical, htmlAttrs)
 }
-func (resource *GenomicStudy) T_InstantiatesUri(htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_InstantiatesUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesUri", nil, htmlAttrs)
 	}
 	return StringInput("instantiatesUri", resource.InstantiatesUri, htmlAttrs)
 }
-func (resource *GenomicStudy) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *GenomicStudy) T_Description(htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisMethodType(numAnalysis int, numMethodType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisMethodType(numAnalysis int, numMethodType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numMethodType >= len(resource.Analysis[numAnalysis].MethodType) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].methodType["+strconv.Itoa(numMethodType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].methodType["+strconv.Itoa(numMethodType)+"]", &resource.Analysis[numAnalysis].MethodType[numMethodType], optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisChangeType(numAnalysis int, numChangeType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisChangeType(numAnalysis int, numChangeType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numChangeType >= len(resource.Analysis[numAnalysis].ChangeType) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].changeType["+strconv.Itoa(numChangeType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].changeType["+strconv.Itoa(numChangeType)+"]", &resource.Analysis[numAnalysis].ChangeType[numChangeType], optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisGenomeBuild(numAnalysis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisGenomeBuild(numAnalysis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].genomeBuild", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].genomeBuild", resource.Analysis[numAnalysis].GenomeBuild, optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisInstantiatesCanonical(numAnalysis int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisInstantiatesCanonical(numAnalysis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) {
 		return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].instantiatesCanonical", nil, htmlAttrs)
 	}
 	return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].instantiatesCanonical", resource.Analysis[numAnalysis].InstantiatesCanonical, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisInstantiatesUri(numAnalysis int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisInstantiatesUri(numAnalysis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) {
 		return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].instantiatesUri", nil, htmlAttrs)
 	}
 	return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].instantiatesUri", resource.Analysis[numAnalysis].InstantiatesUri, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisTitle(numAnalysis int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisTitle(numAnalysis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) {
 		return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].title", nil, htmlAttrs)
 	}
 	return StringInput("analysis["+strconv.Itoa(numAnalysis)+"].title", resource.Analysis[numAnalysis].Title, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisDate(numAnalysis int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisDate(numAnalysis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) {
 		return DateTimeInput("analysis["+strconv.Itoa(numAnalysis)+"].date", nil, htmlAttrs)
 	}
 	return DateTimeInput("analysis["+strconv.Itoa(numAnalysis)+"].date", resource.Analysis[numAnalysis].Date, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisNote(numAnalysis int, numNote int, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisNote(numAnalysis int, numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numNote >= len(resource.Analysis[numAnalysis].Note) {
 		return AnnotationTextArea("analysis["+strconv.Itoa(numAnalysis)+"].note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("analysis["+strconv.Itoa(numAnalysis)+"].note["+strconv.Itoa(numNote)+"]", &resource.Analysis[numAnalysis].Note[numNote], htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisInputType(numAnalysis int, numInput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisInputType(numAnalysis int, numInput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numInput >= len(resource.Analysis[numAnalysis].Input) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].input["+strconv.Itoa(numInput)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].input["+strconv.Itoa(numInput)+"].type", resource.Analysis[numAnalysis].Input[numInput].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisOutputType(numAnalysis int, numOutput int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisOutputType(numAnalysis int, numOutput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numOutput >= len(resource.Analysis[numAnalysis].Output) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].output["+strconv.Itoa(numOutput)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].output["+strconv.Itoa(numOutput)+"].type", resource.Analysis[numAnalysis].Output[numOutput].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisPerformerRole(numAnalysis int, numPerformer int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisPerformerRole(numAnalysis int, numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numPerformer >= len(resource.Analysis[numAnalysis].Performer) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].performer["+strconv.Itoa(numPerformer)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].performer["+strconv.Itoa(numPerformer)+"].role", resource.Analysis[numAnalysis].Performer[numPerformer].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *GenomicStudy) T_AnalysisDeviceFunction(numAnalysis int, numDevice int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GenomicStudy) T_AnalysisDeviceFunction(numAnalysis int, numDevice int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAnalysis >= len(resource.Analysis) || numDevice >= len(resource.Analysis[numAnalysis].Device) {
 		return CodeableConceptSelect("analysis["+strconv.Itoa(numAnalysis)+"].device["+strconv.Itoa(numDevice)+"].function", nil, optionsValueSet, htmlAttrs)
 	}

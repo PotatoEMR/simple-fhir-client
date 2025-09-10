@@ -90,7 +90,7 @@ func (r DiagnosticReport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DiagnosticReport) T_Status(htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDiagnostic_report_status
 
 	if resource == nil {
@@ -98,55 +98,55 @@ func (resource *DiagnosticReport) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_EffectiveDateTime(htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("effectiveDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("effectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Issued(htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("issued", nil, htmlAttrs)
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Conclusion(htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_Conclusion(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("conclusion", nil, htmlAttrs)
 	}
 	return StringInput("conclusion", resource.Conclusion, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_ConclusionCode(numConclusionCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_ConclusionCode(numConclusionCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConclusionCode >= len(resource.ConclusionCode) {
 		return CodeableConceptSelect("conclusionCode["+strconv.Itoa(numConclusionCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("conclusionCode["+strconv.Itoa(numConclusionCode)+"]", &resource.ConclusionCode[numConclusionCode], optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_SupportingInfoType(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_SupportingInfoType(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
 		return CodeableConceptSelect("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].type", &resource.SupportingInfo[numSupportingInfo].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_MediaComment(numMedia int, htmlAttrs string) templ.Component {
+func (resource *DiagnosticReport) T_MediaComment(numMedia int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMedia >= len(resource.Media) {
 		return StringInput("media["+strconv.Itoa(numMedia)+"].comment", nil, htmlAttrs)
 	}

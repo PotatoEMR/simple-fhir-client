@@ -58,25 +58,25 @@ func (r AppointmentResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *AppointmentResponse) T_Start(htmlAttrs string) templ.Component {
+func (resource *AppointmentResponse) T_Start(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("start", nil, htmlAttrs)
 	}
 	return StringInput("start", resource.Start, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_End(htmlAttrs string) templ.Component {
+func (resource *AppointmentResponse) T_End(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("end", nil, htmlAttrs)
 	}
 	return StringInput("end", resource.End, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipantType >= len(resource.ParticipantType) {
 		return CodeableConceptSelect("participantType["+strconv.Itoa(numParticipantType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_ParticipantStatus(htmlAttrs string) templ.Component {
+func (resource *AppointmentResponse) T_ParticipantStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSParticipationstatus
 
 	if resource == nil {
@@ -84,7 +84,7 @@ func (resource *AppointmentResponse) T_ParticipantStatus(htmlAttrs string) templ
 	}
 	return CodeSelect("participantStatus", &resource.ParticipantStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *AppointmentResponse) T_Comment(htmlAttrs string) templ.Component {
+func (resource *AppointmentResponse) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("comment", nil, htmlAttrs)
 	}

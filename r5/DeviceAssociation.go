@@ -69,13 +69,13 @@ func (r DeviceAssociation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_Status(htmlAttrs string) templ.Component {
+func (resource *DeviceAssociation) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDeviceassociation_status
 
 	if resource == nil {
@@ -83,7 +83,7 @@ func (resource *DeviceAssociation) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeableConceptSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs string) templ.Component {
+func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDeviceassociation_status_reason
 
 	if resource == nil || numStatusReason >= len(resource.StatusReason) {
@@ -91,7 +91,7 @@ func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs
 	}
 	return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) {
 		return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", nil, optionsValueSet, htmlAttrs)
 	}

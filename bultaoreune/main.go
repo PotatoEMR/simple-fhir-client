@@ -335,7 +335,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								backbonePath = backbonePath[:len(backbonePath)-3] + strings.Title(eltType.Code)
 								formName = formName[:len(formName)-3] + strings.Title(eltType.Code)
 							}
-							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs string) templ.Component {` + vsReq + `
+							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs templ.Attributes) templ.Component {` + vsReq + `
 								        if resource == nil ` + bbCheck + `{`)
 							if elt.Max == "*" || elt.Min == 1 {
 								backbonePath = "&" + backbonePath

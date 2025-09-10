@@ -91,7 +91,7 @@ func (r Invoice) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Invoice) T_Status(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSInvoice_status
 
 	if resource == nil {
@@ -99,67 +99,67 @@ func (resource *Invoice) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Invoice) T_CancelledReason(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_CancelledReason(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("cancelledReason", nil, htmlAttrs)
 	}
 	return StringInput("cancelledReason", resource.CancelledReason, htmlAttrs)
 }
-func (resource *Invoice) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Invoice) T_Date(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *Invoice) T_Creation(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_Creation(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("creation", nil, htmlAttrs)
 	}
 	return DateTimeInput("creation", resource.Creation, htmlAttrs)
 }
-func (resource *Invoice) T_PeriodDate(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_PeriodDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("periodDate", nil, htmlAttrs)
 	}
 	return DateInput("periodDate", resource.PeriodDate, htmlAttrs)
 }
-func (resource *Invoice) T_PaymentTerms(htmlAttrs string) templ.Component {
+func (resource *Invoice) T_PaymentTerms(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("paymentTerms", nil, htmlAttrs)
 	}
 	return StringInput("paymentTerms", resource.PaymentTerms, htmlAttrs)
 }
-func (resource *Invoice) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *Invoice) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *Invoice) T_LineItemSequence(numLineItem int, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_LineItemSequence(numLineItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
 		return IntInput("lineItem["+strconv.Itoa(numLineItem)+"].sequence", nil, htmlAttrs)
 	}
 	return IntInput("lineItem["+strconv.Itoa(numLineItem)+"].sequence", resource.LineItem[numLineItem].Sequence, htmlAttrs)
 }
-func (resource *Invoice) T_LineItemServicedDate(numLineItem int, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_LineItemServicedDate(numLineItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
 		return DateInput("lineItem["+strconv.Itoa(numLineItem)+"].servicedDate", nil, htmlAttrs)
 	}
 	return DateInput("lineItem["+strconv.Itoa(numLineItem)+"].servicedDate", resource.LineItem[numLineItem].ServicedDate, htmlAttrs)
 }
-func (resource *Invoice) T_LineItemChargeItemCodeableConcept(numLineItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Invoice) T_LineItemChargeItemCodeableConcept(numLineItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
 		return CodeableConceptSelect("lineItem["+strconv.Itoa(numLineItem)+"].chargeItemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

@@ -85,43 +85,43 @@ func (r ResearchDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ResearchDefinition) T_Url(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Version(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Name(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Title(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_ShortTitle(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_ShortTitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("shortTitle", nil, htmlAttrs)
 	}
 	return StringInput("shortTitle", resource.ShortTitle, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Subtitle(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Subtitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("subtitle", nil, htmlAttrs)
 	}
 	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Status(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -129,85 +129,85 @@ func (resource *ResearchDefinition) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Experimental(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Experimental(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("experimental", nil, htmlAttrs)
 	}
 	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("subjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Date(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Description(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Comment(numComment int, htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Comment(numComment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComment >= len(resource.Comment) {
 		return StringInput("comment["+strconv.Itoa(numComment)+"]", nil, htmlAttrs)
 	}
 	return StringInput("comment["+strconv.Itoa(numComment)+"]", &resource.Comment[numComment], htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Purpose(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("purpose", nil, htmlAttrs)
 	}
 	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Usage(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Usage(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("usage", nil, htmlAttrs)
 	}
 	return StringInput("usage", resource.Usage, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("approvalDate", nil, htmlAttrs)
 	}
 	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
 	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Library(numLibrary int, htmlAttrs string) templ.Component {
+func (resource *ResearchDefinition) T_Library(numLibrary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
 		return StringInput("library["+strconv.Itoa(numLibrary)+"]", nil, htmlAttrs)
 	}

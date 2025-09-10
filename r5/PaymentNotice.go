@@ -61,7 +61,7 @@ func (r PaymentNotice) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *PaymentNotice) T_Status(htmlAttrs string) templ.Component {
+func (resource *PaymentNotice) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 
 	if resource == nil {
@@ -69,19 +69,19 @@ func (resource *PaymentNotice) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Created(htmlAttrs string) templ.Component {
+func (resource *PaymentNotice) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("created", nil, htmlAttrs)
 	}
 	return DateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentNotice) T_PaymentDate(htmlAttrs string) templ.Component {
+func (resource *PaymentNotice) T_PaymentDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("paymentDate", nil, htmlAttrs)
 	}
 	return DateInput("paymentDate", resource.PaymentDate, htmlAttrs)
 }
-func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *PaymentNotice) T_PaymentStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("paymentStatus", nil, optionsValueSet, htmlAttrs)
 	}

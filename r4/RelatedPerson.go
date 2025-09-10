@@ -71,19 +71,19 @@ func (r RelatedPerson) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *RelatedPerson) T_Active(htmlAttrs string) templ.Component {
+func (resource *RelatedPerson) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelationship >= len(resource.Relationship) {
 		return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
 }
-func (resource *RelatedPerson) T_Gender(htmlAttrs string) templ.Component {
+func (resource *RelatedPerson) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil {
@@ -91,13 +91,13 @@ func (resource *RelatedPerson) T_Gender(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("gender", resource.Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *RelatedPerson) T_BirthDate(htmlAttrs string) templ.Component {
+func (resource *RelatedPerson) T_BirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("birthDate", nil, htmlAttrs)
 	}
 	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
-func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs string) templ.Component {
+func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
 		return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", nil, htmlAttrs)
 	}

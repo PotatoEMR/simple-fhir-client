@@ -62,19 +62,19 @@ func (r OrganizationAffiliation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *OrganizationAffiliation) T_Active(htmlAttrs string) templ.Component {
+func (resource *OrganizationAffiliation) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", &resource.Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}

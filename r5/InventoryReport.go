@@ -81,7 +81,7 @@ func (r InventoryReport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *InventoryReport) T_Status(htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSInventoryreport_status
 
 	if resource == nil {
@@ -89,7 +89,7 @@ func (resource *InventoryReport) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_CountType(htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_CountType(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSInventoryreport_counttype
 
 	if resource == nil {
@@ -97,43 +97,43 @@ func (resource *InventoryReport) T_CountType(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("countType", &resource.CountType, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_OperationType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_OperationType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("operationType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("operationType", resource.OperationType, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_OperationTypeReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_OperationTypeReason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("operationTypeReason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("operationTypeReason", resource.OperationTypeReason, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_ReportedDateTime(htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_ReportedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("reportedDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("reportedDateTime", &resource.ReportedDateTime, htmlAttrs)
 }
-func (resource *InventoryReport) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *InventoryReport) T_InventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_InventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) {
 		return CodeableConceptSelect("inventoryListing["+strconv.Itoa(numInventoryListing)+"].itemStatus", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("inventoryListing["+strconv.Itoa(numInventoryListing)+"].itemStatus", resource.InventoryListing[numInventoryListing].ItemStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_InventoryListingCountingDateTime(numInventoryListing int, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_InventoryListingCountingDateTime(numInventoryListing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) {
 		return DateTimeInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].countingDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].countingDateTime", resource.InventoryListing[numInventoryListing].CountingDateTime, htmlAttrs)
 }
-func (resource *InventoryReport) T_InventoryListingItemCategory(numInventoryListing int, numItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *InventoryReport) T_InventoryListingItemCategory(numInventoryListing int, numItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) || numItem >= len(resource.InventoryListing[numInventoryListing].Item) {
 		return CodeableConceptSelect("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].category", nil, optionsValueSet, htmlAttrs)
 	}

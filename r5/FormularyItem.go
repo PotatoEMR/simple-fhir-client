@@ -52,13 +52,13 @@ func (r FormularyItem) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *FormularyItem) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *FormularyItem) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *FormularyItem) T_Status(htmlAttrs string) templ.Component {
+func (resource *FormularyItem) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFormularyitem_status
 
 	if resource == nil {

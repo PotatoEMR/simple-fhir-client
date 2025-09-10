@@ -99,49 +99,49 @@ func (r MedicinalProductPharmaceutical) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductPharmaceutical) T_AdministrableDoseForm(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_AdministrableDoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("administrableDoseForm", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("administrableDoseForm", &resource.AdministrableDoseForm, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_CharacteristicsCode(numCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_CharacteristicsCode(numCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristics >= len(resource.Characteristics) {
 		return CodeableConceptSelect("characteristics["+strconv.Itoa(numCharacteristics)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("characteristics["+strconv.Itoa(numCharacteristics)+"].code", &resource.Characteristics[numCharacteristics].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_CharacteristicsStatus(numCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_CharacteristicsStatus(numCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristics >= len(resource.Characteristics) {
 		return CodeableConceptSelect("characteristics["+strconv.Itoa(numCharacteristics)+"].status", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("characteristics["+strconv.Itoa(numCharacteristics)+"].status", resource.Characteristics[numCharacteristics].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationCode(numRouteOfAdministration int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) {
 		return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].code", &resource.RouteOfAdministration[numRouteOfAdministration].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesCode(numRouteOfAdministration int, numTargetSpecies int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) || numTargetSpecies >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) {
 		return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].code", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodTissue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) || numTargetSpecies >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) || numWithdrawalPeriod >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) {
 		return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].tissue", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].tissue", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Tissue, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodSupportingInformation(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPharmaceutical) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodSupportingInformation(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) || numTargetSpecies >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) || numWithdrawalPeriod >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) {
 		return StringInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].supportingInformation", nil, htmlAttrs)
 	}

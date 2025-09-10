@@ -83,19 +83,19 @@ func (r CarePlan) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *CarePlan) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
 		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)
 	}
 	return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", &resource.InstantiatesCanonical[numInstantiatesCanonical], htmlAttrs)
 }
-func (resource *CarePlan) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstantiatesUri >= len(resource.InstantiatesUri) {
 		return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", nil, htmlAttrs)
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *CarePlan) T_Status(htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -103,7 +103,7 @@ func (resource *CarePlan) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CarePlan) T_Intent(htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Intent(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCare_plan_intent
 
 	if resource == nil {
@@ -111,37 +111,37 @@ func (resource *CarePlan) T_Intent(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
-func (resource *CarePlan) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *CarePlan) T_Title(htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *CarePlan) T_Description(htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *CarePlan) T_Created(htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("created", nil, htmlAttrs)
 	}
 	return DateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *CarePlan) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *CarePlan) T_ActivityProgress(numActivity int, numProgress int, htmlAttrs string) templ.Component {
+func (resource *CarePlan) T_ActivityProgress(numActivity int, numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) || numProgress >= len(resource.Activity[numActivity].Progress) {
 		return AnnotationTextArea("activity["+strconv.Itoa(numActivity)+"].progress["+strconv.Itoa(numProgress)+"]", nil, htmlAttrs)
 	}

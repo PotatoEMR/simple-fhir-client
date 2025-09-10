@@ -105,7 +105,7 @@ func (r BiologicallyDerivedProduct) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *BiologicallyDerivedProduct) T_ProductCategory(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCategory(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProduct_category
 
 	if resource == nil {
@@ -113,13 +113,13 @@ func (resource *BiologicallyDerivedProduct) T_ProductCategory(htmlAttrs string) 
 	}
 	return CodeSelect("productCategory", resource.ProductCategory, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("productCode", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProduct_status
 
 	if resource == nil {
@@ -127,61 +127,61 @@ func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs string) templ.Com
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("quantity", nil, htmlAttrs)
 	}
 	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("collection.collectedDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("collection.collectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProcessingDescription(numProcessing int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingDescription(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
 		return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("processing["+strconv.Itoa(numProcessing)+"].description", resource.Processing[numProcessing].Description, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
 		return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
 		return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ManipulationDescription(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ManipulationDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("manipulation.description", nil, htmlAttrs)
 	}
 	return StringInput("manipulation.description", resource.Manipulation.Description, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ManipulationTimeDateTime(htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ManipulationTimeDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("manipulation.timeDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("manipulation.timeDateTime", resource.Manipulation.TimeDateTime, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_StorageDescription(numStorage int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_StorageDescription(numStorage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorage >= len(resource.Storage) {
 		return StringInput("storage["+strconv.Itoa(numStorage)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("storage["+strconv.Itoa(numStorage)+"].description", resource.Storage[numStorage].Description, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_StorageTemperature(numStorage int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_StorageTemperature(numStorage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorage >= len(resource.Storage) {
 		return Float64Input("storage["+strconv.Itoa(numStorage)+"].temperature", nil, htmlAttrs)
 	}
 	return Float64Input("storage["+strconv.Itoa(numStorage)+"].temperature", resource.Storage[numStorage].Temperature, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_StorageScale(numStorage int, htmlAttrs string) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_StorageScale(numStorage int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProduct_storage_scale
 
 	if resource == nil || numStorage >= len(resource.Storage) {

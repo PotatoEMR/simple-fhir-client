@@ -67,25 +67,25 @@ func (r GuidanceResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("moduleUri", nil, htmlAttrs)
 	}
 	return StringInput("moduleUri", &resource.ModuleUri, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_ModuleCanonical(htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_ModuleCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("moduleCanonical", nil, htmlAttrs)
 	}
 	return StringInput("moduleCanonical", &resource.ModuleCanonical, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_ModuleCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_ModuleCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("moduleCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("moduleCodeableConcept", &resource.ModuleCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Status(htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSGuidance_response_status
 
 	if resource == nil {
@@ -93,19 +93,19 @@ func (resource *GuidanceResponse) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}

@@ -78,13 +78,13 @@ func (r Medication) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Medication) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Medication) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_Status(htmlAttrs string) templ.Component {
+func (resource *Medication) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMedication_status
 
 	if resource == nil {
@@ -92,31 +92,31 @@ func (resource *Medication) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_Form(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Medication) T_Form(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_IngredientItemCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Medication) T_IngredientItemCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
 		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].itemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].itemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs string) templ.Component {
+func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
 		return BoolInput("ingredient["+strconv.Itoa(numIngredient)+"].isActive", nil, htmlAttrs)
 	}
 	return BoolInput("ingredient["+strconv.Itoa(numIngredient)+"].isActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
 }
-func (resource *Medication) T_BatchLotNumber(htmlAttrs string) templ.Component {
+func (resource *Medication) T_BatchLotNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("batch.lotNumber", nil, htmlAttrs)
 	}
 	return StringInput("batch.lotNumber", resource.Batch.LotNumber, htmlAttrs)
 }
-func (resource *Medication) T_BatchExpirationDate(htmlAttrs string) templ.Component {
+func (resource *Medication) T_BatchExpirationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("batch.expirationDate", nil, htmlAttrs)
 	}

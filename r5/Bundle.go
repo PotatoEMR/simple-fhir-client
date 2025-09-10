@@ -85,7 +85,7 @@ type BundleEntryResponse struct {
 	Outcome           *Resource   `json:"outcome,omitempty"`
 }
 
-func (resource *Bundle) T_Type(htmlAttrs string) templ.Component {
+func (resource *Bundle) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBundle_type
 
 	if resource == nil {
@@ -93,19 +93,19 @@ func (resource *Bundle) T_Type(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("type", &resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Bundle) T_Timestamp(htmlAttrs string) templ.Component {
+func (resource *Bundle) T_Timestamp(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("timestamp", nil, htmlAttrs)
 	}
 	return StringInput("timestamp", resource.Timestamp, htmlAttrs)
 }
-func (resource *Bundle) T_Total(htmlAttrs string) templ.Component {
+func (resource *Bundle) T_Total(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("total", nil, htmlAttrs)
 	}
 	return IntInput("total", resource.Total, htmlAttrs)
 }
-func (resource *Bundle) T_LinkRelation(numLink int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_LinkRelation(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSIana_link_relations
 
 	if resource == nil || numLink >= len(resource.Link) {
@@ -113,19 +113,19 @@ func (resource *Bundle) T_LinkRelation(numLink int, htmlAttrs string) templ.Comp
 	}
 	return CodeSelect("link["+strconv.Itoa(numLink)+"].relation", &resource.Link[numLink].Relation, optionsValueSet, htmlAttrs)
 }
-func (resource *Bundle) T_LinkUrl(numLink int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_LinkUrl(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLink >= len(resource.Link) {
 		return StringInput("link["+strconv.Itoa(numLink)+"].url", nil, htmlAttrs)
 	}
 	return StringInput("link["+strconv.Itoa(numLink)+"].url", &resource.Link[numLink].Url, htmlAttrs)
 }
-func (resource *Bundle) T_EntryFullUrl(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryFullUrl(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].fullUrl", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].fullUrl", resource.Entry[numEntry].FullUrl, htmlAttrs)
 }
-func (resource *Bundle) T_EntrySearchMode(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntrySearchMode(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSearch_entry_mode
 
 	if resource == nil || numEntry >= len(resource.Entry) {
@@ -133,13 +133,13 @@ func (resource *Bundle) T_EntrySearchMode(numEntry int, htmlAttrs string) templ.
 	}
 	return CodeSelect("entry["+strconv.Itoa(numEntry)+"].search.mode", resource.Entry[numEntry].Search.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *Bundle) T_EntrySearchScore(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntrySearchScore(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return Float64Input("entry["+strconv.Itoa(numEntry)+"].search.score", nil, htmlAttrs)
 	}
 	return Float64Input("entry["+strconv.Itoa(numEntry)+"].search.score", resource.Entry[numEntry].Search.Score, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestMethod(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestMethod(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSHttp_verb
 
 	if resource == nil || numEntry >= len(resource.Entry) {
@@ -147,55 +147,55 @@ func (resource *Bundle) T_EntryRequestMethod(numEntry int, htmlAttrs string) tem
 	}
 	return CodeSelect("entry["+strconv.Itoa(numEntry)+"].request.method", &resource.Entry[numEntry].Request.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestUrl(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestUrl(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].request.url", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].request.url", &resource.Entry[numEntry].Request.Url, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestIfNoneMatch(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestIfNoneMatch(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifNoneMatch", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifNoneMatch", resource.Entry[numEntry].Request.IfNoneMatch, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestIfModifiedSince(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestIfModifiedSince(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifModifiedSince", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifModifiedSince", resource.Entry[numEntry].Request.IfModifiedSince, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestIfMatch(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestIfMatch(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifMatch", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifMatch", resource.Entry[numEntry].Request.IfMatch, htmlAttrs)
 }
-func (resource *Bundle) T_EntryRequestIfNoneExist(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryRequestIfNoneExist(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifNoneExist", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].request.ifNoneExist", resource.Entry[numEntry].Request.IfNoneExist, htmlAttrs)
 }
-func (resource *Bundle) T_EntryResponseStatus(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryResponseStatus(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].response.status", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].response.status", &resource.Entry[numEntry].Response.Status, htmlAttrs)
 }
-func (resource *Bundle) T_EntryResponseLocation(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryResponseLocation(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].response.location", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].response.location", resource.Entry[numEntry].Response.Location, htmlAttrs)
 }
-func (resource *Bundle) T_EntryResponseEtag(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryResponseEtag(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].response.etag", nil, htmlAttrs)
 	}
 	return StringInput("entry["+strconv.Itoa(numEntry)+"].response.etag", resource.Entry[numEntry].Response.Etag, htmlAttrs)
 }
-func (resource *Bundle) T_EntryResponseLastModified(numEntry int, htmlAttrs string) templ.Component {
+func (resource *Bundle) T_EntryResponseLastModified(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return StringInput("entry["+strconv.Itoa(numEntry)+"].response.lastModified", nil, htmlAttrs)
 	}

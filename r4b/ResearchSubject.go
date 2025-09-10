@@ -57,7 +57,7 @@ func (r ResearchSubject) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSResearch_subject_status
 
 	if resource == nil {
@@ -65,13 +65,13 @@ func (resource *ResearchSubject) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchSubject) T_AssignedArm(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_AssignedArm(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("assignedArm", nil, htmlAttrs)
 	}
 	return StringInput("assignedArm", resource.AssignedArm, htmlAttrs)
 }
-func (resource *ResearchSubject) T_ActualArm(htmlAttrs string) templ.Component {
+func (resource *ResearchSubject) T_ActualArm(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("actualArm", nil, htmlAttrs)
 	}

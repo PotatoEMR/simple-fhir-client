@@ -88,7 +88,7 @@ func (r AdverseEvent) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *AdverseEvent) T_Actuality(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Actuality(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdverse_event_actuality
 
 	if resource == nil {
@@ -96,43 +96,43 @@ func (resource *AdverseEvent) T_Actuality(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("actuality", &resource.Actuality, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Event(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Event(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("event", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("event", resource.Event, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Date(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Detected(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Detected(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("detected", nil, htmlAttrs)
 	}
 	return DateTimeInput("detected", resource.Detected, htmlAttrs)
 }
-func (resource *AdverseEvent) T_RecordedDate(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_RecordedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("recordedDate", nil, htmlAttrs)
 	}
 	return DateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Seriousness(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Seriousness(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("seriousness", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("seriousness", resource.Seriousness, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Severity(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Severity(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdverse_event_severity
 
 	if resource == nil {
@@ -140,7 +140,7 @@ func (resource *AdverseEvent) T_Severity(htmlAttrs string) templ.Component {
 	}
 	return CodeableConceptSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_Outcome(htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdverse_event_outcome
 
 	if resource == nil {
@@ -148,19 +148,19 @@ func (resource *AdverseEvent) T_Outcome(htmlAttrs string) templ.Component {
 	}
 	return CodeableConceptSelect("outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_SuspectEntityCausalityAssessment(numSuspectEntity int, numCausality int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_SuspectEntityCausalityAssessment(numSuspectEntity int, numCausality int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) || numCausality >= len(resource.SuspectEntity[numSuspectEntity].Causality) {
 		return CodeableConceptSelect("suspectEntity["+strconv.Itoa(numSuspectEntity)+"].causality["+strconv.Itoa(numCausality)+"].assessment", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("suspectEntity["+strconv.Itoa(numSuspectEntity)+"].causality["+strconv.Itoa(numCausality)+"].assessment", resource.SuspectEntity[numSuspectEntity].Causality[numCausality].Assessment, optionsValueSet, htmlAttrs)
 }
-func (resource *AdverseEvent) T_SuspectEntityCausalityProductRelatedness(numSuspectEntity int, numCausality int, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_SuspectEntityCausalityProductRelatedness(numSuspectEntity int, numCausality int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) || numCausality >= len(resource.SuspectEntity[numSuspectEntity].Causality) {
 		return StringInput("suspectEntity["+strconv.Itoa(numSuspectEntity)+"].causality["+strconv.Itoa(numCausality)+"].productRelatedness", nil, htmlAttrs)
 	}
 	return StringInput("suspectEntity["+strconv.Itoa(numSuspectEntity)+"].causality["+strconv.Itoa(numCausality)+"].productRelatedness", resource.SuspectEntity[numSuspectEntity].Causality[numCausality].ProductRelatedness, htmlAttrs)
 }
-func (resource *AdverseEvent) T_SuspectEntityCausalityMethod(numSuspectEntity int, numCausality int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *AdverseEvent) T_SuspectEntityCausalityMethod(numSuspectEntity int, numCausality int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSuspectEntity >= len(resource.SuspectEntity) || numCausality >= len(resource.SuspectEntity[numSuspectEntity].Causality) {
 		return CodeableConceptSelect("suspectEntity["+strconv.Itoa(numSuspectEntity)+"].causality["+strconv.Itoa(numCausality)+"].method", nil, optionsValueSet, htmlAttrs)
 	}

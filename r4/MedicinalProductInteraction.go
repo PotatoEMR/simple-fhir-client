@@ -64,37 +64,37 @@ func (r MedicinalProductInteraction) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductInteraction) T_Description(htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *MedicinalProductInteraction) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductInteraction) T_Effect(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_Effect(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("effect", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("effect", resource.Effect, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductInteraction) T_Incidence(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_Incidence(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("incidence", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("incidence", resource.Incidence, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductInteraction) T_Management(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_Management(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("management", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("management", resource.Management, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductInteraction) T_InteractantItemCodeableConcept(numInteractant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductInteraction) T_InteractantItemCodeableConcept(numInteractant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInteractant >= len(resource.Interactant) {
 		return CodeableConceptSelect("interactant["+strconv.Itoa(numInteractant)+"].itemCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

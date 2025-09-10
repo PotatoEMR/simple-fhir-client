@@ -55,19 +55,19 @@ func (r MedicinalProductManufactured) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductManufactured) T_ManufacturedDoseForm(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductManufactured) T_ManufacturedDoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("manufacturedDoseForm", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("manufacturedDoseForm", &resource.ManufacturedDoseForm, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductManufactured) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductManufactured) T_UnitOfPresentation(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("unitOfPresentation", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductManufactured) T_OtherCharacteristics(numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductManufactured) T_OtherCharacteristics(numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOtherCharacteristics >= len(resource.OtherCharacteristics) {
 		return CodeableConceptSelect("otherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)
 	}

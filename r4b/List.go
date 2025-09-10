@@ -74,7 +74,7 @@ func (r List) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *List) T_Status(htmlAttrs string) templ.Component {
+func (resource *List) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSList_status
 
 	if resource == nil {
@@ -82,7 +82,7 @@ func (resource *List) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Mode(htmlAttrs string) templ.Component {
+func (resource *List) T_Mode(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSList_mode
 
 	if resource == nil {
@@ -90,55 +90,55 @@ func (resource *List) T_Mode(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("mode", &resource.Mode, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Title(htmlAttrs string) templ.Component {
+func (resource *List) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *List) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *List) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Date(htmlAttrs string) templ.Component {
+func (resource *List) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *List) T_OrderedBy(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *List) T_OrderedBy(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("orderedBy", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("orderedBy", resource.OrderedBy, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *List) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *List) T_EmptyReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *List) T_EmptyReason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("emptyReason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("emptyReason", resource.EmptyReason, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *List) T_EntryFlag(numEntry int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return CodeableConceptSelect("entry["+strconv.Itoa(numEntry)+"].flag", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("entry["+strconv.Itoa(numEntry)+"].flag", resource.Entry[numEntry].Flag, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_EntryDeleted(numEntry int, htmlAttrs string) templ.Component {
+func (resource *List) T_EntryDeleted(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return BoolInput("entry["+strconv.Itoa(numEntry)+"].deleted", nil, htmlAttrs)
 	}
 	return BoolInput("entry["+strconv.Itoa(numEntry)+"].deleted", resource.Entry[numEntry].Deleted, htmlAttrs)
 }
-func (resource *List) T_EntryDate(numEntry int, htmlAttrs string) templ.Component {
+func (resource *List) T_EntryDate(numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
 		return DateTimeInput("entry["+strconv.Itoa(numEntry)+"].date", nil, htmlAttrs)
 	}

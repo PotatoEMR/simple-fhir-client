@@ -128,49 +128,49 @@ func (r ActivityDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ActivityDefinition) T_Url(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
 	}
 	return StringInput("url", resource.Url, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Version(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_VersionAlgorithmString(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_VersionAlgorithmString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("versionAlgorithmString", nil, htmlAttrs)
 	}
 	return StringInput("versionAlgorithmString", resource.VersionAlgorithmString, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_VersionAlgorithmCoding(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodingSelect("versionAlgorithmCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("versionAlgorithmCoding", resource.VersionAlgorithmCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Name(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Title(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Subtitle(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Subtitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("subtitle", nil, htmlAttrs)
 	}
 	return StringInput("subtitle", resource.Subtitle, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Status(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 
 	if resource == nil {
@@ -178,97 +178,97 @@ func (resource *ActivityDefinition) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Experimental(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Experimental(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("experimental", nil, htmlAttrs)
 	}
 	return BoolInput("experimental", resource.Experimental, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_SubjectCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("subjectCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SubjectCanonical(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_SubjectCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("subjectCanonical", nil, htmlAttrs)
 	}
 	return StringInput("subjectCanonical", resource.SubjectCanonical, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Date(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("date", nil, htmlAttrs)
 	}
 	return DateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Publisher(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Description(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
 		return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("jurisdiction["+strconv.Itoa(numJurisdiction)+"]", &resource.Jurisdiction[numJurisdiction], optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Purpose(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("purpose", nil, htmlAttrs)
 	}
 	return StringInput("purpose", resource.Purpose, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Usage(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Usage(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("usage", nil, htmlAttrs)
 	}
 	return StringInput("usage", resource.Usage, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Copyright(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Copyright(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_CopyrightLabel(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("copyrightLabel", nil, htmlAttrs)
 	}
 	return StringInput("copyrightLabel", resource.CopyrightLabel, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ApprovalDate(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("approvalDate", nil, htmlAttrs)
 	}
 	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_LastReviewDate(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateInput("lastReviewDate", nil, htmlAttrs)
 	}
 	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Library(numLibrary int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Library(numLibrary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
 		return StringInput("library["+strconv.Itoa(numLibrary)+"]", nil, htmlAttrs)
 	}
 	return StringInput("library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Kind(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Kind(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_resource_types
 
 	if resource == nil {
@@ -276,19 +276,19 @@ func (resource *ActivityDefinition) T_Kind(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("kind", resource.Kind, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Profile(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Profile(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("profile", nil, htmlAttrs)
 	}
 	return StringInput("profile", resource.Profile, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Intent(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Intent(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -296,7 +296,7 @@ func (resource *ActivityDefinition) T_Intent(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("intent", resource.Intent, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Priority(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Priority(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -304,61 +304,61 @@ func (resource *ActivityDefinition) T_Priority(htmlAttrs string) templ.Component
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_DoNotPerform(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_DoNotPerform(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("doNotPerform", nil, htmlAttrs)
 	}
 	return BoolInput("doNotPerform", resource.DoNotPerform, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_AsNeededBoolean(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_AsNeededBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("asNeededBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("asNeededBoolean", resource.AsNeededBoolean, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_AsNeededCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_AsNeededCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("asNeededCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("asNeededCodeableConcept", resource.AsNeededCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("productCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("productCodeableConcept", resource.ProductCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
 		return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SpecimenRequirement(numSpecimenRequirement int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_SpecimenRequirement(numSpecimenRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecimenRequirement >= len(resource.SpecimenRequirement) {
 		return StringInput("specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", nil, htmlAttrs)
 	}
 	return StringInput("specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", &resource.SpecimenRequirement[numSpecimenRequirement], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ObservationRequirement(numObservationRequirement int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ObservationRequirement(numObservationRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservationRequirement >= len(resource.ObservationRequirement) {
 		return StringInput("observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", nil, htmlAttrs)
 	}
 	return StringInput("observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", &resource.ObservationRequirement[numObservationRequirement], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ObservationResultRequirement(numObservationResultRequirement int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ObservationResultRequirement(numObservationResultRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservationResultRequirement >= len(resource.ObservationResultRequirement) {
 		return StringInput("observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", nil, htmlAttrs)
 	}
 	return StringInput("observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", &resource.ObservationResultRequirement[numObservationResultRequirement], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Transform(htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_Transform(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("transform", nil, htmlAttrs)
 	}
 	return StringInput("transform", resource.Transform, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ParticipantType(numParticipant int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantType(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAction_participant_type
 
 	if resource == nil || numParticipant >= len(resource.Participant) {
@@ -366,25 +366,25 @@ func (resource *ActivityDefinition) T_ParticipantType(numParticipant int, htmlAt
 	}
 	return CodeSelect("participant["+strconv.Itoa(numParticipant)+"].type", resource.Participant[numParticipant].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ParticipantTypeCanonical(numParticipant int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantTypeCanonical(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return StringInput("participant["+strconv.Itoa(numParticipant)+"].typeCanonical", nil, htmlAttrs)
 	}
 	return StringInput("participant["+strconv.Itoa(numParticipant)+"].typeCanonical", resource.Participant[numParticipant].TypeCanonical, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantFunction(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_DynamicValuePath(numDynamicValue int, htmlAttrs string) templ.Component {
+func (resource *ActivityDefinition) T_DynamicValuePath(numDynamicValue int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDynamicValue >= len(resource.DynamicValue) {
 		return StringInput("dynamicValue["+strconv.Itoa(numDynamicValue)+"].path", nil, htmlAttrs)
 	}

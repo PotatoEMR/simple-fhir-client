@@ -80,7 +80,7 @@ func (r Account) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Account) T_Status(htmlAttrs string) templ.Component {
+func (resource *Account) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAccount_status
 
 	if resource == nil {
@@ -88,31 +88,31 @@ func (resource *Account) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_Type(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Account) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Account) T_Name(htmlAttrs string) templ.Component {
+func (resource *Account) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Account) T_Description(htmlAttrs string) templ.Component {
+func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs string) templ.Component {
+func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
 		return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", nil, htmlAttrs)
 	}
 	return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", resource.Coverage[numCoverage].Priority, htmlAttrs)
 }
-func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs string) templ.Component {
+func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {
 		return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", nil, htmlAttrs)
 	}

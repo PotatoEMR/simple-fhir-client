@@ -86,37 +86,37 @@ func (r MedicinalProductPackaged) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductPackaged) T_Description(htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_LegalStatusOfSupply(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_LegalStatusOfSupply(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("legalStatusOfSupply", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_PackageItemType(numPackageItem int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemType(numPackageItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].type", &resource.PackageItem[numPackageItem].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_PackageItemMaterial(numPackageItem int, numMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemMaterial(numPackageItem int, numMaterial int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) || numMaterial >= len(resource.PackageItem[numPackageItem].Material) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].material["+strconv.Itoa(numMaterial)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].material["+strconv.Itoa(numMaterial)+"]", &resource.PackageItem[numPackageItem].Material[numMaterial], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_PackageItemAlternateMaterial(numPackageItem int, numAlternateMaterial int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemAlternateMaterial(numPackageItem int, numAlternateMaterial int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) || numAlternateMaterial >= len(resource.PackageItem[numPackageItem].AlternateMaterial) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.PackageItem[numPackageItem].AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductPackaged) T_PackageItemOtherCharacteristics(numPackageItem int, numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *MedicinalProductPackaged) T_PackageItemOtherCharacteristics(numPackageItem int, numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) || numOtherCharacteristics >= len(resource.PackageItem[numPackageItem].OtherCharacteristics) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].otherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)
 	}

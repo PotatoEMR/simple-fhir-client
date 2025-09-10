@@ -58,7 +58,7 @@ func (r Flag) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Flag) T_Status(htmlAttrs string) templ.Component {
+func (resource *Flag) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFlag_status
 
 	if resource == nil {
@@ -66,13 +66,13 @@ func (resource *Flag) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Flag) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Flag) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Flag) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Flag) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}

@@ -138,7 +138,7 @@ func (r Encounter) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Encounter) T_Status(htmlAttrs string) templ.Component {
+func (resource *Encounter) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil {
@@ -146,37 +146,37 @@ func (resource *Encounter) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_Class(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_Class(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodingSelect("class", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("class", &resource.Class, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_Type(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
 		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_ServiceType(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_ServiceType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("serviceType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("serviceType", resource.ServiceType, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_Priority(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_Priority(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_status
 
 	if resource == nil || numStatusHistory >= len(resource.StatusHistory) {
@@ -184,67 +184,67 @@ func (resource *Encounter) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs
 	}
 	return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_ClassHistoryClass(numClassHistory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_ClassHistoryClass(numClassHistory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassHistory >= len(resource.ClassHistory) {
 		return CodingSelect("classHistory["+strconv.Itoa(numClassHistory)+"].class", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("classHistory["+strconv.Itoa(numClassHistory)+"].class", &resource.ClassHistory[numClassHistory].Class, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_ParticipantType(numParticipant int, numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_ParticipantType(numParticipant int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) || numType >= len(resource.Participant[numParticipant].Type) {
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].type["+strconv.Itoa(numType)+"]", &resource.Participant[numParticipant].Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_DiagnosisUse(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_DiagnosisUse(numDiagnosis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].use", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].use", resource.Diagnosis[numDiagnosis].Use, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_DiagnosisRank(numDiagnosis int, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_DiagnosisRank(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].rank", nil, htmlAttrs)
 	}
 	return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].rank", resource.Diagnosis[numDiagnosis].Rank, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationAdmitSource(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationAdmitSource(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("hospitalization.admitSource", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.admitSource", resource.Hospitalization.AdmitSource, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationReAdmission(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationReAdmission(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("hospitalization.reAdmission", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.reAdmission", resource.Hospitalization.ReAdmission, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationDietPreference(numDietPreference int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationDietPreference(numDietPreference int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDietPreference >= len(resource.Hospitalization.DietPreference) {
 		return CodeableConceptSelect("hospitalization.dietPreference["+strconv.Itoa(numDietPreference)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.dietPreference["+strconv.Itoa(numDietPreference)+"]", &resource.Hospitalization.DietPreference[numDietPreference], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationSpecialCourtesy(numSpecialCourtesy int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationSpecialCourtesy(numSpecialCourtesy int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialCourtesy >= len(resource.Hospitalization.SpecialCourtesy) {
 		return CodeableConceptSelect("hospitalization.specialCourtesy["+strconv.Itoa(numSpecialCourtesy)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.specialCourtesy["+strconv.Itoa(numSpecialCourtesy)+"]", &resource.Hospitalization.SpecialCourtesy[numSpecialCourtesy], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationSpecialArrangement(numSpecialArrangement int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationSpecialArrangement(numSpecialArrangement int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialArrangement >= len(resource.Hospitalization.SpecialArrangement) {
 		return CodeableConceptSelect("hospitalization.specialArrangement["+strconv.Itoa(numSpecialArrangement)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.specialArrangement["+strconv.Itoa(numSpecialArrangement)+"]", &resource.Hospitalization.SpecialArrangement[numSpecialArrangement], optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_HospitalizationDischargeDisposition(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_HospitalizationDischargeDisposition(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("hospitalization.dischargeDisposition", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("hospitalization.dischargeDisposition", resource.Hospitalization.DischargeDisposition, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_LocationStatus(numLocation int, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_LocationStatus(numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_location_status
 
 	if resource == nil || numLocation >= len(resource.Location) {
@@ -252,7 +252,7 @@ func (resource *Encounter) T_LocationStatus(numLocation int, htmlAttrs string) t
 	}
 	return CodeSelect("location["+strconv.Itoa(numLocation)+"].status", resource.Location[numLocation].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_LocationPhysicalType(numLocation int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *Encounter) T_LocationPhysicalType(numLocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
 		return CodeableConceptSelect("location["+strconv.Itoa(numLocation)+"].physicalType", nil, optionsValueSet, htmlAttrs)
 	}

@@ -83,7 +83,7 @@ func (r CommunicationRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *CommunicationRequest) T_Status(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_status
 
 	if resource == nil {
@@ -91,13 +91,13 @@ func (resource *CommunicationRequest) T_Status(htmlAttrs string) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_StatusReason(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_StatusReason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("statusReason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("statusReason", resource.StatusReason, optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_Intent(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Intent(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_intent
 
 	if resource == nil {
@@ -105,13 +105,13 @@ func (resource *CommunicationRequest) T_Intent(htmlAttrs string) templ.Component
 	}
 	return CodeSelect("intent", &resource.Intent, optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_Priority(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Priority(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_priority
 
 	if resource == nil {
@@ -119,37 +119,37 @@ func (resource *CommunicationRequest) T_Priority(htmlAttrs string) templ.Compone
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_DoNotPerform(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_DoNotPerform(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("doNotPerform", nil, htmlAttrs)
 	}
 	return BoolInput("doNotPerform", resource.DoNotPerform, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Medium(numMedium int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMedium >= len(resource.Medium) {
 		return CodeableConceptSelect("medium["+strconv.Itoa(numMedium)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_OccurrenceDateTime(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
 	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_AuthoredOn(htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return DateTimeInput("authoredOn", nil, htmlAttrs)
 	}
 	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *CommunicationRequest) T_Note(numNote int, htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *CommunicationRequest) T_PayloadContentCodeableConcept(numPayload int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *CommunicationRequest) T_PayloadContentCodeableConcept(numPayload int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPayload >= len(resource.Payload) {
 		return CodeableConceptSelect("payload["+strconv.Itoa(numPayload)+"].contentCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}

@@ -90,7 +90,7 @@ func (r EpisodeOfCare) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EpisodeOfCare) T_Status(htmlAttrs string) templ.Component {
+func (resource *EpisodeOfCare) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil {
@@ -98,13 +98,13 @@ func (resource *EpisodeOfCare) T_Status(htmlAttrs string) templ.Component {
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Type) {
 		return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs string) templ.Component {
+func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
 	if resource == nil || numStatusHistory >= len(resource.StatusHistory) {
@@ -112,13 +112,13 @@ func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlA
 	}
 	return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_ReasonUse(numReason int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EpisodeOfCare) T_ReasonUse(numReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
 		return CodeableConceptSelect("reason["+strconv.Itoa(numReason)+"].use", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reason["+strconv.Itoa(numReason)+"].use", resource.Reason[numReason].Use, optionsValueSet, htmlAttrs)
 }
-func (resource *EpisodeOfCare) T_DiagnosisUse(numDiagnosis int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *EpisodeOfCare) T_DiagnosisUse(numDiagnosis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].use", nil, optionsValueSet, htmlAttrs)
 	}

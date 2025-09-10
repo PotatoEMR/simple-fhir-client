@@ -89,19 +89,19 @@ func (r ObservationDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ObservationDefinition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_PermittedDataType(numPermittedDataType int, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_PermittedDataType(numPermittedDataType int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPermitted_data_type
 
 	if resource == nil || numPermittedDataType >= len(resource.PermittedDataType) {
@@ -109,49 +109,49 @@ func (resource *ObservationDefinition) T_PermittedDataType(numPermittedDataType 
 	}
 	return CodeSelect("permittedDataType["+strconv.Itoa(numPermittedDataType)+"]", &resource.PermittedDataType[numPermittedDataType], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_MultipleResultsAllowed(htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_MultipleResultsAllowed(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("multipleResultsAllowed", nil, htmlAttrs)
 	}
 	return BoolInput("multipleResultsAllowed", resource.MultipleResultsAllowed, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("method", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("preferredReportName", nil, htmlAttrs)
 	}
 	return StringInput("preferredReportName", resource.PreferredReportName, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QuantitativeDetailsCustomaryUnit(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsCustomaryUnit(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("quantitativeDetails.customaryUnit", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("quantitativeDetails.customaryUnit", resource.QuantitativeDetails.CustomaryUnit, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QuantitativeDetailsUnit(optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsUnit(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("quantitativeDetails.unit", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("quantitativeDetails.unit", resource.QuantitativeDetails.Unit, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QuantitativeDetailsConversionFactor(htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsConversionFactor(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return Float64Input("quantitativeDetails.conversionFactor", nil, htmlAttrs)
 	}
 	return Float64Input("quantitativeDetails.conversionFactor", resource.QuantitativeDetails.ConversionFactor, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QuantitativeDetailsDecimalPrecision(htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QuantitativeDetailsDecimalPrecision(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("quantitativeDetails.decimalPrecision", nil, htmlAttrs)
 	}
 	return IntInput("quantitativeDetails.decimalPrecision", resource.QuantitativeDetails.DecimalPrecision, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedIntervalCategory(numQualifiedInterval int, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalCategory(numQualifiedInterval int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_range_category
 
 	if resource == nil || numQualifiedInterval >= len(resource.QualifiedInterval) {
@@ -159,19 +159,19 @@ func (resource *ObservationDefinition) T_QualifiedIntervalCategory(numQualifiedI
 	}
 	return CodeSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].category", resource.QualifiedInterval[numQualifiedInterval].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedIntervalContext(numQualifiedInterval int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalContext(numQualifiedInterval int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedInterval >= len(resource.QualifiedInterval) {
 		return CodeableConceptSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].context", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].context", resource.QualifiedInterval[numQualifiedInterval].Context, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedIntervalAppliesTo(numQualifiedInterval int, numAppliesTo int, optionsValueSet []Coding, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalAppliesTo(numQualifiedInterval int, numAppliesTo int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedInterval >= len(resource.QualifiedInterval) || numAppliesTo >= len(resource.QualifiedInterval[numQualifiedInterval].AppliesTo) {
 		return CodeableConceptSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].appliesTo["+strconv.Itoa(numAppliesTo)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].appliesTo["+strconv.Itoa(numAppliesTo)+"]", &resource.QualifiedInterval[numQualifiedInterval].AppliesTo[numAppliesTo], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedIntervalGender(numQualifiedInterval int, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalGender(numQualifiedInterval int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
 	if resource == nil || numQualifiedInterval >= len(resource.QualifiedInterval) {
@@ -179,7 +179,7 @@ func (resource *ObservationDefinition) T_QualifiedIntervalGender(numQualifiedInt
 	}
 	return CodeSelect("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].gender", resource.QualifiedInterval[numQualifiedInterval].Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_QualifiedIntervalCondition(numQualifiedInterval int, htmlAttrs string) templ.Component {
+func (resource *ObservationDefinition) T_QualifiedIntervalCondition(numQualifiedInterval int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedInterval >= len(resource.QualifiedInterval) {
 		return StringInput("qualifiedInterval["+strconv.Itoa(numQualifiedInterval)+"].condition", nil, htmlAttrs)
 	}
