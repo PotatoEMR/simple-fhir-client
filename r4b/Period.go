@@ -6,8 +6,8 @@ package r4b
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Period
 type Period struct {
-	Id        *string     `json:"id,omitempty"`
-	Extension []Extension `json:"extension,omitempty"`
-	Start     *string     `json:"start,omitempty"`
-	End       *string     `json:"end,omitempty"`
+	Id        *string       `json:"id,omitempty"`
+	Extension []Extension   `json:"extension,omitempty"`
+	Start     *FhirDateTime `json:"start,omitempty"`
+	End       *FhirDateTime `json:"end,omitempty"`
 }

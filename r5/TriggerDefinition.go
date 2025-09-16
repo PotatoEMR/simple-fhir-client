@@ -14,8 +14,8 @@ type TriggerDefinition struct {
 	SubscriptionTopic *string           `json:"subscriptionTopic,omitempty"`
 	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
 	TimingReference   *Reference        `json:"timingReference,omitempty"`
-	TimingDate        *string           `json:"timingDate,omitempty"`
-	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
+	TimingDate        *FhirDate         `json:"timingDate,omitempty"`
+	TimingDateTime    *FhirDateTime     `json:"timingDateTime,omitempty"`
 	Data              []DataRequirement `json:"data,omitempty"`
 	Condition         *Expression       `json:"condition,omitempty"`
 }

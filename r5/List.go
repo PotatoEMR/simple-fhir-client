@@ -28,7 +28,7 @@ type List struct {
 	Code              *CodeableConcept `json:"code,omitempty"`
 	Subject           []Reference      `json:"subject,omitempty"`
 	Encounter         *Reference       `json:"encounter,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDateTime    `json:"date,omitempty"`
 	Source            *Reference       `json:"source,omitempty"`
 	OrderedBy         *CodeableConcept `json:"orderedBy,omitempty"`
 	Note              []Annotation     `json:"note,omitempty"`
@@ -43,7 +43,7 @@ type ListEntry struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Flag              *CodeableConcept `json:"flag,omitempty"`
 	Deleted           *bool            `json:"deleted,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDateTime    `json:"date,omitempty"`
 	Item              Reference        `json:"item"`
 }
 

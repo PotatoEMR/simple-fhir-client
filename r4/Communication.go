@@ -36,8 +36,8 @@ type Communication struct {
 	Topic                 *CodeableConcept       `json:"topic,omitempty"`
 	About                 []Reference            `json:"about,omitempty"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	Sent                  *string                `json:"sent,omitempty"`
-	Received              *string                `json:"received,omitempty"`
+	Sent                  *FhirDateTime          `json:"sent,omitempty"`
+	Received              *FhirDateTime          `json:"received,omitempty"`
 	Recipient             []Reference            `json:"recipient,omitempty"`
 	Sender                *Reference             `json:"sender,omitempty"`
 	ReasonCode            []CodeableConcept      `json:"reasonCode,omitempty"`

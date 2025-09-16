@@ -24,7 +24,7 @@ type ImmunizationEvaluation struct {
 	Identifier             []Identifier      `json:"identifier,omitempty"`
 	Status                 string            `json:"status"`
 	Patient                Reference         `json:"patient"`
-	Date                   *string           `json:"date,omitempty"`
+	Date                   *FhirDateTime     `json:"date,omitempty"`
 	Authority              *Reference        `json:"authority,omitempty"`
 	TargetDisease          CodeableConcept   `json:"targetDisease"`
 	ImmunizationEvent      Reference         `json:"immunizationEvent"`

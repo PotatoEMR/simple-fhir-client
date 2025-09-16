@@ -28,7 +28,7 @@ type DiagnosticReport struct {
 	Code               CodeableConcept         `json:"code"`
 	Subject            *Reference              `json:"subject,omitempty"`
 	Encounter          *Reference              `json:"encounter,omitempty"`
-	EffectiveDateTime  *string                 `json:"effectiveDateTime,omitempty"`
+	EffectiveDateTime  *FhirDateTime           `json:"effectiveDateTime,omitempty"`
 	EffectivePeriod    *Period                 `json:"effectivePeriod,omitempty"`
 	Issued             *string                 `json:"issued,omitempty"`
 	Performer          []Reference             `json:"performer,omitempty"`

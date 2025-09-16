@@ -26,7 +26,7 @@ type PackagedProductDefinition struct {
 	Type                  *CodeableConcept                               `json:"type,omitempty"`
 	PackageFor            []Reference                                    `json:"packageFor,omitempty"`
 	Status                *CodeableConcept                               `json:"status,omitempty"`
-	StatusDate            *string                                        `json:"statusDate,omitempty"`
+	StatusDate            *FhirDateTime                                  `json:"statusDate,omitempty"`
 	ContainedItemQuantity []Quantity                                     `json:"containedItemQuantity,omitempty"`
 	Description           *string                                        `json:"description,omitempty"`
 	LegalStatusOfSupply   []PackagedProductDefinitionLegalStatusOfSupply `json:"legalStatusOfSupply,omitempty"`
@@ -71,7 +71,7 @@ type PackagedProductDefinitionPackagingProperty struct {
 	Type                 CodeableConcept  `json:"type"`
 	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
-	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueDate            *FhirDate        `json:"valueDate,omitempty"`
 	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
 	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }

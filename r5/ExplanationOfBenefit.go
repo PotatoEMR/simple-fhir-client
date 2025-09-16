@@ -29,7 +29,7 @@ type ExplanationOfBenefit struct {
 	Use                   string                               `json:"use"`
 	Patient               Reference                            `json:"patient"`
 	BillablePeriod        *Period                              `json:"billablePeriod,omitempty"`
-	Created               string                               `json:"created"`
+	Created               FhirDateTime                         `json:"created"`
 	Enterer               *Reference                           `json:"enterer,omitempty"`
 	Insurer               *Reference                           `json:"insurer,omitempty"`
 	Provider              *Reference                           `json:"provider,omitempty"`
@@ -87,7 +87,7 @@ type ExplanationOfBenefitEvent struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Type              CodeableConcept `json:"type"`
-	WhenDateTime      string          `json:"whenDateTime"`
+	WhenDateTime      FhirDateTime    `json:"whenDateTime"`
 	WhenPeriod        Period          `json:"whenPeriod"`
 }
 
@@ -120,7 +120,7 @@ type ExplanationOfBenefitSupportingInfo struct {
 	Sequence          int              `json:"sequence"`
 	Category          CodeableConcept  `json:"category"`
 	Code              *CodeableConcept `json:"code,omitempty"`
-	TimingDate        *string          `json:"timingDate,omitempty"`
+	TimingDate        *FhirDate        `json:"timingDate,omitempty"`
 	TimingPeriod      *Period          `json:"timingPeriod,omitempty"`
 	ValueBoolean      *bool            `json:"valueBoolean,omitempty"`
 	ValueString       *string          `json:"valueString,omitempty"`
@@ -150,7 +150,7 @@ type ExplanationOfBenefitProcedure struct {
 	ModifierExtension        []Extension       `json:"modifierExtension,omitempty"`
 	Sequence                 int               `json:"sequence"`
 	Type                     []CodeableConcept `json:"type,omitempty"`
-	Date                     *string           `json:"date,omitempty"`
+	Date                     *FhirDateTime     `json:"date,omitempty"`
 	ProcedureCodeableConcept CodeableConcept   `json:"procedureCodeableConcept"`
 	ProcedureReference       Reference         `json:"procedureReference"`
 	Udi                      []Reference       `json:"udi,omitempty"`
@@ -171,7 +171,7 @@ type ExplanationOfBenefitAccident struct {
 	Id                *string          `json:"id,omitempty"`
 	Extension         []Extension      `json:"extension,omitempty"`
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDate        `json:"date,omitempty"`
 	Type              *CodeableConcept `json:"type,omitempty"`
 	LocationAddress   *Address         `json:"locationAddress,omitempty"`
 	LocationReference *Reference       `json:"locationReference,omitempty"`
@@ -195,7 +195,7 @@ type ExplanationOfBenefitItem struct {
 	Request                 []Reference                            `json:"request,omitempty"`
 	Modifier                []CodeableConcept                      `json:"modifier,omitempty"`
 	ProgramCode             []CodeableConcept                      `json:"programCode,omitempty"`
-	ServicedDate            *string                                `json:"servicedDate,omitempty"`
+	ServicedDate            *FhirDate                              `json:"servicedDate,omitempty"`
 	ServicedPeriod          *Period                                `json:"servicedPeriod,omitempty"`
 	LocationCodeableConcept *CodeableConcept                       `json:"locationCodeableConcept,omitempty"`
 	LocationAddress         *Address                               `json:"locationAddress,omitempty"`
@@ -309,7 +309,7 @@ type ExplanationOfBenefitAddItem struct {
 	Request                 []Reference                           `json:"request,omitempty"`
 	Modifier                []CodeableConcept                     `json:"modifier,omitempty"`
 	ProgramCode             []CodeableConcept                     `json:"programCode,omitempty"`
-	ServicedDate            *string                               `json:"servicedDate,omitempty"`
+	ServicedDate            *FhirDate                             `json:"servicedDate,omitempty"`
 	ServicedPeriod          *Period                               `json:"servicedPeriod,omitempty"`
 	LocationCodeableConcept *CodeableConcept                      `json:"locationCodeableConcept,omitempty"`
 	LocationAddress         *Address                              `json:"locationAddress,omitempty"`
@@ -390,7 +390,7 @@ type ExplanationOfBenefitPayment struct {
 	Type              *CodeableConcept `json:"type,omitempty"`
 	Adjustment        *Money           `json:"adjustment,omitempty"`
 	AdjustmentReason  *CodeableConcept `json:"adjustmentReason,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDate        `json:"date,omitempty"`
 	Amount            *Money           `json:"amount,omitempty"`
 	Identifier        *Identifier      `json:"identifier,omitempty"`
 }

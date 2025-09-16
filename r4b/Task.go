@@ -38,8 +38,8 @@ type Task struct {
 	For                   *Reference        `json:"for,omitempty"`
 	Encounter             *Reference        `json:"encounter,omitempty"`
 	ExecutionPeriod       *Period           `json:"executionPeriod,omitempty"`
-	AuthoredOn            *string           `json:"authoredOn,omitempty"`
-	LastModified          *string           `json:"lastModified,omitempty"`
+	AuthoredOn            *FhirDateTime     `json:"authoredOn,omitempty"`
+	LastModified          *FhirDateTime     `json:"lastModified,omitempty"`
 	Requester             *Reference        `json:"requester,omitempty"`
 	PerformerType         []CodeableConcept `json:"performerType,omitempty"`
 	Owner                 *Reference        `json:"owner,omitempty"`
@@ -74,8 +74,8 @@ type TaskInput struct {
 	ValueBoolean             bool                `json:"valueBoolean"`
 	ValueCanonical           string              `json:"valueCanonical"`
 	ValueCode                string              `json:"valueCode"`
-	ValueDate                string              `json:"valueDate"`
-	ValueDateTime            string              `json:"valueDateTime"`
+	ValueDate                FhirDate            `json:"valueDate"`
+	ValueDateTime            FhirDateTime        `json:"valueDateTime"`
 	ValueDecimal             float64             `json:"valueDecimal"`
 	ValueId                  string              `json:"valueId"`
 	ValueInstant             string              `json:"valueInstant"`
@@ -132,8 +132,8 @@ type TaskOutput struct {
 	ValueBoolean             bool                `json:"valueBoolean"`
 	ValueCanonical           string              `json:"valueCanonical"`
 	ValueCode                string              `json:"valueCode"`
-	ValueDate                string              `json:"valueDate"`
-	ValueDateTime            string              `json:"valueDateTime"`
+	ValueDate                FhirDate            `json:"valueDate"`
+	ValueDateTime            FhirDateTime        `json:"valueDateTime"`
 	ValueDecimal             float64             `json:"valueDecimal"`
 	ValueId                  string              `json:"valueId"`
 	ValueInstant             string              `json:"valueInstant"`

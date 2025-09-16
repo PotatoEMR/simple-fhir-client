@@ -29,8 +29,8 @@ type CatalogEntry struct {
 	Classification           []CodeableConcept          `json:"classification,omitempty"`
 	Status                   *string                    `json:"status,omitempty"`
 	ValidityPeriod           *Period                    `json:"validityPeriod,omitempty"`
-	ValidTo                  *string                    `json:"validTo,omitempty"`
-	LastUpdated              *string                    `json:"lastUpdated,omitempty"`
+	ValidTo                  *FhirDateTime              `json:"validTo,omitempty"`
+	LastUpdated              *FhirDateTime              `json:"lastUpdated,omitempty"`
 	AdditionalCharacteristic []CodeableConcept          `json:"additionalCharacteristic,omitempty"`
 	AdditionalClassification []CodeableConcept          `json:"additionalClassification,omitempty"`
 	RelatedEntry             []CatalogEntryRelatedEntry `json:"relatedEntry,omitempty"`

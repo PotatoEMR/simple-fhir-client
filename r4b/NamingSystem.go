@@ -24,7 +24,7 @@ type NamingSystem struct {
 	Name              string                 `json:"name"`
 	Status            string                 `json:"status"`
 	Kind              string                 `json:"kind"`
-	Date              string                 `json:"date"`
+	Date              FhirDateTime           `json:"date"`
 	Publisher         *string                `json:"publisher,omitempty"`
 	Contact           []ContactDetail        `json:"contact,omitempty"`
 	Responsible       *string                `json:"responsible,omitempty"`

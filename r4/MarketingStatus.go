@@ -13,5 +13,5 @@ type MarketingStatus struct {
 	Jurisdiction      *CodeableConcept `json:"jurisdiction,omitempty"`
 	Status            CodeableConcept  `json:"status"`
 	DateRange         Period           `json:"dateRange"`
-	RestoreDate       *string          `json:"restoreDate,omitempty"`
+	RestoreDate       *FhirDateTime    `json:"restoreDate,omitempty"`
 }

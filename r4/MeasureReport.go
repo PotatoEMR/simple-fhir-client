@@ -26,7 +26,7 @@ type MeasureReport struct {
 	Type                string               `json:"type"`
 	Measure             string               `json:"measure"`
 	Subject             *Reference           `json:"subject,omitempty"`
-	Date                *string              `json:"date,omitempty"`
+	Date                *FhirDateTime        `json:"date,omitempty"`
 	Reporter            *Reference           `json:"reporter,omitempty"`
 	Period              Period               `json:"period"`
 	ImprovementNotation *CodeableConcept     `json:"improvementNotation,omitempty"`

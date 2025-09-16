@@ -29,7 +29,7 @@ type Composition struct {
 	Category          []CodeableConcept     `json:"category,omitempty"`
 	Subject           []Reference           `json:"subject,omitempty"`
 	Encounter         *Reference            `json:"encounter,omitempty"`
-	Date              string                `json:"date"`
+	Date              FhirDateTime          `json:"date"`
 	UseContext        []UsageContext        `json:"useContext,omitempty"`
 	Author            []Reference           `json:"author"`
 	Name              *string               `json:"name,omitempty"`
@@ -48,7 +48,7 @@ type CompositionAttester struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Mode              CodeableConcept `json:"mode"`
-	Time              *string         `json:"time,omitempty"`
+	Time              *FhirDateTime   `json:"time,omitempty"`
 	Party             *Reference      `json:"party,omitempty"`
 }
 

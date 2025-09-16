@@ -82,7 +82,7 @@ type SubstanceDefinitionProperty struct {
 	Type                 CodeableConcept  `json:"type"`
 	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
-	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueDate            *FhirDate        `json:"valueDate,omitempty"`
 	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
 	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }
@@ -129,7 +129,7 @@ type SubstanceDefinitionCode struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Code              *CodeableConcept `json:"code,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
-	StatusDate        *string          `json:"statusDate,omitempty"`
+	StatusDate        *FhirDateTime    `json:"statusDate,omitempty"`
 	Note              []Annotation     `json:"note,omitempty"`
 	Source            []Reference      `json:"source,omitempty"`
 }
@@ -157,7 +157,7 @@ type SubstanceDefinitionNameOfficial struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Authority         *CodeableConcept `json:"authority,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDateTime    `json:"date,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/SubstanceDefinition

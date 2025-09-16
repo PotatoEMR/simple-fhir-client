@@ -12,21 +12,21 @@ import (
 
 // http://hl7.org/fhir/r4b/StructureDefinition/EnrollmentRequest
 type EnrollmentRequest struct {
-	Id                *string      `json:"id,omitempty"`
-	Meta              *Meta        `json:"meta,omitempty"`
-	ImplicitRules     *string      `json:"implicitRules,omitempty"`
-	Language          *string      `json:"language,omitempty"`
-	Text              *Narrative   `json:"text,omitempty"`
-	Contained         []Resource   `json:"contained,omitempty"`
-	Extension         []Extension  `json:"extension,omitempty"`
-	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
-	Identifier        []Identifier `json:"identifier,omitempty"`
-	Status            *string      `json:"status,omitempty"`
-	Created           *string      `json:"created,omitempty"`
-	Insurer           *Reference   `json:"insurer,omitempty"`
-	Provider          *Reference   `json:"provider,omitempty"`
-	Candidate         *Reference   `json:"candidate,omitempty"`
-	Coverage          *Reference   `json:"coverage,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Meta              *Meta         `json:"meta,omitempty"`
+	ImplicitRules     *string       `json:"implicitRules,omitempty"`
+	Language          *string       `json:"language,omitempty"`
+	Text              *Narrative    `json:"text,omitempty"`
+	Contained         []Resource    `json:"contained,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Identifier        []Identifier  `json:"identifier,omitempty"`
+	Status            *string       `json:"status,omitempty"`
+	Created           *FhirDateTime `json:"created,omitempty"`
+	Insurer           *Reference    `json:"insurer,omitempty"`
+	Provider          *Reference    `json:"provider,omitempty"`
+	Candidate         *Reference    `json:"candidate,omitempty"`
+	Coverage          *Reference    `json:"coverage,omitempty"`
 }
 
 type OtherEnrollmentRequest EnrollmentRequest

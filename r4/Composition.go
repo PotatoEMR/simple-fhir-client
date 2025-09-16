@@ -27,7 +27,7 @@ type Composition struct {
 	Category          []CodeableConcept      `json:"category,omitempty"`
 	Subject           *Reference             `json:"subject,omitempty"`
 	Encounter         *Reference             `json:"encounter,omitempty"`
-	Date              string                 `json:"date"`
+	Date              FhirDateTime           `json:"date"`
 	Author            []Reference            `json:"author"`
 	Title             string                 `json:"title"`
 	Confidentiality   *string                `json:"confidentiality,omitempty"`
@@ -40,12 +40,12 @@ type Composition struct {
 
 // http://hl7.org/fhir/r4/StructureDefinition/Composition
 type CompositionAttester struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Mode              string      `json:"mode"`
-	Time              *string     `json:"time,omitempty"`
-	Party             *Reference  `json:"party,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Mode              string        `json:"mode"`
+	Time              *FhirDateTime `json:"time,omitempty"`
+	Party             *Reference    `json:"party,omitempty"`
 }
 
 // http://hl7.org/fhir/r4/StructureDefinition/Composition

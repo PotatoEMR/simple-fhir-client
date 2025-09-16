@@ -26,7 +26,7 @@ type Consent struct {
 	Scope             CodeableConcept       `json:"scope"`
 	Category          []CodeableConcept     `json:"category"`
 	Patient           *Reference            `json:"patient,omitempty"`
-	DateTime          *string               `json:"dateTime,omitempty"`
+	DateTime          *FhirDateTime         `json:"dateTime,omitempty"`
 	Performer         []Reference           `json:"performer,omitempty"`
 	Organization      []Reference           `json:"organization,omitempty"`
 	SourceAttachment  *Attachment           `json:"sourceAttachment,omitempty"`
@@ -48,12 +48,12 @@ type ConsentPolicy struct {
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Consent
 type ConsentVerification struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Verified          bool        `json:"verified"`
-	VerifiedWith      *Reference  `json:"verifiedWith,omitempty"`
-	VerificationDate  *string     `json:"verificationDate,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Verified          bool          `json:"verified"`
+	VerifiedWith      *Reference    `json:"verifiedWith,omitempty"`
+	VerificationDate  *FhirDateTime `json:"verificationDate,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Consent

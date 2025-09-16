@@ -26,7 +26,7 @@ type GenomicStudy struct {
 	Type                  []CodeableConcept      `json:"type,omitempty"`
 	Subject               Reference              `json:"subject"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	StartDate             *string                `json:"startDate,omitempty"`
+	StartDate             *FhirDateTime          `json:"startDate,omitempty"`
 	BasedOn               []Reference            `json:"basedOn,omitempty"`
 	Referrer              *Reference             `json:"referrer,omitempty"`
 	Interpreter           []Reference            `json:"interpreter,omitempty"`
@@ -52,7 +52,7 @@ type GenomicStudyAnalysis struct {
 	Title                 *string                         `json:"title,omitempty"`
 	Focus                 []Reference                     `json:"focus,omitempty"`
 	Specimen              []Reference                     `json:"specimen,omitempty"`
-	Date                  *string                         `json:"date,omitempty"`
+	Date                  *FhirDateTime                   `json:"date,omitempty"`
 	Note                  []Annotation                    `json:"note,omitempty"`
 	ProtocolPerformed     *Reference                      `json:"protocolPerformed,omitempty"`
 	RegionsStudied        []Reference                     `json:"regionsStudied,omitempty"`

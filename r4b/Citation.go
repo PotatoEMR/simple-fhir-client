@@ -28,7 +28,7 @@ type Citation struct {
 	Title             *string                  `json:"title,omitempty"`
 	Status            string                   `json:"status"`
 	Experimental      *bool                    `json:"experimental,omitempty"`
-	Date              *string                  `json:"date,omitempty"`
+	Date              *FhirDateTime            `json:"date,omitempty"`
 	Publisher         *string                  `json:"publisher,omitempty"`
 	Contact           []ContactDetail          `json:"contact,omitempty"`
 	Description       *string                  `json:"description,omitempty"`
@@ -36,8 +36,8 @@ type Citation struct {
 	Jurisdiction      []CodeableConcept        `json:"jurisdiction,omitempty"`
 	Purpose           *string                  `json:"purpose,omitempty"`
 	Copyright         *string                  `json:"copyright,omitempty"`
-	ApprovalDate      *string                  `json:"approvalDate,omitempty"`
-	LastReviewDate    *string                  `json:"lastReviewDate,omitempty"`
+	ApprovalDate      *FhirDate                `json:"approvalDate,omitempty"`
+	LastReviewDate    *FhirDate                `json:"lastReviewDate,omitempty"`
 	EffectivePeriod   *Period                  `json:"effectivePeriod,omitempty"`
 	Author            []ContactDetail          `json:"author,omitempty"`
 	Editor            []ContactDetail          `json:"editor,omitempty"`
@@ -100,7 +100,7 @@ type CitationCitedArtifact struct {
 	ModifierExtension []Extension                            `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier                           `json:"identifier,omitempty"`
 	RelatedIdentifier []Identifier                           `json:"relatedIdentifier,omitempty"`
-	DateAccessed      *string                                `json:"dateAccessed,omitempty"`
+	DateAccessed      *FhirDateTime                          `json:"dateAccessed,omitempty"`
 	Version           *CitationCitedArtifactVersion          `json:"version,omitempty"`
 	CurrentState      []CodeableConcept                      `json:"currentState,omitempty"`
 	StatusDate        []CitationCitedArtifactStatusDate      `json:"statusDate,omitempty"`
@@ -185,8 +185,8 @@ type CitationCitedArtifactPublicationForm struct {
 	ModifierExtension []Extension                                          `json:"modifierExtension,omitempty"`
 	PublishedIn       *CitationCitedArtifactPublicationFormPublishedIn     `json:"publishedIn,omitempty"`
 	PeriodicRelease   *CitationCitedArtifactPublicationFormPeriodicRelease `json:"periodicRelease,omitempty"`
-	ArticleDate       *string                                              `json:"articleDate,omitempty"`
-	LastRevisionDate  *string                                              `json:"lastRevisionDate,omitempty"`
+	ArticleDate       *FhirDateTime                                        `json:"articleDate,omitempty"`
+	LastRevisionDate  *FhirDateTime                                        `json:"lastRevisionDate,omitempty"`
 	Language          []CodeableConcept                                    `json:"language,omitempty"`
 	AccessionNumber   *string                                              `json:"accessionNumber,omitempty"`
 	PageString        *string                                              `json:"pageString,omitempty"`
@@ -224,7 +224,7 @@ type CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication struct
 	Id                *string     `json:"id,omitempty"`
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Date              *string     `json:"date,omitempty"`
+	Date              *FhirDate   `json:"date,omitempty"`
 	Year              *string     `json:"year,omitempty"`
 	Month             *string     `json:"month,omitempty"`
 	Day               *string     `json:"day,omitempty"`
@@ -308,7 +308,7 @@ type CitationCitedArtifactContributorshipEntryContributionInstance struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Type              CodeableConcept `json:"type"`
-	Time              *string         `json:"time,omitempty"`
+	Time              *FhirDateTime   `json:"time,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Citation

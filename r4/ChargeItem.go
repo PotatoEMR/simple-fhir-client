@@ -29,7 +29,7 @@ type ChargeItem struct {
 	Code                   CodeableConcept       `json:"code"`
 	Subject                Reference             `json:"subject"`
 	Context                *Reference            `json:"context,omitempty"`
-	OccurrenceDateTime     *string               `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime     *FhirDateTime         `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod       *Period               `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming       *Timing               `json:"occurrenceTiming,omitempty"`
 	Performer              []ChargeItemPerformer `json:"performer,omitempty"`
@@ -42,7 +42,7 @@ type ChargeItem struct {
 	PriceOverride          *Money                `json:"priceOverride,omitempty"`
 	OverrideReason         *string               `json:"overrideReason,omitempty"`
 	Enterer                *Reference            `json:"enterer,omitempty"`
-	EnteredDate            *string               `json:"enteredDate,omitempty"`
+	EnteredDate            *FhirDateTime         `json:"enteredDate,omitempty"`
 	Reason                 []CodeableConcept     `json:"reason,omitempty"`
 	Service                []Reference           `json:"service,omitempty"`
 	ProductReference       *Reference            `json:"productReference,omitempty"`

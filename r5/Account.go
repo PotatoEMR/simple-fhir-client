@@ -66,7 +66,7 @@ type AccountDiagnosis struct {
 	ModifierExtension []Extension       `json:"modifierExtension,omitempty"`
 	Sequence          *int              `json:"sequence,omitempty"`
 	Condition         CodeableReference `json:"condition"`
-	DateOfDiagnosis   *string           `json:"dateOfDiagnosis,omitempty"`
+	DateOfDiagnosis   *FhirDateTime     `json:"dateOfDiagnosis,omitempty"`
 	Type              []CodeableConcept `json:"type,omitempty"`
 	OnAdmission       *bool             `json:"onAdmission,omitempty"`
 	PackageCode       []CodeableConcept `json:"packageCode,omitempty"`
@@ -79,7 +79,7 @@ type AccountProcedure struct {
 	ModifierExtension []Extension       `json:"modifierExtension,omitempty"`
 	Sequence          *int              `json:"sequence,omitempty"`
 	Code              CodeableReference `json:"code"`
-	DateOfService     *string           `json:"dateOfService,omitempty"`
+	DateOfService     *FhirDateTime     `json:"dateOfService,omitempty"`
 	Type              []CodeableConcept `json:"type,omitempty"`
 	PackageCode       []CodeableConcept `json:"packageCode,omitempty"`
 	Device            []Reference       `json:"device,omitempty"`

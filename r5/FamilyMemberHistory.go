@@ -27,13 +27,13 @@ type FamilyMemberHistory struct {
 	Status                string                           `json:"status"`
 	DataAbsentReason      *CodeableConcept                 `json:"dataAbsentReason,omitempty"`
 	Patient               Reference                        `json:"patient"`
-	Date                  *string                          `json:"date,omitempty"`
+	Date                  *FhirDateTime                    `json:"date,omitempty"`
 	Participant           []FamilyMemberHistoryParticipant `json:"participant,omitempty"`
 	Name                  *string                          `json:"name,omitempty"`
 	Relationship          CodeableConcept                  `json:"relationship"`
 	Sex                   *CodeableConcept                 `json:"sex,omitempty"`
 	BornPeriod            *Period                          `json:"bornPeriod,omitempty"`
-	BornDate              *string                          `json:"bornDate,omitempty"`
+	BornDate              *FhirDate                        `json:"bornDate,omitempty"`
 	BornString            *string                          `json:"bornString,omitempty"`
 	AgeAge                *Age                             `json:"ageAge,omitempty"`
 	AgeRange              *Range                           `json:"ageRange,omitempty"`
@@ -42,7 +42,7 @@ type FamilyMemberHistory struct {
 	DeceasedBoolean       *bool                            `json:"deceasedBoolean,omitempty"`
 	DeceasedAge           *Age                             `json:"deceasedAge,omitempty"`
 	DeceasedRange         *Range                           `json:"deceasedRange,omitempty"`
-	DeceasedDate          *string                          `json:"deceasedDate,omitempty"`
+	DeceasedDate          *FhirDate                        `json:"deceasedDate,omitempty"`
 	DeceasedString        *string                          `json:"deceasedString,omitempty"`
 	Reason                []CodeableReference              `json:"reason,omitempty"`
 	Note                  []Annotation                     `json:"note,omitempty"`
@@ -86,7 +86,7 @@ type FamilyMemberHistoryProcedure struct {
 	PerformedRange     *Range           `json:"performedRange,omitempty"`
 	PerformedPeriod    *Period          `json:"performedPeriod,omitempty"`
 	PerformedString    *string          `json:"performedString,omitempty"`
-	PerformedDateTime  *string          `json:"performedDateTime,omitempty"`
+	PerformedDateTime  *FhirDateTime    `json:"performedDateTime,omitempty"`
 	Note               []Annotation     `json:"note,omitempty"`
 }
 

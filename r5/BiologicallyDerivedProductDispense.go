@@ -32,8 +32,8 @@ type BiologicallyDerivedProductDispense struct {
 	Performer              []BiologicallyDerivedProductDispensePerformer `json:"performer,omitempty"`
 	Location               *Reference                                    `json:"location,omitempty"`
 	Quantity               *Quantity                                     `json:"quantity,omitempty"`
-	PreparedDate           *string                                       `json:"preparedDate,omitempty"`
-	WhenHandedOver         *string                                       `json:"whenHandedOver,omitempty"`
+	PreparedDate           *FhirDateTime                                 `json:"preparedDate,omitempty"`
+	WhenHandedOver         *FhirDateTime                                 `json:"whenHandedOver,omitempty"`
 	Destination            *Reference                                    `json:"destination,omitempty"`
 	Note                   []Annotation                                  `json:"note,omitempty"`
 	UsageInstruction       *string                                       `json:"usageInstruction,omitempty"`

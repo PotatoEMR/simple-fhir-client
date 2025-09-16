@@ -30,8 +30,8 @@ type ElementDefinition struct {
 	DefaultValueBoolean             *bool                `json:"defaultValueBoolean,omitempty"`
 	DefaultValueCanonical           *string              `json:"defaultValueCanonical,omitempty"`
 	DefaultValueCode                *string              `json:"defaultValueCode,omitempty"`
-	DefaultValueDate                *string              `json:"defaultValueDate,omitempty"`
-	DefaultValueDateTime            *string              `json:"defaultValueDateTime,omitempty"`
+	DefaultValueDate                *FhirDate            `json:"defaultValueDate,omitempty"`
+	DefaultValueDateTime            *FhirDateTime        `json:"defaultValueDateTime,omitempty"`
 	DefaultValueDecimal             *float64             `json:"defaultValueDecimal,omitempty"`
 	DefaultValueId                  *string              `json:"defaultValueId,omitempty"`
 	DefaultValueInstant             *string              `json:"defaultValueInstant,omitempty"`
@@ -83,8 +83,8 @@ type ElementDefinition struct {
 	FixedBoolean                    *bool                `json:"fixedBoolean,omitempty"`
 	FixedCanonical                  *string              `json:"fixedCanonical,omitempty"`
 	FixedCode                       *string              `json:"fixedCode,omitempty"`
-	FixedDate                       *string              `json:"fixedDate,omitempty"`
-	FixedDateTime                   *string              `json:"fixedDateTime,omitempty"`
+	FixedDate                       *FhirDate            `json:"fixedDate,omitempty"`
+	FixedDateTime                   *FhirDateTime        `json:"fixedDateTime,omitempty"`
 	FixedDecimal                    *float64             `json:"fixedDecimal,omitempty"`
 	FixedId                         *string              `json:"fixedId,omitempty"`
 	FixedInstant                    *string              `json:"fixedInstant,omitempty"`
@@ -134,8 +134,8 @@ type ElementDefinition struct {
 	PatternBoolean                  *bool                `json:"patternBoolean,omitempty"`
 	PatternCanonical                *string              `json:"patternCanonical,omitempty"`
 	PatternCode                     *string              `json:"patternCode,omitempty"`
-	PatternDate                     *string              `json:"patternDate,omitempty"`
-	PatternDateTime                 *string              `json:"patternDateTime,omitempty"`
+	PatternDate                     *FhirDate            `json:"patternDate,omitempty"`
+	PatternDateTime                 *FhirDateTime        `json:"patternDateTime,omitempty"`
 	PatternDecimal                  *float64             `json:"patternDecimal,omitempty"`
 	PatternId                       *string              `json:"patternId,omitempty"`
 	PatternInstant                  *string              `json:"patternInstant,omitempty"`
@@ -182,8 +182,8 @@ type ElementDefinition struct {
 	PatternUsageContext             *UsageContext        `json:"patternUsageContext,omitempty"`
 	PatternDosage                   *Dosage              `json:"patternDosage,omitempty"`
 	Example                         []Element            `json:"example,omitempty"`
-	MinValueDate                    *string              `json:"minValueDate,omitempty"`
-	MinValueDateTime                *string              `json:"minValueDateTime,omitempty"`
+	MinValueDate                    *FhirDate            `json:"minValueDate,omitempty"`
+	MinValueDateTime                *FhirDateTime        `json:"minValueDateTime,omitempty"`
 	MinValueInstant                 *string              `json:"minValueInstant,omitempty"`
 	MinValueTime                    *string              `json:"minValueTime,omitempty"`
 	MinValueDecimal                 *float64             `json:"minValueDecimal,omitempty"`
@@ -191,8 +191,8 @@ type ElementDefinition struct {
 	MinValuePositiveInt             *int                 `json:"minValuePositiveInt,omitempty"`
 	MinValueUnsignedInt             *int                 `json:"minValueUnsignedInt,omitempty"`
 	MinValueQuantity                *Quantity            `json:"minValueQuantity,omitempty"`
-	MaxValueDate                    *string              `json:"maxValueDate,omitempty"`
-	MaxValueDateTime                *string              `json:"maxValueDateTime,omitempty"`
+	MaxValueDate                    *FhirDate            `json:"maxValueDate,omitempty"`
+	MaxValueDateTime                *FhirDateTime        `json:"maxValueDateTime,omitempty"`
 	MaxValueInstant                 *string              `json:"maxValueInstant,omitempty"`
 	MaxValueTime                    *string              `json:"maxValueTime,omitempty"`
 	MaxValueDecimal                 *float64             `json:"maxValueDecimal,omitempty"`

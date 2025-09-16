@@ -29,10 +29,10 @@ type SupplyRequest struct {
 	ItemReference       Reference                `json:"itemReference"`
 	Quantity            Quantity                 `json:"quantity"`
 	Parameter           []SupplyRequestParameter `json:"parameter,omitempty"`
-	OccurrenceDateTime  *string                  `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime  *FhirDateTime            `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod    *Period                  `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming    *Timing                  `json:"occurrenceTiming,omitempty"`
-	AuthoredOn          *string                  `json:"authoredOn,omitempty"`
+	AuthoredOn          *FhirDateTime            `json:"authoredOn,omitempty"`
 	Requester           *Reference               `json:"requester,omitempty"`
 	Supplier            []Reference              `json:"supplier,omitempty"`
 	ReasonCode          []CodeableConcept        `json:"reasonCode,omitempty"`

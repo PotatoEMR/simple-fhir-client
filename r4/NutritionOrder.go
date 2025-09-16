@@ -29,7 +29,7 @@ type NutritionOrder struct {
 	Intent                 string                        `json:"intent"`
 	Patient                Reference                     `json:"patient"`
 	Encounter              *Reference                    `json:"encounter,omitempty"`
-	DateTime               string                        `json:"dateTime"`
+	DateTime               FhirDateTime                  `json:"dateTime"`
 	Orderer                *Reference                    `json:"orderer,omitempty"`
 	AllergyIntolerance     []Reference                   `json:"allergyIntolerance,omitempty"`
 	FoodPreferenceModifier []CodeableConcept             `json:"foodPreferenceModifier,omitempty"`

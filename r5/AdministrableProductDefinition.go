@@ -42,7 +42,7 @@ type AdministrableProductDefinitionProperty struct {
 	Type                 CodeableConcept  `json:"type"`
 	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
-	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueDate            *FhirDate        `json:"valueDate,omitempty"`
 	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
 	ValueMarkdown        *string          `json:"valueMarkdown,omitempty"`
 	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`

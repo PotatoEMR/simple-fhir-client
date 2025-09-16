@@ -28,7 +28,7 @@ type QuestionnaireResponse struct {
 	Status            string                      `json:"status"`
 	Subject           *Reference                  `json:"subject,omitempty"`
 	Encounter         *Reference                  `json:"encounter,omitempty"`
-	Authored          *string                     `json:"authored,omitempty"`
+	Authored          *FhirDateTime               `json:"authored,omitempty"`
 	Author            *Reference                  `json:"author,omitempty"`
 	Source            *Reference                  `json:"source,omitempty"`
 	Item              []QuestionnaireResponseItem `json:"item,omitempty"`
@@ -47,21 +47,21 @@ type QuestionnaireResponseItem struct {
 
 // http://hl7.org/fhir/r4b/StructureDefinition/QuestionnaireResponse
 type QuestionnaireResponseItemAnswer struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueBoolean      *bool       `json:"valueBoolean,omitempty"`
-	ValueDecimal      *float64    `json:"valueDecimal,omitempty"`
-	ValueInteger      *int        `json:"valueInteger,omitempty"`
-	ValueDate         *string     `json:"valueDate,omitempty"`
-	ValueDateTime     *string     `json:"valueDateTime,omitempty"`
-	ValueTime         *string     `json:"valueTime,omitempty"`
-	ValueString       *string     `json:"valueString,omitempty"`
-	ValueUri          *string     `json:"valueUri,omitempty"`
-	ValueAttachment   *Attachment `json:"valueAttachment,omitempty"`
-	ValueCoding       *Coding     `json:"valueCoding,omitempty"`
-	ValueQuantity     *Quantity   `json:"valueQuantity,omitempty"`
-	ValueReference    *Reference  `json:"valueReference,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	ValueBoolean      *bool         `json:"valueBoolean,omitempty"`
+	ValueDecimal      *float64      `json:"valueDecimal,omitempty"`
+	ValueInteger      *int          `json:"valueInteger,omitempty"`
+	ValueDate         *FhirDate     `json:"valueDate,omitempty"`
+	ValueDateTime     *FhirDateTime `json:"valueDateTime,omitempty"`
+	ValueTime         *string       `json:"valueTime,omitempty"`
+	ValueString       *string       `json:"valueString,omitempty"`
+	ValueUri          *string       `json:"valueUri,omitempty"`
+	ValueAttachment   *Attachment   `json:"valueAttachment,omitempty"`
+	ValueCoding       *Coding       `json:"valueCoding,omitempty"`
+	ValueQuantity     *Quantity     `json:"valueQuantity,omitempty"`
+	ValueReference    *Reference    `json:"valueReference,omitempty"`
 }
 
 type OtherQuestionnaireResponse QuestionnaireResponse

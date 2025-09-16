@@ -29,7 +29,7 @@ type CompartmentDefinition struct {
 	Title                  *string                         `json:"title,omitempty"`
 	Status                 string                          `json:"status"`
 	Experimental           *bool                           `json:"experimental,omitempty"`
-	Date                   *string                         `json:"date,omitempty"`
+	Date                   *FhirDateTime                   `json:"date,omitempty"`
 	Publisher              *string                         `json:"publisher,omitempty"`
 	Contact                []ContactDetail                 `json:"contact,omitempty"`
 	Description            *string                         `json:"description,omitempty"`

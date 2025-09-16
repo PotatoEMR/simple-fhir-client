@@ -26,9 +26,9 @@ type CoverageEligibilityRequest struct {
 	Priority          *CodeableConcept                           `json:"priority,omitempty"`
 	Purpose           []string                                   `json:"purpose"`
 	Patient           Reference                                  `json:"patient"`
-	ServicedDate      *string                                    `json:"servicedDate,omitempty"`
+	ServicedDate      *FhirDate                                  `json:"servicedDate,omitempty"`
 	ServicedPeriod    *Period                                    `json:"servicedPeriod,omitempty"`
-	Created           string                                     `json:"created"`
+	Created           FhirDateTime                               `json:"created"`
 	Enterer           *Reference                                 `json:"enterer,omitempty"`
 	Provider          *Reference                                 `json:"provider,omitempty"`
 	Insurer           Reference                                  `json:"insurer"`

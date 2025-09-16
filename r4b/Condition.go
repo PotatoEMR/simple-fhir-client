@@ -30,17 +30,17 @@ type Condition struct {
 	BodySite           []CodeableConcept   `json:"bodySite,omitempty"`
 	Subject            Reference           `json:"subject"`
 	Encounter          *Reference          `json:"encounter,omitempty"`
-	OnsetDateTime      *string             `json:"onsetDateTime,omitempty"`
+	OnsetDateTime      *FhirDateTime       `json:"onsetDateTime,omitempty"`
 	OnsetAge           *Age                `json:"onsetAge,omitempty"`
 	OnsetPeriod        *Period             `json:"onsetPeriod,omitempty"`
 	OnsetRange         *Range              `json:"onsetRange,omitempty"`
 	OnsetString        *string             `json:"onsetString,omitempty"`
-	AbatementDateTime  *string             `json:"abatementDateTime,omitempty"`
+	AbatementDateTime  *FhirDateTime       `json:"abatementDateTime,omitempty"`
 	AbatementAge       *Age                `json:"abatementAge,omitempty"`
 	AbatementPeriod    *Period             `json:"abatementPeriod,omitempty"`
 	AbatementRange     *Range              `json:"abatementRange,omitempty"`
 	AbatementString    *string             `json:"abatementString,omitempty"`
-	RecordedDate       *string             `json:"recordedDate,omitempty"`
+	RecordedDate       *FhirDateTime       `json:"recordedDate,omitempty"`
 	Recorder           *Reference          `json:"recorder,omitempty"`
 	Asserter           *Reference          `json:"asserter,omitempty"`
 	Stage              []ConditionStage    `json:"stage,omitempty"`

@@ -26,7 +26,7 @@ type MedicinalProductDefinition struct {
 	Domain                         *CodeableConcept                           `json:"domain,omitempty"`
 	Version                        *string                                    `json:"version,omitempty"`
 	Status                         *CodeableConcept                           `json:"status,omitempty"`
-	StatusDate                     *string                                    `json:"statusDate,omitempty"`
+	StatusDate                     *FhirDateTime                              `json:"statusDate,omitempty"`
 	Description                    *string                                    `json:"description,omitempty"`
 	CombinedPharmaceuticalDoseForm *CodeableConcept                           `json:"combinedPharmaceuticalDoseForm,omitempty"`
 	Route                          []CodeableConcept                          `json:"route,omitempty"`
@@ -118,7 +118,7 @@ type MedicinalProductDefinitionCharacteristic struct {
 	Type                 CodeableConcept  `json:"type"`
 	ValueCodeableConcept *CodeableConcept `json:"valueCodeableConcept,omitempty"`
 	ValueQuantity        *Quantity        `json:"valueQuantity,omitempty"`
-	ValueDate            *string          `json:"valueDate,omitempty"`
+	ValueDate            *FhirDate        `json:"valueDate,omitempty"`
 	ValueBoolean         *bool            `json:"valueBoolean,omitempty"`
 	ValueAttachment      *Attachment      `json:"valueAttachment,omitempty"`
 }

@@ -29,8 +29,8 @@ type Device struct {
 	AvailabilityStatus    *CodeableConcept    `json:"availabilityStatus,omitempty"`
 	BiologicalSourceEvent *Identifier         `json:"biologicalSourceEvent,omitempty"`
 	Manufacturer          *string             `json:"manufacturer,omitempty"`
-	ManufactureDate       *string             `json:"manufactureDate,omitempty"`
-	ExpirationDate        *string             `json:"expirationDate,omitempty"`
+	ManufactureDate       *FhirDateTime       `json:"manufactureDate,omitempty"`
+	ExpirationDate        *FhirDateTime       `json:"expirationDate,omitempty"`
 	LotNumber             *string             `json:"lotNumber,omitempty"`
 	SerialNumber          *string             `json:"serialNumber,omitempty"`
 	Name                  []DeviceName        `json:"name,omitempty"`
@@ -85,7 +85,7 @@ type DeviceVersion struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Type              *CodeableConcept `json:"type,omitempty"`
 	Component         *Identifier      `json:"component,omitempty"`
-	InstallDate       *string          `json:"installDate,omitempty"`
+	InstallDate       *FhirDateTime    `json:"installDate,omitempty"`
 	Value             string           `json:"value"`
 }
 

@@ -27,7 +27,7 @@ type MedicationRequest struct {
 	GroupIdentifier           *Identifier                       `json:"groupIdentifier,omitempty"`
 	Status                    string                            `json:"status"`
 	StatusReason              *CodeableConcept                  `json:"statusReason,omitempty"`
-	StatusChanged             *string                           `json:"statusChanged,omitempty"`
+	StatusChanged             *FhirDateTime                     `json:"statusChanged,omitempty"`
 	Intent                    string                            `json:"intent"`
 	Category                  []CodeableConcept                 `json:"category,omitempty"`
 	Priority                  *string                           `json:"priority,omitempty"`
@@ -37,7 +37,7 @@ type MedicationRequest struct {
 	InformationSource         []Reference                       `json:"informationSource,omitempty"`
 	Encounter                 *Reference                        `json:"encounter,omitempty"`
 	SupportingInformation     []Reference                       `json:"supportingInformation,omitempty"`
-	AuthoredOn                *string                           `json:"authoredOn,omitempty"`
+	AuthoredOn                *FhirDateTime                     `json:"authoredOn,omitempty"`
 	Requester                 *Reference                        `json:"requester,omitempty"`
 	Reported                  *bool                             `json:"reported,omitempty"`
 	PerformerType             *CodeableConcept                  `json:"performerType,omitempty"`

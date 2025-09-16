@@ -23,10 +23,10 @@ type VisionPrescription struct {
 	ModifierExtension []Extension                           `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier                          `json:"identifier,omitempty"`
 	Status            string                                `json:"status"`
-	Created           string                                `json:"created"`
+	Created           FhirDateTime                          `json:"created"`
 	Patient           Reference                             `json:"patient"`
 	Encounter         *Reference                            `json:"encounter,omitempty"`
-	DateWritten       string                                `json:"dateWritten"`
+	DateWritten       FhirDateTime                          `json:"dateWritten"`
 	Prescriber        Reference                             `json:"prescriber"`
 	LensSpecification []VisionPrescriptionLensSpecification `json:"lensSpecification"`
 }

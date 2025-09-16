@@ -40,12 +40,12 @@ type ServiceRequest struct {
 	Subject                 Reference                          `json:"subject"`
 	Focus                   []Reference                        `json:"focus,omitempty"`
 	Encounter               *Reference                         `json:"encounter,omitempty"`
-	OccurrenceDateTime      *string                            `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime      *FhirDateTime                      `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod        *Period                            `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming        *Timing                            `json:"occurrenceTiming,omitempty"`
 	AsNeededBoolean         *bool                              `json:"asNeededBoolean,omitempty"`
 	AsNeededCodeableConcept *CodeableConcept                   `json:"asNeededCodeableConcept,omitempty"`
-	AuthoredOn              *string                            `json:"authoredOn,omitempty"`
+	AuthoredOn              *FhirDateTime                      `json:"authoredOn,omitempty"`
 	Requester               *Reference                         `json:"requester,omitempty"`
 	PerformerType           *CodeableConcept                   `json:"performerType,omitempty"`
 	Performer               []Reference                        `json:"performer,omitempty"`

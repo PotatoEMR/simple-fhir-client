@@ -31,10 +31,10 @@ type MedicationAdministration struct {
 	Subject               Reference                           `json:"subject"`
 	Encounter             *Reference                          `json:"encounter,omitempty"`
 	SupportingInformation []Reference                         `json:"supportingInformation,omitempty"`
-	OccurenceDateTime     string                              `json:"occurenceDateTime"`
+	OccurenceDateTime     FhirDateTime                        `json:"occurenceDateTime"`
 	OccurencePeriod       Period                              `json:"occurencePeriod"`
 	OccurenceTiming       Timing                              `json:"occurenceTiming"`
-	Recorded              *string                             `json:"recorded,omitempty"`
+	Recorded              *FhirDateTime                       `json:"recorded,omitempty"`
 	IsSubPotent           *bool                               `json:"isSubPotent,omitempty"`
 	SubPotentReason       []CodeableConcept                   `json:"subPotentReason,omitempty"`
 	Performer             []MedicationAdministrationPerformer `json:"performer,omitempty"`

@@ -31,7 +31,7 @@ type NamingSystem struct {
 	Status                 string                 `json:"status"`
 	Kind                   string                 `json:"kind"`
 	Experimental           *bool                  `json:"experimental,omitempty"`
-	Date                   string                 `json:"date"`
+	Date                   FhirDateTime           `json:"date"`
 	Publisher              *string                `json:"publisher,omitempty"`
 	Contact                []ContactDetail        `json:"contact,omitempty"`
 	Responsible            *string                `json:"responsible,omitempty"`
@@ -42,8 +42,8 @@ type NamingSystem struct {
 	Purpose                *string                `json:"purpose,omitempty"`
 	Copyright              *string                `json:"copyright,omitempty"`
 	CopyrightLabel         *string                `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string                `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate              `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate              `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period                `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept      `json:"topic,omitempty"`
 	Author                 []ContactDetail        `json:"author,omitempty"`

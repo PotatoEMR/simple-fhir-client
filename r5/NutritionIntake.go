@@ -31,9 +31,9 @@ type NutritionIntake struct {
 	Code                  *CodeableConcept                 `json:"code,omitempty"`
 	Subject               Reference                        `json:"subject"`
 	Encounter             *Reference                       `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string                          `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime    *FhirDateTime                    `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod      *Period                          `json:"occurrencePeriod,omitempty"`
-	Recorded              *string                          `json:"recorded,omitempty"`
+	Recorded              *FhirDateTime                    `json:"recorded,omitempty"`
 	ReportedBoolean       *bool                            `json:"reportedBoolean,omitempty"`
 	ReportedReference     *Reference                       `json:"reportedReference,omitempty"`
 	ConsumedItem          []NutritionIntakeConsumedItem    `json:"consumedItem"`

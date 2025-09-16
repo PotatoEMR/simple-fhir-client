@@ -28,8 +28,8 @@ type DeviceUseStatement struct {
 	DerivedFrom       []Reference       `json:"derivedFrom,omitempty"`
 	TimingTiming      *Timing           `json:"timingTiming,omitempty"`
 	TimingPeriod      *Period           `json:"timingPeriod,omitempty"`
-	TimingDateTime    *string           `json:"timingDateTime,omitempty"`
-	RecordedOn        *string           `json:"recordedOn,omitempty"`
+	TimingDateTime    *FhirDateTime     `json:"timingDateTime,omitempty"`
+	RecordedOn        *FhirDateTime     `json:"recordedOn,omitempty"`
 	Source            *Reference        `json:"source,omitempty"`
 	Device            Reference         `json:"device"`
 	ReasonCode        []CodeableConcept `json:"reasonCode,omitempty"`

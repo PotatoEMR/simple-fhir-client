@@ -52,7 +52,7 @@ type DocumentReferenceAttester struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Mode              CodeableConcept `json:"mode"`
-	Time              *string         `json:"time,omitempty"`
+	Time              *FhirDateTime   `json:"time,omitempty"`
 	Party             *Reference      `json:"party,omitempty"`
 }
 

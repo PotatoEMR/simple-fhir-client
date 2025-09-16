@@ -38,8 +38,8 @@ type Encounter struct {
 	Appointment        []Reference            `json:"appointment,omitempty"`
 	VirtualService     []VirtualServiceDetail `json:"virtualService,omitempty"`
 	ActualPeriod       *Period                `json:"actualPeriod,omitempty"`
-	PlannedStartDate   *string                `json:"plannedStartDate,omitempty"`
-	PlannedEndDate     *string                `json:"plannedEndDate,omitempty"`
+	PlannedStartDate   *FhirDateTime          `json:"plannedStartDate,omitempty"`
+	PlannedEndDate     *FhirDateTime          `json:"plannedEndDate,omitempty"`
 	Length             *Duration              `json:"length,omitempty"`
 	Reason             []EncounterReason      `json:"reason,omitempty"`
 	Diagnosis          []EncounterDiagnosis   `json:"diagnosis,omitempty"`

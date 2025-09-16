@@ -27,7 +27,7 @@ type SupplyDelivery struct {
 	Patient            *Reference                  `json:"patient,omitempty"`
 	Type               *CodeableConcept            `json:"type,omitempty"`
 	SuppliedItem       *SupplyDeliverySuppliedItem `json:"suppliedItem,omitempty"`
-	OccurrenceDateTime *string                     `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime *FhirDateTime               `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod   *Period                     `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming   *Timing                     `json:"occurrenceTiming,omitempty"`
 	Supplier           *Reference                  `json:"supplier,omitempty"`

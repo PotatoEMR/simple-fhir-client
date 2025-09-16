@@ -30,7 +30,7 @@ type ValueSet struct {
 	Title                  *string            `json:"title,omitempty"`
 	Status                 string             `json:"status"`
 	Experimental           *bool              `json:"experimental,omitempty"`
-	Date                   *string            `json:"date,omitempty"`
+	Date                   *FhirDateTime      `json:"date,omitempty"`
 	Publisher              *string            `json:"publisher,omitempty"`
 	Contact                []ContactDetail    `json:"contact,omitempty"`
 	Description            *string            `json:"description,omitempty"`
@@ -40,8 +40,8 @@ type ValueSet struct {
 	Purpose                *string            `json:"purpose,omitempty"`
 	Copyright              *string            `json:"copyright,omitempty"`
 	CopyrightLabel         *string            `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string            `json:"approvalDate,omitempty"`
-	LastReviewDate         *string            `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate          `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate          `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period            `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept  `json:"topic,omitempty"`
 	Author                 []ContactDetail    `json:"author,omitempty"`
@@ -59,7 +59,7 @@ type ValueSetCompose struct {
 	Id                *string                  `json:"id,omitempty"`
 	Extension         []Extension              `json:"extension,omitempty"`
 	ModifierExtension []Extension              `json:"modifierExtension,omitempty"`
-	LockedDate        *string                  `json:"lockedDate,omitempty"`
+	LockedDate        *FhirDate                `json:"lockedDate,omitempty"`
 	Inactive          *bool                    `json:"inactive,omitempty"`
 	Include           []ValueSetComposeInclude `json:"include"`
 	Property          []string                 `json:"property,omitempty"`
@@ -116,7 +116,7 @@ type ValueSetExpansion struct {
 	ModifierExtension []Extension                  `json:"modifierExtension,omitempty"`
 	Identifier        *string                      `json:"identifier,omitempty"`
 	Next              *string                      `json:"next,omitempty"`
-	Timestamp         string                       `json:"timestamp"`
+	Timestamp         FhirDateTime                 `json:"timestamp"`
 	Total             *int                         `json:"total,omitempty"`
 	Offset            *int                         `json:"offset,omitempty"`
 	Parameter         []ValueSetExpansionParameter `json:"parameter,omitempty"`
@@ -126,17 +126,17 @@ type ValueSetExpansion struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/ValueSet
 type ValueSetExpansionParameter struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Name              string      `json:"name"`
-	ValueString       *string     `json:"valueString,omitempty"`
-	ValueBoolean      *bool       `json:"valueBoolean,omitempty"`
-	ValueInteger      *int        `json:"valueInteger,omitempty"`
-	ValueDecimal      *float64    `json:"valueDecimal,omitempty"`
-	ValueUri          *string     `json:"valueUri,omitempty"`
-	ValueCode         *string     `json:"valueCode,omitempty"`
-	ValueDateTime     *string     `json:"valueDateTime,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Name              string        `json:"name"`
+	ValueString       *string       `json:"valueString,omitempty"`
+	ValueBoolean      *bool         `json:"valueBoolean,omitempty"`
+	ValueInteger      *int          `json:"valueInteger,omitempty"`
+	ValueDecimal      *float64      `json:"valueDecimal,omitempty"`
+	ValueUri          *string       `json:"valueUri,omitempty"`
+	ValueCode         *string       `json:"valueCode,omitempty"`
+	ValueDateTime     *FhirDateTime `json:"valueDateTime,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/ValueSet
@@ -173,24 +173,24 @@ type ValueSetExpansionContainsProperty struct {
 	ValueString       string                                         `json:"valueString"`
 	ValueInteger      int                                            `json:"valueInteger"`
 	ValueBoolean      bool                                           `json:"valueBoolean"`
-	ValueDateTime     string                                         `json:"valueDateTime"`
+	ValueDateTime     FhirDateTime                                   `json:"valueDateTime"`
 	ValueDecimal      float64                                        `json:"valueDecimal"`
 	SubProperty       []ValueSetExpansionContainsPropertySubProperty `json:"subProperty,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/ValueSet
 type ValueSetExpansionContainsPropertySubProperty struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Code              string      `json:"code"`
-	ValueCode         string      `json:"valueCode"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueString       string      `json:"valueString"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueDecimal      float64     `json:"valueDecimal"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	Code              string       `json:"code"`
+	ValueCode         string       `json:"valueCode"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueString       string       `json:"valueString"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueDecimal      float64      `json:"valueDecimal"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/ValueSet

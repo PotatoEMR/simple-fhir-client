@@ -12,8 +12,8 @@ type TriggerDefinition struct {
 	Name            *string           `json:"name,omitempty"`
 	TimingTiming    *Timing           `json:"timingTiming,omitempty"`
 	TimingReference *Reference        `json:"timingReference,omitempty"`
-	TimingDate      *string           `json:"timingDate,omitempty"`
-	TimingDateTime  *string           `json:"timingDateTime,omitempty"`
+	TimingDate      *FhirDate         `json:"timingDate,omitempty"`
+	TimingDateTime  *FhirDateTime     `json:"timingDateTime,omitempty"`
 	Data            []DataRequirement `json:"data,omitempty"`
 	Condition       *Expression       `json:"condition,omitempty"`
 }

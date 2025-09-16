@@ -38,8 +38,8 @@ type MedicationDispense struct {
 	Type                        *CodeableConcept                `json:"type,omitempty"`
 	Quantity                    *Quantity                       `json:"quantity,omitempty"`
 	DaysSupply                  *Quantity                       `json:"daysSupply,omitempty"`
-	WhenPrepared                *string                         `json:"whenPrepared,omitempty"`
-	WhenHandedOver              *string                         `json:"whenHandedOver,omitempty"`
+	WhenPrepared                *FhirDateTime                   `json:"whenPrepared,omitempty"`
+	WhenHandedOver              *FhirDateTime                   `json:"whenHandedOver,omitempty"`
 	Destination                 *Reference                      `json:"destination,omitempty"`
 	Receiver                    []Reference                     `json:"receiver,omitempty"`
 	Note                        []Annotation                    `json:"note,omitempty"`

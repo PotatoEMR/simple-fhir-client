@@ -36,13 +36,13 @@ type BiologicallyDerivedProduct struct {
 
 // http://hl7.org/fhir/r4b/StructureDefinition/BiologicallyDerivedProduct
 type BiologicallyDerivedProductCollection struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Collector         *Reference  `json:"collector,omitempty"`
-	Source            *Reference  `json:"source,omitempty"`
-	CollectedDateTime *string     `json:"collectedDateTime,omitempty"`
-	CollectedPeriod   *Period     `json:"collectedPeriod,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Collector         *Reference    `json:"collector,omitempty"`
+	Source            *Reference    `json:"source,omitempty"`
+	CollectedDateTime *FhirDateTime `json:"collectedDateTime,omitempty"`
+	CollectedPeriod   *Period       `json:"collectedPeriod,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/BiologicallyDerivedProduct
@@ -53,18 +53,18 @@ type BiologicallyDerivedProductProcessing struct {
 	Description       *string          `json:"description,omitempty"`
 	Procedure         *CodeableConcept `json:"procedure,omitempty"`
 	Additive          *Reference       `json:"additive,omitempty"`
-	TimeDateTime      *string          `json:"timeDateTime,omitempty"`
+	TimeDateTime      *FhirDateTime    `json:"timeDateTime,omitempty"`
 	TimePeriod        *Period          `json:"timePeriod,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/BiologicallyDerivedProduct
 type BiologicallyDerivedProductManipulation struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Description       *string     `json:"description,omitempty"`
-	TimeDateTime      *string     `json:"timeDateTime,omitempty"`
-	TimePeriod        *Period     `json:"timePeriod,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Description       *string       `json:"description,omitempty"`
+	TimeDateTime      *FhirDateTime `json:"timeDateTime,omitempty"`
+	TimePeriod        *Period       `json:"timePeriod,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/BiologicallyDerivedProduct

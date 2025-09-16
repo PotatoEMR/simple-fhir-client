@@ -23,7 +23,7 @@ type Basic struct {
 	Identifier        []Identifier    `json:"identifier,omitempty"`
 	Code              CodeableConcept `json:"code"`
 	Subject           *Reference      `json:"subject,omitempty"`
-	Created           *string         `json:"created,omitempty"`
+	Created           *FhirDate       `json:"created,omitempty"`
 	Author            *Reference      `json:"author,omitempty"`
 }
 

@@ -26,7 +26,7 @@ type ImagingStudy struct {
 	Modality           []Coding             `json:"modality,omitempty"`
 	Subject            Reference            `json:"subject"`
 	Encounter          *Reference           `json:"encounter,omitempty"`
-	Started            *string              `json:"started,omitempty"`
+	Started            *FhirDateTime        `json:"started,omitempty"`
 	BasedOn            []Reference          `json:"basedOn,omitempty"`
 	Referrer           *Reference           `json:"referrer,omitempty"`
 	Interpreter        []Reference          `json:"interpreter,omitempty"`
@@ -57,7 +57,7 @@ type ImagingStudySeries struct {
 	BodySite          *Coding                       `json:"bodySite,omitempty"`
 	Laterality        *Coding                       `json:"laterality,omitempty"`
 	Specimen          []Reference                   `json:"specimen,omitempty"`
-	Started           *string                       `json:"started,omitempty"`
+	Started           *FhirDateTime                 `json:"started,omitempty"`
 	Performer         []ImagingStudySeriesPerformer `json:"performer,omitempty"`
 	Instance          []ImagingStudySeriesInstance  `json:"instance,omitempty"`
 }

@@ -30,7 +30,7 @@ type Citation struct {
 	Title                  *string                  `json:"title,omitempty"`
 	Status                 string                   `json:"status"`
 	Experimental           *bool                    `json:"experimental,omitempty"`
-	Date                   *string                  `json:"date,omitempty"`
+	Date                   *FhirDateTime            `json:"date,omitempty"`
 	Publisher              *string                  `json:"publisher,omitempty"`
 	Contact                []ContactDetail          `json:"contact,omitempty"`
 	Description            *string                  `json:"description,omitempty"`
@@ -39,8 +39,8 @@ type Citation struct {
 	Purpose                *string                  `json:"purpose,omitempty"`
 	Copyright              *string                  `json:"copyright,omitempty"`
 	CopyrightLabel         *string                  `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string                  `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                  `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate                `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate                `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period                  `json:"effectivePeriod,omitempty"`
 	Author                 []ContactDetail          `json:"author,omitempty"`
 	Editor                 []ContactDetail          `json:"editor,omitempty"`
@@ -90,7 +90,7 @@ type CitationCitedArtifact struct {
 	ModifierExtension []Extension                            `json:"modifierExtension,omitempty"`
 	Identifier        []Identifier                           `json:"identifier,omitempty"`
 	RelatedIdentifier []Identifier                           `json:"relatedIdentifier,omitempty"`
-	DateAccessed      *string                                `json:"dateAccessed,omitempty"`
+	DateAccessed      *FhirDateTime                          `json:"dateAccessed,omitempty"`
 	Version           *CitationCitedArtifactVersion          `json:"version,omitempty"`
 	CurrentState      []CodeableConcept                      `json:"currentState,omitempty"`
 	StatusDate        []CitationCitedArtifactStatusDate      `json:"statusDate,omitempty"`
@@ -179,10 +179,10 @@ type CitationCitedArtifactPublicationForm struct {
 	CitedMedium           *CodeableConcept                                 `json:"citedMedium,omitempty"`
 	Volume                *string                                          `json:"volume,omitempty"`
 	Issue                 *string                                          `json:"issue,omitempty"`
-	ArticleDate           *string                                          `json:"articleDate,omitempty"`
+	ArticleDate           *FhirDateTime                                    `json:"articleDate,omitempty"`
 	PublicationDateText   *string                                          `json:"publicationDateText,omitempty"`
 	PublicationDateSeason *string                                          `json:"publicationDateSeason,omitempty"`
-	LastRevisionDate      *string                                          `json:"lastRevisionDate,omitempty"`
+	LastRevisionDate      *FhirDateTime                                    `json:"lastRevisionDate,omitempty"`
 	Language              []CodeableConcept                                `json:"language,omitempty"`
 	AccessionNumber       *string                                          `json:"accessionNumber,omitempty"`
 	PageString            *string                                          `json:"pageString,omitempty"`
@@ -254,7 +254,7 @@ type CitationCitedArtifactContributorshipEntryContributionInstance struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Type              CodeableConcept `json:"type"`
-	Time              *string         `json:"time,omitempty"`
+	Time              *FhirDateTime   `json:"time,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/Citation

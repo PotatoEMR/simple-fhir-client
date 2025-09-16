@@ -33,13 +33,13 @@ type Procedure struct {
 	Subject               Reference              `json:"subject"`
 	Focus                 *Reference             `json:"focus,omitempty"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string                `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime    *FhirDateTime          `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod      *Period                `json:"occurrencePeriod,omitempty"`
 	OccurrenceString      *string                `json:"occurrenceString,omitempty"`
 	OccurrenceAge         *Age                   `json:"occurrenceAge,omitempty"`
 	OccurrenceRange       *Range                 `json:"occurrenceRange,omitempty"`
 	OccurrenceTiming      *Timing                `json:"occurrenceTiming,omitempty"`
-	Recorded              *string                `json:"recorded,omitempty"`
+	Recorded              *FhirDateTime          `json:"recorded,omitempty"`
 	Recorder              *Reference             `json:"recorder,omitempty"`
 	ReportedBoolean       *bool                  `json:"reportedBoolean,omitempty"`
 	ReportedReference     *Reference             `json:"reportedReference,omitempty"`

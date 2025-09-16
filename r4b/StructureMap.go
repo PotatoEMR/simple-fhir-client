@@ -28,7 +28,7 @@ type StructureMap struct {
 	Title             *string                 `json:"title,omitempty"`
 	Status            string                  `json:"status"`
 	Experimental      *bool                   `json:"experimental,omitempty"`
-	Date              *string                 `json:"date,omitempty"`
+	Date              *FhirDateTime           `json:"date,omitempty"`
 	Publisher         *string                 `json:"publisher,omitempty"`
 	Contact           []ContactDetail         `json:"contact,omitempty"`
 	Description       *string                 `json:"description,omitempty"`
@@ -101,8 +101,8 @@ type StructureMapGroupRuleSource struct {
 	DefaultValueBoolean             *bool                `json:"defaultValueBoolean,omitempty"`
 	DefaultValueCanonical           *string              `json:"defaultValueCanonical,omitempty"`
 	DefaultValueCode                *string              `json:"defaultValueCode,omitempty"`
-	DefaultValueDate                *string              `json:"defaultValueDate,omitempty"`
-	DefaultValueDateTime            *string              `json:"defaultValueDateTime,omitempty"`
+	DefaultValueDate                *FhirDate            `json:"defaultValueDate,omitempty"`
+	DefaultValueDateTime            *FhirDateTime        `json:"defaultValueDateTime,omitempty"`
 	DefaultValueDecimal             *float64             `json:"defaultValueDecimal,omitempty"`
 	DefaultValueId                  *string              `json:"defaultValueId,omitempty"`
 	DefaultValueInstant             *string              `json:"defaultValueInstant,omitempty"`

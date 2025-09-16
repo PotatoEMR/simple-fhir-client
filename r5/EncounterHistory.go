@@ -30,8 +30,8 @@ type EncounterHistory struct {
 	Subject           *Reference                 `json:"subject,omitempty"`
 	SubjectStatus     *CodeableConcept           `json:"subjectStatus,omitempty"`
 	ActualPeriod      *Period                    `json:"actualPeriod,omitempty"`
-	PlannedStartDate  *string                    `json:"plannedStartDate,omitempty"`
-	PlannedEndDate    *string                    `json:"plannedEndDate,omitempty"`
+	PlannedStartDate  *FhirDateTime              `json:"plannedStartDate,omitempty"`
+	PlannedEndDate    *FhirDateTime              `json:"plannedEndDate,omitempty"`
 	Length            *Duration                  `json:"length,omitempty"`
 	Location          []EncounterHistoryLocation `json:"location,omitempty"`
 }

@@ -33,7 +33,7 @@ type RequestGroup struct {
 	Code                  *CodeableConcept     `json:"code,omitempty"`
 	Subject               *Reference           `json:"subject,omitempty"`
 	Encounter             *Reference           `json:"encounter,omitempty"`
-	AuthoredOn            *string              `json:"authoredOn,omitempty"`
+	AuthoredOn            *FhirDateTime        `json:"authoredOn,omitempty"`
 	Author                *Reference           `json:"author,omitempty"`
 	ReasonCode            []CodeableConcept    `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference          `json:"reasonReference,omitempty"`
@@ -55,7 +55,7 @@ type RequestGroupAction struct {
 	Documentation       []RelatedArtifact                 `json:"documentation,omitempty"`
 	Condition           []RequestGroupActionCondition     `json:"condition,omitempty"`
 	RelatedAction       []RequestGroupActionRelatedAction `json:"relatedAction,omitempty"`
-	TimingDateTime      *string                           `json:"timingDateTime,omitempty"`
+	TimingDateTime      *FhirDateTime                     `json:"timingDateTime,omitempty"`
 	TimingAge           *Age                              `json:"timingAge,omitempty"`
 	TimingPeriod        *Period                           `json:"timingPeriod,omitempty"`
 	TimingDuration      *Duration                         `json:"timingDuration,omitempty"`

@@ -25,12 +25,12 @@ type VerificationResult struct {
 	TargetLocation    []string                          `json:"targetLocation,omitempty"`
 	Need              *CodeableConcept                  `json:"need,omitempty"`
 	Status            string                            `json:"status"`
-	StatusDate        *string                           `json:"statusDate,omitempty"`
+	StatusDate        *FhirDateTime                     `json:"statusDate,omitempty"`
 	ValidationType    *CodeableConcept                  `json:"validationType,omitempty"`
 	ValidationProcess []CodeableConcept                 `json:"validationProcess,omitempty"`
 	Frequency         *Timing                           `json:"frequency,omitempty"`
-	LastPerformed     *string                           `json:"lastPerformed,omitempty"`
-	NextScheduled     *string                           `json:"nextScheduled,omitempty"`
+	LastPerformed     *FhirDateTime                     `json:"lastPerformed,omitempty"`
+	NextScheduled     *FhirDate                         `json:"nextScheduled,omitempty"`
 	FailureAction     *CodeableConcept                  `json:"failureAction,omitempty"`
 	PrimarySource     []VerificationResultPrimarySource `json:"primarySource,omitempty"`
 	Attestation       *VerificationResultAttestation    `json:"attestation,omitempty"`
@@ -46,7 +46,7 @@ type VerificationResultPrimarySource struct {
 	Type                []CodeableConcept `json:"type,omitempty"`
 	CommunicationMethod []CodeableConcept `json:"communicationMethod,omitempty"`
 	ValidationStatus    *CodeableConcept  `json:"validationStatus,omitempty"`
-	ValidationDate      *string           `json:"validationDate,omitempty"`
+	ValidationDate      *FhirDateTime     `json:"validationDate,omitempty"`
 	CanPushUpdates      *CodeableConcept  `json:"canPushUpdates,omitempty"`
 	PushTypeAvailable   []CodeableConcept `json:"pushTypeAvailable,omitempty"`
 }
@@ -59,7 +59,7 @@ type VerificationResultAttestation struct {
 	Who                       *Reference       `json:"who,omitempty"`
 	OnBehalfOf                *Reference       `json:"onBehalfOf,omitempty"`
 	CommunicationMethod       *CodeableConcept `json:"communicationMethod,omitempty"`
-	Date                      *string          `json:"date,omitempty"`
+	Date                      *FhirDate        `json:"date,omitempty"`
 	SourceIdentityCertificate *string          `json:"sourceIdentityCertificate,omitempty"`
 	ProxyIdentityCertificate  *string          `json:"proxyIdentityCertificate,omitempty"`
 	ProxySignature            *Signature       `json:"proxySignature,omitempty"`

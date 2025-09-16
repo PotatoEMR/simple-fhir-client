@@ -33,7 +33,7 @@ type RequestOrchestration struct {
 	Code                  *CodeableConcept             `json:"code,omitempty"`
 	Subject               *Reference                   `json:"subject,omitempty"`
 	Encounter             *Reference                   `json:"encounter,omitempty"`
-	AuthoredOn            *string                      `json:"authoredOn,omitempty"`
+	AuthoredOn            *FhirDateTime                `json:"authoredOn,omitempty"`
 	Author                *Reference                   `json:"author,omitempty"`
 	Reason                []CodeableReference          `json:"reason,omitempty"`
 	Goal                  []Reference                  `json:"goal,omitempty"`
@@ -59,7 +59,7 @@ type RequestOrchestrationAction struct {
 	Input               []RequestOrchestrationActionInput         `json:"input,omitempty"`
 	Output              []RequestOrchestrationActionOutput        `json:"output,omitempty"`
 	RelatedAction       []RequestOrchestrationActionRelatedAction `json:"relatedAction,omitempty"`
-	TimingDateTime      *string                                   `json:"timingDateTime,omitempty"`
+	TimingDateTime      *FhirDateTime                             `json:"timingDateTime,omitempty"`
 	TimingAge           *Age                                      `json:"timingAge,omitempty"`
 	TimingPeriod        *Period                                   `json:"timingPeriod,omitempty"`
 	TimingDuration      *Duration                                 `json:"timingDuration,omitempty"`

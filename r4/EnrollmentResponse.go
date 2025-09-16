@@ -12,22 +12,22 @@ import (
 
 // http://hl7.org/fhir/r4/StructureDefinition/EnrollmentResponse
 type EnrollmentResponse struct {
-	Id                *string      `json:"id,omitempty"`
-	Meta              *Meta        `json:"meta,omitempty"`
-	ImplicitRules     *string      `json:"implicitRules,omitempty"`
-	Language          *string      `json:"language,omitempty"`
-	Text              *Narrative   `json:"text,omitempty"`
-	Contained         []Resource   `json:"contained,omitempty"`
-	Extension         []Extension  `json:"extension,omitempty"`
-	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
-	Identifier        []Identifier `json:"identifier,omitempty"`
-	Status            *string      `json:"status,omitempty"`
-	Request           *Reference   `json:"request,omitempty"`
-	Outcome           *string      `json:"outcome,omitempty"`
-	Disposition       *string      `json:"disposition,omitempty"`
-	Created           *string      `json:"created,omitempty"`
-	Organization      *Reference   `json:"organization,omitempty"`
-	RequestProvider   *Reference   `json:"requestProvider,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Meta              *Meta         `json:"meta,omitempty"`
+	ImplicitRules     *string       `json:"implicitRules,omitempty"`
+	Language          *string       `json:"language,omitempty"`
+	Text              *Narrative    `json:"text,omitempty"`
+	Contained         []Resource    `json:"contained,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Identifier        []Identifier  `json:"identifier,omitempty"`
+	Status            *string       `json:"status,omitempty"`
+	Request           *Reference    `json:"request,omitempty"`
+	Outcome           *string       `json:"outcome,omitempty"`
+	Disposition       *string       `json:"disposition,omitempty"`
+	Created           *FhirDateTime `json:"created,omitempty"`
+	Organization      *Reference    `json:"organization,omitempty"`
+	RequestProvider   *Reference    `json:"requestProvider,omitempty"`
 }
 
 type OtherEnrollmentResponse EnrollmentResponse

@@ -30,7 +30,7 @@ type StructureMap struct {
 	Title                  *string                 `json:"title,omitempty"`
 	Status                 string                  `json:"status"`
 	Experimental           *bool                   `json:"experimental,omitempty"`
-	Date                   *string                 `json:"date,omitempty"`
+	Date                   *FhirDateTime           `json:"date,omitempty"`
 	Publisher              *string                 `json:"publisher,omitempty"`
 	Contact                []ContactDetail         `json:"contact,omitempty"`
 	Description            *string                 `json:"description,omitempty"`
@@ -135,17 +135,17 @@ type StructureMapGroupRuleTarget struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/StructureMap
 type StructureMapGroupRuleTargetParameter struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueId           string      `json:"valueId"`
-	ValueString       string      `json:"valueString"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueDecimal      float64     `json:"valueDecimal"`
-	ValueDate         string      `json:"valueDate"`
-	ValueTime         string      `json:"valueTime"`
-	ValueDateTime     string      `json:"valueDateTime"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	ValueId           string       `json:"valueId"`
+	ValueString       string       `json:"valueString"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueDecimal      float64      `json:"valueDecimal"`
+	ValueDate         FhirDate     `json:"valueDate"`
+	ValueTime         string       `json:"valueTime"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/StructureMap

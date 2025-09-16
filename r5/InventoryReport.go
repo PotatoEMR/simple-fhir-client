@@ -26,7 +26,7 @@ type InventoryReport struct {
 	CountType           string                            `json:"countType"`
 	OperationType       *CodeableConcept                  `json:"operationType,omitempty"`
 	OperationTypeReason *CodeableConcept                  `json:"operationTypeReason,omitempty"`
-	ReportedDateTime    string                            `json:"reportedDateTime"`
+	ReportedDateTime    FhirDateTime                      `json:"reportedDateTime"`
 	Reporter            *Reference                        `json:"reporter,omitempty"`
 	ReportingPeriod     *Period                           `json:"reportingPeriod,omitempty"`
 	InventoryListing    []InventoryReportInventoryListing `json:"inventoryListing,omitempty"`
@@ -40,7 +40,7 @@ type InventoryReportInventoryListing struct {
 	ModifierExtension []Extension                           `json:"modifierExtension,omitempty"`
 	Location          *Reference                            `json:"location,omitempty"`
 	ItemStatus        *CodeableConcept                      `json:"itemStatus,omitempty"`
-	CountingDateTime  *string                               `json:"countingDateTime,omitempty"`
+	CountingDateTime  *FhirDateTime                         `json:"countingDateTime,omitempty"`
 	Item              []InventoryReportInventoryListingItem `json:"item,omitempty"`
 }
 

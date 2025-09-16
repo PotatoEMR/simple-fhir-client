@@ -27,7 +27,7 @@ type RegulatedAuthorization struct {
 	Description       *string                     `json:"description,omitempty"`
 	Region            []CodeableConcept           `json:"region,omitempty"`
 	Status            *CodeableConcept            `json:"status,omitempty"`
-	StatusDate        *string                     `json:"statusDate,omitempty"`
+	StatusDate        *FhirDateTime               `json:"statusDate,omitempty"`
 	ValidityPeriod    *Period                     `json:"validityPeriod,omitempty"`
 	Indication        []CodeableReference         `json:"indication,omitempty"`
 	IntendedUse       *CodeableConcept            `json:"intendedUse,omitempty"`
@@ -47,7 +47,7 @@ type RegulatedAuthorizationCase struct {
 	Type              *CodeableConcept `json:"type,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
 	DatePeriod        *Period          `json:"datePeriod,omitempty"`
-	DateDateTime      *string          `json:"dateDateTime,omitempty"`
+	DateDateTime      *FhirDateTime    `json:"dateDateTime,omitempty"`
 }
 
 type OtherRegulatedAuthorization RegulatedAuthorization

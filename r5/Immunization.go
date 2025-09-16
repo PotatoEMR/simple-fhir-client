@@ -29,11 +29,11 @@ type Immunization struct {
 	AdministeredProduct   *CodeableReference               `json:"administeredProduct,omitempty"`
 	Manufacturer          *CodeableReference               `json:"manufacturer,omitempty"`
 	LotNumber             *string                          `json:"lotNumber,omitempty"`
-	ExpirationDate        *string                          `json:"expirationDate,omitempty"`
+	ExpirationDate        *FhirDate                        `json:"expirationDate,omitempty"`
 	Patient               Reference                        `json:"patient"`
 	Encounter             *Reference                       `json:"encounter,omitempty"`
 	SupportingInformation []Reference                      `json:"supportingInformation,omitempty"`
-	OccurrenceDateTime    string                           `json:"occurrenceDateTime"`
+	OccurrenceDateTime    FhirDateTime                     `json:"occurrenceDateTime"`
 	OccurrenceString      string                           `json:"occurrenceString"`
 	PrimarySource         *bool                            `json:"primarySource,omitempty"`
 	InformationSource     *CodeableReference               `json:"informationSource,omitempty"`
@@ -75,7 +75,7 @@ type ImmunizationReaction struct {
 	Id                *string            `json:"id,omitempty"`
 	Extension         []Extension        `json:"extension,omitempty"`
 	ModifierExtension []Extension        `json:"modifierExtension,omitempty"`
-	Date              *string            `json:"date,omitempty"`
+	Date              *FhirDateTime      `json:"date,omitempty"`
 	Manifestation     *CodeableReference `json:"manifestation,omitempty"`
 	Reported          *bool              `json:"reported,omitempty"`
 }

@@ -30,7 +30,7 @@ type ResearchStudy struct {
 	Protocol           []Reference                    `json:"protocol,omitempty"`
 	PartOf             []Reference                    `json:"partOf,omitempty"`
 	RelatedArtifact    []RelatedArtifact              `json:"relatedArtifact,omitempty"`
-	Date               *string                        `json:"date,omitempty"`
+	Date               *FhirDateTime                  `json:"date,omitempty"`
 	Status             string                         `json:"status"`
 	PrimaryPurposeType *CodeableConcept               `json:"primaryPurposeType,omitempty"`
 	Phase              *CodeableConcept               `json:"phase,omitempty"`

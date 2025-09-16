@@ -27,15 +27,15 @@ type Immunization struct {
 	VaccineCode        CodeableConcept               `json:"vaccineCode"`
 	Patient            Reference                     `json:"patient"`
 	Encounter          *Reference                    `json:"encounter,omitempty"`
-	OccurrenceDateTime string                        `json:"occurrenceDateTime"`
+	OccurrenceDateTime FhirDateTime                  `json:"occurrenceDateTime"`
 	OccurrenceString   string                        `json:"occurrenceString"`
-	Recorded           *string                       `json:"recorded,omitempty"`
+	Recorded           *FhirDateTime                 `json:"recorded,omitempty"`
 	PrimarySource      *bool                         `json:"primarySource,omitempty"`
 	ReportOrigin       *CodeableConcept              `json:"reportOrigin,omitempty"`
 	Location           *Reference                    `json:"location,omitempty"`
 	Manufacturer       *Reference                    `json:"manufacturer,omitempty"`
 	LotNumber          *string                       `json:"lotNumber,omitempty"`
-	ExpirationDate     *string                       `json:"expirationDate,omitempty"`
+	ExpirationDate     *FhirDate                     `json:"expirationDate,omitempty"`
 	Site               *CodeableConcept              `json:"site,omitempty"`
 	Route              *CodeableConcept              `json:"route,omitempty"`
 	DoseQuantity       *Quantity                     `json:"doseQuantity,omitempty"`
@@ -63,23 +63,23 @@ type ImmunizationPerformer struct {
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Immunization
 type ImmunizationEducation struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	DocumentType      *string     `json:"documentType,omitempty"`
-	Reference         *string     `json:"reference,omitempty"`
-	PublicationDate   *string     `json:"publicationDate,omitempty"`
-	PresentationDate  *string     `json:"presentationDate,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	DocumentType      *string       `json:"documentType,omitempty"`
+	Reference         *string       `json:"reference,omitempty"`
+	PublicationDate   *FhirDateTime `json:"publicationDate,omitempty"`
+	PresentationDate  *FhirDateTime `json:"presentationDate,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Immunization
 type ImmunizationReaction struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Date              *string     `json:"date,omitempty"`
-	Detail            *Reference  `json:"detail,omitempty"`
-	Reported          *bool       `json:"reported,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Date              *FhirDateTime `json:"date,omitempty"`
+	Detail            *Reference    `json:"detail,omitempty"`
+	Reported          *bool         `json:"reported,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Immunization

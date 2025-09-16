@@ -30,7 +30,7 @@ type BiologicallyDerivedProduct struct {
 	ProcessingFacility      []Reference                           `json:"processingFacility,omitempty"`
 	Division                *string                               `json:"division,omitempty"`
 	ProductStatus           *Coding                               `json:"productStatus,omitempty"`
-	ExpirationDate          *string                               `json:"expirationDate,omitempty"`
+	ExpirationDate          *FhirDateTime                         `json:"expirationDate,omitempty"`
 	Collection              *BiologicallyDerivedProductCollection `json:"collection,omitempty"`
 	StorageTempRequirements *Range                                `json:"storageTempRequirements,omitempty"`
 	Property                []BiologicallyDerivedProductProperty  `json:"property,omitempty"`
@@ -38,13 +38,13 @@ type BiologicallyDerivedProduct struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/BiologicallyDerivedProduct
 type BiologicallyDerivedProductCollection struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Collector         *Reference  `json:"collector,omitempty"`
-	Source            *Reference  `json:"source,omitempty"`
-	CollectedDateTime *string     `json:"collectedDateTime,omitempty"`
-	CollectedPeriod   *Period     `json:"collectedPeriod,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Collector         *Reference    `json:"collector,omitempty"`
+	Source            *Reference    `json:"source,omitempty"`
+	CollectedDateTime *FhirDateTime `json:"collectedDateTime,omitempty"`
+	CollectedPeriod   *Period       `json:"collectedPeriod,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/BiologicallyDerivedProduct

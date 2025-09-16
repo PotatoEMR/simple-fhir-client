@@ -25,7 +25,7 @@ type Consent struct {
 	Status            string                `json:"status"`
 	Category          []CodeableConcept     `json:"category,omitempty"`
 	Subject           *Reference            `json:"subject,omitempty"`
-	Date              *string               `json:"date,omitempty"`
+	Date              *FhirDate             `json:"date,omitempty"`
 	Period            *Period               `json:"period,omitempty"`
 	Grantor           []Reference           `json:"grantor,omitempty"`
 	Grantee           []Reference           `json:"grantee,omitempty"`
@@ -59,7 +59,7 @@ type ConsentVerification struct {
 	VerificationType  *CodeableConcept `json:"verificationType,omitempty"`
 	VerifiedBy        *Reference       `json:"verifiedBy,omitempty"`
 	VerifiedWith      *Reference       `json:"verifiedWith,omitempty"`
-	VerificationDate  []string         `json:"verificationDate,omitempty"`
+	VerificationDate  []FhirDateTime   `json:"verificationDate,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/Consent

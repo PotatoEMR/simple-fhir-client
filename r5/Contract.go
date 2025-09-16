@@ -29,7 +29,7 @@ type Contract struct {
 	InstantiatesCanonical    *Reference                 `json:"instantiatesCanonical,omitempty"`
 	InstantiatesUri          *string                    `json:"instantiatesUri,omitempty"`
 	ContentDerivative        *CodeableConcept           `json:"contentDerivative,omitempty"`
-	Issued                   *string                    `json:"issued,omitempty"`
+	Issued                   *FhirDateTime              `json:"issued,omitempty"`
 	Applies                  *Period                    `json:"applies,omitempty"`
 	ExpirationType           *CodeableConcept           `json:"expirationType,omitempty"`
 	Subject                  []Reference                `json:"subject,omitempty"`
@@ -66,7 +66,7 @@ type ContractContentDefinition struct {
 	Type              CodeableConcept  `json:"type"`
 	SubType           *CodeableConcept `json:"subType,omitempty"`
 	Publisher         *Reference       `json:"publisher,omitempty"`
-	PublicationDate   *string          `json:"publicationDate,omitempty"`
+	PublicationDate   *FhirDateTime    `json:"publicationDate,omitempty"`
 	PublicationStatus string           `json:"publicationStatus"`
 	Copyright         *string          `json:"copyright,omitempty"`
 }
@@ -77,7 +77,7 @@ type ContractTerm struct {
 	Extension            []Extension                 `json:"extension,omitempty"`
 	ModifierExtension    []Extension                 `json:"modifierExtension,omitempty"`
 	Identifier           *Identifier                 `json:"identifier,omitempty"`
-	Issued               *string                     `json:"issued,omitempty"`
+	Issued               *FhirDateTime               `json:"issued,omitempty"`
 	Applies              *Period                     `json:"applies,omitempty"`
 	TopicCodeableConcept *CodeableConcept            `json:"topicCodeableConcept,omitempty"`
 	TopicReference       *Reference                  `json:"topicReference,omitempty"`
@@ -129,21 +129,21 @@ type ContractTermOfferParty struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/Contract
 type ContractTermOfferAnswer struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDecimal      float64     `json:"valueDecimal"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueDate         string      `json:"valueDate"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueTime         string      `json:"valueTime"`
-	ValueString       string      `json:"valueString"`
-	ValueUri          string      `json:"valueUri"`
-	ValueAttachment   Attachment  `json:"valueAttachment"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueQuantity     Quantity    `json:"valueQuantity"`
-	ValueReference    Reference   `json:"valueReference"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDecimal      float64      `json:"valueDecimal"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueDate         FhirDate     `json:"valueDate"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueTime         string       `json:"valueTime"`
+	ValueString       string       `json:"valueString"`
+	ValueUri          string       `json:"valueUri"`
+	ValueAttachment   Attachment   `json:"valueAttachment"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueQuantity     Quantity     `json:"valueQuantity"`
+	ValueReference    Reference    `json:"valueReference"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/Contract
@@ -185,14 +185,14 @@ type ContractTermAssetValuedItem struct {
 	EntityCodeableConcept *CodeableConcept `json:"entityCodeableConcept,omitempty"`
 	EntityReference       *Reference       `json:"entityReference,omitempty"`
 	Identifier            *Identifier      `json:"identifier,omitempty"`
-	EffectiveTime         *string          `json:"effectiveTime,omitempty"`
+	EffectiveTime         *FhirDateTime    `json:"effectiveTime,omitempty"`
 	Quantity              *Quantity        `json:"quantity,omitempty"`
 	UnitPrice             *Money           `json:"unitPrice,omitempty"`
 	Factor                *float64         `json:"factor,omitempty"`
 	Points                *float64         `json:"points,omitempty"`
 	Net                   *Money           `json:"net,omitempty"`
 	Payment               *string          `json:"payment,omitempty"`
-	PaymentDate           *string          `json:"paymentDate,omitempty"`
+	PaymentDate           *FhirDateTime    `json:"paymentDate,omitempty"`
 	Responsible           *Reference       `json:"responsible,omitempty"`
 	Recipient             *Reference       `json:"recipient,omitempty"`
 	LinkId                []string         `json:"linkId,omitempty"`
@@ -212,7 +212,7 @@ type ContractTermAction struct {
 	Status              CodeableConcept             `json:"status"`
 	Context             *Reference                  `json:"context,omitempty"`
 	ContextLinkId       []string                    `json:"contextLinkId,omitempty"`
-	OccurrenceDateTime  *string                     `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime  *FhirDateTime               `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod    *Period                     `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming    *Timing                     `json:"occurrenceTiming,omitempty"`
 	Requester           []Reference                 `json:"requester,omitempty"`

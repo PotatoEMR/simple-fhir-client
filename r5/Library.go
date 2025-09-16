@@ -34,7 +34,7 @@ type Library struct {
 	Type                   CodeableConcept       `json:"type"`
 	SubjectCodeableConcept *CodeableConcept      `json:"subjectCodeableConcept,omitempty"`
 	SubjectReference       *Reference            `json:"subjectReference,omitempty"`
-	Date                   *string               `json:"date,omitempty"`
+	Date                   *FhirDateTime         `json:"date,omitempty"`
 	Publisher              *string               `json:"publisher,omitempty"`
 	Contact                []ContactDetail       `json:"contact,omitempty"`
 	Description            *string               `json:"description,omitempty"`
@@ -44,8 +44,8 @@ type Library struct {
 	Usage                  *string               `json:"usage,omitempty"`
 	Copyright              *string               `json:"copyright,omitempty"`
 	CopyrightLabel         *string               `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string               `json:"approvalDate,omitempty"`
-	LastReviewDate         *string               `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate             `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate             `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period               `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept     `json:"topic,omitempty"`
 	Author                 []ContactDetail       `json:"author,omitempty"`

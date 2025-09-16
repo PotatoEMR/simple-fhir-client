@@ -32,7 +32,7 @@ type Procedure struct {
 	Code                  *CodeableConcept       `json:"code,omitempty"`
 	Subject               Reference              `json:"subject"`
 	Encounter             *Reference             `json:"encounter,omitempty"`
-	PerformedDateTime     *string                `json:"performedDateTime,omitempty"`
+	PerformedDateTime     *FhirDateTime          `json:"performedDateTime,omitempty"`
 	PerformedPeriod       *Period                `json:"performedPeriod,omitempty"`
 	PerformedString       *string                `json:"performedString,omitempty"`
 	PerformedAge          *Age                   `json:"performedAge,omitempty"`

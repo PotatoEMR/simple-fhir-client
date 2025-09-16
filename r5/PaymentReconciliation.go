@@ -26,7 +26,7 @@ type PaymentReconciliation struct {
 	Status            string                             `json:"status"`
 	Kind              *CodeableConcept                   `json:"kind,omitempty"`
 	Period            *Period                            `json:"period,omitempty"`
-	Created           string                             `json:"created"`
+	Created           FhirDateTime                       `json:"created"`
 	Enterer           *Reference                         `json:"enterer,omitempty"`
 	IssuerType        *CodeableConcept                   `json:"issuerType,omitempty"`
 	PaymentIssuer     *Reference                         `json:"paymentIssuer,omitempty"`
@@ -34,12 +34,12 @@ type PaymentReconciliation struct {
 	Requestor         *Reference                         `json:"requestor,omitempty"`
 	Outcome           *string                            `json:"outcome,omitempty"`
 	Disposition       *string                            `json:"disposition,omitempty"`
-	Date              string                             `json:"date"`
+	Date              FhirDate                           `json:"date"`
 	Location          *Reference                         `json:"location,omitempty"`
 	Method            *CodeableConcept                   `json:"method,omitempty"`
 	CardBrand         *string                            `json:"cardBrand,omitempty"`
 	AccountNumber     *string                            `json:"accountNumber,omitempty"`
-	ExpirationDate    *string                            `json:"expirationDate,omitempty"`
+	ExpirationDate    *FhirDate                          `json:"expirationDate,omitempty"`
 	Processor         *string                            `json:"processor,omitempty"`
 	ReferenceNumber   *string                            `json:"referenceNumber,omitempty"`
 	Authorization     *string                            `json:"authorization,omitempty"`
@@ -68,7 +68,7 @@ type PaymentReconciliationAllocation struct {
 	Type                  *CodeableConcept `json:"type,omitempty"`
 	Submitter             *Reference       `json:"submitter,omitempty"`
 	Response              *Reference       `json:"response,omitempty"`
-	Date                  *string          `json:"date,omitempty"`
+	Date                  *FhirDate        `json:"date,omitempty"`
 	Responsible           *Reference       `json:"responsible,omitempty"`
 	Payee                 *Reference       `json:"payee,omitempty"`
 	Amount                *Money           `json:"amount,omitempty"`

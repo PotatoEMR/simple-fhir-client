@@ -30,8 +30,8 @@ type DeviceUsage struct {
 	Context           *Reference            `json:"context,omitempty"`
 	TimingTiming      *Timing               `json:"timingTiming,omitempty"`
 	TimingPeriod      *Period               `json:"timingPeriod,omitempty"`
-	TimingDateTime    *string               `json:"timingDateTime,omitempty"`
-	DateAsserted      *string               `json:"dateAsserted,omitempty"`
+	TimingDateTime    *FhirDateTime         `json:"timingDateTime,omitempty"`
+	DateAsserted      *FhirDateTime         `json:"dateAsserted,omitempty"`
 	UsageStatus       *CodeableConcept      `json:"usageStatus,omitempty"`
 	UsageReason       []CodeableConcept     `json:"usageReason,omitempty"`
 	Adherence         *DeviceUsageAdherence `json:"adherence,omitempty"`

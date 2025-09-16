@@ -32,7 +32,7 @@ type ActivityDefinition struct {
 	SubjectCodeableConcept       *CodeableConcept                 `json:"subjectCodeableConcept,omitempty"`
 	SubjectReference             *Reference                       `json:"subjectReference,omitempty"`
 	SubjectCanonical             *string                          `json:"subjectCanonical,omitempty"`
-	Date                         *string                          `json:"date,omitempty"`
+	Date                         *FhirDateTime                    `json:"date,omitempty"`
 	Publisher                    *string                          `json:"publisher,omitempty"`
 	Contact                      []ContactDetail                  `json:"contact,omitempty"`
 	Description                  *string                          `json:"description,omitempty"`
@@ -41,8 +41,8 @@ type ActivityDefinition struct {
 	Purpose                      *string                          `json:"purpose,omitempty"`
 	Usage                        *string                          `json:"usage,omitempty"`
 	Copyright                    *string                          `json:"copyright,omitempty"`
-	ApprovalDate                 *string                          `json:"approvalDate,omitempty"`
-	LastReviewDate               *string                          `json:"lastReviewDate,omitempty"`
+	ApprovalDate                 *FhirDate                        `json:"approvalDate,omitempty"`
+	LastReviewDate               *FhirDate                        `json:"lastReviewDate,omitempty"`
 	EffectivePeriod              *Period                          `json:"effectivePeriod,omitempty"`
 	Topic                        []CodeableConcept                `json:"topic,omitempty"`
 	Author                       []ContactDetail                  `json:"author,omitempty"`
@@ -58,7 +58,7 @@ type ActivityDefinition struct {
 	Priority                     *string                          `json:"priority,omitempty"`
 	DoNotPerform                 *bool                            `json:"doNotPerform,omitempty"`
 	TimingTiming                 *Timing                          `json:"timingTiming,omitempty"`
-	TimingDateTime               *string                          `json:"timingDateTime,omitempty"`
+	TimingDateTime               *FhirDateTime                    `json:"timingDateTime,omitempty"`
 	TimingAge                    *Age                             `json:"timingAge,omitempty"`
 	TimingPeriod                 *Period                          `json:"timingPeriod,omitempty"`
 	TimingRange                  *Range                           `json:"timingRange,omitempty"`

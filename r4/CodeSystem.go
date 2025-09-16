@@ -28,7 +28,7 @@ type CodeSystem struct {
 	Title             *string              `json:"title,omitempty"`
 	Status            string               `json:"status"`
 	Experimental      *bool                `json:"experimental,omitempty"`
-	Date              *string              `json:"date,omitempty"`
+	Date              *FhirDateTime        `json:"date,omitempty"`
 	Publisher         *string              `json:"publisher,omitempty"`
 	Contact           []ContactDetail      `json:"contact,omitempty"`
 	Description       *string              `json:"description,omitempty"`
@@ -95,17 +95,17 @@ type CodeSystemConceptDesignation struct {
 
 // http://hl7.org/fhir/r4/StructureDefinition/CodeSystem
 type CodeSystemConceptProperty struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Code              string      `json:"code"`
-	ValueCode         string      `json:"valueCode"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueString       string      `json:"valueString"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueDecimal      float64     `json:"valueDecimal"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	Code              string       `json:"code"`
+	ValueCode         string       `json:"valueCode"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueString       string       `json:"valueString"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueDecimal      float64      `json:"valueDecimal"`
 }
 
 type OtherCodeSystem CodeSystem

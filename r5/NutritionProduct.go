@@ -67,16 +67,16 @@ type NutritionProductCharacteristic struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/NutritionProduct
 type NutritionProductInstance struct {
-	Id                    *string      `json:"id,omitempty"`
-	Extension             []Extension  `json:"extension,omitempty"`
-	ModifierExtension     []Extension  `json:"modifierExtension,omitempty"`
-	Quantity              *Quantity    `json:"quantity,omitempty"`
-	Identifier            []Identifier `json:"identifier,omitempty"`
-	Name                  *string      `json:"name,omitempty"`
-	LotNumber             *string      `json:"lotNumber,omitempty"`
-	Expiry                *string      `json:"expiry,omitempty"`
-	UseBy                 *string      `json:"useBy,omitempty"`
-	BiologicalSourceEvent *Identifier  `json:"biologicalSourceEvent,omitempty"`
+	Id                    *string       `json:"id,omitempty"`
+	Extension             []Extension   `json:"extension,omitempty"`
+	ModifierExtension     []Extension   `json:"modifierExtension,omitempty"`
+	Quantity              *Quantity     `json:"quantity,omitempty"`
+	Identifier            []Identifier  `json:"identifier,omitempty"`
+	Name                  *string       `json:"name,omitempty"`
+	LotNumber             *string       `json:"lotNumber,omitempty"`
+	Expiry                *FhirDateTime `json:"expiry,omitempty"`
+	UseBy                 *FhirDateTime `json:"useBy,omitempty"`
+	BiologicalSourceEvent *Identifier   `json:"biologicalSourceEvent,omitempty"`
 }
 
 type OtherNutritionProduct NutritionProduct

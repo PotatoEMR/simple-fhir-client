@@ -29,7 +29,7 @@ type RiskAssessment struct {
 	Code               *CodeableConcept           `json:"code,omitempty"`
 	Subject            Reference                  `json:"subject"`
 	Encounter          *Reference                 `json:"encounter,omitempty"`
-	OccurrenceDateTime *string                    `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime *FhirDateTime              `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod   *Period                    `json:"occurrencePeriod,omitempty"`
 	Condition          *Reference                 `json:"condition,omitempty"`
 	Performer          *Reference                 `json:"performer,omitempty"`

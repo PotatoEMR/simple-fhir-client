@@ -31,7 +31,7 @@ type AppointmentResponse struct {
 	ParticipantStatus string            `json:"participantStatus"`
 	Comment           *string           `json:"comment,omitempty"`
 	Recurring         *bool             `json:"recurring,omitempty"`
-	OccurrenceDate    *string           `json:"occurrenceDate,omitempty"`
+	OccurrenceDate    *FhirDate         `json:"occurrenceDate,omitempty"`
 	RecurrenceId      *int              `json:"recurrenceId,omitempty"`
 }
 

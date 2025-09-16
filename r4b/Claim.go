@@ -28,7 +28,7 @@ type Claim struct {
 	Use                  string                `json:"use"`
 	Patient              Reference             `json:"patient"`
 	BillablePeriod       *Period               `json:"billablePeriod,omitempty"`
-	Created              string                `json:"created"`
+	Created              FhirDateTime          `json:"created"`
 	Enterer              *Reference            `json:"enterer,omitempty"`
 	Insurer              *Reference            `json:"insurer,omitempty"`
 	Provider             Reference             `json:"provider"`
@@ -89,7 +89,7 @@ type ClaimSupportingInfo struct {
 	Sequence          int              `json:"sequence"`
 	Category          CodeableConcept  `json:"category"`
 	Code              *CodeableConcept `json:"code,omitempty"`
-	TimingDate        *string          `json:"timingDate,omitempty"`
+	TimingDate        *FhirDate        `json:"timingDate,omitempty"`
 	TimingPeriod      *Period          `json:"timingPeriod,omitempty"`
 	ValueBoolean      *bool            `json:"valueBoolean,omitempty"`
 	ValueString       *string          `json:"valueString,omitempty"`
@@ -119,7 +119,7 @@ type ClaimProcedure struct {
 	ModifierExtension        []Extension       `json:"modifierExtension,omitempty"`
 	Sequence                 int               `json:"sequence"`
 	Type                     []CodeableConcept `json:"type,omitempty"`
-	Date                     *string           `json:"date,omitempty"`
+	Date                     *FhirDateTime     `json:"date,omitempty"`
 	ProcedureCodeableConcept CodeableConcept   `json:"procedureCodeableConcept"`
 	ProcedureReference       Reference         `json:"procedureReference"`
 	Udi                      []Reference       `json:"udi,omitempty"`
@@ -144,7 +144,7 @@ type ClaimAccident struct {
 	Id                *string          `json:"id,omitempty"`
 	Extension         []Extension      `json:"extension,omitempty"`
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Date              string           `json:"date"`
+	Date              FhirDate         `json:"date"`
 	Type              *CodeableConcept `json:"type,omitempty"`
 	LocationAddress   *Address         `json:"locationAddress,omitempty"`
 	LocationReference *Reference       `json:"locationReference,omitempty"`
@@ -165,7 +165,7 @@ type ClaimItem struct {
 	ProductOrService        CodeableConcept   `json:"productOrService"`
 	Modifier                []CodeableConcept `json:"modifier,omitempty"`
 	ProgramCode             []CodeableConcept `json:"programCode,omitempty"`
-	ServicedDate            *string           `json:"servicedDate,omitempty"`
+	ServicedDate            *FhirDate         `json:"servicedDate,omitempty"`
 	ServicedPeriod          *Period           `json:"servicedPeriod,omitempty"`
 	LocationCodeableConcept *CodeableConcept  `json:"locationCodeableConcept,omitempty"`
 	LocationAddress         *Address          `json:"locationAddress,omitempty"`

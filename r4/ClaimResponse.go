@@ -27,7 +27,7 @@ type ClaimResponse struct {
 	SubType              *CodeableConcept           `json:"subType,omitempty"`
 	Use                  string                     `json:"use"`
 	Patient              Reference                  `json:"patient"`
-	Created              string                     `json:"created"`
+	Created              FhirDateTime               `json:"created"`
 	Insurer              Reference                  `json:"insurer"`
 	Requestor            *Reference                 `json:"requestor,omitempty"`
 	Request              *Reference                 `json:"request,omitempty"`
@@ -102,7 +102,7 @@ type ClaimResponseAddItem struct {
 	ProductOrService        CodeableConcept              `json:"productOrService"`
 	Modifier                []CodeableConcept            `json:"modifier,omitempty"`
 	ProgramCode             []CodeableConcept            `json:"programCode,omitempty"`
-	ServicedDate            *string                      `json:"servicedDate,omitempty"`
+	ServicedDate            *FhirDate                    `json:"servicedDate,omitempty"`
 	ServicedPeriod          *Period                      `json:"servicedPeriod,omitempty"`
 	LocationCodeableConcept *CodeableConcept             `json:"locationCodeableConcept,omitempty"`
 	LocationAddress         *Address                     `json:"locationAddress,omitempty"`
@@ -163,7 +163,7 @@ type ClaimResponsePayment struct {
 	Type              CodeableConcept  `json:"type"`
 	Adjustment        *Money           `json:"adjustment,omitempty"`
 	AdjustmentReason  *CodeableConcept `json:"adjustmentReason,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDate        `json:"date,omitempty"`
 	Amount            Money            `json:"amount"`
 	Identifier        *Identifier      `json:"identifier,omitempty"`
 }

@@ -26,7 +26,7 @@ type MedicationDispense struct {
 	PartOf                    []Reference                     `json:"partOf,omitempty"`
 	Status                    string                          `json:"status"`
 	NotPerformedReason        *CodeableReference              `json:"notPerformedReason,omitempty"`
-	StatusChanged             *string                         `json:"statusChanged,omitempty"`
+	StatusChanged             *FhirDateTime                   `json:"statusChanged,omitempty"`
 	Category                  []CodeableConcept               `json:"category,omitempty"`
 	Medication                CodeableReference               `json:"medication"`
 	Subject                   Reference                       `json:"subject"`
@@ -38,9 +38,9 @@ type MedicationDispense struct {
 	Type                      *CodeableConcept                `json:"type,omitempty"`
 	Quantity                  *Quantity                       `json:"quantity,omitempty"`
 	DaysSupply                *Quantity                       `json:"daysSupply,omitempty"`
-	Recorded                  *string                         `json:"recorded,omitempty"`
-	WhenPrepared              *string                         `json:"whenPrepared,omitempty"`
-	WhenHandedOver            *string                         `json:"whenHandedOver,omitempty"`
+	Recorded                  *FhirDateTime                   `json:"recorded,omitempty"`
+	WhenPrepared              *FhirDateTime                   `json:"whenPrepared,omitempty"`
+	WhenHandedOver            *FhirDateTime                   `json:"whenHandedOver,omitempty"`
 	Destination               *Reference                      `json:"destination,omitempty"`
 	Receiver                  []Reference                     `json:"receiver,omitempty"`
 	Note                      []Annotation                    `json:"note,omitempty"`

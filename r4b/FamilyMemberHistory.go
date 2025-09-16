@@ -27,12 +27,12 @@ type FamilyMemberHistory struct {
 	Status                string                         `json:"status"`
 	DataAbsentReason      *CodeableConcept               `json:"dataAbsentReason,omitempty"`
 	Patient               Reference                      `json:"patient"`
-	Date                  *string                        `json:"date,omitempty"`
+	Date                  *FhirDateTime                  `json:"date,omitempty"`
 	Name                  *string                        `json:"name,omitempty"`
 	Relationship          CodeableConcept                `json:"relationship"`
 	Sex                   *CodeableConcept               `json:"sex,omitempty"`
 	BornPeriod            *Period                        `json:"bornPeriod,omitempty"`
-	BornDate              *string                        `json:"bornDate,omitempty"`
+	BornDate              *FhirDate                      `json:"bornDate,omitempty"`
 	BornString            *string                        `json:"bornString,omitempty"`
 	AgeAge                *Age                           `json:"ageAge,omitempty"`
 	AgeRange              *Range                         `json:"ageRange,omitempty"`
@@ -41,7 +41,7 @@ type FamilyMemberHistory struct {
 	DeceasedBoolean       *bool                          `json:"deceasedBoolean,omitempty"`
 	DeceasedAge           *Age                           `json:"deceasedAge,omitempty"`
 	DeceasedRange         *Range                         `json:"deceasedRange,omitempty"`
-	DeceasedDate          *string                        `json:"deceasedDate,omitempty"`
+	DeceasedDate          *FhirDate                      `json:"deceasedDate,omitempty"`
 	DeceasedString        *string                        `json:"deceasedString,omitempty"`
 	ReasonCode            []CodeableConcept              `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference                    `json:"reasonReference,omitempty"`

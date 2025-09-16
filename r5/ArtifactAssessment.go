@@ -25,10 +25,10 @@ type ArtifactAssessment struct {
 	Title             *string                     `json:"title,omitempty"`
 	CiteAsReference   *Reference                  `json:"citeAsReference,omitempty"`
 	CiteAsMarkdown    *string                     `json:"citeAsMarkdown,omitempty"`
-	Date              *string                     `json:"date,omitempty"`
+	Date              *FhirDateTime               `json:"date,omitempty"`
 	Copyright         *string                     `json:"copyright,omitempty"`
-	ApprovalDate      *string                     `json:"approvalDate,omitempty"`
-	LastReviewDate    *string                     `json:"lastReviewDate,omitempty"`
+	ApprovalDate      *FhirDate                   `json:"approvalDate,omitempty"`
+	LastReviewDate    *FhirDate                   `json:"lastReviewDate,omitempty"`
 	ArtifactReference Reference                   `json:"artifactReference"`
 	ArtifactCanonical string                      `json:"artifactCanonical"`
 	ArtifactUri       string                      `json:"artifactUri"`

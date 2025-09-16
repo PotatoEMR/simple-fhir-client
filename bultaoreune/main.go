@@ -110,9 +110,7 @@ func main() {
 
 		timeFormat := filepath.Join(generateDirVer, "zzzTimeFormat.go")
 		tf, _ := os.Create(timeFormat)
-		fmt.Fprintln(tf, "package "+fhirVersion+`	
-const DateFormat string = "2006-01-02"
-const DateTimeFormat string = "2006-01-02T15:04:05-07:00"`)
+		fmt.Fprintln(tf, TimeFormat(fhirVersion))
 	}
 	fmt.Println("wrote files, running templ generate for form components")
 	cmd := exec.Command("go", "tool", "templ", "generate")
@@ -409,6 +407,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						fl = fieldName_lower[:len(fieldName_lower)-3] + strings.Title(t.Code)
 					}
 					jsonEnc := omitempty
+					//not using format, putting time formatting in json marshal/unmarshal
 					/*if t.Code == "date" {
 						jsonEnc = jsonEnc + ",format:'2006-01-02'"
 					} else if t.Code == "dateTime" {
@@ -488,8 +487,8 @@ var fhirPrimitive_to_GolangType = map[string]string{
 	"boolean":                               "bool",
 	"canonical":                             "string",
 	"code":                                  "string",
-	"date":                                  "string",
-	"dateTime":                              "string",
+	"date":                                  "FhirDate",
+	"dateTime":                              "FhirDateTime",
 	"decimal":                               "float64",
 	"id":                                    "string",
 	"instant":                               "string",

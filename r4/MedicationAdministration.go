@@ -32,7 +32,7 @@ type MedicationAdministration struct {
 	Subject                   Reference                           `json:"subject"`
 	Context                   *Reference                          `json:"context,omitempty"`
 	SupportingInformation     []Reference                         `json:"supportingInformation,omitempty"`
-	EffectiveDateTime         string                              `json:"effectiveDateTime"`
+	EffectiveDateTime         FhirDateTime                        `json:"effectiveDateTime"`
 	EffectivePeriod           Period                              `json:"effectivePeriod"`
 	Performer                 []MedicationAdministrationPerformer `json:"performer,omitempty"`
 	ReasonCode                []CodeableConcept                   `json:"reasonCode,omitempty"`

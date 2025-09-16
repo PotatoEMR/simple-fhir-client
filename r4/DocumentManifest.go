@@ -25,7 +25,7 @@ type DocumentManifest struct {
 	Status            string                    `json:"status"`
 	Type              *CodeableConcept          `json:"type,omitempty"`
 	Subject           *Reference                `json:"subject,omitempty"`
-	Created           *string                   `json:"created,omitempty"`
+	Created           *FhirDateTime             `json:"created,omitempty"`
 	Author            []Reference               `json:"author,omitempty"`
 	Recipient         []Reference               `json:"recipient,omitempty"`
 	Source            *string                   `json:"source,omitempty"`

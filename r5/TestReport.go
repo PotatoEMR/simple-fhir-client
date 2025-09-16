@@ -28,7 +28,7 @@ type TestReport struct {
 	Result            string                  `json:"result"`
 	Score             *float64                `json:"score,omitempty"`
 	Tester            *string                 `json:"tester,omitempty"`
-	Issued            *string                 `json:"issued,omitempty"`
+	Issued            *FhirDateTime           `json:"issued,omitempty"`
 	Participant       []TestReportParticipant `json:"participant,omitempty"`
 	Setup             *TestReportSetup        `json:"setup,omitempty"`
 	Test              []TestReportTest        `json:"test,omitempty"`

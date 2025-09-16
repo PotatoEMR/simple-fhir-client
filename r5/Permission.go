@@ -23,7 +23,7 @@ type Permission struct {
 	ModifierExtension []Extension              `json:"modifierExtension,omitempty"`
 	Status            string                   `json:"status"`
 	Asserter          *Reference               `json:"asserter,omitempty"`
-	Date              []string                 `json:"date,omitempty"`
+	Date              []FhirDateTime           `json:"date,omitempty"`
 	Validity          *Period                  `json:"validity,omitempty"`
 	Justification     *PermissionJustification `json:"justification,omitempty"`
 	Combining         string                   `json:"combining"`

@@ -33,7 +33,7 @@ type ChargeItemDefinition struct {
 	Replaces               []string                            `json:"replaces,omitempty"`
 	Status                 string                              `json:"status"`
 	Experimental           *bool                               `json:"experimental,omitempty"`
-	Date                   *string                             `json:"date,omitempty"`
+	Date                   *FhirDateTime                       `json:"date,omitempty"`
 	Publisher              *string                             `json:"publisher,omitempty"`
 	Contact                []ContactDetail                     `json:"contact,omitempty"`
 	Description            *string                             `json:"description,omitempty"`
@@ -42,8 +42,8 @@ type ChargeItemDefinition struct {
 	Purpose                *string                             `json:"purpose,omitempty"`
 	Copyright              *string                             `json:"copyright,omitempty"`
 	CopyrightLabel         *string                             `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string                             `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                             `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate                           `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate                           `json:"lastReviewDate,omitempty"`
 	Code                   *CodeableConcept                    `json:"code,omitempty"`
 	Instance               []Reference                         `json:"instance,omitempty"`
 	Applicability          []ChargeItemDefinitionApplicability `json:"applicability,omitempty"`

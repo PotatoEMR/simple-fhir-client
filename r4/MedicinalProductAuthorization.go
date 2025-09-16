@@ -26,12 +26,12 @@ type MedicinalProductAuthorization struct {
 	Country                     []CodeableConcept                                          `json:"country,omitempty"`
 	Jurisdiction                []CodeableConcept                                          `json:"jurisdiction,omitempty"`
 	Status                      *CodeableConcept                                           `json:"status,omitempty"`
-	StatusDate                  *string                                                    `json:"statusDate,omitempty"`
-	RestoreDate                 *string                                                    `json:"restoreDate,omitempty"`
+	StatusDate                  *FhirDateTime                                              `json:"statusDate,omitempty"`
+	RestoreDate                 *FhirDateTime                                              `json:"restoreDate,omitempty"`
 	ValidityPeriod              *Period                                                    `json:"validityPeriod,omitempty"`
 	DataExclusivityPeriod       *Period                                                    `json:"dataExclusivityPeriod,omitempty"`
-	DateOfFirstAuthorization    *string                                                    `json:"dateOfFirstAuthorization,omitempty"`
-	InternationalBirthDate      *string                                                    `json:"internationalBirthDate,omitempty"`
+	DateOfFirstAuthorization    *FhirDateTime                                              `json:"dateOfFirstAuthorization,omitempty"`
+	InternationalBirthDate      *FhirDateTime                                              `json:"internationalBirthDate,omitempty"`
 	LegalBasis                  *CodeableConcept                                           `json:"legalBasis,omitempty"`
 	JurisdictionalAuthorization []MedicinalProductAuthorizationJurisdictionalAuthorization `json:"jurisdictionalAuthorization,omitempty"`
 	Holder                      *Reference                                                 `json:"holder,omitempty"`
@@ -59,7 +59,7 @@ type MedicinalProductAuthorizationProcedure struct {
 	Identifier        *Identifier     `json:"identifier,omitempty"`
 	Type              CodeableConcept `json:"type"`
 	DatePeriod        *Period         `json:"datePeriod,omitempty"`
-	DateDateTime      *string         `json:"dateDateTime,omitempty"`
+	DateDateTime      *FhirDateTime   `json:"dateDateTime,omitempty"`
 }
 
 type OtherMedicinalProductAuthorization MedicinalProductAuthorization

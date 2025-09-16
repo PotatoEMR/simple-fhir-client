@@ -30,7 +30,7 @@ type CodeSystem struct {
 	Title                  *string              `json:"title,omitempty"`
 	Status                 string               `json:"status"`
 	Experimental           *bool                `json:"experimental,omitempty"`
-	Date                   *string              `json:"date,omitempty"`
+	Date                   *FhirDateTime        `json:"date,omitempty"`
 	Publisher              *string              `json:"publisher,omitempty"`
 	Contact                []ContactDetail      `json:"contact,omitempty"`
 	Description            *string              `json:"description,omitempty"`
@@ -39,8 +39,8 @@ type CodeSystem struct {
 	Purpose                *string              `json:"purpose,omitempty"`
 	Copyright              *string              `json:"copyright,omitempty"`
 	CopyrightLabel         *string              `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string              `json:"approvalDate,omitempty"`
-	LastReviewDate         *string              `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate            `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate            `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period              `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept    `json:"topic,omitempty"`
 	Author                 []ContactDetail      `json:"author,omitempty"`
@@ -108,17 +108,17 @@ type CodeSystemConceptDesignation struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/CodeSystem
 type CodeSystemConceptProperty struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Code              string      `json:"code"`
-	ValueCode         string      `json:"valueCode"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueString       string      `json:"valueString"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueDecimal      float64     `json:"valueDecimal"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	Code              string       `json:"code"`
+	ValueCode         string       `json:"valueCode"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueString       string       `json:"valueString"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueDecimal      float64      `json:"valueDecimal"`
 }
 
 type OtherCodeSystem CodeSystem

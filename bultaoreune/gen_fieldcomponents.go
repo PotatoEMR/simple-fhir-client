@@ -1,4 +1,7 @@
-package r5
+package main
+
+func FormText(fhirVersion string) string {
+	ret := `package ` + fhirVersion + `
 
 import "fmt"
 import "time"
@@ -224,4 +227,6 @@ templ DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attribu
 	}
 }
 
-
+`
+	return ret
+}

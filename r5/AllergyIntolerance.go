@@ -30,14 +30,14 @@ type AllergyIntolerance struct {
 	Code               *CodeableConcept                `json:"code,omitempty"`
 	Patient            Reference                       `json:"patient"`
 	Encounter          *Reference                      `json:"encounter,omitempty"`
-	OnsetDateTime      *string                         `json:"onsetDateTime,omitempty"`
+	OnsetDateTime      *FhirDateTime                   `json:"onsetDateTime,omitempty"`
 	OnsetAge           *Age                            `json:"onsetAge,omitempty"`
 	OnsetPeriod        *Period                         `json:"onsetPeriod,omitempty"`
 	OnsetRange         *Range                          `json:"onsetRange,omitempty"`
 	OnsetString        *string                         `json:"onsetString,omitempty"`
-	RecordedDate       *string                         `json:"recordedDate,omitempty"`
+	RecordedDate       *FhirDateTime                   `json:"recordedDate,omitempty"`
 	Participant        []AllergyIntoleranceParticipant `json:"participant,omitempty"`
-	LastOccurrence     *string                         `json:"lastOccurrence,omitempty"`
+	LastOccurrence     *FhirDateTime                   `json:"lastOccurrence,omitempty"`
 	Note               []Annotation                    `json:"note,omitempty"`
 	Reaction           []AllergyIntoleranceReaction    `json:"reaction,omitempty"`
 }
@@ -59,7 +59,7 @@ type AllergyIntoleranceReaction struct {
 	Substance         *CodeableConcept    `json:"substance,omitempty"`
 	Manifestation     []CodeableReference `json:"manifestation"`
 	Description       *string             `json:"description,omitempty"`
-	Onset             *string             `json:"onset,omitempty"`
+	Onset             *FhirDateTime       `json:"onset,omitempty"`
 	Severity          *string             `json:"severity,omitempty"`
 	ExposureRoute     *CodeableConcept    `json:"exposureRoute,omitempty"`
 	Note              []Annotation        `json:"note,omitempty"`

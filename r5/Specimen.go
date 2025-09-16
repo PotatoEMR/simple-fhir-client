@@ -26,7 +26,7 @@ type Specimen struct {
 	Status              *string              `json:"status,omitempty"`
 	Type                *CodeableConcept     `json:"type,omitempty"`
 	Subject             *Reference           `json:"subject,omitempty"`
-	ReceivedTime        *string              `json:"receivedTime,omitempty"`
+	ReceivedTime        *FhirDateTime        `json:"receivedTime,omitempty"`
 	Parent              []Reference          `json:"parent,omitempty"`
 	Request             []Reference          `json:"request,omitempty"`
 	Combined            *string              `json:"combined,omitempty"`
@@ -54,7 +54,7 @@ type SpecimenCollection struct {
 	Extension                    []Extension        `json:"extension,omitempty"`
 	ModifierExtension            []Extension        `json:"modifierExtension,omitempty"`
 	Collector                    *Reference         `json:"collector,omitempty"`
-	CollectedDateTime            *string            `json:"collectedDateTime,omitempty"`
+	CollectedDateTime            *FhirDateTime      `json:"collectedDateTime,omitempty"`
 	CollectedPeriod              *Period            `json:"collectedPeriod,omitempty"`
 	Duration                     *Duration          `json:"duration,omitempty"`
 	Quantity                     *Quantity          `json:"quantity,omitempty"`
@@ -74,7 +74,7 @@ type SpecimenProcessing struct {
 	Description       *string          `json:"description,omitempty"`
 	Method            *CodeableConcept `json:"method,omitempty"`
 	Additive          []Reference      `json:"additive,omitempty"`
-	TimeDateTime      *string          `json:"timeDateTime,omitempty"`
+	TimeDateTime      *FhirDateTime    `json:"timeDateTime,omitempty"`
 	TimePeriod        *Period          `json:"timePeriod,omitempty"`
 }
 

@@ -23,7 +23,7 @@ type Provenance struct {
 	ModifierExtension []Extension        `json:"modifierExtension,omitempty"`
 	Target            []Reference        `json:"target"`
 	OccurredPeriod    *Period            `json:"occurredPeriod,omitempty"`
-	OccurredDateTime  *string            `json:"occurredDateTime,omitempty"`
+	OccurredDateTime  *FhirDateTime      `json:"occurredDateTime,omitempty"`
 	Recorded          string             `json:"recorded"`
 	Policy            []string           `json:"policy,omitempty"`
 	Location          *Reference         `json:"location,omitempty"`

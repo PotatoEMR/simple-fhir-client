@@ -17,5 +17,5 @@ type RelatedArtifact struct {
 	Resource          *string           `json:"resource,omitempty"`
 	ResourceReference *Reference        `json:"resourceReference,omitempty"`
 	PublicationStatus *string           `json:"publicationStatus,omitempty"`
-	PublicationDate   *string           `json:"publicationDate,omitempty"`
+	PublicationDate   *FhirDate         `json:"publicationDate,omitempty"`
 }

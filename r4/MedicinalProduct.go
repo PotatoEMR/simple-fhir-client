@@ -79,7 +79,7 @@ type MedicinalProductManufacturingBusinessOperation struct {
 	ModifierExtension            []Extension      `json:"modifierExtension,omitempty"`
 	OperationType                *CodeableConcept `json:"operationType,omitempty"`
 	AuthorisationReferenceNumber *Identifier      `json:"authorisationReferenceNumber,omitempty"`
-	EffectiveDate                *string          `json:"effectiveDate,omitempty"`
+	EffectiveDate                *FhirDateTime    `json:"effectiveDate,omitempty"`
 	ConfidentialityIndicator     *CodeableConcept `json:"confidentialityIndicator,omitempty"`
 	Manufacturer                 []Reference      `json:"manufacturer,omitempty"`
 	Regulator                    *Reference       `json:"regulator,omitempty"`
@@ -96,7 +96,7 @@ type MedicinalProductSpecialDesignation struct {
 	IndicationCodeableConcept *CodeableConcept `json:"indicationCodeableConcept,omitempty"`
 	IndicationReference       *Reference       `json:"indicationReference,omitempty"`
 	Status                    *CodeableConcept `json:"status,omitempty"`
-	Date                      *string          `json:"date,omitempty"`
+	Date                      *FhirDateTime    `json:"date,omitempty"`
 	Species                   *CodeableConcept `json:"species,omitempty"`
 }
 

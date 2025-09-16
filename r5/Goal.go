@@ -29,10 +29,10 @@ type Goal struct {
 	Priority             *CodeableConcept    `json:"priority,omitempty"`
 	Description          CodeableConcept     `json:"description"`
 	Subject              Reference           `json:"subject"`
-	StartDate            *string             `json:"startDate,omitempty"`
+	StartDate            *FhirDate           `json:"startDate,omitempty"`
 	StartCodeableConcept *CodeableConcept    `json:"startCodeableConcept,omitempty"`
 	Target               []GoalTarget        `json:"target,omitempty"`
-	StatusDate           *string             `json:"statusDate,omitempty"`
+	StatusDate           *FhirDate           `json:"statusDate,omitempty"`
 	StatusReason         *string             `json:"statusReason,omitempty"`
 	Source               *Reference          `json:"source,omitempty"`
 	Addresses            []Reference         `json:"addresses,omitempty"`
@@ -53,7 +53,7 @@ type GoalTarget struct {
 	DetailBoolean         *bool            `json:"detailBoolean,omitempty"`
 	DetailInteger         *int             `json:"detailInteger,omitempty"`
 	DetailRatio           *Ratio           `json:"detailRatio,omitempty"`
-	DueDate               *string          `json:"dueDate,omitempty"`
+	DueDate               *FhirDate        `json:"dueDate,omitempty"`
 	DueDuration           *Duration        `json:"dueDuration,omitempty"`
 }
 

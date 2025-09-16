@@ -33,7 +33,7 @@ type NutritionOrder struct {
 	Subject                Reference                     `json:"subject"`
 	Encounter              *Reference                    `json:"encounter,omitempty"`
 	SupportingInformation  []Reference                   `json:"supportingInformation,omitempty"`
-	DateTime               string                        `json:"dateTime"`
+	DateTime               FhirDateTime                  `json:"dateTime"`
 	Orderer                *Reference                    `json:"orderer,omitempty"`
 	Performer              []CodeableReference           `json:"performer,omitempty"`
 	AllergyIntolerance     []Reference                   `json:"allergyIntolerance,omitempty"`

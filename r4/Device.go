@@ -28,8 +28,8 @@ type Device struct {
 	StatusReason       []CodeableConcept      `json:"statusReason,omitempty"`
 	DistinctIdentifier *string                `json:"distinctIdentifier,omitempty"`
 	Manufacturer       *string                `json:"manufacturer,omitempty"`
-	ManufactureDate    *string                `json:"manufactureDate,omitempty"`
-	ExpirationDate     *string                `json:"expirationDate,omitempty"`
+	ManufactureDate    *FhirDateTime          `json:"manufactureDate,omitempty"`
+	ExpirationDate     *FhirDateTime          `json:"expirationDate,omitempty"`
 	LotNumber          *string                `json:"lotNumber,omitempty"`
 	SerialNumber       *string                `json:"serialNumber,omitempty"`
 	DeviceName         []DeviceDeviceName     `json:"deviceName,omitempty"`

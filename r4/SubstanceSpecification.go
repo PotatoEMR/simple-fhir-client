@@ -123,7 +123,7 @@ type SubstanceSpecificationCode struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Code              *CodeableConcept `json:"code,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
-	StatusDate        *string          `json:"statusDate,omitempty"`
+	StatusDate        *FhirDateTime    `json:"statusDate,omitempty"`
 	Comment           *string          `json:"comment,omitempty"`
 	Source            []Reference      `json:"source,omitempty"`
 }
@@ -151,7 +151,7 @@ type SubstanceSpecificationNameOfficial struct {
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
 	Authority         *CodeableConcept `json:"authority,omitempty"`
 	Status            *CodeableConcept `json:"status,omitempty"`
-	Date              *string          `json:"date,omitempty"`
+	Date              *FhirDateTime    `json:"date,omitempty"`
 }
 
 // http://hl7.org/fhir/r4/StructureDefinition/SubstanceSpecification

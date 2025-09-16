@@ -29,7 +29,7 @@ type EvidenceVariable struct {
 	ShortTitle                *string                          `json:"shortTitle,omitempty"`
 	Subtitle                  *string                          `json:"subtitle,omitempty"`
 	Status                    string                           `json:"status"`
-	Date                      *string                          `json:"date,omitempty"`
+	Date                      *FhirDateTime                    `json:"date,omitempty"`
 	Description               *string                          `json:"description,omitempty"`
 	Note                      []Annotation                     `json:"note,omitempty"`
 	UseContext                []UsageContext                   `json:"useContext,omitempty"`

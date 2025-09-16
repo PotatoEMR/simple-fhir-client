@@ -43,8 +43,8 @@ type Appointment struct {
 	RequestedPeriod        []Period                        `json:"requestedPeriod,omitempty"`
 	Slot                   []Reference                     `json:"slot,omitempty"`
 	Account                []Reference                     `json:"account,omitempty"`
-	Created                *string                         `json:"created,omitempty"`
-	CancellationDate       *string                         `json:"cancellationDate,omitempty"`
+	Created                *FhirDateTime                   `json:"created,omitempty"`
+	CancellationDate       *FhirDateTime                   `json:"cancellationDate,omitempty"`
 	Note                   []Annotation                    `json:"note,omitempty"`
 	PatientInstruction     []CodeableReference             `json:"patientInstruction,omitempty"`
 	BasedOn                []Reference                     `json:"basedOn,omitempty"`
@@ -74,13 +74,13 @@ type AppointmentRecurrenceTemplate struct {
 	ModifierExtension     []Extension                                   `json:"modifierExtension,omitempty"`
 	Timezone              *CodeableConcept                              `json:"timezone,omitempty"`
 	RecurrenceType        CodeableConcept                               `json:"recurrenceType"`
-	LastOccurrenceDate    *string                                       `json:"lastOccurrenceDate,omitempty"`
+	LastOccurrenceDate    *FhirDate                                     `json:"lastOccurrenceDate,omitempty"`
 	OccurrenceCount       *int                                          `json:"occurrenceCount,omitempty"`
-	OccurrenceDate        []string                                      `json:"occurrenceDate,omitempty"`
+	OccurrenceDate        []FhirDate                                    `json:"occurrenceDate,omitempty"`
 	WeeklyTemplate        *AppointmentRecurrenceTemplateWeeklyTemplate  `json:"weeklyTemplate,omitempty"`
 	MonthlyTemplate       *AppointmentRecurrenceTemplateMonthlyTemplate `json:"monthlyTemplate,omitempty"`
 	YearlyTemplate        *AppointmentRecurrenceTemplateYearlyTemplate  `json:"yearlyTemplate,omitempty"`
-	ExcludingDate         []string                                      `json:"excludingDate,omitempty"`
+	ExcludingDate         []FhirDate                                    `json:"excludingDate,omitempty"`
 	ExcludingRecurrenceId []int                                         `json:"excludingRecurrenceId,omitempty"`
 }
 

@@ -27,7 +27,7 @@ type MeasureReport struct {
 	DataUpdateType      *string              `json:"dataUpdateType,omitempty"`
 	Measure             *string              `json:"measure,omitempty"`
 	Subject             *Reference           `json:"subject,omitempty"`
-	Date                *string              `json:"date,omitempty"`
+	Date                *FhirDateTime        `json:"date,omitempty"`
 	Reporter            *Reference           `json:"reporter,omitempty"`
 	ReportingVendor     *Reference           `json:"reportingVendor,omitempty"`
 	Location            *Reference           `json:"location,omitempty"`
@@ -50,7 +50,7 @@ type MeasureReportGroup struct {
 	Subject                     *Reference                     `json:"subject,omitempty"`
 	Population                  []MeasureReportGroupPopulation `json:"population,omitempty"`
 	MeasureScoreQuantity        *Quantity                      `json:"measureScoreQuantity,omitempty"`
-	MeasureScoreDateTime        *string                        `json:"measureScoreDateTime,omitempty"`
+	MeasureScoreDateTime        *FhirDateTime                  `json:"measureScoreDateTime,omitempty"`
 	MeasureScoreCodeableConcept *CodeableConcept               `json:"measureScoreCodeableConcept,omitempty"`
 	MeasureScorePeriod          *Period                        `json:"measureScorePeriod,omitempty"`
 	MeasureScoreRange           *Range                         `json:"measureScoreRange,omitempty"`
@@ -94,7 +94,7 @@ type MeasureReportGroupStratifierStratum struct {
 	Component                   []MeasureReportGroupStratifierStratumComponent  `json:"component,omitempty"`
 	Population                  []MeasureReportGroupStratifierStratumPopulation `json:"population,omitempty"`
 	MeasureScoreQuantity        *Quantity                                       `json:"measureScoreQuantity,omitempty"`
-	MeasureScoreDateTime        *string                                         `json:"measureScoreDateTime,omitempty"`
+	MeasureScoreDateTime        *FhirDateTime                                   `json:"measureScoreDateTime,omitempty"`
 	MeasureScoreCodeableConcept *CodeableConcept                                `json:"measureScoreCodeableConcept,omitempty"`
 	MeasureScorePeriod          *Period                                         `json:"measureScorePeriod,omitempty"`
 	MeasureScoreRange           *Range                                          `json:"measureScoreRange,omitempty"`

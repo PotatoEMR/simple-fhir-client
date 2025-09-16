@@ -26,7 +26,7 @@ type DetectedIssue struct {
 	Code               *CodeableConcept          `json:"code,omitempty"`
 	Severity           *string                   `json:"severity,omitempty"`
 	Patient            *Reference                `json:"patient,omitempty"`
-	IdentifiedDateTime *string                   `json:"identifiedDateTime,omitempty"`
+	IdentifiedDateTime *FhirDateTime             `json:"identifiedDateTime,omitempty"`
 	IdentifiedPeriod   *Period                   `json:"identifiedPeriod,omitempty"`
 	Author             *Reference                `json:"author,omitempty"`
 	Implicated         []Reference               `json:"implicated,omitempty"`
@@ -51,7 +51,7 @@ type DetectedIssueMitigation struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Action            CodeableConcept `json:"action"`
-	Date              *string         `json:"date,omitempty"`
+	Date              *FhirDateTime   `json:"date,omitempty"`
 	Author            *Reference      `json:"author,omitempty"`
 }
 

@@ -86,7 +86,7 @@ type InventoryItemCharacteristic struct {
 	ValueDecimal         float64         `json:"valueDecimal"`
 	ValueBoolean         bool            `json:"valueBoolean"`
 	ValueUrl             string          `json:"valueUrl"`
-	ValueDateTime        string          `json:"valueDateTime"`
+	ValueDateTime        FhirDateTime    `json:"valueDateTime"`
 	ValueQuantity        Quantity        `json:"valueQuantity"`
 	ValueRange           Range           `json:"valueRange"`
 	ValueRatio           Ratio           `json:"valueRatio"`
@@ -98,14 +98,14 @@ type InventoryItemCharacteristic struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/InventoryItem
 type InventoryItemInstance struct {
-	Id                *string      `json:"id,omitempty"`
-	Extension         []Extension  `json:"extension,omitempty"`
-	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
-	Identifier        []Identifier `json:"identifier,omitempty"`
-	LotNumber         *string      `json:"lotNumber,omitempty"`
-	Expiry            *string      `json:"expiry,omitempty"`
-	Subject           *Reference   `json:"subject,omitempty"`
-	Location          *Reference   `json:"location,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Identifier        []Identifier  `json:"identifier,omitempty"`
+	LotNumber         *string       `json:"lotNumber,omitempty"`
+	Expiry            *FhirDateTime `json:"expiry,omitempty"`
+	Subject           *Reference    `json:"subject,omitempty"`
+	Location          *Reference    `json:"location,omitempty"`
 }
 
 type OtherInventoryItem InventoryItem

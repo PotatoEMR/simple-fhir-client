@@ -28,7 +28,7 @@ type QuestionnaireResponse struct {
 	Status            string                      `json:"status"`
 	Subject           *Reference                  `json:"subject,omitempty"`
 	Encounter         *Reference                  `json:"encounter,omitempty"`
-	Authored          *string                     `json:"authored,omitempty"`
+	Authored          *FhirDateTime               `json:"authored,omitempty"`
 	Author            *Reference                  `json:"author,omitempty"`
 	Source            *Reference                  `json:"source,omitempty"`
 	Item              []QuestionnaireResponseItem `json:"item,omitempty"`
@@ -47,21 +47,21 @@ type QuestionnaireResponseItem struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/QuestionnaireResponse
 type QuestionnaireResponseItemAnswer struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDecimal      float64     `json:"valueDecimal"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueDate         string      `json:"valueDate"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueTime         string      `json:"valueTime"`
-	ValueString       string      `json:"valueString"`
-	ValueUri          string      `json:"valueUri"`
-	ValueAttachment   Attachment  `json:"valueAttachment"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueQuantity     Quantity    `json:"valueQuantity"`
-	ValueReference    Reference   `json:"valueReference"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDecimal      float64      `json:"valueDecimal"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueDate         FhirDate     `json:"valueDate"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueTime         string       `json:"valueTime"`
+	ValueString       string       `json:"valueString"`
+	ValueUri          string       `json:"valueUri"`
+	ValueAttachment   Attachment   `json:"valueAttachment"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueQuantity     Quantity     `json:"valueQuantity"`
+	ValueReference    Reference    `json:"valueReference"`
 }
 
 type OtherQuestionnaireResponse QuestionnaireResponse

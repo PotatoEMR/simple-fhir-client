@@ -25,9 +25,9 @@ type CoverageEligibilityResponse struct {
 	Status            string                                 `json:"status"`
 	Purpose           []string                               `json:"purpose"`
 	Patient           Reference                              `json:"patient"`
-	ServicedDate      *string                                `json:"servicedDate,omitempty"`
+	ServicedDate      *FhirDate                              `json:"servicedDate,omitempty"`
 	ServicedPeriod    *Period                                `json:"servicedPeriod,omitempty"`
-	Created           string                                 `json:"created"`
+	Created           FhirDateTime                           `json:"created"`
 	Requestor         *Reference                             `json:"requestor,omitempty"`
 	Request           Reference                              `json:"request"`
 	Outcome           string                                 `json:"outcome"`

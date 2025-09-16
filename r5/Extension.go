@@ -13,8 +13,8 @@ type Extension struct {
 	ValueBoolean               *bool                  `json:"valueBoolean,omitempty"`
 	ValueCanonical             *string                `json:"valueCanonical,omitempty"`
 	ValueCode                  *string                `json:"valueCode,omitempty"`
-	ValueDate                  *string                `json:"valueDate,omitempty"`
-	ValueDateTime              *string                `json:"valueDateTime,omitempty"`
+	ValueDate                  *FhirDate              `json:"valueDate,omitempty"`
+	ValueDateTime              *FhirDateTime          `json:"valueDateTime,omitempty"`
 	ValueDecimal               *float64               `json:"valueDecimal,omitempty"`
 	ValueId                    *string                `json:"valueId,omitempty"`
 	ValueInstant               *string                `json:"valueInstant,omitempty"`

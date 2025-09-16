@@ -24,13 +24,13 @@ type PaymentReconciliation struct {
 	Identifier        []Identifier                       `json:"identifier,omitempty"`
 	Status            string                             `json:"status"`
 	Period            *Period                            `json:"period,omitempty"`
-	Created           string                             `json:"created"`
+	Created           FhirDateTime                       `json:"created"`
 	PaymentIssuer     *Reference                         `json:"paymentIssuer,omitempty"`
 	Request           *Reference                         `json:"request,omitempty"`
 	Requestor         *Reference                         `json:"requestor,omitempty"`
 	Outcome           *string                            `json:"outcome,omitempty"`
 	Disposition       *string                            `json:"disposition,omitempty"`
-	PaymentDate       string                             `json:"paymentDate"`
+	PaymentDate       FhirDate                           `json:"paymentDate"`
 	PaymentAmount     Money                              `json:"paymentAmount"`
 	PaymentIdentifier *Identifier                        `json:"paymentIdentifier,omitempty"`
 	Detail            []PaymentReconciliationDetail      `json:"detail,omitempty"`
@@ -49,7 +49,7 @@ type PaymentReconciliationDetail struct {
 	Request           *Reference      `json:"request,omitempty"`
 	Submitter         *Reference      `json:"submitter,omitempty"`
 	Response          *Reference      `json:"response,omitempty"`
-	Date              *string         `json:"date,omitempty"`
+	Date              *FhirDate       `json:"date,omitempty"`
 	Responsible       *Reference      `json:"responsible,omitempty"`
 	Payee             *Reference      `json:"payee,omitempty"`
 	Amount            *Money          `json:"amount,omitempty"`

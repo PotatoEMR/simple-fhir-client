@@ -33,7 +33,7 @@ type Observation struct {
 	Subject               *Reference                  `json:"subject,omitempty"`
 	Focus                 []Reference                 `json:"focus,omitempty"`
 	Encounter             *Reference                  `json:"encounter,omitempty"`
-	EffectiveDateTime     *string                     `json:"effectiveDateTime,omitempty"`
+	EffectiveDateTime     *FhirDateTime               `json:"effectiveDateTime,omitempty"`
 	EffectivePeriod       *Period                     `json:"effectivePeriod,omitempty"`
 	EffectiveTiming       *Timing                     `json:"effectiveTiming,omitempty"`
 	EffectiveInstant      *string                     `json:"effectiveInstant,omitempty"`
@@ -48,7 +48,7 @@ type Observation struct {
 	ValueRatio            *Ratio                      `json:"valueRatio,omitempty"`
 	ValueSampledData      *SampledData                `json:"valueSampledData,omitempty"`
 	ValueTime             *string                     `json:"valueTime,omitempty"`
-	ValueDateTime         *string                     `json:"valueDateTime,omitempty"`
+	ValueDateTime         *FhirDateTime               `json:"valueDateTime,omitempty"`
 	ValuePeriod           *Period                     `json:"valuePeriod,omitempty"`
 	ValueAttachment       *Attachment                 `json:"valueAttachment,omitempty"`
 	ValueReference        *Reference                  `json:"valueReference,omitempty"`
@@ -105,7 +105,7 @@ type ObservationComponent struct {
 	ValueRatio           *Ratio            `json:"valueRatio,omitempty"`
 	ValueSampledData     *SampledData      `json:"valueSampledData,omitempty"`
 	ValueTime            *string           `json:"valueTime,omitempty"`
-	ValueDateTime        *string           `json:"valueDateTime,omitempty"`
+	ValueDateTime        *FhirDateTime     `json:"valueDateTime,omitempty"`
 	ValuePeriod          *Period           `json:"valuePeriod,omitempty"`
 	ValueAttachment      *Attachment       `json:"valueAttachment,omitempty"`
 	ValueReference       *Reference        `json:"valueReference,omitempty"`

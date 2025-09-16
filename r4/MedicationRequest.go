@@ -35,7 +35,7 @@ type MedicationRequest struct {
 	Subject                   Reference                         `json:"subject"`
 	Encounter                 *Reference                        `json:"encounter,omitempty"`
 	SupportingInformation     []Reference                       `json:"supportingInformation,omitempty"`
-	AuthoredOn                *string                           `json:"authoredOn,omitempty"`
+	AuthoredOn                *FhirDateTime                     `json:"authoredOn,omitempty"`
 	Requester                 *Reference                        `json:"requester,omitempty"`
 	Performer                 *Reference                        `json:"performer,omitempty"`
 	PerformerType             *CodeableConcept                  `json:"performerType,omitempty"`

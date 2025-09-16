@@ -30,7 +30,7 @@ type Questionnaire struct {
 	Status            string              `json:"status"`
 	Experimental      *bool               `json:"experimental,omitempty"`
 	SubjectType       []string            `json:"subjectType,omitempty"`
-	Date              *string             `json:"date,omitempty"`
+	Date              *FhirDateTime       `json:"date,omitempty"`
 	Publisher         *string             `json:"publisher,omitempty"`
 	Contact           []ContactDetail     `json:"contact,omitempty"`
 	Description       *string             `json:"description,omitempty"`
@@ -38,8 +38,8 @@ type Questionnaire struct {
 	Jurisdiction      []CodeableConcept   `json:"jurisdiction,omitempty"`
 	Purpose           *string             `json:"purpose,omitempty"`
 	Copyright         *string             `json:"copyright,omitempty"`
-	ApprovalDate      *string             `json:"approvalDate,omitempty"`
-	LastReviewDate    *string             `json:"lastReviewDate,omitempty"`
+	ApprovalDate      *FhirDate           `json:"approvalDate,omitempty"`
+	LastReviewDate    *FhirDate           `json:"lastReviewDate,omitempty"`
 	EffectivePeriod   *Period             `json:"effectivePeriod,omitempty"`
 	Code              []Coding            `json:"code,omitempty"`
 	Item              []QuestionnaireItem `json:"item,omitempty"`
@@ -69,21 +69,21 @@ type QuestionnaireItem struct {
 
 // http://hl7.org/fhir/r4/StructureDefinition/Questionnaire
 type QuestionnaireItemEnableWhen struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Question          string      `json:"question"`
-	Operator          string      `json:"operator"`
-	AnswerBoolean     bool        `json:"answerBoolean"`
-	AnswerDecimal     float64     `json:"answerDecimal"`
-	AnswerInteger     int         `json:"answerInteger"`
-	AnswerDate        string      `json:"answerDate"`
-	AnswerDateTime    string      `json:"answerDateTime"`
-	AnswerTime        string      `json:"answerTime"`
-	AnswerString      string      `json:"answerString"`
-	AnswerCoding      Coding      `json:"answerCoding"`
-	AnswerQuantity    Quantity    `json:"answerQuantity"`
-	AnswerReference   Reference   `json:"answerReference"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	Question          string       `json:"question"`
+	Operator          string       `json:"operator"`
+	AnswerBoolean     bool         `json:"answerBoolean"`
+	AnswerDecimal     float64      `json:"answerDecimal"`
+	AnswerInteger     int          `json:"answerInteger"`
+	AnswerDate        FhirDate     `json:"answerDate"`
+	AnswerDateTime    FhirDateTime `json:"answerDateTime"`
+	AnswerTime        string       `json:"answerTime"`
+	AnswerString      string       `json:"answerString"`
+	AnswerCoding      Coding       `json:"answerCoding"`
+	AnswerQuantity    Quantity     `json:"answerQuantity"`
+	AnswerReference   Reference    `json:"answerReference"`
 }
 
 // http://hl7.org/fhir/r4/StructureDefinition/Questionnaire
@@ -92,7 +92,7 @@ type QuestionnaireItemAnswerOption struct {
 	Extension         []Extension `json:"extension,omitempty"`
 	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
 	ValueInteger      int         `json:"valueInteger"`
-	ValueDate         string      `json:"valueDate"`
+	ValueDate         FhirDate    `json:"valueDate"`
 	ValueTime         string      `json:"valueTime"`
 	ValueString       string      `json:"valueString"`
 	ValueCoding       Coding      `json:"valueCoding"`
@@ -102,21 +102,21 @@ type QuestionnaireItemAnswerOption struct {
 
 // http://hl7.org/fhir/r4/StructureDefinition/Questionnaire
 type QuestionnaireItemInitial struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	ValueBoolean      bool        `json:"valueBoolean"`
-	ValueDecimal      float64     `json:"valueDecimal"`
-	ValueInteger      int         `json:"valueInteger"`
-	ValueDate         string      `json:"valueDate"`
-	ValueDateTime     string      `json:"valueDateTime"`
-	ValueTime         string      `json:"valueTime"`
-	ValueString       string      `json:"valueString"`
-	ValueUri          string      `json:"valueUri"`
-	ValueAttachment   Attachment  `json:"valueAttachment"`
-	ValueCoding       Coding      `json:"valueCoding"`
-	ValueQuantity     Quantity    `json:"valueQuantity"`
-	ValueReference    Reference   `json:"valueReference"`
+	Id                *string      `json:"id,omitempty"`
+	Extension         []Extension  `json:"extension,omitempty"`
+	ModifierExtension []Extension  `json:"modifierExtension,omitempty"`
+	ValueBoolean      bool         `json:"valueBoolean"`
+	ValueDecimal      float64      `json:"valueDecimal"`
+	ValueInteger      int          `json:"valueInteger"`
+	ValueDate         FhirDate     `json:"valueDate"`
+	ValueDateTime     FhirDateTime `json:"valueDateTime"`
+	ValueTime         string       `json:"valueTime"`
+	ValueString       string       `json:"valueString"`
+	ValueUri          string       `json:"valueUri"`
+	ValueAttachment   Attachment   `json:"valueAttachment"`
+	ValueCoding       Coding       `json:"valueCoding"`
+	ValueQuantity     Quantity     `json:"valueQuantity"`
+	ValueReference    Reference    `json:"valueReference"`
 }
 
 type OtherQuestionnaire Questionnaire

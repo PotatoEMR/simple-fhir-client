@@ -32,9 +32,9 @@ type Evidence struct {
 	CiteAsMarkdown         *string                      `json:"citeAsMarkdown,omitempty"`
 	Status                 string                       `json:"status"`
 	Experimental           *bool                        `json:"experimental,omitempty"`
-	Date                   *string                      `json:"date,omitempty"`
-	ApprovalDate           *string                      `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                      `json:"lastReviewDate,omitempty"`
+	Date                   *FhirDateTime                `json:"date,omitempty"`
+	ApprovalDate           *FhirDate                    `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate                    `json:"lastReviewDate,omitempty"`
 	Publisher              *string                      `json:"publisher,omitempty"`
 	Contact                []ContactDetail              `json:"contact,omitempty"`
 	Author                 []ContactDetail              `json:"author,omitempty"`

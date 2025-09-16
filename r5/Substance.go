@@ -27,7 +27,7 @@ type Substance struct {
 	Category          []CodeableConcept     `json:"category,omitempty"`
 	Code              CodeableReference     `json:"code"`
 	Description       *string               `json:"description,omitempty"`
-	Expiry            *string               `json:"expiry,omitempty"`
+	Expiry            *FhirDateTime         `json:"expiry,omitempty"`
 	Quantity          *Quantity             `json:"quantity,omitempty"`
 	Ingredient        []SubstanceIngredient `json:"ingredient,omitempty"`
 }

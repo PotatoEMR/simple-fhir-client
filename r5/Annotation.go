@@ -6,10 +6,10 @@ package r5
 
 // http://hl7.org/fhir/r5/StructureDefinition/Annotation
 type Annotation struct {
-	Id              *string     `json:"id,omitempty"`
-	Extension       []Extension `json:"extension,omitempty"`
-	AuthorReference *Reference  `json:"authorReference,omitempty"`
-	AuthorString    *string     `json:"authorString,omitempty"`
-	Time            *string     `json:"time,omitempty"`
-	Text            string      `json:"text"`
+	Id              *string       `json:"id,omitempty"`
+	Extension       []Extension   `json:"extension,omitempty"`
+	AuthorReference *Reference    `json:"authorReference,omitempty"`
+	AuthorString    *string       `json:"authorString,omitempty"`
+	Time            *FhirDateTime `json:"time,omitempty"`
+	Text            string        `json:"text"`
 }

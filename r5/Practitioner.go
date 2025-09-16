@@ -26,9 +26,9 @@ type Practitioner struct {
 	Name              []HumanName                 `json:"name,omitempty"`
 	Telecom           []ContactPoint              `json:"telecom,omitempty"`
 	Gender            *string                     `json:"gender,omitempty"`
-	BirthDate         *string                     `json:"birthDate,omitempty"`
+	BirthDate         *FhirDate                   `json:"birthDate,omitempty"`
 	DeceasedBoolean   *bool                       `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime  *string                     `json:"deceasedDateTime,omitempty"`
+	DeceasedDateTime  *FhirDateTime               `json:"deceasedDateTime,omitempty"`
 	Address           []Address                   `json:"address,omitempty"`
 	Photo             []Attachment                `json:"photo,omitempty"`
 	Qualification     []PractitionerQualification `json:"qualification,omitempty"`

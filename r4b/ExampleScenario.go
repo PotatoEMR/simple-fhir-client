@@ -27,7 +27,7 @@ type ExampleScenario struct {
 	Name              *string                   `json:"name,omitempty"`
 	Status            string                    `json:"status"`
 	Experimental      *bool                     `json:"experimental,omitempty"`
-	Date              *string                   `json:"date,omitempty"`
+	Date              *FhirDateTime             `json:"date,omitempty"`
 	Publisher         *string                   `json:"publisher,omitempty"`
 	Contact           []ContactDetail           `json:"contact,omitempty"`
 	UseContext        []UsageContext            `json:"useContext,omitempty"`

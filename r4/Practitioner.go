@@ -27,7 +27,7 @@ type Practitioner struct {
 	Telecom           []ContactPoint              `json:"telecom,omitempty"`
 	Address           []Address                   `json:"address,omitempty"`
 	Gender            *string                     `json:"gender,omitempty"`
-	BirthDate         *string                     `json:"birthDate,omitempty"`
+	BirthDate         *FhirDate                   `json:"birthDate,omitempty"`
 	Photo             []Attachment                `json:"photo,omitempty"`
 	Qualification     []PractitionerQualification `json:"qualification,omitempty"`
 	Communication     []CodeableConcept           `json:"communication,omitempty"`

@@ -28,9 +28,9 @@ type ClinicalImpression struct {
 	Description              *string                           `json:"description,omitempty"`
 	Subject                  Reference                         `json:"subject"`
 	Encounter                *Reference                        `json:"encounter,omitempty"`
-	EffectiveDateTime        *string                           `json:"effectiveDateTime,omitempty"`
+	EffectiveDateTime        *FhirDateTime                     `json:"effectiveDateTime,omitempty"`
 	EffectivePeriod          *Period                           `json:"effectivePeriod,omitempty"`
-	Date                     *string                           `json:"date,omitempty"`
+	Date                     *FhirDateTime                     `json:"date,omitempty"`
 	Assessor                 *Reference                        `json:"assessor,omitempty"`
 	Previous                 *Reference                        `json:"previous,omitempty"`
 	Problem                  []Reference                       `json:"problem,omitempty"`

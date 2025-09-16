@@ -35,7 +35,7 @@ type CarePlan struct {
 	Subject               Reference          `json:"subject"`
 	Encounter             *Reference         `json:"encounter,omitempty"`
 	Period                *Period            `json:"period,omitempty"`
-	Created               *string            `json:"created,omitempty"`
+	Created               *FhirDateTime      `json:"created,omitempty"`
 	Author                *Reference         `json:"author,omitempty"`
 	Contributor           []Reference        `json:"contributor,omitempty"`
 	CareTeam              []Reference        `json:"careTeam,omitempty"`

@@ -36,9 +36,9 @@ type Transport struct {
 	Focus                 *Reference            `json:"focus,omitempty"`
 	For                   *Reference            `json:"for,omitempty"`
 	Encounter             *Reference            `json:"encounter,omitempty"`
-	CompletionTime        *string               `json:"completionTime,omitempty"`
-	AuthoredOn            *string               `json:"authoredOn,omitempty"`
-	LastModified          *string               `json:"lastModified,omitempty"`
+	CompletionTime        *FhirDateTime         `json:"completionTime,omitempty"`
+	AuthoredOn            *FhirDateTime         `json:"authoredOn,omitempty"`
+	LastModified          *FhirDateTime         `json:"lastModified,omitempty"`
 	Requester             *Reference            `json:"requester,omitempty"`
 	PerformerType         []CodeableConcept     `json:"performerType,omitempty"`
 	Owner                 *Reference            `json:"owner,omitempty"`
@@ -75,8 +75,8 @@ type TransportInput struct {
 	ValueBoolean               bool                  `json:"valueBoolean"`
 	ValueCanonical             string                `json:"valueCanonical"`
 	ValueCode                  string                `json:"valueCode"`
-	ValueDate                  string                `json:"valueDate"`
-	ValueDateTime              string                `json:"valueDateTime"`
+	ValueDate                  FhirDate              `json:"valueDate"`
+	ValueDateTime              FhirDateTime          `json:"valueDateTime"`
 	ValueDecimal               float64               `json:"valueDecimal"`
 	ValueId                    string                `json:"valueId"`
 	ValueInstant               string                `json:"valueInstant"`
@@ -137,8 +137,8 @@ type TransportOutput struct {
 	ValueBoolean               bool                  `json:"valueBoolean"`
 	ValueCanonical             string                `json:"valueCanonical"`
 	ValueCode                  string                `json:"valueCode"`
-	ValueDate                  string                `json:"valueDate"`
-	ValueDateTime              string                `json:"valueDateTime"`
+	ValueDate                  FhirDate              `json:"valueDate"`
+	ValueDateTime              FhirDateTime          `json:"valueDateTime"`
 	ValueDecimal               float64               `json:"valueDecimal"`
 	ValueId                    string                `json:"valueId"`
 	ValueInstant               string                `json:"valueInstant"`

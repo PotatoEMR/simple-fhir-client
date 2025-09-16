@@ -29,7 +29,7 @@ type GuidanceResponse struct {
 	Status                string            `json:"status"`
 	Subject               *Reference        `json:"subject,omitempty"`
 	Encounter             *Reference        `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string           `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime    *FhirDateTime     `json:"occurrenceDateTime,omitempty"`
 	Performer             *Reference        `json:"performer,omitempty"`
 	ReasonCode            []CodeableConcept `json:"reasonCode,omitempty"`
 	ReasonReference       []Reference       `json:"reasonReference,omitempty"`

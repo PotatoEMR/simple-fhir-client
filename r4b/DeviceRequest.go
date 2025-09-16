@@ -35,10 +35,10 @@ type DeviceRequest struct {
 	Parameter             []DeviceRequestParameter `json:"parameter,omitempty"`
 	Subject               Reference                `json:"subject"`
 	Encounter             *Reference               `json:"encounter,omitempty"`
-	OccurrenceDateTime    *string                  `json:"occurrenceDateTime,omitempty"`
+	OccurrenceDateTime    *FhirDateTime            `json:"occurrenceDateTime,omitempty"`
 	OccurrencePeriod      *Period                  `json:"occurrencePeriod,omitempty"`
 	OccurrenceTiming      *Timing                  `json:"occurrenceTiming,omitempty"`
-	AuthoredOn            *string                  `json:"authoredOn,omitempty"`
+	AuthoredOn            *FhirDateTime            `json:"authoredOn,omitempty"`
 	Requester             *Reference               `json:"requester,omitempty"`
 	PerformerType         *CodeableConcept         `json:"performerType,omitempty"`
 	Performer             *Reference               `json:"performer,omitempty"`

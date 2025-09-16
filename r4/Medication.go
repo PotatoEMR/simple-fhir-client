@@ -44,11 +44,11 @@ type MedicationIngredient struct {
 
 // http://hl7.org/fhir/r4/StructureDefinition/Medication
 type MedicationBatch struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	LotNumber         *string     `json:"lotNumber,omitempty"`
-	ExpirationDate    *string     `json:"expirationDate,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	LotNumber         *string       `json:"lotNumber,omitempty"`
+	ExpirationDate    *FhirDateTime `json:"expirationDate,omitempty"`
 }
 
 type OtherMedication Medication

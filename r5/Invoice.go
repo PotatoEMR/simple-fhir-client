@@ -27,9 +27,9 @@ type Invoice struct {
 	Type                *CodeableConcept     `json:"type,omitempty"`
 	Subject             *Reference           `json:"subject,omitempty"`
 	Recipient           *Reference           `json:"recipient,omitempty"`
-	Date                *string              `json:"date,omitempty"`
-	Creation            *string              `json:"creation,omitempty"`
-	PeriodDate          *string              `json:"periodDate,omitempty"`
+	Date                *FhirDateTime        `json:"date,omitempty"`
+	Creation            *FhirDateTime        `json:"creation,omitempty"`
+	PeriodDate          *FhirDate            `json:"periodDate,omitempty"`
 	PeriodPeriod        *Period              `json:"periodPeriod,omitempty"`
 	Participant         []InvoiceParticipant `json:"participant,omitempty"`
 	Issuer              *Reference           `json:"issuer,omitempty"`
@@ -57,7 +57,7 @@ type InvoiceLineItem struct {
 	Extension                 []Extension         `json:"extension,omitempty"`
 	ModifierExtension         []Extension         `json:"modifierExtension,omitempty"`
 	Sequence                  *int                `json:"sequence,omitempty"`
-	ServicedDate              *string             `json:"servicedDate,omitempty"`
+	ServicedDate              *FhirDate           `json:"servicedDate,omitempty"`
 	ServicedPeriod            *Period             `json:"servicedPeriod,omitempty"`
 	ChargeItemReference       Reference           `json:"chargeItemReference"`
 	ChargeItemCodeableConcept CodeableConcept     `json:"chargeItemCodeableConcept"`

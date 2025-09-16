@@ -37,7 +37,7 @@ type Appointment struct {
 	End                   *string                  `json:"end,omitempty"`
 	MinutesDuration       *int                     `json:"minutesDuration,omitempty"`
 	Slot                  []Reference              `json:"slot,omitempty"`
-	Created               *string                  `json:"created,omitempty"`
+	Created               *FhirDateTime            `json:"created,omitempty"`
 	Comment               *string                  `json:"comment,omitempty"`
 	PatientInstruction    *string                  `json:"patientInstruction,omitempty"`
 	BasedOn               []Reference              `json:"basedOn,omitempty"`

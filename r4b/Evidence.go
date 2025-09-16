@@ -28,10 +28,10 @@ type Evidence struct {
 	CiteAsReference    *Reference                   `json:"citeAsReference,omitempty"`
 	CiteAsMarkdown     *string                      `json:"citeAsMarkdown,omitempty"`
 	Status             string                       `json:"status"`
-	Date               *string                      `json:"date,omitempty"`
+	Date               *FhirDateTime                `json:"date,omitempty"`
 	UseContext         []UsageContext               `json:"useContext,omitempty"`
-	ApprovalDate       *string                      `json:"approvalDate,omitempty"`
-	LastReviewDate     *string                      `json:"lastReviewDate,omitempty"`
+	ApprovalDate       *FhirDate                    `json:"approvalDate,omitempty"`
+	LastReviewDate     *FhirDate                    `json:"lastReviewDate,omitempty"`
 	Publisher          *string                      `json:"publisher,omitempty"`
 	Contact            []ContactDetail              `json:"contact,omitempty"`
 	Author             []ContactDetail              `json:"author,omitempty"`

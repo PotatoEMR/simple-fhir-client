@@ -9,7 +9,7 @@ type Timing struct {
 	Id                *string          `json:"id,omitempty"`
 	Extension         []Extension      `json:"extension,omitempty"`
 	ModifierExtension []Extension      `json:"modifierExtension,omitempty"`
-	Event             []string         `json:"event,omitempty"`
+	Event             []FhirDateTime   `json:"event,omitempty"`
 	Repeat            *Element         `json:"repeat,omitempty"`
 	Code              *CodeableConcept `json:"code,omitempty"`
 }

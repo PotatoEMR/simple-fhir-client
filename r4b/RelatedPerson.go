@@ -28,7 +28,7 @@ type RelatedPerson struct {
 	Name              []HumanName                  `json:"name,omitempty"`
 	Telecom           []ContactPoint               `json:"telecom,omitempty"`
 	Gender            *string                      `json:"gender,omitempty"`
-	BirthDate         *string                      `json:"birthDate,omitempty"`
+	BirthDate         *FhirDate                    `json:"birthDate,omitempty"`
 	Address           []Address                    `json:"address,omitempty"`
 	Photo             []Attachment                 `json:"photo,omitempty"`
 	Period            *Period                      `json:"period,omitempty"`

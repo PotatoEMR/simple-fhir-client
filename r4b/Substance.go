@@ -32,12 +32,12 @@ type Substance struct {
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Substance
 type SubstanceInstance struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Identifier        *Identifier `json:"identifier,omitempty"`
-	Expiry            *string     `json:"expiry,omitempty"`
-	Quantity          *Quantity   `json:"quantity,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Identifier        *Identifier   `json:"identifier,omitempty"`
+	Expiry            *FhirDateTime `json:"expiry,omitempty"`
+	Quantity          *Quantity     `json:"quantity,omitempty"`
 }
 
 // http://hl7.org/fhir/r4b/StructureDefinition/Substance

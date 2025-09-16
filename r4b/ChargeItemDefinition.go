@@ -30,15 +30,15 @@ type ChargeItemDefinition struct {
 	Replaces          []string                            `json:"replaces,omitempty"`
 	Status            string                              `json:"status"`
 	Experimental      *bool                               `json:"experimental,omitempty"`
-	Date              *string                             `json:"date,omitempty"`
+	Date              *FhirDateTime                       `json:"date,omitempty"`
 	Publisher         *string                             `json:"publisher,omitempty"`
 	Contact           []ContactDetail                     `json:"contact,omitempty"`
 	Description       *string                             `json:"description,omitempty"`
 	UseContext        []UsageContext                      `json:"useContext,omitempty"`
 	Jurisdiction      []CodeableConcept                   `json:"jurisdiction,omitempty"`
 	Copyright         *string                             `json:"copyright,omitempty"`
-	ApprovalDate      *string                             `json:"approvalDate,omitempty"`
-	LastReviewDate    *string                             `json:"lastReviewDate,omitempty"`
+	ApprovalDate      *FhirDate                           `json:"approvalDate,omitempty"`
+	LastReviewDate    *FhirDate                           `json:"lastReviewDate,omitempty"`
 	EffectivePeriod   *Period                             `json:"effectivePeriod,omitempty"`
 	Code              *CodeableConcept                    `json:"code,omitempty"`
 	Instance          []Reference                         `json:"instance,omitempty"`

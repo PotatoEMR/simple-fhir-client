@@ -41,8 +41,8 @@ type ResearchSubjectProgress struct {
 	SubjectState      *CodeableConcept `json:"subjectState,omitempty"`
 	Milestone         *CodeableConcept `json:"milestone,omitempty"`
 	Reason            *CodeableConcept `json:"reason,omitempty"`
-	StartDate         *string          `json:"startDate,omitempty"`
-	EndDate           *string          `json:"endDate,omitempty"`
+	StartDate         *FhirDateTime    `json:"startDate,omitempty"`
+	EndDate           *FhirDateTime    `json:"endDate,omitempty"`
 }
 
 type OtherResearchSubject ResearchSubject

@@ -32,7 +32,7 @@ type ResearchElementDefinition struct {
 	Experimental           *bool                                     `json:"experimental,omitempty"`
 	SubjectCodeableConcept *CodeableConcept                          `json:"subjectCodeableConcept,omitempty"`
 	SubjectReference       *Reference                                `json:"subjectReference,omitempty"`
-	Date                   *string                                   `json:"date,omitempty"`
+	Date                   *FhirDateTime                             `json:"date,omitempty"`
 	Publisher              *string                                   `json:"publisher,omitempty"`
 	Contact                []ContactDetail                           `json:"contact,omitempty"`
 	Description            *string                                   `json:"description,omitempty"`
@@ -42,8 +42,8 @@ type ResearchElementDefinition struct {
 	Purpose                *string                                   `json:"purpose,omitempty"`
 	Usage                  *string                                   `json:"usage,omitempty"`
 	Copyright              *string                                   `json:"copyright,omitempty"`
-	ApprovalDate           *string                                   `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                                   `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate                                 `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate                                 `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period                                   `json:"effectivePeriod,omitempty"`
 	Topic                  []CodeableConcept                         `json:"topic,omitempty"`
 	Author                 []ContactDetail                           `json:"author,omitempty"`
@@ -70,14 +70,14 @@ type ResearchElementDefinitionCharacteristic struct {
 	Exclude                           *bool            `json:"exclude,omitempty"`
 	UnitOfMeasure                     *CodeableConcept `json:"unitOfMeasure,omitempty"`
 	StudyEffectiveDescription         *string          `json:"studyEffectiveDescription,omitempty"`
-	StudyEffectiveDateTime            *string          `json:"studyEffectiveDateTime,omitempty"`
+	StudyEffectiveDateTime            *FhirDateTime    `json:"studyEffectiveDateTime,omitempty"`
 	StudyEffectivePeriod              *Period          `json:"studyEffectivePeriod,omitempty"`
 	StudyEffectiveDuration            *Duration        `json:"studyEffectiveDuration,omitempty"`
 	StudyEffectiveTiming              *Timing          `json:"studyEffectiveTiming,omitempty"`
 	StudyEffectiveTimeFromStart       *Duration        `json:"studyEffectiveTimeFromStart,omitempty"`
 	StudyEffectiveGroupMeasure        *string          `json:"studyEffectiveGroupMeasure,omitempty"`
 	ParticipantEffectiveDescription   *string          `json:"participantEffectiveDescription,omitempty"`
-	ParticipantEffectiveDateTime      *string          `json:"participantEffectiveDateTime,omitempty"`
+	ParticipantEffectiveDateTime      *FhirDateTime    `json:"participantEffectiveDateTime,omitempty"`
 	ParticipantEffectivePeriod        *Period          `json:"participantEffectivePeriod,omitempty"`
 	ParticipantEffectiveDuration      *Duration        `json:"participantEffectiveDuration,omitempty"`
 	ParticipantEffectiveTiming        *Timing          `json:"participantEffectiveTiming,omitempty"`

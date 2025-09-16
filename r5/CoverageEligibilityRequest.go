@@ -27,9 +27,9 @@ type CoverageEligibilityRequest struct {
 	Purpose           []string                                   `json:"purpose"`
 	Patient           Reference                                  `json:"patient"`
 	Event             []CoverageEligibilityRequestEvent          `json:"event,omitempty"`
-	ServicedDate      *string                                    `json:"servicedDate,omitempty"`
+	ServicedDate      *FhirDate                                  `json:"servicedDate,omitempty"`
 	ServicedPeriod    *Period                                    `json:"servicedPeriod,omitempty"`
-	Created           string                                     `json:"created"`
+	Created           FhirDateTime                               `json:"created"`
 	Enterer           *Reference                                 `json:"enterer,omitempty"`
 	Provider          *Reference                                 `json:"provider,omitempty"`
 	Insurer           Reference                                  `json:"insurer"`
@@ -45,7 +45,7 @@ type CoverageEligibilityRequestEvent struct {
 	Extension         []Extension     `json:"extension,omitempty"`
 	ModifierExtension []Extension     `json:"modifierExtension,omitempty"`
 	Type              CodeableConcept `json:"type"`
-	WhenDateTime      string          `json:"whenDateTime"`
+	WhenDateTime      FhirDateTime    `json:"whenDateTime"`
 	WhenPeriod        Period          `json:"whenPeriod"`
 }
 

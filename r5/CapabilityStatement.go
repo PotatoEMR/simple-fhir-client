@@ -30,7 +30,7 @@ type CapabilityStatement struct {
 	Title                  *string                            `json:"title,omitempty"`
 	Status                 string                             `json:"status"`
 	Experimental           *bool                              `json:"experimental,omitempty"`
-	Date                   string                             `json:"date"`
+	Date                   FhirDateTime                       `json:"date"`
 	Publisher              *string                            `json:"publisher,omitempty"`
 	Contact                []ContactDetail                    `json:"contact,omitempty"`
 	Description            *string                            `json:"description,omitempty"`
@@ -56,12 +56,12 @@ type CapabilityStatement struct {
 
 // http://hl7.org/fhir/r5/StructureDefinition/CapabilityStatement
 type CapabilityStatementSoftware struct {
-	Id                *string     `json:"id,omitempty"`
-	Extension         []Extension `json:"extension,omitempty"`
-	ModifierExtension []Extension `json:"modifierExtension,omitempty"`
-	Name              string      `json:"name"`
-	Version           *string     `json:"version,omitempty"`
-	ReleaseDate       *string     `json:"releaseDate,omitempty"`
+	Id                *string       `json:"id,omitempty"`
+	Extension         []Extension   `json:"extension,omitempty"`
+	ModifierExtension []Extension   `json:"modifierExtension,omitempty"`
+	Name              string        `json:"name"`
+	Version           *string       `json:"version,omitempty"`
+	ReleaseDate       *FhirDateTime `json:"releaseDate,omitempty"`
 }
 
 // http://hl7.org/fhir/r5/StructureDefinition/CapabilityStatement

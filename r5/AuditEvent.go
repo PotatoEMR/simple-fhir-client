@@ -26,7 +26,7 @@ type AuditEvent struct {
 	Action            *string            `json:"action,omitempty"`
 	Severity          *string            `json:"severity,omitempty"`
 	OccurredPeriod    *Period            `json:"occurredPeriod,omitempty"`
-	OccurredDateTime  *string            `json:"occurredDateTime,omitempty"`
+	OccurredDateTime  *FhirDateTime      `json:"occurredDateTime,omitempty"`
 	Recorded          string             `json:"recorded"`
 	Outcome           *AuditEventOutcome `json:"outcome,omitempty"`
 	Authorization     []CodeableConcept  `json:"authorization,omitempty"`
@@ -100,7 +100,7 @@ type AuditEventEntityDetail struct {
 	ValueRange           Range           `json:"valueRange"`
 	ValueRatio           Ratio           `json:"valueRatio"`
 	ValueTime            string          `json:"valueTime"`
-	ValueDateTime        string          `json:"valueDateTime"`
+	ValueDateTime        FhirDateTime    `json:"valueDateTime"`
 	ValuePeriod          Period          `json:"valuePeriod"`
 	ValueBase64Binary    string          `json:"valueBase64Binary"`
 }

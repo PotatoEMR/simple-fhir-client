@@ -31,7 +31,7 @@ type SubscriptionTopic struct {
 	DerivedFrom            []string                             `json:"derivedFrom,omitempty"`
 	Status                 string                               `json:"status"`
 	Experimental           *bool                                `json:"experimental,omitempty"`
-	Date                   *string                              `json:"date,omitempty"`
+	Date                   *FhirDateTime                        `json:"date,omitempty"`
 	Publisher              *string                              `json:"publisher,omitempty"`
 	Contact                []ContactDetail                      `json:"contact,omitempty"`
 	Description            *string                              `json:"description,omitempty"`
@@ -40,8 +40,8 @@ type SubscriptionTopic struct {
 	Purpose                *string                              `json:"purpose,omitempty"`
 	Copyright              *string                              `json:"copyright,omitempty"`
 	CopyrightLabel         *string                              `json:"copyrightLabel,omitempty"`
-	ApprovalDate           *string                              `json:"approvalDate,omitempty"`
-	LastReviewDate         *string                              `json:"lastReviewDate,omitempty"`
+	ApprovalDate           *FhirDate                            `json:"approvalDate,omitempty"`
+	LastReviewDate         *FhirDate                            `json:"lastReviewDate,omitempty"`
 	EffectivePeriod        *Period                              `json:"effectivePeriod,omitempty"`
 	ResourceTrigger        []SubscriptionTopicResourceTrigger   `json:"resourceTrigger,omitempty"`
 	EventTrigger           []SubscriptionTopicEventTrigger      `json:"eventTrigger,omitempty"`

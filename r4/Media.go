@@ -30,7 +30,7 @@ type Media struct {
 	View              *CodeableConcept  `json:"view,omitempty"`
 	Subject           *Reference        `json:"subject,omitempty"`
 	Encounter         *Reference        `json:"encounter,omitempty"`
-	CreatedDateTime   *string           `json:"createdDateTime,omitempty"`
+	CreatedDateTime   *FhirDateTime     `json:"createdDateTime,omitempty"`
 	CreatedPeriod     *Period           `json:"createdPeriod,omitempty"`
 	Issued            *string           `json:"issued,omitempty"`
 	Operator          *Reference        `json:"operator,omitempty"`

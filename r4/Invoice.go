@@ -27,7 +27,7 @@ type Invoice struct {
 	Type              *CodeableConcept     `json:"type,omitempty"`
 	Subject           *Reference           `json:"subject,omitempty"`
 	Recipient         *Reference           `json:"recipient,omitempty"`
-	Date              *string              `json:"date,omitempty"`
+	Date              *FhirDateTime        `json:"date,omitempty"`
 	Participant       []InvoiceParticipant `json:"participant,omitempty"`
 	Issuer            *Reference           `json:"issuer,omitempty"`
 	Account           *Reference           `json:"account,omitempty"`

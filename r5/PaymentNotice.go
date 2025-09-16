@@ -24,10 +24,10 @@ type PaymentNotice struct {
 	Status            string           `json:"status"`
 	Request           *Reference       `json:"request,omitempty"`
 	Response          *Reference       `json:"response,omitempty"`
-	Created           string           `json:"created"`
+	Created           FhirDateTime     `json:"created"`
 	Reporter          *Reference       `json:"reporter,omitempty"`
 	Payment           *Reference       `json:"payment,omitempty"`
-	PaymentDate       *string          `json:"paymentDate,omitempty"`
+	PaymentDate       *FhirDate        `json:"paymentDate,omitempty"`
 	Payee             *Reference       `json:"payee,omitempty"`
 	Recipient         Reference        `json:"recipient"`
 	Amount            Money            `json:"amount"`

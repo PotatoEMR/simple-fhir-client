@@ -1,10 +1,11 @@
 package r4
 
 import "fmt"
+import "time"
 
 //html Select for code, from valueset list
 templ CodeSelect(fieldname string, current *string, valueset []Coding, attrs templ.Attributes) {
-		<select name={ fieldname } {attrs...}>
+		<select name={ fieldname } { attrs... }>
 			<option value="">--</option>
 			for _, c := range valueset {
 				if c.Code != nil {
@@ -25,19 +26,18 @@ templ CodeSelect(fieldname string, current *string, valueset []Coding, attrs tem
 		</select>
 }
 
+var setCodingHandle = templ.NewOnceHandle()
+
 templ CodingSelect(fieldname string, current *Coding, valueset []Coding, attrs templ.Attributes) {
-<script>
-function setCodingFromOptions(selectElement) {
+		@setCodingHandle.Once() {
+			<script>
+function setCoding(selectElement) {
   const selectedOption = selectElement.options[selectElement.selectedIndex];
-  
-  // Find all hidden inputs that are siblings of the select
-  const siblings = selectElement.parentElement.querySelectorAll('input[type="hidden"]');
-  
-  // Assuming the order is always: code, system, display (based on your template)
-  const codeInput = siblings[0];
-  const systemInput = siblings[1]; 
-  const displayInput = siblings[2];
-  
+
+  const codeInput = selectElement.nextElementSibling;
+  const systemInput = codeInput.nextElementSibling;
+  const displayInput = systemInput.nextElementSibling;
+
   if (selectedOption.value !== "") {
     // Set values from the selected option's FHIR attributes
     codeInput.value = selectedOption.getAttribute("fhir-code") || "";
@@ -51,9 +51,11 @@ function setCodingFromOptions(selectElement) {
   }
 }
   </script>
+		}
 		<select
 			name={ fieldname + ".display" }
-			onblur="setCodingFromOptions(this)" {attrs...}
+			onblur="setCoding(this)"
+			{ attrs... }
 		>
 			<option value="">--</option>
 			for _, c := range valueset {
@@ -93,18 +95,15 @@ function setCodingFromOptions(selectElement) {
 }
 
 templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding, attrs templ.Attributes) {
-<script>
-function setCodingFromOptions(selectElement) {
+		@setCodingHandle.Once() {
+			<script>
+function setCoding(selectElement) {
   const selectedOption = selectElement.options[selectElement.selectedIndex];
-  
-  // Find all hidden inputs that are siblings of the select
-  const siblings = selectElement.parentElement.querySelectorAll('input[type="hidden"]');
-  
-  // Assuming the order is always: code, system, display (based on your template)
-  const codeInput = siblings[0];
-  const systemInput = siblings[1]; 
-  const displayInput = siblings[2];
-  
+
+  const codeInput = selectElement.nextElementSibling;
+  const systemInput = codeInput.nextElementSibling;
+  const displayInput = systemInput.nextElementSibling;
+
   if (selectedOption.value !== "") {
     // Set values from the selected option's FHIR attributes
     codeInput.value = selectedOption.getAttribute("fhir-code") || "";
@@ -118,110 +117,111 @@ function setCodingFromOptions(selectElement) {
   }
 }
   </script>
-	{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
-	<select
-		onblur="setCodingFromOptions(this)" {attrs...}
-	>
-		<option>--</option>
-		for _, c := range valueset {
-			if c.Code != nil && c.System != nil && c.Display != nil {
-				<option
-					fhir-code={ *c.Code }
-					fhir-system={ *c.System }
-					fhir-display={ *c.Display }
-					if hasOneCoding && *c.Code == *current.Coding[0].Code {
-						selected
-					}
-				>
-					if c.Display == nil {
-						{ *c.Code }
-					} else {
-						{ *c.Display }
-					}
-				</option>
-			}
 		}
-	</select>
-	if hasOneCoding && current.Coding[0].Code != nil {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code } {attrs...}/>
-	} else {
-		<input name={ fieldname + ".coding[0].code" } type="hidden" value="" {attrs...}/>
-	}
-	if hasOneCoding && current.Coding[0].System != nil {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System } {attrs...}/>
-	} else {
-		<input name={ fieldname + ".coding[0].system" } type="hidden" value="" {attrs...}/>
-	}
-	if hasOneCoding && current.Coding[0].Display != nil {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display } {attrs...}/>
-	} else {
-		<input name={ fieldname + ".coding[0].display" } type="hidden" value="" {attrs...}/>
-	}
+		{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
+		<select
+			onblur="setCoding(this)"
+			{ attrs... }
+		>
+			<option>--</option>
+			for _, c := range valueset {
+				if c.Code != nil && c.System != nil && c.Display != nil {
+					<option
+						fhir-code={ *c.Code }
+						fhir-system={ *c.System }
+						fhir-display={ *c.Display }
+						if hasOneCoding && *c.Code == *current.Coding[0].Code {
+							selected
+						}
+					>
+						if c.Display == nil {
+							{ *c.Code }
+						} else {
+							{ *c.Display }
+						}
+					</option>
+				}
+			}
+		</select>
+		if hasOneCoding && current.Coding[0].Code != nil {
+			<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code } { attrs... }/>
+		} else {
+			<input name={ fieldname + ".coding[0].code" } type="hidden" value="" { attrs... }/>
+		}
+		if hasOneCoding && current.Coding[0].System != nil {
+			<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System } { attrs... }/>
+		} else {
+			<input name={ fieldname + ".coding[0].system" } type="hidden" value="" { attrs... }/>
+		}
+		if hasOneCoding && current.Coding[0].Display != nil {
+			<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display } { attrs... }/>
+		} else {
+			<input name={ fieldname + ".coding[0].display" } type="hidden" value="" { attrs... }/>
+		}
 }
 
 templ AnnotationTextArea(fieldname string, current *Annotation, attrs templ.Attributes) {
-	if current == nil {
-		<textarea name={ fieldname + ".Text" } value="" {attrs...}></textarea>
-	} else {
-		<textarea name={ fieldname + ".Text" } value={ current.Text } {attrs...}></textarea>
-	}
+		if current == nil {
+			<textarea name={ fieldname + ".Text" } { attrs... }></textarea>
+		} else {
+			<textarea name={ fieldname + ".Text" } { attrs... }>{ current.Text }</textarea>
+		}
 }
 
 templ StringInput(fieldname string, current *string, attrs templ.Attributes) {
-	if current == nil {
-		<input name={fieldname} value="" {attrs...}/>
-	} else {
-		<input name={fieldname} value={*current} {attrs...}/>
-	}
+		if current == nil {
+			<input name={ fieldname } value="" { attrs... }/>
+		} else {
+			<input name={ fieldname } value={ *current } { attrs... }/>
+		}
 }
 
 templ BoolInput(fieldname string, current *bool, attrs templ.Attributes) {
-	<select name={fieldname} {attrs...}>
-		<option value="" selected={current == nil}>--</option>
-		<option value="true" selected={current != nil && *current}>Yes</option>
-		<option value="false" selected={current != nil && !*current}>No</option>
-	</select>
+		<select name={ fieldname } { attrs... }>
+			<option value="" selected={ current == nil }>--</option>
+			<option value="true" selected={ current != nil && *current }>Yes</option>
+			<option value="false" selected={ current != nil && !*current }>No</option>
+		</select>
 }
 
 templ Float64Input(fieldname string, current *float64, attrs templ.Attributes) {
-	if current == nil {
-		<input type="number" step="any" name={fieldname} value="" {attrs...}/>
-	} else {
-		<input type="number" step="any" name={fieldname} value={fmt.Sprintf("%f", *current)} {attrs...}/>
-	}
+		if current == nil {
+			<input type="number" step="any" name={ fieldname } value="" { attrs... }/>
+		} else {
+			<input type="number" step="any" name={ fieldname } value={ fmt.Sprintf("%f", *current) } { attrs... }/>
+		}
 }
 
 templ IntInput(fieldname string, current *int, attrs templ.Attributes) {
-	if current == nil {
-		<input type="number" name={fieldname} value="" {attrs...}/>
-	} else {
-		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)} {attrs...}/>
-	}
+		if current == nil {
+			<input type="number" name={ fieldname } value="" { attrs... }/>
+		} else {
+			<input type="number" name={ fieldname } value={ fmt.Sprintf("%d", *current) } { attrs... }/>
+		}
 }
 
 templ Int64Input(fieldname string, current *int64, attrs templ.Attributes) {
+		if current == nil {
+			<input type="number" name={ fieldname } value="" { attrs... }/>
+		} else {
+			<input type="number" name={ fieldname } value={ fmt.Sprintf("%d", *current) } { attrs... }/>
+		}
+}
+
+templ DateInput(fieldname string, current *FhirDate, attrs templ.Attributes) {
 	if current == nil {
-		<input type="number" name={fieldname} value="" {attrs...}/>
+		<input type="date" name={fieldname} value="" { attrs... }/>
 	} else {
-		<input type="number" name={fieldname} value={fmt.Sprintf("%d", *current)} {attrs...}/>
+		<input type="date" name={fieldname} value={(*current).Format(FhirDateFormat)} { attrs... }/>
 	}
 }
 
-templ DateInput(fieldname string, current *string, attrs templ.Attributes) {
+templ DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attributes) {
 	if current == nil {
-		<input type="date" name={fieldname} value="" {attrs...}/>
+		<input type="datetime-local" name={fieldname} value="" { attrs... }/>
 	} else {
-		<input type="date" name={fieldname} value={*current} {attrs...}/>
+		<input type="datetime-local" name={fieldname} value={(*current).Format(FhirDateTimeFormat)} { attrs... }/>
 	}
 }
-
-templ DateTimeInput(fieldname string, current *string, attrs templ.Attributes) {
-	if current == nil {
-		<input type="datetime-local" name={fieldname} value="" {attrs...}/>
-	} else {
-		<input type="datetime-local" name={fieldname} value={*current} {attrs...}/>
-	}
-}
-
 
 
