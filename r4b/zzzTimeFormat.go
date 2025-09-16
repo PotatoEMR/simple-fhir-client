@@ -33,8 +33,14 @@ func (v *FhirDate) UnmarshalJSON(b []byte) error {
 		return nil
 		//fhir server should not send "" or "null" rather than just nothing (omitempty) but in case you try
 	}
-	acceptedDateFormats := [3]string{"2006", "2006-01", FhirDateFormat}
-	parseErrors := [3]string{} //not sure if storing errors like this makes parsing slower but will look at it later
+	acceptedDateFormats := [6]string{"2006",
+		"2006-01",
+		FhirDateFormat,
+		"15:04",            // HTML time input
+		"15:04:05",         // HTML time input with seconds
+		"2006-01-02T15:04", // HTML datetime-local
+	}
+	parseErrors := [6]string{} //not sure if storing errors like this makes parsing slower but will look at it later
 	trimmedString := strings.Trim(string(b), "\"")
 	for i, l := range acceptedDateFormats {
 		t, err := time.Parse(l, trimmedString)
@@ -62,7 +68,7 @@ func (v *FhirDateTime) UnmarshalJSON(b []byte) error {
 		return nil
 		//fhir server should not send "" or "null" rather than just nothing (omitempty) but in case you try
 	}
-	acceptedDateTimeFormats := [9]string{"2006",
+	acceptedDateTimeFormats := [12]string{"2006",
 		"2006-01",
 		FhirDateFormat,
 		"2006-01-02T15:04:05",
@@ -70,8 +76,12 @@ func (v *FhirDateTime) UnmarshalJSON(b []byte) error {
 		FhirDateTimeFormat,
 		"2006-01-02T15:04:05.999999999",
 		"2006-01-02T15:04:05.999999999Z",
-		"2006-01-02T15:04:05.999999999-07:00"}
-	parseErrors := [9]string{} //not sure if storing errors like this makes parsing slower but will look at it later
+		"2006-01-02T15:04:05.999999999-07:00",
+		"15:04",            // HTML time input
+		"15:04:05",         // HTML time input with seconds
+		"2006-01-02T15:04", // HTML datetime-local
+	}
+	parseErrors := [12]string{} //not sure if storing errors like this makes parsing slower but will look at it later
 	for i, l := range acceptedDateTimeFormats {
 		t, err := time.Parse(l, strings.Trim(string(b), "\""))
 		if err == nil {
