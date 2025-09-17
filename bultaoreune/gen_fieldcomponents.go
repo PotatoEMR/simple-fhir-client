@@ -215,7 +215,7 @@ templ DateInput(fieldname string, current *FhirDate, attrs templ.Attributes) {
 	if current == nil {
 		<input type="date" name={fieldname} value="" { attrs... }/>
 	} else {
-		<input type="date" name={fieldname} value={(*current).Format(FhirDateFormat)} { attrs... }/>
+		<input type="date" name={fieldname} value={(*current).Format(HTMLDateFormat)} { attrs... }/>
 	}
 }
 
@@ -223,7 +223,7 @@ templ DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attribu
 	if current == nil {
 		<input type="datetime-local" name={fieldname} value="" { attrs... }/>
 	} else {
-		<input type="datetime-local" name={fieldname} value={(*current).Format(FhirDateTimeFormat)} { attrs... }/>
+		<input type="datetime-local" name={fieldname} value={(*current).Format(HTMLDateTimeFormat)} { attrs... }/>
 	}
 }
 

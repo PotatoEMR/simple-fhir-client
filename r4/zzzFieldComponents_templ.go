@@ -1387,7 +1387,7 @@ func DateInput(fieldname string, current *FhirDate, attrs templ.Attributes) temp
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var67 string
-			templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs((*current).Format(FhirDateFormat))
+			templ_7745c5c3_Var67, templ_7745c5c3_Err = templ.JoinStringErrs((*current).Format(HTMLDateFormat))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 215, Col: 78}
 			}
@@ -1478,7 +1478,7 @@ func DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attribut
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var71 string
-			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinStringErrs((*current).Format(FhirDateTimeFormat))
+			templ_7745c5c3_Var71, templ_7745c5c3_Err = templ.JoinStringErrs((*current).Format(HTMLDateTimeFormat))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `r4/zzzFieldComponents.templ`, Line: 223, Col: 92}
 			}
