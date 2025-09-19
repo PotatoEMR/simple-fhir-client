@@ -68,6 +68,30 @@ func (resource *OrganizationAffiliation) T_Active(htmlAttrs templ.Attributes) te
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *OrganizationAffiliation) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_Organization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("organization", nil, htmlAttrs)
+	}
+	return ReferenceInput("organization", resource.Organization, htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_ParticipatingOrganization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("participatingOrganization", nil, htmlAttrs)
+	}
+	return ReferenceInput("participatingOrganization", resource.ParticipatingOrganization, htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_Network(numNetwork int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNetwork >= len(resource.Network) {
+		return ReferenceInput("network["+strconv.Itoa(numNetwork)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("network["+strconv.Itoa(numNetwork)+"]", &resource.Network[numNetwork], htmlAttrs)
+}
 func (resource *OrganizationAffiliation) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
@@ -79,4 +103,28 @@ func (resource *OrganizationAffiliation) T_Specialty(numSpecialty int, optionsVa
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_Location(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLocation >= len(resource.Location) {
+		return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_HealthcareService(numHealthcareService int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numHealthcareService >= len(resource.HealthcareService) {
+		return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", &resource.HealthcareService[numHealthcareService], htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
+}
+func (resource *OrganizationAffiliation) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }

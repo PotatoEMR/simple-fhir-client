@@ -67,6 +67,30 @@ func (resource *MedicinalProductManufactured) T_UnitOfPresentation(optionsValueS
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductManufactured) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("quantity", &resource.Quantity, htmlAttrs)
+}
+func (resource *MedicinalProductManufactured) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
+		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+}
+func (resource *MedicinalProductManufactured) T_Ingredient(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], htmlAttrs)
+}
+func (resource *MedicinalProductManufactured) T_PhysicalCharacteristics(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ProdCharacteristicInput("physicalCharacteristics", nil, htmlAttrs)
+	}
+	return ProdCharacteristicInput("physicalCharacteristics", resource.PhysicalCharacteristics, htmlAttrs)
+}
 func (resource *MedicinalProductManufactured) T_OtherCharacteristics(numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOtherCharacteristics >= len(resource.OtherCharacteristics) {
 		return CodeableConceptSelect("otherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)

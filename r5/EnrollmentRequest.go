@@ -66,7 +66,31 @@ func (resource *EnrollmentRequest) T_Status(htmlAttrs templ.Attributes) templ.Co
 }
 func (resource *EnrollmentRequest) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("created", nil, htmlAttrs)
+		return FhirDateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("created", resource.Created, htmlAttrs)
+	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
+}
+func (resource *EnrollmentRequest) T_Insurer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("insurer", nil, htmlAttrs)
+	}
+	return ReferenceInput("insurer", resource.Insurer, htmlAttrs)
+}
+func (resource *EnrollmentRequest) T_Provider(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("provider", nil, htmlAttrs)
+	}
+	return ReferenceInput("provider", resource.Provider, htmlAttrs)
+}
+func (resource *EnrollmentRequest) T_Candidate(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("candidate", nil, htmlAttrs)
+	}
+	return ReferenceInput("candidate", resource.Candidate, htmlAttrs)
+}
+func (resource *EnrollmentRequest) T_Coverage(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("coverage", nil, htmlAttrs)
+	}
+	return ReferenceInput("coverage", resource.Coverage, htmlAttrs)
 }

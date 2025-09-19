@@ -136,6 +136,12 @@ func (resource *DeviceDefinition) T_ManufacturerString(htmlAttrs templ.Attribute
 	}
 	return StringInput("manufacturerString", resource.ManufacturerString, htmlAttrs)
 }
+func (resource *DeviceDefinition) T_ManufacturerReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("manufacturerReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturerReference", resource.ManufacturerReference, htmlAttrs)
+}
 func (resource *DeviceDefinition) T_ModelNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("modelNumber", nil, htmlAttrs)
@@ -160,11 +166,35 @@ func (resource *DeviceDefinition) T_Safety(numSafety int, optionsValueSet []Codi
 	}
 	return CodeableConceptSelect("safety["+strconv.Itoa(numSafety)+"]", &resource.Safety[numSafety], optionsValueSet, htmlAttrs)
 }
+func (resource *DeviceDefinition) T_ShelfLifeStorage(numShelfLifeStorage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numShelfLifeStorage >= len(resource.ShelfLifeStorage) {
+		return ProductShelfLifeInput("shelfLifeStorage["+strconv.Itoa(numShelfLifeStorage)+"]", nil, htmlAttrs)
+	}
+	return ProductShelfLifeInput("shelfLifeStorage["+strconv.Itoa(numShelfLifeStorage)+"]", &resource.ShelfLifeStorage[numShelfLifeStorage], htmlAttrs)
+}
+func (resource *DeviceDefinition) T_PhysicalCharacteristics(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ProdCharacteristicInput("physicalCharacteristics", nil, htmlAttrs)
+	}
+	return ProdCharacteristicInput("physicalCharacteristics", resource.PhysicalCharacteristics, htmlAttrs)
+}
 func (resource *DeviceDefinition) T_LanguageCode(numLanguageCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLanguageCode >= len(resource.LanguageCode) {
 		return CodeableConceptSelect("languageCode["+strconv.Itoa(numLanguageCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("languageCode["+strconv.Itoa(numLanguageCode)+"]", &resource.LanguageCode[numLanguageCode], optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceDefinition) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("owner", nil, htmlAttrs)
+	}
+	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+}
+func (resource *DeviceDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -183,6 +213,18 @@ func (resource *DeviceDefinition) T_Note(numNote int, htmlAttrs templ.Attributes
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *DeviceDefinition) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+}
+func (resource *DeviceDefinition) T_ParentDevice(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("parentDevice", nil, htmlAttrs)
+	}
+	return ReferenceInput("parentDevice", resource.ParentDevice, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_UdiDeviceIdentifierDeviceIdentifier(numUdiDeviceIdentifier int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numUdiDeviceIdentifier >= len(resource.UdiDeviceIdentifier) {
@@ -245,6 +287,12 @@ func (resource *DeviceDefinition) T_PropertyType(numProperty int, optionsValueSe
 		return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceDefinition) T_PropertyValueQuantity(numProperty int, numValueQuantity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProperty >= len(resource.Property) || numValueQuantity >= len(resource.Property[numProperty].ValueQuantity) {
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", nil, htmlAttrs)
+	}
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", &resource.Property[numProperty].ValueQuantity[numValueQuantity], htmlAttrs)
 }
 func (resource *DeviceDefinition) T_PropertyValueCode(numProperty int, numValueCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) || numValueCode >= len(resource.Property[numProperty].ValueCode) {

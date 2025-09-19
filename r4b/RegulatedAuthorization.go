@@ -76,6 +76,12 @@ func (r RegulatedAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *RegulatedAuthorization) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
 func (resource *RegulatedAuthorization) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)
@@ -102,9 +108,21 @@ func (resource *RegulatedAuthorization) T_Status(optionsValueSet []Coding, htmlA
 }
 func (resource *RegulatedAuthorization) T_StatusDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("statusDate", nil, htmlAttrs)
+		return FhirDateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
+	return FhirDateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
+}
+func (resource *RegulatedAuthorization) T_ValidityPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("validityPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("validityPeriod", resource.ValidityPeriod, htmlAttrs)
+}
+func (resource *RegulatedAuthorization) T_Indication(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("indication", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("indication", resource.Indication, htmlAttrs)
 }
 func (resource *RegulatedAuthorization) T_IntendedUse(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -118,6 +136,18 @@ func (resource *RegulatedAuthorization) T_Basis(numBasis int, optionsValueSet []
 	}
 	return CodeableConceptSelect("basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], optionsValueSet, htmlAttrs)
 }
+func (resource *RegulatedAuthorization) T_Holder(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("holder", nil, htmlAttrs)
+	}
+	return ReferenceInput("holder", resource.Holder, htmlAttrs)
+}
+func (resource *RegulatedAuthorization) T_Regulator(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("regulator", nil, htmlAttrs)
+	}
+	return ReferenceInput("regulator", resource.Regulator, htmlAttrs)
+}
 func (resource *RegulatedAuthorization) T_CaseType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("case.type", nil, optionsValueSet, htmlAttrs)
@@ -130,9 +160,15 @@ func (resource *RegulatedAuthorization) T_CaseStatus(optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("case.status", resource.Case.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *RegulatedAuthorization) T_CaseDatePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("case.datePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("case.datePeriod", resource.Case.DatePeriod, htmlAttrs)
+}
 func (resource *RegulatedAuthorization) T_CaseDateDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("case.dateDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("case.dateDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("case.dateDateTime", resource.Case.DateDateTime, htmlAttrs)
+	return FhirDateTimeInput("case.dateDateTime", resource.Case.DateDateTime, htmlAttrs)
 }

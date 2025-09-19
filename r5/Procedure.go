@@ -116,6 +116,18 @@ func (resource *Procedure) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs t
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *Procedure) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *Procedure) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *Procedure) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
 
@@ -142,11 +154,35 @@ func (resource *Procedure) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attr
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *Procedure) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *Procedure) T_Focus(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("focus", nil, htmlAttrs)
+	}
+	return ReferenceInput("focus", resource.Focus, htmlAttrs)
+}
+func (resource *Procedure) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *Procedure) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *Procedure) T_OccurrencePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
 }
 func (resource *Procedure) T_OccurrenceString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -154,17 +190,59 @@ func (resource *Procedure) T_OccurrenceString(htmlAttrs templ.Attributes) templ.
 	}
 	return StringInput("occurrenceString", resource.OccurrenceString, htmlAttrs)
 }
+func (resource *Procedure) T_OccurrenceAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("occurrenceAge", nil, htmlAttrs)
+	}
+	return AgeInput("occurrenceAge", resource.OccurrenceAge, htmlAttrs)
+}
+func (resource *Procedure) T_OccurrenceRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("occurrenceRange", nil, htmlAttrs)
+	}
+	return RangeInput("occurrenceRange", resource.OccurrenceRange, htmlAttrs)
+}
+func (resource *Procedure) T_OccurrenceTiming(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("occurrenceTiming", nil, htmlAttrs)
+	}
+	return TimingInput("occurrenceTiming", resource.OccurrenceTiming, htmlAttrs)
+}
 func (resource *Procedure) T_Recorded(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("recorded", nil, htmlAttrs)
+		return FhirDateTimeInput("recorded", nil, htmlAttrs)
 	}
-	return DateTimeInput("recorded", resource.Recorded, htmlAttrs)
+	return FhirDateTimeInput("recorded", resource.Recorded, htmlAttrs)
+}
+func (resource *Procedure) T_Recorder(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("recorder", nil, htmlAttrs)
+	}
+	return ReferenceInput("recorder", resource.Recorder, htmlAttrs)
 }
 func (resource *Procedure) T_ReportedBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("reportedBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("reportedBoolean", resource.ReportedBoolean, htmlAttrs)
+}
+func (resource *Procedure) T_ReportedReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("reportedReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("reportedReference", resource.ReportedReference, htmlAttrs)
+}
+func (resource *Procedure) T_Location(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("location", nil, htmlAttrs)
+	}
+	return ReferenceInput("location", resource.Location, htmlAttrs)
+}
+func (resource *Procedure) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
 func (resource *Procedure) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
@@ -178,6 +256,18 @@ func (resource *Procedure) T_Outcome(optionsValueSet []Coding, htmlAttrs templ.A
 	}
 	return CodeableConceptSelect("outcome", resource.Outcome, optionsValueSet, htmlAttrs)
 }
+func (resource *Procedure) T_Report(numReport int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReport >= len(resource.Report) {
+		return ReferenceInput("report["+strconv.Itoa(numReport)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("report["+strconv.Itoa(numReport)+"]", &resource.Report[numReport], htmlAttrs)
+}
+func (resource *Procedure) T_Complication(numComplication int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numComplication >= len(resource.Complication) {
+		return CodeableReferenceInput("complication["+strconv.Itoa(numComplication)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("complication["+strconv.Itoa(numComplication)+"]", &resource.Complication[numComplication], htmlAttrs)
+}
 func (resource *Procedure) T_FollowUp(numFollowUp int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFollowUp >= len(resource.FollowUp) {
 		return CodeableConceptSelect("followUp["+strconv.Itoa(numFollowUp)+"]", nil, optionsValueSet, htmlAttrs)
@@ -190,15 +280,51 @@ func (resource *Procedure) T_Note(numNote int, htmlAttrs templ.Attributes) templ
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
+func (resource *Procedure) T_Used(numUsed int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUsed >= len(resource.Used) {
+		return CodeableReferenceInput("used["+strconv.Itoa(numUsed)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("used["+strconv.Itoa(numUsed)+"]", &resource.Used[numUsed], htmlAttrs)
+}
+func (resource *Procedure) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+}
 func (resource *Procedure) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
 		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
+func (resource *Procedure) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
+}
+func (resource *Procedure) T_PerformerOnBehalfOf(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].onBehalfOf", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].onBehalfOf", resource.Performer[numPerformer].OnBehalfOf, htmlAttrs)
+}
+func (resource *Procedure) T_PerformerPeriod(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return PeriodInput("performer["+strconv.Itoa(numPerformer)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("performer["+strconv.Itoa(numPerformer)+"].period", resource.Performer[numPerformer].Period, htmlAttrs)
+}
 func (resource *Procedure) T_FocalDeviceAction(numFocalDevice int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFocalDevice >= len(resource.FocalDevice) {
 		return CodeableConceptSelect("focalDevice["+strconv.Itoa(numFocalDevice)+"].action", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("focalDevice["+strconv.Itoa(numFocalDevice)+"].action", resource.FocalDevice[numFocalDevice].Action, optionsValueSet, htmlAttrs)
+}
+func (resource *Procedure) T_FocalDeviceManipulated(numFocalDevice int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFocalDevice >= len(resource.FocalDevice) {
+		return ReferenceInput("focalDevice["+strconv.Itoa(numFocalDevice)+"].manipulated", nil, htmlAttrs)
+	}
+	return ReferenceInput("focalDevice["+strconv.Itoa(numFocalDevice)+"].manipulated", &resource.FocalDevice[numFocalDevice].Manipulated, htmlAttrs)
 }

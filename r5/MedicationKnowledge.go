@@ -270,6 +270,12 @@ func (resource *MedicationKnowledge) T_Status(htmlAttrs templ.Attributes) templ.
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_IntendedJurisdiction(numIntendedJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIntendedJurisdiction >= len(resource.IntendedJurisdiction) {
 		return CodeableConceptSelect("intendedJurisdiction["+strconv.Itoa(numIntendedJurisdiction)+"]", nil, optionsValueSet, htmlAttrs)
@@ -281,6 +287,12 @@ func (resource *MedicationKnowledge) T_Name(numName int, htmlAttrs templ.Attribu
 		return StringInput("name["+strconv.Itoa(numName)+"]", nil, htmlAttrs)
 	}
 	return StringInput("name["+strconv.Itoa(numName)+"]", &resource.Name[numName], htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_AssociatedMedication(numAssociatedMedication int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAssociatedMedication >= len(resource.AssociatedMedication) {
+		return ReferenceInput("associatedMedication["+strconv.Itoa(numAssociatedMedication)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("associatedMedication["+strconv.Itoa(numAssociatedMedication)+"]", &resource.AssociatedMedication[numAssociatedMedication], htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_ProductType(numProductType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProductType >= len(resource.ProductType) {
@@ -294,17 +306,41 @@ func (resource *MedicationKnowledge) T_PreparationInstruction(htmlAttrs templ.At
 	}
 	return StringInput("preparationInstruction", resource.PreparationInstruction, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_ClinicalUseIssue(numClinicalUseIssue int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numClinicalUseIssue >= len(resource.ClinicalUseIssue) {
+		return ReferenceInput("clinicalUseIssue["+strconv.Itoa(numClinicalUseIssue)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("clinicalUseIssue["+strconv.Itoa(numClinicalUseIssue)+"]", &resource.ClinicalUseIssue[numClinicalUseIssue], htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_RelatedMedicationKnowledgeType(numRelatedMedicationKnowledge int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedMedicationKnowledge >= len(resource.RelatedMedicationKnowledge) {
 		return CodeableConceptSelect("relatedMedicationKnowledge["+strconv.Itoa(numRelatedMedicationKnowledge)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relatedMedicationKnowledge["+strconv.Itoa(numRelatedMedicationKnowledge)+"].type", &resource.RelatedMedicationKnowledge[numRelatedMedicationKnowledge].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_RelatedMedicationKnowledgeReference(numRelatedMedicationKnowledge int, numReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedMedicationKnowledge >= len(resource.RelatedMedicationKnowledge) || numReference >= len(resource.RelatedMedicationKnowledge[numRelatedMedicationKnowledge].Reference) {
+		return ReferenceInput("relatedMedicationKnowledge["+strconv.Itoa(numRelatedMedicationKnowledge)+"].reference["+strconv.Itoa(numReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("relatedMedicationKnowledge["+strconv.Itoa(numRelatedMedicationKnowledge)+"].reference["+strconv.Itoa(numReference)+"]", &resource.RelatedMedicationKnowledge[numRelatedMedicationKnowledge].Reference[numReference], htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_MonographType(numMonograph int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMonograph >= len(resource.Monograph) {
 		return CodeableConceptSelect("monograph["+strconv.Itoa(numMonograph)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("monograph["+strconv.Itoa(numMonograph)+"].type", resource.Monograph[numMonograph].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_MonographSource(numMonograph int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMonograph >= len(resource.Monograph) {
+		return ReferenceInput("monograph["+strconv.Itoa(numMonograph)+"].source", nil, htmlAttrs)
+	}
+	return ReferenceInput("monograph["+strconv.Itoa(numMonograph)+"].source", resource.Monograph[numMonograph].Source, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_CostEffectiveDate(numCost int, numEffectiveDate int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCost >= len(resource.Cost) || numEffectiveDate >= len(resource.Cost[numCost].EffectiveDate) {
+		return PeriodInput("cost["+strconv.Itoa(numCost)+"].effectiveDate["+strconv.Itoa(numEffectiveDate)+"]", nil, htmlAttrs)
+	}
+	return PeriodInput("cost["+strconv.Itoa(numCost)+"].effectiveDate["+strconv.Itoa(numEffectiveDate)+"]", &resource.Cost[numCost].EffectiveDate[numEffectiveDate], htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_CostType(numCost int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCost >= len(resource.Cost) {
@@ -317,6 +353,12 @@ func (resource *MedicationKnowledge) T_CostSource(numCost int, htmlAttrs templ.A
 		return StringInput("cost["+strconv.Itoa(numCost)+"].source", nil, htmlAttrs)
 	}
 	return StringInput("cost["+strconv.Itoa(numCost)+"].source", resource.Cost[numCost].Source, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_CostCostMoney(numCost int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCost >= len(resource.Cost) {
+		return MoneyInput("cost["+strconv.Itoa(numCost)+"].costMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("cost["+strconv.Itoa(numCost)+"].costMoney", &resource.Cost[numCost].CostMoney, htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_CostCostCodeableConcept(numCost int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCost >= len(resource.Cost) {
@@ -335,6 +377,12 @@ func (resource *MedicationKnowledge) T_MonitoringProgramName(numMonitoringProgra
 		return StringInput("monitoringProgram["+strconv.Itoa(numMonitoringProgram)+"].name", nil, htmlAttrs)
 	}
 	return StringInput("monitoringProgram["+strconv.Itoa(numMonitoringProgram)+"].name", resource.MonitoringProgram[numMonitoringProgram].Name, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_IndicationGuidelineIndication(numIndicationGuideline int, numIndication int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIndicationGuideline >= len(resource.IndicationGuideline) || numIndication >= len(resource.IndicationGuideline[numIndicationGuideline].Indication) {
+		return CodeableReferenceInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].indication["+strconv.Itoa(numIndication)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].indication["+strconv.Itoa(numIndication)+"]", &resource.IndicationGuideline[numIndicationGuideline].Indication[numIndication], htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_IndicationGuidelineDosingGuidelineTreatmentIntent(numIndicationGuideline int, numDosingGuideline int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIndicationGuideline >= len(resource.IndicationGuideline) || numDosingGuideline >= len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) {
@@ -366,6 +414,18 @@ func (resource *MedicationKnowledge) T_IndicationGuidelineDosingGuidelinePatient
 	}
 	return CodeableConceptSelect("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].dosingGuideline["+strconv.Itoa(numDosingGuideline)+"].patientCharacteristic["+strconv.Itoa(numPatientCharacteristic)+"].valueCodeableConcept", resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic[numPatientCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_IndicationGuidelineDosingGuidelinePatientCharacteristicValueQuantity(numIndicationGuideline int, numDosingGuideline int, numPatientCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIndicationGuideline >= len(resource.IndicationGuideline) || numDosingGuideline >= len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) || numPatientCharacteristic >= len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic) {
+		return QuantityInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].dosingGuideline["+strconv.Itoa(numDosingGuideline)+"].patientCharacteristic["+strconv.Itoa(numPatientCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].dosingGuideline["+strconv.Itoa(numDosingGuideline)+"].patientCharacteristic["+strconv.Itoa(numPatientCharacteristic)+"].valueQuantity", resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic[numPatientCharacteristic].ValueQuantity, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_IndicationGuidelineDosingGuidelinePatientCharacteristicValueRange(numIndicationGuideline int, numDosingGuideline int, numPatientCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIndicationGuideline >= len(resource.IndicationGuideline) || numDosingGuideline >= len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline) || numPatientCharacteristic >= len(resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic) {
+		return RangeInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].dosingGuideline["+strconv.Itoa(numDosingGuideline)+"].patientCharacteristic["+strconv.Itoa(numPatientCharacteristic)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("indicationGuideline["+strconv.Itoa(numIndicationGuideline)+"].dosingGuideline["+strconv.Itoa(numDosingGuideline)+"].patientCharacteristic["+strconv.Itoa(numPatientCharacteristic)+"].valueRange", resource.IndicationGuideline[numIndicationGuideline].DosingGuideline[numDosingGuideline].PatientCharacteristic[numPatientCharacteristic].ValueRange, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_MedicineClassificationType(numMedicineClassification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMedicineClassification >= len(resource.MedicineClassification) {
 		return CodeableConceptSelect("medicineClassification["+strconv.Itoa(numMedicineClassification)+"].type", nil, optionsValueSet, htmlAttrs)
@@ -390,6 +450,12 @@ func (resource *MedicationKnowledge) T_MedicineClassificationClassification(numM
 	}
 	return CodeableConceptSelect("medicineClassification["+strconv.Itoa(numMedicineClassification)+"].classification["+strconv.Itoa(numClassification)+"]", &resource.MedicineClassification[numMedicineClassification].Classification[numClassification], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_PackagingPackagedProduct(numPackaging int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackaging >= len(resource.Packaging) {
+		return ReferenceInput("packaging["+strconv.Itoa(numPackaging)+"].packagedProduct", nil, htmlAttrs)
+	}
+	return ReferenceInput("packaging["+strconv.Itoa(numPackaging)+"].packagedProduct", resource.Packaging[numPackaging].PackagedProduct, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_StorageGuidelineReference(numStorageGuideline int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) {
 		return StringInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].reference", nil, htmlAttrs)
@@ -402,17 +468,41 @@ func (resource *MedicationKnowledge) T_StorageGuidelineNote(numStorageGuideline 
 	}
 	return AnnotationTextArea("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].note["+strconv.Itoa(numNote)+"]", &resource.StorageGuideline[numStorageGuideline].Note[numNote], htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_StorageGuidelineStabilityDuration(numStorageGuideline int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) {
+		return DurationInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].stabilityDuration", nil, htmlAttrs)
+	}
+	return DurationInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].stabilityDuration", resource.StorageGuideline[numStorageGuideline].StabilityDuration, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_StorageGuidelineEnvironmentalSettingType(numStorageGuideline int, numEnvironmentalSetting int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) || numEnvironmentalSetting >= len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) {
 		return CodeableConceptSelect("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].type", &resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting[numEnvironmentalSetting].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_StorageGuidelineEnvironmentalSettingValueQuantity(numStorageGuideline int, numEnvironmentalSetting int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) || numEnvironmentalSetting >= len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) {
+		return QuantityInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueQuantity", &resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting[numEnvironmentalSetting].ValueQuantity, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_StorageGuidelineEnvironmentalSettingValueRange(numStorageGuideline int, numEnvironmentalSetting int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) || numEnvironmentalSetting >= len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) {
+		return RangeInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueRange", &resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting[numEnvironmentalSetting].ValueRange, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_StorageGuidelineEnvironmentalSettingValueCodeableConcept(numStorageGuideline int, numEnvironmentalSetting int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorageGuideline >= len(resource.StorageGuideline) || numEnvironmentalSetting >= len(resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting) {
 		return CodeableConceptSelect("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("storageGuideline["+strconv.Itoa(numStorageGuideline)+"].environmentalSetting["+strconv.Itoa(numEnvironmentalSetting)+"].valueCodeableConcept", &resource.StorageGuideline[numStorageGuideline].EnvironmentalSetting[numEnvironmentalSetting].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_RegulatoryRegulatoryAuthority(numRegulatory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRegulatory >= len(resource.Regulatory) {
+		return ReferenceInput("regulatory["+strconv.Itoa(numRegulatory)+"].regulatoryAuthority", nil, htmlAttrs)
+	}
+	return ReferenceInput("regulatory["+strconv.Itoa(numRegulatory)+"].regulatoryAuthority", &resource.Regulatory[numRegulatory].RegulatoryAuthority, htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_RegulatorySchedule(numRegulatory int, numSchedule int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRegulatory >= len(resource.Regulatory) || numSchedule >= len(resource.Regulatory[numRegulatory].Schedule) {
@@ -432,6 +522,24 @@ func (resource *MedicationKnowledge) T_RegulatorySubstitutionAllowed(numRegulato
 	}
 	return BoolInput("regulatory["+strconv.Itoa(numRegulatory)+"].substitution["+strconv.Itoa(numSubstitution)+"].allowed", &resource.Regulatory[numRegulatory].Substitution[numSubstitution].Allowed, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_RegulatoryMaxDispenseQuantity(numRegulatory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRegulatory >= len(resource.Regulatory) {
+		return QuantityInput("regulatory["+strconv.Itoa(numRegulatory)+"].maxDispense.quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("regulatory["+strconv.Itoa(numRegulatory)+"].maxDispense.quantity", &resource.Regulatory[numRegulatory].MaxDispense.Quantity, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_RegulatoryMaxDispensePeriod(numRegulatory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRegulatory >= len(resource.Regulatory) {
+		return DurationInput("regulatory["+strconv.Itoa(numRegulatory)+"].maxDispense.period", nil, htmlAttrs)
+	}
+	return DurationInput("regulatory["+strconv.Itoa(numRegulatory)+"].maxDispense.period", resource.Regulatory[numRegulatory].MaxDispense.Period, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_DefinitionalDefinition(numDefinition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDefinition >= len(resource.Definitional.Definition) {
+		return ReferenceInput("definitional.definition["+strconv.Itoa(numDefinition)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("definitional.definition["+strconv.Itoa(numDefinition)+"]", &resource.Definitional.Definition[numDefinition], htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_DefinitionalDoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("definitional.doseForm", nil, optionsValueSet, htmlAttrs)
@@ -444,17 +552,35 @@ func (resource *MedicationKnowledge) T_DefinitionalIntendedRoute(numIntendedRout
 	}
 	return CodeableConceptSelect("definitional.intendedRoute["+strconv.Itoa(numIntendedRoute)+"]", &resource.Definitional.IntendedRoute[numIntendedRoute], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_DefinitionalIngredientItem(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Definitional.Ingredient) {
+		return CodeableReferenceInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].item", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].item", &resource.Definitional.Ingredient[numIngredient].Item, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_DefinitionalIngredientType(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Definitional.Ingredient) {
 		return CodeableConceptSelect("definitional.ingredient["+strconv.Itoa(numIngredient)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("definitional.ingredient["+strconv.Itoa(numIngredient)+"].type", resource.Definitional.Ingredient[numIngredient].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_DefinitionalIngredientStrengthRatio(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Definitional.Ingredient) {
+		return RatioInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthRatio", nil, htmlAttrs)
+	}
+	return RatioInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthRatio", resource.Definitional.Ingredient[numIngredient].StrengthRatio, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_DefinitionalIngredientStrengthCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Definitional.Ingredient) {
 		return CodeableConceptSelect("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthCodeableConcept", resource.Definitional.Ingredient[numIngredient].StrengthCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_DefinitionalIngredientStrengthQuantity(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Definitional.Ingredient) {
+		return QuantityInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("definitional.ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", resource.Definitional.Ingredient[numIngredient].StrengthQuantity, htmlAttrs)
 }
 func (resource *MedicationKnowledge) T_DefinitionalDrugCharacteristicType(numDrugCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDrugCharacteristic >= len(resource.Definitional.DrugCharacteristic) {
@@ -474,9 +600,21 @@ func (resource *MedicationKnowledge) T_DefinitionalDrugCharacteristicValueString
 	}
 	return StringInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueString", resource.Definitional.DrugCharacteristic[numDrugCharacteristic].ValueString, htmlAttrs)
 }
+func (resource *MedicationKnowledge) T_DefinitionalDrugCharacteristicValueQuantity(numDrugCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDrugCharacteristic >= len(resource.Definitional.DrugCharacteristic) {
+		return QuantityInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueQuantity", resource.Definitional.DrugCharacteristic[numDrugCharacteristic].ValueQuantity, htmlAttrs)
+}
 func (resource *MedicationKnowledge) T_DefinitionalDrugCharacteristicValueBase64Binary(numDrugCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDrugCharacteristic >= len(resource.Definitional.DrugCharacteristic) {
 		return StringInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueBase64Binary", nil, htmlAttrs)
 	}
 	return StringInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueBase64Binary", resource.Definitional.DrugCharacteristic[numDrugCharacteristic].ValueBase64Binary, htmlAttrs)
+}
+func (resource *MedicationKnowledge) T_DefinitionalDrugCharacteristicValueAttachment(numDrugCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDrugCharacteristic >= len(resource.Definitional.DrugCharacteristic) {
+		return AttachmentInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("definitional.drugCharacteristic["+strconv.Itoa(numDrugCharacteristic)+"].valueAttachment", resource.Definitional.DrugCharacteristic[numDrugCharacteristic].ValueAttachment, htmlAttrs)
 }

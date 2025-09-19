@@ -78,3 +78,27 @@ func (resource *Flag) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attribute
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *Flag) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *Flag) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *Flag) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
+func (resource *Flag) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
+}

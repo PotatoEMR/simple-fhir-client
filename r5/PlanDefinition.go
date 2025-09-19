@@ -312,6 +312,12 @@ func (resource *PlanDefinition) T_SubjectCodeableConcept(optionsValueSet []Codin
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subjectReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+}
 func (resource *PlanDefinition) T_SubjectCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("subjectCanonical", nil, htmlAttrs)
@@ -320,9 +326,9 @@ func (resource *PlanDefinition) T_SubjectCanonical(htmlAttrs templ.Attributes) t
 }
 func (resource *PlanDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *PlanDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -330,11 +336,23 @@ func (resource *PlanDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Co
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *PlanDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *PlanDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *PlanDefinition) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *PlanDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -368,21 +386,57 @@ func (resource *PlanDefinition) T_CopyrightLabel(htmlAttrs templ.Attributes) tem
 }
 func (resource *PlanDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *PlanDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *PlanDefinition) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *PlanDefinition) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+}
+func (resource *PlanDefinition) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *PlanDefinition) T_Editor(numEditor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEditor >= len(resource.Editor) {
+		return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", &resource.Editor[numEditor], htmlAttrs)
+}
+func (resource *PlanDefinition) T_Reviewer(numReviewer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReviewer >= len(resource.Reviewer) {
+		return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", &resource.Reviewer[numReviewer], htmlAttrs)
+}
+func (resource *PlanDefinition) T_Endorser(numEndorser int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndorser >= len(resource.Endorser) {
+		return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", &resource.Endorser[numEndorser], htmlAttrs)
+}
+func (resource *PlanDefinition) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
 }
 func (resource *PlanDefinition) T_Library(numLibrary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
@@ -432,11 +486,29 @@ func (resource *PlanDefinition) T_GoalAddresses(numGoal int, numAddresses int, o
 	}
 	return CodeableConceptSelect("goal["+strconv.Itoa(numGoal)+"].addresses["+strconv.Itoa(numAddresses)+"]", &resource.Goal[numGoal].Addresses[numAddresses], optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_GoalDocumentation(numGoal int, numDocumentation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) || numDocumentation >= len(resource.Goal[numGoal].Documentation) {
+		return RelatedArtifactInput("goal["+strconv.Itoa(numGoal)+"].documentation["+strconv.Itoa(numDocumentation)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("goal["+strconv.Itoa(numGoal)+"].documentation["+strconv.Itoa(numDocumentation)+"]", &resource.Goal[numGoal].Documentation[numDocumentation], htmlAttrs)
+}
 func (resource *PlanDefinition) T_GoalTargetMeasure(numGoal int, numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
 		return CodeableConceptSelect("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].measure", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].measure", resource.Goal[numGoal].Target[numTarget].Measure, optionsValueSet, htmlAttrs)
+}
+func (resource *PlanDefinition) T_GoalTargetDetailQuantity(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
+		return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", resource.Goal[numGoal].Target[numTarget].DetailQuantity, htmlAttrs)
+}
+func (resource *PlanDefinition) T_GoalTargetDetailRange(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
+		return RangeInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailRange", nil, htmlAttrs)
+	}
+	return RangeInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailRange", resource.Goal[numGoal].Target[numTarget].DetailRange, htmlAttrs)
 }
 func (resource *PlanDefinition) T_GoalTargetDetailCodeableConcept(numGoal int, numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
@@ -461,6 +533,18 @@ func (resource *PlanDefinition) T_GoalTargetDetailInteger(numGoal int, numTarget
 		return IntInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailInteger", nil, htmlAttrs)
 	}
 	return IntInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailInteger", resource.Goal[numGoal].Target[numTarget].DetailInteger, htmlAttrs)
+}
+func (resource *PlanDefinition) T_GoalTargetDetailRatio(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
+		return RatioInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailRatio", nil, htmlAttrs)
+	}
+	return RatioInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailRatio", resource.Goal[numGoal].Target[numTarget].DetailRatio, htmlAttrs)
+}
+func (resource *PlanDefinition) T_GoalTargetDue(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
+		return DurationInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].due", nil, htmlAttrs)
+	}
+	return DurationInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].due", resource.Goal[numGoal].Target[numTarget].Due, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActorTitle(numActor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActor >= len(resource.Actor) {
@@ -487,6 +571,12 @@ func (resource *PlanDefinition) T_ActorOptionTypeCanonical(numActor int, numOpti
 		return StringInput("actor["+strconv.Itoa(numActor)+"].option["+strconv.Itoa(numOption)+"].typeCanonical", nil, htmlAttrs)
 	}
 	return StringInput("actor["+strconv.Itoa(numActor)+"].option["+strconv.Itoa(numOption)+"].typeCanonical", resource.Actor[numActor].Option[numOption].TypeCanonical, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActorOptionTypeReference(numActor int, numOption int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActor >= len(resource.Actor) || numOption >= len(resource.Actor[numActor].Option) {
+		return ReferenceInput("actor["+strconv.Itoa(numActor)+"].option["+strconv.Itoa(numOption)+"].typeReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("actor["+strconv.Itoa(numActor)+"].option["+strconv.Itoa(numOption)+"].typeReference", resource.Actor[numActor].Option[numOption].TypeReference, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActorOptionRole(numActor int, numOption int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActor >= len(resource.Actor) || numOption >= len(resource.Actor[numActor].Option) {
@@ -544,6 +634,12 @@ func (resource *PlanDefinition) T_ActionReason(numAction int, numReason int, opt
 	}
 	return CodeableConceptSelect("action["+strconv.Itoa(numAction)+"].reason["+strconv.Itoa(numReason)+"]", &resource.Action[numAction].Reason[numReason], optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_ActionDocumentation(numAction int, numDocumentation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numDocumentation >= len(resource.Action[numAction].Documentation) {
+		return RelatedArtifactInput("action["+strconv.Itoa(numAction)+"].documentation["+strconv.Itoa(numDocumentation)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("action["+strconv.Itoa(numAction)+"].documentation["+strconv.Itoa(numDocumentation)+"]", &resource.Action[numAction].Documentation[numDocumentation], htmlAttrs)
+}
 func (resource *PlanDefinition) T_ActionGoalId(numAction int, numGoalId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numGoalId >= len(resource.Action[numAction].GoalId) {
 		return StringInput("action["+strconv.Itoa(numAction)+"].goalId["+strconv.Itoa(numGoalId)+"]", nil, htmlAttrs)
@@ -556,11 +652,53 @@ func (resource *PlanDefinition) T_ActionSubjectCodeableConcept(numAction int, op
 	}
 	return CodeableConceptSelect("action["+strconv.Itoa(numAction)+"].subjectCodeableConcept", resource.Action[numAction].SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_ActionSubjectReference(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return ReferenceInput("action["+strconv.Itoa(numAction)+"].subjectReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("action["+strconv.Itoa(numAction)+"].subjectReference", resource.Action[numAction].SubjectReference, htmlAttrs)
+}
 func (resource *PlanDefinition) T_ActionSubjectCanonical(numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
 		return StringInput("action["+strconv.Itoa(numAction)+"].subjectCanonical", nil, htmlAttrs)
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].subjectCanonical", resource.Action[numAction].SubjectCanonical, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionTrigger(numAction int, numTrigger int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numTrigger >= len(resource.Action[numAction].Trigger) {
+		return TriggerDefinitionInput("action["+strconv.Itoa(numAction)+"].trigger["+strconv.Itoa(numTrigger)+"]", nil, htmlAttrs)
+	}
+	return TriggerDefinitionInput("action["+strconv.Itoa(numAction)+"].trigger["+strconv.Itoa(numTrigger)+"]", &resource.Action[numAction].Trigger[numTrigger], htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionTimingAge(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return AgeInput("action["+strconv.Itoa(numAction)+"].timingAge", nil, htmlAttrs)
+	}
+	return AgeInput("action["+strconv.Itoa(numAction)+"].timingAge", resource.Action[numAction].TimingAge, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionTimingDuration(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return DurationInput("action["+strconv.Itoa(numAction)+"].timingDuration", nil, htmlAttrs)
+	}
+	return DurationInput("action["+strconv.Itoa(numAction)+"].timingDuration", resource.Action[numAction].TimingDuration, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionTimingRange(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return RangeInput("action["+strconv.Itoa(numAction)+"].timingRange", nil, htmlAttrs)
+	}
+	return RangeInput("action["+strconv.Itoa(numAction)+"].timingRange", resource.Action[numAction].TimingRange, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionTimingTiming(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return TimingInput("action["+strconv.Itoa(numAction)+"].timingTiming", nil, htmlAttrs)
+	}
+	return TimingInput("action["+strconv.Itoa(numAction)+"].timingTiming", resource.Action[numAction].TimingTiming, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionLocation(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return CodeableReferenceInput("action["+strconv.Itoa(numAction)+"].location", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("action["+strconv.Itoa(numAction)+"].location", resource.Action[numAction].Location, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActionType(numAction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
@@ -634,11 +772,23 @@ func (resource *PlanDefinition) T_ActionConditionKind(numAction int, numConditio
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_ActionConditionExpression(numAction int, numCondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numCondition >= len(resource.Action[numAction].Condition) {
+		return ExpressionInput("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].expression", nil, htmlAttrs)
+	}
+	return ExpressionInput("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].expression", resource.Action[numAction].Condition[numCondition].Expression, htmlAttrs)
+}
 func (resource *PlanDefinition) T_ActionInputTitle(numAction int, numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numInput >= len(resource.Action[numAction].Input) {
 		return StringInput("action["+strconv.Itoa(numAction)+"].input["+strconv.Itoa(numInput)+"].title", nil, htmlAttrs)
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].input["+strconv.Itoa(numInput)+"].title", resource.Action[numAction].Input[numInput].Title, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionInputRequirement(numAction int, numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numInput >= len(resource.Action[numAction].Input) {
+		return DataRequirementInput("action["+strconv.Itoa(numAction)+"].input["+strconv.Itoa(numInput)+"].requirement", nil, htmlAttrs)
+	}
+	return DataRequirementInput("action["+strconv.Itoa(numAction)+"].input["+strconv.Itoa(numInput)+"].requirement", resource.Action[numAction].Input[numInput].Requirement, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActionInputRelatedData(numAction int, numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numInput >= len(resource.Action[numAction].Input) {
@@ -651,6 +801,12 @@ func (resource *PlanDefinition) T_ActionOutputTitle(numAction int, numOutput int
 		return StringInput("action["+strconv.Itoa(numAction)+"].output["+strconv.Itoa(numOutput)+"].title", nil, htmlAttrs)
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].output["+strconv.Itoa(numOutput)+"].title", resource.Action[numAction].Output[numOutput].Title, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionOutputRequirement(numAction int, numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numOutput >= len(resource.Action[numAction].Output) {
+		return DataRequirementInput("action["+strconv.Itoa(numAction)+"].output["+strconv.Itoa(numOutput)+"].requirement", nil, htmlAttrs)
+	}
+	return DataRequirementInput("action["+strconv.Itoa(numAction)+"].output["+strconv.Itoa(numOutput)+"].requirement", resource.Action[numAction].Output[numOutput].Requirement, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActionOutputRelatedData(numAction int, numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numOutput >= len(resource.Action[numAction].Output) {
@@ -680,6 +836,18 @@ func (resource *PlanDefinition) T_ActionRelatedActionEndRelationship(numAction i
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].endRelationship", resource.Action[numAction].RelatedAction[numRelatedAction].EndRelationship, optionsValueSet, htmlAttrs)
 }
+func (resource *PlanDefinition) T_ActionRelatedActionOffsetDuration(numAction int, numRelatedAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return DurationInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetDuration", nil, htmlAttrs)
+	}
+	return DurationInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetDuration", resource.Action[numAction].RelatedAction[numRelatedAction].OffsetDuration, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionRelatedActionOffsetRange(numAction int, numRelatedAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return RangeInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetRange", nil, htmlAttrs)
+	}
+	return RangeInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetRange", resource.Action[numAction].RelatedAction[numRelatedAction].OffsetRange, htmlAttrs)
+}
 func (resource *PlanDefinition) T_ActionParticipantActorId(numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
 		return StringInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorId", nil, htmlAttrs)
@@ -700,6 +868,12 @@ func (resource *PlanDefinition) T_ActionParticipantTypeCanonical(numAction int, 
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeCanonical", resource.Action[numAction].Participant[numParticipant].TypeCanonical, htmlAttrs)
 }
+func (resource *PlanDefinition) T_ActionParticipantTypeReference(numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
+		return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", resource.Action[numAction].Participant[numParticipant].TypeReference, htmlAttrs)
+}
 func (resource *PlanDefinition) T_ActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
 		return CodeableConceptSelect("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].role", nil, optionsValueSet, htmlAttrs)
@@ -717,4 +891,10 @@ func (resource *PlanDefinition) T_ActionDynamicValuePath(numAction int, numDynam
 		return StringInput("action["+strconv.Itoa(numAction)+"].dynamicValue["+strconv.Itoa(numDynamicValue)+"].path", nil, htmlAttrs)
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].dynamicValue["+strconv.Itoa(numDynamicValue)+"].path", resource.Action[numAction].DynamicValue[numDynamicValue].Path, htmlAttrs)
+}
+func (resource *PlanDefinition) T_ActionDynamicValueExpression(numAction int, numDynamicValue int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numDynamicValue >= len(resource.Action[numAction].DynamicValue) {
+		return ExpressionInput("action["+strconv.Itoa(numAction)+"].dynamicValue["+strconv.Itoa(numDynamicValue)+"].expression", nil, htmlAttrs)
+	}
+	return ExpressionInput("action["+strconv.Itoa(numAction)+"].dynamicValue["+strconv.Itoa(numDynamicValue)+"].expression", resource.Action[numAction].DynamicValue[numDynamicValue].Expression, htmlAttrs)
 }

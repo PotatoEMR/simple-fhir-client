@@ -167,9 +167,9 @@ func (resource *ObservationDefinition) T_Experimental(htmlAttrs templ.Attributes
 }
 func (resource *ObservationDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ObservationDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -177,11 +177,23 @@ func (resource *ObservationDefinition) T_Publisher(htmlAttrs templ.Attributes) t
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ObservationDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ObservationDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ObservationDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -209,15 +221,21 @@ func (resource *ObservationDefinition) T_CopyrightLabel(htmlAttrs templ.Attribut
 }
 func (resource *ObservationDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ObservationDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *ObservationDefinition) T_DerivedFromCanonical(numDerivedFromCanonical int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDerivedFromCanonical >= len(resource.DerivedFromCanonical) {
@@ -281,6 +299,18 @@ func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding, htmlAt
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet, htmlAttrs)
 }
+func (resource *ObservationDefinition) T_Specimen(numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSpecimen >= len(resource.Specimen) {
+		return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
+}
+func (resource *ObservationDefinition) T_Device(numDevice int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDevice >= len(resource.Device) {
+		return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", &resource.Device[numDevice], htmlAttrs)
+}
 func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("preferredReportName", nil, htmlAttrs)
@@ -292,6 +322,12 @@ func (resource *ObservationDefinition) T_PermittedUnit(numPermittedUnit int, opt
 		return CodingSelect("permittedUnit["+strconv.Itoa(numPermittedUnit)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("permittedUnit["+strconv.Itoa(numPermittedUnit)+"]", &resource.PermittedUnit[numPermittedUnit], optionsValueSet, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_HasMember(numHasMember int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numHasMember >= len(resource.HasMember) {
+		return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", &resource.HasMember[numHasMember], htmlAttrs)
 }
 func (resource *ObservationDefinition) T_QualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
@@ -313,6 +349,18 @@ func (resource *ObservationDefinition) T_QualifiedValueGender(numQualifiedValue 
 	}
 	return CodeSelect("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].gender", resource.QualifiedValue[numQualifiedValue].Gender, optionsValueSet, htmlAttrs)
 }
+func (resource *ObservationDefinition) T_QualifiedValueAge(numQualifiedValue int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].age", nil, htmlAttrs)
+	}
+	return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].age", resource.QualifiedValue[numQualifiedValue].Age, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_QualifiedValueGestationalAge(numQualifiedValue int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].gestationalAge", nil, htmlAttrs)
+	}
+	return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].gestationalAge", resource.QualifiedValue[numQualifiedValue].GestationalAge, htmlAttrs)
+}
 func (resource *ObservationDefinition) T_QualifiedValueCondition(numQualifiedValue int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
 		return StringInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].condition", nil, htmlAttrs)
@@ -326,6 +374,12 @@ func (resource *ObservationDefinition) T_QualifiedValueRangeCategory(numQualifie
 		return CodeSelect("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].rangeCategory", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].rangeCategory", resource.QualifiedValue[numQualifiedValue].RangeCategory, optionsValueSet, htmlAttrs)
+}
+func (resource *ObservationDefinition) T_QualifiedValueRange(numQualifiedValue int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {
+		return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].range", nil, htmlAttrs)
+	}
+	return RangeInput("qualifiedValue["+strconv.Itoa(numQualifiedValue)+"].range", resource.QualifiedValue[numQualifiedValue].Range, htmlAttrs)
 }
 func (resource *ObservationDefinition) T_QualifiedValueValidCodedValueSet(numQualifiedValue int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {

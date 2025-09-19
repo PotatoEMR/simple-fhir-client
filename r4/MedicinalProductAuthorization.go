@@ -89,6 +89,12 @@ func (r MedicinalProductAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicinalProductAuthorization) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
 func (resource *MedicinalProductAuthorization) T_Country(numCountry int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCountry >= len(resource.Country) {
 		return CodeableConceptSelect("country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet, htmlAttrs)
@@ -109,33 +115,57 @@ func (resource *MedicinalProductAuthorization) T_Status(optionsValueSet []Coding
 }
 func (resource *MedicinalProductAuthorization) T_StatusDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("statusDate", nil, htmlAttrs)
+		return FhirDateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
+	return FhirDateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_RestoreDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("restoreDate", nil, htmlAttrs)
+		return FhirDateTimeInput("restoreDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("restoreDate", resource.RestoreDate, htmlAttrs)
+	return FhirDateTimeInput("restoreDate", resource.RestoreDate, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_ValidityPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("validityPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("validityPeriod", resource.ValidityPeriod, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_DataExclusivityPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("dataExclusivityPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("dataExclusivityPeriod", resource.DataExclusivityPeriod, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_DateOfFirstAuthorization(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("dateOfFirstAuthorization", nil, htmlAttrs)
+		return FhirDateTimeInput("dateOfFirstAuthorization", nil, htmlAttrs)
 	}
-	return DateTimeInput("dateOfFirstAuthorization", resource.DateOfFirstAuthorization, htmlAttrs)
+	return FhirDateTimeInput("dateOfFirstAuthorization", resource.DateOfFirstAuthorization, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_InternationalBirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("internationalBirthDate", nil, htmlAttrs)
+		return FhirDateTimeInput("internationalBirthDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("internationalBirthDate", resource.InternationalBirthDate, htmlAttrs)
+	return FhirDateTimeInput("internationalBirthDate", resource.InternationalBirthDate, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_LegalBasis(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("legalBasis", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("legalBasis", resource.LegalBasis, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_Holder(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("holder", nil, htmlAttrs)
+	}
+	return ReferenceInput("holder", resource.Holder, htmlAttrs)
+}
+func (resource *MedicinalProductAuthorization) T_Regulator(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("regulator", nil, htmlAttrs)
+	}
+	return ReferenceInput("regulator", resource.Regulator, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationCountry(numJurisdictionalAuthorization int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) {
@@ -155,15 +185,27 @@ func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationLega
 	}
 	return CodeableConceptSelect("jurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].legalStatusOfSupply", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].LegalStatusOfSupply, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationValidityPeriod(numJurisdictionalAuthorization int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) {
+		return PeriodInput("jurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].validityPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("jurisdictionalAuthorization["+strconv.Itoa(numJurisdictionalAuthorization)+"].validityPeriod", resource.JurisdictionalAuthorization[numJurisdictionalAuthorization].ValidityPeriod, htmlAttrs)
+}
 func (resource *MedicinalProductAuthorization) T_ProcedureType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("procedure.type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("procedure.type", &resource.Procedure.Type, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductAuthorization) T_ProcedureDatePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("procedure.datePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("procedure.datePeriod", resource.Procedure.DatePeriod, htmlAttrs)
+}
 func (resource *MedicinalProductAuthorization) T_ProcedureDateDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("procedure.dateDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("procedure.dateDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("procedure.dateDateTime", resource.Procedure.DateDateTime, htmlAttrs)
+	return FhirDateTimeInput("procedure.dateDateTime", resource.Procedure.DateDateTime, htmlAttrs)
 }

@@ -88,6 +88,12 @@ func (resource *SupplyRequest) T_Status(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *SupplyRequest) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
 func (resource *SupplyRequest) T_Category(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("category", nil, optionsValueSet, htmlAttrs)
@@ -102,17 +108,77 @@ func (resource *SupplyRequest) T_Priority(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
+func (resource *SupplyRequest) T_DeliverFor(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("deliverFor", nil, htmlAttrs)
+	}
+	return ReferenceInput("deliverFor", resource.DeliverFor, htmlAttrs)
+}
+func (resource *SupplyRequest) T_Item(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("item", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("item", &resource.Item, htmlAttrs)
+}
+func (resource *SupplyRequest) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("quantity", &resource.Quantity, htmlAttrs)
+}
 func (resource *SupplyRequest) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *SupplyRequest) T_OccurrencePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
+}
+func (resource *SupplyRequest) T_OccurrenceTiming(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("occurrenceTiming", nil, htmlAttrs)
+	}
+	return TimingInput("occurrenceTiming", resource.OccurrenceTiming, htmlAttrs)
 }
 func (resource *SupplyRequest) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("authoredOn", nil, htmlAttrs)
+		return FhirDateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+}
+func (resource *SupplyRequest) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("requester", nil, htmlAttrs)
+	}
+	return ReferenceInput("requester", resource.Requester, htmlAttrs)
+}
+func (resource *SupplyRequest) T_Supplier(numSupplier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupplier >= len(resource.Supplier) {
+		return ReferenceInput("supplier["+strconv.Itoa(numSupplier)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supplier["+strconv.Itoa(numSupplier)+"]", &resource.Supplier[numSupplier], htmlAttrs)
+}
+func (resource *SupplyRequest) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
+}
+func (resource *SupplyRequest) T_DeliverFrom(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("deliverFrom", nil, htmlAttrs)
+	}
+	return ReferenceInput("deliverFrom", resource.DeliverFrom, htmlAttrs)
+}
+func (resource *SupplyRequest) T_DeliverTo(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("deliverTo", nil, htmlAttrs)
+	}
+	return ReferenceInput("deliverTo", resource.DeliverTo, htmlAttrs)
 }
 func (resource *SupplyRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -125,6 +191,18 @@ func (resource *SupplyRequest) T_ParameterValueCodeableConcept(numParameter int,
 		return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *SupplyRequest) T_ParameterValueQuantity(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParameter >= len(resource.Parameter) {
+		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, htmlAttrs)
+}
+func (resource *SupplyRequest) T_ParameterValueRange(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParameter >= len(resource.Parameter) {
+		return RangeInput("parameter["+strconv.Itoa(numParameter)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("parameter["+strconv.Itoa(numParameter)+"].valueRange", resource.Parameter[numParameter].ValueRange, htmlAttrs)
 }
 func (resource *SupplyRequest) T_ParameterValueBoolean(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {

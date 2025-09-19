@@ -127,17 +127,47 @@ func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs templ.Attributes)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *BiologicallyDerivedProduct) T_Request(numRequest int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRequest >= len(resource.Request) {
+		return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
+}
 func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("quantity", nil, htmlAttrs)
 	}
 	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
+func (resource *BiologicallyDerivedProduct) T_Parent(numParent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParent >= len(resource.Parent) {
+		return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_CollectionCollector(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("collection.collector", nil, htmlAttrs)
+	}
+	return ReferenceInput("collection.collector", resource.Collection.Collector, htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_CollectionSource(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("collection.source", nil, htmlAttrs)
+	}
+	return ReferenceInput("collection.source", resource.Collection.Source, htmlAttrs)
+}
 func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("collection.collectedDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("collection.collectedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("collection.collectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
+	return FhirDateTimeInput("collection.collectedDateTime", resource.Collection.CollectedDateTime, htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_CollectionCollectedPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("collection.collectedPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("collection.collectedPeriod", resource.Collection.CollectedPeriod, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProcessingDescription(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
@@ -151,11 +181,23 @@ func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing 
 	}
 	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
 }
+func (resource *BiologicallyDerivedProduct) T_ProcessingAdditive(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcessing >= len(resource.Processing) {
+		return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive", nil, htmlAttrs)
+	}
+	return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive", resource.Processing[numProcessing].Additive, htmlAttrs)
+}
 func (resource *BiologicallyDerivedProduct) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
+	return FhirDateTimeInput("processing["+strconv.Itoa(numProcessing)+"].timeDateTime", resource.Processing[numProcessing].TimeDateTime, htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_ProcessingTimePeriod(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcessing >= len(resource.Processing) {
+		return PeriodInput("processing["+strconv.Itoa(numProcessing)+"].timePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("processing["+strconv.Itoa(numProcessing)+"].timePeriod", resource.Processing[numProcessing].TimePeriod, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ManipulationDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -165,9 +207,15 @@ func (resource *BiologicallyDerivedProduct) T_ManipulationDescription(htmlAttrs 
 }
 func (resource *BiologicallyDerivedProduct) T_ManipulationTimeDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("manipulation.timeDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("manipulation.timeDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("manipulation.timeDateTime", resource.Manipulation.TimeDateTime, htmlAttrs)
+	return FhirDateTimeInput("manipulation.timeDateTime", resource.Manipulation.TimeDateTime, htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_ManipulationTimePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("manipulation.timePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("manipulation.timePeriod", resource.Manipulation.TimePeriod, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_StorageDescription(numStorage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStorage >= len(resource.Storage) {
@@ -188,4 +236,10 @@ func (resource *BiologicallyDerivedProduct) T_StorageScale(numStorage int, htmlA
 		return CodeSelect("storage["+strconv.Itoa(numStorage)+"].scale", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("storage["+strconv.Itoa(numStorage)+"].scale", resource.Storage[numStorage].Scale, optionsValueSet, htmlAttrs)
+}
+func (resource *BiologicallyDerivedProduct) T_StorageDuration(numStorage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStorage >= len(resource.Storage) {
+		return PeriodInput("storage["+strconv.Itoa(numStorage)+"].duration", nil, htmlAttrs)
+	}
+	return PeriodInput("storage["+strconv.Itoa(numStorage)+"].duration", resource.Storage[numStorage].Duration, htmlAttrs)
 }

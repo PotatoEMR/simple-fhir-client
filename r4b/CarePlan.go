@@ -124,6 +124,24 @@ func (resource *CarePlan) T_InstantiatesUri(numInstantiatesUri int, htmlAttrs te
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *CarePlan) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *CarePlan) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReplaces >= len(resource.Replaces) {
+		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+}
+func (resource *CarePlan) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *CarePlan) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_status
 
@@ -158,11 +176,65 @@ func (resource *CarePlan) T_Description(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
+func (resource *CarePlan) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *CarePlan) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
+func (resource *CarePlan) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
 func (resource *CarePlan) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("created", nil, htmlAttrs)
+		return FhirDateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("created", resource.Created, htmlAttrs)
+	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
+}
+func (resource *CarePlan) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
+}
+func (resource *CarePlan) T_Contributor(numContributor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContributor >= len(resource.Contributor) {
+		return ReferenceInput("contributor["+strconv.Itoa(numContributor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("contributor["+strconv.Itoa(numContributor)+"]", &resource.Contributor[numContributor], htmlAttrs)
+}
+func (resource *CarePlan) T_CareTeam(numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"]", &resource.CareTeam[numCareTeam], htmlAttrs)
+}
+func (resource *CarePlan) T_Addresses(numAddresses int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddresses >= len(resource.Addresses) {
+		return ReferenceInput("addresses["+strconv.Itoa(numAddresses)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("addresses["+strconv.Itoa(numAddresses)+"]", &resource.Addresses[numAddresses], htmlAttrs)
+}
+func (resource *CarePlan) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+}
+func (resource *CarePlan) T_Goal(numGoal int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGoal >= len(resource.Goal) {
+		return ReferenceInput("goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("goal["+strconv.Itoa(numGoal)+"]", &resource.Goal[numGoal], htmlAttrs)
 }
 func (resource *CarePlan) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -176,11 +248,23 @@ func (resource *CarePlan) T_ActivityOutcomeCodeableConcept(numActivity int, numO
 	}
 	return CodeableConceptSelect("activity["+strconv.Itoa(numActivity)+"].outcomeCodeableConcept["+strconv.Itoa(numOutcomeCodeableConcept)+"]", &resource.Activity[numActivity].OutcomeCodeableConcept[numOutcomeCodeableConcept], optionsValueSet, htmlAttrs)
 }
+func (resource *CarePlan) T_ActivityOutcomeReference(numActivity int, numOutcomeReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) || numOutcomeReference >= len(resource.Activity[numActivity].OutcomeReference) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].outcomeReference["+strconv.Itoa(numOutcomeReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].outcomeReference["+strconv.Itoa(numOutcomeReference)+"]", &resource.Activity[numActivity].OutcomeReference[numOutcomeReference], htmlAttrs)
+}
 func (resource *CarePlan) T_ActivityProgress(numActivity int, numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) || numProgress >= len(resource.Activity[numActivity].Progress) {
 		return AnnotationTextArea("activity["+strconv.Itoa(numActivity)+"].progress["+strconv.Itoa(numProgress)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("activity["+strconv.Itoa(numActivity)+"].progress["+strconv.Itoa(numProgress)+"]", &resource.Activity[numActivity].Progress[numProgress], htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityReference(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].reference", resource.Activity[numActivity].Reference, htmlAttrs)
 }
 func (resource *CarePlan) T_ActivityDetailKind(numActivity int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCare_plan_activity_kind
@@ -214,6 +298,18 @@ func (resource *CarePlan) T_ActivityDetailReasonCode(numActivity int, numReasonC
 	}
 	return CodeableConceptSelect("activity["+strconv.Itoa(numActivity)+"].detail.reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.Activity[numActivity].Detail.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
+func (resource *CarePlan) T_ActivityDetailReasonReference(numActivity int, numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) || numReasonReference >= len(resource.Activity[numActivity].Detail.ReasonReference) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.Activity[numActivity].Detail.ReasonReference[numReasonReference], htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailGoal(numActivity int, numGoal int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) || numGoal >= len(resource.Activity[numActivity].Detail.Goal) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.goal["+strconv.Itoa(numGoal)+"]", &resource.Activity[numActivity].Detail.Goal[numGoal], htmlAttrs)
+}
 func (resource *CarePlan) T_ActivityDetailStatus(numActivity int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCare_plan_activity_status
 
@@ -234,17 +330,59 @@ func (resource *CarePlan) T_ActivityDetailDoNotPerform(numActivity int, htmlAttr
 	}
 	return BoolInput("activity["+strconv.Itoa(numActivity)+"].detail.doNotPerform", resource.Activity[numActivity].Detail.DoNotPerform, htmlAttrs)
 }
+func (resource *CarePlan) T_ActivityDetailScheduledTiming(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return TimingInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledTiming", nil, htmlAttrs)
+	}
+	return TimingInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledTiming", resource.Activity[numActivity].Detail.ScheduledTiming, htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailScheduledPeriod(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return PeriodInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledPeriod", resource.Activity[numActivity].Detail.ScheduledPeriod, htmlAttrs)
+}
 func (resource *CarePlan) T_ActivityDetailScheduledString(numActivity int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) {
 		return StringInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledString", nil, htmlAttrs)
 	}
 	return StringInput("activity["+strconv.Itoa(numActivity)+"].detail.scheduledString", resource.Activity[numActivity].Detail.ScheduledString, htmlAttrs)
 }
+func (resource *CarePlan) T_ActivityDetailLocation(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.location", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.location", resource.Activity[numActivity].Detail.Location, htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailPerformer(numActivity int, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) || numPerformer >= len(resource.Activity[numActivity].Detail.Performer) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.performer["+strconv.Itoa(numPerformer)+"]", &resource.Activity[numActivity].Detail.Performer[numPerformer], htmlAttrs)
+}
 func (resource *CarePlan) T_ActivityDetailProductCodeableConcept(numActivity int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) {
 		return CodeableConceptSelect("activity["+strconv.Itoa(numActivity)+"].detail.productCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("activity["+strconv.Itoa(numActivity)+"].detail.productCodeableConcept", resource.Activity[numActivity].Detail.ProductCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailProductReference(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.productReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("activity["+strconv.Itoa(numActivity)+"].detail.productReference", resource.Activity[numActivity].Detail.ProductReference, htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailDailyAmount(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return QuantityInput("activity["+strconv.Itoa(numActivity)+"].detail.dailyAmount", nil, htmlAttrs)
+	}
+	return QuantityInput("activity["+strconv.Itoa(numActivity)+"].detail.dailyAmount", resource.Activity[numActivity].Detail.DailyAmount, htmlAttrs)
+}
+func (resource *CarePlan) T_ActivityDetailQuantity(numActivity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActivity >= len(resource.Activity) {
+		return QuantityInput("activity["+strconv.Itoa(numActivity)+"].detail.quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("activity["+strconv.Itoa(numActivity)+"].detail.quantity", resource.Activity[numActivity].Detail.Quantity, htmlAttrs)
 }
 func (resource *CarePlan) T_ActivityDetailDescription(numActivity int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActivity >= len(resource.Activity) {

@@ -71,6 +71,12 @@ func (resource *Schedule) T_ServiceCategory(numServiceCategory int, optionsValue
 	}
 	return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *Schedule) T_ServiceType(numServiceType int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numServiceType >= len(resource.ServiceType) {
+		return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], htmlAttrs)
+}
 func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
@@ -82,6 +88,18 @@ func (resource *Schedule) T_Name(htmlAttrs templ.Attributes) templ.Component {
 		return StringInput("name", nil, htmlAttrs)
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
+}
+func (resource *Schedule) T_Actor(numActor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActor >= len(resource.Actor) {
+		return ReferenceInput("actor["+strconv.Itoa(numActor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("actor["+strconv.Itoa(numActor)+"]", &resource.Actor[numActor], htmlAttrs)
+}
+func (resource *Schedule) T_PlanningHorizon(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("planningHorizon", nil, htmlAttrs)
+	}
+	return PeriodInput("planningHorizon", resource.PlanningHorizon, htmlAttrs)
 }
 func (resource *Schedule) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

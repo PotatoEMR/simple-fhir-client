@@ -95,6 +95,24 @@ func (resource *Communication) T_InstantiatesUri(numInstantiatesUri int, htmlAtt
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *Communication) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *Communication) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
+func (resource *Communication) T_InResponseTo(numInResponseTo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInResponseTo >= len(resource.InResponseTo) {
+		return ReferenceInput("inResponseTo["+strconv.Itoa(numInResponseTo)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("inResponseTo["+strconv.Itoa(numInResponseTo)+"]", &resource.InResponseTo[numInResponseTo], htmlAttrs)
+}
 func (resource *Communication) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
 
@@ -129,29 +147,65 @@ func (resource *Communication) T_Medium(numMedium int, optionsValueSet []Coding,
 	}
 	return CodeableConceptSelect("medium["+strconv.Itoa(numMedium)+"]", &resource.Medium[numMedium], optionsValueSet, htmlAttrs)
 }
+func (resource *Communication) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
 func (resource *Communication) T_Topic(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("topic", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic", resource.Topic, optionsValueSet, htmlAttrs)
 }
+func (resource *Communication) T_About(numAbout int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAbout >= len(resource.About) {
+		return ReferenceInput("about["+strconv.Itoa(numAbout)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("about["+strconv.Itoa(numAbout)+"]", &resource.About[numAbout], htmlAttrs)
+}
+func (resource *Communication) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *Communication) T_Sent(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("sent", nil, htmlAttrs)
+		return FhirDateTimeInput("sent", nil, htmlAttrs)
 	}
-	return DateTimeInput("sent", resource.Sent, htmlAttrs)
+	return FhirDateTimeInput("sent", resource.Sent, htmlAttrs)
 }
 func (resource *Communication) T_Received(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("received", nil, htmlAttrs)
+		return FhirDateTimeInput("received", nil, htmlAttrs)
 	}
-	return DateTimeInput("received", resource.Received, htmlAttrs)
+	return FhirDateTimeInput("received", resource.Received, htmlAttrs)
+}
+func (resource *Communication) T_Recipient(numRecipient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRecipient >= len(resource.Recipient) {
+		return ReferenceInput("recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("recipient["+strconv.Itoa(numRecipient)+"]", &resource.Recipient[numRecipient], htmlAttrs)
+}
+func (resource *Communication) T_Sender(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("sender", nil, htmlAttrs)
+	}
+	return ReferenceInput("sender", resource.Sender, htmlAttrs)
 }
 func (resource *Communication) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *Communication) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *Communication) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -164,4 +218,16 @@ func (resource *Communication) T_PayloadContentString(numPayload int, htmlAttrs 
 		return StringInput("payload["+strconv.Itoa(numPayload)+"].contentString", nil, htmlAttrs)
 	}
 	return StringInput("payload["+strconv.Itoa(numPayload)+"].contentString", &resource.Payload[numPayload].ContentString, htmlAttrs)
+}
+func (resource *Communication) T_PayloadContentAttachment(numPayload int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPayload >= len(resource.Payload) {
+		return AttachmentInput("payload["+strconv.Itoa(numPayload)+"].contentAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("payload["+strconv.Itoa(numPayload)+"].contentAttachment", &resource.Payload[numPayload].ContentAttachment, htmlAttrs)
+}
+func (resource *Communication) T_PayloadContentReference(numPayload int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPayload >= len(resource.Payload) {
+		return ReferenceInput("payload["+strconv.Itoa(numPayload)+"].contentReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("payload["+strconv.Itoa(numPayload)+"].contentReference", &resource.Payload[numPayload].ContentReference, htmlAttrs)
 }

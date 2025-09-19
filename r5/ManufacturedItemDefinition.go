@@ -123,6 +123,18 @@ func (resource *ManufacturedItemDefinition) T_UnitOfPresentation(optionsValueSet
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
+func (resource *ManufacturedItemDefinition) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
+		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+}
+func (resource *ManufacturedItemDefinition) T_MarketingStatus(numMarketingStatus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMarketingStatus >= len(resource.MarketingStatus) {
+		return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", nil, htmlAttrs)
+	}
+	return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", &resource.MarketingStatus[numMarketingStatus], htmlAttrs)
+}
 func (resource *ManufacturedItemDefinition) T_Ingredient(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
 		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"]", nil, optionsValueSet, htmlAttrs)
@@ -141,11 +153,17 @@ func (resource *ManufacturedItemDefinition) T_PropertyValueCodeableConcept(numPr
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *ManufacturedItemDefinition) T_PropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProperty >= len(resource.Property) {
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Property[numProperty].ValueQuantity, htmlAttrs)
+}
 func (resource *ManufacturedItemDefinition) T_PropertyValueDate(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return DateInput("property["+strconv.Itoa(numProperty)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("property["+strconv.Itoa(numProperty)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("property["+strconv.Itoa(numProperty)+"].valueDate", resource.Property[numProperty].ValueDate, htmlAttrs)
+	return FhirDateInput("property["+strconv.Itoa(numProperty)+"].valueDate", resource.Property[numProperty].ValueDate, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyValueBoolean(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
@@ -159,6 +177,18 @@ func (resource *ManufacturedItemDefinition) T_PropertyValueMarkdown(numProperty 
 	}
 	return StringInput("property["+strconv.Itoa(numProperty)+"].valueMarkdown", resource.Property[numProperty].ValueMarkdown, htmlAttrs)
 }
+func (resource *ManufacturedItemDefinition) T_PropertyValueAttachment(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProperty >= len(resource.Property) {
+		return AttachmentInput("property["+strconv.Itoa(numProperty)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("property["+strconv.Itoa(numProperty)+"].valueAttachment", resource.Property[numProperty].ValueAttachment, htmlAttrs)
+}
+func (resource *ManufacturedItemDefinition) T_PropertyValueReference(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProperty >= len(resource.Property) {
+		return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", resource.Property[numProperty].ValueReference, htmlAttrs)
+}
 func (resource *ManufacturedItemDefinition) T_ComponentType(numComponent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
 		return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].type", nil, optionsValueSet, htmlAttrs)
@@ -171,6 +201,18 @@ func (resource *ManufacturedItemDefinition) T_ComponentFunction(numComponent int
 	}
 	return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].function["+strconv.Itoa(numFunction)+"]", &resource.Component[numComponent].Function[numFunction], optionsValueSet, htmlAttrs)
 }
+func (resource *ManufacturedItemDefinition) T_ComponentAmount(numComponent int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numComponent >= len(resource.Component) || numAmount >= len(resource.Component[numComponent].Amount) {
+		return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+	}
+	return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Amount[numAmount], htmlAttrs)
+}
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentAmount(numComponent int, numConstituent int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numComponent >= len(resource.Component) || numConstituent >= len(resource.Component[numComponent].Constituent) || numAmount >= len(resource.Component[numComponent].Constituent[numConstituent].Amount) {
+		return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+	}
+	return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Constituent[numConstituent].Amount[numAmount], htmlAttrs)
+}
 func (resource *ManufacturedItemDefinition) T_ComponentConstituentLocation(numComponent int, numConstituent int, numLocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) || numConstituent >= len(resource.Component[numComponent].Constituent) || numLocation >= len(resource.Component[numComponent].Constituent[numConstituent].Location) {
 		return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].location["+strconv.Itoa(numLocation)+"]", nil, optionsValueSet, htmlAttrs)
@@ -182,4 +224,10 @@ func (resource *ManufacturedItemDefinition) T_ComponentConstituentFunction(numCo
 		return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].function["+strconv.Itoa(numFunction)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].function["+strconv.Itoa(numFunction)+"]", &resource.Component[numComponent].Constituent[numConstituent].Function[numFunction], optionsValueSet, htmlAttrs)
+}
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentHasIngredient(numComponent int, numConstituent int, numHasIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numComponent >= len(resource.Component) || numConstituent >= len(resource.Component[numComponent].Constituent) || numHasIngredient >= len(resource.Component[numComponent].Constituent[numConstituent].HasIngredient) {
+		return CodeableReferenceInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].hasIngredient["+strconv.Itoa(numHasIngredient)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].hasIngredient["+strconv.Itoa(numHasIngredient)+"]", &resource.Component[numComponent].Constituent[numConstituent].HasIngredient[numHasIngredient], htmlAttrs)
 }

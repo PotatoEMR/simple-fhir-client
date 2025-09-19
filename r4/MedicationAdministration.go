@@ -100,6 +100,12 @@ func (resource *MedicationAdministration) T_Instantiates(numInstantiates int, ht
 	}
 	return StringInput("instantiates["+strconv.Itoa(numInstantiates)+"]", &resource.Instantiates[numInstantiates], htmlAttrs)
 }
+func (resource *MedicationAdministration) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *MedicationAdministration) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMedication_admin_status
 
@@ -126,11 +132,41 @@ func (resource *MedicationAdministration) T_MedicationCodeableConcept(optionsVal
 	}
 	return CodeableConceptSelect("medicationCodeableConcept", &resource.MedicationCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationAdministration) T_MedicationReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("medicationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("medicationReference", &resource.MedicationReference, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_Context(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("context", nil, htmlAttrs)
+	}
+	return ReferenceInput("context", resource.Context, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_SupportingInformation(numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInformation >= len(resource.SupportingInformation) {
+		return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
+}
 func (resource *MedicationAdministration) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("effectiveDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("effectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("effectiveDateTime", &resource.EffectiveDateTime, htmlAttrs)
+	return FhirDateTimeInput("effectiveDateTime", &resource.EffectiveDateTime, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", &resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
@@ -138,11 +174,35 @@ func (resource *MedicationAdministration) T_ReasonCode(numReasonCode int, option
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationAdministration) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
+}
+func (resource *MedicationAdministration) T_Request(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("request", nil, htmlAttrs)
+	}
+	return ReferenceInput("request", resource.Request, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_Device(numDevice int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDevice >= len(resource.Device) {
+		return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", &resource.Device[numDevice], htmlAttrs)
+}
 func (resource *MedicationAdministration) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *MedicationAdministration) T_EventHistory(numEventHistory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEventHistory >= len(resource.EventHistory) {
+		return ReferenceInput("eventHistory["+strconv.Itoa(numEventHistory)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("eventHistory["+strconv.Itoa(numEventHistory)+"]", &resource.EventHistory[numEventHistory], htmlAttrs)
 }
 func (resource *MedicationAdministration) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
@@ -150,11 +210,11 @@ func (resource *MedicationAdministration) T_PerformerFunction(numPerformer int, 
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicationAdministration) T_DosageText(htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil {
-		return StringInput("dosage.text", nil, htmlAttrs)
+func (resource *MedicationAdministration) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
 	}
-	return StringInput("dosage.text", resource.Dosage.Text, htmlAttrs)
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
 }
 func (resource *MedicationAdministration) T_DosageSite(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -173,4 +233,22 @@ func (resource *MedicationAdministration) T_DosageMethod(optionsValueSet []Codin
 		return CodeableConceptSelect("dosage.method", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("dosage.method", resource.Dosage.Method, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_DosageDose(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("dosage.dose", nil, htmlAttrs)
+	}
+	return QuantityInput("dosage.dose", resource.Dosage.Dose, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_DosageRateRatio(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RatioInput("dosage.rateRatio", nil, htmlAttrs)
+	}
+	return RatioInput("dosage.rateRatio", resource.Dosage.RateRatio, htmlAttrs)
+}
+func (resource *MedicationAdministration) T_DosageRateQuantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("dosage.rateQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("dosage.rateQuantity", resource.Dosage.RateQuantity, htmlAttrs)
 }

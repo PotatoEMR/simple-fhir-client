@@ -74,6 +74,12 @@ func (resource *Subscription) T_Status(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *Subscription) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *Subscription) T_End(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("end", nil, htmlAttrs)

@@ -235,9 +235,9 @@ func (resource *StructureMap) T_Experimental(htmlAttrs templ.Attributes) templ.C
 }
 func (resource *StructureMap) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *StructureMap) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -245,11 +245,23 @@ func (resource *StructureMap) T_Publisher(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *StructureMap) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *StructureMap) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *StructureMap) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *StructureMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -523,9 +535,9 @@ func (resource *StructureMap) T_GroupRuleTargetParameterValueDecimal(numGroup in
 }
 func (resource *StructureMap) T_GroupRuleTargetParameterValueDate(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
-		return DateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDate", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueDate, htmlAttrs)
+	return FhirDateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDate", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueDate, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleTargetParameterValueTime(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
@@ -535,9 +547,9 @@ func (resource *StructureMap) T_GroupRuleTargetParameterValueTime(numGroup int, 
 }
 func (resource *StructureMap) T_GroupRuleTargetParameterValueDateTime(numGroup int, numRule int, numTarget int, numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numTarget >= len(resource.Group[numGroup].Rule[numRule].Target) || numParameter >= len(resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter) {
-		return DateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDateTime", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].target["+strconv.Itoa(numTarget)+"].parameter["+strconv.Itoa(numParameter)+"].valueDateTime", &resource.Group[numGroup].Rule[numRule].Target[numTarget].Parameter[numParameter].ValueDateTime, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleDependentName(numGroup int, numRule int, numDependent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numDependent >= len(resource.Group[numGroup].Rule[numRule].Dependent) {

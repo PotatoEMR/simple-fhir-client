@@ -116,11 +116,17 @@ func (resource *Goal) T_Description(optionsValueSet []Coding, htmlAttrs templ.At
 	}
 	return CodeableConceptSelect("description", &resource.Description, optionsValueSet, htmlAttrs)
 }
+func (resource *Goal) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
 func (resource *Goal) T_StartDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("startDate", nil, htmlAttrs)
+		return FhirDateInput("startDate", nil, htmlAttrs)
 	}
-	return DateInput("startDate", resource.StartDate, htmlAttrs)
+	return FhirDateInput("startDate", resource.StartDate, htmlAttrs)
 }
 func (resource *Goal) T_StartCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -130,15 +136,27 @@ func (resource *Goal) T_StartCodeableConcept(optionsValueSet []Coding, htmlAttrs
 }
 func (resource *Goal) T_StatusDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("statusDate", nil, htmlAttrs)
+		return FhirDateInput("statusDate", nil, htmlAttrs)
 	}
-	return DateInput("statusDate", resource.StatusDate, htmlAttrs)
+	return FhirDateInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *Goal) T_StatusReason(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("statusReason", nil, htmlAttrs)
 	}
 	return StringInput("statusReason", resource.StatusReason, htmlAttrs)
+}
+func (resource *Goal) T_ExpressedBy(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("expressedBy", nil, htmlAttrs)
+	}
+	return ReferenceInput("expressedBy", resource.ExpressedBy, htmlAttrs)
+}
+func (resource *Goal) T_Addresses(numAddresses int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddresses >= len(resource.Addresses) {
+		return ReferenceInput("addresses["+strconv.Itoa(numAddresses)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("addresses["+strconv.Itoa(numAddresses)+"]", &resource.Addresses[numAddresses], htmlAttrs)
 }
 func (resource *Goal) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -152,11 +170,29 @@ func (resource *Goal) T_OutcomeCode(numOutcomeCode int, optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("outcomeCode["+strconv.Itoa(numOutcomeCode)+"]", &resource.OutcomeCode[numOutcomeCode], optionsValueSet, htmlAttrs)
 }
+func (resource *Goal) T_OutcomeReference(numOutcomeReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutcomeReference >= len(resource.OutcomeReference) {
+		return ReferenceInput("outcomeReference["+strconv.Itoa(numOutcomeReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("outcomeReference["+strconv.Itoa(numOutcomeReference)+"]", &resource.OutcomeReference[numOutcomeReference], htmlAttrs)
+}
 func (resource *Goal) T_TargetMeasure(numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
 		return CodeableConceptSelect("target["+strconv.Itoa(numTarget)+"].measure", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("target["+strconv.Itoa(numTarget)+"].measure", resource.Target[numTarget].Measure, optionsValueSet, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailQuantity(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return QuantityInput("target["+strconv.Itoa(numTarget)+"].detailQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("target["+strconv.Itoa(numTarget)+"].detailQuantity", resource.Target[numTarget].DetailQuantity, htmlAttrs)
+}
+func (resource *Goal) T_TargetDetailRange(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return RangeInput("target["+strconv.Itoa(numTarget)+"].detailRange", nil, htmlAttrs)
+	}
+	return RangeInput("target["+strconv.Itoa(numTarget)+"].detailRange", resource.Target[numTarget].DetailRange, htmlAttrs)
 }
 func (resource *Goal) T_TargetDetailCodeableConcept(numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
@@ -182,9 +218,21 @@ func (resource *Goal) T_TargetDetailInteger(numTarget int, htmlAttrs templ.Attri
 	}
 	return IntInput("target["+strconv.Itoa(numTarget)+"].detailInteger", resource.Target[numTarget].DetailInteger, htmlAttrs)
 }
+func (resource *Goal) T_TargetDetailRatio(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return RatioInput("target["+strconv.Itoa(numTarget)+"].detailRatio", nil, htmlAttrs)
+	}
+	return RatioInput("target["+strconv.Itoa(numTarget)+"].detailRatio", resource.Target[numTarget].DetailRatio, htmlAttrs)
+}
 func (resource *Goal) T_TargetDueDate(numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
-		return DateInput("target["+strconv.Itoa(numTarget)+"].dueDate", nil, htmlAttrs)
+		return FhirDateInput("target["+strconv.Itoa(numTarget)+"].dueDate", nil, htmlAttrs)
 	}
-	return DateInput("target["+strconv.Itoa(numTarget)+"].dueDate", resource.Target[numTarget].DueDate, htmlAttrs)
+	return FhirDateInput("target["+strconv.Itoa(numTarget)+"].dueDate", resource.Target[numTarget].DueDate, htmlAttrs)
+}
+func (resource *Goal) T_TargetDueDuration(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return DurationInput("target["+strconv.Itoa(numTarget)+"].dueDuration", nil, htmlAttrs)
+	}
+	return DurationInput("target["+strconv.Itoa(numTarget)+"].dueDuration", resource.Target[numTarget].DueDuration, htmlAttrs)
 }

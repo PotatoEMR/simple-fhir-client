@@ -70,6 +70,24 @@ func (resource *PractitionerRole) T_Active(htmlAttrs templ.Attributes) templ.Com
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *PractitionerRole) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Practitioner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("practitioner", nil, htmlAttrs)
+	}
+	return ReferenceInput("practitioner", resource.Practitioner, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Organization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("organization", nil, htmlAttrs)
+	}
+	return ReferenceInput("organization", resource.Organization, htmlAttrs)
+}
 func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
@@ -82,6 +100,24 @@ func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet 
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
+func (resource *PractitionerRole) T_Location(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLocation >= len(resource.Location) {
+		return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
+}
+func (resource *PractitionerRole) T_HealthcareService(numHealthcareService int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numHealthcareService >= len(resource.HealthcareService) {
+		return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", &resource.HealthcareService[numHealthcareService], htmlAttrs)
+}
+func (resource *PractitionerRole) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *PractitionerRole) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet, htmlAttrs)
@@ -93,4 +129,16 @@ func (resource *PractitionerRole) T_Communication(numCommunication int, optionsV
 		return CodeableConceptSelect("communication["+strconv.Itoa(numCommunication)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("communication["+strconv.Itoa(numCommunication)+"]", &resource.Communication[numCommunication], optionsValueSet, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Availability(numAvailability int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAvailability >= len(resource.Availability) {
+		return AvailabilityInput("availability["+strconv.Itoa(numAvailability)+"]", nil, htmlAttrs)
+	}
+	return AvailabilityInput("availability["+strconv.Itoa(numAvailability)+"]", &resource.Availability[numAvailability], htmlAttrs)
+}
+func (resource *PractitionerRole) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }

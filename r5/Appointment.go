@@ -171,6 +171,12 @@ func (resource *Appointment) T_ServiceCategory(numServiceCategory int, optionsVa
 	}
 	return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *Appointment) T_ServiceType(numServiceType int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numServiceType >= len(resource.ServiceType) {
+		return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], htmlAttrs)
+}
 func (resource *Appointment) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
@@ -183,6 +189,12 @@ func (resource *Appointment) T_AppointmentType(optionsValueSet []Coding, htmlAtt
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet, htmlAttrs)
 }
+func (resource *Appointment) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
+}
 func (resource *Appointment) T_Priority(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("priority", nil, optionsValueSet, htmlAttrs)
@@ -194,6 +206,36 @@ func (resource *Appointment) T_Description(htmlAttrs templ.Attributes) templ.Com
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *Appointment) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReplaces >= len(resource.Replaces) {
+		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+}
+func (resource *Appointment) T_VirtualService(numVirtualService int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numVirtualService >= len(resource.VirtualService) {
+		return VirtualServiceDetailInput("virtualService["+strconv.Itoa(numVirtualService)+"]", nil, htmlAttrs)
+	}
+	return VirtualServiceDetailInput("virtualService["+strconv.Itoa(numVirtualService)+"]", &resource.VirtualService[numVirtualService], htmlAttrs)
+}
+func (resource *Appointment) T_SupportingInformation(numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInformation >= len(resource.SupportingInformation) {
+		return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
+}
+func (resource *Appointment) T_PreviousAppointment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("previousAppointment", nil, htmlAttrs)
+	}
+	return ReferenceInput("previousAppointment", resource.PreviousAppointment, htmlAttrs)
+}
+func (resource *Appointment) T_OriginatingAppointment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("originatingAppointment", nil, htmlAttrs)
+	}
+	return ReferenceInput("originatingAppointment", resource.OriginatingAppointment, htmlAttrs)
 }
 func (resource *Appointment) T_Start(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -213,23 +255,59 @@ func (resource *Appointment) T_MinutesDuration(htmlAttrs templ.Attributes) templ
 	}
 	return IntInput("minutesDuration", resource.MinutesDuration, htmlAttrs)
 }
+func (resource *Appointment) T_RequestedPeriod(numRequestedPeriod int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRequestedPeriod >= len(resource.RequestedPeriod) {
+		return PeriodInput("requestedPeriod["+strconv.Itoa(numRequestedPeriod)+"]", nil, htmlAttrs)
+	}
+	return PeriodInput("requestedPeriod["+strconv.Itoa(numRequestedPeriod)+"]", &resource.RequestedPeriod[numRequestedPeriod], htmlAttrs)
+}
+func (resource *Appointment) T_Slot(numSlot int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSlot >= len(resource.Slot) {
+		return ReferenceInput("slot["+strconv.Itoa(numSlot)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("slot["+strconv.Itoa(numSlot)+"]", &resource.Slot[numSlot], htmlAttrs)
+}
+func (resource *Appointment) T_Account(numAccount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAccount >= len(resource.Account) {
+		return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", &resource.Account[numAccount], htmlAttrs)
+}
 func (resource *Appointment) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("created", nil, htmlAttrs)
+		return FhirDateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("created", resource.Created, htmlAttrs)
+	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
 }
 func (resource *Appointment) T_CancellationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("cancellationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("cancellationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("cancellationDate", resource.CancellationDate, htmlAttrs)
+	return FhirDateTimeInput("cancellationDate", resource.CancellationDate, htmlAttrs)
 }
 func (resource *Appointment) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *Appointment) T_PatientInstruction(numPatientInstruction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPatientInstruction >= len(resource.PatientInstruction) {
+		return CodeableReferenceInput("patientInstruction["+strconv.Itoa(numPatientInstruction)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("patientInstruction["+strconv.Itoa(numPatientInstruction)+"]", &resource.PatientInstruction[numPatientInstruction], htmlAttrs)
+}
+func (resource *Appointment) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *Appointment) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
 }
 func (resource *Appointment) T_RecurrenceId(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -248,6 +326,18 @@ func (resource *Appointment) T_ParticipantType(numParticipant int, numType int, 
 		return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].type["+strconv.Itoa(numType)+"]", &resource.Participant[numParticipant].Type[numType], optionsValueSet, htmlAttrs)
+}
+func (resource *Appointment) T_ParticipantPeriod(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParticipant >= len(resource.Participant) {
+		return PeriodInput("participant["+strconv.Itoa(numParticipant)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("participant["+strconv.Itoa(numParticipant)+"].period", resource.Participant[numParticipant].Period, htmlAttrs)
+}
+func (resource *Appointment) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParticipant >= len(resource.Participant) {
+		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *Appointment) T_ParticipantRequired(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
@@ -277,9 +367,9 @@ func (resource *Appointment) T_RecurrenceTemplateRecurrenceType(numRecurrenceTem
 }
 func (resource *Appointment) T_RecurrenceTemplateLastOccurrenceDate(numRecurrenceTemplate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecurrenceTemplate >= len(resource.RecurrenceTemplate) {
-		return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].lastOccurrenceDate", nil, htmlAttrs)
+		return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].lastOccurrenceDate", nil, htmlAttrs)
 	}
-	return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].lastOccurrenceDate", resource.RecurrenceTemplate[numRecurrenceTemplate].LastOccurrenceDate, htmlAttrs)
+	return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].lastOccurrenceDate", resource.RecurrenceTemplate[numRecurrenceTemplate].LastOccurrenceDate, htmlAttrs)
 }
 func (resource *Appointment) T_RecurrenceTemplateOccurrenceCount(numRecurrenceTemplate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecurrenceTemplate >= len(resource.RecurrenceTemplate) {
@@ -289,15 +379,15 @@ func (resource *Appointment) T_RecurrenceTemplateOccurrenceCount(numRecurrenceTe
 }
 func (resource *Appointment) T_RecurrenceTemplateOccurrenceDate(numRecurrenceTemplate int, numOccurrenceDate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecurrenceTemplate >= len(resource.RecurrenceTemplate) || numOccurrenceDate >= len(resource.RecurrenceTemplate[numRecurrenceTemplate].OccurrenceDate) {
-		return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].occurrenceDate["+strconv.Itoa(numOccurrenceDate)+"]", nil, htmlAttrs)
+		return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].occurrenceDate["+strconv.Itoa(numOccurrenceDate)+"]", nil, htmlAttrs)
 	}
-	return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].occurrenceDate["+strconv.Itoa(numOccurrenceDate)+"]", &resource.RecurrenceTemplate[numRecurrenceTemplate].OccurrenceDate[numOccurrenceDate], htmlAttrs)
+	return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].occurrenceDate["+strconv.Itoa(numOccurrenceDate)+"]", &resource.RecurrenceTemplate[numRecurrenceTemplate].OccurrenceDate[numOccurrenceDate], htmlAttrs)
 }
 func (resource *Appointment) T_RecurrenceTemplateExcludingDate(numRecurrenceTemplate int, numExcludingDate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecurrenceTemplate >= len(resource.RecurrenceTemplate) || numExcludingDate >= len(resource.RecurrenceTemplate[numRecurrenceTemplate].ExcludingDate) {
-		return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].excludingDate["+strconv.Itoa(numExcludingDate)+"]", nil, htmlAttrs)
+		return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].excludingDate["+strconv.Itoa(numExcludingDate)+"]", nil, htmlAttrs)
 	}
-	return DateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].excludingDate["+strconv.Itoa(numExcludingDate)+"]", &resource.RecurrenceTemplate[numRecurrenceTemplate].ExcludingDate[numExcludingDate], htmlAttrs)
+	return FhirDateInput("recurrenceTemplate["+strconv.Itoa(numRecurrenceTemplate)+"].excludingDate["+strconv.Itoa(numExcludingDate)+"]", &resource.RecurrenceTemplate[numRecurrenceTemplate].ExcludingDate[numExcludingDate], htmlAttrs)
 }
 func (resource *Appointment) T_RecurrenceTemplateExcludingRecurrenceId(numRecurrenceTemplate int, numExcludingRecurrenceId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecurrenceTemplate >= len(resource.RecurrenceTemplate) || numExcludingRecurrenceId >= len(resource.RecurrenceTemplate[numRecurrenceTemplate].ExcludingRecurrenceId) {

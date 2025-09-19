@@ -77,11 +77,29 @@ func (resource *RelatedPerson) T_Active(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *RelatedPerson) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
 func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelationship >= len(resource.Relationship) {
 		return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relationship["+strconv.Itoa(numRelationship)+"]", &resource.Relationship[numRelationship], optionsValueSet, htmlAttrs)
+}
+func (resource *RelatedPerson) T_Name(numName int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numName >= len(resource.Name) {
+		return HumanNameInput("name["+strconv.Itoa(numName)+"]", nil, htmlAttrs)
+	}
+	return HumanNameInput("name["+strconv.Itoa(numName)+"]", &resource.Name[numName], htmlAttrs)
+}
+func (resource *RelatedPerson) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
 }
 func (resource *RelatedPerson) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
@@ -93,9 +111,27 @@ func (resource *RelatedPerson) T_Gender(htmlAttrs templ.Attributes) templ.Compon
 }
 func (resource *RelatedPerson) T_BirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("birthDate", nil, htmlAttrs)
+		return FhirDateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
+	return FhirDateInput("birthDate", resource.BirthDate, htmlAttrs)
+}
+func (resource *RelatedPerson) T_Address(numAddress int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddress >= len(resource.Address) {
+		return AddressInput("address["+strconv.Itoa(numAddress)+"]", nil, htmlAttrs)
+	}
+	return AddressInput("address["+strconv.Itoa(numAddress)+"]", &resource.Address[numAddress], htmlAttrs)
+}
+func (resource *RelatedPerson) T_Photo(numPhoto int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPhoto >= len(resource.Photo) {
+		return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", nil, htmlAttrs)
+	}
+	return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", &resource.Photo[numPhoto], htmlAttrs)
+}
+func (resource *RelatedPerson) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
 }
 func (resource *RelatedPerson) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {

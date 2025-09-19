@@ -138,11 +138,41 @@ func (resource *Consent) T_Category(numCategory int, optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *Consent) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", resource.Patient, htmlAttrs)
+}
 func (resource *Consent) T_DateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("dateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("dateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("dateTime", resource.DateTime, htmlAttrs)
+	return FhirDateTimeInput("dateTime", resource.DateTime, htmlAttrs)
+}
+func (resource *Consent) T_Performer(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
+}
+func (resource *Consent) T_Organization(numOrganization int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOrganization >= len(resource.Organization) {
+		return ReferenceInput("organization["+strconv.Itoa(numOrganization)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("organization["+strconv.Itoa(numOrganization)+"]", &resource.Organization[numOrganization], htmlAttrs)
+}
+func (resource *Consent) T_SourceAttachment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AttachmentInput("sourceAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("sourceAttachment", resource.SourceAttachment, htmlAttrs)
+}
+func (resource *Consent) T_SourceReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("sourceReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("sourceReference", resource.SourceReference, htmlAttrs)
 }
 func (resource *Consent) T_PolicyRule(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -168,11 +198,17 @@ func (resource *Consent) T_VerificationVerified(numVerification int, htmlAttrs t
 	}
 	return BoolInput("verification["+strconv.Itoa(numVerification)+"].verified", &resource.Verification[numVerification].Verified, htmlAttrs)
 }
+func (resource *Consent) T_VerificationVerifiedWith(numVerification int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numVerification >= len(resource.Verification) {
+		return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedWith", nil, htmlAttrs)
+	}
+	return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedWith", resource.Verification[numVerification].VerifiedWith, htmlAttrs)
+}
 func (resource *Consent) T_VerificationVerificationDate(numVerification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVerification >= len(resource.Verification) {
-		return DateTimeInput("verification["+strconv.Itoa(numVerification)+"].verificationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("verification["+strconv.Itoa(numVerification)+"].verificationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("verification["+strconv.Itoa(numVerification)+"].verificationDate", resource.Verification[numVerification].VerificationDate, htmlAttrs)
+	return FhirDateTimeInput("verification["+strconv.Itoa(numVerification)+"].verificationDate", resource.Verification[numVerification].VerificationDate, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionType(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_provision_type
@@ -181,6 +217,12 @@ func (resource *Consent) T_ProvisionType(htmlAttrs templ.Attributes) templ.Compo
 		return CodeSelect("provision.type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("provision.type", resource.Provision.Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Consent) T_ProvisionPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("provision.period", nil, htmlAttrs)
+	}
+	return PeriodInput("provision.period", resource.Provision.Period, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionAction(numAction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Provision.Action) {
@@ -212,11 +254,23 @@ func (resource *Consent) T_ProvisionCode(numCode int, optionsValueSet []Coding, 
 	}
 	return CodeableConceptSelect("provision.code["+strconv.Itoa(numCode)+"]", &resource.Provision.Code[numCode], optionsValueSet, htmlAttrs)
 }
+func (resource *Consent) T_ProvisionDataPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("provision.dataPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("provision.dataPeriod", resource.Provision.DataPeriod, htmlAttrs)
+}
 func (resource *Consent) T_ProvisionActorRole(numActor int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numActor >= len(resource.Provision.Actor) {
 		return CodeableConceptSelect("provision.actor["+strconv.Itoa(numActor)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("provision.actor["+strconv.Itoa(numActor)+"].role", &resource.Provision.Actor[numActor].Role, optionsValueSet, htmlAttrs)
+}
+func (resource *Consent) T_ProvisionActorReference(numActor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActor >= len(resource.Provision.Actor) {
+		return ReferenceInput("provision.actor["+strconv.Itoa(numActor)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("provision.actor["+strconv.Itoa(numActor)+"].reference", &resource.Provision.Actor[numActor].Reference, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionDataMeaning(numData int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
@@ -225,4 +279,10 @@ func (resource *Consent) T_ProvisionDataMeaning(numData int, htmlAttrs templ.Att
 		return CodeSelect("provision.data["+strconv.Itoa(numData)+"].meaning", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("provision.data["+strconv.Itoa(numData)+"].meaning", &resource.Provision.Data[numData].Meaning, optionsValueSet, htmlAttrs)
+}
+func (resource *Consent) T_ProvisionDataReference(numData int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numData >= len(resource.Provision.Data) {
+		return ReferenceInput("provision.data["+strconv.Itoa(numData)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("provision.data["+strconv.Itoa(numData)+"].reference", &resource.Provision.Data[numData].Reference, htmlAttrs)
 }

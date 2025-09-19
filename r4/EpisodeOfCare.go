@@ -95,6 +95,48 @@ func (resource *EpisodeOfCare) T_Type(numType int, optionsValueSet []Coding, htm
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
+func (resource *EpisodeOfCare) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_ReferralRequest(numReferralRequest int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReferralRequest >= len(resource.ReferralRequest) {
+		return ReferenceInput("referralRequest["+strconv.Itoa(numReferralRequest)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("referralRequest["+strconv.Itoa(numReferralRequest)+"]", &resource.ReferralRequest[numReferralRequest], htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_CareManager(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("careManager", nil, htmlAttrs)
+	}
+	return ReferenceInput("careManager", resource.CareManager, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_Team(numTeam int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTeam >= len(resource.Team) {
+		return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", &resource.Team[numTeam], htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_Account(numAccount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAccount >= len(resource.Account) {
+		return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", &resource.Account[numAccount], htmlAttrs)
+}
 func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEpisode_of_care_status
 
@@ -102,6 +144,18 @@ func (resource *EpisodeOfCare) T_StatusHistoryStatus(numStatusHistory int, htmlA
 		return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("statusHistory["+strconv.Itoa(numStatusHistory)+"].status", &resource.StatusHistory[numStatusHistory].Status, optionsValueSet, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_StatusHistoryPeriod(numStatusHistory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStatusHistory >= len(resource.StatusHistory) {
+		return PeriodInput("statusHistory["+strconv.Itoa(numStatusHistory)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("statusHistory["+strconv.Itoa(numStatusHistory)+"].period", &resource.StatusHistory[numStatusHistory].Period, htmlAttrs)
+}
+func (resource *EpisodeOfCare) T_DiagnosisCondition(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return ReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].condition", nil, htmlAttrs)
+	}
+	return ReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].condition", &resource.Diagnosis[numDiagnosis].Condition, htmlAttrs)
 }
 func (resource *EpisodeOfCare) T_DiagnosisRole(numDiagnosis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {

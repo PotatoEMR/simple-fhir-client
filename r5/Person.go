@@ -88,6 +88,18 @@ func (resource *Person) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *Person) T_Name(numName int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numName >= len(resource.Name) {
+		return HumanNameInput("name["+strconv.Itoa(numName)+"]", nil, htmlAttrs)
+	}
+	return HumanNameInput("name["+strconv.Itoa(numName)+"]", &resource.Name[numName], htmlAttrs)
+}
+func (resource *Person) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
+}
 func (resource *Person) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
@@ -98,9 +110,9 @@ func (resource *Person) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 }
 func (resource *Person) T_BirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("birthDate", nil, htmlAttrs)
+		return FhirDateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
+	return FhirDateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Person) T_DeceasedBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -110,9 +122,15 @@ func (resource *Person) T_DeceasedBoolean(htmlAttrs templ.Attributes) templ.Comp
 }
 func (resource *Person) T_DeceasedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("deceasedDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("deceasedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+	return FhirDateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+}
+func (resource *Person) T_Address(numAddress int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddress >= len(resource.Address) {
+		return AddressInput("address["+strconv.Itoa(numAddress)+"]", nil, htmlAttrs)
+	}
+	return AddressInput("address["+strconv.Itoa(numAddress)+"]", &resource.Address[numAddress], htmlAttrs)
 }
 func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -120,11 +138,29 @@ func (resource *Person) T_MaritalStatus(optionsValueSet []Coding, htmlAttrs temp
 	}
 	return CodeableConceptSelect("maritalStatus", resource.MaritalStatus, optionsValueSet, htmlAttrs)
 }
+func (resource *Person) T_Photo(numPhoto int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPhoto >= len(resource.Photo) {
+		return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", nil, htmlAttrs)
+	}
+	return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", &resource.Photo[numPhoto], htmlAttrs)
+}
+func (resource *Person) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+}
 func (resource *Person) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {
 		return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", nil, htmlAttrs)
 	}
 	return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
+}
+func (resource *Person) T_LinkTarget(numLink int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLink >= len(resource.Link) {
+		return ReferenceInput("link["+strconv.Itoa(numLink)+"].target", nil, htmlAttrs)
+	}
+	return ReferenceInput("link["+strconv.Itoa(numLink)+"].target", &resource.Link[numLink].Target, htmlAttrs)
 }
 func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel

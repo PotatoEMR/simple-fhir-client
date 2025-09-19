@@ -199,11 +199,17 @@ func (resource *SpecimenDefinition) T_SubjectCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *SpecimenDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subjectReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+}
 func (resource *SpecimenDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *SpecimenDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -211,11 +217,23 @@ func (resource *SpecimenDefinition) T_Publisher(htmlAttrs templ.Attributes) temp
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *SpecimenDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *SpecimenDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *SpecimenDefinition) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *SpecimenDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -243,15 +261,21 @@ func (resource *SpecimenDefinition) T_CopyrightLabel(htmlAttrs templ.Attributes)
 }
 func (resource *SpecimenDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *SpecimenDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *SpecimenDefinition) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *SpecimenDefinition) T_TypeCollected(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -303,6 +327,12 @@ func (resource *SpecimenDefinition) T_TypeTestedRequirement(numTypeTested int, h
 	}
 	return StringInput("typeTested["+strconv.Itoa(numTypeTested)+"].requirement", resource.TypeTested[numTypeTested].Requirement, htmlAttrs)
 }
+func (resource *SpecimenDefinition) T_TypeTestedRetentionTime(numTypeTested int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) {
+		return DurationInput("typeTested["+strconv.Itoa(numTypeTested)+"].retentionTime", nil, htmlAttrs)
+	}
+	return DurationInput("typeTested["+strconv.Itoa(numTypeTested)+"].retentionTime", resource.TypeTested[numTypeTested].RetentionTime, htmlAttrs)
+}
 func (resource *SpecimenDefinition) T_TypeTestedSingleUse(numTypeTested int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTypeTested >= len(resource.TypeTested) {
 		return BoolInput("typeTested["+strconv.Itoa(numTypeTested)+"].singleUse", nil, htmlAttrs)
@@ -345,6 +375,18 @@ func (resource *SpecimenDefinition) T_TypeTestedContainerDescription(numTypeTest
 	}
 	return StringInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.description", resource.TypeTested[numTypeTested].Container.Description, htmlAttrs)
 }
+func (resource *SpecimenDefinition) T_TypeTestedContainerCapacity(numTypeTested int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) {
+		return QuantityInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.capacity", nil, htmlAttrs)
+	}
+	return QuantityInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.capacity", resource.TypeTested[numTypeTested].Container.Capacity, htmlAttrs)
+}
+func (resource *SpecimenDefinition) T_TypeTestedContainerMinimumVolumeQuantity(numTypeTested int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) {
+		return QuantityInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.minimumVolumeQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.minimumVolumeQuantity", resource.TypeTested[numTypeTested].Container.MinimumVolumeQuantity, htmlAttrs)
+}
 func (resource *SpecimenDefinition) T_TypeTestedContainerMinimumVolumeString(numTypeTested int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTypeTested >= len(resource.TypeTested) {
 		return StringInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.minimumVolumeString", nil, htmlAttrs)
@@ -363,11 +405,29 @@ func (resource *SpecimenDefinition) T_TypeTestedContainerAdditiveAdditiveCodeabl
 	}
 	return CodeableConceptSelect("typeTested["+strconv.Itoa(numTypeTested)+"].container.additive["+strconv.Itoa(numAdditive)+"].additiveCodeableConcept", &resource.TypeTested[numTypeTested].Container.Additive[numAdditive].AdditiveCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *SpecimenDefinition) T_TypeTestedContainerAdditiveAdditiveReference(numTypeTested int, numAdditive int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) || numAdditive >= len(resource.TypeTested[numTypeTested].Container.Additive) {
+		return ReferenceInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.additive["+strconv.Itoa(numAdditive)+"].additiveReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("typeTested["+strconv.Itoa(numTypeTested)+"].container.additive["+strconv.Itoa(numAdditive)+"].additiveReference", &resource.TypeTested[numTypeTested].Container.Additive[numAdditive].AdditiveReference, htmlAttrs)
+}
 func (resource *SpecimenDefinition) T_TypeTestedHandlingTemperatureQualifier(numTypeTested int, numHandling int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTypeTested >= len(resource.TypeTested) || numHandling >= len(resource.TypeTested[numTypeTested].Handling) {
 		return CodeableConceptSelect("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].temperatureQualifier", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].temperatureQualifier", resource.TypeTested[numTypeTested].Handling[numHandling].TemperatureQualifier, optionsValueSet, htmlAttrs)
+}
+func (resource *SpecimenDefinition) T_TypeTestedHandlingTemperatureRange(numTypeTested int, numHandling int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) || numHandling >= len(resource.TypeTested[numTypeTested].Handling) {
+		return RangeInput("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].temperatureRange", nil, htmlAttrs)
+	}
+	return RangeInput("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].temperatureRange", resource.TypeTested[numTypeTested].Handling[numHandling].TemperatureRange, htmlAttrs)
+}
+func (resource *SpecimenDefinition) T_TypeTestedHandlingMaxDuration(numTypeTested int, numHandling int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTypeTested >= len(resource.TypeTested) || numHandling >= len(resource.TypeTested[numTypeTested].Handling) {
+		return DurationInput("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].maxDuration", nil, htmlAttrs)
+	}
+	return DurationInput("typeTested["+strconv.Itoa(numTypeTested)+"].handling["+strconv.Itoa(numHandling)+"].maxDuration", resource.TypeTested[numTypeTested].Handling[numHandling].MaxDuration, htmlAttrs)
 }
 func (resource *SpecimenDefinition) T_TypeTestedHandlingInstruction(numTypeTested int, numHandling int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTypeTested >= len(resource.TypeTested) || numHandling >= len(resource.TypeTested[numTypeTested].Handling) {

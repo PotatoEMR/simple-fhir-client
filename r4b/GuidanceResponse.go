@@ -67,6 +67,12 @@ func (r GuidanceResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *GuidanceResponse) T_RequestIdentifier(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return IdentifierInput("requestIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("requestIdentifier", resource.RequestIdentifier, htmlAttrs)
+}
 func (resource *GuidanceResponse) T_ModuleUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("moduleUri", nil, htmlAttrs)
@@ -93,11 +99,29 @@ func (resource *GuidanceResponse) T_Status(htmlAttrs templ.Attributes) templ.Com
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *GuidanceResponse) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
+func (resource *GuidanceResponse) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *GuidanceResponse) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("performer", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer", resource.Performer, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
@@ -105,9 +129,39 @@ func (resource *GuidanceResponse) T_ReasonCode(numReasonCode int, optionsValueSe
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
+func (resource *GuidanceResponse) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
+}
 func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *GuidanceResponse) T_EvaluationMessage(numEvaluationMessage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEvaluationMessage >= len(resource.EvaluationMessage) {
+		return ReferenceInput("evaluationMessage["+strconv.Itoa(numEvaluationMessage)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("evaluationMessage["+strconv.Itoa(numEvaluationMessage)+"]", &resource.EvaluationMessage[numEvaluationMessage], htmlAttrs)
+}
+func (resource *GuidanceResponse) T_OutputParameters(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("outputParameters", nil, htmlAttrs)
+	}
+	return ReferenceInput("outputParameters", resource.OutputParameters, htmlAttrs)
+}
+func (resource *GuidanceResponse) T_Result(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("result", nil, htmlAttrs)
+	}
+	return ReferenceInput("result", resource.Result, htmlAttrs)
+}
+func (resource *GuidanceResponse) T_DataRequirement(numDataRequirement int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDataRequirement >= len(resource.DataRequirement) {
+		return DataRequirementInput("dataRequirement["+strconv.Itoa(numDataRequirement)+"]", nil, htmlAttrs)
+	}
+	return DataRequirementInput("dataRequirement["+strconv.Itoa(numDataRequirement)+"]", &resource.DataRequirement[numDataRequirement], htmlAttrs)
 }

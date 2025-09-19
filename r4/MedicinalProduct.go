@@ -175,6 +175,54 @@ func (resource *MedicinalProduct) T_ProductClassification(numProductClassificati
 	}
 	return CodeableConceptSelect("productClassification["+strconv.Itoa(numProductClassification)+"]", &resource.ProductClassification[numProductClassification], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProduct) T_MarketingStatus(numMarketingStatus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMarketingStatus >= len(resource.MarketingStatus) {
+		return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", nil, htmlAttrs)
+	}
+	return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", &resource.MarketingStatus[numMarketingStatus], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_PharmaceuticalProduct(numPharmaceuticalProduct int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPharmaceuticalProduct >= len(resource.PharmaceuticalProduct) {
+		return ReferenceInput("pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", &resource.PharmaceuticalProduct[numPharmaceuticalProduct], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_PackagedMedicinalProduct(numPackagedMedicinalProduct int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackagedMedicinalProduct >= len(resource.PackagedMedicinalProduct) {
+		return ReferenceInput("packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", &resource.PackagedMedicinalProduct[numPackagedMedicinalProduct], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_AttachedDocument(numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAttachedDocument >= len(resource.AttachedDocument) {
+		return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_MasterFile(numMasterFile int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMasterFile >= len(resource.MasterFile) {
+		return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", &resource.MasterFile[numMasterFile], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ReferenceInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_ClinicalTrial(numClinicalTrial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numClinicalTrial >= len(resource.ClinicalTrial) {
+		return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", &resource.ClinicalTrial[numClinicalTrial], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_CrossReference(numCrossReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCrossReference >= len(resource.CrossReference) {
+		return IdentifierInput("crossReference["+strconv.Itoa(numCrossReference)+"]", nil, htmlAttrs)
+	}
+	return IdentifierInput("crossReference["+strconv.Itoa(numCrossReference)+"]", &resource.CrossReference[numCrossReference], htmlAttrs)
+}
 func (resource *MedicinalProduct) T_NameProductName(numName int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numName >= len(resource.Name) {
 		return StringInput("name["+strconv.Itoa(numName)+"].productName", nil, htmlAttrs)
@@ -211,17 +259,35 @@ func (resource *MedicinalProduct) T_ManufacturingBusinessOperationOperationType(
 	}
 	return CodeableConceptSelect("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].operationType", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].OperationType, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationAuthorisationReferenceNumber(numManufacturingBusinessOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) {
+		return IdentifierInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].authorisationReferenceNumber", nil, htmlAttrs)
+	}
+	return IdentifierInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].authorisationReferenceNumber", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].AuthorisationReferenceNumber, htmlAttrs)
+}
 func (resource *MedicinalProduct) T_ManufacturingBusinessOperationEffectiveDate(numManufacturingBusinessOperation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) {
-		return DateTimeInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].effectiveDate", nil, htmlAttrs)
+		return FhirDateTimeInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].effectiveDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].effectiveDate", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].EffectiveDate, htmlAttrs)
+	return FhirDateTimeInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].effectiveDate", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].EffectiveDate, htmlAttrs)
 }
 func (resource *MedicinalProduct) T_ManufacturingBusinessOperationConfidentialityIndicator(numManufacturingBusinessOperation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) {
 		return CodeableConceptSelect("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].confidentialityIndicator", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].confidentialityIndicator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].ConfidentialityIndicator, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationManufacturer(numManufacturingBusinessOperation int, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) || numManufacturer >= len(resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Manufacturer) {
+		return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Manufacturer[numManufacturer], htmlAttrs)
+}
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationRegulator(numManufacturingBusinessOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) {
+		return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Regulator, htmlAttrs)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationType(numSpecialDesignation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
@@ -241,6 +307,12 @@ func (resource *MedicinalProduct) T_SpecialDesignationIndicationCodeableConcept(
 	}
 	return CodeableConceptSelect("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationCodeableConcept", resource.SpecialDesignation[numSpecialDesignation].IndicationCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProduct) T_SpecialDesignationIndicationReference(numSpecialDesignation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
+		return ReferenceInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", resource.SpecialDesignation[numSpecialDesignation].IndicationReference, htmlAttrs)
+}
 func (resource *MedicinalProduct) T_SpecialDesignationStatus(numSpecialDesignation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
 		return CodeableConceptSelect("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].status", nil, optionsValueSet, htmlAttrs)
@@ -249,9 +321,9 @@ func (resource *MedicinalProduct) T_SpecialDesignationStatus(numSpecialDesignati
 }
 func (resource *MedicinalProduct) T_SpecialDesignationDate(numSpecialDesignation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
-		return DateTimeInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].date", nil, htmlAttrs)
+		return FhirDateTimeInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].date", nil, htmlAttrs)
 	}
-	return DateTimeInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].date", resource.SpecialDesignation[numSpecialDesignation].Date, htmlAttrs)
+	return FhirDateTimeInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].date", resource.SpecialDesignation[numSpecialDesignation].Date, htmlAttrs)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationSpecies(numSpecialDesignation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {

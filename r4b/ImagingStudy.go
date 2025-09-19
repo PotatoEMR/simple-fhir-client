@@ -123,11 +123,47 @@ func (resource *ImagingStudy) T_Modality(numModality int, optionsValueSet []Codi
 	}
 	return CodingSelect("modality["+strconv.Itoa(numModality)+"]", &resource.Modality[numModality], optionsValueSet, htmlAttrs)
 }
+func (resource *ImagingStudy) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *ImagingStudy) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *ImagingStudy) T_Started(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("started", nil, htmlAttrs)
+		return FhirDateTimeInput("started", nil, htmlAttrs)
 	}
-	return DateTimeInput("started", resource.Started, htmlAttrs)
+	return FhirDateTimeInput("started", resource.Started, htmlAttrs)
+}
+func (resource *ImagingStudy) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *ImagingStudy) T_Referrer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("referrer", nil, htmlAttrs)
+	}
+	return ReferenceInput("referrer", resource.Referrer, htmlAttrs)
+}
+func (resource *ImagingStudy) T_Interpreter(numInterpreter int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInterpreter >= len(resource.Interpreter) {
+		return ReferenceInput("interpreter["+strconv.Itoa(numInterpreter)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("interpreter["+strconv.Itoa(numInterpreter)+"]", &resource.Interpreter[numInterpreter], htmlAttrs)
+}
+func (resource *ImagingStudy) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *ImagingStudy) T_NumberOfSeries(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -141,17 +177,35 @@ func (resource *ImagingStudy) T_NumberOfInstances(htmlAttrs templ.Attributes) te
 	}
 	return IntInput("numberOfInstances", resource.NumberOfInstances, htmlAttrs)
 }
+func (resource *ImagingStudy) T_ProcedureReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("procedureReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("procedureReference", resource.ProcedureReference, htmlAttrs)
+}
 func (resource *ImagingStudy) T_ProcedureCode(numProcedureCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedureCode >= len(resource.ProcedureCode) {
 		return CodeableConceptSelect("procedureCode["+strconv.Itoa(numProcedureCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("procedureCode["+strconv.Itoa(numProcedureCode)+"]", &resource.ProcedureCode[numProcedureCode], optionsValueSet, htmlAttrs)
 }
+func (resource *ImagingStudy) T_Location(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("location", nil, htmlAttrs)
+	}
+	return ReferenceInput("location", resource.Location, htmlAttrs)
+}
 func (resource *ImagingStudy) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *ImagingStudy) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *ImagingStudy) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -195,6 +249,12 @@ func (resource *ImagingStudy) T_SeriesNumberOfInstances(numSeries int, htmlAttrs
 	}
 	return IntInput("series["+strconv.Itoa(numSeries)+"].numberOfInstances", resource.Series[numSeries].NumberOfInstances, htmlAttrs)
 }
+func (resource *ImagingStudy) T_SeriesEndpoint(numSeries int, numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSeries >= len(resource.Series) || numEndpoint >= len(resource.Series[numSeries].Endpoint) {
+		return ReferenceInput("series["+strconv.Itoa(numSeries)+"].endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("series["+strconv.Itoa(numSeries)+"].endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Series[numSeries].Endpoint[numEndpoint], htmlAttrs)
+}
 func (resource *ImagingStudy) T_SeriesBodySite(numSeries int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSeries >= len(resource.Series) {
 		return CodingSelect("series["+strconv.Itoa(numSeries)+"].bodySite", nil, optionsValueSet, htmlAttrs)
@@ -207,17 +267,29 @@ func (resource *ImagingStudy) T_SeriesLaterality(numSeries int, optionsValueSet 
 	}
 	return CodingSelect("series["+strconv.Itoa(numSeries)+"].laterality", resource.Series[numSeries].Laterality, optionsValueSet, htmlAttrs)
 }
+func (resource *ImagingStudy) T_SeriesSpecimen(numSeries int, numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSeries >= len(resource.Series) || numSpecimen >= len(resource.Series[numSeries].Specimen) {
+		return ReferenceInput("series["+strconv.Itoa(numSeries)+"].specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("series["+strconv.Itoa(numSeries)+"].specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Series[numSeries].Specimen[numSpecimen], htmlAttrs)
+}
 func (resource *ImagingStudy) T_SeriesStarted(numSeries int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSeries >= len(resource.Series) {
-		return DateTimeInput("series["+strconv.Itoa(numSeries)+"].started", nil, htmlAttrs)
+		return FhirDateTimeInput("series["+strconv.Itoa(numSeries)+"].started", nil, htmlAttrs)
 	}
-	return DateTimeInput("series["+strconv.Itoa(numSeries)+"].started", resource.Series[numSeries].Started, htmlAttrs)
+	return FhirDateTimeInput("series["+strconv.Itoa(numSeries)+"].started", resource.Series[numSeries].Started, htmlAttrs)
 }
 func (resource *ImagingStudy) T_SeriesPerformerFunction(numSeries int, numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSeries >= len(resource.Series) || numPerformer >= len(resource.Series[numSeries].Performer) {
 		return CodeableConceptSelect("series["+strconv.Itoa(numSeries)+"].performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("series["+strconv.Itoa(numSeries)+"].performer["+strconv.Itoa(numPerformer)+"].function", resource.Series[numSeries].Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+}
+func (resource *ImagingStudy) T_SeriesPerformerActor(numSeries int, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSeries >= len(resource.Series) || numPerformer >= len(resource.Series[numSeries].Performer) {
+		return ReferenceInput("series["+strconv.Itoa(numSeries)+"].performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("series["+strconv.Itoa(numSeries)+"].performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Series[numSeries].Performer[numPerformer].Actor, htmlAttrs)
 }
 func (resource *ImagingStudy) T_SeriesInstanceUid(numSeries int, numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSeries >= len(resource.Series) || numInstance >= len(resource.Series[numSeries].Instance) {

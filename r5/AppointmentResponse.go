@@ -62,6 +62,12 @@ func (r AppointmentResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *AppointmentResponse) T_Appointment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("appointment", nil, htmlAttrs)
+	}
+	return ReferenceInput("appointment", &resource.Appointment, htmlAttrs)
+}
 func (resource *AppointmentResponse) T_ProposedNewTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("proposedNewTime", nil, htmlAttrs)
@@ -86,6 +92,12 @@ func (resource *AppointmentResponse) T_ParticipantType(numParticipantType int, o
 	}
 	return CodeableConceptSelect("participantType["+strconv.Itoa(numParticipantType)+"]", &resource.ParticipantType[numParticipantType], optionsValueSet, htmlAttrs)
 }
+func (resource *AppointmentResponse) T_Actor(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("actor", resource.Actor, htmlAttrs)
+}
 func (resource *AppointmentResponse) T_ParticipantStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeSelect("participantStatus", nil, optionsValueSet, htmlAttrs)
@@ -106,9 +118,9 @@ func (resource *AppointmentResponse) T_Recurring(htmlAttrs templ.Attributes) tem
 }
 func (resource *AppointmentResponse) T_OccurrenceDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("occurrenceDate", nil, htmlAttrs)
+		return FhirDateInput("occurrenceDate", nil, htmlAttrs)
 	}
-	return DateInput("occurrenceDate", resource.OccurrenceDate, htmlAttrs)
+	return FhirDateInput("occurrenceDate", resource.OccurrenceDate, htmlAttrs)
 }
 func (resource *AppointmentResponse) T_RecurrenceId(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

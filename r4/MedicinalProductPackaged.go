@@ -86,6 +86,12 @@ func (r MedicinalProductPackaged) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicinalProductPackaged) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
 func (resource *MedicinalProductPackaged) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
@@ -98,11 +104,47 @@ func (resource *MedicinalProductPackaged) T_LegalStatusOfSupply(optionsValueSet 
 	}
 	return CodeableConceptSelect("legalStatusOfSupply", resource.LegalStatusOfSupply, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductPackaged) T_MarketingStatus(numMarketingStatus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMarketingStatus >= len(resource.MarketingStatus) {
+		return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", nil, htmlAttrs)
+	}
+	return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", &resource.MarketingStatus[numMarketingStatus], htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_MarketingAuthorization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("marketingAuthorization", nil, htmlAttrs)
+	}
+	return ReferenceInput("marketingAuthorization", resource.MarketingAuthorization, htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
+		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_BatchIdentifierOuterPackaging(numBatchIdentifier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBatchIdentifier >= len(resource.BatchIdentifier) {
+		return IdentifierInput("batchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].outerPackaging", nil, htmlAttrs)
+	}
+	return IdentifierInput("batchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].outerPackaging", &resource.BatchIdentifier[numBatchIdentifier].OuterPackaging, htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_BatchIdentifierImmediatePackaging(numBatchIdentifier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBatchIdentifier >= len(resource.BatchIdentifier) {
+		return IdentifierInput("batchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].immediatePackaging", nil, htmlAttrs)
+	}
+	return IdentifierInput("batchIdentifier["+strconv.Itoa(numBatchIdentifier)+"].immediatePackaging", resource.BatchIdentifier[numBatchIdentifier].ImmediatePackaging, htmlAttrs)
+}
 func (resource *MedicinalProductPackaged) T_PackageItemType(numPackageItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].type", &resource.PackageItem[numPackageItem].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_PackageItemQuantity(numPackageItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) {
+		return QuantityInput("packageItem["+strconv.Itoa(numPackageItem)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("packageItem["+strconv.Itoa(numPackageItem)+"].quantity", &resource.PackageItem[numPackageItem].Quantity, htmlAttrs)
 }
 func (resource *MedicinalProductPackaged) T_PackageItemMaterial(numPackageItem int, numMaterial int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) || numMaterial >= len(resource.PackageItem[numPackageItem].Material) {
@@ -116,9 +158,39 @@ func (resource *MedicinalProductPackaged) T_PackageItemAlternateMaterial(numPack
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.PackageItem[numPackageItem].AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductPackaged) T_PackageItemDevice(numPackageItem int, numDevice int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numDevice >= len(resource.PackageItem[numPackageItem].Device) {
+		return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].device["+strconv.Itoa(numDevice)+"]", &resource.PackageItem[numPackageItem].Device[numDevice], htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_PackageItemManufacturedItem(numPackageItem int, numManufacturedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numManufacturedItem >= len(resource.PackageItem[numPackageItem].ManufacturedItem) {
+		return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].manufacturedItem["+strconv.Itoa(numManufacturedItem)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].manufacturedItem["+strconv.Itoa(numManufacturedItem)+"]", &resource.PackageItem[numPackageItem].ManufacturedItem[numManufacturedItem], htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_PackageItemPhysicalCharacteristics(numPackageItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) {
+		return ProdCharacteristicInput("packageItem["+strconv.Itoa(numPackageItem)+"].physicalCharacteristics", nil, htmlAttrs)
+	}
+	return ProdCharacteristicInput("packageItem["+strconv.Itoa(numPackageItem)+"].physicalCharacteristics", resource.PackageItem[numPackageItem].PhysicalCharacteristics, htmlAttrs)
+}
 func (resource *MedicinalProductPackaged) T_PackageItemOtherCharacteristics(numPackageItem int, numOtherCharacteristics int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageItem >= len(resource.PackageItem) || numOtherCharacteristics >= len(resource.PackageItem[numPackageItem].OtherCharacteristics) {
 		return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].otherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("packageItem["+strconv.Itoa(numPackageItem)+"].otherCharacteristics["+strconv.Itoa(numOtherCharacteristics)+"]", &resource.PackageItem[numPackageItem].OtherCharacteristics[numOtherCharacteristics], optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_PackageItemShelfLifeStorage(numPackageItem int, numShelfLifeStorage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numShelfLifeStorage >= len(resource.PackageItem[numPackageItem].ShelfLifeStorage) {
+		return ProductShelfLifeInput("packageItem["+strconv.Itoa(numPackageItem)+"].shelfLifeStorage["+strconv.Itoa(numShelfLifeStorage)+"]", nil, htmlAttrs)
+	}
+	return ProductShelfLifeInput("packageItem["+strconv.Itoa(numPackageItem)+"].shelfLifeStorage["+strconv.Itoa(numShelfLifeStorage)+"]", &resource.PackageItem[numPackageItem].ShelfLifeStorage[numShelfLifeStorage], htmlAttrs)
+}
+func (resource *MedicinalProductPackaged) T_PackageItemManufacturer(numPackageItem int, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPackageItem >= len(resource.PackageItem) || numManufacturer >= len(resource.PackageItem[numPackageItem].Manufacturer) {
+		return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("packageItem["+strconv.Itoa(numPackageItem)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.PackageItem[numPackageItem].Manufacturer[numManufacturer], htmlAttrs)
 }

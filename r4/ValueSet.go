@@ -201,9 +201,9 @@ func (resource *ValueSet) T_Experimental(htmlAttrs templ.Attributes) templ.Compo
 }
 func (resource *ValueSet) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ValueSet) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -211,11 +211,23 @@ func (resource *ValueSet) T_Publisher(htmlAttrs templ.Attributes) templ.Componen
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ValueSet) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ValueSet) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ValueSet) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ValueSet) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -243,9 +255,9 @@ func (resource *ValueSet) T_Copyright(htmlAttrs templ.Attributes) templ.Componen
 }
 func (resource *ValueSet) T_ComposeLockedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("compose.lockedDate", nil, htmlAttrs)
+		return FhirDateInput("compose.lockedDate", nil, htmlAttrs)
 	}
-	return DateInput("compose.lockedDate", resource.Compose.LockedDate, htmlAttrs)
+	return FhirDateInput("compose.lockedDate", resource.Compose.LockedDate, htmlAttrs)
 }
 func (resource *ValueSet) T_ComposeInactive(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -317,9 +329,9 @@ func (resource *ValueSet) T_ComposeIncludeFilterValue(numInclude int, numFilter 
 }
 func (resource *ValueSet) T_ExpansionTimestamp(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("expansion.timestamp", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.timestamp", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.timestamp", &resource.Expansion.Timestamp, htmlAttrs)
+	return FhirDateTimeInput("expansion.timestamp", &resource.Expansion.Timestamp, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionTotal(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -377,9 +389,9 @@ func (resource *ValueSet) T_ExpansionParameterValueCode(numParameter int, option
 }
 func (resource *ValueSet) T_ExpansionParameterValueDateTime(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
-		return DateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", resource.Expansion.Parameter[numParameter].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", resource.Expansion.Parameter[numParameter].ValueDateTime, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionContainsSystem(numContains int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContains >= len(resource.Expansion.Contains) {

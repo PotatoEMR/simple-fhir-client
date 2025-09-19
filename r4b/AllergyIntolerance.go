@@ -130,11 +130,41 @@ func (resource *AllergyIntolerance) T_Code(optionsValueSet []Coding, htmlAttrs t
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *AllergyIntolerance) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *AllergyIntolerance) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("onsetDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("onsetDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
+	return FhirDateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_OnsetAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("onsetAge", nil, htmlAttrs)
+	}
+	return AgeInput("onsetAge", resource.OnsetAge, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_OnsetPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("onsetPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("onsetPeriod", resource.OnsetPeriod, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_OnsetRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("onsetRange", nil, htmlAttrs)
+	}
+	return RangeInput("onsetRange", resource.OnsetRange, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_OnsetString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -144,15 +174,27 @@ func (resource *AllergyIntolerance) T_OnsetString(htmlAttrs templ.Attributes) te
 }
 func (resource *AllergyIntolerance) T_RecordedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("recordedDate", nil, htmlAttrs)
+		return FhirDateTimeInput("recordedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
+	return FhirDateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_Recorder(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("recorder", nil, htmlAttrs)
+	}
+	return ReferenceInput("recorder", resource.Recorder, htmlAttrs)
+}
+func (resource *AllergyIntolerance) T_Asserter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("asserter", nil, htmlAttrs)
+	}
+	return ReferenceInput("asserter", resource.Asserter, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_LastOccurrence(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("lastOccurrence", nil, htmlAttrs)
+		return FhirDateTimeInput("lastOccurrence", nil, htmlAttrs)
 	}
-	return DateTimeInput("lastOccurrence", resource.LastOccurrence, htmlAttrs)
+	return FhirDateTimeInput("lastOccurrence", resource.LastOccurrence, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -180,9 +222,9 @@ func (resource *AllergyIntolerance) T_ReactionDescription(numReaction int, htmlA
 }
 func (resource *AllergyIntolerance) T_ReactionOnset(numReaction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {
-		return DateTimeInput("reaction["+strconv.Itoa(numReaction)+"].onset", nil, htmlAttrs)
+		return FhirDateTimeInput("reaction["+strconv.Itoa(numReaction)+"].onset", nil, htmlAttrs)
 	}
-	return DateTimeInput("reaction["+strconv.Itoa(numReaction)+"].onset", resource.Reaction[numReaction].Onset, htmlAttrs)
+	return FhirDateTimeInput("reaction["+strconv.Itoa(numReaction)+"].onset", resource.Reaction[numReaction].Onset, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionSeverity(numReaction int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSReaction_event_severity

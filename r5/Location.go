@@ -124,17 +124,59 @@ func (resource *Location) T_Type(numType int, optionsValueSet []Coding, htmlAttr
 	}
 	return CodeableConceptSelect("type["+strconv.Itoa(numType)+"]", &resource.Type[numType], optionsValueSet, htmlAttrs)
 }
+func (resource *Location) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *Location) T_Address(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AddressInput("address", nil, htmlAttrs)
+	}
+	return AddressInput("address", resource.Address, htmlAttrs)
+}
 func (resource *Location) T_Form(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("form", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("form", resource.Form, optionsValueSet, htmlAttrs)
 }
+func (resource *Location) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+}
+func (resource *Location) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("partOf", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+}
 func (resource *Location) T_Characteristic(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"]", &resource.Characteristic[numCharacteristic], optionsValueSet, htmlAttrs)
+}
+func (resource *Location) T_HoursOfOperation(numHoursOfOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numHoursOfOperation >= len(resource.HoursOfOperation) {
+		return AvailabilityInput("hoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"]", nil, htmlAttrs)
+	}
+	return AvailabilityInput("hoursOfOperation["+strconv.Itoa(numHoursOfOperation)+"]", &resource.HoursOfOperation[numHoursOfOperation], htmlAttrs)
+}
+func (resource *Location) T_VirtualService(numVirtualService int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numVirtualService >= len(resource.VirtualService) {
+		return VirtualServiceDetailInput("virtualService["+strconv.Itoa(numVirtualService)+"]", nil, htmlAttrs)
+	}
+	return VirtualServiceDetailInput("virtualService["+strconv.Itoa(numVirtualService)+"]", &resource.VirtualService[numVirtualService], htmlAttrs)
+}
+func (resource *Location) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *Location) T_PositionLongitude(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

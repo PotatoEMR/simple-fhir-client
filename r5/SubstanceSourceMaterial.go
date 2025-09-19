@@ -144,11 +144,23 @@ func (resource *SubstanceSourceMaterial) T_SourceMaterialState(optionsValueSet [
 	}
 	return CodeableConceptSelect("sourceMaterialState", resource.SourceMaterialState, optionsValueSet, htmlAttrs)
 }
+func (resource *SubstanceSourceMaterial) T_OrganismId(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return IdentifierInput("organismId", nil, htmlAttrs)
+	}
+	return IdentifierInput("organismId", resource.OrganismId, htmlAttrs)
+}
 func (resource *SubstanceSourceMaterial) T_OrganismName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("organismName", nil, htmlAttrs)
 	}
 	return StringInput("organismName", resource.OrganismName, htmlAttrs)
+}
+func (resource *SubstanceSourceMaterial) T_ParentSubstanceId(numParentSubstanceId int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParentSubstanceId >= len(resource.ParentSubstanceId) {
+		return IdentifierInput("parentSubstanceId["+strconv.Itoa(numParentSubstanceId)+"]", nil, htmlAttrs)
+	}
+	return IdentifierInput("parentSubstanceId["+strconv.Itoa(numParentSubstanceId)+"]", &resource.ParentSubstanceId[numParentSubstanceId], htmlAttrs)
 }
 func (resource *SubstanceSourceMaterial) T_ParentSubstanceName(numParentSubstanceName int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParentSubstanceName >= len(resource.ParentSubstanceName) {

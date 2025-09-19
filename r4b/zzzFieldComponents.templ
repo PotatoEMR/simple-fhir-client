@@ -95,8 +95,8 @@ function setCoding(selectElement) {
 }
 
 templ CodeableConceptSelect(fieldname string, current *CodeableConcept, valueset []Coding, attrs templ.Attributes) {
-		@setCodingHandle.Once() {
-			<script>
+	@setCodingHandle.Once() {
+		<script>
 function setCoding(selectElement) {
   const selectedOption = selectElement.options[selectElement.selectedIndex];
 
@@ -117,47 +117,47 @@ function setCoding(selectElement) {
   }
 }
   </script>
-		}
-		{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
-		<select
-			onblur="setCoding(this)"
-			{ attrs... }
-		>
-			<option>--</option>
-			for _, c := range valueset {
-				if c.Code != nil && c.System != nil && c.Display != nil {
-					<option
-						fhir-code={ *c.Code }
-						fhir-system={ *c.System }
-						fhir-display={ *c.Display }
-						if hasOneCoding && *c.Code == *current.Coding[0].Code {
-							selected
-						}
-					>
-						if c.Display == nil {
-							{ *c.Code }
-						} else {
-							{ *c.Display }
-						}
-					</option>
-				}
+	}
+	{{ hasOneCoding := current != nil && len(current.Coding) != 0 }}
+	<select
+		onblur="setCoding(this)"
+		{ attrs... }
+	>
+		<option>--</option>
+		for _, c := range valueset {
+			if c.Code != nil && c.System != nil && c.Display != nil {
+				<option
+					fhir-code={ *c.Code }
+					fhir-system={ *c.System }
+					fhir-display={ *c.Display }
+					if hasOneCoding && *c.Code == *current.Coding[0].Code {
+						selected
+					}
+				>
+					if c.Display == nil {
+						{ *c.Code }
+					} else {
+						{ *c.Display }
+					}
+				</option>
 			}
-		</select>
-		if hasOneCoding && current.Coding[0].Code != nil {
-			<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code } { attrs... }/>
-		} else {
-			<input name={ fieldname + ".coding[0].code" } type="hidden" value="" { attrs... }/>
 		}
-		if hasOneCoding && current.Coding[0].System != nil {
-			<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System } { attrs... }/>
-		} else {
-			<input name={ fieldname + ".coding[0].system" } type="hidden" value="" { attrs... }/>
-		}
-		if hasOneCoding && current.Coding[0].Display != nil {
-			<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display } { attrs... }/>
-		} else {
-			<input name={ fieldname + ".coding[0].display" } type="hidden" value="" { attrs... }/>
-		}
+	</select>
+	if hasOneCoding && current.Coding[0].Code != nil {
+		<input name={ fieldname + ".coding[0].code" } type="hidden" value={ *current.Coding[0].Code }/>
+	} else {
+		<input name={ fieldname + ".coding[0].code" } type="hidden" value=""/>
+	}
+	if hasOneCoding && current.Coding[0].System != nil {
+		<input name={ fieldname + ".coding[0].system" } type="hidden" value={ *current.Coding[0].System }/>
+	} else {
+		<input name={ fieldname + ".coding[0].system" } type="hidden" value=""/>
+	}
+	if hasOneCoding && current.Coding[0].Display != nil {
+		<input name={ fieldname + ".coding[0].display" } type="hidden" value={ *current.Coding[0].Display }/>
+	} else {
+		<input name={ fieldname + ".coding[0].display" } type="hidden" value=""/>
+	}
 }
 
 templ AnnotationTextArea(fieldname string, current *Annotation, attrs templ.Attributes) {
@@ -208,7 +208,7 @@ templ Int64Input(fieldname string, current *int64, attrs templ.Attributes) {
 		}
 }
 
-templ DateInput(fieldname string, current *FhirDate, attrs templ.Attributes) {
+templ FhirDateInput(fieldname string, current *FhirDate, attrs templ.Attributes) {
 	if current == nil {
 		<input type="date" name={fieldname} value="" { attrs... }/>
 	} else {
@@ -216,7 +216,7 @@ templ DateInput(fieldname string, current *FhirDate, attrs templ.Attributes) {
 	}
 }
 
-templ DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attributes) {
+templ FhirDateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attributes) {
 	if current == nil {
 		<input type="datetime-local" name={fieldname} value="" { attrs... }/>
 	} else {
@@ -224,4 +224,171 @@ templ DateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Attribu
 	}
 }
 
+templ ReferenceInput(fieldname string, current *Reference, attrs templ.Attributes) {
+	<input
+		{ attrs... }
+		name={ fieldname + ".display" }
+		if current != nil && current.Display != nil {
+			value={ *current.Display }
+		} else {
+			value=""
+		}
+	/>
+	<input
+		{ attrs... }
+		name={ fieldname + ".reference" }
+		if current != nil && current.Reference != nil {
+			value={ *current.Reference }
+		} else {
+			value=""
+		}
+	/>
+	//identifier later idk
+	<input
+		{ attrs... }
+		name={ fieldname + ".type" }
+		if current != nil && current.Type != nil {
+			value={ *current.Type }
+		} else {
+			value=""
+		}
+	/>
+}
+templ MetaInput(fieldname string, current *Meta, attrs templ.Attributes) {
+	<p>Meta not done would really like to totally ban this one but for instance Task.output.value[x] can be meta</p>
+}
 
+templ MarketingStatusInput(fieldname string, current *MarketingStatus, attrs templ.Attributes) {
+	<p>MarketingStatus not done</p>
+}
+
+templ ProductShelfLifeInput(fieldname string, current *ProductShelfLife, attrs templ.Attributes) {
+	<p>ProductShelfLife not done</p>
+}
+
+templ QuantityInput(fieldname string, current *Quantity, attrs templ.Attributes) {
+	<p>Quantity not done</p>
+}
+
+templ RelatedArtifactInput(fieldname string, current *RelatedArtifact, attrs templ.Attributes) {
+	<p>RelatedArtifact not done</p>
+}
+
+templ UsageContextInput(fieldname string, current *UsageContext, attrs templ.Attributes) {
+	<p>UsageContext not done</p>
+}
+
+templ ContactDetailInput(fieldname string, current *ContactDetail, attrs templ.Attributes) {
+	<p>ContactDetail not done</p>
+}
+
+
+templ DosageInput(fieldname string, current *Dosage, attrs templ.Attributes) {
+	<p>Dosage not done</p>
+}
+
+templ RatioInput(fieldname string, current *Ratio, attrs templ.Attributes) {
+	<p>Ratio not done</p>
+}
+
+templ PeriodInput(fieldname string, current *Period, attrs templ.Attributes) {
+	<p>Period not done</p>
+}
+
+templ RangeInput(fieldname string, current *Range, attrs templ.Attributes) {
+	<p>Range not done</p>
+}
+
+templ AttachmentInput(fieldname string, current *Attachment, attrs templ.Attributes) {
+	<p>Attachment not done</p>
+}
+
+templ IdentifierInput(fieldname string, current *Identifier, attrs templ.Attributes) {
+	<p>Identifier not done</p>
+}
+
+templ HumanNameInput(fieldname string, current *HumanName, attrs templ.Attributes) {
+	<p>HumanName not done</p>
+}
+
+templ ContactPointInput(fieldname string, current *ContactPoint, attrs templ.Attributes) {
+	<p>ContactPoint not done</p>
+}
+
+templ SignatureInput(fieldname string, current *Signature, attrs templ.Attributes) {
+	<p>Signature not done</p>
+}
+
+templ AddressInput(fieldname string, current *Address, attrs templ.Attributes) {
+	<p>Address not done</p>
+}
+
+templ TimingInput(fieldname string, current *Timing, attrs templ.Attributes) {
+	<p>Timing not done</p>
+}
+
+templ MoneyInput(fieldname string, current *Money, attrs templ.Attributes) {
+	<p>Money not done</p>
+}
+
+templ SampledDataInput(fieldname string, current *SampledData, attrs templ.Attributes) {
+	<p>SampledData not done</p>
+}
+
+templ AgeInput(fieldname string, current *Age, attrs templ.Attributes) {
+	<p>Age not done</p>
+}
+
+templ DistanceInput(fieldname string, current *Distance, attrs templ.Attributes) {
+	<p>Distance not done</p>
+}
+
+templ DurationInput(fieldname string, current *Duration, attrs templ.Attributes) {
+	<p>Duration not done</p>
+}
+
+templ CountInput(fieldname string, current *Count, attrs templ.Attributes) {
+	<p>Count not done</p>
+}
+
+templ SimpleQuantityInput(fieldname string, current *SimpleQuantity, attrs templ.Attributes) {
+	<p>SimpleQuantity not done</p>
+}
+
+templ MoneyQuantityInput(fieldname string, current *MoneyQuantity, attrs templ.Attributes) {
+	<p>MoneyQuantity not done</p>
+}
+
+templ ContributorInput(fieldname string, current *Contributor, attrs templ.Attributes) {
+	<p>Contributor not done</p>
+}
+
+templ DataRequirementInput(fieldname string, current *DataRequirement, attrs templ.Attributes) {
+	<p>DataRequirement not done</p>
+}
+
+templ TriggerDefinitionInput(fieldname string, current *TriggerDefinition, attrs templ.Attributes) {
+	<p>TriggerDefinition not done</p>
+}
+
+templ ParameterDefinitionInput(fieldname string, current *ParameterDefinition, attrs templ.Attributes) {
+	<p>ParameterDefinition not done</p>
+}
+
+templ ExpressionInput(fieldname string, current *Expression, attrs templ.Attributes) {
+	<p>Expression not done</p>
+}
+
+
+templ CodeableReferenceInput(fieldname string, current *CodeableReference, attrs templ.Attributes) {
+	<p>CodeableReference not done</p>
+}
+templ RatioRangeInput(fieldname string, current *RatioRange, attrs templ.Attributes) {
+	<p>RatioRange not done</p>
+}
+templ ProdCharacteristicInput(fieldname string, current *ProdCharacteristic, attrs templ.Attributes) {
+	<p>ProdCharacteristic not done</p>
+}
+templ PopulationInput(fieldname string, current *Population, attrs templ.Attributes) {
+	<p>Population not done</p>
+}

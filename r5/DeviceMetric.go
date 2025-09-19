@@ -81,6 +81,12 @@ func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding, htmlAttrs templ.A
 	}
 	return CodeableConceptSelect("unit", resource.Unit, optionsValueSet, htmlAttrs)
 }
+func (resource *DeviceMetric) T_Device(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("device", nil, htmlAttrs)
+	}
+	return ReferenceInput("device", &resource.Device, htmlAttrs)
+}
 func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_operational_status
 
@@ -102,6 +108,12 @@ func (resource *DeviceMetric) T_Category(htmlAttrs templ.Attributes) templ.Compo
 		return CodeSelect("category", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("category", &resource.Category, optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceMetric) T_MeasurementFrequency(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("measurementFrequency", nil, htmlAttrs)
+	}
+	return QuantityInput("measurementFrequency", resource.MeasurementFrequency, htmlAttrs)
 }
 func (resource *DeviceMetric) T_CalibrationType(numCalibration int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_calibration_type

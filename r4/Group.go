@@ -123,6 +123,12 @@ func (resource *Group) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
+func (resource *Group) T_ManagingEntity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingEntity", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingEntity", resource.ManagingEntity, htmlAttrs)
+}
 func (resource *Group) T_CharacteristicCode(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].code", nil, optionsValueSet, htmlAttrs)
@@ -141,11 +147,47 @@ func (resource *Group) T_CharacteristicValueBoolean(numCharacteristic int, htmlA
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
+func (resource *Group) T_CharacteristicValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", &resource.Characteristic[numCharacteristic].ValueQuantity, htmlAttrs)
+}
+func (resource *Group) T_CharacteristicValueRange(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRange", &resource.Characteristic[numCharacteristic].ValueRange, htmlAttrs)
+}
+func (resource *Group) T_CharacteristicValueReference(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueReference", &resource.Characteristic[numCharacteristic].ValueReference, htmlAttrs)
+}
 func (resource *Group) T_CharacteristicExclude(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", nil, htmlAttrs)
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", &resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
+}
+func (resource *Group) T_CharacteristicPeriod(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return PeriodInput("characteristic["+strconv.Itoa(numCharacteristic)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("characteristic["+strconv.Itoa(numCharacteristic)+"].period", resource.Characteristic[numCharacteristic].Period, htmlAttrs)
+}
+func (resource *Group) T_MemberEntity(numMember int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMember >= len(resource.Member) {
+		return ReferenceInput("member["+strconv.Itoa(numMember)+"].entity", nil, htmlAttrs)
+	}
+	return ReferenceInput("member["+strconv.Itoa(numMember)+"].entity", &resource.Member[numMember].Entity, htmlAttrs)
+}
+func (resource *Group) T_MemberPeriod(numMember int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMember >= len(resource.Member) {
+		return PeriodInput("member["+strconv.Itoa(numMember)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("member["+strconv.Itoa(numMember)+"].period", resource.Member[numMember].Period, htmlAttrs)
 }
 func (resource *Group) T_MemberInactive(numMember int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMember >= len(resource.Member) {

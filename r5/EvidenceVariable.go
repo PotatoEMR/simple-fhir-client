@@ -214,15 +214,21 @@ func (resource *EvidenceVariable) T_Experimental(htmlAttrs templ.Attributes) tem
 }
 func (resource *EvidenceVariable) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -235,6 +241,12 @@ func (resource *EvidenceVariable) T_Note(numNote int, htmlAttrs templ.Attributes
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *EvidenceVariable) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Purpose(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -256,15 +268,51 @@ func (resource *EvidenceVariable) T_CopyrightLabel(htmlAttrs templ.Attributes) t
 }
 func (resource *EvidenceVariable) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *EvidenceVariable) T_Editor(numEditor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEditor >= len(resource.Editor) {
+		return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", &resource.Editor[numEditor], htmlAttrs)
+}
+func (resource *EvidenceVariable) T_Reviewer(numReviewer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReviewer >= len(resource.Reviewer) {
+		return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", &resource.Reviewer[numReviewer], htmlAttrs)
+}
+func (resource *EvidenceVariable) T_Endorser(numEndorser int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndorser >= len(resource.Endorser) {
+		return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", &resource.Endorser[numEndorser], htmlAttrs)
+}
+func (resource *EvidenceVariable) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
 }
 func (resource *EvidenceVariable) T_Actual(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -304,6 +352,12 @@ func (resource *EvidenceVariable) T_CharacteristicExclude(numCharacteristic int,
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].exclude", resource.Characteristic[numCharacteristic].Exclude, htmlAttrs)
 }
+func (resource *EvidenceVariable) T_CharacteristicDefinitionReference(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", resource.Characteristic[numCharacteristic].DefinitionReference, htmlAttrs)
+}
 func (resource *EvidenceVariable) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCanonical", nil, htmlAttrs)
@@ -316,11 +370,41 @@ func (resource *EvidenceVariable) T_CharacteristicDefinitionCodeableConcept(numC
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionCodeableConcept", resource.Characteristic[numCharacteristic].DefinitionCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *EvidenceVariable) T_CharacteristicDefinitionExpression(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return ExpressionInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionExpression", nil, htmlAttrs)
+	}
+	return ExpressionInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionExpression", resource.Characteristic[numCharacteristic].DefinitionExpression, htmlAttrs)
+}
 func (resource *EvidenceVariable) T_CharacteristicDefinitionId(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionId", nil, htmlAttrs)
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionId", resource.Characteristic[numCharacteristic].DefinitionId, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicInstancesQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].instancesQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].instancesQuantity", resource.Characteristic[numCharacteristic].InstancesQuantity, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicInstancesRange(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].instancesRange", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].instancesRange", resource.Characteristic[numCharacteristic].InstancesRange, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicDurationQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].durationQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].durationQuantity", resource.Characteristic[numCharacteristic].DurationQuantity, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicDurationRange(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].durationRange", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].durationRange", resource.Characteristic[numCharacteristic].DurationRange, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueType(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -334,6 +418,12 @@ func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueMethod
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.method["+strconv.Itoa(numMethod)+"]", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Method[numMethod], optionsValueSet, htmlAttrs)
 }
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueDevice(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.device", nil, htmlAttrs)
+	}
+	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.device", resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.Device, htmlAttrs)
+}
 func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
@@ -345,6 +435,24 @@ func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueB
 		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueBoolean", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.ValueBoolean, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueQuantity", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.ValueQuantity, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueRange(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueRange", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.ValueRange, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueReference(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionByTypeAndValue.valueReference", &resource.Characteristic[numCharacteristic].DefinitionByTypeAndValue.ValueReference, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDefinitionByTypeAndValueValueId(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -390,17 +498,35 @@ func (resource *EvidenceVariable) T_CharacteristicTimeFromEventEventCodeableConc
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventCodeableConcept", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].EventCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *EvidenceVariable) T_CharacteristicTimeFromEventEventReference(numCharacteristic int, numTimeFromEvent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) || numTimeFromEvent >= len(resource.Characteristic[numCharacteristic].TimeFromEvent) {
+		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventReference", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].EventReference, htmlAttrs)
+}
 func (resource *EvidenceVariable) T_CharacteristicTimeFromEventEventDateTime(numCharacteristic int, numTimeFromEvent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) || numTimeFromEvent >= len(resource.Characteristic[numCharacteristic].TimeFromEvent) {
-		return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventDateTime", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].EventDateTime, htmlAttrs)
+	return FhirDateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventDateTime", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].EventDateTime, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicTimeFromEventEventId(numCharacteristic int, numTimeFromEvent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) || numTimeFromEvent >= len(resource.Characteristic[numCharacteristic].TimeFromEvent) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventId", nil, htmlAttrs)
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].eventId", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].EventId, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicTimeFromEventQuantity(numCharacteristic int, numTimeFromEvent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) || numTimeFromEvent >= len(resource.Characteristic[numCharacteristic].TimeFromEvent) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].quantity", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].Quantity, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CharacteristicTimeFromEventRange(numCharacteristic int, numTimeFromEvent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) || numTimeFromEvent >= len(resource.Characteristic[numCharacteristic].TimeFromEvent) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].range", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].timeFromEvent["+strconv.Itoa(numTimeFromEvent)+"].range", resource.Characteristic[numCharacteristic].TimeFromEvent[numTimeFromEvent].Range, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CategoryName(numCategory int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
@@ -413,4 +539,16 @@ func (resource *EvidenceVariable) T_CategoryValueCodeableConcept(numCategory int
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"].valueCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"].valueCodeableConcept", resource.Category[numCategory].ValueCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CategoryValueQuantity(numCategory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCategory >= len(resource.Category) {
+		return QuantityInput("category["+strconv.Itoa(numCategory)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("category["+strconv.Itoa(numCategory)+"].valueQuantity", resource.Category[numCategory].ValueQuantity, htmlAttrs)
+}
+func (resource *EvidenceVariable) T_CategoryValueRange(numCategory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCategory >= len(resource.Category) {
+		return RangeInput("category["+strconv.Itoa(numCategory)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("category["+strconv.Itoa(numCategory)+"].valueRange", resource.Category[numCategory].ValueRange, htmlAttrs)
 }

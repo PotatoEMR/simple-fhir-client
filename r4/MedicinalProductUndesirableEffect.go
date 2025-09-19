@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"strconv"
 
 	"github.com/a-h/templ"
 )
@@ -52,6 +53,12 @@ func (r MedicinalProductUndesirableEffect) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicinalProductUndesirableEffect) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
 func (resource *MedicinalProductUndesirableEffect) T_SymptomConditionEffect(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("symptomConditionEffect", nil, optionsValueSet, htmlAttrs)
@@ -69,4 +76,10 @@ func (resource *MedicinalProductUndesirableEffect) T_FrequencyOfOccurrence(optio
 		return CodeableConceptSelect("frequencyOfOccurrence", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("frequencyOfOccurrence", resource.FrequencyOfOccurrence, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductUndesirableEffect) T_Population(numPopulation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPopulation >= len(resource.Population) {
+		return PopulationInput("population["+strconv.Itoa(numPopulation)+"]", nil, htmlAttrs)
+	}
+	return PopulationInput("population["+strconv.Itoa(numPopulation)+"]", &resource.Population[numPopulation], htmlAttrs)
 }

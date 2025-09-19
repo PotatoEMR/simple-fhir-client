@@ -85,6 +85,12 @@ func (resource *Slot) T_AppointmentType(optionsValueSet []Coding, htmlAttrs temp
 	}
 	return CodeableConceptSelect("appointmentType", resource.AppointmentType, optionsValueSet, htmlAttrs)
 }
+func (resource *Slot) T_Schedule(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("schedule", nil, htmlAttrs)
+	}
+	return ReferenceInput("schedule", &resource.Schedule, htmlAttrs)
+}
 func (resource *Slot) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSlotstatus
 

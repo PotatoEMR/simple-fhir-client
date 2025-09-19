@@ -277,11 +277,12 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				//region Forms
 				//take a break from structs to write form methods...kind of mixed up with structs
 				//dont think you want a form for one of these...make it yourself if you do
-				if !slices.Contains([]string{"id", "meta", "implicitRules", "language", "contained", "extension", "modifierExtension", "identifier"}, fieldName_lower) {
+				noFormType := slices.Contains([]string{"id", "meta", "implicitRules", "language", "contained", "extension", "modifierExtension", "identifier", "text"}, fieldName_lower)
+				otherBadType := len(elt.Type) == 1 && (elt.Type[0].Code == "BackboneElement" || elt.Type[0].Code == "Resource" || elt.Type[0].Code == "Meta" || elt.Type[0].Code == "ElementDefinition")
+				DoubleDosage := strings.Contains(elt.Path, "dosage.dosage") //messes up form args
+				if !noFormType && !otherBadType && !DoubleDosage {
 					for _, eltType := range elt.Type {
-						eltGoType, ok := fhirPrimitive_to_GolangType[eltType.Code]
-						//currently only forms for primitive types and coding/codeableconcept/annotation
-						if ok || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" || eltType.Code == "Annotation" {
+						/*if ok || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" || eltType.Code == "Annotation"*/ {
 							optionsValueSet := ""
 							vsParam := ""
 							vsReq := ""
@@ -339,18 +340,36 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								backbonePath = "&" + backbonePath
 							}
 
-							inputType := "StringInput"
-							if eltGoType == "bool" {
-								inputType = "BoolInput"
-							} else if eltGoType == "float64" || eltGoType == "int" || eltGoType == "int64" {
+							var inputType string
+							eltGoType, isPrimitive := fhirPrimitive_to_GolangType[eltType.Code]
+							if isPrimitive && eltType.Code != "code" {
 								inputType = strings.Title(eltGoType) + "Input"
-							} else if eltType.Code == "date" || eltType.Code == "dateTime" {
-								inputType = strings.Title(eltType.Code) + "Input"
-							} else if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" {
-								inputType = strings.Title(eltType.Code + "Select")
-							} else if eltType.Code == "Annotation" {
-								inputType = "AnnotationTextArea"
+							} else {
+								switch eltType.Code {
+								case "code", "Coding", "CodeableConcept":
+									inputType = strings.Title(eltType.Code) + "Select"
+								case "Annotation":
+									inputType = "AnnotationTextArea"
+								case "Reference":
+									inputType = "ReferenceInput"
+								case "Meta", "SubstanceAmount", "ProdCharacteristic", "ProductShelfLife", "MarketingStatus", "Contributor", "DataRequirement", "TriggerDefinition", "ParameterDefinition", "ExtendedContactDetail", "Availability", "Expression", "Population", "MonetaryComponent", "VirtualServiceDetail", "Quantity", "RelatedArtifact", "ContactDetail", "UsageContext", "CodeableReference", "Dosage", "Ratio", "Period", "Range", "RatioRange", "Attachment", "Identifier", "HumanName", "ContactPoint", "Signature", "Address", "Timing", "RelativeTime", "Money", "SampledData", "Age", "Distance", "Duration", "Count", "SimpleQuantity", "MoneyQuantity":
+									inputType = eltType.Code + "Input"
+								default:
+									inputType = eltType.Code + "Not in switch"
+								}
 							}
+							// inputType := "StringInput"
+							// if eltGoType == "bool" {
+							// 	inputType = "BoolInput"
+							// } else if eltGoType == "float64" || eltGoType == "int" || eltGoType == "int64" {
+							// 	inputType = strings.Title(eltGoType) + "Input"
+							// } else if eltType.Code == "date" || eltType.Code == "dateTime" {
+							// 	inputType = strings.Title(eltType.Code) + "Input"
+							// } else if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" {
+							// 	inputType = strings.Title(eltType.Code + "Select")
+							// } else if eltType.Code == "Annotation" {
+							// 	inputType = "AnnotationTextArea"
+							// }
 
 							formFuncs.WriteString(`
 					        return ` + inputType + `("` + formName + `", nil` + optionsValueSet + `, htmlAttrs)

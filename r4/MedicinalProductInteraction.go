@@ -64,6 +64,12 @@ func (r MedicinalProductInteraction) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicinalProductInteraction) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
 func (resource *MedicinalProductInteraction) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
@@ -93,6 +99,12 @@ func (resource *MedicinalProductInteraction) T_Management(optionsValueSet []Codi
 		return CodeableConceptSelect("management", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("management", resource.Management, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductInteraction) T_InteractantItemReference(numInteractant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInteractant >= len(resource.Interactant) {
+		return ReferenceInput("interactant["+strconv.Itoa(numInteractant)+"].itemReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("interactant["+strconv.Itoa(numInteractant)+"].itemReference", &resource.Interactant[numInteractant].ItemReference, htmlAttrs)
 }
 func (resource *MedicinalProductInteraction) T_InteractantItemCodeableConcept(numInteractant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInteractant >= len(resource.Interactant) {

@@ -165,9 +165,9 @@ func (resource *ChargeItemDefinition) T_Experimental(htmlAttrs templ.Attributes)
 }
 func (resource *ChargeItemDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -175,11 +175,23 @@ func (resource *ChargeItemDefinition) T_Publisher(htmlAttrs templ.Attributes) te
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ChargeItemDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ChargeItemDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -207,19 +219,49 @@ func (resource *ChargeItemDefinition) T_CopyrightLabel(htmlAttrs templ.Attribute
 }
 func (resource *ChargeItemDefinition) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_Instance(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"]", &resource.Instance[numInstance], htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityCondition(numApplicability int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numApplicability >= len(resource.Applicability) {
+		return ExpressionInput("applicability["+strconv.Itoa(numApplicability)+"].condition", nil, htmlAttrs)
+	}
+	return ExpressionInput("applicability["+strconv.Itoa(numApplicability)+"].condition", resource.Applicability[numApplicability].Condition, htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityEffectivePeriod(numApplicability int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numApplicability >= len(resource.Applicability) {
+		return PeriodInput("applicability["+strconv.Itoa(numApplicability)+"].effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("applicability["+strconv.Itoa(numApplicability)+"].effectivePeriod", resource.Applicability[numApplicability].EffectivePeriod, htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_ApplicabilityRelatedArtifact(numApplicability int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numApplicability >= len(resource.Applicability) {
+		return RelatedArtifactInput("applicability["+strconv.Itoa(numApplicability)+"].relatedArtifact", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("applicability["+strconv.Itoa(numApplicability)+"].relatedArtifact", resource.Applicability[numApplicability].RelatedArtifact, htmlAttrs)
+}
+func (resource *ChargeItemDefinition) T_PropertyGroupPriceComponent(numPropertyGroup int, numPriceComponent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPropertyGroup >= len(resource.PropertyGroup) || numPriceComponent >= len(resource.PropertyGroup[numPropertyGroup].PriceComponent) {
+		return MonetaryComponentInput("propertyGroup["+strconv.Itoa(numPropertyGroup)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"]", nil, htmlAttrs)
+	}
+	return MonetaryComponentInput("propertyGroup["+strconv.Itoa(numPropertyGroup)+"].priceComponent["+strconv.Itoa(numPriceComponent)+"]", &resource.PropertyGroup[numPropertyGroup].PriceComponent[numPriceComponent], htmlAttrs)
 }

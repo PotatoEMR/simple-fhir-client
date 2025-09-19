@@ -107,11 +107,47 @@ func (resource *MolecularSequence) T_Type(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return CodeSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
+func (resource *MolecularSequence) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Focus(numFocus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
+}
+func (resource *MolecularSequence) T_Specimen(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("specimen", nil, htmlAttrs)
+	}
+	return ReferenceInput("specimen", resource.Specimen, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Device(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("device", nil, htmlAttrs)
+	}
+	return ReferenceInput("device", resource.Device, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("performer", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer", resource.Performer, htmlAttrs)
+}
 func (resource *MolecularSequence) T_Literal(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("literal", nil, htmlAttrs)
 	}
 	return StringInput("literal", resource.Literal, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Formatted(numFormatted int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFormatted >= len(resource.Formatted) {
+		return AttachmentInput("formatted["+strconv.Itoa(numFormatted)+"]", nil, htmlAttrs)
+	}
+	return AttachmentInput("formatted["+strconv.Itoa(numFormatted)+"]", &resource.Formatted[numFormatted], htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeCoordinateSystem(numRelative int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
@@ -124,6 +160,12 @@ func (resource *MolecularSequence) T_RelativeOrdinalPosition(numRelative int, ht
 		return IntInput("relative["+strconv.Itoa(numRelative)+"].ordinalPosition", nil, htmlAttrs)
 	}
 	return IntInput("relative["+strconv.Itoa(numRelative)+"].ordinalPosition", resource.Relative[numRelative].OrdinalPosition, htmlAttrs)
+}
+func (resource *MolecularSequence) T_RelativeSequenceRange(numRelative int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelative >= len(resource.Relative) {
+		return RangeInput("relative["+strconv.Itoa(numRelative)+"].sequenceRange", nil, htmlAttrs)
+	}
+	return RangeInput("relative["+strconv.Itoa(numRelative)+"].sequenceRange", resource.Relative[numRelative].SequenceRange, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceGenomeAssembly(numRelative int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {
@@ -148,6 +190,12 @@ func (resource *MolecularSequence) T_RelativeStartingSequenceSequenceString(numR
 		return StringInput("relative["+strconv.Itoa(numRelative)+"].startingSequence.sequenceString", nil, htmlAttrs)
 	}
 	return StringInput("relative["+strconv.Itoa(numRelative)+"].startingSequence.sequenceString", resource.Relative[numRelative].StartingSequence.SequenceString, htmlAttrs)
+}
+func (resource *MolecularSequence) T_RelativeStartingSequenceSequenceReference(numRelative int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelative >= len(resource.Relative) {
+		return ReferenceInput("relative["+strconv.Itoa(numRelative)+"].startingSequence.sequenceReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("relative["+strconv.Itoa(numRelative)+"].startingSequence.sequenceReference", resource.Relative[numRelative].StartingSequence.SequenceReference, htmlAttrs)
 }
 func (resource *MolecularSequence) T_RelativeStartingSequenceWindowStart(numRelative int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelative >= len(resource.Relative) {

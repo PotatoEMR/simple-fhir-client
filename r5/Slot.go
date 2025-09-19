@@ -67,6 +67,12 @@ func (resource *Slot) T_ServiceCategory(numServiceCategory int, optionsValueSet 
 	}
 	return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", &resource.ServiceCategory[numServiceCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *Slot) T_ServiceType(numServiceType int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numServiceType >= len(resource.ServiceType) {
+		return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], htmlAttrs)
+}
 func (resource *Slot) T_Specialty(numSpecialty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialty >= len(resource.Specialty) {
 		return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", nil, optionsValueSet, htmlAttrs)
@@ -78,6 +84,12 @@ func (resource *Slot) T_AppointmentType(numAppointmentType int, optionsValueSet 
 		return CodeableConceptSelect("appointmentType["+strconv.Itoa(numAppointmentType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("appointmentType["+strconv.Itoa(numAppointmentType)+"]", &resource.AppointmentType[numAppointmentType], optionsValueSet, htmlAttrs)
+}
+func (resource *Slot) T_Schedule(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("schedule", nil, htmlAttrs)
+	}
+	return ReferenceInput("schedule", &resource.Schedule, htmlAttrs)
 }
 func (resource *Slot) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSlotstatus

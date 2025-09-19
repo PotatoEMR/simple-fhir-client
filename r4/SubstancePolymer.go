@@ -164,6 +164,12 @@ func (resource *SubstancePolymer) T_MonomerSetStartingMaterialIsDefining(numMono
 	}
 	return BoolInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].isDefining", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].IsDefining, htmlAttrs)
 }
+func (resource *SubstancePolymer) T_MonomerSetStartingMaterialAmount(numMonomerSet int, numStartingMaterial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
+		return SubstanceAmountInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", nil, htmlAttrs)
+	}
+	return SubstanceAmountInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Amount, htmlAttrs)
+}
 func (resource *SubstancePolymer) T_RepeatNumberOfUnits(numRepeat int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {
 		return IntInput("repeat["+strconv.Itoa(numRepeat)+"].numberOfUnits", nil, htmlAttrs)
@@ -194,11 +200,23 @@ func (resource *SubstancePolymer) T_RepeatRepeatUnitRepeatUnit(numRepeat int, nu
 	}
 	return StringInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].repeatUnit", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].RepeatUnit, htmlAttrs)
 }
+func (resource *SubstancePolymer) T_RepeatRepeatUnitAmount(numRepeat int, numRepeatUnit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) {
+		return SubstanceAmountInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].amount", nil, htmlAttrs)
+	}
+	return SubstanceAmountInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].amount", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].Amount, htmlAttrs)
+}
 func (resource *SubstancePolymer) T_RepeatRepeatUnitDegreeOfPolymerisationDegree(numRepeat int, numRepeatUnit int, numDegreeOfPolymerisation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numDegreeOfPolymerisation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation) {
 		return CodeableConceptSelect("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].degreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].degree", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].degreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].degree", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation[numDegreeOfPolymerisation].Degree, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstancePolymer) T_RepeatRepeatUnitDegreeOfPolymerisationAmount(numRepeat int, numRepeatUnit int, numDegreeOfPolymerisation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numDegreeOfPolymerisation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation) {
+		return SubstanceAmountInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].degreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].amount", nil, htmlAttrs)
+	}
+	return SubstanceAmountInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].degreeOfPolymerisation["+strconv.Itoa(numDegreeOfPolymerisation)+"].amount", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].DegreeOfPolymerisation[numDegreeOfPolymerisation].Amount, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationType(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numStructuralRepresentation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) {
@@ -211,4 +229,10 @@ func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationRepr
 		return StringInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].representation", nil, htmlAttrs)
 	}
 	return StringInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].representation", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Representation, htmlAttrs)
+}
+func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationAttachment(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numStructuralRepresentation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) {
+		return AttachmentInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].attachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].attachment", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Attachment, htmlAttrs)
 }

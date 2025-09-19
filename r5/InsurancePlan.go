@@ -172,11 +172,59 @@ func (resource *InsurancePlan) T_Alias(numAlias int, htmlAttrs templ.Attributes)
 	}
 	return StringInput("alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
+func (resource *InsurancePlan) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *InsurancePlan) T_OwnedBy(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("ownedBy", nil, htmlAttrs)
+	}
+	return ReferenceInput("ownedBy", resource.OwnedBy, htmlAttrs)
+}
+func (resource *InsurancePlan) T_AdministeredBy(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("administeredBy", nil, htmlAttrs)
+	}
+	return ReferenceInput("administeredBy", resource.AdministeredBy, htmlAttrs)
+}
+func (resource *InsurancePlan) T_CoverageArea(numCoverageArea int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCoverageArea >= len(resource.CoverageArea) {
+		return ReferenceInput("coverageArea["+strconv.Itoa(numCoverageArea)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("coverageArea["+strconv.Itoa(numCoverageArea)+"]", &resource.CoverageArea[numCoverageArea], htmlAttrs)
+}
+func (resource *InsurancePlan) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *InsurancePlan) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+}
+func (resource *InsurancePlan) T_Network(numNetwork int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNetwork >= len(resource.Network) {
+		return ReferenceInput("network["+strconv.Itoa(numNetwork)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("network["+strconv.Itoa(numNetwork)+"]", &resource.Network[numNetwork], htmlAttrs)
+}
 func (resource *InsurancePlan) T_CoverageType(numCoverage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
 		return CodeableConceptSelect("coverage["+strconv.Itoa(numCoverage)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("coverage["+strconv.Itoa(numCoverage)+"].type", &resource.Coverage[numCoverage].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *InsurancePlan) T_CoverageNetwork(numCoverage int, numNetwork int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCoverage >= len(resource.Coverage) || numNetwork >= len(resource.Coverage[numCoverage].Network) {
+		return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].network["+strconv.Itoa(numNetwork)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].network["+strconv.Itoa(numNetwork)+"]", &resource.Coverage[numCoverage].Network[numNetwork], htmlAttrs)
 }
 func (resource *InsurancePlan) T_CoverageBenefitType(numCoverage int, numBenefit int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) || numBenefit >= len(resource.Coverage[numCoverage].Benefit) {
@@ -190,6 +238,12 @@ func (resource *InsurancePlan) T_CoverageBenefitRequirement(numCoverage int, num
 	}
 	return StringInput("coverage["+strconv.Itoa(numCoverage)+"].benefit["+strconv.Itoa(numBenefit)+"].requirement", resource.Coverage[numCoverage].Benefit[numBenefit].Requirement, htmlAttrs)
 }
+func (resource *InsurancePlan) T_CoverageBenefitLimitValue(numCoverage int, numBenefit int, numLimit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCoverage >= len(resource.Coverage) || numBenefit >= len(resource.Coverage[numCoverage].Benefit) || numLimit >= len(resource.Coverage[numCoverage].Benefit[numBenefit].Limit) {
+		return QuantityInput("coverage["+strconv.Itoa(numCoverage)+"].benefit["+strconv.Itoa(numBenefit)+"].limit["+strconv.Itoa(numLimit)+"].value", nil, htmlAttrs)
+	}
+	return QuantityInput("coverage["+strconv.Itoa(numCoverage)+"].benefit["+strconv.Itoa(numBenefit)+"].limit["+strconv.Itoa(numLimit)+"].value", resource.Coverage[numCoverage].Benefit[numBenefit].Limit[numLimit].Value, htmlAttrs)
+}
 func (resource *InsurancePlan) T_CoverageBenefitLimitCode(numCoverage int, numBenefit int, numLimit int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) || numBenefit >= len(resource.Coverage[numCoverage].Benefit) || numLimit >= len(resource.Coverage[numCoverage].Benefit[numBenefit].Limit) {
 		return CodeableConceptSelect("coverage["+strconv.Itoa(numCoverage)+"].benefit["+strconv.Itoa(numBenefit)+"].limit["+strconv.Itoa(numLimit)+"].code", nil, optionsValueSet, htmlAttrs)
@@ -202,6 +256,18 @@ func (resource *InsurancePlan) T_PlanType(numPlan int, optionsValueSet []Coding,
 	}
 	return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].type", resource.Plan[numPlan].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *InsurancePlan) T_PlanCoverageArea(numPlan int, numCoverageArea int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPlan >= len(resource.Plan) || numCoverageArea >= len(resource.Plan[numPlan].CoverageArea) {
+		return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].coverageArea["+strconv.Itoa(numCoverageArea)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].coverageArea["+strconv.Itoa(numCoverageArea)+"]", &resource.Plan[numPlan].CoverageArea[numCoverageArea], htmlAttrs)
+}
+func (resource *InsurancePlan) T_PlanNetwork(numPlan int, numNetwork int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPlan >= len(resource.Plan) || numNetwork >= len(resource.Plan[numPlan].Network) {
+		return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].network["+strconv.Itoa(numNetwork)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].network["+strconv.Itoa(numNetwork)+"]", &resource.Plan[numPlan].Network[numNetwork], htmlAttrs)
+}
 func (resource *InsurancePlan) T_PlanGeneralCostType(numPlan int, numGeneralCost int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPlan >= len(resource.Plan) || numGeneralCost >= len(resource.Plan[numPlan].GeneralCost) {
 		return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].generalCost["+strconv.Itoa(numGeneralCost)+"].type", nil, optionsValueSet, htmlAttrs)
@@ -213,6 +279,12 @@ func (resource *InsurancePlan) T_PlanGeneralCostGroupSize(numPlan int, numGenera
 		return IntInput("plan["+strconv.Itoa(numPlan)+"].generalCost["+strconv.Itoa(numGeneralCost)+"].groupSize", nil, htmlAttrs)
 	}
 	return IntInput("plan["+strconv.Itoa(numPlan)+"].generalCost["+strconv.Itoa(numGeneralCost)+"].groupSize", resource.Plan[numPlan].GeneralCost[numGeneralCost].GroupSize, htmlAttrs)
+}
+func (resource *InsurancePlan) T_PlanGeneralCostCost(numPlan int, numGeneralCost int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPlan >= len(resource.Plan) || numGeneralCost >= len(resource.Plan[numPlan].GeneralCost) {
+		return MoneyInput("plan["+strconv.Itoa(numPlan)+"].generalCost["+strconv.Itoa(numGeneralCost)+"].cost", nil, htmlAttrs)
+	}
+	return MoneyInput("plan["+strconv.Itoa(numPlan)+"].generalCost["+strconv.Itoa(numGeneralCost)+"].cost", resource.Plan[numPlan].GeneralCost[numGeneralCost].Cost, htmlAttrs)
 }
 func (resource *InsurancePlan) T_PlanGeneralCostComment(numPlan int, numGeneralCost int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPlan >= len(resource.Plan) || numGeneralCost >= len(resource.Plan[numPlan].GeneralCost) {
@@ -249,4 +321,10 @@ func (resource *InsurancePlan) T_PlanSpecificCostBenefitCostQualifiers(numPlan i
 		return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].specificCost["+strconv.Itoa(numSpecificCost)+"].benefit["+strconv.Itoa(numBenefit)+"].cost["+strconv.Itoa(numCost)+"].qualifiers["+strconv.Itoa(numQualifiers)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].specificCost["+strconv.Itoa(numSpecificCost)+"].benefit["+strconv.Itoa(numBenefit)+"].cost["+strconv.Itoa(numCost)+"].qualifiers["+strconv.Itoa(numQualifiers)+"]", &resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost[numCost].Qualifiers[numQualifiers], optionsValueSet, htmlAttrs)
+}
+func (resource *InsurancePlan) T_PlanSpecificCostBenefitCostValue(numPlan int, numSpecificCost int, numBenefit int, numCost int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPlan >= len(resource.Plan) || numSpecificCost >= len(resource.Plan[numPlan].SpecificCost) || numBenefit >= len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit) || numCost >= len(resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost) {
+		return QuantityInput("plan["+strconv.Itoa(numPlan)+"].specificCost["+strconv.Itoa(numSpecificCost)+"].benefit["+strconv.Itoa(numBenefit)+"].cost["+strconv.Itoa(numCost)+"].value", nil, htmlAttrs)
+	}
+	return QuantityInput("plan["+strconv.Itoa(numPlan)+"].specificCost["+strconv.Itoa(numSpecificCost)+"].benefit["+strconv.Itoa(numBenefit)+"].cost["+strconv.Itoa(numCost)+"].value", resource.Plan[numPlan].SpecificCost[numSpecificCost].Benefit[numBenefit].Cost[numCost].Value, htmlAttrs)
 }

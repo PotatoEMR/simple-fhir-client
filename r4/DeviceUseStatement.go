@@ -65,6 +65,12 @@ func (r DeviceUseStatement) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *DeviceUseStatement) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
 func (resource *DeviceUseStatement) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDevice_statement_status
 
@@ -73,23 +79,65 @@ func (resource *DeviceUseStatement) T_Status(htmlAttrs templ.Attributes) templ.C
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *DeviceUseStatement) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
+		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_TimingTiming(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("timingTiming", nil, htmlAttrs)
+	}
+	return TimingInput("timingTiming", resource.TimingTiming, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_TimingPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("timingPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("timingPeriod", resource.TimingPeriod, htmlAttrs)
+}
 func (resource *DeviceUseStatement) T_TimingDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("timingDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("timingDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("timingDateTime", resource.TimingDateTime, htmlAttrs)
+	return FhirDateTimeInput("timingDateTime", resource.TimingDateTime, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_RecordedOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("recordedOn", nil, htmlAttrs)
+		return FhirDateTimeInput("recordedOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("recordedOn", resource.RecordedOn, htmlAttrs)
+	return FhirDateTimeInput("recordedOn", resource.RecordedOn, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_Source(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("source", nil, htmlAttrs)
+	}
+	return ReferenceInput("source", resource.Source, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_Device(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("device", nil, htmlAttrs)
+	}
+	return ReferenceInput("device", &resource.Device, htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceUseStatement) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *DeviceUseStatement) T_BodySite(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

@@ -238,6 +238,24 @@ func (resource *Task) T_InstantiatesUri(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("instantiatesUri", resource.InstantiatesUri, htmlAttrs)
 }
+func (resource *Task) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *Task) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return IdentifierInput("groupIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("groupIdentifier", resource.GroupIdentifier, htmlAttrs)
+}
+func (resource *Task) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *Task) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSTask_status
 
@@ -245,6 +263,12 @@ func (resource *Task) T_Status(htmlAttrs templ.Attributes) templ.Component {
 		return CodeSelect("status", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_StatusReason(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("statusReason", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("statusReason", resource.StatusReason, htmlAttrs)
 }
 func (resource *Task) T_BusinessStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -286,17 +310,83 @@ func (resource *Task) T_Description(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
+func (resource *Task) T_Focus(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("focus", nil, htmlAttrs)
+	}
+	return ReferenceInput("focus", resource.Focus, htmlAttrs)
+}
+func (resource *Task) T_For(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("for", nil, htmlAttrs)
+	}
+	return ReferenceInput("for", resource.For, htmlAttrs)
+}
+func (resource *Task) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
+func (resource *Task) T_RequestedPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("requestedPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("requestedPeriod", resource.RequestedPeriod, htmlAttrs)
+}
+func (resource *Task) T_ExecutionPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("executionPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("executionPeriod", resource.ExecutionPeriod, htmlAttrs)
+}
 func (resource *Task) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("authoredOn", nil, htmlAttrs)
+		return FhirDateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
 func (resource *Task) T_LastModified(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("lastModified", nil, htmlAttrs)
+		return FhirDateTimeInput("lastModified", nil, htmlAttrs)
 	}
-	return DateTimeInput("lastModified", resource.LastModified, htmlAttrs)
+	return FhirDateTimeInput("lastModified", resource.LastModified, htmlAttrs)
+}
+func (resource *Task) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("requester", nil, htmlAttrs)
+	}
+	return ReferenceInput("requester", resource.Requester, htmlAttrs)
+}
+func (resource *Task) T_RequestedPerformer(numRequestedPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRequestedPerformer >= len(resource.RequestedPerformer) {
+		return CodeableReferenceInput("requestedPerformer["+strconv.Itoa(numRequestedPerformer)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("requestedPerformer["+strconv.Itoa(numRequestedPerformer)+"]", &resource.RequestedPerformer[numRequestedPerformer], htmlAttrs)
+}
+func (resource *Task) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("owner", nil, htmlAttrs)
+	}
+	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+}
+func (resource *Task) T_Location(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("location", nil, htmlAttrs)
+	}
+	return ReferenceInput("location", resource.Location, htmlAttrs)
+}
+func (resource *Task) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
+}
+func (resource *Task) T_Insurance(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
 }
 func (resource *Task) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -304,17 +394,41 @@ func (resource *Task) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Comp
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
+func (resource *Task) T_RelevantHistory(numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelevantHistory >= len(resource.RelevantHistory) {
+		return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
+}
 func (resource *Task) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
 		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
+func (resource *Task) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
+}
 func (resource *Task) T_RestrictionRepetitions(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("restriction.repetitions", nil, htmlAttrs)
 	}
 	return IntInput("restriction.repetitions", resource.Restriction.Repetitions, htmlAttrs)
+}
+func (resource *Task) T_RestrictionPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("restriction.period", nil, htmlAttrs)
+	}
+	return PeriodInput("restriction.period", resource.Restriction.Period, htmlAttrs)
+}
+func (resource *Task) T_RestrictionRecipient(numRecipient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRecipient >= len(resource.Restriction.Recipient) {
+		return ReferenceInput("restriction.recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("restriction.recipient["+strconv.Itoa(numRecipient)+"]", &resource.Restriction.Recipient[numRecipient], htmlAttrs)
 }
 func (resource *Task) T_InputType(numInput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -348,15 +462,15 @@ func (resource *Task) T_InputValueCode(numInput int, optionsValueSet []Coding, h
 }
 func (resource *Task) T_InputValueDate(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
-		return DateInput("input["+strconv.Itoa(numInput)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("input["+strconv.Itoa(numInput)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("input["+strconv.Itoa(numInput)+"].valueDate", &resource.Input[numInput].ValueDate, htmlAttrs)
+	return FhirDateInput("input["+strconv.Itoa(numInput)+"].valueDate", &resource.Input[numInput].ValueDate, htmlAttrs)
 }
 func (resource *Task) T_InputValueDateTime(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
-		return DateTimeInput("input["+strconv.Itoa(numInput)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("input["+strconv.Itoa(numInput)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("input["+strconv.Itoa(numInput)+"].valueDateTime", &resource.Input[numInput].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("input["+strconv.Itoa(numInput)+"].valueDateTime", &resource.Input[numInput].ValueDateTime, htmlAttrs)
 }
 func (resource *Task) T_InputValueDecimal(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -442,11 +556,29 @@ func (resource *Task) T_InputValueUuid(numInput int, htmlAttrs templ.Attributes)
 	}
 	return StringInput("input["+strconv.Itoa(numInput)+"].valueUuid", &resource.Input[numInput].ValueUuid, htmlAttrs)
 }
+func (resource *Task) T_InputValueAddress(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return AddressInput("input["+strconv.Itoa(numInput)+"].valueAddress", nil, htmlAttrs)
+	}
+	return AddressInput("input["+strconv.Itoa(numInput)+"].valueAddress", &resource.Input[numInput].ValueAddress, htmlAttrs)
+}
+func (resource *Task) T_InputValueAge(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return AgeInput("input["+strconv.Itoa(numInput)+"].valueAge", nil, htmlAttrs)
+	}
+	return AgeInput("input["+strconv.Itoa(numInput)+"].valueAge", &resource.Input[numInput].ValueAge, htmlAttrs)
+}
 func (resource *Task) T_InputValueAnnotation(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
 		return AnnotationTextArea("input["+strconv.Itoa(numInput)+"].valueAnnotation", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("input["+strconv.Itoa(numInput)+"].valueAnnotation", &resource.Input[numInput].ValueAnnotation, htmlAttrs)
+}
+func (resource *Task) T_InputValueAttachment(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return AttachmentInput("input["+strconv.Itoa(numInput)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("input["+strconv.Itoa(numInput)+"].valueAttachment", &resource.Input[numInput].ValueAttachment, htmlAttrs)
 }
 func (resource *Task) T_InputValueCodeableConcept(numInput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -454,11 +586,179 @@ func (resource *Task) T_InputValueCodeableConcept(numInput int, optionsValueSet 
 	}
 	return CodeableConceptSelect("input["+strconv.Itoa(numInput)+"].valueCodeableConcept", &resource.Input[numInput].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *Task) T_InputValueCodeableReference(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return CodeableReferenceInput("input["+strconv.Itoa(numInput)+"].valueCodeableReference", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("input["+strconv.Itoa(numInput)+"].valueCodeableReference", &resource.Input[numInput].ValueCodeableReference, htmlAttrs)
+}
 func (resource *Task) T_InputValueCoding(numInput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
 		return CodingSelect("input["+strconv.Itoa(numInput)+"].valueCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("input["+strconv.Itoa(numInput)+"].valueCoding", &resource.Input[numInput].ValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_InputValueContactPoint(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ContactPointInput("input["+strconv.Itoa(numInput)+"].valueContactPoint", nil, htmlAttrs)
+	}
+	return ContactPointInput("input["+strconv.Itoa(numInput)+"].valueContactPoint", &resource.Input[numInput].ValueContactPoint, htmlAttrs)
+}
+func (resource *Task) T_InputValueCount(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return CountInput("input["+strconv.Itoa(numInput)+"].valueCount", nil, htmlAttrs)
+	}
+	return CountInput("input["+strconv.Itoa(numInput)+"].valueCount", &resource.Input[numInput].ValueCount, htmlAttrs)
+}
+func (resource *Task) T_InputValueDistance(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return DistanceInput("input["+strconv.Itoa(numInput)+"].valueDistance", nil, htmlAttrs)
+	}
+	return DistanceInput("input["+strconv.Itoa(numInput)+"].valueDistance", &resource.Input[numInput].ValueDistance, htmlAttrs)
+}
+func (resource *Task) T_InputValueDuration(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return DurationInput("input["+strconv.Itoa(numInput)+"].valueDuration", nil, htmlAttrs)
+	}
+	return DurationInput("input["+strconv.Itoa(numInput)+"].valueDuration", &resource.Input[numInput].ValueDuration, htmlAttrs)
+}
+func (resource *Task) T_InputValueHumanName(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return HumanNameInput("input["+strconv.Itoa(numInput)+"].valueHumanName", nil, htmlAttrs)
+	}
+	return HumanNameInput("input["+strconv.Itoa(numInput)+"].valueHumanName", &resource.Input[numInput].ValueHumanName, htmlAttrs)
+}
+func (resource *Task) T_InputValueIdentifier(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return IdentifierInput("input["+strconv.Itoa(numInput)+"].valueIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("input["+strconv.Itoa(numInput)+"].valueIdentifier", &resource.Input[numInput].ValueIdentifier, htmlAttrs)
+}
+func (resource *Task) T_InputValueMoney(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return MoneyInput("input["+strconv.Itoa(numInput)+"].valueMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("input["+strconv.Itoa(numInput)+"].valueMoney", &resource.Input[numInput].ValueMoney, htmlAttrs)
+}
+func (resource *Task) T_InputValuePeriod(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return PeriodInput("input["+strconv.Itoa(numInput)+"].valuePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("input["+strconv.Itoa(numInput)+"].valuePeriod", &resource.Input[numInput].ValuePeriod, htmlAttrs)
+}
+func (resource *Task) T_InputValueQuantity(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", &resource.Input[numInput].ValueQuantity, htmlAttrs)
+}
+func (resource *Task) T_InputValueRange(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return RangeInput("input["+strconv.Itoa(numInput)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("input["+strconv.Itoa(numInput)+"].valueRange", &resource.Input[numInput].ValueRange, htmlAttrs)
+}
+func (resource *Task) T_InputValueRatio(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return RatioInput("input["+strconv.Itoa(numInput)+"].valueRatio", nil, htmlAttrs)
+	}
+	return RatioInput("input["+strconv.Itoa(numInput)+"].valueRatio", &resource.Input[numInput].ValueRatio, htmlAttrs)
+}
+func (resource *Task) T_InputValueRatioRange(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return RatioRangeInput("input["+strconv.Itoa(numInput)+"].valueRatioRange", nil, htmlAttrs)
+	}
+	return RatioRangeInput("input["+strconv.Itoa(numInput)+"].valueRatioRange", &resource.Input[numInput].ValueRatioRange, htmlAttrs)
+}
+func (resource *Task) T_InputValueReference(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ReferenceInput("input["+strconv.Itoa(numInput)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("input["+strconv.Itoa(numInput)+"].valueReference", &resource.Input[numInput].ValueReference, htmlAttrs)
+}
+func (resource *Task) T_InputValueSampledData(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return SampledDataInput("input["+strconv.Itoa(numInput)+"].valueSampledData", nil, htmlAttrs)
+	}
+	return SampledDataInput("input["+strconv.Itoa(numInput)+"].valueSampledData", &resource.Input[numInput].ValueSampledData, htmlAttrs)
+}
+func (resource *Task) T_InputValueSignature(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return SignatureInput("input["+strconv.Itoa(numInput)+"].valueSignature", nil, htmlAttrs)
+	}
+	return SignatureInput("input["+strconv.Itoa(numInput)+"].valueSignature", &resource.Input[numInput].ValueSignature, htmlAttrs)
+}
+func (resource *Task) T_InputValueTiming(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return TimingInput("input["+strconv.Itoa(numInput)+"].valueTiming", nil, htmlAttrs)
+	}
+	return TimingInput("input["+strconv.Itoa(numInput)+"].valueTiming", &resource.Input[numInput].ValueTiming, htmlAttrs)
+}
+func (resource *Task) T_InputValueContactDetail(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ContactDetailInput("input["+strconv.Itoa(numInput)+"].valueContactDetail", nil, htmlAttrs)
+	}
+	return ContactDetailInput("input["+strconv.Itoa(numInput)+"].valueContactDetail", &resource.Input[numInput].ValueContactDetail, htmlAttrs)
+}
+func (resource *Task) T_InputValueDataRequirement(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return DataRequirementInput("input["+strconv.Itoa(numInput)+"].valueDataRequirement", nil, htmlAttrs)
+	}
+	return DataRequirementInput("input["+strconv.Itoa(numInput)+"].valueDataRequirement", &resource.Input[numInput].ValueDataRequirement, htmlAttrs)
+}
+func (resource *Task) T_InputValueExpression(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ExpressionInput("input["+strconv.Itoa(numInput)+"].valueExpression", nil, htmlAttrs)
+	}
+	return ExpressionInput("input["+strconv.Itoa(numInput)+"].valueExpression", &resource.Input[numInput].ValueExpression, htmlAttrs)
+}
+func (resource *Task) T_InputValueParameterDefinition(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ParameterDefinitionInput("input["+strconv.Itoa(numInput)+"].valueParameterDefinition", nil, htmlAttrs)
+	}
+	return ParameterDefinitionInput("input["+strconv.Itoa(numInput)+"].valueParameterDefinition", &resource.Input[numInput].ValueParameterDefinition, htmlAttrs)
+}
+func (resource *Task) T_InputValueRelatedArtifact(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return RelatedArtifactInput("input["+strconv.Itoa(numInput)+"].valueRelatedArtifact", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("input["+strconv.Itoa(numInput)+"].valueRelatedArtifact", &resource.Input[numInput].ValueRelatedArtifact, htmlAttrs)
+}
+func (resource *Task) T_InputValueTriggerDefinition(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return TriggerDefinitionInput("input["+strconv.Itoa(numInput)+"].valueTriggerDefinition", nil, htmlAttrs)
+	}
+	return TriggerDefinitionInput("input["+strconv.Itoa(numInput)+"].valueTriggerDefinition", &resource.Input[numInput].ValueTriggerDefinition, htmlAttrs)
+}
+func (resource *Task) T_InputValueUsageContext(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return UsageContextInput("input["+strconv.Itoa(numInput)+"].valueUsageContext", nil, htmlAttrs)
+	}
+	return UsageContextInput("input["+strconv.Itoa(numInput)+"].valueUsageContext", &resource.Input[numInput].ValueUsageContext, htmlAttrs)
+}
+func (resource *Task) T_InputValueAvailability(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return AvailabilityInput("input["+strconv.Itoa(numInput)+"].valueAvailability", nil, htmlAttrs)
+	}
+	return AvailabilityInput("input["+strconv.Itoa(numInput)+"].valueAvailability", &resource.Input[numInput].ValueAvailability, htmlAttrs)
+}
+func (resource *Task) T_InputValueExtendedContactDetail(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return ExtendedContactDetailInput("input["+strconv.Itoa(numInput)+"].valueExtendedContactDetail", nil, htmlAttrs)
+	}
+	return ExtendedContactDetailInput("input["+strconv.Itoa(numInput)+"].valueExtendedContactDetail", &resource.Input[numInput].ValueExtendedContactDetail, htmlAttrs)
+}
+func (resource *Task) T_InputValueDosage(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return DosageInput("input["+strconv.Itoa(numInput)+"].valueDosage", nil, htmlAttrs)
+	}
+	return DosageInput("input["+strconv.Itoa(numInput)+"].valueDosage", &resource.Input[numInput].ValueDosage, htmlAttrs)
+}
+func (resource *Task) T_InputValueMeta(numInput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInput >= len(resource.Input) {
+		return MetaInput("input["+strconv.Itoa(numInput)+"].valueMeta", nil, htmlAttrs)
+	}
+	return MetaInput("input["+strconv.Itoa(numInput)+"].valueMeta", &resource.Input[numInput].ValueMeta, htmlAttrs)
 }
 func (resource *Task) T_OutputType(numOutput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
@@ -492,15 +792,15 @@ func (resource *Task) T_OutputValueCode(numOutput int, optionsValueSet []Coding,
 }
 func (resource *Task) T_OutputValueDate(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
-		return DateInput("output["+strconv.Itoa(numOutput)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("output["+strconv.Itoa(numOutput)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("output["+strconv.Itoa(numOutput)+"].valueDate", &resource.Output[numOutput].ValueDate, htmlAttrs)
+	return FhirDateInput("output["+strconv.Itoa(numOutput)+"].valueDate", &resource.Output[numOutput].ValueDate, htmlAttrs)
 }
 func (resource *Task) T_OutputValueDateTime(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
-		return DateTimeInput("output["+strconv.Itoa(numOutput)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("output["+strconv.Itoa(numOutput)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("output["+strconv.Itoa(numOutput)+"].valueDateTime", &resource.Output[numOutput].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("output["+strconv.Itoa(numOutput)+"].valueDateTime", &resource.Output[numOutput].ValueDateTime, htmlAttrs)
 }
 func (resource *Task) T_OutputValueDecimal(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
@@ -586,11 +886,29 @@ func (resource *Task) T_OutputValueUuid(numOutput int, htmlAttrs templ.Attribute
 	}
 	return StringInput("output["+strconv.Itoa(numOutput)+"].valueUuid", &resource.Output[numOutput].ValueUuid, htmlAttrs)
 }
+func (resource *Task) T_OutputValueAddress(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return AddressInput("output["+strconv.Itoa(numOutput)+"].valueAddress", nil, htmlAttrs)
+	}
+	return AddressInput("output["+strconv.Itoa(numOutput)+"].valueAddress", &resource.Output[numOutput].ValueAddress, htmlAttrs)
+}
+func (resource *Task) T_OutputValueAge(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return AgeInput("output["+strconv.Itoa(numOutput)+"].valueAge", nil, htmlAttrs)
+	}
+	return AgeInput("output["+strconv.Itoa(numOutput)+"].valueAge", &resource.Output[numOutput].ValueAge, htmlAttrs)
+}
 func (resource *Task) T_OutputValueAnnotation(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
 		return AnnotationTextArea("output["+strconv.Itoa(numOutput)+"].valueAnnotation", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("output["+strconv.Itoa(numOutput)+"].valueAnnotation", &resource.Output[numOutput].ValueAnnotation, htmlAttrs)
+}
+func (resource *Task) T_OutputValueAttachment(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return AttachmentInput("output["+strconv.Itoa(numOutput)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("output["+strconv.Itoa(numOutput)+"].valueAttachment", &resource.Output[numOutput].ValueAttachment, htmlAttrs)
 }
 func (resource *Task) T_OutputValueCodeableConcept(numOutput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
@@ -598,9 +916,177 @@ func (resource *Task) T_OutputValueCodeableConcept(numOutput int, optionsValueSe
 	}
 	return CodeableConceptSelect("output["+strconv.Itoa(numOutput)+"].valueCodeableConcept", &resource.Output[numOutput].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *Task) T_OutputValueCodeableReference(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CodeableReferenceInput("output["+strconv.Itoa(numOutput)+"].valueCodeableReference", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("output["+strconv.Itoa(numOutput)+"].valueCodeableReference", &resource.Output[numOutput].ValueCodeableReference, htmlAttrs)
+}
 func (resource *Task) T_OutputValueCoding(numOutput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
 		return CodingSelect("output["+strconv.Itoa(numOutput)+"].valueCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("output["+strconv.Itoa(numOutput)+"].valueCoding", &resource.Output[numOutput].ValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *Task) T_OutputValueContactPoint(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ContactPointInput("output["+strconv.Itoa(numOutput)+"].valueContactPoint", nil, htmlAttrs)
+	}
+	return ContactPointInput("output["+strconv.Itoa(numOutput)+"].valueContactPoint", &resource.Output[numOutput].ValueContactPoint, htmlAttrs)
+}
+func (resource *Task) T_OutputValueCount(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return CountInput("output["+strconv.Itoa(numOutput)+"].valueCount", nil, htmlAttrs)
+	}
+	return CountInput("output["+strconv.Itoa(numOutput)+"].valueCount", &resource.Output[numOutput].ValueCount, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDistance(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DistanceInput("output["+strconv.Itoa(numOutput)+"].valueDistance", nil, htmlAttrs)
+	}
+	return DistanceInput("output["+strconv.Itoa(numOutput)+"].valueDistance", &resource.Output[numOutput].ValueDistance, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDuration(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DurationInput("output["+strconv.Itoa(numOutput)+"].valueDuration", nil, htmlAttrs)
+	}
+	return DurationInput("output["+strconv.Itoa(numOutput)+"].valueDuration", &resource.Output[numOutput].ValueDuration, htmlAttrs)
+}
+func (resource *Task) T_OutputValueHumanName(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return HumanNameInput("output["+strconv.Itoa(numOutput)+"].valueHumanName", nil, htmlAttrs)
+	}
+	return HumanNameInput("output["+strconv.Itoa(numOutput)+"].valueHumanName", &resource.Output[numOutput].ValueHumanName, htmlAttrs)
+}
+func (resource *Task) T_OutputValueIdentifier(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return IdentifierInput("output["+strconv.Itoa(numOutput)+"].valueIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("output["+strconv.Itoa(numOutput)+"].valueIdentifier", &resource.Output[numOutput].ValueIdentifier, htmlAttrs)
+}
+func (resource *Task) T_OutputValueMoney(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return MoneyInput("output["+strconv.Itoa(numOutput)+"].valueMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("output["+strconv.Itoa(numOutput)+"].valueMoney", &resource.Output[numOutput].ValueMoney, htmlAttrs)
+}
+func (resource *Task) T_OutputValuePeriod(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return PeriodInput("output["+strconv.Itoa(numOutput)+"].valuePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("output["+strconv.Itoa(numOutput)+"].valuePeriod", &resource.Output[numOutput].ValuePeriod, htmlAttrs)
+}
+func (resource *Task) T_OutputValueQuantity(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", &resource.Output[numOutput].ValueQuantity, htmlAttrs)
+}
+func (resource *Task) T_OutputValueRange(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return RangeInput("output["+strconv.Itoa(numOutput)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("output["+strconv.Itoa(numOutput)+"].valueRange", &resource.Output[numOutput].ValueRange, htmlAttrs)
+}
+func (resource *Task) T_OutputValueRatio(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return RatioInput("output["+strconv.Itoa(numOutput)+"].valueRatio", nil, htmlAttrs)
+	}
+	return RatioInput("output["+strconv.Itoa(numOutput)+"].valueRatio", &resource.Output[numOutput].ValueRatio, htmlAttrs)
+}
+func (resource *Task) T_OutputValueRatioRange(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return RatioRangeInput("output["+strconv.Itoa(numOutput)+"].valueRatioRange", nil, htmlAttrs)
+	}
+	return RatioRangeInput("output["+strconv.Itoa(numOutput)+"].valueRatioRange", &resource.Output[numOutput].ValueRatioRange, htmlAttrs)
+}
+func (resource *Task) T_OutputValueReference(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ReferenceInput("output["+strconv.Itoa(numOutput)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("output["+strconv.Itoa(numOutput)+"].valueReference", &resource.Output[numOutput].ValueReference, htmlAttrs)
+}
+func (resource *Task) T_OutputValueSampledData(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return SampledDataInput("output["+strconv.Itoa(numOutput)+"].valueSampledData", nil, htmlAttrs)
+	}
+	return SampledDataInput("output["+strconv.Itoa(numOutput)+"].valueSampledData", &resource.Output[numOutput].ValueSampledData, htmlAttrs)
+}
+func (resource *Task) T_OutputValueSignature(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return SignatureInput("output["+strconv.Itoa(numOutput)+"].valueSignature", nil, htmlAttrs)
+	}
+	return SignatureInput("output["+strconv.Itoa(numOutput)+"].valueSignature", &resource.Output[numOutput].ValueSignature, htmlAttrs)
+}
+func (resource *Task) T_OutputValueTiming(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return TimingInput("output["+strconv.Itoa(numOutput)+"].valueTiming", nil, htmlAttrs)
+	}
+	return TimingInput("output["+strconv.Itoa(numOutput)+"].valueTiming", &resource.Output[numOutput].ValueTiming, htmlAttrs)
+}
+func (resource *Task) T_OutputValueContactDetail(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ContactDetailInput("output["+strconv.Itoa(numOutput)+"].valueContactDetail", nil, htmlAttrs)
+	}
+	return ContactDetailInput("output["+strconv.Itoa(numOutput)+"].valueContactDetail", &resource.Output[numOutput].ValueContactDetail, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDataRequirement(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DataRequirementInput("output["+strconv.Itoa(numOutput)+"].valueDataRequirement", nil, htmlAttrs)
+	}
+	return DataRequirementInput("output["+strconv.Itoa(numOutput)+"].valueDataRequirement", &resource.Output[numOutput].ValueDataRequirement, htmlAttrs)
+}
+func (resource *Task) T_OutputValueExpression(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ExpressionInput("output["+strconv.Itoa(numOutput)+"].valueExpression", nil, htmlAttrs)
+	}
+	return ExpressionInput("output["+strconv.Itoa(numOutput)+"].valueExpression", &resource.Output[numOutput].ValueExpression, htmlAttrs)
+}
+func (resource *Task) T_OutputValueParameterDefinition(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ParameterDefinitionInput("output["+strconv.Itoa(numOutput)+"].valueParameterDefinition", nil, htmlAttrs)
+	}
+	return ParameterDefinitionInput("output["+strconv.Itoa(numOutput)+"].valueParameterDefinition", &resource.Output[numOutput].ValueParameterDefinition, htmlAttrs)
+}
+func (resource *Task) T_OutputValueRelatedArtifact(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return RelatedArtifactInput("output["+strconv.Itoa(numOutput)+"].valueRelatedArtifact", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("output["+strconv.Itoa(numOutput)+"].valueRelatedArtifact", &resource.Output[numOutput].ValueRelatedArtifact, htmlAttrs)
+}
+func (resource *Task) T_OutputValueTriggerDefinition(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return TriggerDefinitionInput("output["+strconv.Itoa(numOutput)+"].valueTriggerDefinition", nil, htmlAttrs)
+	}
+	return TriggerDefinitionInput("output["+strconv.Itoa(numOutput)+"].valueTriggerDefinition", &resource.Output[numOutput].ValueTriggerDefinition, htmlAttrs)
+}
+func (resource *Task) T_OutputValueUsageContext(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return UsageContextInput("output["+strconv.Itoa(numOutput)+"].valueUsageContext", nil, htmlAttrs)
+	}
+	return UsageContextInput("output["+strconv.Itoa(numOutput)+"].valueUsageContext", &resource.Output[numOutput].ValueUsageContext, htmlAttrs)
+}
+func (resource *Task) T_OutputValueAvailability(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return AvailabilityInput("output["+strconv.Itoa(numOutput)+"].valueAvailability", nil, htmlAttrs)
+	}
+	return AvailabilityInput("output["+strconv.Itoa(numOutput)+"].valueAvailability", &resource.Output[numOutput].ValueAvailability, htmlAttrs)
+}
+func (resource *Task) T_OutputValueExtendedContactDetail(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return ExtendedContactDetailInput("output["+strconv.Itoa(numOutput)+"].valueExtendedContactDetail", nil, htmlAttrs)
+	}
+	return ExtendedContactDetailInput("output["+strconv.Itoa(numOutput)+"].valueExtendedContactDetail", &resource.Output[numOutput].ValueExtendedContactDetail, htmlAttrs)
+}
+func (resource *Task) T_OutputValueDosage(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return DosageInput("output["+strconv.Itoa(numOutput)+"].valueDosage", nil, htmlAttrs)
+	}
+	return DosageInput("output["+strconv.Itoa(numOutput)+"].valueDosage", &resource.Output[numOutput].ValueDosage, htmlAttrs)
+}
+func (resource *Task) T_OutputValueMeta(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOutput >= len(resource.Output) {
+		return MetaInput("output["+strconv.Itoa(numOutput)+"].valueMeta", nil, htmlAttrs)
+	}
+	return MetaInput("output["+strconv.Itoa(numOutput)+"].valueMeta", &resource.Output[numOutput].ValueMeta, htmlAttrs)
 }

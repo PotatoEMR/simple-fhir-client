@@ -188,6 +188,36 @@ func (resource *MolecularSequence) T_CoordinateSystem(htmlAttrs templ.Attributes
 	}
 	return IntInput("coordinateSystem", &resource.CoordinateSystem, htmlAttrs)
 }
+func (resource *MolecularSequence) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", resource.Patient, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Specimen(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("specimen", nil, htmlAttrs)
+	}
+	return ReferenceInput("specimen", resource.Specimen, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Device(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("device", nil, htmlAttrs)
+	}
+	return ReferenceInput("device", resource.Device, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("performer", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer", resource.Performer, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+}
 func (resource *MolecularSequence) T_ObservedSeq(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("observedSeq", nil, htmlAttrs)
@@ -199,6 +229,12 @@ func (resource *MolecularSequence) T_ReadCoverage(htmlAttrs templ.Attributes) te
 		return IntInput("readCoverage", nil, htmlAttrs)
 	}
 	return IntInput("readCoverage", resource.ReadCoverage, htmlAttrs)
+}
+func (resource *MolecularSequence) T_Pointer(numPointer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPointer >= len(resource.Pointer) {
+		return ReferenceInput("pointer["+strconv.Itoa(numPointer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("pointer["+strconv.Itoa(numPointer)+"]", &resource.Pointer[numPointer], htmlAttrs)
 }
 func (resource *MolecularSequence) T_ReferenceSeqChromosome(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -225,6 +261,12 @@ func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqId(optionsValueSet 
 		return CodeableConceptSelect("referenceSeq.referenceSeqId", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("referenceSeq.referenceSeqId", resource.ReferenceSeq.ReferenceSeqId, optionsValueSet, htmlAttrs)
+}
+func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqPointer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("referenceSeq.referenceSeqPointer", nil, htmlAttrs)
+	}
+	return ReferenceInput("referenceSeq.referenceSeqPointer", resource.ReferenceSeq.ReferenceSeqPointer, htmlAttrs)
 }
 func (resource *MolecularSequence) T_ReferenceSeqReferenceSeqString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -282,6 +324,12 @@ func (resource *MolecularSequence) T_VariantCigar(numVariant int, htmlAttrs temp
 	}
 	return StringInput("variant["+strconv.Itoa(numVariant)+"].cigar", resource.Variant[numVariant].Cigar, htmlAttrs)
 }
+func (resource *MolecularSequence) T_VariantVariantPointer(numVariant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numVariant >= len(resource.Variant) {
+		return ReferenceInput("variant["+strconv.Itoa(numVariant)+"].variantPointer", nil, htmlAttrs)
+	}
+	return ReferenceInput("variant["+strconv.Itoa(numVariant)+"].variantPointer", resource.Variant[numVariant].VariantPointer, htmlAttrs)
+}
 func (resource *MolecularSequence) T_QualityType(numQuality int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSQuality_type
 
@@ -307,6 +355,12 @@ func (resource *MolecularSequence) T_QualityEnd(numQuality int, htmlAttrs templ.
 		return IntInput("quality["+strconv.Itoa(numQuality)+"].end", nil, htmlAttrs)
 	}
 	return IntInput("quality["+strconv.Itoa(numQuality)+"].end", resource.Quality[numQuality].End, htmlAttrs)
+}
+func (resource *MolecularSequence) T_QualityScore(numQuality int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQuality >= len(resource.Quality) {
+		return QuantityInput("quality["+strconv.Itoa(numQuality)+"].score", nil, htmlAttrs)
+	}
+	return QuantityInput("quality["+strconv.Itoa(numQuality)+"].score", resource.Quality[numQuality].Score, htmlAttrs)
 }
 func (resource *MolecularSequence) T_QualityMethod(numQuality int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQuality >= len(resource.Quality) {

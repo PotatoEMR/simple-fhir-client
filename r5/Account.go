@@ -158,6 +158,24 @@ func (resource *Account) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
+func (resource *Account) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
+func (resource *Account) T_ServicePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("servicePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("servicePeriod", resource.ServicePeriod, htmlAttrs)
+}
+func (resource *Account) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("owner", nil, htmlAttrs)
+	}
+	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+}
 func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
@@ -176,11 +194,23 @@ func (resource *Account) T_CalculatedAt(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("calculatedAt", resource.CalculatedAt, htmlAttrs)
 }
+func (resource *Account) T_CoverageCoverage(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCoverage >= len(resource.Coverage) {
+		return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", nil, htmlAttrs)
+	}
+	return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", &resource.Coverage[numCoverage].Coverage, htmlAttrs)
+}
 func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
 		return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", nil, htmlAttrs)
 	}
 	return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", resource.Coverage[numCoverage].Priority, htmlAttrs)
+}
+func (resource *Account) T_GuarantorParty(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGuarantor >= len(resource.Guarantor) {
+		return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", nil, htmlAttrs)
+	}
+	return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", &resource.Guarantor[numGuarantor].Party, htmlAttrs)
 }
 func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {
@@ -188,17 +218,29 @@ func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Att
 	}
 	return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", resource.Guarantor[numGuarantor].OnHold, htmlAttrs)
 }
+func (resource *Account) T_GuarantorPeriod(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGuarantor >= len(resource.Guarantor) {
+		return PeriodInput("guarantor["+strconv.Itoa(numGuarantor)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("guarantor["+strconv.Itoa(numGuarantor)+"].period", resource.Guarantor[numGuarantor].Period, htmlAttrs)
+}
 func (resource *Account) T_DiagnosisSequence(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
 		return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].sequence", nil, htmlAttrs)
 	}
 	return IntInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].sequence", resource.Diagnosis[numDiagnosis].Sequence, htmlAttrs)
 }
+func (resource *Account) T_DiagnosisCondition(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return CodeableReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].condition", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].condition", &resource.Diagnosis[numDiagnosis].Condition, htmlAttrs)
+}
 func (resource *Account) T_DiagnosisDateOfDiagnosis(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
-		return DateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", nil, htmlAttrs)
+		return FhirDateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", nil, htmlAttrs)
 	}
-	return DateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", resource.Diagnosis[numDiagnosis].DateOfDiagnosis, htmlAttrs)
+	return FhirDateTimeInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].dateOfDiagnosis", resource.Diagnosis[numDiagnosis].DateOfDiagnosis, htmlAttrs)
 }
 func (resource *Account) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) || numType >= len(resource.Diagnosis[numDiagnosis].Type) {
@@ -224,11 +266,17 @@ func (resource *Account) T_ProcedureSequence(numProcedure int, htmlAttrs templ.A
 	}
 	return IntInput("procedure["+strconv.Itoa(numProcedure)+"].sequence", resource.Procedure[numProcedure].Sequence, htmlAttrs)
 }
+func (resource *Account) T_ProcedureCode(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcedure >= len(resource.Procedure) {
+		return CodeableReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].code", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].code", &resource.Procedure[numProcedure].Code, htmlAttrs)
+}
 func (resource *Account) T_ProcedureDateOfService(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", nil, htmlAttrs)
+		return FhirDateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", nil, htmlAttrs)
 	}
-	return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", resource.Procedure[numProcedure].DateOfService, htmlAttrs)
+	return FhirDateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].dateOfService", resource.Procedure[numProcedure].DateOfService, htmlAttrs)
 }
 func (resource *Account) T_ProcedureType(numProcedure int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) || numType >= len(resource.Procedure[numProcedure].Type) {
@@ -242,11 +290,23 @@ func (resource *Account) T_ProcedurePackageCode(numProcedure int, numPackageCode
 	}
 	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].packageCode["+strconv.Itoa(numPackageCode)+"]", &resource.Procedure[numProcedure].PackageCode[numPackageCode], optionsValueSet, htmlAttrs)
 }
+func (resource *Account) T_ProcedureDevice(numProcedure int, numDevice int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcedure >= len(resource.Procedure) || numDevice >= len(resource.Procedure[numProcedure].Device) {
+		return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].device["+strconv.Itoa(numDevice)+"]", &resource.Procedure[numProcedure].Device[numDevice], htmlAttrs)
+}
 func (resource *Account) T_RelatedAccountRelationship(numRelatedAccount int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedAccount >= len(resource.RelatedAccount) {
 		return CodeableConceptSelect("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].relationship", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].relationship", resource.RelatedAccount[numRelatedAccount].Relationship, optionsValueSet, htmlAttrs)
+}
+func (resource *Account) T_RelatedAccountAccount(numRelatedAccount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedAccount >= len(resource.RelatedAccount) {
+		return ReferenceInput("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].account", nil, htmlAttrs)
+	}
+	return ReferenceInput("relatedAccount["+strconv.Itoa(numRelatedAccount)+"].account", &resource.RelatedAccount[numRelatedAccount].Account, htmlAttrs)
 }
 func (resource *Account) T_BalanceAggregate(numBalance int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBalance >= len(resource.Balance) {
@@ -265,4 +325,10 @@ func (resource *Account) T_BalanceEstimate(numBalance int, htmlAttrs templ.Attri
 		return BoolInput("balance["+strconv.Itoa(numBalance)+"].estimate", nil, htmlAttrs)
 	}
 	return BoolInput("balance["+strconv.Itoa(numBalance)+"].estimate", resource.Balance[numBalance].Estimate, htmlAttrs)
+}
+func (resource *Account) T_BalanceAmount(numBalance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBalance >= len(resource.Balance) {
+		return MoneyInput("balance["+strconv.Itoa(numBalance)+"].amount", nil, htmlAttrs)
+	}
+	return MoneyInput("balance["+strconv.Itoa(numBalance)+"].amount", &resource.Balance[numBalance].Amount, htmlAttrs)
 }

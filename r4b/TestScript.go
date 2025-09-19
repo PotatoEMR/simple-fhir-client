@@ -298,9 +298,9 @@ func (resource *TestScript) T_Experimental(htmlAttrs templ.Attributes) templ.Com
 }
 func (resource *TestScript) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *TestScript) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -308,11 +308,23 @@ func (resource *TestScript) T_Publisher(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *TestScript) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *TestScript) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *TestScript) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *TestScript) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -331,6 +343,12 @@ func (resource *TestScript) T_Copyright(htmlAttrs templ.Attributes) templ.Compon
 		return StringInput("copyright", nil, htmlAttrs)
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
+}
+func (resource *TestScript) T_Profile(numProfile int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProfile >= len(resource.Profile) {
+		return ReferenceInput("profile["+strconv.Itoa(numProfile)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("profile["+strconv.Itoa(numProfile)+"]", &resource.Profile[numProfile], htmlAttrs)
 }
 func (resource *TestScript) T_OriginIndex(numOrigin int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOrigin >= len(resource.Origin) {
@@ -421,6 +439,12 @@ func (resource *TestScript) T_FixtureAutodelete(numFixture int, htmlAttrs templ.
 		return BoolInput("fixture["+strconv.Itoa(numFixture)+"].autodelete", nil, htmlAttrs)
 	}
 	return BoolInput("fixture["+strconv.Itoa(numFixture)+"].autodelete", &resource.Fixture[numFixture].Autodelete, htmlAttrs)
+}
+func (resource *TestScript) T_FixtureResource(numFixture int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFixture >= len(resource.Fixture) {
+		return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", nil, htmlAttrs)
+	}
+	return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", resource.Fixture[numFixture].Resource, htmlAttrs)
 }
 func (resource *TestScript) T_VariableName(numVariable int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariable >= len(resource.Variable) {

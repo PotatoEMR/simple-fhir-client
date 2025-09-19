@@ -200,9 +200,9 @@ func (resource *CodeSystem) T_Experimental(htmlAttrs templ.Attributes) templ.Com
 }
 func (resource *CodeSystem) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *CodeSystem) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -210,11 +210,23 @@ func (resource *CodeSystem) T_Publisher(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *CodeSystem) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *CodeSystem) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *CodeSystem) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *CodeSystem) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -242,21 +254,57 @@ func (resource *CodeSystem) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.C
 }
 func (resource *CodeSystem) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *CodeSystem) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *CodeSystem) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *CodeSystem) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+}
+func (resource *CodeSystem) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *CodeSystem) T_Editor(numEditor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEditor >= len(resource.Editor) {
+		return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", &resource.Editor[numEditor], htmlAttrs)
+}
+func (resource *CodeSystem) T_Reviewer(numReviewer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReviewer >= len(resource.Reviewer) {
+		return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", &resource.Reviewer[numReviewer], htmlAttrs)
+}
+func (resource *CodeSystem) T_Endorser(numEndorser int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndorser >= len(resource.Endorser) {
+		return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", &resource.Endorser[numEndorser], htmlAttrs)
+}
+func (resource *CodeSystem) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
 }
 func (resource *CodeSystem) T_CaseSensitive(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -436,9 +484,9 @@ func (resource *CodeSystem) T_ConceptPropertyValueBoolean(numConcept int, numPro
 }
 func (resource *CodeSystem) T_ConceptPropertyValueDateTime(numConcept int, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConcept >= len(resource.Concept) || numProperty >= len(resource.Concept[numConcept].Property) {
-		return DateTimeInput("concept["+strconv.Itoa(numConcept)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("concept["+strconv.Itoa(numConcept)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("concept["+strconv.Itoa(numConcept)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", &resource.Concept[numConcept].Property[numProperty].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("concept["+strconv.Itoa(numConcept)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", &resource.Concept[numConcept].Property[numProperty].ValueDateTime, htmlAttrs)
 }
 func (resource *CodeSystem) T_ConceptPropertyValueDecimal(numConcept int, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConcept >= len(resource.Concept) || numProperty >= len(resource.Concept[numConcept].Property) {

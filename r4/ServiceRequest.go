@@ -100,6 +100,24 @@ func (resource *ServiceRequest) T_InstantiatesUri(numInstantiatesUri int, htmlAt
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *ServiceRequest) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *ServiceRequest) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReplaces >= len(resource.Replaces) {
+		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+}
+func (resource *ServiceRequest) T_Requisition(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return IdentifierInput("requisition", nil, htmlAttrs)
+	}
+	return IdentifierInput("requisition", resource.Requisition, htmlAttrs)
+}
 func (resource *ServiceRequest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_status
 
@@ -148,11 +166,53 @@ func (resource *ServiceRequest) T_OrderDetail(numOrderDetail int, optionsValueSe
 	}
 	return CodeableConceptSelect("orderDetail["+strconv.Itoa(numOrderDetail)+"]", &resource.OrderDetail[numOrderDetail], optionsValueSet, htmlAttrs)
 }
+func (resource *ServiceRequest) T_QuantityQuantity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("quantityQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("quantityQuantity", resource.QuantityQuantity, htmlAttrs)
+}
+func (resource *ServiceRequest) T_QuantityRatio(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RatioInput("quantityRatio", nil, htmlAttrs)
+	}
+	return RatioInput("quantityRatio", resource.QuantityRatio, htmlAttrs)
+}
+func (resource *ServiceRequest) T_QuantityRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("quantityRange", nil, htmlAttrs)
+	}
+	return RangeInput("quantityRange", resource.QuantityRange, htmlAttrs)
+}
+func (resource *ServiceRequest) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *ServiceRequest) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *ServiceRequest) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *ServiceRequest) T_OccurrencePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
+}
+func (resource *ServiceRequest) T_OccurrenceTiming(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("occurrenceTiming", nil, htmlAttrs)
+	}
+	return TimingInput("occurrenceTiming", resource.OccurrenceTiming, htmlAttrs)
 }
 func (resource *ServiceRequest) T_AsNeededBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -168,9 +228,15 @@ func (resource *ServiceRequest) T_AsNeededCodeableConcept(optionsValueSet []Codi
 }
 func (resource *ServiceRequest) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("authoredOn", nil, htmlAttrs)
+		return FhirDateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+}
+func (resource *ServiceRequest) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("requester", nil, htmlAttrs)
+	}
+	return ReferenceInput("requester", resource.Requester, htmlAttrs)
 }
 func (resource *ServiceRequest) T_PerformerType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -178,17 +244,53 @@ func (resource *ServiceRequest) T_PerformerType(optionsValueSet []Coding, htmlAt
 	}
 	return CodeableConceptSelect("performerType", resource.PerformerType, optionsValueSet, htmlAttrs)
 }
+func (resource *ServiceRequest) T_Performer(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
+}
 func (resource *ServiceRequest) T_LocationCode(numLocationCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocationCode >= len(resource.LocationCode) {
 		return CodeableConceptSelect("locationCode["+strconv.Itoa(numLocationCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("locationCode["+strconv.Itoa(numLocationCode)+"]", &resource.LocationCode[numLocationCode], optionsValueSet, htmlAttrs)
 }
+func (resource *ServiceRequest) T_LocationReference(numLocationReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLocationReference >= len(resource.LocationReference) {
+		return ReferenceInput("locationReference["+strconv.Itoa(numLocationReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("locationReference["+strconv.Itoa(numLocationReference)+"]", &resource.LocationReference[numLocationReference], htmlAttrs)
+}
 func (resource *ServiceRequest) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *ServiceRequest) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
+}
+func (resource *ServiceRequest) T_Insurance(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
+}
+func (resource *ServiceRequest) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+}
+func (resource *ServiceRequest) T_Specimen(numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSpecimen >= len(resource.Specimen) {
+		return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
 }
 func (resource *ServiceRequest) T_BodySite(numBodySite int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBodySite >= len(resource.BodySite) {
@@ -207,4 +309,10 @@ func (resource *ServiceRequest) T_PatientInstruction(htmlAttrs templ.Attributes)
 		return StringInput("patientInstruction", nil, htmlAttrs)
 	}
 	return StringInput("patientInstruction", resource.PatientInstruction, htmlAttrs)
+}
+func (resource *ServiceRequest) T_RelevantHistory(numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelevantHistory >= len(resource.RelevantHistory) {
+		return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
 }

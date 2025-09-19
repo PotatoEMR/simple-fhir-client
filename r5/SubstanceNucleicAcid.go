@@ -131,6 +131,12 @@ func (resource *SubstanceNucleicAcid) T_SubunitLength(numSubunit int, htmlAttrs 
 	}
 	return IntInput("subunit["+strconv.Itoa(numSubunit)+"].length", resource.Subunit[numSubunit].Length, htmlAttrs)
 }
+func (resource *SubstanceNucleicAcid) T_SubunitSequenceAttachment(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubunit >= len(resource.Subunit) {
+		return AttachmentInput("subunit["+strconv.Itoa(numSubunit)+"].sequenceAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("subunit["+strconv.Itoa(numSubunit)+"].sequenceAttachment", resource.Subunit[numSubunit].SequenceAttachment, htmlAttrs)
+}
 func (resource *SubstanceNucleicAcid) T_SubunitFivePrime(numSubunit int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
 		return CodeableConceptSelect("subunit["+strconv.Itoa(numSubunit)+"].fivePrime", nil, optionsValueSet, htmlAttrs)

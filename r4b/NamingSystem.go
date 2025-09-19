@@ -97,15 +97,21 @@ func (resource *NamingSystem) T_Kind(htmlAttrs templ.Attributes) templ.Component
 }
 func (resource *NamingSystem) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", &resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", &resource.Date, htmlAttrs)
 }
 func (resource *NamingSystem) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("publisher", nil, htmlAttrs)
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
+}
+func (resource *NamingSystem) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
 }
 func (resource *NamingSystem) T_Responsible(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -124,6 +130,12 @@ func (resource *NamingSystem) T_Description(htmlAttrs templ.Attributes) templ.Co
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *NamingSystem) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *NamingSystem) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -162,4 +174,10 @@ func (resource *NamingSystem) T_UniqueIdComment(numUniqueId int, htmlAttrs templ
 		return StringInput("uniqueId["+strconv.Itoa(numUniqueId)+"].comment", nil, htmlAttrs)
 	}
 	return StringInput("uniqueId["+strconv.Itoa(numUniqueId)+"].comment", resource.UniqueId[numUniqueId].Comment, htmlAttrs)
+}
+func (resource *NamingSystem) T_UniqueIdPeriod(numUniqueId int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUniqueId >= len(resource.UniqueId) {
+		return PeriodInput("uniqueId["+strconv.Itoa(numUniqueId)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("uniqueId["+strconv.Itoa(numUniqueId)+"].period", resource.UniqueId[numUniqueId].Period, htmlAttrs)
 }

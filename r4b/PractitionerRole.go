@@ -90,6 +90,24 @@ func (resource *PractitionerRole) T_Active(htmlAttrs templ.Attributes) templ.Com
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *PractitionerRole) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Practitioner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("practitioner", nil, htmlAttrs)
+	}
+	return ReferenceInput("practitioner", resource.Practitioner, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Organization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("organization", nil, htmlAttrs)
+	}
+	return ReferenceInput("organization", resource.Organization, htmlAttrs)
+}
 func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodeableConceptSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
@@ -102,11 +120,35 @@ func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet 
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
+func (resource *PractitionerRole) T_Location(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLocation >= len(resource.Location) {
+		return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
+}
+func (resource *PractitionerRole) T_HealthcareService(numHealthcareService int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numHealthcareService >= len(resource.HealthcareService) {
+		return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", &resource.HealthcareService[numHealthcareService], htmlAttrs)
+}
+func (resource *PractitionerRole) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
+}
 func (resource *PractitionerRole) T_AvailabilityExceptions(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("availabilityExceptions", nil, htmlAttrs)
 	}
 	return StringInput("availabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
+}
+func (resource *PractitionerRole) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *PractitionerRole) T_AvailableTimeDaysOfWeek(numAvailableTime int, numDaysOfWeek int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDays_of_week
@@ -139,4 +181,10 @@ func (resource *PractitionerRole) T_NotAvailableDescription(numNotAvailable int,
 		return StringInput("notAvailable["+strconv.Itoa(numNotAvailable)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("notAvailable["+strconv.Itoa(numNotAvailable)+"].description", &resource.NotAvailable[numNotAvailable].Description, htmlAttrs)
+}
+func (resource *PractitionerRole) T_NotAvailableDuring(numNotAvailable int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNotAvailable >= len(resource.NotAvailable) {
+		return PeriodInput("notAvailable["+strconv.Itoa(numNotAvailable)+"].during", nil, htmlAttrs)
+	}
+	return PeriodInput("notAvailable["+strconv.Itoa(numNotAvailable)+"].during", resource.NotAvailable[numNotAvailable].During, htmlAttrs)
 }

@@ -185,9 +185,9 @@ func (resource *ConditionDefinition) T_Experimental(htmlAttrs templ.Attributes) 
 }
 func (resource *ConditionDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ConditionDefinition) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -195,11 +195,23 @@ func (resource *ConditionDefinition) T_Publisher(htmlAttrs templ.Attributes) tem
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ConditionDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ConditionDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ConditionDefinition) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ConditionDefinition) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -255,6 +267,12 @@ func (resource *ConditionDefinition) T_Definition(numDefinition int, htmlAttrs t
 	}
 	return StringInput("definition["+strconv.Itoa(numDefinition)+"]", &resource.Definition[numDefinition], htmlAttrs)
 }
+func (resource *ConditionDefinition) T_Team(numTeam int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTeam >= len(resource.Team) {
+		return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", &resource.Team[numTeam], htmlAttrs)
+}
 func (resource *ConditionDefinition) T_ObservationCategory(numObservation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservation >= len(resource.Observation) {
 		return CodeableConceptSelect("observation["+strconv.Itoa(numObservation)+"].category", nil, optionsValueSet, htmlAttrs)
@@ -299,6 +317,12 @@ func (resource *ConditionDefinition) T_PreconditionValueCodeableConcept(numPreco
 	}
 	return CodeableConceptSelect("precondition["+strconv.Itoa(numPrecondition)+"].valueCodeableConcept", resource.Precondition[numPrecondition].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *ConditionDefinition) T_PreconditionValueQuantity(numPrecondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPrecondition >= len(resource.Precondition) {
+		return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", resource.Precondition[numPrecondition].ValueQuantity, htmlAttrs)
+}
 func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCondition_questionnaire_purpose
 
@@ -307,9 +331,21 @@ func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int
 	}
 	return CodeSelect("questionnaire["+strconv.Itoa(numQuestionnaire)+"].purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet, htmlAttrs)
 }
+func (resource *ConditionDefinition) T_QuestionnaireReference(numQuestionnaire int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQuestionnaire >= len(resource.Questionnaire) {
+		return ReferenceInput("questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", &resource.Questionnaire[numQuestionnaire].Reference, htmlAttrs)
+}
 func (resource *ConditionDefinition) T_PlanRole(numPlan int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPlan >= len(resource.Plan) {
 		return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].role", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].role", resource.Plan[numPlan].Role, optionsValueSet, htmlAttrs)
+}
+func (resource *ConditionDefinition) T_PlanReference(numPlan int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPlan >= len(resource.Plan) {
+		return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].reference", &resource.Plan[numPlan].Reference, htmlAttrs)
 }

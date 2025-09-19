@@ -127,6 +127,12 @@ func (r Device) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *Device) T_Definition(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("definition", nil, htmlAttrs)
+	}
+	return ReferenceInput("definition", resource.Definition, htmlAttrs)
+}
 func (resource *Device) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDevice_status
 
@@ -155,15 +161,15 @@ func (resource *Device) T_Manufacturer(htmlAttrs templ.Attributes) templ.Compone
 }
 func (resource *Device) T_ManufactureDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("manufactureDate", nil, htmlAttrs)
+		return FhirDateTimeInput("manufactureDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("manufactureDate", resource.ManufactureDate, htmlAttrs)
+	return FhirDateTimeInput("manufactureDate", resource.ManufactureDate, htmlAttrs)
 }
 func (resource *Device) T_ExpirationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("expirationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("expirationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("expirationDate", resource.ExpirationDate, htmlAttrs)
+	return FhirDateTimeInput("expirationDate", resource.ExpirationDate, htmlAttrs)
 }
 func (resource *Device) T_LotNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -195,6 +201,30 @@ func (resource *Device) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attribu
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
+func (resource *Device) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", resource.Patient, htmlAttrs)
+}
+func (resource *Device) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("owner", nil, htmlAttrs)
+	}
+	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+}
+func (resource *Device) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *Device) T_Location(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("location", nil, htmlAttrs)
+	}
+	return ReferenceInput("location", resource.Location, htmlAttrs)
+}
 func (resource *Device) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
@@ -212,6 +242,12 @@ func (resource *Device) T_Safety(numSafety int, optionsValueSet []Coding, htmlAt
 		return CodeableConceptSelect("safety["+strconv.Itoa(numSafety)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("safety["+strconv.Itoa(numSafety)+"]", &resource.Safety[numSafety], optionsValueSet, htmlAttrs)
+}
+func (resource *Device) T_Parent(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("parent", nil, htmlAttrs)
+	}
+	return ReferenceInput("parent", resource.Parent, htmlAttrs)
 }
 func (resource *Device) T_UdiCarrierDeviceIdentifier(numUdiCarrier int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numUdiCarrier >= len(resource.UdiCarrier) {
@@ -283,6 +319,12 @@ func (resource *Device) T_VersionType(numVersion int, optionsValueSet []Coding, 
 	}
 	return CodeableConceptSelect("version["+strconv.Itoa(numVersion)+"].type", resource.Version[numVersion].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *Device) T_VersionComponent(numVersion int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numVersion >= len(resource.Version) {
+		return IdentifierInput("version["+strconv.Itoa(numVersion)+"].component", nil, htmlAttrs)
+	}
+	return IdentifierInput("version["+strconv.Itoa(numVersion)+"].component", resource.Version[numVersion].Component, htmlAttrs)
+}
 func (resource *Device) T_VersionValue(numVersion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVersion >= len(resource.Version) {
 		return StringInput("version["+strconv.Itoa(numVersion)+"].value", nil, htmlAttrs)
@@ -294,6 +336,12 @@ func (resource *Device) T_PropertyType(numProperty int, optionsValueSet []Coding
 		return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Device) T_PropertyValueQuantity(numProperty int, numValueQuantity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProperty >= len(resource.Property) || numValueQuantity >= len(resource.Property[numProperty].ValueQuantity) {
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", nil, htmlAttrs)
+	}
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", &resource.Property[numProperty].ValueQuantity[numValueQuantity], htmlAttrs)
 }
 func (resource *Device) T_PropertyValueCode(numProperty int, numValueCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) || numValueCode >= len(resource.Property[numProperty].ValueCode) {

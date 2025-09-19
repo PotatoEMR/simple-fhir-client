@@ -101,6 +101,12 @@ func (r VerificationResult) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *VerificationResult) T_Target(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], htmlAttrs)
+}
 func (resource *VerificationResult) T_TargetLocation(numTargetLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTargetLocation >= len(resource.TargetLocation) {
 		return StringInput("targetLocation["+strconv.Itoa(numTargetLocation)+"]", nil, htmlAttrs)
@@ -121,9 +127,9 @@ func (resource *VerificationResult) T_Status(optionsValueSet []Coding, htmlAttrs
 }
 func (resource *VerificationResult) T_StatusDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("statusDate", nil, htmlAttrs)
+		return FhirDateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
+	return FhirDateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *VerificationResult) T_ValidationType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -137,23 +143,35 @@ func (resource *VerificationResult) T_ValidationProcess(numValidationProcess int
 	}
 	return CodeableConceptSelect("validationProcess["+strconv.Itoa(numValidationProcess)+"]", &resource.ValidationProcess[numValidationProcess], optionsValueSet, htmlAttrs)
 }
+func (resource *VerificationResult) T_Frequency(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("frequency", nil, htmlAttrs)
+	}
+	return TimingInput("frequency", resource.Frequency, htmlAttrs)
+}
 func (resource *VerificationResult) T_LastPerformed(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("lastPerformed", nil, htmlAttrs)
+		return FhirDateTimeInput("lastPerformed", nil, htmlAttrs)
 	}
-	return DateTimeInput("lastPerformed", resource.LastPerformed, htmlAttrs)
+	return FhirDateTimeInput("lastPerformed", resource.LastPerformed, htmlAttrs)
 }
 func (resource *VerificationResult) T_NextScheduled(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("nextScheduled", nil, htmlAttrs)
+		return FhirDateInput("nextScheduled", nil, htmlAttrs)
 	}
-	return DateInput("nextScheduled", resource.NextScheduled, htmlAttrs)
+	return FhirDateInput("nextScheduled", resource.NextScheduled, htmlAttrs)
 }
 func (resource *VerificationResult) T_FailureAction(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("failureAction", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("failureAction", resource.FailureAction, optionsValueSet, htmlAttrs)
+}
+func (resource *VerificationResult) T_PrimarySourceWho(numPrimarySource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
+		return ReferenceInput("primarySource["+strconv.Itoa(numPrimarySource)+"].who", nil, htmlAttrs)
+	}
+	return ReferenceInput("primarySource["+strconv.Itoa(numPrimarySource)+"].who", resource.PrimarySource[numPrimarySource].Who, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceType(numPrimarySource int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) || numType >= len(resource.PrimarySource[numPrimarySource].Type) {
@@ -175,9 +193,9 @@ func (resource *VerificationResult) T_PrimarySourceValidationStatus(numPrimarySo
 }
 func (resource *VerificationResult) T_PrimarySourceValidationDate(numPrimarySource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
-		return DateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", resource.PrimarySource[numPrimarySource].ValidationDate, htmlAttrs)
+	return FhirDateTimeInput("primarySource["+strconv.Itoa(numPrimarySource)+"].validationDate", resource.PrimarySource[numPrimarySource].ValidationDate, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceCanPushUpdates(numPrimarySource int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
@@ -191,6 +209,18 @@ func (resource *VerificationResult) T_PrimarySourcePushTypeAvailable(numPrimaryS
 	}
 	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].pushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", &resource.PrimarySource[numPrimarySource].PushTypeAvailable[numPushTypeAvailable], optionsValueSet, htmlAttrs)
 }
+func (resource *VerificationResult) T_AttestationWho(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("attestation.who", nil, htmlAttrs)
+	}
+	return ReferenceInput("attestation.who", resource.Attestation.Who, htmlAttrs)
+}
+func (resource *VerificationResult) T_AttestationOnBehalfOf(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("attestation.onBehalfOf", nil, htmlAttrs)
+	}
+	return ReferenceInput("attestation.onBehalfOf", resource.Attestation.OnBehalfOf, htmlAttrs)
+}
 func (resource *VerificationResult) T_AttestationCommunicationMethod(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("attestation.communicationMethod", nil, optionsValueSet, htmlAttrs)
@@ -199,9 +229,9 @@ func (resource *VerificationResult) T_AttestationCommunicationMethod(optionsValu
 }
 func (resource *VerificationResult) T_AttestationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("attestation.date", nil, htmlAttrs)
+		return FhirDateInput("attestation.date", nil, htmlAttrs)
 	}
-	return DateInput("attestation.date", resource.Attestation.Date, htmlAttrs)
+	return FhirDateInput("attestation.date", resource.Attestation.Date, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationSourceIdentityCertificate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -215,9 +245,33 @@ func (resource *VerificationResult) T_AttestationProxyIdentityCertificate(htmlAt
 	}
 	return StringInput("attestation.proxyIdentityCertificate", resource.Attestation.ProxyIdentityCertificate, htmlAttrs)
 }
+func (resource *VerificationResult) T_AttestationProxySignature(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return SignatureInput("attestation.proxySignature", nil, htmlAttrs)
+	}
+	return SignatureInput("attestation.proxySignature", resource.Attestation.ProxySignature, htmlAttrs)
+}
+func (resource *VerificationResult) T_AttestationSourceSignature(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return SignatureInput("attestation.sourceSignature", nil, htmlAttrs)
+	}
+	return SignatureInput("attestation.sourceSignature", resource.Attestation.SourceSignature, htmlAttrs)
+}
+func (resource *VerificationResult) T_ValidatorOrganization(numValidator int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numValidator >= len(resource.Validator) {
+		return ReferenceInput("validator["+strconv.Itoa(numValidator)+"].organization", nil, htmlAttrs)
+	}
+	return ReferenceInput("validator["+strconv.Itoa(numValidator)+"].organization", &resource.Validator[numValidator].Organization, htmlAttrs)
+}
 func (resource *VerificationResult) T_ValidatorIdentityCertificate(numValidator int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numValidator >= len(resource.Validator) {
 		return StringInput("validator["+strconv.Itoa(numValidator)+"].identityCertificate", nil, htmlAttrs)
 	}
 	return StringInput("validator["+strconv.Itoa(numValidator)+"].identityCertificate", resource.Validator[numValidator].IdentityCertificate, htmlAttrs)
+}
+func (resource *VerificationResult) T_ValidatorAttestationSignature(numValidator int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numValidator >= len(resource.Validator) {
+		return SignatureInput("validator["+strconv.Itoa(numValidator)+"].attestationSignature", nil, htmlAttrs)
+	}
+	return SignatureInput("validator["+strconv.Itoa(numValidator)+"].attestationSignature", resource.Validator[numValidator].AttestationSignature, htmlAttrs)
 }

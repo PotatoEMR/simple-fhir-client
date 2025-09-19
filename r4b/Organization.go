@@ -95,9 +95,51 @@ func (resource *Organization) T_Alias(numAlias int, htmlAttrs templ.Attributes) 
 	}
 	return StringInput("alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
+func (resource *Organization) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
+}
+func (resource *Organization) T_Address(numAddress int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddress >= len(resource.Address) {
+		return AddressInput("address["+strconv.Itoa(numAddress)+"]", nil, htmlAttrs)
+	}
+	return AddressInput("address["+strconv.Itoa(numAddress)+"]", &resource.Address[numAddress], htmlAttrs)
+}
+func (resource *Organization) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("partOf", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+}
+func (resource *Organization) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+}
 func (resource *Organization) T_ContactPurpose(numContact int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
 		return CodeableConceptSelect("contact["+strconv.Itoa(numContact)+"].purpose", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("contact["+strconv.Itoa(numContact)+"].purpose", resource.Contact[numContact].Purpose, optionsValueSet, htmlAttrs)
+}
+func (resource *Organization) T_ContactName(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return HumanNameInput("contact["+strconv.Itoa(numContact)+"].name", nil, htmlAttrs)
+	}
+	return HumanNameInput("contact["+strconv.Itoa(numContact)+"].name", resource.Contact[numContact].Name, htmlAttrs)
+}
+func (resource *Organization) T_ContactTelecom(numContact int, numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) || numTelecom >= len(resource.Contact[numContact].Telecom) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"].telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"].telecom["+strconv.Itoa(numTelecom)+"]", &resource.Contact[numContact].Telecom[numTelecom], htmlAttrs)
+}
+func (resource *Organization) T_ContactAddress(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return AddressInput("contact["+strconv.Itoa(numContact)+"].address", nil, htmlAttrs)
+	}
+	return AddressInput("contact["+strconv.Itoa(numContact)+"].address", resource.Contact[numContact].Address, htmlAttrs)
 }

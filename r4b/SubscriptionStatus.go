@@ -88,6 +88,12 @@ func (resource *SubscriptionStatus) T_EventsSinceSubscriptionStart(htmlAttrs tem
 	}
 	return StringInput("eventsSinceSubscriptionStart", resource.EventsSinceSubscriptionStart, htmlAttrs)
 }
+func (resource *SubscriptionStatus) T_Subscription(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subscription", nil, htmlAttrs)
+	}
+	return ReferenceInput("subscription", &resource.Subscription, htmlAttrs)
+}
 func (resource *SubscriptionStatus) T_Topic(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("topic", nil, htmlAttrs)
@@ -111,4 +117,16 @@ func (resource *SubscriptionStatus) T_NotificationEventTimestamp(numNotification
 		return StringInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].timestamp", nil, htmlAttrs)
 	}
 	return StringInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].timestamp", resource.NotificationEvent[numNotificationEvent].Timestamp, htmlAttrs)
+}
+func (resource *SubscriptionStatus) T_NotificationEventFocus(numNotificationEvent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) {
+		return ReferenceInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].focus", nil, htmlAttrs)
+	}
+	return ReferenceInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].focus", resource.NotificationEvent[numNotificationEvent].Focus, htmlAttrs)
+}
+func (resource *SubscriptionStatus) T_NotificationEventAdditionalContext(numNotificationEvent int, numAdditionalContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNotificationEvent >= len(resource.NotificationEvent) || numAdditionalContext >= len(resource.NotificationEvent[numNotificationEvent].AdditionalContext) {
+		return ReferenceInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].additionalContext["+strconv.Itoa(numAdditionalContext)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("notificationEvent["+strconv.Itoa(numNotificationEvent)+"].additionalContext["+strconv.Itoa(numAdditionalContext)+"]", &resource.NotificationEvent[numNotificationEvent].AdditionalContext[numAdditionalContext], htmlAttrs)
 }

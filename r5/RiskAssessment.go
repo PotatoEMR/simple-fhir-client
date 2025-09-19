@@ -82,6 +82,18 @@ func (r RiskAssessment) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *RiskAssessment) T_BasedOn(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("basedOn", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn", resource.BasedOn, htmlAttrs)
+}
+func (resource *RiskAssessment) T_Parent(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("parent", nil, htmlAttrs)
+	}
+	return ReferenceInput("parent", resource.Parent, htmlAttrs)
+}
 func (resource *RiskAssessment) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_status
 
@@ -102,11 +114,53 @@ func (resource *RiskAssessment) T_Code(optionsValueSet []Coding, htmlAttrs templ
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *RiskAssessment) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *RiskAssessment) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *RiskAssessment) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *RiskAssessment) T_OccurrencePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
+}
+func (resource *RiskAssessment) T_Condition(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("condition", nil, htmlAttrs)
+	}
+	return ReferenceInput("condition", resource.Condition, htmlAttrs)
+}
+func (resource *RiskAssessment) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("performer", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer", resource.Performer, htmlAttrs)
+}
+func (resource *RiskAssessment) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
+}
+func (resource *RiskAssessment) T_Basis(numBasis int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasis >= len(resource.Basis) {
+		return ReferenceInput("basis["+strconv.Itoa(numBasis)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], htmlAttrs)
 }
 func (resource *RiskAssessment) T_Mitigation(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -132,6 +186,12 @@ func (resource *RiskAssessment) T_PredictionProbabilityDecimal(numPrediction int
 	}
 	return Float64Input("prediction["+strconv.Itoa(numPrediction)+"].probabilityDecimal", resource.Prediction[numPrediction].ProbabilityDecimal, htmlAttrs)
 }
+func (resource *RiskAssessment) T_PredictionProbabilityRange(numPrediction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return RangeInput("prediction["+strconv.Itoa(numPrediction)+"].probabilityRange", nil, htmlAttrs)
+	}
+	return RangeInput("prediction["+strconv.Itoa(numPrediction)+"].probabilityRange", resource.Prediction[numPrediction].ProbabilityRange, htmlAttrs)
+}
 func (resource *RiskAssessment) T_PredictionQualitativeRisk(numPrediction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrediction >= len(resource.Prediction) {
 		return CodeableConceptSelect("prediction["+strconv.Itoa(numPrediction)+"].qualitativeRisk", nil, optionsValueSet, htmlAttrs)
@@ -143,6 +203,18 @@ func (resource *RiskAssessment) T_PredictionRelativeRisk(numPrediction int, html
 		return Float64Input("prediction["+strconv.Itoa(numPrediction)+"].relativeRisk", nil, htmlAttrs)
 	}
 	return Float64Input("prediction["+strconv.Itoa(numPrediction)+"].relativeRisk", resource.Prediction[numPrediction].RelativeRisk, htmlAttrs)
+}
+func (resource *RiskAssessment) T_PredictionWhenPeriod(numPrediction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return PeriodInput("prediction["+strconv.Itoa(numPrediction)+"].whenPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("prediction["+strconv.Itoa(numPrediction)+"].whenPeriod", resource.Prediction[numPrediction].WhenPeriod, htmlAttrs)
+}
+func (resource *RiskAssessment) T_PredictionWhenRange(numPrediction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPrediction >= len(resource.Prediction) {
+		return RangeInput("prediction["+strconv.Itoa(numPrediction)+"].whenRange", nil, htmlAttrs)
+	}
+	return RangeInput("prediction["+strconv.Itoa(numPrediction)+"].whenRange", resource.Prediction[numPrediction].WhenRange, htmlAttrs)
 }
 func (resource *RiskAssessment) T_PredictionRationale(numPrediction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrediction >= len(resource.Prediction) {

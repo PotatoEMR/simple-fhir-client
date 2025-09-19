@@ -258,9 +258,9 @@ func (resource *StructureMap) T_Experimental(htmlAttrs templ.Attributes) templ.C
 }
 func (resource *StructureMap) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *StructureMap) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -268,11 +268,23 @@ func (resource *StructureMap) T_Publisher(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *StructureMap) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *StructureMap) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *StructureMap) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *StructureMap) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -438,15 +450,15 @@ func (resource *StructureMap) T_GroupRuleSourceDefaultValueCode(numGroup int, nu
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueDate(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
-		return DateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDate", nil, htmlAttrs)
+		return FhirDateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDate", nil, htmlAttrs)
 	}
-	return DateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDate", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDate, htmlAttrs)
+	return FhirDateInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDate", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDate, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueDateTime(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
-		return DateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDateTime", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDateTime", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDateTime, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueDecimal(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
@@ -526,11 +538,29 @@ func (resource *StructureMap) T_GroupRuleSourceDefaultValueUuid(numGroup int, nu
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueUuid", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUuid, htmlAttrs)
 }
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueAddress(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return AddressInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAddress", nil, htmlAttrs)
+	}
+	return AddressInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAddress", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueAddress, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueAge(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return AgeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAge", nil, htmlAttrs)
+	}
+	return AgeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAge", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueAge, htmlAttrs)
+}
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueAnnotation(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
 		return AnnotationTextArea("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAnnotation", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAnnotation", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueAnnotation, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueAttachment(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return AttachmentInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueAttachment", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueAttachment, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueCodeableConcept(numGroup int, numRule int, numSource int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
@@ -543,6 +573,156 @@ func (resource *StructureMap) T_GroupRuleSourceDefaultValueCoding(numGroup int, 
 		return CodingSelect("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueCoding", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueContactPoint(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ContactPointInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContactPoint", nil, htmlAttrs)
+	}
+	return ContactPointInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContactPoint", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueContactPoint, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueCount(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return CountInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueCount", nil, htmlAttrs)
+	}
+	return CountInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueCount", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueCount, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDistance(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DistanceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDistance", nil, htmlAttrs)
+	}
+	return DistanceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDistance", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDistance, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDuration(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DurationInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDuration", nil, htmlAttrs)
+	}
+	return DurationInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDuration", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDuration, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueHumanName(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return HumanNameInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueHumanName", nil, htmlAttrs)
+	}
+	return HumanNameInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueHumanName", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueHumanName, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueIdentifier(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return IdentifierInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueIdentifier", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueIdentifier, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueMoney(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return MoneyInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueMoney", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueMoney, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValuePeriod(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return PeriodInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValuePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValuePeriod", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValuePeriod, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueQuantity(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueQuantity, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueRange(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return RangeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRange", nil, htmlAttrs)
+	}
+	return RangeInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRange", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueRange, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueRatio(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return RatioInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRatio", nil, htmlAttrs)
+	}
+	return RatioInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRatio", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueRatio, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueReference(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueReference, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueSampledData(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return SampledDataInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueSampledData", nil, htmlAttrs)
+	}
+	return SampledDataInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueSampledData", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueSampledData, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueSignature(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return SignatureInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueSignature", nil, htmlAttrs)
+	}
+	return SignatureInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueSignature", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueSignature, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueTiming(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return TimingInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueTiming", nil, htmlAttrs)
+	}
+	return TimingInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueTiming", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueTiming, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueContactDetail(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ContactDetailInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContactDetail", nil, htmlAttrs)
+	}
+	return ContactDetailInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContactDetail", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueContactDetail, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueContributor(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ContributorInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContributor", nil, htmlAttrs)
+	}
+	return ContributorInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueContributor", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueContributor, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDataRequirement(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DataRequirementInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDataRequirement", nil, htmlAttrs)
+	}
+	return DataRequirementInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDataRequirement", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDataRequirement, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueExpression(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ExpressionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueExpression", nil, htmlAttrs)
+	}
+	return ExpressionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueExpression", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueExpression, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueParameterDefinition(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return ParameterDefinitionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueParameterDefinition", nil, htmlAttrs)
+	}
+	return ParameterDefinitionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueParameterDefinition", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueParameterDefinition, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueRelatedArtifact(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return RelatedArtifactInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRelatedArtifact", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRelatedArtifact", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueRelatedArtifact, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueTriggerDefinition(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return TriggerDefinitionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueTriggerDefinition", nil, htmlAttrs)
+	}
+	return TriggerDefinitionInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueTriggerDefinition", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueTriggerDefinition, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueUsageContext(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return UsageContextInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueUsageContext", nil, htmlAttrs)
+	}
+	return UsageContextInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueUsageContext", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueUsageContext, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueDosage(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return DosageInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDosage", nil, htmlAttrs)
+	}
+	return DosageInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueDosage", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueDosage, htmlAttrs)
+}
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueMeta(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
+		return MetaInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueMeta", nil, htmlAttrs)
+	}
+	return MetaInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueMeta", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueMeta, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceElement(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {

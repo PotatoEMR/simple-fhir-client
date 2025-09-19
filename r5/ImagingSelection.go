@@ -115,11 +115,23 @@ func (resource *ImagingSelection) T_Status(htmlAttrs templ.Attributes) templ.Com
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *ImagingSelection) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
 func (resource *ImagingSelection) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("issued", nil, htmlAttrs)
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
+}
+func (resource *ImagingSelection) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *ImagingSelection) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
@@ -139,6 +151,18 @@ func (resource *ImagingSelection) T_StudyUid(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("studyUid", resource.StudyUid, htmlAttrs)
 }
+func (resource *ImagingSelection) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
+		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+}
+func (resource *ImagingSelection) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndpoint >= len(resource.Endpoint) {
+		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+}
 func (resource *ImagingSelection) T_SeriesUid(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("seriesUid", nil, htmlAttrs)
@@ -157,11 +181,29 @@ func (resource *ImagingSelection) T_FrameOfReferenceUid(htmlAttrs templ.Attribut
 	}
 	return StringInput("frameOfReferenceUid", resource.FrameOfReferenceUid, htmlAttrs)
 }
+func (resource *ImagingSelection) T_BodySite(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("bodySite", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("bodySite", resource.BodySite, htmlAttrs)
+}
+func (resource *ImagingSelection) T_Focus(numFocus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
+}
 func (resource *ImagingSelection) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
 		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+}
+func (resource *ImagingSelection) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", resource.Performer[numPerformer].Actor, htmlAttrs)
 }
 func (resource *ImagingSelection) T_InstanceUid(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {

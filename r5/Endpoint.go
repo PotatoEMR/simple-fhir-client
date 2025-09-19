@@ -103,6 +103,24 @@ func (resource *Endpoint) T_EnvironmentType(numEnvironmentType int, optionsValue
 	}
 	return CodeableConceptSelect("environmentType["+strconv.Itoa(numEnvironmentType)+"]", &resource.EnvironmentType[numEnvironmentType], optionsValueSet, htmlAttrs)
 }
+func (resource *Endpoint) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+}
+func (resource *Endpoint) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *Endpoint) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
 func (resource *Endpoint) T_Address(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("address", nil, htmlAttrs)

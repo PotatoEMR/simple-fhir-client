@@ -99,6 +99,18 @@ func (resource *ResearchStudy) T_Title(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
+func (resource *ResearchStudy) T_Protocol(numProtocol int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProtocol >= len(resource.Protocol) {
+		return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
+}
+func (resource *ResearchStudy) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *ResearchStudy) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSResearch_study_status
 
@@ -137,6 +149,18 @@ func (resource *ResearchStudy) T_Condition(numCondition int, optionsValueSet []C
 	}
 	return CodeableConceptSelect("condition["+strconv.Itoa(numCondition)+"]", &resource.Condition[numCondition], optionsValueSet, htmlAttrs)
 }
+func (resource *ResearchStudy) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
+func (resource *ResearchStudy) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
+}
 func (resource *ResearchStudy) T_Keyword(numKeyword int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numKeyword >= len(resource.Keyword) {
 		return CodeableConceptSelect("keyword["+strconv.Itoa(numKeyword)+"]", nil, optionsValueSet, htmlAttrs)
@@ -154,6 +178,36 @@ func (resource *ResearchStudy) T_Description(htmlAttrs templ.Attributes) templ.C
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ResearchStudy) T_Enrollment(numEnrollment int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEnrollment >= len(resource.Enrollment) {
+		return ReferenceInput("enrollment["+strconv.Itoa(numEnrollment)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("enrollment["+strconv.Itoa(numEnrollment)+"]", &resource.Enrollment[numEnrollment], htmlAttrs)
+}
+func (resource *ResearchStudy) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *ResearchStudy) T_Sponsor(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("sponsor", nil, htmlAttrs)
+	}
+	return ReferenceInput("sponsor", resource.Sponsor, htmlAttrs)
+}
+func (resource *ResearchStudy) T_PrincipalInvestigator(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("principalInvestigator", nil, htmlAttrs)
+	}
+	return ReferenceInput("principalInvestigator", resource.PrincipalInvestigator, htmlAttrs)
+}
+func (resource *ResearchStudy) T_Site(numSite int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSite >= len(resource.Site) {
+		return ReferenceInput("site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
 }
 func (resource *ResearchStudy) T_ReasonStopped(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

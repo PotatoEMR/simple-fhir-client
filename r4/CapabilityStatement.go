@@ -259,9 +259,9 @@ func (resource *CapabilityStatement) T_Experimental(htmlAttrs templ.Attributes) 
 }
 func (resource *CapabilityStatement) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", &resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", &resource.Date, htmlAttrs)
 }
 func (resource *CapabilityStatement) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -269,11 +269,23 @@ func (resource *CapabilityStatement) T_Publisher(htmlAttrs templ.Attributes) tem
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *CapabilityStatement) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *CapabilityStatement) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *CapabilityStatement) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *CapabilityStatement) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -353,9 +365,9 @@ func (resource *CapabilityStatement) T_SoftwareVersion(htmlAttrs templ.Attribute
 }
 func (resource *CapabilityStatement) T_SoftwareReleaseDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("software.releaseDate", nil, htmlAttrs)
+		return FhirDateTimeInput("software.releaseDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("software.releaseDate", resource.Software.ReleaseDate, htmlAttrs)
+	return FhirDateTimeInput("software.releaseDate", resource.Software.ReleaseDate, htmlAttrs)
 }
 func (resource *CapabilityStatement) T_ImplementationDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -368,6 +380,12 @@ func (resource *CapabilityStatement) T_ImplementationUrl(htmlAttrs templ.Attribu
 		return StringInput("implementation.url", nil, htmlAttrs)
 	}
 	return StringInput("implementation.url", resource.Implementation.Url, htmlAttrs)
+}
+func (resource *CapabilityStatement) T_ImplementationCustodian(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("implementation.custodian", nil, htmlAttrs)
+	}
+	return ReferenceInput("implementation.custodian", resource.Implementation.Custodian, htmlAttrs)
 }
 func (resource *CapabilityStatement) T_RestMode(numRest int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRestful_capability_mode

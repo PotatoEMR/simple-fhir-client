@@ -153,6 +153,12 @@ func (resource *TestReport) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *TestReport) T_TestScript(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("testScript", nil, htmlAttrs)
+	}
+	return ReferenceInput("testScript", &resource.TestScript, htmlAttrs)
+}
 func (resource *TestReport) T_Result(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSReport_result_codes
 
@@ -175,9 +181,9 @@ func (resource *TestReport) T_Tester(htmlAttrs templ.Attributes) templ.Component
 }
 func (resource *TestReport) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("issued", nil, htmlAttrs)
+		return FhirDateTimeInput("issued", nil, htmlAttrs)
 	}
-	return DateTimeInput("issued", resource.Issued, htmlAttrs)
+	return FhirDateTimeInput("issued", resource.Issued, htmlAttrs)
 }
 func (resource *TestReport) T_ParticipantType(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSReport_participant_type

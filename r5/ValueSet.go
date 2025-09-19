@@ -281,9 +281,9 @@ func (resource *ValueSet) T_Experimental(htmlAttrs templ.Attributes) templ.Compo
 }
 func (resource *ValueSet) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ValueSet) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -291,11 +291,23 @@ func (resource *ValueSet) T_Publisher(htmlAttrs templ.Attributes) templ.Componen
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ValueSet) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ValueSet) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ValueSet) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ValueSet) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -329,15 +341,21 @@ func (resource *ValueSet) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.Com
 }
 func (resource *ValueSet) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *ValueSet) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *ValueSet) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *ValueSet) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
@@ -345,11 +363,41 @@ func (resource *ValueSet) T_Topic(numTopic int, optionsValueSet []Coding, htmlAt
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
 }
+func (resource *ValueSet) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *ValueSet) T_Editor(numEditor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEditor >= len(resource.Editor) {
+		return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", &resource.Editor[numEditor], htmlAttrs)
+}
+func (resource *ValueSet) T_Reviewer(numReviewer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReviewer >= len(resource.Reviewer) {
+		return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", &resource.Reviewer[numReviewer], htmlAttrs)
+}
+func (resource *ValueSet) T_Endorser(numEndorser int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndorser >= len(resource.Endorser) {
+		return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", &resource.Endorser[numEndorser], htmlAttrs)
+}
+func (resource *ValueSet) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
+}
 func (resource *ValueSet) T_ComposeLockedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("compose.lockedDate", nil, htmlAttrs)
+		return FhirDateInput("compose.lockedDate", nil, htmlAttrs)
 	}
-	return DateInput("compose.lockedDate", resource.Compose.LockedDate, htmlAttrs)
+	return FhirDateInput("compose.lockedDate", resource.Compose.LockedDate, htmlAttrs)
 }
 func (resource *ValueSet) T_ComposeInactive(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -445,9 +493,9 @@ func (resource *ValueSet) T_ExpansionNext(htmlAttrs templ.Attributes) templ.Comp
 }
 func (resource *ValueSet) T_ExpansionTimestamp(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("expansion.timestamp", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.timestamp", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.timestamp", &resource.Expansion.Timestamp, htmlAttrs)
+	return FhirDateTimeInput("expansion.timestamp", &resource.Expansion.Timestamp, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionTotal(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -505,9 +553,9 @@ func (resource *ValueSet) T_ExpansionParameterValueCode(numParameter int, option
 }
 func (resource *ValueSet) T_ExpansionParameterValueDateTime(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Expansion.Parameter) {
-		return DateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", resource.Expansion.Parameter[numParameter].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("expansion.parameter["+strconv.Itoa(numParameter)+"].valueDateTime", resource.Expansion.Parameter[numParameter].ValueDateTime, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionPropertyCode(numProperty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Expansion.Property) {
@@ -595,9 +643,9 @@ func (resource *ValueSet) T_ExpansionContainsPropertyValueBoolean(numContains in
 }
 func (resource *ValueSet) T_ExpansionContainsPropertyValueDateTime(numContains int, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContains >= len(resource.Expansion.Contains) || numProperty >= len(resource.Expansion.Contains[numContains].Property) {
-		return DateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", &resource.Expansion.Contains[numContains].Property[numProperty].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].valueDateTime", &resource.Expansion.Contains[numContains].Property[numProperty].ValueDateTime, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionContainsPropertyValueDecimal(numContains int, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContains >= len(resource.Expansion.Contains) || numProperty >= len(resource.Expansion.Contains[numContains].Property) {
@@ -643,9 +691,9 @@ func (resource *ValueSet) T_ExpansionContainsPropertySubPropertyValueBoolean(num
 }
 func (resource *ValueSet) T_ExpansionContainsPropertySubPropertyValueDateTime(numContains int, numProperty int, numSubProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContains >= len(resource.Expansion.Contains) || numProperty >= len(resource.Expansion.Contains[numContains].Property) || numSubProperty >= len(resource.Expansion.Contains[numContains].Property[numProperty].SubProperty) {
-		return DateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].subProperty["+strconv.Itoa(numSubProperty)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].subProperty["+strconv.Itoa(numSubProperty)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].subProperty["+strconv.Itoa(numSubProperty)+"].valueDateTime", &resource.Expansion.Contains[numContains].Property[numProperty].SubProperty[numSubProperty].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("expansion.contains["+strconv.Itoa(numContains)+"].property["+strconv.Itoa(numProperty)+"].subProperty["+strconv.Itoa(numSubProperty)+"].valueDateTime", &resource.Expansion.Contains[numContains].Property[numProperty].SubProperty[numSubProperty].ValueDateTime, htmlAttrs)
 }
 func (resource *ValueSet) T_ExpansionContainsPropertySubPropertyValueDecimal(numContains int, numProperty int, numSubProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContains >= len(resource.Expansion.Contains) || numProperty >= len(resource.Expansion.Contains[numContains].Property) || numSubProperty >= len(resource.Expansion.Contains[numContains].Property[numProperty].SubProperty) {

@@ -218,9 +218,9 @@ func (resource *ExampleScenario) T_Experimental(htmlAttrs templ.Attributes) temp
 }
 func (resource *ExampleScenario) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *ExampleScenario) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -228,11 +228,23 @@ func (resource *ExampleScenario) T_Publisher(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *ExampleScenario) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *ExampleScenario) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *ExampleScenario) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *ExampleScenario) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -326,6 +338,12 @@ func (resource *ExampleScenario) T_InstanceDescription(numInstance int, htmlAttr
 	}
 	return StringInput("instance["+strconv.Itoa(numInstance)+"].description", resource.Instance[numInstance].Description, htmlAttrs)
 }
+func (resource *ExampleScenario) T_InstanceContent(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].content", nil, htmlAttrs)
+	}
+	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].content", resource.Instance[numInstance].Content, htmlAttrs)
+}
 func (resource *ExampleScenario) T_InstanceVersionKey(numInstance int, numVersion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
 		return StringInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].key", nil, htmlAttrs)
@@ -343,6 +361,12 @@ func (resource *ExampleScenario) T_InstanceVersionDescription(numInstance int, n
 		return StringInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].description", resource.Instance[numInstance].Version[numVersion].Description, htmlAttrs)
+}
+func (resource *ExampleScenario) T_InstanceVersionContent(numInstance int, numVersion int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
+		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", nil, htmlAttrs)
+	}
+	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", resource.Instance[numInstance].Version[numVersion].Content, htmlAttrs)
 }
 func (resource *ExampleScenario) T_InstanceContainedInstanceInstanceReference(numInstance int, numContainedInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) || numContainedInstance >= len(resource.Instance[numInstance].ContainedInstance) {

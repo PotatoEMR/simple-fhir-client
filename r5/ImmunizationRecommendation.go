@@ -83,11 +83,23 @@ func (r ImmunizationRecommendation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *ImmunizationRecommendation) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
 func (resource *ImmunizationRecommendation) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", &resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", &resource.Date, htmlAttrs)
+}
+func (resource *ImmunizationRecommendation) T_Authority(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("authority", nil, htmlAttrs)
+	}
+	return ReferenceInput("authority", resource.Authority, htmlAttrs)
 }
 func (resource *ImmunizationRecommendation) T_RecommendationVaccineCode(numRecommendation int, numVaccineCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numVaccineCode >= len(resource.Recommendation[numRecommendation].VaccineCode) {
@@ -143,6 +155,18 @@ func (resource *ImmunizationRecommendation) T_RecommendationSeriesDoses(numRecom
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].seriesDoses", resource.Recommendation[numRecommendation].SeriesDoses, htmlAttrs)
 }
+func (resource *ImmunizationRecommendation) T_RecommendationSupportingImmunization(numRecommendation int, numSupportingImmunization int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRecommendation >= len(resource.Recommendation) || numSupportingImmunization >= len(resource.Recommendation[numRecommendation].SupportingImmunization) {
+		return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", &resource.Recommendation[numRecommendation].SupportingImmunization[numSupportingImmunization], htmlAttrs)
+}
+func (resource *ImmunizationRecommendation) T_RecommendationSupportingPatientInformation(numRecommendation int, numSupportingPatientInformation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRecommendation >= len(resource.Recommendation) || numSupportingPatientInformation >= len(resource.Recommendation[numRecommendation].SupportingPatientInformation) {
+		return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", &resource.Recommendation[numRecommendation].SupportingPatientInformation[numSupportingPatientInformation], htmlAttrs)
+}
 func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionCode(numRecommendation int, numDateCriterion int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numDateCriterion >= len(resource.Recommendation[numRecommendation].DateCriterion) {
 		return CodeableConceptSelect("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].code", nil, optionsValueSet, htmlAttrs)
@@ -151,7 +175,7 @@ func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionCode(nu
 }
 func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionValue(numRecommendation int, numDateCriterion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numDateCriterion >= len(resource.Recommendation[numRecommendation].DateCriterion) {
-		return DateTimeInput("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].value", nil, htmlAttrs)
+		return FhirDateTimeInput("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].value", nil, htmlAttrs)
 	}
-	return DateTimeInput("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].value", &resource.Recommendation[numRecommendation].DateCriterion[numDateCriterion].Value, htmlAttrs)
+	return FhirDateTimeInput("recommendation["+strconv.Itoa(numRecommendation)+"].dateCriterion["+strconv.Itoa(numDateCriterion)+"].value", &resource.Recommendation[numRecommendation].DateCriterion[numDateCriterion].Value, htmlAttrs)
 }

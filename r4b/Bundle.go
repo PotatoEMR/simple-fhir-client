@@ -104,6 +104,12 @@ func (resource *Bundle) T_Total(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return IntInput("total", resource.Total, htmlAttrs)
 }
+func (resource *Bundle) T_Signature(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return SignatureInput("signature", nil, htmlAttrs)
+	}
+	return SignatureInput("signature", resource.Signature, htmlAttrs)
+}
 func (resource *Bundle) T_LinkRelation(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLink >= len(resource.Link) {
 		return StringInput("link["+strconv.Itoa(numLink)+"].relation", nil, htmlAttrs)

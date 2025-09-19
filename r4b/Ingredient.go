@@ -110,6 +110,12 @@ func (resource *Ingredient) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *Ingredient) T_For(numFor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFor >= len(resource.For) {
+		return ReferenceInput("for["+strconv.Itoa(numFor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("for["+strconv.Itoa(numFor)+"]", &resource.For[numFor], htmlAttrs)
+}
 func (resource *Ingredient) T_Role(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("role", nil, optionsValueSet, htmlAttrs)
@@ -136,11 +142,47 @@ func (resource *Ingredient) T_ManufacturerRole(numManufacturer int, htmlAttrs te
 	}
 	return CodeSelect("manufacturer["+strconv.Itoa(numManufacturer)+"].role", resource.Manufacturer[numManufacturer].Role, optionsValueSet, htmlAttrs)
 }
+func (resource *Ingredient) T_ManufacturerManufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
+		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", &resource.Manufacturer[numManufacturer].Manufacturer, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceCode(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("substance.code", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("substance.code", &resource.Substance.Code, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthPresentationRatio(numStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) {
+		return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].presentationRatio", nil, htmlAttrs)
+	}
+	return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].presentationRatio", resource.Substance.Strength[numStrength].PresentationRatio, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthPresentationRatioRange(numStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) {
+		return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].presentationRatioRange", nil, htmlAttrs)
+	}
+	return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].presentationRatioRange", resource.Substance.Strength[numStrength].PresentationRatioRange, htmlAttrs)
+}
 func (resource *Ingredient) T_SubstanceStrengthTextPresentation(numStrength int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStrength >= len(resource.Substance.Strength) {
 		return StringInput("substance.strength["+strconv.Itoa(numStrength)+"].textPresentation", nil, htmlAttrs)
 	}
 	return StringInput("substance.strength["+strconv.Itoa(numStrength)+"].textPresentation", resource.Substance.Strength[numStrength].TextPresentation, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthConcentrationRatio(numStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) {
+		return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].concentrationRatio", nil, htmlAttrs)
+	}
+	return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].concentrationRatio", resource.Substance.Strength[numStrength].ConcentrationRatio, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthConcentrationRatioRange(numStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) {
+		return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].concentrationRatioRange", nil, htmlAttrs)
+	}
+	return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].concentrationRatioRange", resource.Substance.Strength[numStrength].ConcentrationRatioRange, htmlAttrs)
 }
 func (resource *Ingredient) T_SubstanceStrengthTextConcentration(numStrength int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStrength >= len(resource.Substance.Strength) {
@@ -159,6 +201,24 @@ func (resource *Ingredient) T_SubstanceStrengthCountry(numStrength int, numCount
 		return CodeableConceptSelect("substance.strength["+strconv.Itoa(numStrength)+"].country["+strconv.Itoa(numCountry)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("substance.strength["+strconv.Itoa(numStrength)+"].country["+strconv.Itoa(numCountry)+"]", &resource.Substance.Strength[numStrength].Country[numCountry], optionsValueSet, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthSubstance(numStrength int, numReferenceStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) || numReferenceStrength >= len(resource.Substance.Strength[numStrength].ReferenceStrength) {
+		return CodeableReferenceInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].substance", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].substance", resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].Substance, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthStrengthRatio(numStrength int, numReferenceStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) || numReferenceStrength >= len(resource.Substance.Strength[numStrength].ReferenceStrength) {
+		return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].strengthRatio", nil, htmlAttrs)
+	}
+	return RatioInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].strengthRatio", &resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].StrengthRatio, htmlAttrs)
+}
+func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthStrengthRatioRange(numStrength int, numReferenceStrength int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStrength >= len(resource.Substance.Strength) || numReferenceStrength >= len(resource.Substance.Strength[numStrength].ReferenceStrength) {
+		return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].strengthRatioRange", nil, htmlAttrs)
+	}
+	return RatioRangeInput("substance.strength["+strconv.Itoa(numStrength)+"].referenceStrength["+strconv.Itoa(numReferenceStrength)+"].strengthRatioRange", &resource.Substance.Strength[numStrength].ReferenceStrength[numReferenceStrength].StrengthRatioRange, htmlAttrs)
 }
 func (resource *Ingredient) T_SubstanceStrengthReferenceStrengthMeasurementPoint(numStrength int, numReferenceStrength int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStrength >= len(resource.Substance.Strength) || numReferenceStrength >= len(resource.Substance.Strength[numStrength].ReferenceStrength) {

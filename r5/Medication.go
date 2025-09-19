@@ -94,11 +94,35 @@ func (resource *Medication) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *Medication) T_MarketingAuthorizationHolder(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("marketingAuthorizationHolder", nil, htmlAttrs)
+	}
+	return ReferenceInput("marketingAuthorizationHolder", resource.MarketingAuthorizationHolder, htmlAttrs)
+}
 func (resource *Medication) T_DoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("doseForm", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("doseForm", resource.DoseForm, optionsValueSet, htmlAttrs)
+}
+func (resource *Medication) T_TotalVolume(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("totalVolume", nil, htmlAttrs)
+	}
+	return QuantityInput("totalVolume", resource.TotalVolume, htmlAttrs)
+}
+func (resource *Medication) T_Definition(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("definition", nil, htmlAttrs)
+	}
+	return ReferenceInput("definition", resource.Definition, htmlAttrs)
+}
+func (resource *Medication) T_IngredientItem(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return CodeableReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].item", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].item", &resource.Ingredient[numIngredient].Item, htmlAttrs)
 }
 func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
@@ -106,11 +130,23 @@ func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs te
 	}
 	return BoolInput("ingredient["+strconv.Itoa(numIngredient)+"].isActive", resource.Ingredient[numIngredient].IsActive, htmlAttrs)
 }
+func (resource *Medication) T_IngredientStrengthRatio(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return RatioInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthRatio", nil, htmlAttrs)
+	}
+	return RatioInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthRatio", resource.Ingredient[numIngredient].StrengthRatio, htmlAttrs)
+}
 func (resource *Medication) T_IngredientStrengthCodeableConcept(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
 		return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].strengthCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].strengthCodeableConcept", resource.Ingredient[numIngredient].StrengthCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Medication) T_IngredientStrengthQuantity(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", resource.Ingredient[numIngredient].StrengthQuantity, htmlAttrs)
 }
 func (resource *Medication) T_BatchLotNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -120,7 +156,7 @@ func (resource *Medication) T_BatchLotNumber(htmlAttrs templ.Attributes) templ.C
 }
 func (resource *Medication) T_BatchExpirationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("batch.expirationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("batch.expirationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("batch.expirationDate", resource.Batch.ExpirationDate, htmlAttrs)
+	return FhirDateTimeInput("batch.expirationDate", resource.Batch.ExpirationDate, htmlAttrs)
 }

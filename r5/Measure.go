@@ -240,6 +240,12 @@ func (resource *Measure) T_SubjectCodeableConcept(optionsValueSet []Coding, html
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *Measure) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subjectReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+}
 func (resource *Measure) T_Basis(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFhir_types
 
@@ -250,9 +256,9 @@ func (resource *Measure) T_Basis(htmlAttrs templ.Attributes) templ.Component {
 }
 func (resource *Measure) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *Measure) T_Publisher(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -260,11 +266,23 @@ func (resource *Measure) T_Publisher(htmlAttrs templ.Attributes) templ.Component
 	}
 	return StringInput("publisher", resource.Publisher, htmlAttrs)
 }
+func (resource *Measure) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *Measure) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *Measure) T_UseContext(numUseContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUseContext >= len(resource.UseContext) {
+		return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", nil, htmlAttrs)
+	}
+	return UsageContextInput("useContext["+strconv.Itoa(numUseContext)+"]", &resource.UseContext[numUseContext], htmlAttrs)
 }
 func (resource *Measure) T_Jurisdiction(numJurisdiction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdiction >= len(resource.Jurisdiction) {
@@ -298,21 +316,57 @@ func (resource *Measure) T_CopyrightLabel(htmlAttrs templ.Attributes) templ.Comp
 }
 func (resource *Measure) T_ApprovalDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("approvalDate", nil, htmlAttrs)
+		return FhirDateInput("approvalDate", nil, htmlAttrs)
 	}
-	return DateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
+	return FhirDateInput("approvalDate", resource.ApprovalDate, htmlAttrs)
 }
 func (resource *Measure) T_LastReviewDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("lastReviewDate", nil, htmlAttrs)
+		return FhirDateInput("lastReviewDate", nil, htmlAttrs)
 	}
-	return DateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+	return FhirDateInput("lastReviewDate", resource.LastReviewDate, htmlAttrs)
+}
+func (resource *Measure) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
 }
 func (resource *Measure) T_Topic(numTopic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTopic >= len(resource.Topic) {
 		return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topic["+strconv.Itoa(numTopic)+"]", &resource.Topic[numTopic], optionsValueSet, htmlAttrs)
+}
+func (resource *Measure) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *Measure) T_Editor(numEditor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEditor >= len(resource.Editor) {
+		return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("editor["+strconv.Itoa(numEditor)+"]", &resource.Editor[numEditor], htmlAttrs)
+}
+func (resource *Measure) T_Reviewer(numReviewer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReviewer >= len(resource.Reviewer) {
+		return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("reviewer["+strconv.Itoa(numReviewer)+"]", &resource.Reviewer[numReviewer], htmlAttrs)
+}
+func (resource *Measure) T_Endorser(numEndorser int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEndorser >= len(resource.Endorser) {
+		return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", nil, htmlAttrs)
+	}
+	return ContactDetailInput("endorser["+strconv.Itoa(numEndorser)+"]", &resource.Endorser[numEndorser], htmlAttrs)
+}
+func (resource *Measure) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
+		return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
 }
 func (resource *Measure) T_Library(numLibrary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
@@ -428,6 +482,12 @@ func (resource *Measure) T_GroupSubjectCodeableConcept(numGroup int, optionsValu
 	}
 	return CodeableConceptSelect("group["+strconv.Itoa(numGroup)+"].subjectCodeableConcept", resource.Group[numGroup].SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *Measure) T_GroupSubjectReference(numGroup int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) {
+		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].subjectReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].subjectReference", resource.Group[numGroup].SubjectReference, htmlAttrs)
+}
 func (resource *Measure) T_GroupBasis(numGroup int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFhir_types
 
@@ -484,6 +544,18 @@ func (resource *Measure) T_GroupPopulationDescription(numGroup int, numPopulatio
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].description", resource.Group[numGroup].Population[numPopulation].Description, htmlAttrs)
 }
+func (resource *Measure) T_GroupPopulationCriteria(numGroup int, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
+		return ExpressionInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].criteria", nil, htmlAttrs)
+	}
+	return ExpressionInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].criteria", resource.Group[numGroup].Population[numPopulation].Criteria, htmlAttrs)
+}
+func (resource *Measure) T_GroupPopulationGroupDefinition(numGroup int, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
+		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].groupDefinition", nil, htmlAttrs)
+	}
+	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].groupDefinition", resource.Group[numGroup].Population[numPopulation].GroupDefinition, htmlAttrs)
+}
 func (resource *Measure) T_GroupPopulationInputPopulationId(numGroup int, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numPopulation >= len(resource.Group[numGroup].Population) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].population["+strconv.Itoa(numPopulation)+"].inputPopulationId", nil, htmlAttrs)
@@ -514,6 +586,18 @@ func (resource *Measure) T_GroupStratifierDescription(numGroup int, numStratifie
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].description", resource.Group[numGroup].Stratifier[numStratifier].Description, htmlAttrs)
 }
+func (resource *Measure) T_GroupStratifierCriteria(numGroup int, numStratifier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) {
+		return ExpressionInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].criteria", nil, htmlAttrs)
+	}
+	return ExpressionInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].criteria", resource.Group[numGroup].Stratifier[numStratifier].Criteria, htmlAttrs)
+}
+func (resource *Measure) T_GroupStratifierGroupDefinition(numGroup int, numStratifier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) {
+		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].groupDefinition", nil, htmlAttrs)
+	}
+	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].groupDefinition", resource.Group[numGroup].Stratifier[numStratifier].GroupDefinition, htmlAttrs)
+}
 func (resource *Measure) T_GroupStratifierComponentLinkId(numGroup int, numStratifier int, numComponent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Component) {
 		return StringInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].linkId", nil, htmlAttrs)
@@ -531,6 +615,18 @@ func (resource *Measure) T_GroupStratifierComponentDescription(numGroup int, num
 		return StringInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].description", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Description, htmlAttrs)
+}
+func (resource *Measure) T_GroupStratifierComponentCriteria(numGroup int, numStratifier int, numComponent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Component) {
+		return ExpressionInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].criteria", nil, htmlAttrs)
+	}
+	return ExpressionInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].criteria", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].Criteria, htmlAttrs)
+}
+func (resource *Measure) T_GroupStratifierComponentGroupDefinition(numGroup int, numStratifier int, numComponent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGroup >= len(resource.Group) || numStratifier >= len(resource.Group[numGroup].Stratifier) || numComponent >= len(resource.Group[numGroup].Stratifier[numStratifier].Component) {
+		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].groupDefinition", nil, htmlAttrs)
+	}
+	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].stratifier["+strconv.Itoa(numStratifier)+"].component["+strconv.Itoa(numComponent)+"].groupDefinition", resource.Group[numGroup].Stratifier[numStratifier].Component[numComponent].GroupDefinition, htmlAttrs)
 }
 func (resource *Measure) T_SupplementalDataLinkId(numSupplementalData int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupplementalData >= len(resource.SupplementalData) {
@@ -555,4 +651,10 @@ func (resource *Measure) T_SupplementalDataDescription(numSupplementalData int, 
 		return StringInput("supplementalData["+strconv.Itoa(numSupplementalData)+"].description", nil, htmlAttrs)
 	}
 	return StringInput("supplementalData["+strconv.Itoa(numSupplementalData)+"].description", resource.SupplementalData[numSupplementalData].Description, htmlAttrs)
+}
+func (resource *Measure) T_SupplementalDataCriteria(numSupplementalData int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupplementalData >= len(resource.SupplementalData) {
+		return ExpressionInput("supplementalData["+strconv.Itoa(numSupplementalData)+"].criteria", nil, htmlAttrs)
+	}
+	return ExpressionInput("supplementalData["+strconv.Itoa(numSupplementalData)+"].criteria", &resource.SupplementalData[numSupplementalData].Criteria, htmlAttrs)
 }

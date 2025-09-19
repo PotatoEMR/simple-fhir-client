@@ -100,11 +100,41 @@ func (resource *Account) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
+func (resource *Account) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
+func (resource *Account) T_ServicePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("servicePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("servicePeriod", resource.ServicePeriod, htmlAttrs)
+}
+func (resource *Account) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("owner", nil, htmlAttrs)
+	}
+	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+}
 func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description", nil, htmlAttrs)
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
+}
+func (resource *Account) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("partOf", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+}
+func (resource *Account) T_CoverageCoverage(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCoverage >= len(resource.Coverage) {
+		return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", nil, htmlAttrs)
+	}
+	return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", &resource.Coverage[numCoverage].Coverage, htmlAttrs)
 }
 func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
@@ -112,9 +142,21 @@ func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Att
 	}
 	return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", resource.Coverage[numCoverage].Priority, htmlAttrs)
 }
+func (resource *Account) T_GuarantorParty(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGuarantor >= len(resource.Guarantor) {
+		return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", nil, htmlAttrs)
+	}
+	return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", &resource.Guarantor[numGuarantor].Party, htmlAttrs)
+}
 func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {
 		return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", nil, htmlAttrs)
 	}
 	return BoolInput("guarantor["+strconv.Itoa(numGuarantor)+"].onHold", resource.Guarantor[numGuarantor].OnHold, htmlAttrs)
+}
+func (resource *Account) T_GuarantorPeriod(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGuarantor >= len(resource.Guarantor) {
+		return PeriodInput("guarantor["+strconv.Itoa(numGuarantor)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("guarantor["+strconv.Itoa(numGuarantor)+"].period", resource.Guarantor[numGuarantor].Period, htmlAttrs)
 }

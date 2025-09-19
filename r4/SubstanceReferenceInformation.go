@@ -119,11 +119,29 @@ func (resource *SubstanceReferenceInformation) T_GeneGene(numGene int, optionsVa
 	}
 	return CodeableConceptSelect("gene["+strconv.Itoa(numGene)+"].gene", resource.Gene[numGene].Gene, optionsValueSet, htmlAttrs)
 }
+func (resource *SubstanceReferenceInformation) T_GeneSource(numGene int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGene >= len(resource.Gene) || numSource >= len(resource.Gene[numGene].Source) {
+		return ReferenceInput("gene["+strconv.Itoa(numGene)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("gene["+strconv.Itoa(numGene)+"].source["+strconv.Itoa(numSource)+"]", &resource.Gene[numGene].Source[numSource], htmlAttrs)
+}
 func (resource *SubstanceReferenceInformation) T_GeneElementType(numGeneElement int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGeneElement >= len(resource.GeneElement) {
 		return CodeableConceptSelect("geneElement["+strconv.Itoa(numGeneElement)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("geneElement["+strconv.Itoa(numGeneElement)+"].type", resource.GeneElement[numGeneElement].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_GeneElementElement(numGeneElement int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGeneElement >= len(resource.GeneElement) {
+		return IdentifierInput("geneElement["+strconv.Itoa(numGeneElement)+"].element", nil, htmlAttrs)
+	}
+	return IdentifierInput("geneElement["+strconv.Itoa(numGeneElement)+"].element", resource.GeneElement[numGeneElement].Element, htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_GeneElementSource(numGeneElement int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numGeneElement >= len(resource.GeneElement) || numSource >= len(resource.GeneElement[numGeneElement].Source) {
+		return ReferenceInput("geneElement["+strconv.Itoa(numGeneElement)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("geneElement["+strconv.Itoa(numGeneElement)+"].source["+strconv.Itoa(numSource)+"]", &resource.GeneElement[numGeneElement].Source[numSource], htmlAttrs)
 }
 func (resource *SubstanceReferenceInformation) T_ClassificationDomain(numClassification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.Classification) {
@@ -142,6 +160,18 @@ func (resource *SubstanceReferenceInformation) T_ClassificationSubtype(numClassi
 		return CodeableConceptSelect("classification["+strconv.Itoa(numClassification)+"].subtype["+strconv.Itoa(numSubtype)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("classification["+strconv.Itoa(numClassification)+"].subtype["+strconv.Itoa(numSubtype)+"]", &resource.Classification[numClassification].Subtype[numSubtype], optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_ClassificationSource(numClassification int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numClassification >= len(resource.Classification) || numSource >= len(resource.Classification[numClassification].Source) {
+		return ReferenceInput("classification["+strconv.Itoa(numClassification)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("classification["+strconv.Itoa(numClassification)+"].source["+strconv.Itoa(numSource)+"]", &resource.Classification[numClassification].Source[numSource], htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_TargetTarget(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return IdentifierInput("target["+strconv.Itoa(numTarget)+"].target", nil, htmlAttrs)
+	}
+	return IdentifierInput("target["+strconv.Itoa(numTarget)+"].target", resource.Target[numTarget].Target, htmlAttrs)
 }
 func (resource *SubstanceReferenceInformation) T_TargetType(numTarget int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
@@ -167,6 +197,18 @@ func (resource *SubstanceReferenceInformation) T_TargetOrganismType(numTarget in
 	}
 	return CodeableConceptSelect("target["+strconv.Itoa(numTarget)+"].organismType", resource.Target[numTarget].OrganismType, optionsValueSet, htmlAttrs)
 }
+func (resource *SubstanceReferenceInformation) T_TargetAmountQuantity(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return QuantityInput("target["+strconv.Itoa(numTarget)+"].amountQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("target["+strconv.Itoa(numTarget)+"].amountQuantity", resource.Target[numTarget].AmountQuantity, htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_TargetAmountRange(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) {
+		return RangeInput("target["+strconv.Itoa(numTarget)+"].amountRange", nil, htmlAttrs)
+	}
+	return RangeInput("target["+strconv.Itoa(numTarget)+"].amountRange", resource.Target[numTarget].AmountRange, htmlAttrs)
+}
 func (resource *SubstanceReferenceInformation) T_TargetAmountString(numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
 		return StringInput("target["+strconv.Itoa(numTarget)+"].amountString", nil, htmlAttrs)
@@ -178,4 +220,10 @@ func (resource *SubstanceReferenceInformation) T_TargetAmountType(numTarget int,
 		return CodeableConceptSelect("target["+strconv.Itoa(numTarget)+"].amountType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("target["+strconv.Itoa(numTarget)+"].amountType", resource.Target[numTarget].AmountType, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstanceReferenceInformation) T_TargetSource(numTarget int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTarget >= len(resource.Target) || numSource >= len(resource.Target[numTarget].Source) {
+		return ReferenceInput("target["+strconv.Itoa(numTarget)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("target["+strconv.Itoa(numTarget)+"].source["+strconv.Itoa(numSource)+"]", &resource.Target[numTarget].Source[numSource], htmlAttrs)
 }

@@ -80,6 +80,24 @@ func (resource *ResearchSubject) T_Status(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *ResearchSubject) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
+func (resource *ResearchSubject) T_Study(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("study", nil, htmlAttrs)
+	}
+	return ReferenceInput("study", &resource.Study, htmlAttrs)
+}
+func (resource *ResearchSubject) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
 func (resource *ResearchSubject) T_AssignedComparisonGroup(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("assignedComparisonGroup", nil, htmlAttrs)
@@ -91,6 +109,12 @@ func (resource *ResearchSubject) T_ActualComparisonGroup(htmlAttrs templ.Attribu
 		return StringInput("actualComparisonGroup", nil, htmlAttrs)
 	}
 	return StringInput("actualComparisonGroup", resource.ActualComparisonGroup, htmlAttrs)
+}
+func (resource *ResearchSubject) T_Consent(numConsent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numConsent >= len(resource.Consent) {
+		return ReferenceInput("consent["+strconv.Itoa(numConsent)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("consent["+strconv.Itoa(numConsent)+"]", &resource.Consent[numConsent], htmlAttrs)
 }
 func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
@@ -118,13 +142,13 @@ func (resource *ResearchSubject) T_ProgressReason(numProgress int, optionsValueS
 }
 func (resource *ResearchSubject) T_ProgressStartDate(numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
-		return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", nil, htmlAttrs)
+		return FhirDateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", resource.Progress[numProgress].StartDate, htmlAttrs)
+	return FhirDateTimeInput("progress["+strconv.Itoa(numProgress)+"].startDate", resource.Progress[numProgress].StartDate, htmlAttrs)
 }
 func (resource *ResearchSubject) T_ProgressEndDate(numProgress int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {
-		return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].endDate", nil, htmlAttrs)
+		return FhirDateTimeInput("progress["+strconv.Itoa(numProgress)+"].endDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("progress["+strconv.Itoa(numProgress)+"].endDate", resource.Progress[numProgress].EndDate, htmlAttrs)
+	return FhirDateTimeInput("progress["+strconv.Itoa(numProgress)+"].endDate", resource.Progress[numProgress].EndDate, htmlAttrs)
 }

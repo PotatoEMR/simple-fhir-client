@@ -129,11 +129,41 @@ func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding,
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
+func (resource *Condition) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *Condition) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *Condition) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("onsetDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("onsetDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
+	return FhirDateTimeInput("onsetDateTime", resource.OnsetDateTime, htmlAttrs)
+}
+func (resource *Condition) T_OnsetAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("onsetAge", nil, htmlAttrs)
+	}
+	return AgeInput("onsetAge", resource.OnsetAge, htmlAttrs)
+}
+func (resource *Condition) T_OnsetPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("onsetPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("onsetPeriod", resource.OnsetPeriod, htmlAttrs)
+}
+func (resource *Condition) T_OnsetRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("onsetRange", nil, htmlAttrs)
+	}
+	return RangeInput("onsetRange", resource.OnsetRange, htmlAttrs)
 }
 func (resource *Condition) T_OnsetString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -143,9 +173,27 @@ func (resource *Condition) T_OnsetString(htmlAttrs templ.Attributes) templ.Compo
 }
 func (resource *Condition) T_AbatementDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("abatementDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("abatementDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("abatementDateTime", resource.AbatementDateTime, htmlAttrs)
+	return FhirDateTimeInput("abatementDateTime", resource.AbatementDateTime, htmlAttrs)
+}
+func (resource *Condition) T_AbatementAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("abatementAge", nil, htmlAttrs)
+	}
+	return AgeInput("abatementAge", resource.AbatementAge, htmlAttrs)
+}
+func (resource *Condition) T_AbatementPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("abatementPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("abatementPeriod", resource.AbatementPeriod, htmlAttrs)
+}
+func (resource *Condition) T_AbatementRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("abatementRange", nil, htmlAttrs)
+	}
+	return RangeInput("abatementRange", resource.AbatementRange, htmlAttrs)
 }
 func (resource *Condition) T_AbatementString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -155,9 +203,15 @@ func (resource *Condition) T_AbatementString(htmlAttrs templ.Attributes) templ.C
 }
 func (resource *Condition) T_RecordedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("recordedDate", nil, htmlAttrs)
+		return FhirDateTimeInput("recordedDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
+	return FhirDateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
+}
+func (resource *Condition) T_Evidence(numEvidence int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEvidence >= len(resource.Evidence) {
+		return CodeableReferenceInput("evidence["+strconv.Itoa(numEvidence)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("evidence["+strconv.Itoa(numEvidence)+"]", &resource.Evidence[numEvidence], htmlAttrs)
 }
 func (resource *Condition) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -171,11 +225,23 @@ func (resource *Condition) T_ParticipantFunction(numParticipant int, optionsValu
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
+func (resource *Condition) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numParticipant >= len(resource.Participant) {
+		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
+}
 func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
 		return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
+}
+func (resource *Condition) T_StageAssessment(numStage int, numAssessment int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numStage >= len(resource.Stage) || numAssessment >= len(resource.Stage[numStage].Assessment) {
+		return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", &resource.Stage[numStage].Assessment[numAssessment], htmlAttrs)
 }
 func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {

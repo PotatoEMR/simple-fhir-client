@@ -108,11 +108,23 @@ func (resource *Subscription) T_Topic(htmlAttrs templ.Attributes) templ.Componen
 	}
 	return StringInput("topic", &resource.Topic, htmlAttrs)
 }
+func (resource *Subscription) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+}
 func (resource *Subscription) T_End(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("end", nil, htmlAttrs)
 	}
 	return StringInput("end", resource.End, htmlAttrs)
+}
+func (resource *Subscription) T_ManagingEntity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("managingEntity", nil, htmlAttrs)
+	}
+	return ReferenceInput("managingEntity", resource.ManagingEntity, htmlAttrs)
 }
 func (resource *Subscription) T_Reason(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

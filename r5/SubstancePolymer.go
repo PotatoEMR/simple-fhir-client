@@ -167,6 +167,12 @@ func (resource *SubstancePolymer) T_MonomerSetStartingMaterialIsDefining(numMono
 	}
 	return BoolInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].isDefining", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].IsDefining, htmlAttrs)
 }
+func (resource *SubstancePolymer) T_MonomerSetStartingMaterialAmount(numMonomerSet int, numStartingMaterial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
+		return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", nil, htmlAttrs)
+	}
+	return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Amount, htmlAttrs)
+}
 func (resource *SubstancePolymer) T_RepeatAverageMolecularFormula(numRepeat int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {
 		return StringInput("repeat["+strconv.Itoa(numRepeat)+"].averageMolecularFormula", nil, htmlAttrs)
@@ -238,4 +244,10 @@ func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationForm
 		return CodeableConceptSelect("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].format", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].format", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Format, optionsValueSet, htmlAttrs)
+}
+func (resource *SubstancePolymer) T_RepeatRepeatUnitStructuralRepresentationAttachment(numRepeat int, numRepeatUnit int, numStructuralRepresentation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRepeat >= len(resource.Repeat) || numRepeatUnit >= len(resource.Repeat[numRepeat].RepeatUnit) || numStructuralRepresentation >= len(resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation) {
+		return AttachmentInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].attachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("repeat["+strconv.Itoa(numRepeat)+"].repeatUnit["+strconv.Itoa(numRepeatUnit)+"].structuralRepresentation["+strconv.Itoa(numStructuralRepresentation)+"].attachment", resource.Repeat[numRepeat].RepeatUnit[numRepeatUnit].StructuralRepresentation[numStructuralRepresentation].Attachment, htmlAttrs)
 }

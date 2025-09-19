@@ -328,6 +328,12 @@ func (resource *Contract) T_LegalState(optionsValueSet []Coding, htmlAttrs templ
 	}
 	return CodeableConceptSelect("legalState", resource.LegalState, optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_InstantiatesCanonical(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("instantiatesCanonical", nil, htmlAttrs)
+	}
+	return ReferenceInput("instantiatesCanonical", resource.InstantiatesCanonical, htmlAttrs)
+}
 func (resource *Contract) T_InstantiatesUri(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesUri", nil, htmlAttrs)
@@ -342,15 +348,45 @@ func (resource *Contract) T_ContentDerivative(optionsValueSet []Coding, htmlAttr
 }
 func (resource *Contract) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("issued", nil, htmlAttrs)
+		return FhirDateTimeInput("issued", nil, htmlAttrs)
 	}
-	return DateTimeInput("issued", resource.Issued, htmlAttrs)
+	return FhirDateTimeInput("issued", resource.Issued, htmlAttrs)
+}
+func (resource *Contract) T_Applies(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("applies", nil, htmlAttrs)
+	}
+	return PeriodInput("applies", resource.Applies, htmlAttrs)
 }
 func (resource *Contract) T_ExpirationType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("expirationType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("expirationType", resource.ExpirationType, optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
+func (resource *Contract) T_Authority(numAuthority int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthority >= len(resource.Authority) {
+		return ReferenceInput("authority["+strconv.Itoa(numAuthority)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("authority["+strconv.Itoa(numAuthority)+"]", &resource.Authority[numAuthority], htmlAttrs)
+}
+func (resource *Contract) T_Domain(numDomain int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDomain >= len(resource.Domain) {
+		return ReferenceInput("domain["+strconv.Itoa(numDomain)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("domain["+strconv.Itoa(numDomain)+"]", &resource.Domain[numDomain], htmlAttrs)
+}
+func (resource *Contract) T_Site(numSite int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSite >= len(resource.Site) {
+		return ReferenceInput("site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
 }
 func (resource *Contract) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -376,6 +412,12 @@ func (resource *Contract) T_Alias(numAlias int, htmlAttrs templ.Attributes) temp
 	}
 	return StringInput("alias["+strconv.Itoa(numAlias)+"]", &resource.Alias[numAlias], htmlAttrs)
 }
+func (resource *Contract) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
+}
 func (resource *Contract) T_Scope(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("scope", nil, optionsValueSet, htmlAttrs)
@@ -387,6 +429,12 @@ func (resource *Contract) T_TopicCodeableConcept(optionsValueSet []Coding, htmlA
 		return CodeableConceptSelect("topicCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("topicCodeableConcept", resource.TopicCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_TopicReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("topicReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("topicReference", resource.TopicReference, htmlAttrs)
 }
 func (resource *Contract) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -400,6 +448,30 @@ func (resource *Contract) T_SubType(numSubType int, optionsValueSet []Coding, ht
 	}
 	return CodeableConceptSelect("subType["+strconv.Itoa(numSubType)+"]", &resource.SubType[numSubType], optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+}
+func (resource *Contract) T_RelevantHistory(numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelevantHistory >= len(resource.RelevantHistory) {
+		return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
+}
+func (resource *Contract) T_LegallyBindingAttachment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AttachmentInput("legallyBindingAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("legallyBindingAttachment", resource.LegallyBindingAttachment, htmlAttrs)
+}
+func (resource *Contract) T_LegallyBindingReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("legallyBindingReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("legallyBindingReference", resource.LegallyBindingReference, htmlAttrs)
+}
 func (resource *Contract) T_ContentDefinitionType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("contentDefinition.type", nil, optionsValueSet, htmlAttrs)
@@ -412,11 +484,17 @@ func (resource *Contract) T_ContentDefinitionSubType(optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("contentDefinition.subType", resource.ContentDefinition.SubType, optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_ContentDefinitionPublisher(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("contentDefinition.publisher", nil, htmlAttrs)
+	}
+	return ReferenceInput("contentDefinition.publisher", resource.ContentDefinition.Publisher, htmlAttrs)
+}
 func (resource *Contract) T_ContentDefinitionPublicationDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("contentDefinition.publicationDate", nil, htmlAttrs)
+		return FhirDateTimeInput("contentDefinition.publicationDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("contentDefinition.publicationDate", resource.ContentDefinition.PublicationDate, htmlAttrs)
+	return FhirDateTimeInput("contentDefinition.publicationDate", resource.ContentDefinition.PublicationDate, htmlAttrs)
 }
 func (resource *Contract) T_ContentDefinitionPublicationStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSContract_publicationstatus
@@ -434,15 +512,27 @@ func (resource *Contract) T_ContentDefinitionCopyright(htmlAttrs templ.Attribute
 }
 func (resource *Contract) T_TermIssued(numTerm int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) {
-		return DateTimeInput("term["+strconv.Itoa(numTerm)+"].issued", nil, htmlAttrs)
+		return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].issued", nil, htmlAttrs)
 	}
-	return DateTimeInput("term["+strconv.Itoa(numTerm)+"].issued", resource.Term[numTerm].Issued, htmlAttrs)
+	return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].issued", resource.Term[numTerm].Issued, htmlAttrs)
+}
+func (resource *Contract) T_TermApplies(numTerm int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) {
+		return PeriodInput("term["+strconv.Itoa(numTerm)+"].applies", nil, htmlAttrs)
+	}
+	return PeriodInput("term["+strconv.Itoa(numTerm)+"].applies", resource.Term[numTerm].Applies, htmlAttrs)
 }
 func (resource *Contract) T_TermTopicCodeableConcept(numTerm int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) {
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].topicCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].topicCodeableConcept", resource.Term[numTerm].TopicCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_TermTopicReference(numTerm int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].topicReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].topicReference", resource.Term[numTerm].TopicReference, htmlAttrs)
 }
 func (resource *Contract) T_TermType(numTerm int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) {
@@ -455,12 +545,6 @@ func (resource *Contract) T_TermSubType(numTerm int, optionsValueSet []Coding, h
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].subType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].subType", resource.Term[numTerm].SubType, optionsValueSet, htmlAttrs)
-}
-func (resource *Contract) T_TermText(numTerm int, htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil || numTerm >= len(resource.Term) {
-		return StringInput("term["+strconv.Itoa(numTerm)+"].text", nil, htmlAttrs)
-	}
-	return StringInput("term["+strconv.Itoa(numTerm)+"].text", resource.Term[numTerm].Text, htmlAttrs)
 }
 func (resource *Contract) T_TermSecurityLabelNumber(numTerm int, numSecurityLabel int, numNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numSecurityLabel >= len(resource.Term[numTerm].SecurityLabel) || numNumber >= len(resource.Term[numTerm].SecurityLabel[numSecurityLabel].Number) {
@@ -486,6 +570,12 @@ func (resource *Contract) T_TermSecurityLabelControl(numTerm int, numSecurityLab
 	}
 	return CodingSelect("term["+strconv.Itoa(numTerm)+"].securityLabel["+strconv.Itoa(numSecurityLabel)+"].control["+strconv.Itoa(numControl)+"]", &resource.Term[numTerm].SecurityLabel[numSecurityLabel].Control[numControl], optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_TermOfferTopic(numTerm int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.topic", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.topic", resource.Term[numTerm].Offer.Topic, htmlAttrs)
+}
 func (resource *Contract) T_TermOfferType(numTerm int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) {
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].offer.type", nil, optionsValueSet, htmlAttrs)
@@ -504,12 +594,6 @@ func (resource *Contract) T_TermOfferDecisionMode(numTerm int, numDecisionMode i
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].offer.decisionMode["+strconv.Itoa(numDecisionMode)+"]", &resource.Term[numTerm].Offer.DecisionMode[numDecisionMode], optionsValueSet, htmlAttrs)
 }
-func (resource *Contract) T_TermOfferText(numTerm int, htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil || numTerm >= len(resource.Term) {
-		return StringInput("term["+strconv.Itoa(numTerm)+"].offer.text", nil, htmlAttrs)
-	}
-	return StringInput("term["+strconv.Itoa(numTerm)+"].offer.text", resource.Term[numTerm].Offer.Text, htmlAttrs)
-}
 func (resource *Contract) T_TermOfferLinkId(numTerm int, numLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numLinkId >= len(resource.Term[numTerm].Offer.LinkId) {
 		return StringInput("term["+strconv.Itoa(numTerm)+"].offer.linkId["+strconv.Itoa(numLinkId)+"]", nil, htmlAttrs)
@@ -521,6 +605,12 @@ func (resource *Contract) T_TermOfferSecurityLabelNumber(numTerm int, numSecurit
 		return IntInput("term["+strconv.Itoa(numTerm)+"].offer.securityLabelNumber["+strconv.Itoa(numSecurityLabelNumber)+"]", nil, htmlAttrs)
 	}
 	return IntInput("term["+strconv.Itoa(numTerm)+"].offer.securityLabelNumber["+strconv.Itoa(numSecurityLabelNumber)+"]", &resource.Term[numTerm].Offer.SecurityLabelNumber[numSecurityLabelNumber], htmlAttrs)
+}
+func (resource *Contract) T_TermOfferPartyReference(numTerm int, numParty int, numReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numParty >= len(resource.Term[numTerm].Offer.Party) || numReference >= len(resource.Term[numTerm].Offer.Party[numParty].Reference) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.party["+strconv.Itoa(numParty)+"].reference["+strconv.Itoa(numReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.party["+strconv.Itoa(numParty)+"].reference["+strconv.Itoa(numReference)+"]", &resource.Term[numTerm].Offer.Party[numParty].Reference[numReference], htmlAttrs)
 }
 func (resource *Contract) T_TermOfferPartyRole(numTerm int, numParty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numParty >= len(resource.Term[numTerm].Offer.Party) {
@@ -548,15 +638,15 @@ func (resource *Contract) T_TermOfferAnswerValueInteger(numTerm int, numAnswer i
 }
 func (resource *Contract) T_TermOfferAnswerValueDate(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
-		return DateInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDate", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueDate, htmlAttrs)
+	return FhirDateInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDate", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueDate, htmlAttrs)
 }
 func (resource *Contract) T_TermOfferAnswerValueDateTime(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
-		return DateTimeInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDateTime", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueDateTime", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueDateTime, htmlAttrs)
 }
 func (resource *Contract) T_TermOfferAnswerValueTime(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
@@ -576,11 +666,29 @@ func (resource *Contract) T_TermOfferAnswerValueUri(numTerm int, numAnswer int, 
 	}
 	return StringInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueUri", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueUri, htmlAttrs)
 }
+func (resource *Contract) T_TermOfferAnswerValueAttachment(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
+		return AttachmentInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueAttachment", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueAttachment, htmlAttrs)
+}
 func (resource *Contract) T_TermOfferAnswerValueCoding(numTerm int, numAnswer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
 		return CodingSelect("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueCoding", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueCoding", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueCoding, optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_TermOfferAnswerValueQuantity(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
+		return QuantityInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueQuantity", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueQuantity, htmlAttrs)
+}
+func (resource *Contract) T_TermOfferAnswerValueReference(numTerm int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAnswer >= len(resource.Term[numTerm].Offer.Answer) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].offer.answer["+strconv.Itoa(numAnswer)+"].valueReference", &resource.Term[numTerm].Offer.Answer[numAnswer].ValueReference, htmlAttrs)
 }
 func (resource *Contract) T_TermAssetScope(numTerm int, numAsset int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) {
@@ -593,6 +701,12 @@ func (resource *Contract) T_TermAssetType(numTerm int, numAsset int, numType int
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].type["+strconv.Itoa(numType)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].type["+strconv.Itoa(numType)+"]", &resource.Term[numTerm].Asset[numAsset].Type[numType], optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_TermAssetTypeReference(numTerm int, numAsset int, numTypeReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numTypeReference >= len(resource.Term[numTerm].Asset[numAsset].TypeReference) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].typeReference["+strconv.Itoa(numTypeReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].typeReference["+strconv.Itoa(numTypeReference)+"]", &resource.Term[numTerm].Asset[numAsset].TypeReference[numTypeReference], htmlAttrs)
 }
 func (resource *Contract) T_TermAssetSubtype(numTerm int, numAsset int, numSubtype int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numSubtype >= len(resource.Term[numTerm].Asset[numAsset].Subtype) {
@@ -618,11 +732,17 @@ func (resource *Contract) T_TermAssetPeriodType(numTerm int, numAsset int, numPe
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].periodType["+strconv.Itoa(numPeriodType)+"]", &resource.Term[numTerm].Asset[numAsset].PeriodType[numPeriodType], optionsValueSet, htmlAttrs)
 }
-func (resource *Contract) T_TermAssetText(numTerm int, numAsset int, htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) {
-		return StringInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].text", nil, htmlAttrs)
+func (resource *Contract) T_TermAssetPeriod(numTerm int, numAsset int, numPeriod int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numPeriod >= len(resource.Term[numTerm].Asset[numAsset].Period) {
+		return PeriodInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].period["+strconv.Itoa(numPeriod)+"]", nil, htmlAttrs)
 	}
-	return StringInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].text", resource.Term[numTerm].Asset[numAsset].Text, htmlAttrs)
+	return PeriodInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].period["+strconv.Itoa(numPeriod)+"]", &resource.Term[numTerm].Asset[numAsset].Period[numPeriod], htmlAttrs)
+}
+func (resource *Contract) T_TermAssetUsePeriod(numTerm int, numAsset int, numUsePeriod int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numUsePeriod >= len(resource.Term[numTerm].Asset[numAsset].UsePeriod) {
+		return PeriodInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].usePeriod["+strconv.Itoa(numUsePeriod)+"]", nil, htmlAttrs)
+	}
+	return PeriodInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].usePeriod["+strconv.Itoa(numUsePeriod)+"]", &resource.Term[numTerm].Asset[numAsset].UsePeriod[numUsePeriod], htmlAttrs)
 }
 func (resource *Contract) T_TermAssetLinkId(numTerm int, numAsset int, numLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numLinkId >= len(resource.Term[numTerm].Asset[numAsset].LinkId) {
@@ -636,17 +756,17 @@ func (resource *Contract) T_TermAssetSecurityLabelNumber(numTerm int, numAsset i
 	}
 	return IntInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].securityLabelNumber["+strconv.Itoa(numSecurityLabelNumber)+"]", &resource.Term[numTerm].Asset[numAsset].SecurityLabelNumber[numSecurityLabelNumber], htmlAttrs)
 }
+func (resource *Contract) T_TermAssetContextReference(numTerm int, numAsset int, numContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numContext >= len(resource.Term[numTerm].Asset[numAsset].Context) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].reference", resource.Term[numTerm].Asset[numAsset].Context[numContext].Reference, htmlAttrs)
+}
 func (resource *Contract) T_TermAssetContextCode(numTerm int, numAsset int, numContext int, numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numContext >= len(resource.Term[numTerm].Asset[numAsset].Context) || numCode >= len(resource.Term[numTerm].Asset[numAsset].Context[numContext].Code) {
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].code["+strconv.Itoa(numCode)+"]", &resource.Term[numTerm].Asset[numAsset].Context[numContext].Code[numCode], optionsValueSet, htmlAttrs)
-}
-func (resource *Contract) T_TermAssetContextText(numTerm int, numAsset int, numContext int, htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numContext >= len(resource.Term[numTerm].Asset[numAsset].Context) {
-		return StringInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].text", nil, htmlAttrs)
-	}
-	return StringInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].context["+strconv.Itoa(numContext)+"].text", resource.Term[numTerm].Asset[numAsset].Context[numContext].Text, htmlAttrs)
 }
 func (resource *Contract) T_TermAssetValuedItemEntityCodeableConcept(numTerm int, numAsset int, numValuedItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
@@ -654,11 +774,29 @@ func (resource *Contract) T_TermAssetValuedItemEntityCodeableConcept(numTerm int
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].entityCodeableConcept", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].EntityCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_TermAssetValuedItemEntityReference(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].entityReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].entityReference", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].EntityReference, htmlAttrs)
+}
 func (resource *Contract) T_TermAssetValuedItemEffectiveTime(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
-		return DateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].effectiveTime", nil, htmlAttrs)
+		return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].effectiveTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].effectiveTime", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].EffectiveTime, htmlAttrs)
+	return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].effectiveTime", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].EffectiveTime, htmlAttrs)
+}
+func (resource *Contract) T_TermAssetValuedItemQuantity(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return QuantityInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].quantity", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].Quantity, htmlAttrs)
+}
+func (resource *Contract) T_TermAssetValuedItemUnitPrice(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return MoneyInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].unitPrice", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].UnitPrice, htmlAttrs)
 }
 func (resource *Contract) T_TermAssetValuedItemFactor(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
@@ -672,6 +810,12 @@ func (resource *Contract) T_TermAssetValuedItemPoints(numTerm int, numAsset int,
 	}
 	return Float64Input("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].points", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].Points, htmlAttrs)
 }
+func (resource *Contract) T_TermAssetValuedItemNet(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return MoneyInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].net", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].Net, htmlAttrs)
+}
 func (resource *Contract) T_TermAssetValuedItemPayment(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
 		return StringInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].payment", nil, htmlAttrs)
@@ -680,9 +824,21 @@ func (resource *Contract) T_TermAssetValuedItemPayment(numTerm int, numAsset int
 }
 func (resource *Contract) T_TermAssetValuedItemPaymentDate(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
-		return DateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].paymentDate", nil, htmlAttrs)
+		return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].paymentDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].paymentDate", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].PaymentDate, htmlAttrs)
+	return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].paymentDate", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].PaymentDate, htmlAttrs)
+}
+func (resource *Contract) T_TermAssetValuedItemResponsible(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].responsible", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].responsible", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].Responsible, htmlAttrs)
+}
+func (resource *Contract) T_TermAssetValuedItemRecipient(numTerm int, numAsset int, numValuedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].recipient", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].asset["+strconv.Itoa(numAsset)+"].valuedItem["+strconv.Itoa(numValuedItem)+"].recipient", resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].Recipient, htmlAttrs)
 }
 func (resource *Contract) T_TermAssetValuedItemLinkId(numTerm int, numAsset int, numValuedItem int, numLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAsset >= len(resource.Term[numTerm].Asset) || numValuedItem >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem) || numLinkId >= len(resource.Term[numTerm].Asset[numAsset].ValuedItem[numValuedItem].LinkId) {
@@ -726,6 +882,12 @@ func (resource *Contract) T_TermActionStatus(numTerm int, numAction int, options
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].status", &resource.Term[numTerm].Action[numAction].Status, optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_TermActionContext(numTerm int, numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].context", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].context", resource.Term[numTerm].Action[numAction].Context, htmlAttrs)
+}
 func (resource *Contract) T_TermActionContextLinkId(numTerm int, numAction int, numContextLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numContextLinkId >= len(resource.Term[numTerm].Action[numAction].ContextLinkId) {
 		return StringInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].contextLinkId["+strconv.Itoa(numContextLinkId)+"]", nil, htmlAttrs)
@@ -734,9 +896,27 @@ func (resource *Contract) T_TermActionContextLinkId(numTerm int, numAction int, 
 }
 func (resource *Contract) T_TermActionOccurrenceDateTime(numTerm int, numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) {
-		return DateTimeInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceDateTime", resource.Term[numTerm].Action[numAction].OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceDateTime", resource.Term[numTerm].Action[numAction].OccurrenceDateTime, htmlAttrs)
+}
+func (resource *Contract) T_TermActionOccurrencePeriod(numTerm int, numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) {
+		return PeriodInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrencePeriod", resource.Term[numTerm].Action[numAction].OccurrencePeriod, htmlAttrs)
+}
+func (resource *Contract) T_TermActionOccurrenceTiming(numTerm int, numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) {
+		return TimingInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceTiming", nil, htmlAttrs)
+	}
+	return TimingInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].occurrenceTiming", resource.Term[numTerm].Action[numAction].OccurrenceTiming, htmlAttrs)
+}
+func (resource *Contract) T_TermActionRequester(numTerm int, numAction int, numRequester int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numRequester >= len(resource.Term[numTerm].Action[numAction].Requester) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].requester["+strconv.Itoa(numRequester)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].requester["+strconv.Itoa(numRequester)+"]", &resource.Term[numTerm].Action[numAction].Requester[numRequester], htmlAttrs)
 }
 func (resource *Contract) T_TermActionRequesterLinkId(numTerm int, numAction int, numRequesterLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numRequesterLinkId >= len(resource.Term[numTerm].Action[numAction].RequesterLinkId) {
@@ -756,6 +936,12 @@ func (resource *Contract) T_TermActionPerformerRole(numTerm int, numAction int, 
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].performerRole", resource.Term[numTerm].Action[numAction].PerformerRole, optionsValueSet, htmlAttrs)
 }
+func (resource *Contract) T_TermActionPerformer(numTerm int, numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].performer", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].performer", resource.Term[numTerm].Action[numAction].Performer, htmlAttrs)
+}
 func (resource *Contract) T_TermActionPerformerLinkId(numTerm int, numAction int, numPerformerLinkId int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numPerformerLinkId >= len(resource.Term[numTerm].Action[numAction].PerformerLinkId) {
 		return StringInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].performerLinkId["+strconv.Itoa(numPerformerLinkId)+"]", nil, htmlAttrs)
@@ -767,6 +953,12 @@ func (resource *Contract) T_TermActionReasonCode(numTerm int, numAction int, num
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.Term[numTerm].Action[numAction].ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_TermActionReasonReference(numTerm int, numAction int, numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numReasonReference >= len(resource.Term[numTerm].Action[numAction].ReasonReference) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.Term[numTerm].Action[numAction].ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *Contract) T_TermActionReason(numTerm int, numAction int, numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numReason >= len(resource.Term[numTerm].Action[numAction].Reason) {
@@ -792,6 +984,12 @@ func (resource *Contract) T_TermActionSecurityLabelNumber(numTerm int, numAction
 	}
 	return IntInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].securityLabelNumber["+strconv.Itoa(numSecurityLabelNumber)+"]", &resource.Term[numTerm].Action[numAction].SecurityLabelNumber[numSecurityLabelNumber], htmlAttrs)
 }
+func (resource *Contract) T_TermActionSubjectReference(numTerm int, numAction int, numSubject int, numReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numSubject >= len(resource.Term[numTerm].Action[numAction].Subject) || numReference >= len(resource.Term[numTerm].Action[numAction].Subject[numSubject].Reference) {
+		return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].subject["+strconv.Itoa(numSubject)+"].reference["+strconv.Itoa(numReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].subject["+strconv.Itoa(numSubject)+"].reference["+strconv.Itoa(numReference)+"]", &resource.Term[numTerm].Action[numAction].Subject[numSubject].Reference[numReference], htmlAttrs)
+}
 func (resource *Contract) T_TermActionSubjectRole(numTerm int, numAction int, numSubject int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTerm >= len(resource.Term) || numAction >= len(resource.Term[numTerm].Action) || numSubject >= len(resource.Term[numTerm].Action[numAction].Subject) {
 		return CodeableConceptSelect("term["+strconv.Itoa(numTerm)+"].action["+strconv.Itoa(numAction)+"].subject["+strconv.Itoa(numSubject)+"].role", nil, optionsValueSet, htmlAttrs)
@@ -803,4 +1001,52 @@ func (resource *Contract) T_SignerType(numSigner int, optionsValueSet []Coding, 
 		return CodingSelect("signer["+strconv.Itoa(numSigner)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodingSelect("signer["+strconv.Itoa(numSigner)+"].type", &resource.Signer[numSigner].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *Contract) T_SignerParty(numSigner int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSigner >= len(resource.Signer) {
+		return ReferenceInput("signer["+strconv.Itoa(numSigner)+"].party", nil, htmlAttrs)
+	}
+	return ReferenceInput("signer["+strconv.Itoa(numSigner)+"].party", &resource.Signer[numSigner].Party, htmlAttrs)
+}
+func (resource *Contract) T_SignerSignature(numSigner int, numSignature int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSigner >= len(resource.Signer) || numSignature >= len(resource.Signer[numSigner].Signature) {
+		return SignatureInput("signer["+strconv.Itoa(numSigner)+"].signature["+strconv.Itoa(numSignature)+"]", nil, htmlAttrs)
+	}
+	return SignatureInput("signer["+strconv.Itoa(numSigner)+"].signature["+strconv.Itoa(numSignature)+"]", &resource.Signer[numSigner].Signature[numSignature], htmlAttrs)
+}
+func (resource *Contract) T_FriendlyContentAttachment(numFriendly int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFriendly >= len(resource.Friendly) {
+		return AttachmentInput("friendly["+strconv.Itoa(numFriendly)+"].contentAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("friendly["+strconv.Itoa(numFriendly)+"].contentAttachment", &resource.Friendly[numFriendly].ContentAttachment, htmlAttrs)
+}
+func (resource *Contract) T_FriendlyContentReference(numFriendly int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFriendly >= len(resource.Friendly) {
+		return ReferenceInput("friendly["+strconv.Itoa(numFriendly)+"].contentReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("friendly["+strconv.Itoa(numFriendly)+"].contentReference", &resource.Friendly[numFriendly].ContentReference, htmlAttrs)
+}
+func (resource *Contract) T_LegalContentAttachment(numLegal int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLegal >= len(resource.Legal) {
+		return AttachmentInput("legal["+strconv.Itoa(numLegal)+"].contentAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("legal["+strconv.Itoa(numLegal)+"].contentAttachment", &resource.Legal[numLegal].ContentAttachment, htmlAttrs)
+}
+func (resource *Contract) T_LegalContentReference(numLegal int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numLegal >= len(resource.Legal) {
+		return ReferenceInput("legal["+strconv.Itoa(numLegal)+"].contentReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("legal["+strconv.Itoa(numLegal)+"].contentReference", &resource.Legal[numLegal].ContentReference, htmlAttrs)
+}
+func (resource *Contract) T_RuleContentAttachment(numRule int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) {
+		return AttachmentInput("rule["+strconv.Itoa(numRule)+"].contentAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("rule["+strconv.Itoa(numRule)+"].contentAttachment", &resource.Rule[numRule].ContentAttachment, htmlAttrs)
+}
+func (resource *Contract) T_RuleContentReference(numRule int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) {
+		return ReferenceInput("rule["+strconv.Itoa(numRule)+"].contentReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("rule["+strconv.Itoa(numRule)+"].contentReference", &resource.Rule[numRule].ContentReference, htmlAttrs)
 }

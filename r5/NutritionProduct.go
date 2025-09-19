@@ -124,11 +124,47 @@ func (resource *NutritionProduct) T_Category(numCategory int, optionsValueSet []
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *NutritionProduct) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
+		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+}
+func (resource *NutritionProduct) T_KnownAllergen(numKnownAllergen int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numKnownAllergen >= len(resource.KnownAllergen) {
+		return CodeableReferenceInput("knownAllergen["+strconv.Itoa(numKnownAllergen)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("knownAllergen["+strconv.Itoa(numKnownAllergen)+"]", &resource.KnownAllergen[numKnownAllergen], htmlAttrs)
+}
 func (resource *NutritionProduct) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
 		return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
+}
+func (resource *NutritionProduct) T_NutrientItem(numNutrient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNutrient >= len(resource.Nutrient) {
+		return CodeableReferenceInput("nutrient["+strconv.Itoa(numNutrient)+"].item", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("nutrient["+strconv.Itoa(numNutrient)+"].item", resource.Nutrient[numNutrient].Item, htmlAttrs)
+}
+func (resource *NutritionProduct) T_NutrientAmount(numNutrient int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numNutrient >= len(resource.Nutrient) || numAmount >= len(resource.Nutrient[numNutrient].Amount) {
+		return RatioInput("nutrient["+strconv.Itoa(numNutrient)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+	}
+	return RatioInput("nutrient["+strconv.Itoa(numNutrient)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Nutrient[numNutrient].Amount[numAmount], htmlAttrs)
+}
+func (resource *NutritionProduct) T_IngredientItem(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) {
+		return CodeableReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].item", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].item", &resource.Ingredient[numIngredient].Item, htmlAttrs)
+}
+func (resource *NutritionProduct) T_IngredientAmount(numIngredient int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredient >= len(resource.Ingredient) || numAmount >= len(resource.Ingredient[numIngredient].Amount) {
+		return RatioInput("ingredient["+strconv.Itoa(numIngredient)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+	}
+	return RatioInput("ingredient["+strconv.Itoa(numIngredient)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Ingredient[numIngredient].Amount[numAmount], htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicType(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -148,17 +184,35 @@ func (resource *NutritionProduct) T_CharacteristicValueString(numCharacteristic 
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueString", &resource.Characteristic[numCharacteristic].ValueString, htmlAttrs)
 }
+func (resource *NutritionProduct) T_CharacteristicValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", &resource.Characteristic[numCharacteristic].ValueQuantity, htmlAttrs)
+}
 func (resource *NutritionProduct) T_CharacteristicValueBase64Binary(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBase64Binary", nil, htmlAttrs)
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBase64Binary", &resource.Characteristic[numCharacteristic].ValueBase64Binary, htmlAttrs)
 }
+func (resource *NutritionProduct) T_CharacteristicValueAttachment(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return AttachmentInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAttachment", &resource.Characteristic[numCharacteristic].ValueAttachment, htmlAttrs)
+}
 func (resource *NutritionProduct) T_CharacteristicValueBoolean(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
+}
+func (resource *NutritionProduct) T_InstanceQuantity(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", resource.Instance[numInstance].Quantity, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceName(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
@@ -174,13 +228,19 @@ func (resource *NutritionProduct) T_InstanceLotNumber(numInstance int, htmlAttrs
 }
 func (resource *NutritionProduct) T_InstanceExpiry(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", nil, htmlAttrs)
+		return FhirDateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", nil, htmlAttrs)
 	}
-	return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
+	return FhirDateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceUseBy(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].useBy", nil, htmlAttrs)
+		return FhirDateTimeInput("instance["+strconv.Itoa(numInstance)+"].useBy", nil, htmlAttrs)
 	}
-	return DateTimeInput("instance["+strconv.Itoa(numInstance)+"].useBy", resource.Instance[numInstance].UseBy, htmlAttrs)
+	return FhirDateTimeInput("instance["+strconv.Itoa(numInstance)+"].useBy", resource.Instance[numInstance].UseBy, htmlAttrs)
+}
+func (resource *NutritionProduct) T_InstanceBiologicalSourceEvent(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInstance >= len(resource.Instance) {
+		return IdentifierInput("instance["+strconv.Itoa(numInstance)+"].biologicalSourceEvent", nil, htmlAttrs)
+	}
+	return IdentifierInput("instance["+strconv.Itoa(numInstance)+"].biologicalSourceEvent", resource.Instance[numInstance].BiologicalSourceEvent, htmlAttrs)
 }

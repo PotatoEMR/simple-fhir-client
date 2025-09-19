@@ -116,6 +116,18 @@ func (resource *NutritionIntake) T_InstantiatesUri(numInstantiatesUri int, htmlA
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *NutritionIntake) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *NutritionIntake) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *NutritionIntake) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
 
@@ -136,23 +148,65 @@ func (resource *NutritionIntake) T_Code(optionsValueSet []Coding, htmlAttrs temp
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *NutritionIntake) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *NutritionIntake) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *NutritionIntake) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("occurrenceDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("occurrenceDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
+}
+func (resource *NutritionIntake) T_OccurrencePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("occurrencePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
 }
 func (resource *NutritionIntake) T_Recorded(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("recorded", nil, htmlAttrs)
+		return FhirDateTimeInput("recorded", nil, htmlAttrs)
 	}
-	return DateTimeInput("recorded", resource.Recorded, htmlAttrs)
+	return FhirDateTimeInput("recorded", resource.Recorded, htmlAttrs)
 }
 func (resource *NutritionIntake) T_ReportedBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("reportedBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("reportedBoolean", resource.ReportedBoolean, htmlAttrs)
+}
+func (resource *NutritionIntake) T_ReportedReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("reportedReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("reportedReference", resource.ReportedReference, htmlAttrs)
+}
+func (resource *NutritionIntake) T_Location(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("location", nil, htmlAttrs)
+	}
+	return ReferenceInput("location", resource.Location, htmlAttrs)
+}
+func (resource *NutritionIntake) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
+		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+}
+func (resource *NutritionIntake) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
 func (resource *NutritionIntake) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -166,6 +220,30 @@ func (resource *NutritionIntake) T_ConsumedItemType(numConsumedItem int, options
 	}
 	return CodeableConceptSelect("consumedItem["+strconv.Itoa(numConsumedItem)+"].type", &resource.ConsumedItem[numConsumedItem].Type, optionsValueSet, htmlAttrs)
 }
+func (resource *NutritionIntake) T_ConsumedItemNutritionProduct(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
+		return CodeableReferenceInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].nutritionProduct", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].nutritionProduct", &resource.ConsumedItem[numConsumedItem].NutritionProduct, htmlAttrs)
+}
+func (resource *NutritionIntake) T_ConsumedItemSchedule(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
+		return TimingInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].schedule", nil, htmlAttrs)
+	}
+	return TimingInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].schedule", resource.ConsumedItem[numConsumedItem].Schedule, htmlAttrs)
+}
+func (resource *NutritionIntake) T_ConsumedItemAmount(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
+		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", nil, htmlAttrs)
+	}
+	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", resource.ConsumedItem[numConsumedItem].Amount, htmlAttrs)
+}
+func (resource *NutritionIntake) T_ConsumedItemRate(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
+		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", nil, htmlAttrs)
+	}
+	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", resource.ConsumedItem[numConsumedItem].Rate, htmlAttrs)
+}
 func (resource *NutritionIntake) T_ConsumedItemNotConsumed(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
 		return BoolInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].notConsumed", nil, htmlAttrs)
@@ -178,9 +256,27 @@ func (resource *NutritionIntake) T_ConsumedItemNotConsumedReason(numConsumedItem
 	}
 	return CodeableConceptSelect("consumedItem["+strconv.Itoa(numConsumedItem)+"].notConsumedReason", resource.ConsumedItem[numConsumedItem].NotConsumedReason, optionsValueSet, htmlAttrs)
 }
+func (resource *NutritionIntake) T_IngredientLabelNutrient(numIngredientLabel int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredientLabel >= len(resource.IngredientLabel) {
+		return CodeableReferenceInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].nutrient", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].nutrient", &resource.IngredientLabel[numIngredientLabel].Nutrient, htmlAttrs)
+}
+func (resource *NutritionIntake) T_IngredientLabelAmount(numIngredientLabel int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numIngredientLabel >= len(resource.IngredientLabel) {
+		return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", nil, htmlAttrs)
+	}
+	return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", &resource.IngredientLabel[numIngredientLabel].Amount, htmlAttrs)
+}
 func (resource *NutritionIntake) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
 		return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
+}
+func (resource *NutritionIntake) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPerformer >= len(resource.Performer) {
+		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+	}
+	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
 }

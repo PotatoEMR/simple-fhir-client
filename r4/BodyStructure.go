@@ -88,3 +88,15 @@ func (resource *BodyStructure) T_Description(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
+func (resource *BodyStructure) T_Image(numImage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numImage >= len(resource.Image) {
+		return AttachmentInput("image["+strconv.Itoa(numImage)+"]", nil, htmlAttrs)
+	}
+	return AttachmentInput("image["+strconv.Itoa(numImage)+"]", &resource.Image[numImage], htmlAttrs)
+}
+func (resource *BodyStructure) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}

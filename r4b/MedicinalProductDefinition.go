@@ -176,9 +176,9 @@ func (resource *MedicinalProductDefinition) T_Status(optionsValueSet []Coding, h
 }
 func (resource *MedicinalProductDefinition) T_StatusDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("statusDate", nil, htmlAttrs)
+		return FhirDateTimeInput("statusDate", nil, htmlAttrs)
 	}
-	return DateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
+	return FhirDateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
 func (resource *MedicinalProductDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -234,6 +234,12 @@ func (resource *MedicinalProductDefinition) T_Classification(numClassification i
 	}
 	return CodeableConceptSelect("classification["+strconv.Itoa(numClassification)+"]", &resource.Classification[numClassification], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductDefinition) T_MarketingStatus(numMarketingStatus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMarketingStatus >= len(resource.MarketingStatus) {
+		return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", nil, htmlAttrs)
+	}
+	return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", &resource.MarketingStatus[numMarketingStatus], htmlAttrs)
+}
 func (resource *MedicinalProductDefinition) T_PackagedMedicinalProduct(numPackagedMedicinalProduct int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackagedMedicinalProduct >= len(resource.PackagedMedicinalProduct) {
 		return CodeableConceptSelect("packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", nil, optionsValueSet, htmlAttrs)
@@ -246,6 +252,30 @@ func (resource *MedicinalProductDefinition) T_Ingredient(numIngredient int, opti
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductDefinition) T_Impurity(numImpurity int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numImpurity >= len(resource.Impurity) {
+		return CodeableReferenceInput("impurity["+strconv.Itoa(numImpurity)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("impurity["+strconv.Itoa(numImpurity)+"]", &resource.Impurity[numImpurity], htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_AttachedDocument(numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAttachedDocument >= len(resource.AttachedDocument) {
+		return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_MasterFile(numMasterFile int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numMasterFile >= len(resource.MasterFile) {
+		return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", &resource.MasterFile[numMasterFile], htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_ClinicalTrial(numClinicalTrial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numClinicalTrial >= len(resource.ClinicalTrial) {
+		return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", &resource.ClinicalTrial[numClinicalTrial], htmlAttrs)
+}
 func (resource *MedicinalProductDefinition) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
 		return CodingSelect("code["+strconv.Itoa(numCode)+"]", nil, optionsValueSet, htmlAttrs)
@@ -257,6 +287,12 @@ func (resource *MedicinalProductDefinition) T_ContactType(numContact int, option
 		return CodeableConceptSelect("contact["+strconv.Itoa(numContact)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("contact["+strconv.Itoa(numContact)+"].type", resource.Contact[numContact].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_ContactContact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContact >= len(resource.Contact) {
+		return ReferenceInput("contact["+strconv.Itoa(numContact)+"].contact", nil, htmlAttrs)
+	}
+	return ReferenceInput("contact["+strconv.Itoa(numContact)+"].contact", &resource.Contact[numContact].Contact, htmlAttrs)
 }
 func (resource *MedicinalProductDefinition) T_NameProductName(numName int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numName >= len(resource.Name) {
@@ -294,11 +330,35 @@ func (resource *MedicinalProductDefinition) T_NameCountryLanguageJurisdiction(nu
 	}
 	return CodeableConceptSelect("name["+strconv.Itoa(numName)+"].countryLanguage["+strconv.Itoa(numCountryLanguage)+"].jurisdiction", resource.Name[numName].CountryLanguage[numCountryLanguage].Jurisdiction, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductDefinition) T_CrossReferenceProduct(numCrossReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCrossReference >= len(resource.CrossReference) {
+		return CodeableReferenceInput("crossReference["+strconv.Itoa(numCrossReference)+"].product", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("crossReference["+strconv.Itoa(numCrossReference)+"].product", &resource.CrossReference[numCrossReference].Product, htmlAttrs)
+}
 func (resource *MedicinalProductDefinition) T_CrossReferenceType(numCrossReference int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCrossReference >= len(resource.CrossReference) {
 		return CodeableConceptSelect("crossReference["+strconv.Itoa(numCrossReference)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("crossReference["+strconv.Itoa(numCrossReference)+"].type", resource.CrossReference[numCrossReference].Type, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_OperationType(numOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOperation >= len(resource.Operation) {
+		return CodeableReferenceInput("operation["+strconv.Itoa(numOperation)+"].type", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("operation["+strconv.Itoa(numOperation)+"].type", resource.Operation[numOperation].Type, htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_OperationEffectiveDate(numOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOperation >= len(resource.Operation) {
+		return PeriodInput("operation["+strconv.Itoa(numOperation)+"].effectiveDate", nil, htmlAttrs)
+	}
+	return PeriodInput("operation["+strconv.Itoa(numOperation)+"].effectiveDate", resource.Operation[numOperation].EffectiveDate, htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_OperationOrganization(numOperation int, numOrganization int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOperation >= len(resource.Operation) || numOrganization >= len(resource.Operation[numOperation].Organization) {
+		return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].organization["+strconv.Itoa(numOrganization)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].organization["+strconv.Itoa(numOrganization)+"]", &resource.Operation[numOperation].Organization[numOrganization], htmlAttrs)
 }
 func (resource *MedicinalProductDefinition) T_OperationConfidentialityIndicator(numOperation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) {
@@ -318,15 +378,27 @@ func (resource *MedicinalProductDefinition) T_CharacteristicValueCodeableConcept
 	}
 	return CodeableConceptSelect("characteristic["+strconv.Itoa(numCharacteristic)+"].valueCodeableConcept", resource.Characteristic[numCharacteristic].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductDefinition) T_CharacteristicValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", resource.Characteristic[numCharacteristic].ValueQuantity, htmlAttrs)
+}
 func (resource *MedicinalProductDefinition) T_CharacteristicValueDate(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return DateInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDate", nil, htmlAttrs)
+		return FhirDateInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDate", nil, htmlAttrs)
 	}
-	return DateInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDate", resource.Characteristic[numCharacteristic].ValueDate, htmlAttrs)
+	return FhirDateInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDate", resource.Characteristic[numCharacteristic].ValueDate, htmlAttrs)
 }
 func (resource *MedicinalProductDefinition) T_CharacteristicValueBoolean(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", nil, htmlAttrs)
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
+}
+func (resource *MedicinalProductDefinition) T_CharacteristicValueAttachment(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return AttachmentInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAttachment", resource.Characteristic[numCharacteristic].ValueAttachment, htmlAttrs)
 }

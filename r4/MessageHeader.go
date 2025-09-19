@@ -105,11 +105,41 @@ func (resource *MessageHeader) T_EventUri(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return StringInput("eventUri", &resource.EventUri, htmlAttrs)
 }
+func (resource *MessageHeader) T_Sender(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("sender", nil, htmlAttrs)
+	}
+	return ReferenceInput("sender", resource.Sender, htmlAttrs)
+}
+func (resource *MessageHeader) T_Enterer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("enterer", nil, htmlAttrs)
+	}
+	return ReferenceInput("enterer", resource.Enterer, htmlAttrs)
+}
+func (resource *MessageHeader) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
+}
+func (resource *MessageHeader) T_Responsible(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("responsible", nil, htmlAttrs)
+	}
+	return ReferenceInput("responsible", resource.Responsible, htmlAttrs)
+}
 func (resource *MessageHeader) T_Reason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("reason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reason", resource.Reason, optionsValueSet, htmlAttrs)
+}
+func (resource *MessageHeader) T_Focus(numFocus int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numFocus >= len(resource.Focus) {
+		return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
 }
 func (resource *MessageHeader) T_Definition(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -123,11 +153,23 @@ func (resource *MessageHeader) T_DestinationName(numDestination int, htmlAttrs t
 	}
 	return StringInput("destination["+strconv.Itoa(numDestination)+"].name", resource.Destination[numDestination].Name, htmlAttrs)
 }
+func (resource *MessageHeader) T_DestinationTarget(numDestination int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].target", nil, htmlAttrs)
+	}
+	return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].target", resource.Destination[numDestination].Target, htmlAttrs)
+}
 func (resource *MessageHeader) T_DestinationEndpoint(numDestination int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDestination >= len(resource.Destination) {
 		return StringInput("destination["+strconv.Itoa(numDestination)+"].endpoint", nil, htmlAttrs)
 	}
 	return StringInput("destination["+strconv.Itoa(numDestination)+"].endpoint", &resource.Destination[numDestination].Endpoint, htmlAttrs)
+}
+func (resource *MessageHeader) T_DestinationReceiver(numDestination int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDestination >= len(resource.Destination) {
+		return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].receiver", nil, htmlAttrs)
+	}
+	return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].receiver", resource.Destination[numDestination].Receiver, htmlAttrs)
 }
 func (resource *MessageHeader) T_SourceName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -147,6 +189,12 @@ func (resource *MessageHeader) T_SourceVersion(htmlAttrs templ.Attributes) templ
 	}
 	return StringInput("source.version", resource.Source.Version, htmlAttrs)
 }
+func (resource *MessageHeader) T_SourceContact(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ContactPointInput("source.contact", nil, htmlAttrs)
+	}
+	return ContactPointInput("source.contact", resource.Source.Contact, htmlAttrs)
+}
 func (resource *MessageHeader) T_SourceEndpoint(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("source.endpoint", nil, htmlAttrs)
@@ -160,4 +208,10 @@ func (resource *MessageHeader) T_ResponseCode(htmlAttrs templ.Attributes) templ.
 		return CodeSelect("response.code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("response.code", &resource.Response.Code, optionsValueSet, htmlAttrs)
+}
+func (resource *MessageHeader) T_ResponseDetails(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("response.details", nil, htmlAttrs)
+	}
+	return ReferenceInput("response.details", resource.Response.Details, htmlAttrs)
 }

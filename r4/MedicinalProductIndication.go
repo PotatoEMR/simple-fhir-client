@@ -67,6 +67,12 @@ func (r MedicinalProductIndication) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicinalProductIndication) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubject >= len(resource.Subject) {
+		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+}
 func (resource *MedicinalProductIndication) T_DiseaseSymptomProcedure(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("diseaseSymptomProcedure", nil, optionsValueSet, htmlAttrs)
@@ -91,6 +97,24 @@ func (resource *MedicinalProductIndication) T_IntendedEffect(optionsValueSet []C
 	}
 	return CodeableConceptSelect("intendedEffect", resource.IntendedEffect, optionsValueSet, htmlAttrs)
 }
+func (resource *MedicinalProductIndication) T_Duration(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("duration", nil, htmlAttrs)
+	}
+	return QuantityInput("duration", resource.Duration, htmlAttrs)
+}
+func (resource *MedicinalProductIndication) T_UndesirableEffect(numUndesirableEffect int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numUndesirableEffect >= len(resource.UndesirableEffect) {
+		return ReferenceInput("undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", &resource.UndesirableEffect[numUndesirableEffect], htmlAttrs)
+}
+func (resource *MedicinalProductIndication) T_Population(numPopulation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPopulation >= len(resource.Population) {
+		return PopulationInput("population["+strconv.Itoa(numPopulation)+"]", nil, htmlAttrs)
+	}
+	return PopulationInput("population["+strconv.Itoa(numPopulation)+"]", &resource.Population[numPopulation], htmlAttrs)
+}
 func (resource *MedicinalProductIndication) T_OtherTherapyTherapyRelationshipType(numOtherTherapy int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
 		return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].therapyRelationshipType", nil, optionsValueSet, htmlAttrs)
@@ -102,4 +126,10 @@ func (resource *MedicinalProductIndication) T_OtherTherapyMedicationCodeableConc
 		return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].medicationCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].medicationCodeableConcept", &resource.OtherTherapy[numOtherTherapy].MedicationCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *MedicinalProductIndication) T_OtherTherapyMedicationReference(numOtherTherapy int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOtherTherapy >= len(resource.OtherTherapy) {
+		return ReferenceInput("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].medicationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("otherTherapy["+strconv.Itoa(numOtherTherapy)+"].medicationReference", &resource.OtherTherapy[numOtherTherapy].MedicationReference, htmlAttrs)
 }

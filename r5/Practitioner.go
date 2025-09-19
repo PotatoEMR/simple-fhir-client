@@ -88,6 +88,18 @@ func (resource *Practitioner) T_Active(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
+func (resource *Practitioner) T_Name(numName int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numName >= len(resource.Name) {
+		return HumanNameInput("name["+strconv.Itoa(numName)+"]", nil, htmlAttrs)
+	}
+	return HumanNameInput("name["+strconv.Itoa(numName)+"]", &resource.Name[numName], htmlAttrs)
+}
+func (resource *Practitioner) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTelecom >= len(resource.Telecom) {
+		return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", nil, htmlAttrs)
+	}
+	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
+}
 func (resource *Practitioner) T_Gender(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdministrative_gender
 
@@ -98,9 +110,9 @@ func (resource *Practitioner) T_Gender(htmlAttrs templ.Attributes) templ.Compone
 }
 func (resource *Practitioner) T_BirthDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("birthDate", nil, htmlAttrs)
+		return FhirDateInput("birthDate", nil, htmlAttrs)
 	}
-	return DateInput("birthDate", resource.BirthDate, htmlAttrs)
+	return FhirDateInput("birthDate", resource.BirthDate, htmlAttrs)
 }
 func (resource *Practitioner) T_DeceasedBoolean(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -110,15 +122,39 @@ func (resource *Practitioner) T_DeceasedBoolean(htmlAttrs templ.Attributes) temp
 }
 func (resource *Practitioner) T_DeceasedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("deceasedDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("deceasedDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+	return FhirDateTimeInput("deceasedDateTime", resource.DeceasedDateTime, htmlAttrs)
+}
+func (resource *Practitioner) T_Address(numAddress int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddress >= len(resource.Address) {
+		return AddressInput("address["+strconv.Itoa(numAddress)+"]", nil, htmlAttrs)
+	}
+	return AddressInput("address["+strconv.Itoa(numAddress)+"]", &resource.Address[numAddress], htmlAttrs)
+}
+func (resource *Practitioner) T_Photo(numPhoto int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPhoto >= len(resource.Photo) {
+		return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", nil, htmlAttrs)
+	}
+	return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", &resource.Photo[numPhoto], htmlAttrs)
 }
 func (resource *Practitioner) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
 		return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("qualification["+strconv.Itoa(numQualification)+"].code", &resource.Qualification[numQualification].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *Practitioner) T_QualificationPeriod(numQualification int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQualification >= len(resource.Qualification) {
+		return PeriodInput("qualification["+strconv.Itoa(numQualification)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("qualification["+strconv.Itoa(numQualification)+"].period", resource.Qualification[numQualification].Period, htmlAttrs)
+}
+func (resource *Practitioner) T_QualificationIssuer(numQualification int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numQualification >= len(resource.Qualification) {
+		return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", nil, htmlAttrs)
+	}
+	return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", resource.Qualification[numQualification].Issuer, htmlAttrs)
 }
 func (resource *Practitioner) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {

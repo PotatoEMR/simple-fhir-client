@@ -167,6 +167,18 @@ func (resource *InventoryItem) T_BaseUnit(optionsValueSet []Coding, htmlAttrs te
 	}
 	return CodeableConceptSelect("baseUnit", resource.BaseUnit, optionsValueSet, htmlAttrs)
 }
+func (resource *InventoryItem) T_NetContent(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return QuantityInput("netContent", nil, htmlAttrs)
+	}
+	return QuantityInput("netContent", resource.NetContent, htmlAttrs)
+}
+func (resource *InventoryItem) T_ProductReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("productReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("productReference", resource.ProductReference, htmlAttrs)
+}
 func (resource *InventoryItem) T_NameNameType(numName int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numName >= len(resource.Name) {
 		return CodingSelect("name["+strconv.Itoa(numName)+"].nameType", nil, optionsValueSet, htmlAttrs)
@@ -185,6 +197,12 @@ func (resource *InventoryItem) T_ResponsibleOrganizationRole(numResponsibleOrgan
 	}
 	return CodeableConceptSelect("responsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].role", &resource.ResponsibleOrganization[numResponsibleOrganization].Role, optionsValueSet, htmlAttrs)
 }
+func (resource *InventoryItem) T_ResponsibleOrganizationOrganization(numResponsibleOrganization int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numResponsibleOrganization >= len(resource.ResponsibleOrganization) {
+		return ReferenceInput("responsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].organization", nil, htmlAttrs)
+	}
+	return ReferenceInput("responsibleOrganization["+strconv.Itoa(numResponsibleOrganization)+"].organization", &resource.ResponsibleOrganization[numResponsibleOrganization].Organization, htmlAttrs)
+}
 func (resource *InventoryItem) T_DescriptionDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("description.description", nil, htmlAttrs)
@@ -196,6 +214,18 @@ func (resource *InventoryItem) T_AssociationAssociationType(numAssociation int, 
 		return CodeableConceptSelect("association["+strconv.Itoa(numAssociation)+"].associationType", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("association["+strconv.Itoa(numAssociation)+"].associationType", &resource.Association[numAssociation].AssociationType, optionsValueSet, htmlAttrs)
+}
+func (resource *InventoryItem) T_AssociationRelatedItem(numAssociation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAssociation >= len(resource.Association) {
+		return ReferenceInput("association["+strconv.Itoa(numAssociation)+"].relatedItem", nil, htmlAttrs)
+	}
+	return ReferenceInput("association["+strconv.Itoa(numAssociation)+"].relatedItem", &resource.Association[numAssociation].RelatedItem, htmlAttrs)
+}
+func (resource *InventoryItem) T_AssociationQuantity(numAssociation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAssociation >= len(resource.Association) {
+		return RatioInput("association["+strconv.Itoa(numAssociation)+"].quantity", nil, htmlAttrs)
+	}
+	return RatioInput("association["+strconv.Itoa(numAssociation)+"].quantity", &resource.Association[numAssociation].Quantity, htmlAttrs)
 }
 func (resource *InventoryItem) T_CharacteristicCharacteristicType(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -235,15 +265,45 @@ func (resource *InventoryItem) T_CharacteristicValueUrl(numCharacteristic int, h
 }
 func (resource *InventoryItem) T_CharacteristicValueDateTime(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDateTime", &resource.Characteristic[numCharacteristic].ValueDateTime, htmlAttrs)
+	return FhirDateTimeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDateTime", &resource.Characteristic[numCharacteristic].ValueDateTime, htmlAttrs)
+}
+func (resource *InventoryItem) T_CharacteristicValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", &resource.Characteristic[numCharacteristic].ValueQuantity, htmlAttrs)
+}
+func (resource *InventoryItem) T_CharacteristicValueRange(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRange", nil, htmlAttrs)
+	}
+	return RangeInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRange", &resource.Characteristic[numCharacteristic].ValueRange, htmlAttrs)
+}
+func (resource *InventoryItem) T_CharacteristicValueRatio(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return RatioInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRatio", nil, htmlAttrs)
+	}
+	return RatioInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueRatio", &resource.Characteristic[numCharacteristic].ValueRatio, htmlAttrs)
 }
 func (resource *InventoryItem) T_CharacteristicValueAnnotation(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
 		return AnnotationTextArea("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAnnotation", nil, htmlAttrs)
 	}
 	return AnnotationTextArea("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAnnotation", &resource.Characteristic[numCharacteristic].ValueAnnotation, htmlAttrs)
+}
+func (resource *InventoryItem) T_CharacteristicValueAddress(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return AddressInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAddress", nil, htmlAttrs)
+	}
+	return AddressInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueAddress", &resource.Characteristic[numCharacteristic].ValueAddress, htmlAttrs)
+}
+func (resource *InventoryItem) T_CharacteristicValueDuration(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
+		return DurationInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDuration", nil, htmlAttrs)
+	}
+	return DurationInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueDuration", &resource.Characteristic[numCharacteristic].ValueDuration, htmlAttrs)
 }
 func (resource *InventoryItem) T_CharacteristicValueCodeableConcept(numCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -259,7 +319,19 @@ func (resource *InventoryItem) T_InstanceLotNumber(htmlAttrs templ.Attributes) t
 }
 func (resource *InventoryItem) T_InstanceExpiry(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("instance.expiry", nil, htmlAttrs)
+		return FhirDateTimeInput("instance.expiry", nil, htmlAttrs)
 	}
-	return DateTimeInput("instance.expiry", resource.Instance.Expiry, htmlAttrs)
+	return FhirDateTimeInput("instance.expiry", resource.Instance.Expiry, htmlAttrs)
+}
+func (resource *InventoryItem) T_InstanceSubject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("instance.subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("instance.subject", resource.Instance.Subject, htmlAttrs)
+}
+func (resource *InventoryItem) T_InstanceLocation(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("instance.location", nil, htmlAttrs)
+	}
+	return ReferenceInput("instance.location", resource.Instance.Location, htmlAttrs)
 }

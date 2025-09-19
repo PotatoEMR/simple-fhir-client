@@ -84,6 +84,18 @@ func (resource *CatalogEntry) T_Orderable(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return BoolInput("orderable", &resource.Orderable, htmlAttrs)
 }
+func (resource *CatalogEntry) T_ReferencedItem(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("referencedItem", nil, htmlAttrs)
+	}
+	return ReferenceInput("referencedItem", &resource.ReferencedItem, htmlAttrs)
+}
+func (resource *CatalogEntry) T_AdditionalIdentifier(numAdditionalIdentifier int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAdditionalIdentifier >= len(resource.AdditionalIdentifier) {
+		return IdentifierInput("additionalIdentifier["+strconv.Itoa(numAdditionalIdentifier)+"]", nil, htmlAttrs)
+	}
+	return IdentifierInput("additionalIdentifier["+strconv.Itoa(numAdditionalIdentifier)+"]", &resource.AdditionalIdentifier[numAdditionalIdentifier], htmlAttrs)
+}
 func (resource *CatalogEntry) T_Classification(numClassification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.Classification) {
 		return CodeableConceptSelect("classification["+strconv.Itoa(numClassification)+"]", nil, optionsValueSet, htmlAttrs)
@@ -98,17 +110,23 @@ func (resource *CatalogEntry) T_Status(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *CatalogEntry) T_ValidityPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("validityPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("validityPeriod", resource.ValidityPeriod, htmlAttrs)
+}
 func (resource *CatalogEntry) T_ValidTo(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("validTo", nil, htmlAttrs)
+		return FhirDateTimeInput("validTo", nil, htmlAttrs)
 	}
-	return DateTimeInput("validTo", resource.ValidTo, htmlAttrs)
+	return FhirDateTimeInput("validTo", resource.ValidTo, htmlAttrs)
 }
 func (resource *CatalogEntry) T_LastUpdated(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("lastUpdated", nil, htmlAttrs)
+		return FhirDateTimeInput("lastUpdated", nil, htmlAttrs)
 	}
-	return DateTimeInput("lastUpdated", resource.LastUpdated, htmlAttrs)
+	return FhirDateTimeInput("lastUpdated", resource.LastUpdated, htmlAttrs)
 }
 func (resource *CatalogEntry) T_AdditionalCharacteristic(numAdditionalCharacteristic int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAdditionalCharacteristic >= len(resource.AdditionalCharacteristic) {
@@ -129,4 +147,10 @@ func (resource *CatalogEntry) T_RelatedEntryRelationtype(numRelatedEntry int, ht
 		return CodeSelect("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].relationtype", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].relationtype", &resource.RelatedEntry[numRelatedEntry].Relationtype, optionsValueSet, htmlAttrs)
+}
+func (resource *CatalogEntry) T_RelatedEntryItem(numRelatedEntry int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedEntry >= len(resource.RelatedEntry) {
+		return ReferenceInput("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", nil, htmlAttrs)
+	}
+	return ReferenceInput("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", &resource.RelatedEntry[numRelatedEntry].Item, htmlAttrs)
 }

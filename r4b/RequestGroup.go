@@ -130,6 +130,24 @@ func (resource *RequestGroup) T_InstantiatesUri(numInstantiatesUri int, htmlAttr
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
+func (resource *RequestGroup) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
+func (resource *RequestGroup) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReplaces >= len(resource.Replaces) {
+		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+}
+func (resource *RequestGroup) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return IdentifierInput("groupIdentifier", nil, htmlAttrs)
+	}
+	return IdentifierInput("groupIdentifier", resource.GroupIdentifier, htmlAttrs)
+}
 func (resource *RequestGroup) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRequest_status
 
@@ -160,17 +178,41 @@ func (resource *RequestGroup) T_Code(optionsValueSet []Coding, htmlAttrs templ.A
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
+func (resource *RequestGroup) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
+func (resource *RequestGroup) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *RequestGroup) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("authoredOn", nil, htmlAttrs)
+		return FhirDateTimeInput("authoredOn", nil, htmlAttrs)
 	}
-	return DateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
+}
+func (resource *RequestGroup) T_Author(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("author", nil, htmlAttrs)
+	}
+	return ReferenceInput("author", resource.Author, htmlAttrs)
 }
 func (resource *RequestGroup) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *RequestGroup) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *RequestGroup) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -216,11 +258,53 @@ func (resource *RequestGroup) T_ActionCode(numAction int, numCode int, optionsVa
 	}
 	return CodeableConceptSelect("action["+strconv.Itoa(numAction)+"].code["+strconv.Itoa(numCode)+"]", &resource.Action[numAction].Code[numCode], optionsValueSet, htmlAttrs)
 }
+func (resource *RequestGroup) T_ActionDocumentation(numAction int, numDocumentation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numDocumentation >= len(resource.Action[numAction].Documentation) {
+		return RelatedArtifactInput("action["+strconv.Itoa(numAction)+"].documentation["+strconv.Itoa(numDocumentation)+"]", nil, htmlAttrs)
+	}
+	return RelatedArtifactInput("action["+strconv.Itoa(numAction)+"].documentation["+strconv.Itoa(numDocumentation)+"]", &resource.Action[numAction].Documentation[numDocumentation], htmlAttrs)
+}
 func (resource *RequestGroup) T_ActionTimingDateTime(numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
-		return DateTimeInput("action["+strconv.Itoa(numAction)+"].timingDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("action["+strconv.Itoa(numAction)+"].timingDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("action["+strconv.Itoa(numAction)+"].timingDateTime", resource.Action[numAction].TimingDateTime, htmlAttrs)
+	return FhirDateTimeInput("action["+strconv.Itoa(numAction)+"].timingDateTime", resource.Action[numAction].TimingDateTime, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionTimingAge(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return AgeInput("action["+strconv.Itoa(numAction)+"].timingAge", nil, htmlAttrs)
+	}
+	return AgeInput("action["+strconv.Itoa(numAction)+"].timingAge", resource.Action[numAction].TimingAge, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionTimingPeriod(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return PeriodInput("action["+strconv.Itoa(numAction)+"].timingPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("action["+strconv.Itoa(numAction)+"].timingPeriod", resource.Action[numAction].TimingPeriod, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionTimingDuration(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return DurationInput("action["+strconv.Itoa(numAction)+"].timingDuration", nil, htmlAttrs)
+	}
+	return DurationInput("action["+strconv.Itoa(numAction)+"].timingDuration", resource.Action[numAction].TimingDuration, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionTimingRange(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return RangeInput("action["+strconv.Itoa(numAction)+"].timingRange", nil, htmlAttrs)
+	}
+	return RangeInput("action["+strconv.Itoa(numAction)+"].timingRange", resource.Action[numAction].TimingRange, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionTimingTiming(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return TimingInput("action["+strconv.Itoa(numAction)+"].timingTiming", nil, htmlAttrs)
+	}
+	return TimingInput("action["+strconv.Itoa(numAction)+"].timingTiming", resource.Action[numAction].TimingTiming, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionParticipant(numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
+		return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"]", &resource.Action[numAction].Participant[numParticipant], htmlAttrs)
 }
 func (resource *RequestGroup) T_ActionType(numAction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
@@ -268,6 +352,12 @@ func (resource *RequestGroup) T_ActionCardinalityBehavior(numAction int, htmlAtt
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].cardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet, htmlAttrs)
 }
+func (resource *RequestGroup) T_ActionResource(numAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) {
+		return ReferenceInput("action["+strconv.Itoa(numAction)+"].resource", nil, htmlAttrs)
+	}
+	return ReferenceInput("action["+strconv.Itoa(numAction)+"].resource", resource.Action[numAction].Resource, htmlAttrs)
+}
 func (resource *RequestGroup) T_ActionConditionKind(numAction int, numCondition int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAction_condition_kind
 
@@ -275,6 +365,12 @@ func (resource *RequestGroup) T_ActionConditionKind(numAction int, numCondition 
 		return CodeSelect("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].kind", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].kind", &resource.Action[numAction].Condition[numCondition].Kind, optionsValueSet, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionConditionExpression(numAction int, numCondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numCondition >= len(resource.Action[numAction].Condition) {
+		return ExpressionInput("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].expression", nil, htmlAttrs)
+	}
+	return ExpressionInput("action["+strconv.Itoa(numAction)+"].condition["+strconv.Itoa(numCondition)+"].expression", resource.Action[numAction].Condition[numCondition].Expression, htmlAttrs)
 }
 func (resource *RequestGroup) T_ActionRelatedActionActionId(numAction int, numRelatedAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
@@ -289,4 +385,16 @@ func (resource *RequestGroup) T_ActionRelatedActionRelationship(numAction int, n
 		return CodeSelect("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].relationship", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].relationship", &resource.Action[numAction].RelatedAction[numRelatedAction].Relationship, optionsValueSet, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionRelatedActionOffsetDuration(numAction int, numRelatedAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return DurationInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetDuration", nil, htmlAttrs)
+	}
+	return DurationInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetDuration", resource.Action[numAction].RelatedAction[numRelatedAction].OffsetDuration, htmlAttrs)
+}
+func (resource *RequestGroup) T_ActionRelatedActionOffsetRange(numAction int, numRelatedAction int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAction >= len(resource.Action) || numRelatedAction >= len(resource.Action[numAction].RelatedAction) {
+		return RangeInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetRange", nil, htmlAttrs)
+	}
+	return RangeInput("action["+strconv.Itoa(numAction)+"].relatedAction["+strconv.Itoa(numRelatedAction)+"].offsetRange", resource.Action[numAction].RelatedAction[numRelatedAction].OffsetRange, htmlAttrs)
 }

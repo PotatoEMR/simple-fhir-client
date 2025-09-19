@@ -82,6 +82,18 @@ func (resource *Schedule) T_Specialty(numSpecialty int, optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
+func (resource *Schedule) T_Actor(numActor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numActor >= len(resource.Actor) {
+		return ReferenceInput("actor["+strconv.Itoa(numActor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("actor["+strconv.Itoa(numActor)+"]", &resource.Actor[numActor], htmlAttrs)
+}
+func (resource *Schedule) T_PlanningHorizon(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("planningHorizon", nil, htmlAttrs)
+	}
+	return PeriodInput("planningHorizon", resource.PlanningHorizon, htmlAttrs)
+}
 func (resource *Schedule) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("comment", nil, htmlAttrs)

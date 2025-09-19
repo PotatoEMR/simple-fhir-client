@@ -117,11 +117,17 @@ func (resource *FamilyMemberHistory) T_DataAbsentReason(optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
 }
+func (resource *FamilyMemberHistory) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
 func (resource *FamilyMemberHistory) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("date", nil, htmlAttrs)
+		return FhirDateTimeInput("date", nil, htmlAttrs)
 	}
-	return DateTimeInput("date", resource.Date, htmlAttrs)
+	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -141,17 +147,35 @@ func (resource *FamilyMemberHistory) T_Sex(optionsValueSet []Coding, htmlAttrs t
 	}
 	return CodeableConceptSelect("sex", resource.Sex, optionsValueSet, htmlAttrs)
 }
+func (resource *FamilyMemberHistory) T_BornPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("bornPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("bornPeriod", resource.BornPeriod, htmlAttrs)
+}
 func (resource *FamilyMemberHistory) T_BornDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("bornDate", nil, htmlAttrs)
+		return FhirDateInput("bornDate", nil, htmlAttrs)
 	}
-	return DateInput("bornDate", resource.BornDate, htmlAttrs)
+	return FhirDateInput("bornDate", resource.BornDate, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_BornString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("bornString", nil, htmlAttrs)
 	}
 	return StringInput("bornString", resource.BornString, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_AgeAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("ageAge", nil, htmlAttrs)
+	}
+	return AgeInput("ageAge", resource.AgeAge, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_AgeRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("ageRange", nil, htmlAttrs)
+	}
+	return RangeInput("ageRange", resource.AgeRange, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_AgeString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -171,11 +195,23 @@ func (resource *FamilyMemberHistory) T_DeceasedBoolean(htmlAttrs templ.Attribute
 	}
 	return BoolInput("deceasedBoolean", resource.DeceasedBoolean, htmlAttrs)
 }
+func (resource *FamilyMemberHistory) T_DeceasedAge(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AgeInput("deceasedAge", nil, htmlAttrs)
+	}
+	return AgeInput("deceasedAge", resource.DeceasedAge, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_DeceasedRange(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return RangeInput("deceasedRange", nil, htmlAttrs)
+	}
+	return RangeInput("deceasedRange", resource.DeceasedRange, htmlAttrs)
+}
 func (resource *FamilyMemberHistory) T_DeceasedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("deceasedDate", nil, htmlAttrs)
+		return FhirDateInput("deceasedDate", nil, htmlAttrs)
 	}
-	return DateInput("deceasedDate", resource.DeceasedDate, htmlAttrs)
+	return FhirDateInput("deceasedDate", resource.DeceasedDate, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_DeceasedString(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -188,6 +224,12 @@ func (resource *FamilyMemberHistory) T_ReasonCode(numReasonCode int, optionsValu
 		return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
+		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -212,6 +254,24 @@ func (resource *FamilyMemberHistory) T_ConditionContributedToDeath(numCondition 
 		return BoolInput("condition["+strconv.Itoa(numCondition)+"].contributedToDeath", nil, htmlAttrs)
 	}
 	return BoolInput("condition["+strconv.Itoa(numCondition)+"].contributedToDeath", resource.Condition[numCondition].ContributedToDeath, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_ConditionOnsetAge(numCondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCondition >= len(resource.Condition) {
+		return AgeInput("condition["+strconv.Itoa(numCondition)+"].onsetAge", nil, htmlAttrs)
+	}
+	return AgeInput("condition["+strconv.Itoa(numCondition)+"].onsetAge", resource.Condition[numCondition].OnsetAge, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_ConditionOnsetRange(numCondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCondition >= len(resource.Condition) {
+		return RangeInput("condition["+strconv.Itoa(numCondition)+"].onsetRange", nil, htmlAttrs)
+	}
+	return RangeInput("condition["+strconv.Itoa(numCondition)+"].onsetRange", resource.Condition[numCondition].OnsetRange, htmlAttrs)
+}
+func (resource *FamilyMemberHistory) T_ConditionOnsetPeriod(numCondition int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCondition >= len(resource.Condition) {
+		return PeriodInput("condition["+strconv.Itoa(numCondition)+"].onsetPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("condition["+strconv.Itoa(numCondition)+"].onsetPeriod", resource.Condition[numCondition].OnsetPeriod, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionOnsetString(numCondition int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {

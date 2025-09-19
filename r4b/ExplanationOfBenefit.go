@@ -416,11 +416,41 @@ func (resource *ExplanationOfBenefit) T_Use(htmlAttrs templ.Attributes) templ.Co
 	}
 	return CodeSelect("use", &resource.Use, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("patient", nil, htmlAttrs)
+	}
+	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_BillablePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("billablePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("billablePeriod", resource.BillablePeriod, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("created", nil, htmlAttrs)
+		return FhirDateTimeInput("created", nil, htmlAttrs)
 	}
-	return DateTimeInput("created", &resource.Created, htmlAttrs)
+	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Enterer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("enterer", nil, htmlAttrs)
+	}
+	return ReferenceInput("enterer", resource.Enterer, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Insurer(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("insurer", nil, htmlAttrs)
+	}
+	return ReferenceInput("insurer", &resource.Insurer, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Provider(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("provider", nil, htmlAttrs)
+	}
+	return ReferenceInput("provider", &resource.Provider, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_Priority(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -439,6 +469,42 @@ func (resource *ExplanationOfBenefit) T_FundsReserve(optionsValueSet []Coding, h
 		return CodeableConceptSelect("fundsReserve", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("fundsReserve", resource.FundsReserve, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Prescription(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("prescription", nil, htmlAttrs)
+	}
+	return ReferenceInput("prescription", resource.Prescription, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_OriginalPrescription(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("originalPrescription", nil, htmlAttrs)
+	}
+	return ReferenceInput("originalPrescription", resource.OriginalPrescription, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Referral(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("referral", nil, htmlAttrs)
+	}
+	return ReferenceInput("referral", resource.Referral, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Facility(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("facility", nil, htmlAttrs)
+	}
+	return ReferenceInput("facility", resource.Facility, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_Claim(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("claim", nil, htmlAttrs)
+	}
+	return ReferenceInput("claim", resource.Claim, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ClaimResponse(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("claimResponse", nil, htmlAttrs)
+	}
+	return ReferenceInput("claimResponse", resource.ClaimResponse, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRemittance_outcome
@@ -460,6 +526,12 @@ func (resource *ExplanationOfBenefit) T_PreAuthRef(numPreAuthRef int, htmlAttrs 
 	}
 	return StringInput("preAuthRef["+strconv.Itoa(numPreAuthRef)+"]", &resource.PreAuthRef[numPreAuthRef], htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_PreAuthRefPeriod(numPreAuthRefPeriod int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPreAuthRefPeriod >= len(resource.PreAuthRefPeriod) {
+		return PeriodInput("preAuthRefPeriod["+strconv.Itoa(numPreAuthRefPeriod)+"]", nil, htmlAttrs)
+	}
+	return PeriodInput("preAuthRefPeriod["+strconv.Itoa(numPreAuthRefPeriod)+"]", &resource.PreAuthRefPeriod[numPreAuthRefPeriod], htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_Precedence(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IntInput("precedence", nil, htmlAttrs)
@@ -472,11 +544,35 @@ func (resource *ExplanationOfBenefit) T_FormCode(optionsValueSet []Coding, htmlA
 	}
 	return CodeableConceptSelect("formCode", resource.FormCode, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_Form(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AttachmentInput("form", nil, htmlAttrs)
+	}
+	return AttachmentInput("form", resource.Form, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_BenefitPeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("benefitPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("benefitPeriod", resource.BenefitPeriod, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_RelatedClaim(numRelated int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelated >= len(resource.Related) {
+		return ReferenceInput("related["+strconv.Itoa(numRelated)+"].claim", nil, htmlAttrs)
+	}
+	return ReferenceInput("related["+strconv.Itoa(numRelated)+"].claim", resource.Related[numRelated].Claim, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_RelatedRelationship(numRelated int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelated >= len(resource.Related) {
 		return CodeableConceptSelect("related["+strconv.Itoa(numRelated)+"].relationship", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("related["+strconv.Itoa(numRelated)+"].relationship", resource.Related[numRelated].Relationship, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_RelatedReference(numRelated int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelated >= len(resource.Related) {
+		return IdentifierInput("related["+strconv.Itoa(numRelated)+"].reference", nil, htmlAttrs)
+	}
+	return IdentifierInput("related["+strconv.Itoa(numRelated)+"].reference", resource.Related[numRelated].Reference, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_PayeeType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -484,11 +580,23 @@ func (resource *ExplanationOfBenefit) T_PayeeType(optionsValueSet []Coding, html
 	}
 	return CodeableConceptSelect("payee.type", resource.Payee.Type, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_PayeeParty(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("payee.party", nil, htmlAttrs)
+	}
+	return ReferenceInput("payee.party", resource.Payee.Party, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_CareTeamSequence(numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCareTeam >= len(resource.CareTeam) {
 		return IntInput("careTeam["+strconv.Itoa(numCareTeam)+"].sequence", nil, htmlAttrs)
 	}
 	return IntInput("careTeam["+strconv.Itoa(numCareTeam)+"].sequence", &resource.CareTeam[numCareTeam].Sequence, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_CareTeamProvider(numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numCareTeam >= len(resource.CareTeam) {
+		return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"].provider", nil, htmlAttrs)
+	}
+	return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"].provider", &resource.CareTeam[numCareTeam].Provider, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_CareTeamResponsible(numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCareTeam >= len(resource.CareTeam) {
@@ -528,9 +636,15 @@ func (resource *ExplanationOfBenefit) T_SupportingInfoCode(numSupportingInfo int
 }
 func (resource *ExplanationOfBenefit) T_SupportingInfoTimingDate(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
-		return DateInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingDate", nil, htmlAttrs)
+		return FhirDateInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingDate", nil, htmlAttrs)
 	}
-	return DateInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingDate", resource.SupportingInfo[numSupportingInfo].TimingDate, htmlAttrs)
+	return FhirDateInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingDate", resource.SupportingInfo[numSupportingInfo].TimingDate, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_SupportingInfoTimingPeriod(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return PeriodInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].timingPeriod", resource.SupportingInfo[numSupportingInfo].TimingPeriod, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_SupportingInfoValueBoolean(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
@@ -543,6 +657,24 @@ func (resource *ExplanationOfBenefit) T_SupportingInfoValueString(numSupportingI
 		return StringInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueString", nil, htmlAttrs)
 	}
 	return StringInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueString", resource.SupportingInfo[numSupportingInfo].ValueString, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_SupportingInfoValueQuantity(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return QuantityInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueQuantity", nil, htmlAttrs)
+	}
+	return QuantityInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueQuantity", resource.SupportingInfo[numSupportingInfo].ValueQuantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_SupportingInfoValueAttachment(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return AttachmentInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueAttachment", resource.SupportingInfo[numSupportingInfo].ValueAttachment, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_SupportingInfoValueReference(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
+		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].valueReference", resource.SupportingInfo[numSupportingInfo].ValueReference, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_SupportingInfoReason(numSupportingInfo int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
@@ -561,6 +693,12 @@ func (resource *ExplanationOfBenefit) T_DiagnosisDiagnosisCodeableConcept(numDia
 		return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisCodeableConcept", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisCodeableConcept", &resource.Diagnosis[numDiagnosis].DiagnosisCodeableConcept, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_DiagnosisDiagnosisReference(numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDiagnosis >= len(resource.Diagnosis) {
+		return ReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", &resource.Diagnosis[numDiagnosis].DiagnosisReference, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_DiagnosisType(numDiagnosis int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDiagnosis >= len(resource.Diagnosis) || numType >= len(resource.Diagnosis[numDiagnosis].Type) {
@@ -594,9 +732,9 @@ func (resource *ExplanationOfBenefit) T_ProcedureType(numProcedure int, numType 
 }
 func (resource *ExplanationOfBenefit) T_ProcedureDate(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
-		return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].date", nil, htmlAttrs)
+		return FhirDateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].date", nil, htmlAttrs)
 	}
-	return DateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].date", resource.Procedure[numProcedure].Date, htmlAttrs)
+	return FhirDateTimeInput("procedure["+strconv.Itoa(numProcedure)+"].date", resource.Procedure[numProcedure].Date, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ProcedureProcedureCodeableConcept(numProcedure int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcedure >= len(resource.Procedure) {
@@ -604,11 +742,29 @@ func (resource *ExplanationOfBenefit) T_ProcedureProcedureCodeableConcept(numPro
 	}
 	return CodeableConceptSelect("procedure["+strconv.Itoa(numProcedure)+"].procedureCodeableConcept", &resource.Procedure[numProcedure].ProcedureCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_ProcedureProcedureReference(numProcedure int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcedure >= len(resource.Procedure) {
+		return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].procedureReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].procedureReference", &resource.Procedure[numProcedure].ProcedureReference, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ProcedureUdi(numProcedure int, numUdi int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numProcedure >= len(resource.Procedure) || numUdi >= len(resource.Procedure[numProcedure].Udi) {
+		return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].udi["+strconv.Itoa(numUdi)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("procedure["+strconv.Itoa(numProcedure)+"].udi["+strconv.Itoa(numUdi)+"]", &resource.Procedure[numProcedure].Udi[numUdi], htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_InsuranceFocal(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) {
 		return BoolInput("insurance["+strconv.Itoa(numInsurance)+"].focal", nil, htmlAttrs)
 	}
 	return BoolInput("insurance["+strconv.Itoa(numInsurance)+"].focal", &resource.Insurance[numInsurance].Focal, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_InsuranceCoverage(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInsurance >= len(resource.Insurance) {
+		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"].coverage", nil, htmlAttrs)
+	}
+	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"].coverage", &resource.Insurance[numInsurance].Coverage, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_InsurancePreAuthRef(numInsurance int, numPreAuthRef int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) || numPreAuthRef >= len(resource.Insurance[numInsurance].PreAuthRef) {
@@ -618,15 +774,27 @@ func (resource *ExplanationOfBenefit) T_InsurancePreAuthRef(numInsurance int, nu
 }
 func (resource *ExplanationOfBenefit) T_AccidentDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("accident.date", nil, htmlAttrs)
+		return FhirDateInput("accident.date", nil, htmlAttrs)
 	}
-	return DateInput("accident.date", resource.Accident.Date, htmlAttrs)
+	return FhirDateInput("accident.date", resource.Accident.Date, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_AccidentType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("accident.type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("accident.type", resource.Accident.Type, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AccidentLocationAddress(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return AddressInput("accident.locationAddress", nil, htmlAttrs)
+	}
+	return AddressInput("accident.locationAddress", resource.Accident.LocationAddress, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AccidentLocationReference(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("accident.locationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("accident.locationReference", resource.Accident.LocationReference, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemSequence(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
@@ -690,9 +858,15 @@ func (resource *ExplanationOfBenefit) T_ItemProgramCode(numItem int, numProgramC
 }
 func (resource *ExplanationOfBenefit) T_ItemServicedDate(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
-		return DateInput("item["+strconv.Itoa(numItem)+"].servicedDate", nil, htmlAttrs)
+		return FhirDateInput("item["+strconv.Itoa(numItem)+"].servicedDate", nil, htmlAttrs)
 	}
-	return DateInput("item["+strconv.Itoa(numItem)+"].servicedDate", resource.Item[numItem].ServicedDate, htmlAttrs)
+	return FhirDateInput("item["+strconv.Itoa(numItem)+"].servicedDate", resource.Item[numItem].ServicedDate, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemServicedPeriod(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return PeriodInput("item["+strconv.Itoa(numItem)+"].servicedPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("item["+strconv.Itoa(numItem)+"].servicedPeriod", resource.Item[numItem].ServicedPeriod, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemLocationCodeableConcept(numItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
@@ -700,11 +874,47 @@ func (resource *ExplanationOfBenefit) T_ItemLocationCodeableConcept(numItem int,
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].locationCodeableConcept", resource.Item[numItem].LocationCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_ItemLocationAddress(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return AddressInput("item["+strconv.Itoa(numItem)+"].locationAddress", nil, htmlAttrs)
+	}
+	return AddressInput("item["+strconv.Itoa(numItem)+"].locationAddress", resource.Item[numItem].LocationAddress, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemLocationReference(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return ReferenceInput("item["+strconv.Itoa(numItem)+"].locationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("item["+strconv.Itoa(numItem)+"].locationReference", resource.Item[numItem].LocationReference, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemQuantity(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", resource.Item[numItem].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemUnitPrice(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].unitPrice", resource.Item[numItem].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_ItemFactor(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
 		return Float64Input("item["+strconv.Itoa(numItem)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("item["+strconv.Itoa(numItem)+"].factor", resource.Item[numItem].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemNet(numItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].net", resource.Item[numItem].Net, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemUdi(numItem int, numUdi int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numUdi >= len(resource.Item[numItem].Udi) {
+		return ReferenceInput("item["+strconv.Itoa(numItem)+"].udi["+strconv.Itoa(numUdi)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("item["+strconv.Itoa(numItem)+"].udi["+strconv.Itoa(numUdi)+"]", &resource.Item[numItem].Udi[numUdi], htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemBodySite(numItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
@@ -717,6 +927,12 @@ func (resource *ExplanationOfBenefit) T_ItemSubSite(numItem int, numSubSite int,
 		return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].subSite["+strconv.Itoa(numSubSite)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].subSite["+strconv.Itoa(numSubSite)+"]", &resource.Item[numItem].SubSite[numSubSite], optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemEncounter(numItem int, numEncounter int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numEncounter >= len(resource.Item[numItem].Encounter) {
+		return ReferenceInput("item["+strconv.Itoa(numItem)+"].encounter["+strconv.Itoa(numEncounter)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("item["+strconv.Itoa(numItem)+"].encounter["+strconv.Itoa(numEncounter)+"]", &resource.Item[numItem].Encounter[numEncounter], htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemNoteNumber(numItem int, numNoteNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numNoteNumber >= len(resource.Item[numItem].NoteNumber) {
@@ -735,6 +951,12 @@ func (resource *ExplanationOfBenefit) T_ItemAdjudicationReason(numItem int, numA
 		return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].adjudication["+strconv.Itoa(numAdjudication)+"].reason", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].adjudication["+strconv.Itoa(numAdjudication)+"].reason", resource.Item[numItem].Adjudication[numAdjudication].Reason, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemAdjudicationAmount(numItem int, numAdjudication int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numAdjudication >= len(resource.Item[numItem].Adjudication) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].adjudication["+strconv.Itoa(numAdjudication)+"].amount", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].adjudication["+strconv.Itoa(numAdjudication)+"].amount", resource.Item[numItem].Adjudication[numAdjudication].Amount, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemAdjudicationValue(numItem int, numAdjudication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAdjudication >= len(resource.Item[numItem].Adjudication) {
@@ -778,11 +1000,35 @@ func (resource *ExplanationOfBenefit) T_ItemDetailProgramCode(numItem int, numDe
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].programCode["+strconv.Itoa(numProgramCode)+"]", &resource.Item[numItem].Detail[numDetail].ProgramCode[numProgramCode], optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_ItemDetailQuantity(numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].quantity", resource.Item[numItem].Detail[numDetail].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailUnitPrice(numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].unitPrice", resource.Item[numItem].Detail[numDetail].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_ItemDetailFactor(numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
 		return Float64Input("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].factor", resource.Item[numItem].Detail[numDetail].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailNet(numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].net", resource.Item[numItem].Detail[numDetail].Net, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailUdi(numItem int, numDetail int, numUdi int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numUdi >= len(resource.Item[numItem].Detail[numDetail].Udi) {
+		return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].udi["+strconv.Itoa(numUdi)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].udi["+strconv.Itoa(numUdi)+"]", &resource.Item[numItem].Detail[numDetail].Udi[numUdi], htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemDetailNoteNumber(numItem int, numDetail int, numNoteNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numNoteNumber >= len(resource.Item[numItem].Detail[numDetail].NoteNumber) {
@@ -826,11 +1072,35 @@ func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailProgramCode(numItem i
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].programCode["+strconv.Itoa(numProgramCode)+"]", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].ProgramCode[numProgramCode], optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailQuantity(numItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].quantity", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailUnitPrice(numItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].unitPrice", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailFactor(numItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
 		return Float64Input("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].factor", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailNet(numItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) {
+		return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].net", resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Net, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailUdi(numItem int, numDetail int, numSubDetail int, numUdi int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) || numUdi >= len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Udi) {
+		return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].udi["+strconv.Itoa(numUdi)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].udi["+strconv.Itoa(numUdi)+"]", &resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].Udi[numUdi], htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ItemDetailSubDetailNoteNumber(numItem int, numDetail int, numSubDetail int, numNoteNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) || numSubDetail >= len(resource.Item[numItem].Detail[numDetail].SubDetail) || numNoteNumber >= len(resource.Item[numItem].Detail[numDetail].SubDetail[numSubDetail].NoteNumber) {
@@ -856,6 +1126,12 @@ func (resource *ExplanationOfBenefit) T_AddItemSubDetailSequence(numAddItem int,
 	}
 	return IntInput("addItem["+strconv.Itoa(numAddItem)+"].subDetailSequence["+strconv.Itoa(numSubDetailSequence)+"]", &resource.AddItem[numAddItem].SubDetailSequence[numSubDetailSequence], htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_AddItemProvider(numAddItem int, numProvider int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numProvider >= len(resource.AddItem[numAddItem].Provider) {
+		return ReferenceInput("addItem["+strconv.Itoa(numAddItem)+"].provider["+strconv.Itoa(numProvider)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("addItem["+strconv.Itoa(numAddItem)+"].provider["+strconv.Itoa(numProvider)+"]", &resource.AddItem[numAddItem].Provider[numProvider], htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_AddItemProductOrService(numAddItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) {
 		return CodeableConceptSelect("addItem["+strconv.Itoa(numAddItem)+"].productOrService", nil, optionsValueSet, htmlAttrs)
@@ -876,9 +1152,15 @@ func (resource *ExplanationOfBenefit) T_AddItemProgramCode(numAddItem int, numPr
 }
 func (resource *ExplanationOfBenefit) T_AddItemServicedDate(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) {
-		return DateInput("addItem["+strconv.Itoa(numAddItem)+"].servicedDate", nil, htmlAttrs)
+		return FhirDateInput("addItem["+strconv.Itoa(numAddItem)+"].servicedDate", nil, htmlAttrs)
 	}
-	return DateInput("addItem["+strconv.Itoa(numAddItem)+"].servicedDate", resource.AddItem[numAddItem].ServicedDate, htmlAttrs)
+	return FhirDateInput("addItem["+strconv.Itoa(numAddItem)+"].servicedDate", resource.AddItem[numAddItem].ServicedDate, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemServicedPeriod(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return PeriodInput("addItem["+strconv.Itoa(numAddItem)+"].servicedPeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("addItem["+strconv.Itoa(numAddItem)+"].servicedPeriod", resource.AddItem[numAddItem].ServicedPeriod, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_AddItemLocationCodeableConcept(numAddItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) {
@@ -886,11 +1168,41 @@ func (resource *ExplanationOfBenefit) T_AddItemLocationCodeableConcept(numAddIte
 	}
 	return CodeableConceptSelect("addItem["+strconv.Itoa(numAddItem)+"].locationCodeableConcept", resource.AddItem[numAddItem].LocationCodeableConcept, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_AddItemLocationAddress(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return AddressInput("addItem["+strconv.Itoa(numAddItem)+"].locationAddress", nil, htmlAttrs)
+	}
+	return AddressInput("addItem["+strconv.Itoa(numAddItem)+"].locationAddress", resource.AddItem[numAddItem].LocationAddress, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemLocationReference(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return ReferenceInput("addItem["+strconv.Itoa(numAddItem)+"].locationReference", nil, htmlAttrs)
+	}
+	return ReferenceInput("addItem["+strconv.Itoa(numAddItem)+"].locationReference", resource.AddItem[numAddItem].LocationReference, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemQuantity(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].quantity", resource.AddItem[numAddItem].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemUnitPrice(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].unitPrice", resource.AddItem[numAddItem].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_AddItemFactor(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) {
 		return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].factor", resource.AddItem[numAddItem].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemNet(numAddItem int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].net", resource.AddItem[numAddItem].Net, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_AddItemBodySite(numAddItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) {
@@ -922,11 +1234,29 @@ func (resource *ExplanationOfBenefit) T_AddItemDetailModifier(numAddItem int, nu
 	}
 	return CodeableConceptSelect("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].modifier["+strconv.Itoa(numModifier)+"]", &resource.AddItem[numAddItem].Detail[numDetail].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_AddItemDetailQuantity(numAddItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) {
+		return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].quantity", resource.AddItem[numAddItem].Detail[numDetail].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemDetailUnitPrice(numAddItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].unitPrice", resource.AddItem[numAddItem].Detail[numDetail].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_AddItemDetailFactor(numAddItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) {
 		return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].factor", resource.AddItem[numAddItem].Detail[numDetail].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemDetailNet(numAddItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].net", resource.AddItem[numAddItem].Detail[numDetail].Net, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_AddItemDetailNoteNumber(numAddItem int, numDetail int, numNoteNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numNoteNumber >= len(resource.AddItem[numAddItem].Detail[numDetail].NoteNumber) {
@@ -946,11 +1276,29 @@ func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailModifier(numAddIte
 	}
 	return CodeableConceptSelect("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].modifier["+strconv.Itoa(numModifier)+"]", &resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailQuantity(numAddItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numSubDetail >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) {
+		return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].quantity", nil, htmlAttrs)
+	}
+	return QuantityInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].quantity", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Quantity, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailUnitPrice(numAddItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numSubDetail >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].unitPrice", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].unitPrice", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].UnitPrice, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailFactor(numAddItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numSubDetail >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) {
 		return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].factor", nil, htmlAttrs)
 	}
 	return Float64Input("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].factor", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Factor, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailNet(numAddItem int, numDetail int, numSubDetail int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numSubDetail >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) {
+		return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].net", nil, htmlAttrs)
+	}
+	return MoneyInput("addItem["+strconv.Itoa(numAddItem)+"].detail["+strconv.Itoa(numDetail)+"].subDetail["+strconv.Itoa(numSubDetail)+"].net", resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].Net, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_AddItemDetailSubDetailNoteNumber(numAddItem int, numDetail int, numSubDetail int, numNoteNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAddItem >= len(resource.AddItem) || numDetail >= len(resource.AddItem[numAddItem].Detail) || numSubDetail >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail) || numNoteNumber >= len(resource.AddItem[numAddItem].Detail[numDetail].SubDetail[numSubDetail].NoteNumber) {
@@ -964,11 +1312,23 @@ func (resource *ExplanationOfBenefit) T_TotalCategory(numTotal int, optionsValue
 	}
 	return CodeableConceptSelect("total["+strconv.Itoa(numTotal)+"].category", &resource.Total[numTotal].Category, optionsValueSet, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_TotalAmount(numTotal int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numTotal >= len(resource.Total) {
+		return MoneyInput("total["+strconv.Itoa(numTotal)+"].amount", nil, htmlAttrs)
+	}
+	return MoneyInput("total["+strconv.Itoa(numTotal)+"].amount", &resource.Total[numTotal].Amount, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_PaymentType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("payment.type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("payment.type", resource.Payment.Type, optionsValueSet, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_PaymentAdjustment(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return MoneyInput("payment.adjustment", nil, htmlAttrs)
+	}
+	return MoneyInput("payment.adjustment", resource.Payment.Adjustment, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_PaymentAdjustmentReason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -978,9 +1338,15 @@ func (resource *ExplanationOfBenefit) T_PaymentAdjustmentReason(optionsValueSet 
 }
 func (resource *ExplanationOfBenefit) T_PaymentDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateInput("payment.date", nil, htmlAttrs)
+		return FhirDateInput("payment.date", nil, htmlAttrs)
 	}
-	return DateInput("payment.date", resource.Payment.Date, htmlAttrs)
+	return FhirDateInput("payment.date", resource.Payment.Date, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_PaymentAmount(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return MoneyInput("payment.amount", nil, htmlAttrs)
+	}
+	return MoneyInput("payment.amount", resource.Payment.Amount, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_ProcessNoteNumber(numProcessNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessNote >= len(resource.ProcessNote) {
@@ -995,12 +1361,6 @@ func (resource *ExplanationOfBenefit) T_ProcessNoteType(numProcessNote int, html
 		return CodeSelect("processNote["+strconv.Itoa(numProcessNote)+"].type", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("processNote["+strconv.Itoa(numProcessNote)+"].type", resource.ProcessNote[numProcessNote].Type, optionsValueSet, htmlAttrs)
-}
-func (resource *ExplanationOfBenefit) T_ProcessNoteText(numProcessNote int, htmlAttrs templ.Attributes) templ.Component {
-	if resource == nil || numProcessNote >= len(resource.ProcessNote) {
-		return StringInput("processNote["+strconv.Itoa(numProcessNote)+"].text", nil, htmlAttrs)
-	}
-	return StringInput("processNote["+strconv.Itoa(numProcessNote)+"].text", resource.ProcessNote[numProcessNote].Text, htmlAttrs)
 }
 func (resource *ExplanationOfBenefit) T_BenefitBalanceCategory(numBenefitBalance int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBenefitBalance >= len(resource.BenefitBalance) {
@@ -1062,9 +1422,21 @@ func (resource *ExplanationOfBenefit) T_BenefitBalanceFinancialAllowedString(num
 	}
 	return StringInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].allowedString", resource.BenefitBalance[numBenefitBalance].Financial[numFinancial].AllowedString, htmlAttrs)
 }
+func (resource *ExplanationOfBenefit) T_BenefitBalanceFinancialAllowedMoney(numBenefitBalance int, numFinancial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBenefitBalance >= len(resource.BenefitBalance) || numFinancial >= len(resource.BenefitBalance[numBenefitBalance].Financial) {
+		return MoneyInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].allowedMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].allowedMoney", resource.BenefitBalance[numBenefitBalance].Financial[numFinancial].AllowedMoney, htmlAttrs)
+}
 func (resource *ExplanationOfBenefit) T_BenefitBalanceFinancialUsedUnsignedInt(numBenefitBalance int, numFinancial int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBenefitBalance >= len(resource.BenefitBalance) || numFinancial >= len(resource.BenefitBalance[numBenefitBalance].Financial) {
 		return IntInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].usedUnsignedInt", nil, htmlAttrs)
 	}
 	return IntInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].usedUnsignedInt", resource.BenefitBalance[numBenefitBalance].Financial[numFinancial].UsedUnsignedInt, htmlAttrs)
+}
+func (resource *ExplanationOfBenefit) T_BenefitBalanceFinancialUsedMoney(numBenefitBalance int, numFinancial int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBenefitBalance >= len(resource.BenefitBalance) || numFinancial >= len(resource.BenefitBalance[numBenefitBalance].Financial) {
+		return MoneyInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].usedMoney", nil, htmlAttrs)
+	}
+	return MoneyInput("benefitBalance["+strconv.Itoa(numBenefitBalance)+"].financial["+strconv.Itoa(numFinancial)+"].usedMoney", resource.BenefitBalance[numBenefitBalance].Financial[numFinancial].UsedMoney, htmlAttrs)
 }

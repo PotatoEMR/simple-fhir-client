@@ -117,6 +117,12 @@ func (resource *DocumentReference) T_Version(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("version", resource.Version, htmlAttrs)
 }
+func (resource *DocumentReference) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBasedOn >= len(resource.BasedOn) {
+		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+}
 func (resource *DocumentReference) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDocument_reference_status
 
@@ -151,6 +157,30 @@ func (resource *DocumentReference) T_Category(numCategory int, optionsValueSet [
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *DocumentReference) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
+func (resource *DocumentReference) T_Context(numContext int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContext >= len(resource.Context) {
+		return ReferenceInput("context["+strconv.Itoa(numContext)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("context["+strconv.Itoa(numContext)+"]", &resource.Context[numContext], htmlAttrs)
+}
+func (resource *DocumentReference) T_Event(numEvent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEvent >= len(resource.Event) {
+		return CodeableReferenceInput("event["+strconv.Itoa(numEvent)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("event["+strconv.Itoa(numEvent)+"]", &resource.Event[numEvent], htmlAttrs)
+}
+func (resource *DocumentReference) T_BodySite(numBodySite int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numBodySite >= len(resource.BodySite) {
+		return CodeableReferenceInput("bodySite["+strconv.Itoa(numBodySite)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], htmlAttrs)
+}
 func (resource *DocumentReference) T_FacilityType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("facilityType", nil, optionsValueSet, htmlAttrs)
@@ -163,11 +193,29 @@ func (resource *DocumentReference) T_PracticeSetting(optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("practiceSetting", resource.PracticeSetting, optionsValueSet, htmlAttrs)
 }
+func (resource *DocumentReference) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
 func (resource *DocumentReference) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("date", nil, htmlAttrs)
 	}
 	return StringInput("date", resource.Date, htmlAttrs)
+}
+func (resource *DocumentReference) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAuthor >= len(resource.Author) {
+		return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+}
+func (resource *DocumentReference) T_Custodian(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("custodian", nil, htmlAttrs)
+	}
+	return ReferenceInput("custodian", resource.Custodian, htmlAttrs)
 }
 func (resource *DocumentReference) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -189,15 +237,33 @@ func (resource *DocumentReference) T_AttesterMode(numAttester int, optionsValueS
 }
 func (resource *DocumentReference) T_AttesterTime(numAttester int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAttester >= len(resource.Attester) {
-		return DateTimeInput("attester["+strconv.Itoa(numAttester)+"].time", nil, htmlAttrs)
+		return FhirDateTimeInput("attester["+strconv.Itoa(numAttester)+"].time", nil, htmlAttrs)
 	}
-	return DateTimeInput("attester["+strconv.Itoa(numAttester)+"].time", resource.Attester[numAttester].Time, htmlAttrs)
+	return FhirDateTimeInput("attester["+strconv.Itoa(numAttester)+"].time", resource.Attester[numAttester].Time, htmlAttrs)
+}
+func (resource *DocumentReference) T_AttesterParty(numAttester int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numAttester >= len(resource.Attester) {
+		return ReferenceInput("attester["+strconv.Itoa(numAttester)+"].party", nil, htmlAttrs)
+	}
+	return ReferenceInput("attester["+strconv.Itoa(numAttester)+"].party", resource.Attester[numAttester].Party, htmlAttrs)
 }
 func (resource *DocumentReference) T_RelatesToCode(numRelatesTo int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
 		return CodeableConceptSelect("relatesTo["+strconv.Itoa(numRelatesTo)+"].code", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("relatesTo["+strconv.Itoa(numRelatesTo)+"].code", &resource.RelatesTo[numRelatesTo].Code, optionsValueSet, htmlAttrs)
+}
+func (resource *DocumentReference) T_RelatesToTarget(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
+		return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target", nil, htmlAttrs)
+	}
+	return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].target", &resource.RelatesTo[numRelatesTo].Target, htmlAttrs)
+}
+func (resource *DocumentReference) T_ContentAttachment(numContent int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numContent >= len(resource.Content) {
+		return AttachmentInput("content["+strconv.Itoa(numContent)+"].attachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("content["+strconv.Itoa(numContent)+"].attachment", &resource.Content[numContent].Attachment, htmlAttrs)
 }
 func (resource *DocumentReference) T_ContentProfileValueCoding(numContent int, numProfile int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) || numProfile >= len(resource.Content[numContent].Profile) {

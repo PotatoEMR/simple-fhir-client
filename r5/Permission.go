@@ -113,11 +113,23 @@ func (resource *Permission) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
+func (resource *Permission) T_Asserter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("asserter", nil, htmlAttrs)
+	}
+	return ReferenceInput("asserter", resource.Asserter, htmlAttrs)
+}
 func (resource *Permission) T_Date(numDate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDate >= len(resource.Date) {
-		return DateTimeInput("date["+strconv.Itoa(numDate)+"]", nil, htmlAttrs)
+		return FhirDateTimeInput("date["+strconv.Itoa(numDate)+"]", nil, htmlAttrs)
 	}
-	return DateTimeInput("date["+strconv.Itoa(numDate)+"]", &resource.Date[numDate], htmlAttrs)
+	return FhirDateTimeInput("date["+strconv.Itoa(numDate)+"]", &resource.Date[numDate], htmlAttrs)
+}
+func (resource *Permission) T_Validity(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("validity", nil, htmlAttrs)
+	}
+	return PeriodInput("validity", resource.Validity, htmlAttrs)
 }
 func (resource *Permission) T_Combining(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPermission_rule_combining
@@ -132,6 +144,12 @@ func (resource *Permission) T_JustificationBasis(numBasis int, optionsValueSet [
 		return CodeableConceptSelect("justification.basis["+strconv.Itoa(numBasis)+"]", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("justification.basis["+strconv.Itoa(numBasis)+"]", &resource.Justification.Basis[numBasis], optionsValueSet, htmlAttrs)
+}
+func (resource *Permission) T_JustificationEvidence(numEvidence int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numEvidence >= len(resource.Justification.Evidence) {
+		return ReferenceInput("justification.evidence["+strconv.Itoa(numEvidence)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("justification.evidence["+strconv.Itoa(numEvidence)+"]", &resource.Justification.Evidence[numEvidence], htmlAttrs)
 }
 func (resource *Permission) T_RuleType(numRule int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_provision_type
@@ -153,6 +171,18 @@ func (resource *Permission) T_RuleDataSecurity(numRule int, numData int, numSecu
 	}
 	return CodingSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].security["+strconv.Itoa(numSecurity)+"]", &resource.Rule[numRule].Data[numData].Security[numSecurity], optionsValueSet, htmlAttrs)
 }
+func (resource *Permission) T_RuleDataPeriod(numRule int, numData int, numPeriod int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) || numData >= len(resource.Rule[numRule].Data) || numPeriod >= len(resource.Rule[numRule].Data[numData].Period) {
+		return PeriodInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].period["+strconv.Itoa(numPeriod)+"]", nil, htmlAttrs)
+	}
+	return PeriodInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].period["+strconv.Itoa(numPeriod)+"]", &resource.Rule[numRule].Data[numData].Period[numPeriod], htmlAttrs)
+}
+func (resource *Permission) T_RuleDataExpression(numRule int, numData int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) || numData >= len(resource.Rule[numRule].Data) {
+		return ExpressionInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].expression", nil, htmlAttrs)
+	}
+	return ExpressionInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].expression", resource.Rule[numRule].Data[numData].Expression, htmlAttrs)
+}
 func (resource *Permission) T_RuleDataResourceMeaning(numRule int, numData int, numResource int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
 
@@ -160,6 +190,18 @@ func (resource *Permission) T_RuleDataResourceMeaning(numRule int, numData int, 
 		return CodeSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].meaning", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeSelect("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].meaning", &resource.Rule[numRule].Data[numData].Resource[numResource].Meaning, optionsValueSet, htmlAttrs)
+}
+func (resource *Permission) T_RuleDataResourceReference(numRule int, numData int, numResource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) || numData >= len(resource.Rule[numRule].Data) || numResource >= len(resource.Rule[numRule].Data[numData].Resource) {
+		return ReferenceInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
+	}
+	return ReferenceInput("rule["+strconv.Itoa(numRule)+"].data["+strconv.Itoa(numData)+"].resource["+strconv.Itoa(numResource)+"].reference", &resource.Rule[numRule].Data[numData].Resource[numResource].Reference, htmlAttrs)
+}
+func (resource *Permission) T_RuleActivityActor(numRule int, numActivity int, numActor int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRule >= len(resource.Rule) || numActivity >= len(resource.Rule[numRule].Activity) || numActor >= len(resource.Rule[numRule].Activity[numActivity].Actor) {
+		return ReferenceInput("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].actor["+strconv.Itoa(numActor)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("rule["+strconv.Itoa(numRule)+"].activity["+strconv.Itoa(numActivity)+"].actor["+strconv.Itoa(numActor)+"]", &resource.Rule[numRule].Activity[numActivity].Actor[numActor], htmlAttrs)
 }
 func (resource *Permission) T_RuleActivityAction(numRule int, numActivity int, numAction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRule >= len(resource.Rule) || numActivity >= len(resource.Rule[numRule].Activity) || numAction >= len(resource.Rule[numRule].Activity[numActivity].Action) {

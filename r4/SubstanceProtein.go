@@ -103,11 +103,29 @@ func (resource *SubstanceProtein) T_SubunitLength(numSubunit int, htmlAttrs temp
 	}
 	return IntInput("subunit["+strconv.Itoa(numSubunit)+"].length", resource.Subunit[numSubunit].Length, htmlAttrs)
 }
+func (resource *SubstanceProtein) T_SubunitSequenceAttachment(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubunit >= len(resource.Subunit) {
+		return AttachmentInput("subunit["+strconv.Itoa(numSubunit)+"].sequenceAttachment", nil, htmlAttrs)
+	}
+	return AttachmentInput("subunit["+strconv.Itoa(numSubunit)+"].sequenceAttachment", resource.Subunit[numSubunit].SequenceAttachment, htmlAttrs)
+}
+func (resource *SubstanceProtein) T_SubunitNTerminalModificationId(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubunit >= len(resource.Subunit) {
+		return IdentifierInput("subunit["+strconv.Itoa(numSubunit)+"].nTerminalModificationId", nil, htmlAttrs)
+	}
+	return IdentifierInput("subunit["+strconv.Itoa(numSubunit)+"].nTerminalModificationId", resource.Subunit[numSubunit].NTerminalModificationId, htmlAttrs)
+}
 func (resource *SubstanceProtein) T_SubunitNTerminalModification(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {
 		return StringInput("subunit["+strconv.Itoa(numSubunit)+"].nTerminalModification", nil, htmlAttrs)
 	}
 	return StringInput("subunit["+strconv.Itoa(numSubunit)+"].nTerminalModification", resource.Subunit[numSubunit].NTerminalModification, htmlAttrs)
+}
+func (resource *SubstanceProtein) T_SubunitCTerminalModificationId(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numSubunit >= len(resource.Subunit) {
+		return IdentifierInput("subunit["+strconv.Itoa(numSubunit)+"].cTerminalModificationId", nil, htmlAttrs)
+	}
+	return IdentifierInput("subunit["+strconv.Itoa(numSubunit)+"].cTerminalModificationId", resource.Subunit[numSubunit].CTerminalModificationId, htmlAttrs)
 }
 func (resource *SubstanceProtein) T_SubunitCTerminalModification(numSubunit int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubunit >= len(resource.Subunit) {

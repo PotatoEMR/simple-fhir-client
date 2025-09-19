@@ -69,6 +69,12 @@ func (r DeviceAssociation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *DeviceAssociation) T_Device(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("device", nil, htmlAttrs)
+	}
+	return ReferenceInput("device", &resource.Device, htmlAttrs)
+}
 func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)
@@ -91,9 +97,39 @@ func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs
 	}
 	return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
+func (resource *DeviceAssociation) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+}
+func (resource *DeviceAssociation) T_BodyStructure(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("bodyStructure", nil, htmlAttrs)
+	}
+	return ReferenceInput("bodyStructure", resource.BodyStructure, htmlAttrs)
+}
+func (resource *DeviceAssociation) T_Period(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("period", nil, htmlAttrs)
+	}
+	return PeriodInput("period", resource.Period, htmlAttrs)
+}
 func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) {
 		return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", nil, optionsValueSet, htmlAttrs)
 	}
 	return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", &resource.Operation[numOperation].Status, optionsValueSet, htmlAttrs)
+}
+func (resource *DeviceAssociation) T_OperationOperator(numOperation int, numOperator int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOperation >= len(resource.Operation) || numOperator >= len(resource.Operation[numOperation].Operator) {
+		return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", &resource.Operation[numOperation].Operator[numOperator], htmlAttrs)
+}
+func (resource *DeviceAssociation) T_OperationPeriod(numOperation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numOperation >= len(resource.Operation) {
+		return PeriodInput("operation["+strconv.Itoa(numOperation)+"].period", nil, htmlAttrs)
+	}
+	return PeriodInput("operation["+strconv.Itoa(numOperation)+"].period", resource.Operation[numOperation].Period, htmlAttrs)
 }

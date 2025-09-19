@@ -78,6 +78,12 @@ func (r MedicationStatement) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (resource *MedicationStatement) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numPartOf >= len(resource.PartOf) {
+		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+}
 func (resource *MedicationStatement) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMedication_statement_status
 
@@ -92,17 +98,65 @@ func (resource *MedicationStatement) T_Category(numCategory int, optionsValueSet
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
+func (resource *MedicationStatement) T_Medication(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return CodeableReferenceInput("medication", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("medication", &resource.Medication, htmlAttrs)
+}
+func (resource *MedicationStatement) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("subject", nil, htmlAttrs)
+	}
+	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+}
+func (resource *MedicationStatement) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return ReferenceInput("encounter", nil, htmlAttrs)
+	}
+	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+}
 func (resource *MedicationStatement) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("effectiveDateTime", nil, htmlAttrs)
+		return FhirDateTimeInput("effectiveDateTime", nil, htmlAttrs)
 	}
-	return DateTimeInput("effectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
+	return FhirDateTimeInput("effectiveDateTime", resource.EffectiveDateTime, htmlAttrs)
+}
+func (resource *MedicationStatement) T_EffectivePeriod(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return PeriodInput("effectivePeriod", nil, htmlAttrs)
+	}
+	return PeriodInput("effectivePeriod", resource.EffectivePeriod, htmlAttrs)
+}
+func (resource *MedicationStatement) T_EffectiveTiming(htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil {
+		return TimingInput("effectiveTiming", nil, htmlAttrs)
+	}
+	return TimingInput("effectiveTiming", resource.EffectiveTiming, htmlAttrs)
 }
 func (resource *MedicationStatement) T_DateAsserted(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return DateTimeInput("dateAsserted", nil, htmlAttrs)
+		return FhirDateTimeInput("dateAsserted", nil, htmlAttrs)
 	}
-	return DateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
+	return FhirDateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
+}
+func (resource *MedicationStatement) T_InformationSource(numInformationSource int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numInformationSource >= len(resource.InformationSource) {
+		return ReferenceInput("informationSource["+strconv.Itoa(numInformationSource)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("informationSource["+strconv.Itoa(numInformationSource)+"]", &resource.InformationSource[numInformationSource], htmlAttrs)
+}
+func (resource *MedicationStatement) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
+		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+}
+func (resource *MedicationStatement) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numReason >= len(resource.Reason) {
+		return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", nil, htmlAttrs)
+	}
+	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
 func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -110,11 +164,23 @@ func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs templ.Attribu
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
+func (resource *MedicationStatement) T_RelatedClinicalInformation(numRelatedClinicalInformation int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numRelatedClinicalInformation >= len(resource.RelatedClinicalInformation) {
+		return ReferenceInput("relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", nil, htmlAttrs)
+	}
+	return ReferenceInput("relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", &resource.RelatedClinicalInformation[numRelatedClinicalInformation], htmlAttrs)
+}
 func (resource *MedicationStatement) T_RenderedDosageInstruction(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("renderedDosageInstruction", nil, htmlAttrs)
 	}
 	return StringInput("renderedDosageInstruction", resource.RenderedDosageInstruction, htmlAttrs)
+}
+func (resource *MedicationStatement) T_Dosage(numDosage int, htmlAttrs templ.Attributes) templ.Component {
+	if resource == nil || numDosage >= len(resource.Dosage) {
+		return DosageInput("dosage["+strconv.Itoa(numDosage)+"]", nil, htmlAttrs)
+	}
+	return DosageInput("dosage["+strconv.Itoa(numDosage)+"]", &resource.Dosage[numDosage], htmlAttrs)
 }
 func (resource *MedicationStatement) T_AdherenceCode(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
