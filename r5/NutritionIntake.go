@@ -116,17 +116,17 @@ func (resource *NutritionIntake) T_InstantiatesUri(numInstantiatesUri int, htmlA
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *NutritionIntake) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *NutritionIntake) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *NutritionIntake) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
@@ -148,17 +148,17 @@ func (resource *NutritionIntake) T_Code(optionsValueSet []Coding, htmlAttrs temp
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionIntake) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *NutritionIntake) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *NutritionIntake) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -184,23 +184,23 @@ func (resource *NutritionIntake) T_ReportedBoolean(htmlAttrs templ.Attributes) t
 	}
 	return BoolInput("reportedBoolean", resource.ReportedBoolean, htmlAttrs)
 }
-func (resource *NutritionIntake) T_ReportedReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_ReportedReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("reportedReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "reportedReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("reportedReference", resource.ReportedReference, htmlAttrs)
+	return ReferenceInput(frs, "reportedReference", resource.ReportedReference, htmlAttrs)
 }
-func (resource *NutritionIntake) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
-func (resource *NutritionIntake) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_DerivedFrom(frs []FhirResource, numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
 func (resource *NutritionIntake) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -232,17 +232,17 @@ func (resource *NutritionIntake) T_ConsumedItemSchedule(numConsumedItem int, htm
 	}
 	return TimingInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].schedule", resource.ConsumedItem[numConsumedItem].Schedule, htmlAttrs)
 }
-func (resource *NutritionIntake) T_ConsumedItemAmount(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_ConsumedItemAmount(numConsumedItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
-		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", nil, htmlAttrs)
+		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", resource.ConsumedItem[numConsumedItem].Amount, htmlAttrs)
+	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].amount", resource.ConsumedItem[numConsumedItem].Amount, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionIntake) T_ConsumedItemRate(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_ConsumedItemRate(numConsumedItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
-		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", nil, htmlAttrs)
+		return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", resource.ConsumedItem[numConsumedItem].Rate, htmlAttrs)
+	return QuantityInput("consumedItem["+strconv.Itoa(numConsumedItem)+"].rate", resource.ConsumedItem[numConsumedItem].Rate, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionIntake) T_ConsumedItemNotConsumed(numConsumedItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConsumedItem >= len(resource.ConsumedItem) {
@@ -262,11 +262,11 @@ func (resource *NutritionIntake) T_IngredientLabelNutrient(numIngredientLabel in
 	}
 	return CodeableReferenceInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].nutrient", &resource.IngredientLabel[numIngredientLabel].Nutrient, htmlAttrs)
 }
-func (resource *NutritionIntake) T_IngredientLabelAmount(numIngredientLabel int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_IngredientLabelAmount(numIngredientLabel int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numIngredientLabel >= len(resource.IngredientLabel) {
-		return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", nil, htmlAttrs)
+		return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", &resource.IngredientLabel[numIngredientLabel].Amount, htmlAttrs)
+	return QuantityInput("ingredientLabel["+strconv.Itoa(numIngredientLabel)+"].amount", &resource.IngredientLabel[numIngredientLabel].Amount, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionIntake) T_PerformerFunction(numPerformer int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
@@ -274,9 +274,9 @@ func (resource *NutritionIntake) T_PerformerFunction(numPerformer int, optionsVa
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionIntake) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionIntake) T_PerformerActor(frs []FhirResource, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
+	return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
 }

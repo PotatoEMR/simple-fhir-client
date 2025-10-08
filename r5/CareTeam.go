@@ -93,11 +93,11 @@ func (resource *CareTeam) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *CareTeam) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CareTeam) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *CareTeam) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -111,11 +111,11 @@ func (resource *CareTeam) T_Reason(numReason int, htmlAttrs templ.Attributes) te
 	}
 	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
-func (resource *CareTeam) T_ManagingOrganization(numManagingOrganization int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CareTeam) T_ManagingOrganization(frs []FhirResource, numManagingOrganization int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManagingOrganization >= len(resource.ManagingOrganization) {
-		return ReferenceInput("managingOrganization["+strconv.Itoa(numManagingOrganization)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingOrganization["+strconv.Itoa(numManagingOrganization)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingOrganization["+strconv.Itoa(numManagingOrganization)+"]", &resource.ManagingOrganization[numManagingOrganization], htmlAttrs)
+	return ReferenceInput(frs, "managingOrganization["+strconv.Itoa(numManagingOrganization)+"]", &resource.ManagingOrganization[numManagingOrganization], htmlAttrs)
 }
 func (resource *CareTeam) T_Telecom(numTelecom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTelecom >= len(resource.Telecom) {
@@ -135,17 +135,17 @@ func (resource *CareTeam) T_ParticipantRole(numParticipant int, optionsValueSet 
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *CareTeam) T_ParticipantMember(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CareTeam) T_ParticipantMember(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].member", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].member", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].member", resource.Participant[numParticipant].Member, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].member", resource.Participant[numParticipant].Member, htmlAttrs)
 }
-func (resource *CareTeam) T_ParticipantOnBehalfOf(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CareTeam) T_ParticipantOnBehalfOf(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].onBehalfOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].onBehalfOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].onBehalfOf", resource.Participant[numParticipant].OnBehalfOf, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].onBehalfOf", resource.Participant[numParticipant].OnBehalfOf, htmlAttrs)
 }
 func (resource *CareTeam) T_ParticipantCoveragePeriod(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {

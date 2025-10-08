@@ -152,17 +152,17 @@ func (resource *Location) T_PhysicalType(optionsValueSet []Coding, htmlAttrs tem
 	}
 	return CodeableConceptSelect("physicalType", resource.PhysicalType, optionsValueSet, htmlAttrs)
 }
-func (resource *Location) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Location) T_ManagingOrganization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingOrganization", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+	return ReferenceInput(frs, "managingOrganization", resource.ManagingOrganization, htmlAttrs)
 }
-func (resource *Location) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Location) T_PartOf(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("partOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+	return ReferenceInput(frs, "partOf", resource.PartOf, htmlAttrs)
 }
 func (resource *Location) T_AvailabilityExceptions(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -170,11 +170,11 @@ func (resource *Location) T_AvailabilityExceptions(htmlAttrs templ.Attributes) t
 	}
 	return StringInput("availabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
-func (resource *Location) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Location) T_Endpoint(frs []FhirResource, numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEndpoint >= len(resource.Endpoint) {
-		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+	return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *Location) T_PositionLongitude(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

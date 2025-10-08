@@ -255,11 +255,11 @@ func (resource *TestPlan) T_Category(numCategory int, optionsValueSet []Coding, 
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *TestPlan) T_Scope(numScope int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_Scope(frs []FhirResource, numScope int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numScope >= len(resource.Scope) {
-		return ReferenceInput("scope["+strconv.Itoa(numScope)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "scope["+strconv.Itoa(numScope)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("scope["+strconv.Itoa(numScope)+"]", &resource.Scope[numScope], htmlAttrs)
+	return ReferenceInput(frs, "scope["+strconv.Itoa(numScope)+"]", &resource.Scope[numScope], htmlAttrs)
 }
 func (resource *TestPlan) T_TestTools(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -279,11 +279,11 @@ func (resource *TestPlan) T_DependencyDescription(numDependency int, htmlAttrs t
 	}
 	return StringInput("dependency["+strconv.Itoa(numDependency)+"].description", resource.Dependency[numDependency].Description, htmlAttrs)
 }
-func (resource *TestPlan) T_DependencyPredecessor(numDependency int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_DependencyPredecessor(frs []FhirResource, numDependency int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDependency >= len(resource.Dependency) {
-		return ReferenceInput("dependency["+strconv.Itoa(numDependency)+"].predecessor", nil, htmlAttrs)
+		return ReferenceInput(frs, "dependency["+strconv.Itoa(numDependency)+"].predecessor", nil, htmlAttrs)
 	}
-	return ReferenceInput("dependency["+strconv.Itoa(numDependency)+"].predecessor", resource.Dependency[numDependency].Predecessor, htmlAttrs)
+	return ReferenceInput(frs, "dependency["+strconv.Itoa(numDependency)+"].predecessor", resource.Dependency[numDependency].Predecessor, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseSequence(numTestCase int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) {
@@ -291,11 +291,11 @@ func (resource *TestPlan) T_TestCaseSequence(numTestCase int, htmlAttrs templ.At
 	}
 	return IntInput("testCase["+strconv.Itoa(numTestCase)+"].sequence", resource.TestCase[numTestCase].Sequence, htmlAttrs)
 }
-func (resource *TestPlan) T_TestCaseScope(numTestCase int, numScope int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_TestCaseScope(frs []FhirResource, numTestCase int, numScope int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numScope >= len(resource.TestCase[numTestCase].Scope) {
-		return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].scope["+strconv.Itoa(numScope)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].scope["+strconv.Itoa(numScope)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].scope["+strconv.Itoa(numScope)+"]", &resource.TestCase[numTestCase].Scope[numScope], htmlAttrs)
+	return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].scope["+strconv.Itoa(numScope)+"]", &resource.TestCase[numTestCase].Scope[numScope], htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseDependencyDescription(numTestCase int, numDependency int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numDependency >= len(resource.TestCase[numTestCase].Dependency) {
@@ -303,11 +303,11 @@ func (resource *TestPlan) T_TestCaseDependencyDescription(numTestCase int, numDe
 	}
 	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].description", resource.TestCase[numTestCase].Dependency[numDependency].Description, htmlAttrs)
 }
-func (resource *TestPlan) T_TestCaseDependencyPredecessor(numTestCase int, numDependency int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_TestCaseDependencyPredecessor(frs []FhirResource, numTestCase int, numDependency int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numDependency >= len(resource.TestCase[numTestCase].Dependency) {
-		return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].predecessor", nil, htmlAttrs)
+		return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].predecessor", nil, htmlAttrs)
 	}
-	return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].predecessor", resource.TestCase[numTestCase].Dependency[numDependency].Predecessor, htmlAttrs)
+	return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].dependency["+strconv.Itoa(numDependency)+"].predecessor", resource.TestCase[numTestCase].Dependency[numDependency].Predecessor, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestRunNarrative(numTestCase int, numTestRun int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestRun >= len(resource.TestCase[numTestCase].TestRun) {
@@ -321,11 +321,11 @@ func (resource *TestPlan) T_TestCaseTestRunScriptSourceString(numTestCase int, n
 	}
 	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceString", resource.TestCase[numTestCase].TestRun[numTestRun].Script.SourceString, htmlAttrs)
 }
-func (resource *TestPlan) T_TestCaseTestRunScriptSourceReference(numTestCase int, numTestRun int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_TestCaseTestRunScriptSourceReference(frs []FhirResource, numTestCase int, numTestRun int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestRun >= len(resource.TestCase[numTestCase].TestRun) {
-		return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceReference", resource.TestCase[numTestCase].TestRun[numTestRun].Script.SourceReference, htmlAttrs)
+	return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testRun["+strconv.Itoa(numTestRun)+"].script.sourceReference", resource.TestCase[numTestCase].TestRun[numTestRun].Script.SourceReference, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestDataType(numTestCase int, numTestData int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
@@ -333,11 +333,11 @@ func (resource *TestPlan) T_TestCaseTestDataType(numTestCase int, numTestData in
 	}
 	return CodingSelect("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].type", &resource.TestCase[numTestCase].TestData[numTestData].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *TestPlan) T_TestCaseTestDataContent(numTestCase int, numTestData int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_TestCaseTestDataContent(frs []FhirResource, numTestCase int, numTestData int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
-		return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].content", nil, htmlAttrs)
+		return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].content", nil, htmlAttrs)
 	}
-	return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].content", resource.TestCase[numTestCase].TestData[numTestData].Content, htmlAttrs)
+	return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].content", resource.TestCase[numTestCase].TestData[numTestData].Content, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseTestDataSourceString(numTestCase int, numTestData int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
@@ -345,11 +345,11 @@ func (resource *TestPlan) T_TestCaseTestDataSourceString(numTestCase int, numTes
 	}
 	return StringInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceString", resource.TestCase[numTestCase].TestData[numTestData].SourceString, htmlAttrs)
 }
-func (resource *TestPlan) T_TestCaseTestDataSourceReference(numTestCase int, numTestData int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestPlan) T_TestCaseTestDataSourceReference(frs []FhirResource, numTestCase int, numTestData int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numTestData >= len(resource.TestCase[numTestCase].TestData) {
-		return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceReference", resource.TestCase[numTestCase].TestData[numTestData].SourceReference, htmlAttrs)
+	return ReferenceInput(frs, "testCase["+strconv.Itoa(numTestCase)+"].testData["+strconv.Itoa(numTestData)+"].sourceReference", resource.TestCase[numTestCase].TestData[numTestData].SourceReference, htmlAttrs)
 }
 func (resource *TestPlan) T_TestCaseAssertionType(numTestCase int, numAssertion int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTestCase >= len(resource.TestCase) || numAssertion >= len(resource.TestCase[numTestCase].Assertion) || numType >= len(resource.TestCase[numTestCase].Assertion[numAssertion].Type) {

@@ -153,11 +153,11 @@ func (resource *ClinicalUseDefinition) T_Category(numCategory int, optionsValueS
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalUseDefinition) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalUseDefinition) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
-		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+	return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
 }
 func (resource *ClinicalUseDefinition) T_Status(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -165,11 +165,11 @@ func (resource *ClinicalUseDefinition) T_Status(optionsValueSet []Coding, htmlAt
 	}
 	return CodeableConceptSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalUseDefinition) T_Population(numPopulation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalUseDefinition) T_Population(frs []FhirResource, numPopulation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPopulation >= len(resource.Population) {
-		return ReferenceInput("population["+strconv.Itoa(numPopulation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "population["+strconv.Itoa(numPopulation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("population["+strconv.Itoa(numPopulation)+"]", &resource.Population[numPopulation], htmlAttrs)
+	return ReferenceInput(frs, "population["+strconv.Itoa(numPopulation)+"]", &resource.Population[numPopulation], htmlAttrs)
 }
 func (resource *ClinicalUseDefinition) T_Library(numLibrary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLibrary >= len(resource.Library) {
@@ -195,11 +195,11 @@ func (resource *ClinicalUseDefinition) T_ContraindicationComorbidity(numComorbid
 	}
 	return CodeableReferenceInput("contraindication.comorbidity["+strconv.Itoa(numComorbidity)+"]", &resource.Contraindication.Comorbidity[numComorbidity], htmlAttrs)
 }
-func (resource *ClinicalUseDefinition) T_ContraindicationIndication(numIndication int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalUseDefinition) T_ContraindicationIndication(frs []FhirResource, numIndication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIndication >= len(resource.Contraindication.Indication) {
-		return ReferenceInput("contraindication.indication["+strconv.Itoa(numIndication)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "contraindication.indication["+strconv.Itoa(numIndication)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("contraindication.indication["+strconv.Itoa(numIndication)+"]", &resource.Contraindication.Indication[numIndication], htmlAttrs)
+	return ReferenceInput(frs, "contraindication.indication["+strconv.Itoa(numIndication)+"]", &resource.Contraindication.Indication[numIndication], htmlAttrs)
 }
 func (resource *ClinicalUseDefinition) T_ContraindicationApplicability(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -255,11 +255,11 @@ func (resource *ClinicalUseDefinition) T_IndicationDurationString(htmlAttrs temp
 	}
 	return StringInput("indication.durationString", resource.Indication.DurationString, htmlAttrs)
 }
-func (resource *ClinicalUseDefinition) T_IndicationUndesirableEffect(numUndesirableEffect int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalUseDefinition) T_IndicationUndesirableEffect(frs []FhirResource, numUndesirableEffect int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numUndesirableEffect >= len(resource.Indication.UndesirableEffect) {
-		return ReferenceInput("indication.undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "indication.undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("indication.undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", &resource.Indication.UndesirableEffect[numUndesirableEffect], htmlAttrs)
+	return ReferenceInput(frs, "indication.undesirableEffect["+strconv.Itoa(numUndesirableEffect)+"]", &resource.Indication.UndesirableEffect[numUndesirableEffect], htmlAttrs)
 }
 func (resource *ClinicalUseDefinition) T_IndicationApplicability(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -291,11 +291,11 @@ func (resource *ClinicalUseDefinition) T_InteractionManagement(numManagement int
 	}
 	return CodeableConceptSelect("interaction.management["+strconv.Itoa(numManagement)+"]", &resource.Interaction.Management[numManagement], optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalUseDefinition) T_InteractionInteractantItemReference(numInteractant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalUseDefinition) T_InteractionInteractantItemReference(frs []FhirResource, numInteractant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInteractant >= len(resource.Interaction.Interactant) {
-		return ReferenceInput("interaction.interactant["+strconv.Itoa(numInteractant)+"].itemReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "interaction.interactant["+strconv.Itoa(numInteractant)+"].itemReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("interaction.interactant["+strconv.Itoa(numInteractant)+"].itemReference", &resource.Interaction.Interactant[numInteractant].ItemReference, htmlAttrs)
+	return ReferenceInput(frs, "interaction.interactant["+strconv.Itoa(numInteractant)+"].itemReference", &resource.Interaction.Interactant[numInteractant].ItemReference, htmlAttrs)
 }
 func (resource *ClinicalUseDefinition) T_InteractionInteractantItemCodeableConcept(numInteractant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInteractant >= len(resource.Interaction.Interactant) {

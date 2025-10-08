@@ -224,21 +224,21 @@ func (resource *Evidence) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs te
 	}
 	return RelatedArtifactInput("relatedArtifact["+strconv.Itoa(numRelatedArtifact)+"]", &resource.RelatedArtifact[numRelatedArtifact], htmlAttrs)
 }
-func (resource *Evidence) T_ExposureBackground(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Evidence) T_ExposureBackground(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposureBackground", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposureBackground", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposureBackground", &resource.ExposureBackground, htmlAttrs)
+	return ReferenceInput(frs, "exposureBackground", &resource.ExposureBackground, htmlAttrs)
 }
-func (resource *Evidence) T_ExposureVariant(numExposureVariant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Evidence) T_ExposureVariant(frs []FhirResource, numExposureVariant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numExposureVariant >= len(resource.ExposureVariant) {
-		return ReferenceInput("exposureVariant["+strconv.Itoa(numExposureVariant)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposureVariant["+strconv.Itoa(numExposureVariant)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposureVariant["+strconv.Itoa(numExposureVariant)+"]", &resource.ExposureVariant[numExposureVariant], htmlAttrs)
+	return ReferenceInput(frs, "exposureVariant["+strconv.Itoa(numExposureVariant)+"]", &resource.ExposureVariant[numExposureVariant], htmlAttrs)
 }
-func (resource *Evidence) T_Outcome(numOutcome int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Evidence) T_Outcome(frs []FhirResource, numOutcome int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutcome >= len(resource.Outcome) {
-		return ReferenceInput("outcome["+strconv.Itoa(numOutcome)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "outcome["+strconv.Itoa(numOutcome)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("outcome["+strconv.Itoa(numOutcome)+"]", &resource.Outcome[numOutcome], htmlAttrs)
+	return ReferenceInput(frs, "outcome["+strconv.Itoa(numOutcome)+"]", &resource.Outcome[numOutcome], htmlAttrs)
 }

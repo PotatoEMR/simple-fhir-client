@@ -622,11 +622,11 @@ func (resource *StructureMap) T_GroupRuleSourceDefaultValuePeriod(numGroup int, 
 	}
 	return PeriodInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValuePeriod", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValuePeriod, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceDefaultValueQuantity(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueQuantity(numGroup int, numRule int, numSource int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
-		return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", nil, htmlAttrs)
+		return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueQuantity, htmlAttrs)
+	return QuantityInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueQuantity", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueRange(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
@@ -640,11 +640,11 @@ func (resource *StructureMap) T_GroupRuleSourceDefaultValueRatio(numGroup int, n
 	}
 	return RatioInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueRatio", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueRatio, htmlAttrs)
 }
-func (resource *StructureMap) T_GroupRuleSourceDefaultValueReference(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *StructureMap) T_GroupRuleSourceDefaultValueReference(frs []FhirResource, numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {
-		return ReferenceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueReference, htmlAttrs)
+	return ReferenceInput(frs, "group["+strconv.Itoa(numGroup)+"].rule["+strconv.Itoa(numRule)+"].source["+strconv.Itoa(numSource)+"].defaultValueReference", resource.Group[numGroup].Rule[numRule].Source[numSource].DefaultValueReference, htmlAttrs)
 }
 func (resource *StructureMap) T_GroupRuleSourceDefaultValueSampledData(numGroup int, numRule int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numRule >= len(resource.Group[numGroup].Rule) || numSource >= len(resource.Group[numGroup].Rule[numRule].Source) {

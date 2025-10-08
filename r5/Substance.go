@@ -107,11 +107,11 @@ func (resource *Substance) T_Expiry(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return FhirDateTimeInput("expiry", resource.Expiry, htmlAttrs)
 }
-func (resource *Substance) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Substance) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", resource.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Substance) T_IngredientQuantity(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
@@ -125,9 +125,9 @@ func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient in
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].substanceCodeableConcept", &resource.Ingredient[numIngredient].SubstanceCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_IngredientSubstanceReference(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Substance) T_IngredientSubstanceReference(frs []FhirResource, numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", &resource.Ingredient[numIngredient].SubstanceReference, htmlAttrs)
+	return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", &resource.Ingredient[numIngredient].SubstanceReference, htmlAttrs)
 }

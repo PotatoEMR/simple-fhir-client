@@ -121,17 +121,17 @@ func (r Observation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Observation) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *Observation) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *Observation) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_status
@@ -153,23 +153,23 @@ func (resource *Observation) T_Code(optionsValueSet []Coding, htmlAttrs templ.At
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Observation) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *Observation) T_Focus(numFocus int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Focus(frs []FhirResource, numFocus int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFocus >= len(resource.Focus) {
-		return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
+	return ReferenceInput(frs, "focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
 }
-func (resource *Observation) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Observation) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -201,17 +201,17 @@ func (resource *Observation) T_Issued(htmlAttrs templ.Attributes) templ.Componen
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
 }
-func (resource *Observation) T_Performer(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Performer(frs []FhirResource, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
+	return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
 }
-func (resource *Observation) T_ValueQuantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_ValueQuantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("valueQuantity", nil, htmlAttrs)
+		return QuantityInput("valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("valueQuantity", resource.ValueQuantity, htmlAttrs)
+	return QuantityInput("valueQuantity", resource.ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ValueCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -303,41 +303,41 @@ func (resource *Observation) T_Method(optionsValueSet []Coding, htmlAttrs templ.
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *Observation) T_Specimen(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Specimen(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("specimen", nil, htmlAttrs)
+		return ReferenceInput(frs, "specimen", nil, htmlAttrs)
 	}
-	return ReferenceInput("specimen", resource.Specimen, htmlAttrs)
+	return ReferenceInput(frs, "specimen", resource.Specimen, htmlAttrs)
 }
-func (resource *Observation) T_Device(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_Device(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("device", nil, htmlAttrs)
+		return ReferenceInput(frs, "device", nil, htmlAttrs)
 	}
-	return ReferenceInput("device", resource.Device, htmlAttrs)
+	return ReferenceInput(frs, "device", resource.Device, htmlAttrs)
 }
-func (resource *Observation) T_HasMember(numHasMember int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_HasMember(frs []FhirResource, numHasMember int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHasMember >= len(resource.HasMember) {
-		return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "hasMember["+strconv.Itoa(numHasMember)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", &resource.HasMember[numHasMember], htmlAttrs)
+	return ReferenceInput(frs, "hasMember["+strconv.Itoa(numHasMember)+"]", &resource.HasMember[numHasMember], htmlAttrs)
 }
-func (resource *Observation) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_DerivedFrom(frs []FhirResource, numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
-func (resource *Observation) T_ReferenceRangeLow(numReferenceRange int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_ReferenceRangeLow(numReferenceRange int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
-		return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].low", nil, htmlAttrs)
+		return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].low", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].low", resource.ReferenceRange[numReferenceRange].Low, htmlAttrs)
+	return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].low", resource.ReferenceRange[numReferenceRange].Low, optionsValueSet, htmlAttrs)
 }
-func (resource *Observation) T_ReferenceRangeHigh(numReferenceRange int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_ReferenceRangeHigh(numReferenceRange int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
-		return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].high", nil, htmlAttrs)
+		return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].high", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].high", resource.ReferenceRange[numReferenceRange].High, htmlAttrs)
+	return QuantityInput("referenceRange["+strconv.Itoa(numReferenceRange)+"].high", resource.ReferenceRange[numReferenceRange].High, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ReferenceRangeType(numReferenceRange int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReferenceRange >= len(resource.ReferenceRange) {
@@ -363,11 +363,11 @@ func (resource *Observation) T_ComponentCode(numComponent int, optionsValueSet [
 	}
 	return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].code", &resource.Component[numComponent].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Observation) T_ComponentValueQuantity(numComponent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Observation) T_ComponentValueQuantity(numComponent int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
-		return QuantityInput("component["+strconv.Itoa(numComponent)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("component["+strconv.Itoa(numComponent)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("component["+strconv.Itoa(numComponent)+"].valueQuantity", resource.Component[numComponent].ValueQuantity, htmlAttrs)
+	return QuantityInput("component["+strconv.Itoa(numComponent)+"].valueQuantity", resource.Component[numComponent].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Observation) T_ComponentValueCodeableConcept(numComponent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {

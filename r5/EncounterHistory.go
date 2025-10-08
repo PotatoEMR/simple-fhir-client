@@ -72,11 +72,11 @@ func (r EncounterHistory) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *EncounterHistory) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EncounterHistory) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *EncounterHistory) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_status
@@ -104,11 +104,11 @@ func (resource *EncounterHistory) T_ServiceType(numServiceType int, htmlAttrs te
 	}
 	return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], htmlAttrs)
 }
-func (resource *EncounterHistory) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EncounterHistory) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *EncounterHistory) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -140,11 +140,11 @@ func (resource *EncounterHistory) T_Length(htmlAttrs templ.Attributes) templ.Com
 	}
 	return DurationInput("length", resource.Length, htmlAttrs)
 }
-func (resource *EncounterHistory) T_LocationLocation(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *EncounterHistory) T_LocationLocation(frs []FhirResource, numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
-		return ReferenceInput("location["+strconv.Itoa(numLocation)+"].location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"].location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location["+strconv.Itoa(numLocation)+"].location", &resource.Location[numLocation].Location, htmlAttrs)
+	return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"].location", &resource.Location[numLocation].Location, htmlAttrs)
 }
 func (resource *EncounterHistory) T_LocationForm(numLocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {

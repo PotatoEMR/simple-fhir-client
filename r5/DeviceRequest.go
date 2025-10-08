@@ -102,17 +102,17 @@ func (resource *DeviceRequest) T_InstantiatesUri(numInstantiatesUri int, htmlAtt
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *DeviceRequest) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *DeviceRequest) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_Replaces(frs []FhirResource, numReplaces int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReplaces >= len(resource.Replaces) {
-		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+	return ReferenceInput(frs, "replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
 }
 func (resource *DeviceRequest) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -162,17 +162,17 @@ func (resource *DeviceRequest) T_Quantity(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
-func (resource *DeviceRequest) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *DeviceRequest) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *DeviceRequest) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -198,11 +198,11 @@ func (resource *DeviceRequest) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Co
 	}
 	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *DeviceRequest) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_Requester(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requester", nil, htmlAttrs)
+		return ReferenceInput(frs, "requester", nil, htmlAttrs)
 	}
-	return ReferenceInput("requester", resource.Requester, htmlAttrs)
+	return ReferenceInput(frs, "requester", resource.Requester, htmlAttrs)
 }
 func (resource *DeviceRequest) T_Performer(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -228,17 +228,17 @@ func (resource *DeviceRequest) T_AsNeededFor(optionsValueSet []Coding, htmlAttrs
 	}
 	return CodeableConceptSelect("asNeededFor", resource.AsNeededFor, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceRequest) T_Insurance(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_Insurance(frs []FhirResource, numInsurance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) {
-		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
+	return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
 }
-func (resource *DeviceRequest) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_SupportingInfo(frs []FhirResource, numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
-		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+	return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
 }
 func (resource *DeviceRequest) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -246,11 +246,11 @@ func (resource *DeviceRequest) T_Note(numNote int, htmlAttrs templ.Attributes) t
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *DeviceRequest) T_RelevantHistory(numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_RelevantHistory(frs []FhirResource, numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelevantHistory >= len(resource.RelevantHistory) {
-		return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
+	return ReferenceInput(frs, "relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
 }
 func (resource *DeviceRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -264,11 +264,11 @@ func (resource *DeviceRequest) T_ParameterValueCodeableConcept(numParameter int,
 	}
 	return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceRequest) T_ParameterValueQuantity(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceRequest) T_ParameterValueQuantity(numParameter int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, htmlAttrs)
+	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceRequest) T_ParameterValueRange(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {

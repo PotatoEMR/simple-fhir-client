@@ -124,11 +124,11 @@ func (resource *NutritionProduct) T_Category(numCategory int, optionsValueSet []
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionProduct) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionProduct) T_Manufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
-		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
 }
 func (resource *NutritionProduct) T_KnownAllergen(numKnownAllergen int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numKnownAllergen >= len(resource.KnownAllergen) {
@@ -184,11 +184,11 @@ func (resource *NutritionProduct) T_CharacteristicValueString(numCharacteristic 
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueString", &resource.Characteristic[numCharacteristic].ValueString, htmlAttrs)
 }
-func (resource *NutritionProduct) T_CharacteristicValueQuantity(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionProduct) T_CharacteristicValueQuantity(numCharacteristic int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", &resource.Characteristic[numCharacteristic].ValueQuantity, htmlAttrs)
+	return QuantityInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueQuantity", &resource.Characteristic[numCharacteristic].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_CharacteristicValueBase64Binary(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
@@ -208,11 +208,11 @@ func (resource *NutritionProduct) T_CharacteristicValueBoolean(numCharacteristic
 	}
 	return BoolInput("characteristic["+strconv.Itoa(numCharacteristic)+"].valueBoolean", &resource.Characteristic[numCharacteristic].ValueBoolean, htmlAttrs)
 }
-func (resource *NutritionProduct) T_InstanceQuantity(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionProduct) T_InstanceQuantity(numInstance int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", resource.Instance[numInstance].Quantity, htmlAttrs)
+	return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", resource.Instance[numInstance].Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionProduct) T_InstanceName(numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {

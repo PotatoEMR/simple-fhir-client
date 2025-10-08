@@ -89,11 +89,11 @@ func (r MedicinalProductAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductAuthorization) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProductAuthorization) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_Country(numCountry int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCountry >= len(resource.Country) {
@@ -155,17 +155,17 @@ func (resource *MedicinalProductAuthorization) T_LegalBasis(optionsValueSet []Co
 	}
 	return CodeableConceptSelect("legalBasis", resource.LegalBasis, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_Holder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProductAuthorization) T_Holder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("holder", nil, htmlAttrs)
+		return ReferenceInput(frs, "holder", nil, htmlAttrs)
 	}
-	return ReferenceInput("holder", resource.Holder, htmlAttrs)
+	return ReferenceInput(frs, "holder", resource.Holder, htmlAttrs)
 }
-func (resource *MedicinalProductAuthorization) T_Regulator(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProductAuthorization) T_Regulator(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("regulator", nil, htmlAttrs)
+		return ReferenceInput(frs, "regulator", nil, htmlAttrs)
 	}
-	return ReferenceInput("regulator", resource.Regulator, htmlAttrs)
+	return ReferenceInput(frs, "regulator", resource.Regulator, htmlAttrs)
 }
 func (resource *MedicinalProductAuthorization) T_JurisdictionalAuthorizationCountry(numJurisdictionalAuthorization int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numJurisdictionalAuthorization >= len(resource.JurisdictionalAuthorization) {

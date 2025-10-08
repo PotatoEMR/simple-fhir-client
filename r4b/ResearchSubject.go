@@ -71,17 +71,17 @@ func (resource *ResearchSubject) T_Period(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Study(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Study(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("study", nil, htmlAttrs)
+		return ReferenceInput(frs, "study", nil, htmlAttrs)
 	}
-	return ReferenceInput("study", &resource.Study, htmlAttrs)
+	return ReferenceInput(frs, "study", &resource.Study, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Individual(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Individual(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("individual", nil, htmlAttrs)
+		return ReferenceInput(frs, "individual", nil, htmlAttrs)
 	}
-	return ReferenceInput("individual", &resource.Individual, htmlAttrs)
+	return ReferenceInput(frs, "individual", &resource.Individual, htmlAttrs)
 }
 func (resource *ResearchSubject) T_AssignedArm(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -95,9 +95,9 @@ func (resource *ResearchSubject) T_ActualArm(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("actualArm", resource.ActualArm, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Consent(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Consent(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("consent", nil, htmlAttrs)
+		return ReferenceInput(frs, "consent", nil, htmlAttrs)
 	}
-	return ReferenceInput("consent", resource.Consent, htmlAttrs)
+	return ReferenceInput(frs, "consent", resource.Consent, htmlAttrs)
 }

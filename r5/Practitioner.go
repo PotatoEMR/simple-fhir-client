@@ -150,11 +150,11 @@ func (resource *Practitioner) T_QualificationPeriod(numQualification int, htmlAt
 	}
 	return PeriodInput("qualification["+strconv.Itoa(numQualification)+"].period", resource.Qualification[numQualification].Period, htmlAttrs)
 }
-func (resource *Practitioner) T_QualificationIssuer(numQualification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Practitioner) T_QualificationIssuer(frs []FhirResource, numQualification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
-		return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", nil, htmlAttrs)
+		return ReferenceInput(frs, "qualification["+strconv.Itoa(numQualification)+"].issuer", nil, htmlAttrs)
 	}
-	return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", resource.Qualification[numQualification].Issuer, htmlAttrs)
+	return ReferenceInput(frs, "qualification["+strconv.Itoa(numQualification)+"].issuer", resource.Qualification[numQualification].Issuer, htmlAttrs)
 }
 func (resource *Practitioner) T_CommunicationPreferred(numCommunication int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCommunication >= len(resource.Communication) {

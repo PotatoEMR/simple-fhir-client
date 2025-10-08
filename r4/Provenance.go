@@ -79,11 +79,11 @@ func (r Provenance) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Provenance) T_Target(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Provenance) T_Target(frs []FhirResource, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
-		return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], htmlAttrs)
+	return ReferenceInput(frs, "target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], htmlAttrs)
 }
 func (resource *Provenance) T_OccurredPeriod(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -109,11 +109,11 @@ func (resource *Provenance) T_Policy(numPolicy int, htmlAttrs templ.Attributes) 
 	}
 	return StringInput("policy["+strconv.Itoa(numPolicy)+"]", &resource.Policy[numPolicy], htmlAttrs)
 }
-func (resource *Provenance) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Provenance) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
 func (resource *Provenance) T_Reason(numReason int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -145,17 +145,17 @@ func (resource *Provenance) T_AgentRole(numAgent int, numRole int, optionsValueS
 	}
 	return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_AgentWho(numAgent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Provenance) T_AgentWho(frs []FhirResource, numAgent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
-		return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].who", nil, htmlAttrs)
+		return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].who", nil, htmlAttrs)
 	}
-	return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].who", &resource.Agent[numAgent].Who, htmlAttrs)
+	return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].who", &resource.Agent[numAgent].Who, htmlAttrs)
 }
-func (resource *Provenance) T_AgentOnBehalfOf(numAgent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Provenance) T_AgentOnBehalfOf(frs []FhirResource, numAgent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
-		return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].onBehalfOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].onBehalfOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].onBehalfOf", resource.Agent[numAgent].OnBehalfOf, htmlAttrs)
+	return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].onBehalfOf", resource.Agent[numAgent].OnBehalfOf, htmlAttrs)
 }
 func (resource *Provenance) T_EntityRole(numEntity int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProvenance_entity_role
@@ -165,9 +165,9 @@ func (resource *Provenance) T_EntityRole(numEntity int, htmlAttrs templ.Attribut
 	}
 	return CodeSelect("entity["+strconv.Itoa(numEntity)+"].role", &resource.Entity[numEntity].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *Provenance) T_EntityWhat(numEntity int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Provenance) T_EntityWhat(frs []FhirResource, numEntity int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntity >= len(resource.Entity) {
-		return ReferenceInput("entity["+strconv.Itoa(numEntity)+"].what", nil, htmlAttrs)
+		return ReferenceInput(frs, "entity["+strconv.Itoa(numEntity)+"].what", nil, htmlAttrs)
 	}
-	return ReferenceInput("entity["+strconv.Itoa(numEntity)+"].what", &resource.Entity[numEntity].What, htmlAttrs)
+	return ReferenceInput(frs, "entity["+strconv.Itoa(numEntity)+"].what", &resource.Entity[numEntity].What, htmlAttrs)
 }

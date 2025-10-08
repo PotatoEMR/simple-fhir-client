@@ -267,11 +267,11 @@ func (resource *ConditionDefinition) T_Definition(numDefinition int, htmlAttrs t
 	}
 	return StringInput("definition["+strconv.Itoa(numDefinition)+"]", &resource.Definition[numDefinition], htmlAttrs)
 }
-func (resource *ConditionDefinition) T_Team(numTeam int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ConditionDefinition) T_Team(frs []FhirResource, numTeam int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTeam >= len(resource.Team) {
-		return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "team["+strconv.Itoa(numTeam)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("team["+strconv.Itoa(numTeam)+"]", &resource.Team[numTeam], htmlAttrs)
+	return ReferenceInput(frs, "team["+strconv.Itoa(numTeam)+"]", &resource.Team[numTeam], htmlAttrs)
 }
 func (resource *ConditionDefinition) T_ObservationCategory(numObservation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservation >= len(resource.Observation) {
@@ -317,11 +317,11 @@ func (resource *ConditionDefinition) T_PreconditionValueCodeableConcept(numPreco
 	}
 	return CodeableConceptSelect("precondition["+strconv.Itoa(numPrecondition)+"].valueCodeableConcept", resource.Precondition[numPrecondition].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ConditionDefinition) T_PreconditionValueQuantity(numPrecondition int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ConditionDefinition) T_PreconditionValueQuantity(numPrecondition int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numPrecondition >= len(resource.Precondition) {
-		return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", resource.Precondition[numPrecondition].ValueQuantity, htmlAttrs)
+	return QuantityInput("precondition["+strconv.Itoa(numPrecondition)+"].valueQuantity", resource.Precondition[numPrecondition].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCondition_questionnaire_purpose
@@ -331,11 +331,11 @@ func (resource *ConditionDefinition) T_QuestionnairePurpose(numQuestionnaire int
 	}
 	return CodeSelect("questionnaire["+strconv.Itoa(numQuestionnaire)+"].purpose", &resource.Questionnaire[numQuestionnaire].Purpose, optionsValueSet, htmlAttrs)
 }
-func (resource *ConditionDefinition) T_QuestionnaireReference(numQuestionnaire int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ConditionDefinition) T_QuestionnaireReference(frs []FhirResource, numQuestionnaire int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQuestionnaire >= len(resource.Questionnaire) {
-		return ReferenceInput("questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", &resource.Questionnaire[numQuestionnaire].Reference, htmlAttrs)
+	return ReferenceInput(frs, "questionnaire["+strconv.Itoa(numQuestionnaire)+"].reference", &resource.Questionnaire[numQuestionnaire].Reference, htmlAttrs)
 }
 func (resource *ConditionDefinition) T_PlanRole(numPlan int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPlan >= len(resource.Plan) {
@@ -343,9 +343,9 @@ func (resource *ConditionDefinition) T_PlanRole(numPlan int, optionsValueSet []C
 	}
 	return CodeableConceptSelect("plan["+strconv.Itoa(numPlan)+"].role", resource.Plan[numPlan].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *ConditionDefinition) T_PlanReference(numPlan int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ConditionDefinition) T_PlanReference(frs []FhirResource, numPlan int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPlan >= len(resource.Plan) {
-		return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "plan["+strconv.Itoa(numPlan)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("plan["+strconv.Itoa(numPlan)+"].reference", &resource.Plan[numPlan].Reference, htmlAttrs)
+	return ReferenceInput(frs, "plan["+strconv.Itoa(numPlan)+"].reference", &resource.Plan[numPlan].Reference, htmlAttrs)
 }

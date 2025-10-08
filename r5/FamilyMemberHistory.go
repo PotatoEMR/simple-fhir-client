@@ -143,11 +143,11 @@ func (resource *FamilyMemberHistory) T_DataAbsentReason(optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
 }
-func (resource *FamilyMemberHistory) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *FamilyMemberHistory) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -263,11 +263,11 @@ func (resource *FamilyMemberHistory) T_ParticipantFunction(numParticipant int, o
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *FamilyMemberHistory) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *FamilyMemberHistory) T_ParticipantActor(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_ConditionCode(numCondition int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCondition >= len(resource.Condition) {

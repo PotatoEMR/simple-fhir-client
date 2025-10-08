@@ -103,11 +103,11 @@ func (resource *Endpoint) T_EnvironmentType(numEnvironmentType int, optionsValue
 	}
 	return CodeableConceptSelect("environmentType["+strconv.Itoa(numEnvironmentType)+"]", &resource.EnvironmentType[numEnvironmentType], optionsValueSet, htmlAttrs)
 }
-func (resource *Endpoint) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Endpoint) T_ManagingOrganization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingOrganization", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+	return ReferenceInput(frs, "managingOrganization", resource.ManagingOrganization, htmlAttrs)
 }
 func (resource *Endpoint) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {

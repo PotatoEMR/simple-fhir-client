@@ -92,11 +92,11 @@ func (resource *Medication) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_Manufacturer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_Manufacturer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("manufacturer", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer", resource.Manufacturer, htmlAttrs)
+	return ReferenceInput(frs, "manufacturer", resource.Manufacturer, htmlAttrs)
 }
 func (resource *Medication) T_Form(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -116,11 +116,11 @@ func (resource *Medication) T_IngredientItemCodeableConcept(numIngredient int, o
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].itemCodeableConcept", &resource.Ingredient[numIngredient].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_IngredientItemReference(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_IngredientItemReference(frs []FhirResource, numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].itemReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].itemReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].itemReference", &resource.Ingredient[numIngredient].ItemReference, htmlAttrs)
+	return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].itemReference", &resource.Ingredient[numIngredient].ItemReference, htmlAttrs)
 }
 func (resource *Medication) T_IngredientIsActive(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {

@@ -190,17 +190,17 @@ func (resource *Patient) T_Photo(numPhoto int, htmlAttrs templ.Attributes) templ
 	}
 	return AttachmentInput("photo["+strconv.Itoa(numPhoto)+"]", &resource.Photo[numPhoto], htmlAttrs)
 }
-func (resource *Patient) T_GeneralPractitioner(numGeneralPractitioner int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Patient) T_GeneralPractitioner(frs []FhirResource, numGeneralPractitioner int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGeneralPractitioner >= len(resource.GeneralPractitioner) {
-		return ReferenceInput("generalPractitioner["+strconv.Itoa(numGeneralPractitioner)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "generalPractitioner["+strconv.Itoa(numGeneralPractitioner)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("generalPractitioner["+strconv.Itoa(numGeneralPractitioner)+"]", &resource.GeneralPractitioner[numGeneralPractitioner], htmlAttrs)
+	return ReferenceInput(frs, "generalPractitioner["+strconv.Itoa(numGeneralPractitioner)+"]", &resource.GeneralPractitioner[numGeneralPractitioner], htmlAttrs)
 }
-func (resource *Patient) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Patient) T_ManagingOrganization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingOrganization", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+	return ReferenceInput(frs, "managingOrganization", resource.ManagingOrganization, htmlAttrs)
 }
 func (resource *Patient) T_ContactRelationship(numContact int, numRelationship int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) || numRelationship >= len(resource.Contact[numContact].Relationship) {
@@ -234,11 +234,11 @@ func (resource *Patient) T_ContactGender(numContact int, htmlAttrs templ.Attribu
 	}
 	return CodeSelect("contact["+strconv.Itoa(numContact)+"].gender", resource.Contact[numContact].Gender, optionsValueSet, htmlAttrs)
 }
-func (resource *Patient) T_ContactOrganization(numContact int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Patient) T_ContactOrganization(frs []FhirResource, numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
-		return ReferenceInput("contact["+strconv.Itoa(numContact)+"].organization", nil, htmlAttrs)
+		return ReferenceInput(frs, "contact["+strconv.Itoa(numContact)+"].organization", nil, htmlAttrs)
 	}
-	return ReferenceInput("contact["+strconv.Itoa(numContact)+"].organization", resource.Contact[numContact].Organization, htmlAttrs)
+	return ReferenceInput(frs, "contact["+strconv.Itoa(numContact)+"].organization", resource.Contact[numContact].Organization, htmlAttrs)
 }
 func (resource *Patient) T_ContactPeriod(numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
@@ -252,11 +252,11 @@ func (resource *Patient) T_CommunicationPreferred(numCommunication int, htmlAttr
 	}
 	return BoolInput("communication["+strconv.Itoa(numCommunication)+"].preferred", resource.Communication[numCommunication].Preferred, htmlAttrs)
 }
-func (resource *Patient) T_LinkOther(numLink int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Patient) T_LinkOther(frs []FhirResource, numLink int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLink >= len(resource.Link) {
-		return ReferenceInput("link["+strconv.Itoa(numLink)+"].other", nil, htmlAttrs)
+		return ReferenceInput(frs, "link["+strconv.Itoa(numLink)+"].other", nil, htmlAttrs)
 	}
-	return ReferenceInput("link["+strconv.Itoa(numLink)+"].other", &resource.Link[numLink].Other, htmlAttrs)
+	return ReferenceInput(frs, "link["+strconv.Itoa(numLink)+"].other", &resource.Link[numLink].Other, htmlAttrs)
 }
 func (resource *Patient) T_LinkType(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSLink_type

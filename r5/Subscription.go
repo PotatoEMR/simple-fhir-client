@@ -120,11 +120,11 @@ func (resource *Subscription) T_End(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return StringInput("end", resource.End, htmlAttrs)
 }
-func (resource *Subscription) T_ManagingEntity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Subscription) T_ManagingEntity(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("managingEntity", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingEntity", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingEntity", resource.ManagingEntity, htmlAttrs)
+	return ReferenceInput(frs, "managingEntity", resource.ManagingEntity, htmlAttrs)
 }
 func (resource *Subscription) T_Reason(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

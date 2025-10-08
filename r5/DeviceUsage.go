@@ -78,11 +78,11 @@ func (r DeviceUsage) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DeviceUsage) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceUsage) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *DeviceUsage) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDeviceusage_status
@@ -98,23 +98,23 @@ func (resource *DeviceUsage) T_Category(numCategory int, optionsValueSet []Codin
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceUsage) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
-func (resource *DeviceUsage) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceUsage) T_DerivedFrom(frs []FhirResource, numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
-func (resource *DeviceUsage) T_Context(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceUsage) T_Context(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("context", nil, htmlAttrs)
+		return ReferenceInput(frs, "context", nil, htmlAttrs)
 	}
-	return ReferenceInput("context", resource.Context, htmlAttrs)
+	return ReferenceInput(frs, "context", resource.Context, htmlAttrs)
 }
 func (resource *DeviceUsage) T_TimingTiming(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -154,11 +154,11 @@ func (resource *DeviceUsage) T_UsageReason(numUsageReason int, optionsValueSet [
 	}
 	return CodeableConceptSelect("usageReason["+strconv.Itoa(numUsageReason)+"]", &resource.UsageReason[numUsageReason], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceUsage) T_InformationSource(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceUsage) T_InformationSource(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("informationSource", nil, htmlAttrs)
+		return ReferenceInput(frs, "informationSource", nil, htmlAttrs)
 	}
-	return ReferenceInput("informationSource", resource.InformationSource, htmlAttrs)
+	return ReferenceInput(frs, "informationSource", resource.InformationSource, htmlAttrs)
 }
 func (resource *DeviceUsage) T_Device(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

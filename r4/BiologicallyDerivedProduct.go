@@ -127,11 +127,11 @@ func (resource *BiologicallyDerivedProduct) T_Status(htmlAttrs templ.Attributes)
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Request(numRequest int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Request(frs []FhirResource, numRequest int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRequest >= len(resource.Request) {
-		return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
+	return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -139,23 +139,23 @@ func (resource *BiologicallyDerivedProduct) T_Quantity(htmlAttrs templ.Attribute
 	}
 	return IntInput("quantity", resource.Quantity, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Parent(numParent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Parent(frs []FhirResource, numParent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParent >= len(resource.Parent) {
-		return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
+	return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_CollectionCollector(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_CollectionCollector(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.collector", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.collector", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.collector", resource.Collection.Collector, htmlAttrs)
+	return ReferenceInput(frs, "collection.collector", resource.Collection.Collector, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_CollectionSource(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_CollectionSource(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.source", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.source", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.source", resource.Collection.Source, htmlAttrs)
+	return ReferenceInput(frs, "collection.source", resource.Collection.Source, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -181,11 +181,11 @@ func (resource *BiologicallyDerivedProduct) T_ProcessingProcedure(numProcessing 
 	}
 	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].procedure", resource.Processing[numProcessing].Procedure, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProcessingAdditive(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingAdditive(frs []FhirResource, numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
-		return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive", nil, htmlAttrs)
+		return ReferenceInput(frs, "processing["+strconv.Itoa(numProcessing)+"].additive", nil, htmlAttrs)
 	}
-	return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive", resource.Processing[numProcessing].Additive, htmlAttrs)
+	return ReferenceInput(frs, "processing["+strconv.Itoa(numProcessing)+"].additive", resource.Processing[numProcessing].Additive, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {

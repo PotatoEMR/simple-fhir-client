@@ -259,11 +259,11 @@ func (resource *EvidenceVariable) T_CharacteristicDescription(numCharacteristic 
 	}
 	return StringInput("characteristic["+strconv.Itoa(numCharacteristic)+"].description", resource.Characteristic[numCharacteristic].Description, htmlAttrs)
 }
-func (resource *EvidenceVariable) T_CharacteristicDefinitionReference(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *EvidenceVariable) T_CharacteristicDefinitionReference(frs []FhirResource, numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {
-		return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", &resource.Characteristic[numCharacteristic].DefinitionReference, htmlAttrs)
+	return ReferenceInput(frs, "characteristic["+strconv.Itoa(numCharacteristic)+"].definitionReference", &resource.Characteristic[numCharacteristic].DefinitionReference, htmlAttrs)
 }
 func (resource *EvidenceVariable) T_CharacteristicDefinitionCanonical(numCharacteristic int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCharacteristic >= len(resource.Characteristic) {

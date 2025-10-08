@@ -53,11 +53,11 @@ func (r MedicinalProductUndesirableEffect) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicinalProductUndesirableEffect) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProductUndesirableEffect) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
-		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+	return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
 }
 func (resource *MedicinalProductUndesirableEffect) T_SymptomConditionEffect(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

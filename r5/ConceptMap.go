@@ -572,11 +572,11 @@ func (resource *ConceptMap) T_GroupElementTargetDependsOnValueBoolean(numGroup i
 	}
 	return BoolInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].valueBoolean", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].ValueBoolean, htmlAttrs)
 }
-func (resource *ConceptMap) T_GroupElementTargetDependsOnValueQuantity(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ConceptMap) T_GroupElementTargetDependsOnValueQuantity(numGroup int, numElement int, numTarget int, numDependsOn int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {
-		return QuantityInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].valueQuantity", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].ValueQuantity, htmlAttrs)
+	return QuantityInput("group["+strconv.Itoa(numGroup)+"].element["+strconv.Itoa(numElement)+"].target["+strconv.Itoa(numTarget)+"].dependsOn["+strconv.Itoa(numDependsOn)+"].valueQuantity", resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn[numDependsOn].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *ConceptMap) T_GroupElementTargetDependsOnValueSet(numGroup int, numElement int, numTarget int, numDependsOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGroup >= len(resource.Group) || numElement >= len(resource.Group[numGroup].Element) || numTarget >= len(resource.Group[numGroup].Element[numElement].Target) || numDependsOn >= len(resource.Group[numGroup].Element[numElement].Target[numTarget].DependsOn) {

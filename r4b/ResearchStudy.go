@@ -99,17 +99,17 @@ func (resource *ResearchStudy) T_Title(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Protocol(numProtocol int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Protocol(frs []FhirResource, numProtocol int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProtocol >= len(resource.Protocol) {
-		return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
+	return ReferenceInput(frs, "protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
 }
-func (resource *ResearchStudy) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *ResearchStudy) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSResearch_study_status
@@ -179,11 +179,11 @@ func (resource *ResearchStudy) T_Description(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Enrollment(numEnrollment int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Enrollment(frs []FhirResource, numEnrollment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEnrollment >= len(resource.Enrollment) {
-		return ReferenceInput("enrollment["+strconv.Itoa(numEnrollment)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "enrollment["+strconv.Itoa(numEnrollment)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("enrollment["+strconv.Itoa(numEnrollment)+"]", &resource.Enrollment[numEnrollment], htmlAttrs)
+	return ReferenceInput(frs, "enrollment["+strconv.Itoa(numEnrollment)+"]", &resource.Enrollment[numEnrollment], htmlAttrs)
 }
 func (resource *ResearchStudy) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -191,23 +191,23 @@ func (resource *ResearchStudy) T_Period(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Sponsor(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Sponsor(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("sponsor", nil, htmlAttrs)
+		return ReferenceInput(frs, "sponsor", nil, htmlAttrs)
 	}
-	return ReferenceInput("sponsor", resource.Sponsor, htmlAttrs)
+	return ReferenceInput(frs, "sponsor", resource.Sponsor, htmlAttrs)
 }
-func (resource *ResearchStudy) T_PrincipalInvestigator(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_PrincipalInvestigator(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("principalInvestigator", nil, htmlAttrs)
+		return ReferenceInput(frs, "principalInvestigator", nil, htmlAttrs)
 	}
-	return ReferenceInput("principalInvestigator", resource.PrincipalInvestigator, htmlAttrs)
+	return ReferenceInput(frs, "principalInvestigator", resource.PrincipalInvestigator, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Site(numSite int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Site(frs []FhirResource, numSite int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSite >= len(resource.Site) {
-		return ReferenceInput("site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
+	return ReferenceInput(frs, "site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
 }
 func (resource *ResearchStudy) T_ReasonStopped(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

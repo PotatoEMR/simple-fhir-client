@@ -130,17 +130,17 @@ func (resource *AllergyIntolerance) T_Code(optionsValueSet []Coding, htmlAttrs t
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -178,17 +178,17 @@ func (resource *AllergyIntolerance) T_RecordedDate(htmlAttrs templ.Attributes) t
 	}
 	return FhirDateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Recorder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Recorder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recorder", nil, htmlAttrs)
+		return ReferenceInput(frs, "recorder", nil, htmlAttrs)
 	}
-	return ReferenceInput("recorder", resource.Recorder, htmlAttrs)
+	return ReferenceInput(frs, "recorder", resource.Recorder, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Asserter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Asserter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("asserter", nil, htmlAttrs)
+		return ReferenceInput(frs, "asserter", nil, htmlAttrs)
 	}
-	return ReferenceInput("asserter", resource.Asserter, htmlAttrs)
+	return ReferenceInput(frs, "asserter", resource.Asserter, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_LastOccurrence(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

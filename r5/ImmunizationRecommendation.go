@@ -83,11 +83,11 @@ func (r ImmunizationRecommendation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *ImmunizationRecommendation) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationRecommendation) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *ImmunizationRecommendation) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -95,11 +95,11 @@ func (resource *ImmunizationRecommendation) T_Date(htmlAttrs templ.Attributes) t
 	}
 	return FhirDateTimeInput("date", &resource.Date, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_Authority(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationRecommendation) T_Authority(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("authority", nil, htmlAttrs)
+		return ReferenceInput(frs, "authority", nil, htmlAttrs)
 	}
-	return ReferenceInput("authority", resource.Authority, htmlAttrs)
+	return ReferenceInput(frs, "authority", resource.Authority, htmlAttrs)
 }
 func (resource *ImmunizationRecommendation) T_RecommendationVaccineCode(numRecommendation int, numVaccineCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numVaccineCode >= len(resource.Recommendation[numRecommendation].VaccineCode) {
@@ -155,17 +155,17 @@ func (resource *ImmunizationRecommendation) T_RecommendationSeriesDoses(numRecom
 	}
 	return StringInput("recommendation["+strconv.Itoa(numRecommendation)+"].seriesDoses", resource.Recommendation[numRecommendation].SeriesDoses, htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationSupportingImmunization(numRecommendation int, numSupportingImmunization int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationSupportingImmunization(frs []FhirResource, numRecommendation int, numSupportingImmunization int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numSupportingImmunization >= len(resource.Recommendation[numRecommendation].SupportingImmunization) {
-		return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", &resource.Recommendation[numRecommendation].SupportingImmunization[numSupportingImmunization], htmlAttrs)
+	return ReferenceInput(frs, "recommendation["+strconv.Itoa(numRecommendation)+"].supportingImmunization["+strconv.Itoa(numSupportingImmunization)+"]", &resource.Recommendation[numRecommendation].SupportingImmunization[numSupportingImmunization], htmlAttrs)
 }
-func (resource *ImmunizationRecommendation) T_RecommendationSupportingPatientInformation(numRecommendation int, numSupportingPatientInformation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationRecommendation) T_RecommendationSupportingPatientInformation(frs []FhirResource, numRecommendation int, numSupportingPatientInformation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numSupportingPatientInformation >= len(resource.Recommendation[numRecommendation].SupportingPatientInformation) {
-		return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", &resource.Recommendation[numRecommendation].SupportingPatientInformation[numSupportingPatientInformation], htmlAttrs)
+	return ReferenceInput(frs, "recommendation["+strconv.Itoa(numRecommendation)+"].supportingPatientInformation["+strconv.Itoa(numSupportingPatientInformation)+"]", &resource.Recommendation[numRecommendation].SupportingPatientInformation[numSupportingPatientInformation], htmlAttrs)
 }
 func (resource *ImmunizationRecommendation) T_RecommendationDateCriterionCode(numRecommendation int, numDateCriterion int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecommendation >= len(resource.Recommendation) || numDateCriterion >= len(resource.Recommendation[numRecommendation].DateCriterion) {

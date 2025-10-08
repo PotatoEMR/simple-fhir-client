@@ -371,11 +371,11 @@ func (resource *ImplementationGuide) T_DefinitionGroupingDescription(numGrouping
 	}
 	return StringInput("definition.grouping["+strconv.Itoa(numGrouping)+"].description", resource.Definition.Grouping[numGrouping].Description, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionResourceReference(numResource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceReference(frs []FhirResource, numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Definition.Resource) {
-		return ReferenceInput("definition.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "definition.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("definition.resource["+strconv.Itoa(numResource)+"].reference", &resource.Definition.Resource[numResource].Reference, htmlAttrs)
+	return ReferenceInput(frs, "definition.resource["+strconv.Itoa(numResource)+"].reference", &resource.Definition.Resource[numResource].Reference, htmlAttrs)
 }
 func (resource *ImplementationGuide) T_DefinitionResourceFhirVersion(numResource int, numFhirVersion int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFHIR_version
@@ -501,11 +501,11 @@ func (resource *ImplementationGuide) T_ManifestOther(numOther int, htmlAttrs tem
 	}
 	return StringInput("manifest.other["+strconv.Itoa(numOther)+"]", &resource.Manifest.Other[numOther], htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestResourceReference(numResource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImplementationGuide) T_ManifestResourceReference(frs []FhirResource, numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Manifest.Resource) {
-		return ReferenceInput("manifest.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "manifest.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("manifest.resource["+strconv.Itoa(numResource)+"].reference", &resource.Manifest.Resource[numResource].Reference, htmlAttrs)
+	return ReferenceInput(frs, "manifest.resource["+strconv.Itoa(numResource)+"].reference", &resource.Manifest.Resource[numResource].Reference, htmlAttrs)
 }
 func (resource *ImplementationGuide) T_ManifestResourceIsExample(numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Manifest.Resource) {

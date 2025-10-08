@@ -69,11 +69,11 @@ func (r DeviceAssociation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DeviceAssociation) T_Device(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceAssociation) T_Device(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("device", nil, htmlAttrs)
+		return ReferenceInput(frs, "device", nil, htmlAttrs)
 	}
-	return ReferenceInput("device", &resource.Device, htmlAttrs)
+	return ReferenceInput(frs, "device", &resource.Device, htmlAttrs)
 }
 func (resource *DeviceAssociation) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
@@ -97,17 +97,17 @@ func (resource *DeviceAssociation) T_StatusReason(numStatusReason int, htmlAttrs
 	}
 	return CodeableConceptSelect("statusReason["+strconv.Itoa(numStatusReason)+"]", &resource.StatusReason[numStatusReason], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceAssociation) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_BodyStructure(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceAssociation) T_BodyStructure(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("bodyStructure", nil, htmlAttrs)
+		return ReferenceInput(frs, "bodyStructure", nil, htmlAttrs)
 	}
-	return ReferenceInput("bodyStructure", resource.BodyStructure, htmlAttrs)
+	return ReferenceInput(frs, "bodyStructure", resource.BodyStructure, htmlAttrs)
 }
 func (resource *DeviceAssociation) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -121,11 +121,11 @@ func (resource *DeviceAssociation) T_OperationStatus(numOperation int, optionsVa
 	}
 	return CodeableConceptSelect("operation["+strconv.Itoa(numOperation)+"].status", &resource.Operation[numOperation].Status, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceAssociation) T_OperationOperator(numOperation int, numOperator int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceAssociation) T_OperationOperator(frs []FhirResource, numOperation int, numOperator int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) || numOperator >= len(resource.Operation[numOperation].Operator) {
-		return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", &resource.Operation[numOperation].Operator[numOperator], htmlAttrs)
+	return ReferenceInput(frs, "operation["+strconv.Itoa(numOperation)+"].operator["+strconv.Itoa(numOperator)+"]", &resource.Operation[numOperation].Operator[numOperator], htmlAttrs)
 }
 func (resource *DeviceAssociation) T_OperationPeriod(numOperation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOperation >= len(resource.Operation) {

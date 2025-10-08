@@ -186,11 +186,11 @@ func (resource *AuditEvent) T_AgentRole(numAgent int, numRole int, optionsValueS
 	}
 	return CodeableConceptSelect("agent["+strconv.Itoa(numAgent)+"].role["+strconv.Itoa(numRole)+"]", &resource.Agent[numAgent].Role[numRole], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentWho(numAgent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AuditEvent) T_AgentWho(frs []FhirResource, numAgent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
-		return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].who", nil, htmlAttrs)
+		return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].who", nil, htmlAttrs)
 	}
-	return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].who", resource.Agent[numAgent].Who, htmlAttrs)
+	return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].who", resource.Agent[numAgent].Who, htmlAttrs)
 }
 func (resource *AuditEvent) T_AgentAltId(numAgent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
@@ -210,11 +210,11 @@ func (resource *AuditEvent) T_AgentRequestor(numAgent int, htmlAttrs templ.Attri
 	}
 	return BoolInput("agent["+strconv.Itoa(numAgent)+"].requestor", &resource.Agent[numAgent].Requestor, htmlAttrs)
 }
-func (resource *AuditEvent) T_AgentLocation(numAgent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AuditEvent) T_AgentLocation(frs []FhirResource, numAgent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) {
-		return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].location", nil, htmlAttrs)
+		return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].location", nil, htmlAttrs)
 	}
-	return ReferenceInput("agent["+strconv.Itoa(numAgent)+"].location", resource.Agent[numAgent].Location, htmlAttrs)
+	return ReferenceInput(frs, "agent["+strconv.Itoa(numAgent)+"].location", resource.Agent[numAgent].Location, htmlAttrs)
 }
 func (resource *AuditEvent) T_AgentPolicy(numAgent int, numPolicy int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAgent >= len(resource.Agent) || numPolicy >= len(resource.Agent[numAgent].Policy) {
@@ -254,11 +254,11 @@ func (resource *AuditEvent) T_SourceSite(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return StringInput("source.site", resource.Source.Site, htmlAttrs)
 }
-func (resource *AuditEvent) T_SourceObserver(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AuditEvent) T_SourceObserver(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("source.observer", nil, htmlAttrs)
+		return ReferenceInput(frs, "source.observer", nil, htmlAttrs)
 	}
-	return ReferenceInput("source.observer", &resource.Source.Observer, htmlAttrs)
+	return ReferenceInput(frs, "source.observer", &resource.Source.Observer, htmlAttrs)
 }
 func (resource *AuditEvent) T_SourceType(numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numType >= len(resource.Source.Type) {
@@ -266,11 +266,11 @@ func (resource *AuditEvent) T_SourceType(numType int, optionsValueSet []Coding, 
 	}
 	return CodingSelect("source.type["+strconv.Itoa(numType)+"]", &resource.Source.Type[numType], optionsValueSet, htmlAttrs)
 }
-func (resource *AuditEvent) T_EntityWhat(numEntity int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AuditEvent) T_EntityWhat(frs []FhirResource, numEntity int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntity >= len(resource.Entity) {
-		return ReferenceInput("entity["+strconv.Itoa(numEntity)+"].what", nil, htmlAttrs)
+		return ReferenceInput(frs, "entity["+strconv.Itoa(numEntity)+"].what", nil, htmlAttrs)
 	}
-	return ReferenceInput("entity["+strconv.Itoa(numEntity)+"].what", resource.Entity[numEntity].What, htmlAttrs)
+	return ReferenceInput(frs, "entity["+strconv.Itoa(numEntity)+"].what", resource.Entity[numEntity].What, htmlAttrs)
 }
 func (resource *AuditEvent) T_EntityType(numEntity int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntity >= len(resource.Entity) {

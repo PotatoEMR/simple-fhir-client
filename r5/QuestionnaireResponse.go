@@ -91,17 +91,17 @@ func (r QuestionnaireResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *QuestionnaireResponse) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *QuestionnaireResponse) T_Questionnaire(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -117,17 +117,17 @@ func (resource *QuestionnaireResponse) T_Status(htmlAttrs templ.Attributes) temp
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *QuestionnaireResponse) T_Authored(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -135,17 +135,17 @@ func (resource *QuestionnaireResponse) T_Authored(htmlAttrs templ.Attributes) te
 	}
 	return FhirDateTimeInput("authored", resource.Authored, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_Source(htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_Source(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("source", nil, htmlAttrs)
+		return ReferenceInput(frs, "source", nil, htmlAttrs)
 	}
-	return ReferenceInput("source", resource.Source, htmlAttrs)
+	return ReferenceInput(frs, "source", resource.Source, htmlAttrs)
 }
 func (resource *QuestionnaireResponse) T_ItemLinkId(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
@@ -219,15 +219,15 @@ func (resource *QuestionnaireResponse) T_ItemAnswerValueCoding(numItem int, numA
 	}
 	return CodingSelect("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueCoding", &resource.Item[numItem].Answer[numAnswer].ValueCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueQuantity(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueQuantity(numItem int, numAnswer int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
-		return QuantityInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueQuantity", &resource.Item[numItem].Answer[numAnswer].ValueQuantity, htmlAttrs)
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueQuantity", &resource.Item[numItem].Answer[numAnswer].ValueQuantity, optionsValueSet, htmlAttrs)
 }
-func (resource *QuestionnaireResponse) T_ItemAnswerValueReference(numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *QuestionnaireResponse) T_ItemAnswerValueReference(frs []FhirResource, numItem int, numAnswer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswer >= len(resource.Item[numItem].Answer) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueReference", &resource.Item[numItem].Answer[numAnswer].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].answer["+strconv.Itoa(numAnswer)+"].valueReference", &resource.Item[numItem].Answer[numAnswer].ValueReference, htmlAttrs)
 }

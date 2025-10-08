@@ -110,11 +110,11 @@ func (resource *Ingredient) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Ingredient) T_For(numFor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Ingredient) T_For(frs []FhirResource, numFor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFor >= len(resource.For) {
-		return ReferenceInput("for["+strconv.Itoa(numFor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "for["+strconv.Itoa(numFor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("for["+strconv.Itoa(numFor)+"]", &resource.For[numFor], htmlAttrs)
+	return ReferenceInput(frs, "for["+strconv.Itoa(numFor)+"]", &resource.For[numFor], htmlAttrs)
 }
 func (resource *Ingredient) T_Role(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -142,11 +142,11 @@ func (resource *Ingredient) T_ManufacturerRole(numManufacturer int, htmlAttrs te
 	}
 	return CodeSelect("manufacturer["+strconv.Itoa(numManufacturer)+"].role", resource.Manufacturer[numManufacturer].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *Ingredient) T_ManufacturerManufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Ingredient) T_ManufacturerManufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
-		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", &resource.Manufacturer[numManufacturer].Manufacturer, htmlAttrs)
+	return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"].manufacturer", &resource.Manufacturer[numManufacturer].Manufacturer, htmlAttrs)
 }
 func (resource *Ingredient) T_SubstanceCode(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

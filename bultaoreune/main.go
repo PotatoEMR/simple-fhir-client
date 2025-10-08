@@ -111,6 +111,10 @@ func main() {
 		timeFormat := filepath.Join(generateDirVer, "zzzTimeFormat.go")
 		tf, _ := os.Create(timeFormat)
 		fmt.Fprintln(tf, TimeFormat(fhirVersion))
+
+		fhirResource := filepath.Join(generateDirVer, "zzzFhirResource.go")
+		fr, _ := os.Create(fhirResource)
+		fmt.Fprintln(fr, FhirResource(fhirVersion))
 	}
 	fmt.Println("wrote files, running templ generate for form components")
 	cmd := exec.Command("go", "tool", "templ", "generate")
@@ -286,7 +290,7 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 							optionsValueSet := ""
 							vsParam := ""
 							vsReq := ""
-							if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" {
+							if eltType.Code == "code" || eltType.Code == "Coding" || eltType.Code == "CodeableConcept" || eltType.Code == "Quantity" {
 								optionsValueSet = ", optionsValueSet"
 								varname := urlToVarname(elt.Binding.ValueSet)
 								if elt.Binding.Strength == "required" && slices.Contains(valueset_list, varname) {
@@ -294,6 +298,13 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								} else {
 									vsParam = "optionsValueSet []Coding, "
 								}
+							}
+							fhirResourcesParam := ""
+							componentFrs := ""
+							if eltType.Code == "Reference" {
+								optionsValueSet = optionsValueSet
+								fhirResourcesParam = "frs []FhirResource, "
+								componentFrs = "frs, "
 							}
 							//forms
 							caps := []string{}
@@ -334,7 +345,11 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 								backbonePath = backbonePath[:len(backbonePath)-3] + strings.Title(eltType.Code)
 								formName = formName[:len(formName)-3] + strings.Title(eltType.Code)
 							}
-							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + intParams + vsParam + `htmlAttrs templ.Attributes) templ.Component {` + vsReq + `
+							htmlAttrType := "templ.Attributes"
+							if eltType.Code == "Quantity" {
+								htmlAttrType = eltType.Code + "Attrs"
+							}
+							formFuncs.WriteString(`func ` + `(resource *` + res.Name + ") T_" + funcName + "(" + fhirResourcesParam + intParams + vsParam + `htmlAttrs ` + htmlAttrType + `) templ.Component {` + vsReq + `
 								        if resource == nil ` + bbCheck + `{`)
 							if elt.Max == "*" || elt.Min == 1 {
 								backbonePath = "&" + backbonePath
@@ -372,9 +387,9 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 							// }
 
 							formFuncs.WriteString(`
-					        return ` + inputType + `("` + formName + `", nil` + optionsValueSet + `, htmlAttrs)
+					        return ` + inputType + `(` + componentFrs + `"` + formName + `", nil` + optionsValueSet + `, htmlAttrs)
 					        }
-					    return ` + inputType + `("` + formName + `", ` + backbonePath + optionsValueSet + `, htmlAttrs)
+					    return ` + inputType + `(` + componentFrs + `"` + formName + `", ` + backbonePath + optionsValueSet + `, htmlAttrs)
 					    }
 						`)
 						}

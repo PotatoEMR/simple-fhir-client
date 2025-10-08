@@ -104,11 +104,11 @@ func (resource *DetectedIssue) T_Severity(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return CodeSelect("severity", resource.Severity, optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DetectedIssue) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", resource.Patient, htmlAttrs)
 }
 func (resource *DetectedIssue) T_IdentifiedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -122,17 +122,17 @@ func (resource *DetectedIssue) T_IdentifiedPeriod(htmlAttrs templ.Attributes) te
 	}
 	return PeriodInput("identifiedPeriod", resource.IdentifiedPeriod, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DetectedIssue) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
-func (resource *DetectedIssue) T_Implicated(numImplicated int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DetectedIssue) T_Implicated(frs []FhirResource, numImplicated int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numImplicated >= len(resource.Implicated) {
-		return ReferenceInput("implicated["+strconv.Itoa(numImplicated)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "implicated["+strconv.Itoa(numImplicated)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("implicated["+strconv.Itoa(numImplicated)+"]", &resource.Implicated[numImplicated], htmlAttrs)
+	return ReferenceInput(frs, "implicated["+strconv.Itoa(numImplicated)+"]", &resource.Implicated[numImplicated], htmlAttrs)
 }
 func (resource *DetectedIssue) T_Detail(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -152,11 +152,11 @@ func (resource *DetectedIssue) T_EvidenceCode(numEvidence int, numCode int, opti
 	}
 	return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *DetectedIssue) T_EvidenceDetail(numEvidence int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DetectedIssue) T_EvidenceDetail(frs []FhirResource, numEvidence int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numDetail >= len(resource.Evidence[numEvidence].Detail) {
-		return ReferenceInput("evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Evidence[numEvidence].Detail[numDetail], htmlAttrs)
+	return ReferenceInput(frs, "evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Evidence[numEvidence].Detail[numDetail], htmlAttrs)
 }
 func (resource *DetectedIssue) T_MitigationAction(numMitigation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
@@ -170,9 +170,9 @@ func (resource *DetectedIssue) T_MitigationDate(numMitigation int, htmlAttrs tem
 	}
 	return FhirDateTimeInput("mitigation["+strconv.Itoa(numMitigation)+"].date", resource.Mitigation[numMitigation].Date, htmlAttrs)
 }
-func (resource *DetectedIssue) T_MitigationAuthor(numMitigation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DetectedIssue) T_MitigationAuthor(frs []FhirResource, numMitigation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMitigation >= len(resource.Mitigation) {
-		return ReferenceInput("mitigation["+strconv.Itoa(numMitigation)+"].author", nil, htmlAttrs)
+		return ReferenceInput(frs, "mitigation["+strconv.Itoa(numMitigation)+"].author", nil, htmlAttrs)
 	}
-	return ReferenceInput("mitigation["+strconv.Itoa(numMitigation)+"].author", resource.Mitigation[numMitigation].Author, htmlAttrs)
+	return ReferenceInput(frs, "mitigation["+strconv.Itoa(numMitigation)+"].author", resource.Mitigation[numMitigation].Author, htmlAttrs)
 }

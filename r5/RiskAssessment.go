@@ -82,17 +82,17 @@ func (r RiskAssessment) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *RiskAssessment) T_BasedOn(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_BasedOn(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("basedOn", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn", resource.BasedOn, htmlAttrs)
+	return ReferenceInput(frs, "basedOn", resource.BasedOn, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Parent(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Parent(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("parent", nil, htmlAttrs)
+		return ReferenceInput(frs, "parent", nil, htmlAttrs)
 	}
-	return ReferenceInput("parent", resource.Parent, htmlAttrs)
+	return ReferenceInput(frs, "parent", resource.Parent, htmlAttrs)
 }
 func (resource *RiskAssessment) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_status
@@ -114,17 +114,17 @@ func (resource *RiskAssessment) T_Code(optionsValueSet []Coding, htmlAttrs templ
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *RiskAssessment) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -138,17 +138,17 @@ func (resource *RiskAssessment) T_OccurrencePeriod(htmlAttrs templ.Attributes) t
 	}
 	return PeriodInput("occurrencePeriod", resource.OccurrencePeriod, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Condition(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Condition(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("condition", nil, htmlAttrs)
+		return ReferenceInput(frs, "condition", nil, htmlAttrs)
 	}
-	return ReferenceInput("condition", resource.Condition, htmlAttrs)
+	return ReferenceInput(frs, "condition", resource.Condition, htmlAttrs)
 }
-func (resource *RiskAssessment) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Performer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("performer", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer", resource.Performer, htmlAttrs)
+	return ReferenceInput(frs, "performer", resource.Performer, htmlAttrs)
 }
 func (resource *RiskAssessment) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -156,11 +156,11 @@ func (resource *RiskAssessment) T_Reason(numReason int, htmlAttrs templ.Attribut
 	}
 	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
-func (resource *RiskAssessment) T_Basis(numBasis int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskAssessment) T_Basis(frs []FhirResource, numBasis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasis >= len(resource.Basis) {
-		return ReferenceInput("basis["+strconv.Itoa(numBasis)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basis["+strconv.Itoa(numBasis)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], htmlAttrs)
+	return ReferenceInput(frs, "basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], htmlAttrs)
 }
 func (resource *RiskAssessment) T_Mitigation(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

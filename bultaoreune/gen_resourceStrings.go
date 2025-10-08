@@ -6,6 +6,36 @@ func ResourceStrings() (map[string]string, []string) {
 	rs := make(map[string]string)
 	var ri []string //could probably just check if key in resourceString map, but idk maybe func doesnt need to import strings
 
+	rs["Address"] = `
+	func (a Address) String() string {
+		parts := []string{}
+
+		if a.Text != nil && *a.Text != "" {
+			parts = append(parts, *a.Text)
+		} else {
+			if len(a.Line) > 0 {
+				parts = append(parts, strings.Join(a.Line, ", "))
+			}
+			if a.City != nil && *a.City != "" {
+				parts = append(parts, *a.City)
+			}
+			if a.District != nil && *a.District != "" {
+				parts = append(parts, *a.District)
+			}
+			if a.State != nil && *a.State != "" {
+				parts = append(parts, *a.State)
+			}
+			if a.PostalCode != nil && *a.PostalCode != "" {
+				parts = append(parts, *a.PostalCode)
+			}
+			if a.Country != nil && *a.Country != "" {
+				parts = append(parts, *a.Country)
+			}
+		}
+		return strings.Join(parts, ", ")
+		}
+	`
+
 	ri = append(ri, "CodeableConcept")
 	rs["CodeableConcept"] = `
 		func (cc *CodeableConcept) String() string {
@@ -70,6 +100,25 @@ func ResourceStrings() (map[string]string, []string) {
 		return b.String()
 	}`
 
+	rs["Identifier"] = `
+	func (r Identifier) String() string {
+		ret := ""
+		if r.Value != nil {
+			ret = ret + *r.Value
+		}
+		if r.System != nil {
+			ret = ret + " (" + *r.System + ")"
+		}
+		if r.Period != nil {
+			ret = ret + " (" + "period string todo" + ")"
+		}
+		if r.Use != nil {
+			ret = ret + " (Use: " + *r.Use + ")"
+		}
+		return ret
+	}
+	`
+
 	ri = append(ri, "OperationOutcome")
 	rs["OperationOutcome"] = `
 	func (oo OperationOutcome) String() string {
@@ -109,6 +158,22 @@ func ResourceStrings() (map[string]string, []string) {
 			return "Unnamed Patient"
 		}
 		return b.String()
+	}`
+
+	rs["Reference"] = `
+	func (r Reference) String() string {
+		if r.Display != nil {
+			return *r.Display
+		} else if r.Identifier != nil {
+			return r.Identifier.String()
+		} else if r.Id != nil {
+			return *r.Id
+		} else if r.Reference != nil {
+			return *r.Reference
+		} else if r.Type != nil {
+			return *r.Type
+		}
+		return ""
 	}`
 
 	return rs, ri

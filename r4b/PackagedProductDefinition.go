@@ -134,11 +134,11 @@ func (resource *PackagedProductDefinition) T_Type(optionsValueSet []Coding, html
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_PackageFor(numPackageFor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageFor(frs []FhirResource, numPackageFor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackageFor >= len(resource.PackageFor) {
-		return ReferenceInput("packageFor["+strconv.Itoa(numPackageFor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "packageFor["+strconv.Itoa(numPackageFor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("packageFor["+strconv.Itoa(numPackageFor)+"]", &resource.PackageFor[numPackageFor], htmlAttrs)
+	return ReferenceInput(frs, "packageFor["+strconv.Itoa(numPackageFor)+"]", &resource.PackageFor[numPackageFor], htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_Status(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -152,11 +152,11 @@ func (resource *PackagedProductDefinition) T_StatusDate(htmlAttrs templ.Attribut
 	}
 	return FhirDateTimeInput("statusDate", resource.StatusDate, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_ContainedItemQuantity(numContainedItemQuantity int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_ContainedItemQuantity(numContainedItemQuantity int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numContainedItemQuantity >= len(resource.ContainedItemQuantity) {
-		return QuantityInput("containedItemQuantity["+strconv.Itoa(numContainedItemQuantity)+"]", nil, htmlAttrs)
+		return QuantityInput("containedItemQuantity["+strconv.Itoa(numContainedItemQuantity)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("containedItemQuantity["+strconv.Itoa(numContainedItemQuantity)+"]", &resource.ContainedItemQuantity[numContainedItemQuantity], htmlAttrs)
+	return QuantityInput("containedItemQuantity["+strconv.Itoa(numContainedItemQuantity)+"]", &resource.ContainedItemQuantity[numContainedItemQuantity], optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -182,11 +182,11 @@ func (resource *PackagedProductDefinition) T_CopackagedIndicator(htmlAttrs templ
 	}
 	return BoolInput("copackagedIndicator", resource.CopackagedIndicator, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_Manufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
-		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_LegalStatusOfSupplyCode(numLegalStatusOfSupply int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLegalStatusOfSupply >= len(resource.LegalStatusOfSupply) {
@@ -224,11 +224,11 @@ func (resource *PackagedProductDefinition) T_PackageAlternateMaterial(numAlterna
 	}
 	return CodeableConceptSelect("package.alternateMaterial["+strconv.Itoa(numAlternateMaterial)+"]", &resource.Package.AlternateMaterial[numAlternateMaterial], optionsValueSet, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_PackageManufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageManufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Package.Manufacturer) {
-		return ReferenceInput("package.manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "package.manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("package.manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Package.Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "package.manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Package.Manufacturer[numManufacturer], htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackageShelfLifeStorageType(numShelfLifeStorage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numShelfLifeStorage >= len(resource.Package.ShelfLifeStorage) {
@@ -266,11 +266,11 @@ func (resource *PackagedProductDefinition) T_PackagePropertyValueCodeableConcept
 	}
 	return CodeableConceptSelect("package.property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", resource.Package.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_PackagePropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_PackagePropertyValueQuantity(numProperty int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Package.Property) {
-		return QuantityInput("package.property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("package.property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("package.property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Package.Property[numProperty].ValueQuantity, htmlAttrs)
+	return QuantityInput("package.property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Package.Property[numProperty].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *PackagedProductDefinition) T_PackagePropertyValueDate(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Package.Property) {
@@ -296,9 +296,9 @@ func (resource *PackagedProductDefinition) T_PackageContainedItemItem(numContain
 	}
 	return CodeableReferenceInput("package.containedItem["+strconv.Itoa(numContainedItem)+"].item", &resource.Package.ContainedItem[numContainedItem].Item, htmlAttrs)
 }
-func (resource *PackagedProductDefinition) T_PackageContainedItemAmount(numContainedItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PackagedProductDefinition) T_PackageContainedItemAmount(numContainedItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numContainedItem >= len(resource.Package.ContainedItem) {
-		return QuantityInput("package.containedItem["+strconv.Itoa(numContainedItem)+"].amount", nil, htmlAttrs)
+		return QuantityInput("package.containedItem["+strconv.Itoa(numContainedItem)+"].amount", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("package.containedItem["+strconv.Itoa(numContainedItem)+"].amount", resource.Package.ContainedItem[numContainedItem].Amount, htmlAttrs)
+	return QuantityInput("package.containedItem["+strconv.Itoa(numContainedItem)+"].amount", resource.Package.ContainedItem[numContainedItem].Amount, optionsValueSet, htmlAttrs)
 }

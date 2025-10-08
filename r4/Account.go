@@ -100,11 +100,11 @@ func (resource *Account) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return StringInput("name", resource.Name, htmlAttrs)
 }
-func (resource *Account) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Account) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
-		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+	return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
 }
 func (resource *Account) T_ServicePeriod(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -112,11 +112,11 @@ func (resource *Account) T_ServicePeriod(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return PeriodInput("servicePeriod", resource.ServicePeriod, htmlAttrs)
 }
-func (resource *Account) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Account) T_Owner(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("owner", nil, htmlAttrs)
+		return ReferenceInput(frs, "owner", nil, htmlAttrs)
 	}
-	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+	return ReferenceInput(frs, "owner", resource.Owner, htmlAttrs)
 }
 func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -124,17 +124,17 @@ func (resource *Account) T_Description(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Account) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Account) T_PartOf(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("partOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+	return ReferenceInput(frs, "partOf", resource.PartOf, htmlAttrs)
 }
-func (resource *Account) T_CoverageCoverage(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Account) T_CoverageCoverage(frs []FhirResource, numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
-		return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", nil, htmlAttrs)
+		return ReferenceInput(frs, "coverage["+strconv.Itoa(numCoverage)+"].coverage", nil, htmlAttrs)
 	}
-	return ReferenceInput("coverage["+strconv.Itoa(numCoverage)+"].coverage", &resource.Coverage[numCoverage].Coverage, htmlAttrs)
+	return ReferenceInput(frs, "coverage["+strconv.Itoa(numCoverage)+"].coverage", &resource.Coverage[numCoverage].Coverage, htmlAttrs)
 }
 func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverage >= len(resource.Coverage) {
@@ -142,11 +142,11 @@ func (resource *Account) T_CoveragePriority(numCoverage int, htmlAttrs templ.Att
 	}
 	return IntInput("coverage["+strconv.Itoa(numCoverage)+"].priority", resource.Coverage[numCoverage].Priority, htmlAttrs)
 }
-func (resource *Account) T_GuarantorParty(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Account) T_GuarantorParty(frs []FhirResource, numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {
-		return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", nil, htmlAttrs)
+		return ReferenceInput(frs, "guarantor["+strconv.Itoa(numGuarantor)+"].party", nil, htmlAttrs)
 	}
-	return ReferenceInput("guarantor["+strconv.Itoa(numGuarantor)+"].party", &resource.Guarantor[numGuarantor].Party, htmlAttrs)
+	return ReferenceInput(frs, "guarantor["+strconv.Itoa(numGuarantor)+"].party", &resource.Guarantor[numGuarantor].Party, htmlAttrs)
 }
 func (resource *Account) T_GuarantorOnHold(numGuarantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGuarantor >= len(resource.Guarantor) {

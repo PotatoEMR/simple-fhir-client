@@ -134,17 +134,17 @@ func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding,
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *Condition) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Condition) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -212,17 +212,17 @@ func (resource *Condition) T_RecordedDate(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return FhirDateTimeInput("recordedDate", resource.RecordedDate, htmlAttrs)
 }
-func (resource *Condition) T_Recorder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Recorder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recorder", nil, htmlAttrs)
+		return ReferenceInput(frs, "recorder", nil, htmlAttrs)
 	}
-	return ReferenceInput("recorder", resource.Recorder, htmlAttrs)
+	return ReferenceInput(frs, "recorder", resource.Recorder, htmlAttrs)
 }
-func (resource *Condition) T_Asserter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Asserter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("asserter", nil, htmlAttrs)
+		return ReferenceInput(frs, "asserter", nil, htmlAttrs)
 	}
-	return ReferenceInput("asserter", resource.Asserter, htmlAttrs)
+	return ReferenceInput(frs, "asserter", resource.Asserter, htmlAttrs)
 }
 func (resource *Condition) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -236,11 +236,11 @@ func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageAssessment(numStage int, numAssessment int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_StageAssessment(frs []FhirResource, numStage int, numAssessment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) || numAssessment >= len(resource.Stage[numStage].Assessment) {
-		return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", &resource.Stage[numStage].Assessment[numAssessment], htmlAttrs)
+	return ReferenceInput(frs, "stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", &resource.Stage[numStage].Assessment[numAssessment], htmlAttrs)
 }
 func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
@@ -254,9 +254,9 @@ func (resource *Condition) T_EvidenceCode(numEvidence int, numCode int, optionsV
 	}
 	return CodeableConceptSelect("evidence["+strconv.Itoa(numEvidence)+"].code["+strconv.Itoa(numCode)+"]", &resource.Evidence[numEvidence].Code[numCode], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_EvidenceDetail(numEvidence int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_EvidenceDetail(frs []FhirResource, numEvidence int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvidence >= len(resource.Evidence) || numDetail >= len(resource.Evidence[numEvidence].Detail) {
-		return ReferenceInput("evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Evidence[numEvidence].Detail[numDetail], htmlAttrs)
+	return ReferenceInput(frs, "evidence["+strconv.Itoa(numEvidence)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Evidence[numEvidence].Detail[numDetail], htmlAttrs)
 }

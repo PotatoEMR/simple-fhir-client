@@ -102,17 +102,17 @@ func (resource *List) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attribute
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *List) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *List) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
-		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+	return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
 }
-func (resource *List) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *List) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *List) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -120,11 +120,11 @@ func (resource *List) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *List) T_Source(htmlAttrs templ.Attributes) templ.Component {
+func (resource *List) T_Source(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("source", nil, htmlAttrs)
+		return ReferenceInput(frs, "source", nil, htmlAttrs)
 	}
-	return ReferenceInput("source", resource.Source, htmlAttrs)
+	return ReferenceInput(frs, "source", resource.Source, htmlAttrs)
 }
 func (resource *List) T_OrderedBy(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -162,9 +162,9 @@ func (resource *List) T_EntryDate(numEntry int, htmlAttrs templ.Attributes) temp
 	}
 	return FhirDateTimeInput("entry["+strconv.Itoa(numEntry)+"].date", resource.Entry[numEntry].Date, htmlAttrs)
 }
-func (resource *List) T_EntryItem(numEntry int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *List) T_EntryItem(frs []FhirResource, numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEntry >= len(resource.Entry) {
-		return ReferenceInput("entry["+strconv.Itoa(numEntry)+"].item", nil, htmlAttrs)
+		return ReferenceInput(frs, "entry["+strconv.Itoa(numEntry)+"].item", nil, htmlAttrs)
 	}
-	return ReferenceInput("entry["+strconv.Itoa(numEntry)+"].item", &resource.Entry[numEntry].Item, htmlAttrs)
+	return ReferenceInput(frs, "entry["+strconv.Itoa(numEntry)+"].item", &resource.Entry[numEntry].Item, htmlAttrs)
 }

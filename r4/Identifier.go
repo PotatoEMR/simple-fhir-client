@@ -15,3 +15,20 @@ type Identifier struct {
 	Period    *Period          `json:"period,omitempty"`
 	Assigner  *Reference       `json:"assigner,omitempty"`
 }
+
+func (r Identifier) String() string {
+	ret := ""
+	if r.Value != nil {
+		ret = ret + *r.Value
+	}
+	if r.System != nil {
+		ret = ret + " (" + *r.System + ")"
+	}
+	if r.Period != nil {
+		ret = ret + " (" + "period string todo" + ")"
+	}
+	if r.Use != nil {
+		ret = ret + " (Use: " + *r.Use + ")"
+	}
+	return ret
+}

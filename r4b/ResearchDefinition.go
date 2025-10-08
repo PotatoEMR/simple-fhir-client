@@ -141,11 +141,11 @@ func (resource *ResearchDefinition) T_SubjectCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchDefinition) T_SubjectReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "subjectReference", resource.SubjectReference, htmlAttrs)
 }
 func (resource *ResearchDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -267,27 +267,27 @@ func (resource *ResearchDefinition) T_Library(numLibrary int, htmlAttrs templ.At
 	}
 	return StringInput("library["+strconv.Itoa(numLibrary)+"]", &resource.Library[numLibrary], htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Population(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchDefinition) T_Population(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("population", nil, htmlAttrs)
+		return ReferenceInput(frs, "population", nil, htmlAttrs)
 	}
-	return ReferenceInput("population", &resource.Population, htmlAttrs)
+	return ReferenceInput(frs, "population", &resource.Population, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Exposure(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchDefinition) T_Exposure(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposure", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposure", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposure", resource.Exposure, htmlAttrs)
+	return ReferenceInput(frs, "exposure", resource.Exposure, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_ExposureAlternative(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchDefinition) T_ExposureAlternative(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposureAlternative", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposureAlternative", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposureAlternative", resource.ExposureAlternative, htmlAttrs)
+	return ReferenceInput(frs, "exposureAlternative", resource.ExposureAlternative, htmlAttrs)
 }
-func (resource *ResearchDefinition) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchDefinition) T_Outcome(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("outcome", nil, htmlAttrs)
+		return ReferenceInput(frs, "outcome", nil, htmlAttrs)
 	}
-	return ReferenceInput("outcome", resource.Outcome, htmlAttrs)
+	return ReferenceInput(frs, "outcome", resource.Outcome, htmlAttrs)
 }

@@ -113,11 +113,11 @@ func (resource *BodyStructure) T_Image(numImage int, htmlAttrs templ.Attributes)
 	}
 	return AttachmentInput("image["+strconv.Itoa(numImage)+"]", &resource.Image[numImage], htmlAttrs)
 }
-func (resource *BodyStructure) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BodyStructure) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureStructure(numIncludedStructure int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) {
@@ -131,11 +131,11 @@ func (resource *BodyStructure) T_IncludedStructureLaterality(numIncludedStructur
 	}
 	return CodeableConceptSelect("includedStructure["+strconv.Itoa(numIncludedStructure)+"].laterality", resource.IncludedStructure[numIncludedStructure].Laterality, optionsValueSet, htmlAttrs)
 }
-func (resource *BodyStructure) T_IncludedStructureSpatialReference(numIncludedStructure int, numSpatialReference int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BodyStructure) T_IncludedStructureSpatialReference(frs []FhirResource, numIncludedStructure int, numSpatialReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numSpatialReference >= len(resource.IncludedStructure[numIncludedStructure].SpatialReference) {
-		return ReferenceInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].spatialReference["+strconv.Itoa(numSpatialReference)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "includedStructure["+strconv.Itoa(numIncludedStructure)+"].spatialReference["+strconv.Itoa(numSpatialReference)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].spatialReference["+strconv.Itoa(numSpatialReference)+"]", &resource.IncludedStructure[numIncludedStructure].SpatialReference[numSpatialReference], htmlAttrs)
+	return ReferenceInput(frs, "includedStructure["+strconv.Itoa(numIncludedStructure)+"].spatialReference["+strconv.Itoa(numSpatialReference)+"]", &resource.IncludedStructure[numIncludedStructure].SpatialReference[numSpatialReference], htmlAttrs)
 }
 func (resource *BodyStructure) T_IncludedStructureQualifier(numIncludedStructure int, numQualifier int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numQualifier >= len(resource.IncludedStructure[numIncludedStructure].Qualifier) {
@@ -167,9 +167,9 @@ func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationDistanc
 	}
 	return CodeableReferenceInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].bodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].distanceFromLandmark["+strconv.Itoa(numDistanceFromLandmark)+"].device["+strconv.Itoa(numDevice)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].DistanceFromLandmark[numDistanceFromLandmark].Device[numDevice], htmlAttrs)
 }
-func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationDistanceFromLandmarkValue(numIncludedStructure int, numBodyLandmarkOrientation int, numDistanceFromLandmark int, numValue int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BodyStructure) T_IncludedStructureBodyLandmarkOrientationDistanceFromLandmarkValue(numIncludedStructure int, numBodyLandmarkOrientation int, numDistanceFromLandmark int, numValue int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numIncludedStructure >= len(resource.IncludedStructure) || numBodyLandmarkOrientation >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation) || numDistanceFromLandmark >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].DistanceFromLandmark) || numValue >= len(resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].DistanceFromLandmark[numDistanceFromLandmark].Value) {
-		return QuantityInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].bodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].distanceFromLandmark["+strconv.Itoa(numDistanceFromLandmark)+"].value["+strconv.Itoa(numValue)+"]", nil, htmlAttrs)
+		return QuantityInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].bodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].distanceFromLandmark["+strconv.Itoa(numDistanceFromLandmark)+"].value["+strconv.Itoa(numValue)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].bodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].distanceFromLandmark["+strconv.Itoa(numDistanceFromLandmark)+"].value["+strconv.Itoa(numValue)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].DistanceFromLandmark[numDistanceFromLandmark].Value[numValue], htmlAttrs)
+	return QuantityInput("includedStructure["+strconv.Itoa(numIncludedStructure)+"].bodyLandmarkOrientation["+strconv.Itoa(numBodyLandmarkOrientation)+"].distanceFromLandmark["+strconv.Itoa(numDistanceFromLandmark)+"].value["+strconv.Itoa(numValue)+"]", &resource.IncludedStructure[numIncludedStructure].BodyLandmarkOrientation[numBodyLandmarkOrientation].DistanceFromLandmark[numDistanceFromLandmark].Value[numValue], optionsValueSet, htmlAttrs)
 }

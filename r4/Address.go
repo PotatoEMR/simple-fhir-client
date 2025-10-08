@@ -1,5 +1,7 @@
 package r4
 
+import "strings"
+
 //generated with command go run ./bultaoreune
 //inputs https://www.hl7.org/fhir/r4/[profiles-resources.json profiles-types.json valuesets.json]
 //for details see https://github.com/PotatoEMR/simple-fhir-client
@@ -18,4 +20,32 @@ type Address struct {
 	PostalCode *string     `json:"postalCode,omitempty"`
 	Country    *string     `json:"country,omitempty"`
 	Period     *Period     `json:"period,omitempty"`
+}
+
+func (a Address) String() string {
+	parts := []string{}
+
+	if a.Text != nil && *a.Text != "" {
+		parts = append(parts, *a.Text)
+	} else {
+		if len(a.Line) > 0 {
+			parts = append(parts, strings.Join(a.Line, ", "))
+		}
+		if a.City != nil && *a.City != "" {
+			parts = append(parts, *a.City)
+		}
+		if a.District != nil && *a.District != "" {
+			parts = append(parts, *a.District)
+		}
+		if a.State != nil && *a.State != "" {
+			parts = append(parts, *a.State)
+		}
+		if a.PostalCode != nil && *a.PostalCode != "" {
+			parts = append(parts, *a.PostalCode)
+		}
+		if a.Country != nil && *a.Country != "" {
+			parts = append(parts, *a.Country)
+		}
+	}
+	return strings.Join(parts, ", ")
 }

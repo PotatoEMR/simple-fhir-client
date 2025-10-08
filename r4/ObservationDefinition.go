@@ -127,29 +127,29 @@ func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs templ.Att
 	}
 	return StringInput("preferredReportName", resource.PreferredReportName, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_ValidCodedValueSet(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_ValidCodedValueSet(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("validCodedValueSet", nil, htmlAttrs)
+		return ReferenceInput(frs, "validCodedValueSet", nil, htmlAttrs)
 	}
-	return ReferenceInput("validCodedValueSet", resource.ValidCodedValueSet, htmlAttrs)
+	return ReferenceInput(frs, "validCodedValueSet", resource.ValidCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_NormalCodedValueSet(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_NormalCodedValueSet(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("normalCodedValueSet", nil, htmlAttrs)
+		return ReferenceInput(frs, "normalCodedValueSet", nil, htmlAttrs)
 	}
-	return ReferenceInput("normalCodedValueSet", resource.NormalCodedValueSet, htmlAttrs)
+	return ReferenceInput(frs, "normalCodedValueSet", resource.NormalCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_AbnormalCodedValueSet(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_AbnormalCodedValueSet(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("abnormalCodedValueSet", nil, htmlAttrs)
+		return ReferenceInput(frs, "abnormalCodedValueSet", nil, htmlAttrs)
 	}
-	return ReferenceInput("abnormalCodedValueSet", resource.AbnormalCodedValueSet, htmlAttrs)
+	return ReferenceInput(frs, "abnormalCodedValueSet", resource.AbnormalCodedValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_CriticalCodedValueSet(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_CriticalCodedValueSet(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("criticalCodedValueSet", nil, htmlAttrs)
+		return ReferenceInput(frs, "criticalCodedValueSet", nil, htmlAttrs)
 	}
-	return ReferenceInput("criticalCodedValueSet", resource.CriticalCodedValueSet, htmlAttrs)
+	return ReferenceInput(frs, "criticalCodedValueSet", resource.CriticalCodedValueSet, htmlAttrs)
 }
 func (resource *ObservationDefinition) T_QuantitativeDetailsCustomaryUnit(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

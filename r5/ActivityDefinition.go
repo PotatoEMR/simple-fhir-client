@@ -190,11 +190,11 @@ func (resource *ActivityDefinition) T_SubjectCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_SubjectReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "subjectReference", resource.SubjectReference, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_SubjectCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -406,11 +406,11 @@ func (resource *ActivityDefinition) T_Location(htmlAttrs templ.Attributes) templ
 	}
 	return CodeableReferenceInput("location", resource.Location, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ProductReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_ProductReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("productReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "productReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("productReference", resource.ProductReference, htmlAttrs)
+	return ReferenceInput(frs, "productReference", resource.ProductReference, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -418,11 +418,11 @@ func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("productCodeableConcept", resource.ProductCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", resource.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_Dosage(numDosage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDosage >= len(resource.Dosage) {
@@ -474,11 +474,11 @@ func (resource *ActivityDefinition) T_ParticipantTypeCanonical(numParticipant in
 	}
 	return StringInput("participant["+strconv.Itoa(numParticipant)+"].typeCanonical", resource.Participant[numParticipant].TypeCanonical, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ParticipantTypeReference(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_ParticipantTypeReference(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].typeReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].typeReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].typeReference", resource.Participant[numParticipant].TypeReference, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].typeReference", resource.Participant[numParticipant].TypeReference, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_ParticipantRole(numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {

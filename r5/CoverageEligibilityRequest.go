@@ -144,11 +144,11 @@ func (resource *CoverageEligibilityRequest) T_Purpose(numPurpose int, htmlAttrs 
 	}
 	return CodeSelect("purpose["+strconv.Itoa(numPurpose)+"]", &resource.Purpose[numPurpose], optionsValueSet, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_ServicedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -168,29 +168,29 @@ func (resource *CoverageEligibilityRequest) T_Created(htmlAttrs templ.Attributes
 	}
 	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_Enterer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Enterer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("enterer", nil, htmlAttrs)
+		return ReferenceInput(frs, "enterer", nil, htmlAttrs)
 	}
-	return ReferenceInput("enterer", resource.Enterer, htmlAttrs)
+	return ReferenceInput(frs, "enterer", resource.Enterer, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_Provider(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Provider(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("provider", nil, htmlAttrs)
+		return ReferenceInput(frs, "provider", nil, htmlAttrs)
 	}
-	return ReferenceInput("provider", resource.Provider, htmlAttrs)
+	return ReferenceInput(frs, "provider", resource.Provider, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_Insurer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Insurer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("insurer", nil, htmlAttrs)
+		return ReferenceInput(frs, "insurer", nil, htmlAttrs)
 	}
-	return ReferenceInput("insurer", &resource.Insurer, htmlAttrs)
+	return ReferenceInput(frs, "insurer", &resource.Insurer, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_Facility(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_Facility(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("facility", nil, htmlAttrs)
+		return ReferenceInput(frs, "facility", nil, htmlAttrs)
 	}
-	return ReferenceInput("facility", resource.Facility, htmlAttrs)
+	return ReferenceInput(frs, "facility", resource.Facility, htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_EventType(numEvent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvent >= len(resource.Event) {
@@ -216,11 +216,11 @@ func (resource *CoverageEligibilityRequest) T_SupportingInfoSequence(numSupporti
 	}
 	return IntInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].sequence", &resource.SupportingInfo[numSupportingInfo].Sequence, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_SupportingInfoInformation(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_SupportingInfoInformation(frs []FhirResource, numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
-		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].information", nil, htmlAttrs)
+		return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"].information", nil, htmlAttrs)
 	}
-	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"].information", &resource.SupportingInfo[numSupportingInfo].Information, htmlAttrs)
+	return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"].information", &resource.SupportingInfo[numSupportingInfo].Information, htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_SupportingInfoAppliesToAll(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
@@ -234,11 +234,11 @@ func (resource *CoverageEligibilityRequest) T_InsuranceFocal(numInsurance int, h
 	}
 	return BoolInput("insurance["+strconv.Itoa(numInsurance)+"].focal", resource.Insurance[numInsurance].Focal, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_InsuranceCoverage(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_InsuranceCoverage(frs []FhirResource, numInsurance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) {
-		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"].coverage", nil, htmlAttrs)
+		return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"].coverage", nil, htmlAttrs)
 	}
-	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"].coverage", &resource.Insurance[numInsurance].Coverage, htmlAttrs)
+	return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"].coverage", &resource.Insurance[numInsurance].Coverage, htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_InsuranceBusinessArrangement(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) {
@@ -270,17 +270,17 @@ func (resource *CoverageEligibilityRequest) T_ItemModifier(numItem int, numModif
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].modifier["+strconv.Itoa(numModifier)+"]", &resource.Item[numItem].Modifier[numModifier], optionsValueSet, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_ItemProvider(numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemProvider(frs []FhirResource, numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].provider", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].provider", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].provider", resource.Item[numItem].Provider, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].provider", resource.Item[numItem].Provider, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_ItemQuantity(numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemQuantity(numItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
-		return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", resource.Item[numItem].Quantity, htmlAttrs)
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].quantity", resource.Item[numItem].Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_ItemUnitPrice(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
@@ -288,17 +288,17 @@ func (resource *CoverageEligibilityRequest) T_ItemUnitPrice(numItem int, htmlAtt
 	}
 	return MoneyInput("item["+strconv.Itoa(numItem)+"].unitPrice", resource.Item[numItem].UnitPrice, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_ItemFacility(numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemFacility(frs []FhirResource, numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].facility", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].facility", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].facility", resource.Item[numItem].Facility, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].facility", resource.Item[numItem].Facility, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_ItemDetail(numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemDetail(frs []FhirResource, numItem int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDetail >= len(resource.Item[numItem].Detail) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Item[numItem].Detail[numDetail], htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Item[numItem].Detail[numDetail], htmlAttrs)
 }
 func (resource *CoverageEligibilityRequest) T_ItemDiagnosisDiagnosisCodeableConcept(numItem int, numDiagnosis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDiagnosis >= len(resource.Item[numItem].Diagnosis) {
@@ -306,9 +306,9 @@ func (resource *CoverageEligibilityRequest) T_ItemDiagnosisDiagnosisCodeableConc
 	}
 	return CodeableConceptSelect("item["+strconv.Itoa(numItem)+"].diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisCodeableConcept", resource.Item[numItem].Diagnosis[numDiagnosis].DiagnosisCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *CoverageEligibilityRequest) T_ItemDiagnosisDiagnosisReference(numItem int, numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CoverageEligibilityRequest) T_ItemDiagnosisDiagnosisReference(frs []FhirResource, numItem int, numDiagnosis int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numDiagnosis >= len(resource.Item[numItem].Diagnosis) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", resource.Item[numItem].Diagnosis[numDiagnosis].DiagnosisReference, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].diagnosis["+strconv.Itoa(numDiagnosis)+"].diagnosisReference", resource.Item[numItem].Diagnosis[numDiagnosis].DiagnosisReference, htmlAttrs)
 }

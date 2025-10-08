@@ -117,11 +117,11 @@ func (resource *FamilyMemberHistory) T_DataAbsentReason(optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("dataAbsentReason", resource.DataAbsentReason, optionsValueSet, htmlAttrs)
 }
-func (resource *FamilyMemberHistory) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *FamilyMemberHistory) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -225,11 +225,11 @@ func (resource *FamilyMemberHistory) T_ReasonCode(numReasonCode int, optionsValu
 	}
 	return CodeableConceptSelect("reasonCode["+strconv.Itoa(numReasonCode)+"]", &resource.ReasonCode[numReasonCode], optionsValueSet, htmlAttrs)
 }
-func (resource *FamilyMemberHistory) T_ReasonReference(numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *FamilyMemberHistory) T_ReasonReference(frs []FhirResource, numReasonReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonReference >= len(resource.ReasonReference) {
-		return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "reasonReference["+strconv.Itoa(numReasonReference)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
+	return ReferenceInput(frs, "reasonReference["+strconv.Itoa(numReasonReference)+"]", &resource.ReasonReference[numReasonReference], htmlAttrs)
 }
 func (resource *FamilyMemberHistory) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {

@@ -413,11 +413,11 @@ func (resource *CapabilityStatement) T_ImplementationUrl(htmlAttrs templ.Attribu
 	}
 	return StringInput("implementation.url", resource.Implementation.Url, htmlAttrs)
 }
-func (resource *CapabilityStatement) T_ImplementationCustodian(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CapabilityStatement) T_ImplementationCustodian(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("implementation.custodian", nil, htmlAttrs)
+		return ReferenceInput(frs, "implementation.custodian", nil, htmlAttrs)
 	}
-	return ReferenceInput("implementation.custodian", resource.Implementation.Custodian, htmlAttrs)
+	return ReferenceInput(frs, "implementation.custodian", resource.Implementation.Custodian, htmlAttrs)
 }
 func (resource *CapabilityStatement) T_RestMode(numRest int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRestful_capability_mode

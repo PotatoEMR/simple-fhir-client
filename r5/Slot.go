@@ -85,11 +85,11 @@ func (resource *Slot) T_AppointmentType(numAppointmentType int, optionsValueSet 
 	}
 	return CodeableConceptSelect("appointmentType["+strconv.Itoa(numAppointmentType)+"]", &resource.AppointmentType[numAppointmentType], optionsValueSet, htmlAttrs)
 }
-func (resource *Slot) T_Schedule(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Slot) T_Schedule(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("schedule", nil, htmlAttrs)
+		return ReferenceInput(frs, "schedule", nil, htmlAttrs)
 	}
-	return ReferenceInput("schedule", &resource.Schedule, htmlAttrs)
+	return ReferenceInput(frs, "schedule", &resource.Schedule, htmlAttrs)
 }
 func (resource *Slot) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSlotstatus

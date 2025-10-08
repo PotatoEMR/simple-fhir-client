@@ -78,11 +78,11 @@ func (r DiagnosticReport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *DiagnosticReport) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *DiagnosticReport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDiagnostic_report_status
@@ -104,17 +104,17 @@ func (resource *DiagnosticReport) T_Code(optionsValueSet []Coding, htmlAttrs tem
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *DiagnosticReport) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -134,35 +134,35 @@ func (resource *DiagnosticReport) T_Issued(htmlAttrs templ.Attributes) templ.Com
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Performer(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_Performer(frs []FhirResource, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
+	return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
 }
-func (resource *DiagnosticReport) T_ResultsInterpreter(numResultsInterpreter int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_ResultsInterpreter(frs []FhirResource, numResultsInterpreter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResultsInterpreter >= len(resource.ResultsInterpreter) {
-		return ReferenceInput("resultsInterpreter["+strconv.Itoa(numResultsInterpreter)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "resultsInterpreter["+strconv.Itoa(numResultsInterpreter)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("resultsInterpreter["+strconv.Itoa(numResultsInterpreter)+"]", &resource.ResultsInterpreter[numResultsInterpreter], htmlAttrs)
+	return ReferenceInput(frs, "resultsInterpreter["+strconv.Itoa(numResultsInterpreter)+"]", &resource.ResultsInterpreter[numResultsInterpreter], htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Specimen(numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_Specimen(frs []FhirResource, numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecimen >= len(resource.Specimen) {
-		return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
+	return ReferenceInput(frs, "specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
 }
-func (resource *DiagnosticReport) T_Result(numResult int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_Result(frs []FhirResource, numResult int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResult >= len(resource.Result) {
-		return ReferenceInput("result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
+	return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
 }
-func (resource *DiagnosticReport) T_ImagingStudy(numImagingStudy int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_ImagingStudy(frs []FhirResource, numImagingStudy int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numImagingStudy >= len(resource.ImagingStudy) {
-		return ReferenceInput("imagingStudy["+strconv.Itoa(numImagingStudy)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "imagingStudy["+strconv.Itoa(numImagingStudy)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("imagingStudy["+strconv.Itoa(numImagingStudy)+"]", &resource.ImagingStudy[numImagingStudy], htmlAttrs)
+	return ReferenceInput(frs, "imagingStudy["+strconv.Itoa(numImagingStudy)+"]", &resource.ImagingStudy[numImagingStudy], htmlAttrs)
 }
 func (resource *DiagnosticReport) T_Conclusion(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -188,9 +188,9 @@ func (resource *DiagnosticReport) T_MediaComment(numMedia int, htmlAttrs templ.A
 	}
 	return StringInput("media["+strconv.Itoa(numMedia)+"].comment", resource.Media[numMedia].Comment, htmlAttrs)
 }
-func (resource *DiagnosticReport) T_MediaLink(numMedia int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DiagnosticReport) T_MediaLink(frs []FhirResource, numMedia int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMedia >= len(resource.Media) {
-		return ReferenceInput("media["+strconv.Itoa(numMedia)+"].link", nil, htmlAttrs)
+		return ReferenceInput(frs, "media["+strconv.Itoa(numMedia)+"].link", nil, htmlAttrs)
 	}
-	return ReferenceInput("media["+strconv.Itoa(numMedia)+"].link", &resource.Media[numMedia].Link, htmlAttrs)
+	return ReferenceInput(frs, "media["+strconv.Itoa(numMedia)+"].link", &resource.Media[numMedia].Link, htmlAttrs)
 }

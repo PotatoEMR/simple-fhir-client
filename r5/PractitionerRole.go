@@ -76,17 +76,17 @@ func (resource *PractitionerRole) T_Period(htmlAttrs templ.Attributes) templ.Com
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Practitioner(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PractitionerRole) T_Practitioner(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("practitioner", nil, htmlAttrs)
+		return ReferenceInput(frs, "practitioner", nil, htmlAttrs)
 	}
-	return ReferenceInput("practitioner", resource.Practitioner, htmlAttrs)
+	return ReferenceInput(frs, "practitioner", resource.Practitioner, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Organization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PractitionerRole) T_Organization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("organization", nil, htmlAttrs)
+		return ReferenceInput(frs, "organization", nil, htmlAttrs)
 	}
-	return ReferenceInput("organization", resource.Organization, htmlAttrs)
+	return ReferenceInput(frs, "organization", resource.Organization, htmlAttrs)
 }
 func (resource *PractitionerRole) T_Code(numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCode >= len(resource.Code) {
@@ -100,17 +100,17 @@ func (resource *PractitionerRole) T_Specialty(numSpecialty int, optionsValueSet 
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *PractitionerRole) T_Location(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PractitionerRole) T_Location(frs []FhirResource, numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
-		return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
+	return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
 }
-func (resource *PractitionerRole) T_HealthcareService(numHealthcareService int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PractitionerRole) T_HealthcareService(frs []FhirResource, numHealthcareService int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHealthcareService >= len(resource.HealthcareService) {
-		return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "healthcareService["+strconv.Itoa(numHealthcareService)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("healthcareService["+strconv.Itoa(numHealthcareService)+"]", &resource.HealthcareService[numHealthcareService], htmlAttrs)
+	return ReferenceInput(frs, "healthcareService["+strconv.Itoa(numHealthcareService)+"]", &resource.HealthcareService[numHealthcareService], htmlAttrs)
 }
 func (resource *PractitionerRole) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
@@ -136,9 +136,9 @@ func (resource *PractitionerRole) T_Availability(numAvailability int, htmlAttrs 
 	}
 	return AvailabilityInput("availability["+strconv.Itoa(numAvailability)+"]", &resource.Availability[numAvailability], htmlAttrs)
 }
-func (resource *PractitionerRole) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PractitionerRole) T_Endpoint(frs []FhirResource, numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEndpoint >= len(resource.Endpoint) {
-		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+	return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }

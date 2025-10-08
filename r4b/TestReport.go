@@ -153,11 +153,11 @@ func (resource *TestReport) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *TestReport) T_TestScript(htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestReport) T_TestScript(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("testScript", nil, htmlAttrs)
+		return ReferenceInput(frs, "testScript", nil, htmlAttrs)
 	}
-	return ReferenceInput("testScript", &resource.TestScript, htmlAttrs)
+	return ReferenceInput(frs, "testScript", &resource.TestScript, htmlAttrs)
 }
 func (resource *TestReport) T_Result(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSReport_result_codes

@@ -109,11 +109,11 @@ func (resource *Substance) T_InstanceExpiry(numInstance int, htmlAttrs templ.Att
 	}
 	return FhirDateTimeInput("instance["+strconv.Itoa(numInstance)+"].expiry", resource.Instance[numInstance].Expiry, htmlAttrs)
 }
-func (resource *Substance) T_InstanceQuantity(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Substance) T_InstanceQuantity(numInstance int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", resource.Instance[numInstance].Quantity, htmlAttrs)
+	return QuantityInput("instance["+strconv.Itoa(numInstance)+"].quantity", resource.Instance[numInstance].Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Substance) T_IngredientQuantity(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
@@ -127,9 +127,9 @@ func (resource *Substance) T_IngredientSubstanceCodeableConcept(numIngredient in
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].substanceCodeableConcept", &resource.Ingredient[numIngredient].SubstanceCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Substance) T_IngredientSubstanceReference(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Substance) T_IngredientSubstanceReference(frs []FhirResource, numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", &resource.Ingredient[numIngredient].SubstanceReference, htmlAttrs)
+	return ReferenceInput(frs, "ingredient["+strconv.Itoa(numIngredient)+"].substanceReference", &resource.Ingredient[numIngredient].SubstanceReference, htmlAttrs)
 }

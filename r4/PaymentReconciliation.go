@@ -111,23 +111,23 @@ func (resource *PaymentReconciliation) T_Created(htmlAttrs templ.Attributes) tem
 	}
 	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_PaymentIssuer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_PaymentIssuer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("paymentIssuer", nil, htmlAttrs)
+		return ReferenceInput(frs, "paymentIssuer", nil, htmlAttrs)
 	}
-	return ReferenceInput("paymentIssuer", resource.PaymentIssuer, htmlAttrs)
+	return ReferenceInput(frs, "paymentIssuer", resource.PaymentIssuer, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Request(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Request(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("request", nil, htmlAttrs)
+		return ReferenceInput(frs, "request", nil, htmlAttrs)
 	}
-	return ReferenceInput("request", resource.Request, htmlAttrs)
+	return ReferenceInput(frs, "request", resource.Request, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Requestor(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Requestor(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requestor", nil, htmlAttrs)
+		return ReferenceInput(frs, "requestor", nil, htmlAttrs)
 	}
-	return ReferenceInput("requestor", resource.Requestor, htmlAttrs)
+	return ReferenceInput(frs, "requestor", resource.Requestor, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSRemittance_outcome
@@ -179,23 +179,23 @@ func (resource *PaymentReconciliation) T_DetailType(numDetail int, optionsValueS
 	}
 	return CodeableConceptSelect("detail["+strconv.Itoa(numDetail)+"].type", &resource.Detail[numDetail].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailRequest(numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_DetailRequest(frs []FhirResource, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
-		return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].request", nil, htmlAttrs)
+		return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].request", nil, htmlAttrs)
 	}
-	return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].request", resource.Detail[numDetail].Request, htmlAttrs)
+	return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].request", resource.Detail[numDetail].Request, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailSubmitter(numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_DetailSubmitter(frs []FhirResource, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
-		return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].submitter", nil, htmlAttrs)
+		return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].submitter", nil, htmlAttrs)
 	}
-	return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].submitter", resource.Detail[numDetail].Submitter, htmlAttrs)
+	return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].submitter", resource.Detail[numDetail].Submitter, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailResponse(numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_DetailResponse(frs []FhirResource, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
-		return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].response", nil, htmlAttrs)
+		return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].response", nil, htmlAttrs)
 	}
-	return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].response", resource.Detail[numDetail].Response, htmlAttrs)
+	return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].response", resource.Detail[numDetail].Response, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_DetailDate(numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
@@ -203,17 +203,17 @@ func (resource *PaymentReconciliation) T_DetailDate(numDetail int, htmlAttrs tem
 	}
 	return FhirDateInput("detail["+strconv.Itoa(numDetail)+"].date", resource.Detail[numDetail].Date, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailResponsible(numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_DetailResponsible(frs []FhirResource, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
-		return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].responsible", nil, htmlAttrs)
+		return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].responsible", nil, htmlAttrs)
 	}
-	return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].responsible", resource.Detail[numDetail].Responsible, htmlAttrs)
+	return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].responsible", resource.Detail[numDetail].Responsible, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_DetailPayee(numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_DetailPayee(frs []FhirResource, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {
-		return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].payee", nil, htmlAttrs)
+		return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].payee", nil, htmlAttrs)
 	}
-	return ReferenceInput("detail["+strconv.Itoa(numDetail)+"].payee", resource.Detail[numDetail].Payee, htmlAttrs)
+	return ReferenceInput(frs, "detail["+strconv.Itoa(numDetail)+"].payee", resource.Detail[numDetail].Payee, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_DetailAmount(numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDetail >= len(resource.Detail) {

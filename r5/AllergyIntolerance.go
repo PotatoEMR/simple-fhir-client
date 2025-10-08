@@ -132,17 +132,17 @@ func (resource *AllergyIntolerance) T_Code(optionsValueSet []Coding, htmlAttrs t
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -198,11 +198,11 @@ func (resource *AllergyIntolerance) T_ParticipantFunction(numParticipant int, op
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *AllergyIntolerance) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AllergyIntolerance) T_ParticipantActor(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *AllergyIntolerance) T_ReactionSubstance(numReaction int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReaction >= len(resource.Reaction) {

@@ -88,11 +88,11 @@ func (resource *SupplyRequest) T_Status(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *SupplyRequest) T_Category(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -108,11 +108,11 @@ func (resource *SupplyRequest) T_Priority(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_DeliverFor(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_DeliverFor(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("deliverFor", nil, htmlAttrs)
+		return ReferenceInput(frs, "deliverFor", nil, htmlAttrs)
 	}
-	return ReferenceInput("deliverFor", resource.DeliverFor, htmlAttrs)
+	return ReferenceInput(frs, "deliverFor", resource.DeliverFor, htmlAttrs)
 }
 func (resource *SupplyRequest) T_Item(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -120,11 +120,11 @@ func (resource *SupplyRequest) T_Item(htmlAttrs templ.Attributes) templ.Componen
 	}
 	return CodeableReferenceInput("item", &resource.Item, htmlAttrs)
 }
-func (resource *SupplyRequest) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", &resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", &resource.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyRequest) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -150,17 +150,17 @@ func (resource *SupplyRequest) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Co
 	}
 	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *SupplyRequest) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_Requester(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requester", nil, htmlAttrs)
+		return ReferenceInput(frs, "requester", nil, htmlAttrs)
 	}
-	return ReferenceInput("requester", resource.Requester, htmlAttrs)
+	return ReferenceInput(frs, "requester", resource.Requester, htmlAttrs)
 }
-func (resource *SupplyRequest) T_Supplier(numSupplier int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_Supplier(frs []FhirResource, numSupplier int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupplier >= len(resource.Supplier) {
-		return ReferenceInput("supplier["+strconv.Itoa(numSupplier)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "supplier["+strconv.Itoa(numSupplier)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("supplier["+strconv.Itoa(numSupplier)+"]", &resource.Supplier[numSupplier], htmlAttrs)
+	return ReferenceInput(frs, "supplier["+strconv.Itoa(numSupplier)+"]", &resource.Supplier[numSupplier], htmlAttrs)
 }
 func (resource *SupplyRequest) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -168,17 +168,17 @@ func (resource *SupplyRequest) T_Reason(numReason int, htmlAttrs templ.Attribute
 	}
 	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
-func (resource *SupplyRequest) T_DeliverFrom(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_DeliverFrom(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("deliverFrom", nil, htmlAttrs)
+		return ReferenceInput(frs, "deliverFrom", nil, htmlAttrs)
 	}
-	return ReferenceInput("deliverFrom", resource.DeliverFrom, htmlAttrs)
+	return ReferenceInput(frs, "deliverFrom", resource.DeliverFrom, htmlAttrs)
 }
-func (resource *SupplyRequest) T_DeliverTo(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_DeliverTo(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("deliverTo", nil, htmlAttrs)
+		return ReferenceInput(frs, "deliverTo", nil, htmlAttrs)
 	}
-	return ReferenceInput("deliverTo", resource.DeliverTo, htmlAttrs)
+	return ReferenceInput(frs, "deliverTo", resource.DeliverTo, htmlAttrs)
 }
 func (resource *SupplyRequest) T_ParameterCode(numParameter int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -192,11 +192,11 @@ func (resource *SupplyRequest) T_ParameterValueCodeableConcept(numParameter int,
 	}
 	return CodeableConceptSelect("parameter["+strconv.Itoa(numParameter)+"].valueCodeableConcept", resource.Parameter[numParameter].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyRequest) T_ParameterValueQuantity(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyRequest) T_ParameterValueQuantity(numParameter int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, htmlAttrs)
+	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyRequest) T_ParameterValueRange(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {

@@ -77,11 +77,11 @@ func (resource *RelatedPerson) T_Active(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *RelatedPerson) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RelatedPerson) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *RelatedPerson) T_Relationship(numRelationship int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelationship >= len(resource.Relationship) {

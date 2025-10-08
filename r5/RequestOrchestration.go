@@ -183,17 +183,17 @@ func (resource *RequestOrchestration) T_InstantiatesUri(numInstantiatesUri int, 
 	}
 	return StringInput("instantiatesUri["+strconv.Itoa(numInstantiatesUri)+"]", &resource.InstantiatesUri[numInstantiatesUri], htmlAttrs)
 }
-func (resource *RequestOrchestration) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *RequestOrchestration) T_Replaces(numReplaces int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_Replaces(frs []FhirResource, numReplaces int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReplaces >= len(resource.Replaces) {
-		return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "replaces["+strconv.Itoa(numReplaces)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
+	return ReferenceInput(frs, "replaces["+strconv.Itoa(numReplaces)+"]", &resource.Replaces[numReplaces], htmlAttrs)
 }
 func (resource *RequestOrchestration) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -231,17 +231,17 @@ func (resource *RequestOrchestration) T_Code(optionsValueSet []Coding, htmlAttrs
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *RequestOrchestration) T_AuthoredOn(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -249,11 +249,11 @@ func (resource *RequestOrchestration) T_AuthoredOn(htmlAttrs templ.Attributes) t
 	}
 	return FhirDateTimeInput("authoredOn", resource.AuthoredOn, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
 func (resource *RequestOrchestration) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -261,11 +261,11 @@ func (resource *RequestOrchestration) T_Reason(numReason int, htmlAttrs templ.At
 	}
 	return CodeableReferenceInput("reason["+strconv.Itoa(numReason)+"]", &resource.Reason[numReason], htmlAttrs)
 }
-func (resource *RequestOrchestration) T_Goal(numGoal int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_Goal(frs []FhirResource, numGoal int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGoal >= len(resource.Goal) {
-		return ReferenceInput("goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("goal["+strconv.Itoa(numGoal)+"]", &resource.Goal[numGoal], htmlAttrs)
+	return ReferenceInput(frs, "goal["+strconv.Itoa(numGoal)+"]", &resource.Goal[numGoal], htmlAttrs)
 }
 func (resource *RequestOrchestration) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -323,11 +323,11 @@ func (resource *RequestOrchestration) T_ActionDocumentation(numAction int, numDo
 	}
 	return RelatedArtifactInput("action["+strconv.Itoa(numAction)+"].documentation["+strconv.Itoa(numDocumentation)+"]", &resource.Action[numAction].Documentation[numDocumentation], htmlAttrs)
 }
-func (resource *RequestOrchestration) T_ActionGoal(numAction int, numGoal int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_ActionGoal(frs []FhirResource, numAction int, numGoal int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numGoal >= len(resource.Action[numAction].Goal) {
-		return ReferenceInput("action["+strconv.Itoa(numAction)+"].goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].goal["+strconv.Itoa(numGoal)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("action["+strconv.Itoa(numAction)+"].goal["+strconv.Itoa(numGoal)+"]", &resource.Action[numAction].Goal[numGoal], htmlAttrs)
+	return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].goal["+strconv.Itoa(numGoal)+"]", &resource.Action[numAction].Goal[numGoal], htmlAttrs)
 }
 func (resource *RequestOrchestration) T_ActionTimingDateTime(numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
@@ -417,11 +417,11 @@ func (resource *RequestOrchestration) T_ActionCardinalityBehavior(numAction int,
 	}
 	return CodeSelect("action["+strconv.Itoa(numAction)+"].cardinalityBehavior", resource.Action[numAction].CardinalityBehavior, optionsValueSet, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_ActionResource(numAction int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_ActionResource(frs []FhirResource, numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
-		return ReferenceInput("action["+strconv.Itoa(numAction)+"].resource", nil, htmlAttrs)
+		return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].resource", nil, htmlAttrs)
 	}
-	return ReferenceInput("action["+strconv.Itoa(numAction)+"].resource", resource.Action[numAction].Resource, htmlAttrs)
+	return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].resource", resource.Action[numAction].Resource, htmlAttrs)
 }
 func (resource *RequestOrchestration) T_ActionDefinitionCanonical(numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
@@ -539,11 +539,11 @@ func (resource *RequestOrchestration) T_ActionParticipantTypeCanonical(numAction
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeCanonical", resource.Action[numAction].Participant[numParticipant].TypeCanonical, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_ActionParticipantTypeReference(numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_ActionParticipantTypeReference(frs []FhirResource, numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
-		return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", resource.Action[numAction].Participant[numParticipant].TypeReference, htmlAttrs)
+	return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].typeReference", resource.Action[numAction].Participant[numParticipant].TypeReference, htmlAttrs)
 }
 func (resource *RequestOrchestration) T_ActionParticipantRole(numAction int, numParticipant int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
@@ -563,11 +563,11 @@ func (resource *RequestOrchestration) T_ActionParticipantActorCanonical(numActio
 	}
 	return StringInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorCanonical", resource.Action[numAction].Participant[numParticipant].ActorCanonical, htmlAttrs)
 }
-func (resource *RequestOrchestration) T_ActionParticipantActorReference(numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RequestOrchestration) T_ActionParticipantActorReference(frs []FhirResource, numAction int, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numParticipant >= len(resource.Action[numAction].Participant) {
-		return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorReference", resource.Action[numAction].Participant[numParticipant].ActorReference, htmlAttrs)
+	return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].participant["+strconv.Itoa(numParticipant)+"].actorReference", resource.Action[numAction].Participant[numParticipant].ActorReference, htmlAttrs)
 }
 func (resource *RequestOrchestration) T_ActionDynamicValuePath(numAction int, numDynamicValue int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numDynamicValue >= len(resource.Action[numAction].DynamicValue) {

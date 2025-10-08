@@ -299,17 +299,17 @@ func (resource *ObservationDefinition) T_Method(optionsValueSet []Coding, htmlAt
 	}
 	return CodeableConceptSelect("method", resource.Method, optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Specimen(numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_Specimen(frs []FhirResource, numSpecimen int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecimen >= len(resource.Specimen) {
-		return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "specimen["+strconv.Itoa(numSpecimen)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
+	return ReferenceInput(frs, "specimen["+strconv.Itoa(numSpecimen)+"]", &resource.Specimen[numSpecimen], htmlAttrs)
 }
-func (resource *ObservationDefinition) T_Device(numDevice int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_Device(frs []FhirResource, numDevice int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDevice >= len(resource.Device) {
-		return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "device["+strconv.Itoa(numDevice)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("device["+strconv.Itoa(numDevice)+"]", &resource.Device[numDevice], htmlAttrs)
+	return ReferenceInput(frs, "device["+strconv.Itoa(numDevice)+"]", &resource.Device[numDevice], htmlAttrs)
 }
 func (resource *ObservationDefinition) T_PreferredReportName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -323,11 +323,11 @@ func (resource *ObservationDefinition) T_PermittedUnit(numPermittedUnit int, opt
 	}
 	return CodingSelect("permittedUnit["+strconv.Itoa(numPermittedUnit)+"]", &resource.PermittedUnit[numPermittedUnit], optionsValueSet, htmlAttrs)
 }
-func (resource *ObservationDefinition) T_HasMember(numHasMember int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ObservationDefinition) T_HasMember(frs []FhirResource, numHasMember int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHasMember >= len(resource.HasMember) {
-		return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "hasMember["+strconv.Itoa(numHasMember)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("hasMember["+strconv.Itoa(numHasMember)+"]", &resource.HasMember[numHasMember], htmlAttrs)
+	return ReferenceInput(frs, "hasMember["+strconv.Itoa(numHasMember)+"]", &resource.HasMember[numHasMember], htmlAttrs)
 }
 func (resource *ObservationDefinition) T_QualifiedValueContext(numQualifiedValue int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualifiedValue >= len(resource.QualifiedValue) {

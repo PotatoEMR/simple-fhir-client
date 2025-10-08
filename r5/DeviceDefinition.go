@@ -256,11 +256,11 @@ func (resource *DeviceDefinition) T_PartNumber(htmlAttrs templ.Attributes) templ
 	}
 	return StringInput("partNumber", resource.PartNumber, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_Manufacturer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_Manufacturer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("manufacturer", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer", resource.Manufacturer, htmlAttrs)
+	return ReferenceInput(frs, "manufacturer", resource.Manufacturer, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_ModelNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -286,11 +286,11 @@ func (resource *DeviceDefinition) T_LanguageCode(numLanguageCode int, optionsVal
 	}
 	return CodeableConceptSelect("languageCode["+strconv.Itoa(numLanguageCode)+"]", &resource.LanguageCode[numLanguageCode], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_Owner(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("owner", nil, htmlAttrs)
+		return ReferenceInput(frs, "owner", nil, htmlAttrs)
 	}
-	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+	return ReferenceInput(frs, "owner", resource.Owner, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
@@ -418,11 +418,11 @@ func (resource *DeviceDefinition) T_ConformsToSource(numConformsTo int, numSourc
 	}
 	return RelatedArtifactInput("conformsTo["+strconv.Itoa(numConformsTo)+"].source["+strconv.Itoa(numSource)+"]", &resource.ConformsTo[numConformsTo].Source[numSource], htmlAttrs)
 }
-func (resource *DeviceDefinition) T_HasPartReference(numHasPart int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_HasPartReference(frs []FhirResource, numHasPart int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHasPart >= len(resource.HasPart) {
-		return ReferenceInput("hasPart["+strconv.Itoa(numHasPart)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "hasPart["+strconv.Itoa(numHasPart)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("hasPart["+strconv.Itoa(numHasPart)+"].reference", &resource.HasPart[numHasPart].Reference, htmlAttrs)
+	return ReferenceInput(frs, "hasPart["+strconv.Itoa(numHasPart)+"].reference", &resource.HasPart[numHasPart].Reference, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_HasPartCount(numHasPart int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numHasPart >= len(resource.HasPart) {
@@ -448,11 +448,11 @@ func (resource *DeviceDefinition) T_PackagingDistributorName(numPackaging int, n
 	}
 	return StringInput("packaging["+strconv.Itoa(numPackaging)+"].distributor["+strconv.Itoa(numDistributor)+"].name", resource.Packaging[numPackaging].Distributor[numDistributor].Name, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_PackagingDistributorOrganizationReference(numPackaging int, numDistributor int, numOrganizationReference int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_PackagingDistributorOrganizationReference(frs []FhirResource, numPackaging int, numDistributor int, numOrganizationReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackaging >= len(resource.Packaging) || numDistributor >= len(resource.Packaging[numPackaging].Distributor) || numOrganizationReference >= len(resource.Packaging[numPackaging].Distributor[numDistributor].OrganizationReference) {
-		return ReferenceInput("packaging["+strconv.Itoa(numPackaging)+"].distributor["+strconv.Itoa(numDistributor)+"].organizationReference["+strconv.Itoa(numOrganizationReference)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "packaging["+strconv.Itoa(numPackaging)+"].distributor["+strconv.Itoa(numDistributor)+"].organizationReference["+strconv.Itoa(numOrganizationReference)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("packaging["+strconv.Itoa(numPackaging)+"].distributor["+strconv.Itoa(numDistributor)+"].organizationReference["+strconv.Itoa(numOrganizationReference)+"]", &resource.Packaging[numPackaging].Distributor[numDistributor].OrganizationReference[numOrganizationReference], htmlAttrs)
+	return ReferenceInput(frs, "packaging["+strconv.Itoa(numPackaging)+"].distributor["+strconv.Itoa(numDistributor)+"].organizationReference["+strconv.Itoa(numOrganizationReference)+"]", &resource.Packaging[numPackaging].Distributor[numDistributor].OrganizationReference[numOrganizationReference], htmlAttrs)
 }
 func (resource *DeviceDefinition) T_VersionType(numVersion int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVersion >= len(resource.Version) {
@@ -478,11 +478,11 @@ func (resource *DeviceDefinition) T_PropertyType(numProperty int, optionsValueSe
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_PropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_PropertyValueQuantity(numProperty int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", &resource.Property[numProperty].ValueQuantity, htmlAttrs)
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", &resource.Property[numProperty].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_PropertyValueCodeableConcept(numProperty int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
@@ -618,11 +618,11 @@ func (resource *DeviceDefinition) T_ChargeItemChargeItemCode(numChargeItem int, 
 	}
 	return CodeableReferenceInput("chargeItem["+strconv.Itoa(numChargeItem)+"].chargeItemCode", &resource.ChargeItem[numChargeItem].ChargeItemCode, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_ChargeItemCount(numChargeItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_ChargeItemCount(numChargeItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numChargeItem >= len(resource.ChargeItem) {
-		return QuantityInput("chargeItem["+strconv.Itoa(numChargeItem)+"].count", nil, htmlAttrs)
+		return QuantityInput("chargeItem["+strconv.Itoa(numChargeItem)+"].count", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("chargeItem["+strconv.Itoa(numChargeItem)+"].count", &resource.ChargeItem[numChargeItem].Count, htmlAttrs)
+	return QuantityInput("chargeItem["+strconv.Itoa(numChargeItem)+"].count", &resource.ChargeItem[numChargeItem].Count, optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_ChargeItemEffectivePeriod(numChargeItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numChargeItem >= len(resource.ChargeItem) {

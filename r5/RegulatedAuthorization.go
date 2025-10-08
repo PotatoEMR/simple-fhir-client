@@ -77,11 +77,11 @@ func (r RegulatedAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *RegulatedAuthorization) T_Subject(numSubject int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RegulatedAuthorization) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
-		return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
+	return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", &resource.Subject[numSubject], htmlAttrs)
 }
 func (resource *RegulatedAuthorization) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -137,23 +137,23 @@ func (resource *RegulatedAuthorization) T_Basis(numBasis int, optionsValueSet []
 	}
 	return CodeableConceptSelect("basis["+strconv.Itoa(numBasis)+"]", &resource.Basis[numBasis], optionsValueSet, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Holder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RegulatedAuthorization) T_Holder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("holder", nil, htmlAttrs)
+		return ReferenceInput(frs, "holder", nil, htmlAttrs)
 	}
-	return ReferenceInput("holder", resource.Holder, htmlAttrs)
+	return ReferenceInput(frs, "holder", resource.Holder, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_Regulator(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RegulatedAuthorization) T_Regulator(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("regulator", nil, htmlAttrs)
+		return ReferenceInput(frs, "regulator", nil, htmlAttrs)
 	}
-	return ReferenceInput("regulator", resource.Regulator, htmlAttrs)
+	return ReferenceInput(frs, "regulator", resource.Regulator, htmlAttrs)
 }
-func (resource *RegulatedAuthorization) T_AttachedDocument(numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *RegulatedAuthorization) T_AttachedDocument(frs []FhirResource, numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAttachedDocument >= len(resource.AttachedDocument) {
-		return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
+	return ReferenceInput(frs, "attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
 }
 func (resource *RegulatedAuthorization) T_CaseType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

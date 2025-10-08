@@ -294,29 +294,29 @@ func (resource *EffectEvidenceSynthesis) T_StudyType(optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet, htmlAttrs)
 }
-func (resource *EffectEvidenceSynthesis) T_Population(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_Population(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("population", nil, htmlAttrs)
+		return ReferenceInput(frs, "population", nil, htmlAttrs)
 	}
-	return ReferenceInput("population", &resource.Population, htmlAttrs)
+	return ReferenceInput(frs, "population", &resource.Population, htmlAttrs)
 }
-func (resource *EffectEvidenceSynthesis) T_Exposure(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_Exposure(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposure", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposure", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposure", &resource.Exposure, htmlAttrs)
+	return ReferenceInput(frs, "exposure", &resource.Exposure, htmlAttrs)
 }
-func (resource *EffectEvidenceSynthesis) T_ExposureAlternative(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_ExposureAlternative(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposureAlternative", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposureAlternative", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposureAlternative", &resource.ExposureAlternative, htmlAttrs)
+	return ReferenceInput(frs, "exposureAlternative", &resource.ExposureAlternative, htmlAttrs)
 }
-func (resource *EffectEvidenceSynthesis) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_Outcome(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("outcome", nil, htmlAttrs)
+		return ReferenceInput(frs, "outcome", nil, htmlAttrs)
 	}
-	return ReferenceInput("outcome", &resource.Outcome, htmlAttrs)
+	return ReferenceInput(frs, "outcome", &resource.Outcome, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_SampleSizeDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -356,11 +356,11 @@ func (resource *EffectEvidenceSynthesis) T_ResultsByExposureVariantState(numResu
 	}
 	return CodeableConceptSelect("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].variantState", resource.ResultsByExposure[numResultsByExposure].VariantState, optionsValueSet, htmlAttrs)
 }
-func (resource *EffectEvidenceSynthesis) T_ResultsByExposureRiskEvidenceSynthesis(numResultsByExposure int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *EffectEvidenceSynthesis) T_ResultsByExposureRiskEvidenceSynthesis(frs []FhirResource, numResultsByExposure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResultsByExposure >= len(resource.ResultsByExposure) {
-		return ReferenceInput("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].riskEvidenceSynthesis", nil, htmlAttrs)
+		return ReferenceInput(frs, "resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].riskEvidenceSynthesis", nil, htmlAttrs)
 	}
-	return ReferenceInput("resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].riskEvidenceSynthesis", &resource.ResultsByExposure[numResultsByExposure].RiskEvidenceSynthesis, htmlAttrs)
+	return ReferenceInput(frs, "resultsByExposure["+strconv.Itoa(numResultsByExposure)+"].riskEvidenceSynthesis", &resource.ResultsByExposure[numResultsByExposure].RiskEvidenceSynthesis, htmlAttrs)
 }
 func (resource *EffectEvidenceSynthesis) T_EffectEstimateDescription(numEffectEstimate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEffectEstimate >= len(resource.EffectEstimate) {

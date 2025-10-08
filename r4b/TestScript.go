@@ -344,11 +344,11 @@ func (resource *TestScript) T_Copyright(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return StringInput("copyright", resource.Copyright, htmlAttrs)
 }
-func (resource *TestScript) T_Profile(numProfile int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestScript) T_Profile(frs []FhirResource, numProfile int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProfile >= len(resource.Profile) {
-		return ReferenceInput("profile["+strconv.Itoa(numProfile)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "profile["+strconv.Itoa(numProfile)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("profile["+strconv.Itoa(numProfile)+"]", &resource.Profile[numProfile], htmlAttrs)
+	return ReferenceInput(frs, "profile["+strconv.Itoa(numProfile)+"]", &resource.Profile[numProfile], htmlAttrs)
 }
 func (resource *TestScript) T_OriginIndex(numOrigin int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOrigin >= len(resource.Origin) {
@@ -440,11 +440,11 @@ func (resource *TestScript) T_FixtureAutodelete(numFixture int, htmlAttrs templ.
 	}
 	return BoolInput("fixture["+strconv.Itoa(numFixture)+"].autodelete", &resource.Fixture[numFixture].Autodelete, htmlAttrs)
 }
-func (resource *TestScript) T_FixtureResource(numFixture int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestScript) T_FixtureResource(frs []FhirResource, numFixture int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFixture >= len(resource.Fixture) {
-		return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", nil, htmlAttrs)
+		return ReferenceInput(frs, "fixture["+strconv.Itoa(numFixture)+"].resource", nil, htmlAttrs)
 	}
-	return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", resource.Fixture[numFixture].Resource, htmlAttrs)
+	return ReferenceInput(frs, "fixture["+strconv.Itoa(numFixture)+"].resource", resource.Fixture[numFixture].Resource, htmlAttrs)
 }
 func (resource *TestScript) T_VariableName(numVariable int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariable >= len(resource.Variable) {

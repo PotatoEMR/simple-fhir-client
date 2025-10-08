@@ -65,11 +65,11 @@ func (resource *EnrollmentResponse) T_Status(htmlAttrs templ.Attributes) templ.C
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Request(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentResponse) T_Request(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("request", nil, htmlAttrs)
+		return ReferenceInput(frs, "request", nil, htmlAttrs)
 	}
-	return ReferenceInput("request", resource.Request, htmlAttrs)
+	return ReferenceInput(frs, "request", resource.Request, htmlAttrs)
 }
 func (resource *EnrollmentResponse) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEnrollment_outcome
@@ -91,15 +91,15 @@ func (resource *EnrollmentResponse) T_Created(htmlAttrs templ.Attributes) templ.
 	}
 	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_Organization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentResponse) T_Organization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("organization", nil, htmlAttrs)
+		return ReferenceInput(frs, "organization", nil, htmlAttrs)
 	}
-	return ReferenceInput("organization", resource.Organization, htmlAttrs)
+	return ReferenceInput(frs, "organization", resource.Organization, htmlAttrs)
 }
-func (resource *EnrollmentResponse) T_RequestProvider(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentResponse) T_RequestProvider(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requestProvider", nil, htmlAttrs)
+		return ReferenceInput(frs, "requestProvider", nil, htmlAttrs)
 	}
-	return ReferenceInput("requestProvider", resource.RequestProvider, htmlAttrs)
+	return ReferenceInput(frs, "requestProvider", resource.RequestProvider, htmlAttrs)
 }

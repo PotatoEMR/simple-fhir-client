@@ -139,11 +139,11 @@ func (resource *Consent) T_Category(numCategory int, optionsValueSet []Coding, h
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *Consent) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -157,29 +157,29 @@ func (resource *Consent) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *Consent) T_Grantor(numGrantor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_Grantor(frs []FhirResource, numGrantor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGrantor >= len(resource.Grantor) {
-		return ReferenceInput("grantor["+strconv.Itoa(numGrantor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "grantor["+strconv.Itoa(numGrantor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("grantor["+strconv.Itoa(numGrantor)+"]", &resource.Grantor[numGrantor], htmlAttrs)
+	return ReferenceInput(frs, "grantor["+strconv.Itoa(numGrantor)+"]", &resource.Grantor[numGrantor], htmlAttrs)
 }
-func (resource *Consent) T_Grantee(numGrantee int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_Grantee(frs []FhirResource, numGrantee int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGrantee >= len(resource.Grantee) {
-		return ReferenceInput("grantee["+strconv.Itoa(numGrantee)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "grantee["+strconv.Itoa(numGrantee)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("grantee["+strconv.Itoa(numGrantee)+"]", &resource.Grantee[numGrantee], htmlAttrs)
+	return ReferenceInput(frs, "grantee["+strconv.Itoa(numGrantee)+"]", &resource.Grantee[numGrantee], htmlAttrs)
 }
-func (resource *Consent) T_Manager(numManager int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_Manager(frs []FhirResource, numManager int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManager >= len(resource.Manager) {
-		return ReferenceInput("manager["+strconv.Itoa(numManager)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manager["+strconv.Itoa(numManager)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manager["+strconv.Itoa(numManager)+"]", &resource.Manager[numManager], htmlAttrs)
+	return ReferenceInput(frs, "manager["+strconv.Itoa(numManager)+"]", &resource.Manager[numManager], htmlAttrs)
 }
-func (resource *Consent) T_Controller(numController int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_Controller(frs []FhirResource, numController int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numController >= len(resource.Controller) {
-		return ReferenceInput("controller["+strconv.Itoa(numController)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "controller["+strconv.Itoa(numController)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("controller["+strconv.Itoa(numController)+"]", &resource.Controller[numController], htmlAttrs)
+	return ReferenceInput(frs, "controller["+strconv.Itoa(numController)+"]", &resource.Controller[numController], htmlAttrs)
 }
 func (resource *Consent) T_SourceAttachment(numSourceAttachment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSourceAttachment >= len(resource.SourceAttachment) {
@@ -187,11 +187,11 @@ func (resource *Consent) T_SourceAttachment(numSourceAttachment int, htmlAttrs t
 	}
 	return AttachmentInput("sourceAttachment["+strconv.Itoa(numSourceAttachment)+"]", &resource.SourceAttachment[numSourceAttachment], htmlAttrs)
 }
-func (resource *Consent) T_SourceReference(numSourceReference int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_SourceReference(frs []FhirResource, numSourceReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSourceReference >= len(resource.SourceReference) {
-		return ReferenceInput("sourceReference["+strconv.Itoa(numSourceReference)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "sourceReference["+strconv.Itoa(numSourceReference)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("sourceReference["+strconv.Itoa(numSourceReference)+"]", &resource.SourceReference[numSourceReference], htmlAttrs)
+	return ReferenceInput(frs, "sourceReference["+strconv.Itoa(numSourceReference)+"]", &resource.SourceReference[numSourceReference], htmlAttrs)
 }
 func (resource *Consent) T_RegulatoryBasis(numRegulatoryBasis int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRegulatoryBasis >= len(resource.RegulatoryBasis) {
@@ -199,11 +199,11 @@ func (resource *Consent) T_RegulatoryBasis(numRegulatoryBasis int, optionsValueS
 	}
 	return CodeableConceptSelect("regulatoryBasis["+strconv.Itoa(numRegulatoryBasis)+"]", &resource.RegulatoryBasis[numRegulatoryBasis], optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_PolicyText(numPolicyText int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_PolicyText(frs []FhirResource, numPolicyText int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPolicyText >= len(resource.PolicyText) {
-		return ReferenceInput("policyText["+strconv.Itoa(numPolicyText)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "policyText["+strconv.Itoa(numPolicyText)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("policyText["+strconv.Itoa(numPolicyText)+"]", &resource.PolicyText[numPolicyText], htmlAttrs)
+	return ReferenceInput(frs, "policyText["+strconv.Itoa(numPolicyText)+"]", &resource.PolicyText[numPolicyText], htmlAttrs)
 }
 func (resource *Consent) T_Decision(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_provision_type
@@ -213,11 +213,11 @@ func (resource *Consent) T_Decision(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return CodeSelect("decision", resource.Decision, optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_PolicyBasisReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_PolicyBasisReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("policyBasis.reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "policyBasis.reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("policyBasis.reference", resource.PolicyBasis.Reference, htmlAttrs)
+	return ReferenceInput(frs, "policyBasis.reference", resource.PolicyBasis.Reference, htmlAttrs)
 }
 func (resource *Consent) T_PolicyBasisUrl(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -237,17 +237,17 @@ func (resource *Consent) T_VerificationVerificationType(numVerification int, opt
 	}
 	return CodeableConceptSelect("verification["+strconv.Itoa(numVerification)+"].verificationType", resource.Verification[numVerification].VerificationType, optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_VerificationVerifiedBy(numVerification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_VerificationVerifiedBy(frs []FhirResource, numVerification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVerification >= len(resource.Verification) {
-		return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedBy", nil, htmlAttrs)
+		return ReferenceInput(frs, "verification["+strconv.Itoa(numVerification)+"].verifiedBy", nil, htmlAttrs)
 	}
-	return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedBy", resource.Verification[numVerification].VerifiedBy, htmlAttrs)
+	return ReferenceInput(frs, "verification["+strconv.Itoa(numVerification)+"].verifiedBy", resource.Verification[numVerification].VerifiedBy, htmlAttrs)
 }
-func (resource *Consent) T_VerificationVerifiedWith(numVerification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_VerificationVerifiedWith(frs []FhirResource, numVerification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVerification >= len(resource.Verification) {
-		return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedWith", nil, htmlAttrs)
+		return ReferenceInput(frs, "verification["+strconv.Itoa(numVerification)+"].verifiedWith", nil, htmlAttrs)
 	}
-	return ReferenceInput("verification["+strconv.Itoa(numVerification)+"].verifiedWith", resource.Verification[numVerification].VerifiedWith, htmlAttrs)
+	return ReferenceInput(frs, "verification["+strconv.Itoa(numVerification)+"].verifiedWith", resource.Verification[numVerification].VerifiedWith, htmlAttrs)
 }
 func (resource *Consent) T_VerificationVerificationDate(numVerification int, numVerificationDate int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVerification >= len(resource.Verification) || numVerificationDate >= len(resource.Verification[numVerification].VerificationDate) {
@@ -315,11 +315,11 @@ func (resource *Consent) T_ProvisionActorRole(numProvision int, numActor int, op
 	}
 	return CodeableConceptSelect("provision["+strconv.Itoa(numProvision)+"].actor["+strconv.Itoa(numActor)+"].role", resource.Provision[numProvision].Actor[numActor].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_ProvisionActorReference(numProvision int, numActor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_ProvisionActorReference(frs []FhirResource, numProvision int, numActor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProvision >= len(resource.Provision) || numActor >= len(resource.Provision[numProvision].Actor) {
-		return ReferenceInput("provision["+strconv.Itoa(numProvision)+"].actor["+strconv.Itoa(numActor)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "provision["+strconv.Itoa(numProvision)+"].actor["+strconv.Itoa(numActor)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("provision["+strconv.Itoa(numProvision)+"].actor["+strconv.Itoa(numActor)+"].reference", resource.Provision[numProvision].Actor[numActor].Reference, htmlAttrs)
+	return ReferenceInput(frs, "provision["+strconv.Itoa(numProvision)+"].actor["+strconv.Itoa(numActor)+"].reference", resource.Provision[numProvision].Actor[numActor].Reference, htmlAttrs)
 }
 func (resource *Consent) T_ProvisionDataMeaning(numProvision int, numData int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_data_meaning
@@ -329,9 +329,9 @@ func (resource *Consent) T_ProvisionDataMeaning(numProvision int, numData int, h
 	}
 	return CodeSelect("provision["+strconv.Itoa(numProvision)+"].data["+strconv.Itoa(numData)+"].meaning", &resource.Provision[numProvision].Data[numData].Meaning, optionsValueSet, htmlAttrs)
 }
-func (resource *Consent) T_ProvisionDataReference(numProvision int, numData int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Consent) T_ProvisionDataReference(frs []FhirResource, numProvision int, numData int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProvision >= len(resource.Provision) || numData >= len(resource.Provision[numProvision].Data) {
-		return ReferenceInput("provision["+strconv.Itoa(numProvision)+"].data["+strconv.Itoa(numData)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "provision["+strconv.Itoa(numProvision)+"].data["+strconv.Itoa(numData)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("provision["+strconv.Itoa(numProvision)+"].data["+strconv.Itoa(numData)+"].reference", &resource.Provision[numProvision].Data[numData].Reference, htmlAttrs)
+	return ReferenceInput(frs, "provision["+strconv.Itoa(numProvision)+"].data["+strconv.Itoa(numData)+"].reference", &resource.Provision[numProvision].Data[numData].Reference, htmlAttrs)
 }

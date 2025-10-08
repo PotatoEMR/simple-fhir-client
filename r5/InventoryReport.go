@@ -115,11 +115,11 @@ func (resource *InventoryReport) T_ReportedDateTime(htmlAttrs templ.Attributes) 
 	}
 	return FhirDateTimeInput("reportedDateTime", &resource.ReportedDateTime, htmlAttrs)
 }
-func (resource *InventoryReport) T_Reporter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *InventoryReport) T_Reporter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("reporter", nil, htmlAttrs)
+		return ReferenceInput(frs, "reporter", nil, htmlAttrs)
 	}
-	return ReferenceInput("reporter", resource.Reporter, htmlAttrs)
+	return ReferenceInput(frs, "reporter", resource.Reporter, htmlAttrs)
 }
 func (resource *InventoryReport) T_ReportingPeriod(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -133,11 +133,11 @@ func (resource *InventoryReport) T_Note(numNote int, htmlAttrs templ.Attributes)
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *InventoryReport) T_InventoryListingLocation(numInventoryListing int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *InventoryReport) T_InventoryListingLocation(frs []FhirResource, numInventoryListing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) {
-		return ReferenceInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].location", nil, htmlAttrs)
+		return ReferenceInput(frs, "inventoryListing["+strconv.Itoa(numInventoryListing)+"].location", nil, htmlAttrs)
 	}
-	return ReferenceInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].location", resource.InventoryListing[numInventoryListing].Location, htmlAttrs)
+	return ReferenceInput(frs, "inventoryListing["+strconv.Itoa(numInventoryListing)+"].location", resource.InventoryListing[numInventoryListing].Location, htmlAttrs)
 }
 func (resource *InventoryReport) T_InventoryListingItemStatus(numInventoryListing int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) {
@@ -157,11 +157,11 @@ func (resource *InventoryReport) T_InventoryListingItemCategory(numInventoryList
 	}
 	return CodeableConceptSelect("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].category", resource.InventoryListing[numInventoryListing].Item[numItem].Category, optionsValueSet, htmlAttrs)
 }
-func (resource *InventoryReport) T_InventoryListingItemQuantity(numInventoryListing int, numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *InventoryReport) T_InventoryListingItemQuantity(numInventoryListing int, numItem int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) || numItem >= len(resource.InventoryListing[numInventoryListing].Item) {
-		return QuantityInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].quantity", &resource.InventoryListing[numInventoryListing].Item[numItem].Quantity, htmlAttrs)
+	return QuantityInput("inventoryListing["+strconv.Itoa(numInventoryListing)+"].item["+strconv.Itoa(numItem)+"].quantity", &resource.InventoryListing[numInventoryListing].Item[numItem].Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *InventoryReport) T_InventoryListingItemItem(numInventoryListing int, numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInventoryListing >= len(resource.InventoryListing) || numItem >= len(resource.InventoryListing[numInventoryListing].Item) {

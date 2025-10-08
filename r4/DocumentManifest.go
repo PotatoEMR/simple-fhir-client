@@ -91,11 +91,11 @@ func (resource *DocumentManifest) T_Type(optionsValueSet []Coding, htmlAttrs tem
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DocumentManifest) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *DocumentManifest) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -103,17 +103,17 @@ func (resource *DocumentManifest) T_Created(htmlAttrs templ.Attributes) templ.Co
 	}
 	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DocumentManifest) T_Author(frs []FhirResource, numAuthor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAuthor >= len(resource.Author) {
-		return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+	return ReferenceInput(frs, "author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
 }
-func (resource *DocumentManifest) T_Recipient(numRecipient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DocumentManifest) T_Recipient(frs []FhirResource, numRecipient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecipient >= len(resource.Recipient) {
-		return ReferenceInput("recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("recipient["+strconv.Itoa(numRecipient)+"]", &resource.Recipient[numRecipient], htmlAttrs)
+	return ReferenceInput(frs, "recipient["+strconv.Itoa(numRecipient)+"]", &resource.Recipient[numRecipient], htmlAttrs)
 }
 func (resource *DocumentManifest) T_Source(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -127,15 +127,15 @@ func (resource *DocumentManifest) T_Description(htmlAttrs templ.Attributes) temp
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *DocumentManifest) T_Content(numContent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DocumentManifest) T_Content(frs []FhirResource, numContent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContent >= len(resource.Content) {
-		return ReferenceInput("content["+strconv.Itoa(numContent)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "content["+strconv.Itoa(numContent)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("content["+strconv.Itoa(numContent)+"]", &resource.Content[numContent], htmlAttrs)
+	return ReferenceInput(frs, "content["+strconv.Itoa(numContent)+"]", &resource.Content[numContent], htmlAttrs)
 }
-func (resource *DocumentManifest) T_RelatedRef(numRelated int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DocumentManifest) T_RelatedRef(frs []FhirResource, numRelated int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelated >= len(resource.Related) {
-		return ReferenceInput("related["+strconv.Itoa(numRelated)+"].ref", nil, htmlAttrs)
+		return ReferenceInput(frs, "related["+strconv.Itoa(numRelated)+"].ref", nil, htmlAttrs)
 	}
-	return ReferenceInput("related["+strconv.Itoa(numRelated)+"].ref", resource.Related[numRelated].Ref, htmlAttrs)
+	return ReferenceInput(frs, "related["+strconv.Itoa(numRelated)+"].ref", resource.Related[numRelated].Ref, htmlAttrs)
 }

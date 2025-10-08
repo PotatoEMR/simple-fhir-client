@@ -23,11 +23,11 @@ func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs templ.
 	}
 	return CodeSelect("contentType", &resource.ContentType, optionsValueSet, htmlAttrs)
 }
-func (resource *Binary) T_SecurityContext(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Binary) T_SecurityContext(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("securityContext", nil, htmlAttrs)
+		return ReferenceInput(frs, "securityContext", nil, htmlAttrs)
 	}
-	return ReferenceInput("securityContext", resource.SecurityContext, htmlAttrs)
+	return ReferenceInput(frs, "securityContext", resource.SecurityContext, htmlAttrs)
 }
 func (resource *Binary) T_Data(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

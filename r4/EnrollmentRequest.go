@@ -70,27 +70,27 @@ func (resource *EnrollmentRequest) T_Created(htmlAttrs templ.Attributes) templ.C
 	}
 	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Insurer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentRequest) T_Insurer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("insurer", nil, htmlAttrs)
+		return ReferenceInput(frs, "insurer", nil, htmlAttrs)
 	}
-	return ReferenceInput("insurer", resource.Insurer, htmlAttrs)
+	return ReferenceInput(frs, "insurer", resource.Insurer, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Provider(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentRequest) T_Provider(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("provider", nil, htmlAttrs)
+		return ReferenceInput(frs, "provider", nil, htmlAttrs)
 	}
-	return ReferenceInput("provider", resource.Provider, htmlAttrs)
+	return ReferenceInput(frs, "provider", resource.Provider, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Candidate(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentRequest) T_Candidate(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("candidate", nil, htmlAttrs)
+		return ReferenceInput(frs, "candidate", nil, htmlAttrs)
 	}
-	return ReferenceInput("candidate", resource.Candidate, htmlAttrs)
+	return ReferenceInput(frs, "candidate", resource.Candidate, htmlAttrs)
 }
-func (resource *EnrollmentRequest) T_Coverage(htmlAttrs templ.Attributes) templ.Component {
+func (resource *EnrollmentRequest) T_Coverage(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("coverage", nil, htmlAttrs)
+		return ReferenceInput(frs, "coverage", nil, htmlAttrs)
 	}
-	return ReferenceInput("coverage", resource.Coverage, htmlAttrs)
+	return ReferenceInput(frs, "coverage", resource.Coverage, htmlAttrs)
 }

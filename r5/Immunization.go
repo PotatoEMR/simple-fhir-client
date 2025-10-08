@@ -119,11 +119,11 @@ func (r Immunization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Immunization) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *Immunization) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSImmunization_status
@@ -169,23 +169,23 @@ func (resource *Immunization) T_ExpirationDate(htmlAttrs templ.Attributes) templ
 	}
 	return FhirDateInput("expirationDate", resource.ExpirationDate, htmlAttrs)
 }
-func (resource *Immunization) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
-func (resource *Immunization) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
-func (resource *Immunization) T_SupportingInformation(numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_SupportingInformation(frs []FhirResource, numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInformation >= len(resource.SupportingInformation) {
-		return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
+	return ReferenceInput(frs, "supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
 }
 func (resource *Immunization) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -211,11 +211,11 @@ func (resource *Immunization) T_InformationSource(htmlAttrs templ.Attributes) te
 	}
 	return CodeableReferenceInput("informationSource", resource.InformationSource, htmlAttrs)
 }
-func (resource *Immunization) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
 func (resource *Immunization) T_Site(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -229,11 +229,11 @@ func (resource *Immunization) T_Route(optionsValueSet []Coding, htmlAttrs templ.
 	}
 	return CodeableConceptSelect("route", resource.Route, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_DoseQuantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_DoseQuantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("doseQuantity", nil, htmlAttrs)
+		return QuantityInput("doseQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("doseQuantity", resource.DoseQuantity, htmlAttrs)
+	return QuantityInput("doseQuantity", resource.DoseQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Immunization) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -271,11 +271,11 @@ func (resource *Immunization) T_PerformerFunction(numPerformer int, optionsValue
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *Immunization) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_PerformerActor(frs []FhirResource, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
+	return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
 }
 func (resource *Immunization) T_ProgramEligibilityProgram(numProgramEligibility int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgramEligibility >= len(resource.ProgramEligibility) {
@@ -313,11 +313,11 @@ func (resource *Immunization) T_ProtocolAppliedSeries(numProtocolApplied int, ht
 	}
 	return StringInput("protocolApplied["+strconv.Itoa(numProtocolApplied)+"].series", resource.ProtocolApplied[numProtocolApplied].Series, htmlAttrs)
 }
-func (resource *Immunization) T_ProtocolAppliedAuthority(numProtocolApplied int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Immunization) T_ProtocolAppliedAuthority(frs []FhirResource, numProtocolApplied int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) {
-		return ReferenceInput("protocolApplied["+strconv.Itoa(numProtocolApplied)+"].authority", nil, htmlAttrs)
+		return ReferenceInput(frs, "protocolApplied["+strconv.Itoa(numProtocolApplied)+"].authority", nil, htmlAttrs)
 	}
-	return ReferenceInput("protocolApplied["+strconv.Itoa(numProtocolApplied)+"].authority", resource.ProtocolApplied[numProtocolApplied].Authority, htmlAttrs)
+	return ReferenceInput(frs, "protocolApplied["+strconv.Itoa(numProtocolApplied)+"].authority", resource.ProtocolApplied[numProtocolApplied].Authority, htmlAttrs)
 }
 func (resource *Immunization) T_ProtocolAppliedTargetDisease(numProtocolApplied int, numTargetDisease int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProtocolApplied >= len(resource.ProtocolApplied) || numTargetDisease >= len(resource.ProtocolApplied[numProtocolApplied].TargetDisease) {

@@ -111,11 +111,11 @@ func (resource *MedicinalProductIngredient) T_AllergenicIndicator(htmlAttrs temp
 	}
 	return BoolInput("allergenicIndicator", resource.AllergenicIndicator, htmlAttrs)
 }
-func (resource *MedicinalProductIngredient) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProductIngredient) T_Manufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
-		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
 }
 func (resource *MedicinalProductIngredient) T_SpecifiedSubstanceCode(numSpecifiedSubstance int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecifiedSubstance >= len(resource.SpecifiedSubstance) {

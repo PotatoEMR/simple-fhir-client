@@ -75,17 +75,17 @@ func (r BiologicallyDerivedProductDispense) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *BiologicallyDerivedProductDispense) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *BiologicallyDerivedProductDispense) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBiologicallyderivedproductdispense_status
@@ -101,17 +101,17 @@ func (resource *BiologicallyDerivedProductDispense) T_OriginRelationshipType(opt
 	}
 	return CodeableConceptSelect("originRelationshipType", resource.OriginRelationshipType, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Product(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Product(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("product", nil, htmlAttrs)
+		return ReferenceInput(frs, "product", nil, htmlAttrs)
 	}
-	return ReferenceInput("product", &resource.Product, htmlAttrs)
+	return ReferenceInput(frs, "product", &resource.Product, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -119,17 +119,17 @@ func (resource *BiologicallyDerivedProductDispense) T_MatchStatus(optionsValueSe
 	}
 	return CodeableConceptSelect("matchStatus", resource.MatchStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", resource.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProductDispense) T_PreparedDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -143,11 +143,11 @@ func (resource *BiologicallyDerivedProductDispense) T_WhenHandedOver(htmlAttrs t
 	}
 	return FhirDateTimeInput("whenHandedOver", resource.WhenHandedOver, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_Destination(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_Destination(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("destination", nil, htmlAttrs)
+		return ReferenceInput(frs, "destination", nil, htmlAttrs)
 	}
-	return ReferenceInput("destination", resource.Destination, htmlAttrs)
+	return ReferenceInput(frs, "destination", resource.Destination, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProductDispense) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -167,9 +167,9 @@ func (resource *BiologicallyDerivedProductDispense) T_PerformerFunction(numPerfo
 	}
 	return CodeableConceptSelect("performer["+strconv.Itoa(numPerformer)+"].function", resource.Performer[numPerformer].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProductDispense) T_PerformerActor(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProductDispense) T_PerformerActor(frs []FhirResource, numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
-		return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
+	return ReferenceInput(frs, "performer["+strconv.Itoa(numPerformer)+"].actor", &resource.Performer[numPerformer].Actor, htmlAttrs)
 }

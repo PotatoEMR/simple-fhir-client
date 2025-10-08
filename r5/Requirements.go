@@ -267,9 +267,9 @@ func (resource *Requirements) T_StatementReference(numStatement int, numReferenc
 	}
 	return StringInput("statement["+strconv.Itoa(numStatement)+"].reference["+strconv.Itoa(numReference)+"]", &resource.Statement[numStatement].Reference[numReference], htmlAttrs)
 }
-func (resource *Requirements) T_StatementSource(numStatement int, numSource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Requirements) T_StatementSource(frs []FhirResource, numStatement int, numSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatement >= len(resource.Statement) || numSource >= len(resource.Statement[numStatement].Source) {
-		return ReferenceInput("statement["+strconv.Itoa(numStatement)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "statement["+strconv.Itoa(numStatement)+"].source["+strconv.Itoa(numSource)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("statement["+strconv.Itoa(numStatement)+"].source["+strconv.Itoa(numSource)+"]", &resource.Statement[numStatement].Source[numSource], htmlAttrs)
+	return ReferenceInput(frs, "statement["+strconv.Itoa(numStatement)+"].source["+strconv.Itoa(numSource)+"]", &resource.Statement[numStatement].Source[numSource], htmlAttrs)
 }

@@ -109,11 +109,11 @@ func (resource *HealthcareService) T_Active(htmlAttrs templ.Attributes) templ.Co
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *HealthcareService) T_ProvidedBy(htmlAttrs templ.Attributes) templ.Component {
+func (resource *HealthcareService) T_ProvidedBy(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("providedBy", nil, htmlAttrs)
+		return ReferenceInput(frs, "providedBy", nil, htmlAttrs)
 	}
-	return ReferenceInput("providedBy", resource.ProvidedBy, htmlAttrs)
+	return ReferenceInput(frs, "providedBy", resource.ProvidedBy, htmlAttrs)
 }
 func (resource *HealthcareService) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
@@ -133,11 +133,11 @@ func (resource *HealthcareService) T_Specialty(numSpecialty int, optionsValueSet
 	}
 	return CodeableConceptSelect("specialty["+strconv.Itoa(numSpecialty)+"]", &resource.Specialty[numSpecialty], optionsValueSet, htmlAttrs)
 }
-func (resource *HealthcareService) T_Location(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *HealthcareService) T_Location(frs []FhirResource, numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
-		return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
+	return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"]", &resource.Location[numLocation], htmlAttrs)
 }
 func (resource *HealthcareService) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -169,11 +169,11 @@ func (resource *HealthcareService) T_Telecom(numTelecom int, htmlAttrs templ.Att
 	}
 	return ContactPointInput("telecom["+strconv.Itoa(numTelecom)+"]", &resource.Telecom[numTelecom], htmlAttrs)
 }
-func (resource *HealthcareService) T_CoverageArea(numCoverageArea int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *HealthcareService) T_CoverageArea(frs []FhirResource, numCoverageArea int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCoverageArea >= len(resource.CoverageArea) {
-		return ReferenceInput("coverageArea["+strconv.Itoa(numCoverageArea)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "coverageArea["+strconv.Itoa(numCoverageArea)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("coverageArea["+strconv.Itoa(numCoverageArea)+"]", &resource.CoverageArea[numCoverageArea], htmlAttrs)
+	return ReferenceInput(frs, "coverageArea["+strconv.Itoa(numCoverageArea)+"]", &resource.CoverageArea[numCoverageArea], htmlAttrs)
 }
 func (resource *HealthcareService) T_ServiceProvisionCode(numServiceProvisionCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numServiceProvisionCode >= len(resource.ServiceProvisionCode) {
@@ -217,11 +217,11 @@ func (resource *HealthcareService) T_AvailabilityExceptions(htmlAttrs templ.Attr
 	}
 	return StringInput("availabilityExceptions", resource.AvailabilityExceptions, htmlAttrs)
 }
-func (resource *HealthcareService) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *HealthcareService) T_Endpoint(frs []FhirResource, numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEndpoint >= len(resource.Endpoint) {
-		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+	return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *HealthcareService) T_EligibilityCode(numEligibility int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEligibility >= len(resource.Eligibility) {

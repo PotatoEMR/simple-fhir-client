@@ -69,17 +69,17 @@ func (resource *PaymentNotice) T_Status(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Request(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Request(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("request", nil, htmlAttrs)
+		return ReferenceInput(frs, "request", nil, htmlAttrs)
 	}
-	return ReferenceInput("request", resource.Request, htmlAttrs)
+	return ReferenceInput(frs, "request", resource.Request, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Response(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Response(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("response", nil, htmlAttrs)
+		return ReferenceInput(frs, "response", nil, htmlAttrs)
 	}
-	return ReferenceInput("response", resource.Response, htmlAttrs)
+	return ReferenceInput(frs, "response", resource.Response, htmlAttrs)
 }
 func (resource *PaymentNotice) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -87,17 +87,17 @@ func (resource *PaymentNotice) T_Created(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Reporter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Reporter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("reporter", nil, htmlAttrs)
+		return ReferenceInput(frs, "reporter", nil, htmlAttrs)
 	}
-	return ReferenceInput("reporter", resource.Reporter, htmlAttrs)
+	return ReferenceInput(frs, "reporter", resource.Reporter, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Payment(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Payment(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("payment", nil, htmlAttrs)
+		return ReferenceInput(frs, "payment", nil, htmlAttrs)
 	}
-	return ReferenceInput("payment", resource.Payment, htmlAttrs)
+	return ReferenceInput(frs, "payment", resource.Payment, htmlAttrs)
 }
 func (resource *PaymentNotice) T_PaymentDate(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -105,17 +105,17 @@ func (resource *PaymentNotice) T_PaymentDate(htmlAttrs templ.Attributes) templ.C
 	}
 	return FhirDateInput("paymentDate", resource.PaymentDate, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Payee(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Payee(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("payee", nil, htmlAttrs)
+		return ReferenceInput(frs, "payee", nil, htmlAttrs)
 	}
-	return ReferenceInput("payee", resource.Payee, htmlAttrs)
+	return ReferenceInput(frs, "payee", resource.Payee, htmlAttrs)
 }
-func (resource *PaymentNotice) T_Recipient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentNotice) T_Recipient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recipient", nil, htmlAttrs)
+		return ReferenceInput(frs, "recipient", nil, htmlAttrs)
 	}
-	return ReferenceInput("recipient", &resource.Recipient, htmlAttrs)
+	return ReferenceInput(frs, "recipient", &resource.Recipient, htmlAttrs)
 }
 func (resource *PaymentNotice) T_Amount(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

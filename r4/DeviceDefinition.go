@@ -136,11 +136,11 @@ func (resource *DeviceDefinition) T_ManufacturerString(htmlAttrs templ.Attribute
 	}
 	return StringInput("manufacturerString", resource.ManufacturerString, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_ManufacturerReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_ManufacturerReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("manufacturerReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturerReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturerReference", resource.ManufacturerReference, htmlAttrs)
+	return ReferenceInput(frs, "manufacturerReference", resource.ManufacturerReference, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_ModelNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -184,11 +184,11 @@ func (resource *DeviceDefinition) T_LanguageCode(numLanguageCode int, optionsVal
 	}
 	return CodeableConceptSelect("languageCode["+strconv.Itoa(numLanguageCode)+"]", &resource.LanguageCode[numLanguageCode], optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_Owner(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("owner", nil, htmlAttrs)
+		return ReferenceInput(frs, "owner", nil, htmlAttrs)
 	}
-	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+	return ReferenceInput(frs, "owner", resource.Owner, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
@@ -214,17 +214,17 @@ func (resource *DeviceDefinition) T_Note(numNote int, htmlAttrs templ.Attributes
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *DeviceDefinition) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", resource.Quantity, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_ParentDevice(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_ParentDevice(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("parentDevice", nil, htmlAttrs)
+		return ReferenceInput(frs, "parentDevice", nil, htmlAttrs)
 	}
-	return ReferenceInput("parentDevice", resource.ParentDevice, htmlAttrs)
+	return ReferenceInput(frs, "parentDevice", resource.ParentDevice, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_UdiDeviceIdentifierDeviceIdentifier(numUdiDeviceIdentifier int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numUdiDeviceIdentifier >= len(resource.UdiDeviceIdentifier) {
@@ -288,11 +288,11 @@ func (resource *DeviceDefinition) T_PropertyType(numProperty int, optionsValueSe
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].type", &resource.Property[numProperty].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceDefinition) T_PropertyValueQuantity(numProperty int, numValueQuantity int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceDefinition) T_PropertyValueQuantity(numProperty int, numValueQuantity int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) || numValueQuantity >= len(resource.Property[numProperty].ValueQuantity) {
-		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", nil, htmlAttrs)
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", &resource.Property[numProperty].ValueQuantity[numValueQuantity], htmlAttrs)
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity["+strconv.Itoa(numValueQuantity)+"]", &resource.Property[numProperty].ValueQuantity[numValueQuantity], optionsValueSet, htmlAttrs)
 }
 func (resource *DeviceDefinition) T_PropertyValueCode(numProperty int, numValueCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) || numValueCode >= len(resource.Property[numProperty].ValueCode) {

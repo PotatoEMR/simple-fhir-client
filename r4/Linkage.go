@@ -66,11 +66,11 @@ func (resource *Linkage) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Linkage) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Linkage) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
 func (resource *Linkage) T_ItemType(numItem int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSLinkage_type
@@ -80,9 +80,9 @@ func (resource *Linkage) T_ItemType(numItem int, htmlAttrs templ.Attributes) tem
 	}
 	return CodeSelect("item["+strconv.Itoa(numItem)+"].type", &resource.Item[numItem].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Linkage) T_ItemResource(numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Linkage) T_ItemResource(frs []FhirResource, numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].resource", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].resource", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].resource", &resource.Item[numItem].Resource, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].resource", &resource.Item[numItem].Resource, htmlAttrs)
 }

@@ -84,11 +84,11 @@ func (resource *CatalogEntry) T_Orderable(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return BoolInput("orderable", &resource.Orderable, htmlAttrs)
 }
-func (resource *CatalogEntry) T_ReferencedItem(htmlAttrs templ.Attributes) templ.Component {
+func (resource *CatalogEntry) T_ReferencedItem(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("referencedItem", nil, htmlAttrs)
+		return ReferenceInput(frs, "referencedItem", nil, htmlAttrs)
 	}
-	return ReferenceInput("referencedItem", &resource.ReferencedItem, htmlAttrs)
+	return ReferenceInput(frs, "referencedItem", &resource.ReferencedItem, htmlAttrs)
 }
 func (resource *CatalogEntry) T_AdditionalIdentifier(numAdditionalIdentifier int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAdditionalIdentifier >= len(resource.AdditionalIdentifier) {
@@ -148,9 +148,9 @@ func (resource *CatalogEntry) T_RelatedEntryRelationtype(numRelatedEntry int, ht
 	}
 	return CodeSelect("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].relationtype", &resource.RelatedEntry[numRelatedEntry].Relationtype, optionsValueSet, htmlAttrs)
 }
-func (resource *CatalogEntry) T_RelatedEntryItem(numRelatedEntry int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *CatalogEntry) T_RelatedEntryItem(frs []FhirResource, numRelatedEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedEntry >= len(resource.RelatedEntry) {
-		return ReferenceInput("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", nil, htmlAttrs)
+		return ReferenceInput(frs, "relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", nil, htmlAttrs)
 	}
-	return ReferenceInput("relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", &resource.RelatedEntry[numRelatedEntry].Item, htmlAttrs)
+	return ReferenceInput(frs, "relatedEntry["+strconv.Itoa(numRelatedEntry)+"].item", &resource.RelatedEntry[numRelatedEntry].Item, htmlAttrs)
 }

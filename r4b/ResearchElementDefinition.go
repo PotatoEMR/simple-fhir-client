@@ -168,11 +168,11 @@ func (resource *ResearchElementDefinition) T_SubjectCodeableConcept(optionsValue
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchElementDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchElementDefinition) T_SubjectReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "subjectReference", resource.SubjectReference, htmlAttrs)
 }
 func (resource *ResearchElementDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

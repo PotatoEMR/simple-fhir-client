@@ -118,11 +118,11 @@ func (resource *AdministrableProductDefinition) T_Status(htmlAttrs templ.Attribu
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_FormOf(numFormOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_FormOf(frs []FhirResource, numFormOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFormOf >= len(resource.FormOf) {
-		return ReferenceInput("formOf["+strconv.Itoa(numFormOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "formOf["+strconv.Itoa(numFormOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("formOf["+strconv.Itoa(numFormOf)+"]", &resource.FormOf[numFormOf], htmlAttrs)
+	return ReferenceInput(frs, "formOf["+strconv.Itoa(numFormOf)+"]", &resource.FormOf[numFormOf], htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_AdministrableDoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -136,11 +136,11 @@ func (resource *AdministrableProductDefinition) T_UnitOfPresentation(optionsValu
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_ProducedFrom(numProducedFrom int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_ProducedFrom(frs []FhirResource, numProducedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProducedFrom >= len(resource.ProducedFrom) {
-		return ReferenceInput("producedFrom["+strconv.Itoa(numProducedFrom)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "producedFrom["+strconv.Itoa(numProducedFrom)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("producedFrom["+strconv.Itoa(numProducedFrom)+"]", &resource.ProducedFrom[numProducedFrom], htmlAttrs)
+	return ReferenceInput(frs, "producedFrom["+strconv.Itoa(numProducedFrom)+"]", &resource.ProducedFrom[numProducedFrom], htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_Ingredient(numIngredient int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
@@ -148,11 +148,11 @@ func (resource *AdministrableProductDefinition) T_Ingredient(numIngredient int, 
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"]", &resource.Ingredient[numIngredient], optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_Device(htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_Device(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("device", nil, htmlAttrs)
+		return ReferenceInput(frs, "device", nil, htmlAttrs)
 	}
-	return ReferenceInput("device", resource.Device, htmlAttrs)
+	return ReferenceInput(frs, "device", resource.Device, htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_Description(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -172,11 +172,11 @@ func (resource *AdministrableProductDefinition) T_PropertyValueCodeableConcept(n
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_PropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_PropertyValueQuantity(numProperty int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Property[numProperty].ValueQuantity, htmlAttrs)
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Property[numProperty].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_PropertyValueDate(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
@@ -202,11 +202,11 @@ func (resource *AdministrableProductDefinition) T_PropertyValueAttachment(numPro
 	}
 	return AttachmentInput("property["+strconv.Itoa(numProperty)+"].valueAttachment", resource.Property[numProperty].ValueAttachment, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_PropertyValueReference(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_PropertyValueReference(frs []FhirResource, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "property["+strconv.Itoa(numProperty)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", resource.Property[numProperty].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "property["+strconv.Itoa(numProperty)+"].valueReference", resource.Property[numProperty].ValueReference, htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_PropertyStatus(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
@@ -222,23 +222,23 @@ func (resource *AdministrableProductDefinition) T_RouteOfAdministrationCode(numR
 	}
 	return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].code", &resource.RouteOfAdministration[numRouteOfAdministration].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_RouteOfAdministrationFirstDose(numRouteOfAdministration int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_RouteOfAdministrationFirstDose(numRouteOfAdministration int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) {
-		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].firstDose", nil, htmlAttrs)
+		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].firstDose", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].firstDose", resource.RouteOfAdministration[numRouteOfAdministration].FirstDose, htmlAttrs)
+	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].firstDose", resource.RouteOfAdministration[numRouteOfAdministration].FirstDose, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_RouteOfAdministrationMaxSingleDose(numRouteOfAdministration int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_RouteOfAdministrationMaxSingleDose(numRouteOfAdministration int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) {
-		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxSingleDose", nil, htmlAttrs)
+		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxSingleDose", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxSingleDose", resource.RouteOfAdministration[numRouteOfAdministration].MaxSingleDose, htmlAttrs)
+	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxSingleDose", resource.RouteOfAdministration[numRouteOfAdministration].MaxSingleDose, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_RouteOfAdministrationMaxDosePerDay(numRouteOfAdministration int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_RouteOfAdministrationMaxDosePerDay(numRouteOfAdministration int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) {
-		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxDosePerDay", nil, htmlAttrs)
+		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxDosePerDay", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxDosePerDay", resource.RouteOfAdministration[numRouteOfAdministration].MaxDosePerDay, htmlAttrs)
+	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].maxDosePerDay", resource.RouteOfAdministration[numRouteOfAdministration].MaxDosePerDay, optionsValueSet, htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_RouteOfAdministrationMaxDosePerTreatmentPeriod(numRouteOfAdministration int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) {
@@ -264,11 +264,11 @@ func (resource *AdministrableProductDefinition) T_RouteOfAdministrationTargetSpe
 	}
 	return CodeableConceptSelect("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].tissue", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Tissue, optionsValueSet, htmlAttrs)
 }
-func (resource *AdministrableProductDefinition) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodValue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *AdministrableProductDefinition) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodValue(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) || numTargetSpecies >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) || numWithdrawalPeriod >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) {
-		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].value", nil, htmlAttrs)
+		return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].value", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].value", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Value, htmlAttrs)
+	return QuantityInput("routeOfAdministration["+strconv.Itoa(numRouteOfAdministration)+"].targetSpecies["+strconv.Itoa(numTargetSpecies)+"].withdrawalPeriod["+strconv.Itoa(numWithdrawalPeriod)+"].value", &resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod[numWithdrawalPeriod].Value, optionsValueSet, htmlAttrs)
 }
 func (resource *AdministrableProductDefinition) T_RouteOfAdministrationTargetSpeciesWithdrawalPeriodSupportingInformation(numRouteOfAdministration int, numTargetSpecies int, numWithdrawalPeriod int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRouteOfAdministration >= len(resource.RouteOfAdministration) || numTargetSpecies >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies) || numWithdrawalPeriod >= len(resource.RouteOfAdministration[numRouteOfAdministration].TargetSpecies[numTargetSpecies].WithdrawalPeriod) {

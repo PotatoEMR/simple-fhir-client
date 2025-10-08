@@ -182,17 +182,17 @@ func (resource *ResearchStudy) T_Title(htmlAttrs templ.Attributes) templ.Compone
 	}
 	return StringInput("title", resource.Title, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Protocol(numProtocol int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Protocol(frs []FhirResource, numProtocol int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProtocol >= len(resource.Protocol) {
-		return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "protocol["+strconv.Itoa(numProtocol)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
+	return ReferenceInput(frs, "protocol["+strconv.Itoa(numProtocol)+"]", &resource.Protocol[numProtocol], htmlAttrs)
 }
-func (resource *ResearchStudy) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *ResearchStudy) T_RelatedArtifact(numRelatedArtifact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedArtifact >= len(resource.RelatedArtifact) {
@@ -274,11 +274,11 @@ func (resource *ResearchStudy) T_Period(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Site(numSite int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Site(frs []FhirResource, numSite int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSite >= len(resource.Site) {
-		return ReferenceInput("site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "site["+strconv.Itoa(numSite)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
+	return ReferenceInput(frs, "site["+strconv.Itoa(numSite)+"]", &resource.Site[numSite], htmlAttrs)
 }
 func (resource *ResearchStudy) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -298,11 +298,11 @@ func (resource *ResearchStudy) T_WhyStopped(optionsValueSet []Coding, htmlAttrs 
 	}
 	return CodeableConceptSelect("whyStopped", resource.WhyStopped, optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_Result(numResult int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_Result(frs []FhirResource, numResult int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResult >= len(resource.Result) {
-		return ReferenceInput("result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
+	return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
 }
 func (resource *ResearchStudy) T_LabelType(numLabel int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLabel >= len(resource.Label) {
@@ -340,11 +340,11 @@ func (resource *ResearchStudy) T_AssociatedPartyClassifier(numAssociatedParty in
 	}
 	return CodeableConceptSelect("associatedParty["+strconv.Itoa(numAssociatedParty)+"].classifier["+strconv.Itoa(numClassifier)+"]", &resource.AssociatedParty[numAssociatedParty].Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
-func (resource *ResearchStudy) T_AssociatedPartyParty(numAssociatedParty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_AssociatedPartyParty(frs []FhirResource, numAssociatedParty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAssociatedParty >= len(resource.AssociatedParty) {
-		return ReferenceInput("associatedParty["+strconv.Itoa(numAssociatedParty)+"].party", nil, htmlAttrs)
+		return ReferenceInput(frs, "associatedParty["+strconv.Itoa(numAssociatedParty)+"].party", nil, htmlAttrs)
 	}
-	return ReferenceInput("associatedParty["+strconv.Itoa(numAssociatedParty)+"].party", resource.AssociatedParty[numAssociatedParty].Party, htmlAttrs)
+	return ReferenceInput(frs, "associatedParty["+strconv.Itoa(numAssociatedParty)+"].party", resource.AssociatedParty[numAssociatedParty].Party, htmlAttrs)
 }
 func (resource *ResearchStudy) T_ProgressStatusState(numProgressStatus int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgressStatus >= len(resource.ProgressStatus) {
@@ -376,17 +376,17 @@ func (resource *ResearchStudy) T_RecruitmentActualNumber(htmlAttrs templ.Attribu
 	}
 	return IntInput("recruitment.actualNumber", resource.Recruitment.ActualNumber, htmlAttrs)
 }
-func (resource *ResearchStudy) T_RecruitmentEligibility(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_RecruitmentEligibility(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recruitment.eligibility", nil, htmlAttrs)
+		return ReferenceInput(frs, "recruitment.eligibility", nil, htmlAttrs)
 	}
-	return ReferenceInput("recruitment.eligibility", resource.Recruitment.Eligibility, htmlAttrs)
+	return ReferenceInput(frs, "recruitment.eligibility", resource.Recruitment.Eligibility, htmlAttrs)
 }
-func (resource *ResearchStudy) T_RecruitmentActualGroup(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_RecruitmentActualGroup(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recruitment.actualGroup", nil, htmlAttrs)
+		return ReferenceInput(frs, "recruitment.actualGroup", nil, htmlAttrs)
 	}
-	return ReferenceInput("recruitment.actualGroup", resource.Recruitment.ActualGroup, htmlAttrs)
+	return ReferenceInput(frs, "recruitment.actualGroup", resource.Recruitment.ActualGroup, htmlAttrs)
 }
 func (resource *ResearchStudy) T_ComparisonGroupLinkId(numComparisonGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
@@ -412,17 +412,17 @@ func (resource *ResearchStudy) T_ComparisonGroupDescription(numComparisonGroup i
 	}
 	return StringInput("comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].description", resource.ComparisonGroup[numComparisonGroup].Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupIntendedExposure(numComparisonGroup int, numIntendedExposure int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupIntendedExposure(frs []FhirResource, numComparisonGroup int, numIntendedExposure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) || numIntendedExposure >= len(resource.ComparisonGroup[numComparisonGroup].IntendedExposure) {
-		return ReferenceInput("comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].intendedExposure["+strconv.Itoa(numIntendedExposure)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].intendedExposure["+strconv.Itoa(numIntendedExposure)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].intendedExposure["+strconv.Itoa(numIntendedExposure)+"]", &resource.ComparisonGroup[numComparisonGroup].IntendedExposure[numIntendedExposure], htmlAttrs)
+	return ReferenceInput(frs, "comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].intendedExposure["+strconv.Itoa(numIntendedExposure)+"]", &resource.ComparisonGroup[numComparisonGroup].IntendedExposure[numIntendedExposure], htmlAttrs)
 }
-func (resource *ResearchStudy) T_ComparisonGroupObservedGroup(numComparisonGroup int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_ComparisonGroupObservedGroup(frs []FhirResource, numComparisonGroup int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComparisonGroup >= len(resource.ComparisonGroup) {
-		return ReferenceInput("comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].observedGroup", nil, htmlAttrs)
+		return ReferenceInput(frs, "comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].observedGroup", nil, htmlAttrs)
 	}
-	return ReferenceInput("comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].observedGroup", resource.ComparisonGroup[numComparisonGroup].ObservedGroup, htmlAttrs)
+	return ReferenceInput(frs, "comparisonGroup["+strconv.Itoa(numComparisonGroup)+"].observedGroup", resource.ComparisonGroup[numComparisonGroup].ObservedGroup, htmlAttrs)
 }
 func (resource *ResearchStudy) T_ObjectiveName(numObjective int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObjective >= len(resource.Objective) {
@@ -460,9 +460,9 @@ func (resource *ResearchStudy) T_OutcomeMeasureDescription(numOutcomeMeasure int
 	}
 	return StringInput("outcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].description", resource.OutcomeMeasure[numOutcomeMeasure].Description, htmlAttrs)
 }
-func (resource *ResearchStudy) T_OutcomeMeasureReference(numOutcomeMeasure int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchStudy) T_OutcomeMeasureReference(frs []FhirResource, numOutcomeMeasure int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutcomeMeasure >= len(resource.OutcomeMeasure) {
-		return ReferenceInput("outcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "outcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("outcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].reference", resource.OutcomeMeasure[numOutcomeMeasure].Reference, htmlAttrs)
+	return ReferenceInput(frs, "outcomeMeasure["+strconv.Itoa(numOutcomeMeasure)+"].reference", resource.OutcomeMeasure[numOutcomeMeasure].Reference, htmlAttrs)
 }

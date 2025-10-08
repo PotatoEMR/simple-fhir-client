@@ -162,11 +162,11 @@ func (resource *Encounter) T_ServiceType(numServiceType int, htmlAttrs templ.Att
 	}
 	return CodeableReferenceInput("serviceType["+strconv.Itoa(numServiceType)+"]", &resource.ServiceType[numServiceType], htmlAttrs)
 }
-func (resource *Encounter) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *Encounter) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -174,41 +174,41 @@ func (resource *Encounter) T_SubjectStatus(optionsValueSet []Coding, htmlAttrs t
 	}
 	return CodeableConceptSelect("subjectStatus", resource.SubjectStatus, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_EpisodeOfCare(numEpisodeOfCare int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_EpisodeOfCare(frs []FhirResource, numEpisodeOfCare int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEpisodeOfCare >= len(resource.EpisodeOfCare) {
-		return ReferenceInput("episodeOfCare["+strconv.Itoa(numEpisodeOfCare)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "episodeOfCare["+strconv.Itoa(numEpisodeOfCare)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("episodeOfCare["+strconv.Itoa(numEpisodeOfCare)+"]", &resource.EpisodeOfCare[numEpisodeOfCare], htmlAttrs)
+	return ReferenceInput(frs, "episodeOfCare["+strconv.Itoa(numEpisodeOfCare)+"]", &resource.EpisodeOfCare[numEpisodeOfCare], htmlAttrs)
 }
-func (resource *Encounter) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *Encounter) T_CareTeam(numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_CareTeam(frs []FhirResource, numCareTeam int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCareTeam >= len(resource.CareTeam) {
-		return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "careTeam["+strconv.Itoa(numCareTeam)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("careTeam["+strconv.Itoa(numCareTeam)+"]", &resource.CareTeam[numCareTeam], htmlAttrs)
+	return ReferenceInput(frs, "careTeam["+strconv.Itoa(numCareTeam)+"]", &resource.CareTeam[numCareTeam], htmlAttrs)
 }
-func (resource *Encounter) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_PartOf(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("partOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+	return ReferenceInput(frs, "partOf", resource.PartOf, htmlAttrs)
 }
-func (resource *Encounter) T_ServiceProvider(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_ServiceProvider(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("serviceProvider", nil, htmlAttrs)
+		return ReferenceInput(frs, "serviceProvider", nil, htmlAttrs)
 	}
-	return ReferenceInput("serviceProvider", resource.ServiceProvider, htmlAttrs)
+	return ReferenceInput(frs, "serviceProvider", resource.ServiceProvider, htmlAttrs)
 }
-func (resource *Encounter) T_Appointment(numAppointment int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_Appointment(frs []FhirResource, numAppointment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAppointment >= len(resource.Appointment) {
-		return ReferenceInput("appointment["+strconv.Itoa(numAppointment)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "appointment["+strconv.Itoa(numAppointment)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("appointment["+strconv.Itoa(numAppointment)+"]", &resource.Appointment[numAppointment], htmlAttrs)
+	return ReferenceInput(frs, "appointment["+strconv.Itoa(numAppointment)+"]", &resource.Appointment[numAppointment], htmlAttrs)
 }
 func (resource *Encounter) T_VirtualService(numVirtualService int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVirtualService >= len(resource.VirtualService) {
@@ -240,11 +240,11 @@ func (resource *Encounter) T_Length(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return DurationInput("length", resource.Length, htmlAttrs)
 }
-func (resource *Encounter) T_Account(numAccount int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_Account(frs []FhirResource, numAccount int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAccount >= len(resource.Account) {
-		return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "account["+strconv.Itoa(numAccount)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("account["+strconv.Itoa(numAccount)+"]", &resource.Account[numAccount], htmlAttrs)
+	return ReferenceInput(frs, "account["+strconv.Itoa(numAccount)+"]", &resource.Account[numAccount], htmlAttrs)
 }
 func (resource *Encounter) T_DietPreference(numDietPreference int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDietPreference >= len(resource.DietPreference) {
@@ -276,11 +276,11 @@ func (resource *Encounter) T_ParticipantPeriod(numParticipant int, htmlAttrs tem
 	}
 	return PeriodInput("participant["+strconv.Itoa(numParticipant)+"].period", resource.Participant[numParticipant].Period, htmlAttrs)
 }
-func (resource *Encounter) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_ParticipantActor(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", resource.Participant[numParticipant].Actor, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *Encounter) T_ReasonUse(numReason int, numUse int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) || numUse >= len(resource.Reason[numReason].Use) {
@@ -312,11 +312,11 @@ func (resource *Encounter) T_AdmissionPreAdmissionIdentifier(htmlAttrs templ.Att
 	}
 	return IdentifierInput("admission.preAdmissionIdentifier", resource.Admission.PreAdmissionIdentifier, htmlAttrs)
 }
-func (resource *Encounter) T_AdmissionOrigin(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_AdmissionOrigin(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("admission.origin", nil, htmlAttrs)
+		return ReferenceInput(frs, "admission.origin", nil, htmlAttrs)
 	}
-	return ReferenceInput("admission.origin", resource.Admission.Origin, htmlAttrs)
+	return ReferenceInput(frs, "admission.origin", resource.Admission.Origin, htmlAttrs)
 }
 func (resource *Encounter) T_AdmissionAdmitSource(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -330,11 +330,11 @@ func (resource *Encounter) T_AdmissionReAdmission(optionsValueSet []Coding, html
 	}
 	return CodeableConceptSelect("admission.reAdmission", resource.Admission.ReAdmission, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_AdmissionDestination(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_AdmissionDestination(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("admission.destination", nil, htmlAttrs)
+		return ReferenceInput(frs, "admission.destination", nil, htmlAttrs)
 	}
-	return ReferenceInput("admission.destination", resource.Admission.Destination, htmlAttrs)
+	return ReferenceInput(frs, "admission.destination", resource.Admission.Destination, htmlAttrs)
 }
 func (resource *Encounter) T_AdmissionDischargeDisposition(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -342,11 +342,11 @@ func (resource *Encounter) T_AdmissionDischargeDisposition(optionsValueSet []Cod
 	}
 	return CodeableConceptSelect("admission.dischargeDisposition", resource.Admission.DischargeDisposition, optionsValueSet, htmlAttrs)
 }
-func (resource *Encounter) T_LocationLocation(numLocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Encounter) T_LocationLocation(frs []FhirResource, numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLocation >= len(resource.Location) {
-		return ReferenceInput("location["+strconv.Itoa(numLocation)+"].location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"].location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location["+strconv.Itoa(numLocation)+"].location", &resource.Location[numLocation].Location, htmlAttrs)
+	return ReferenceInput(frs, "location["+strconv.Itoa(numLocation)+"].location", &resource.Location[numLocation].Location, htmlAttrs)
 }
 func (resource *Encounter) T_LocationStatus(numLocation int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_location_status

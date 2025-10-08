@@ -331,11 +331,11 @@ func (resource *ImplementationGuide) T_DefinitionGroupingDescription(numGrouping
 	}
 	return StringInput("definition.grouping["+strconv.Itoa(numGrouping)+"].description", resource.Definition.Grouping[numGrouping].Description, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionResourceReference(numResource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionResourceReference(frs []FhirResource, numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Definition.Resource) {
-		return ReferenceInput("definition.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "definition.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("definition.resource["+strconv.Itoa(numResource)+"].reference", &resource.Definition.Resource[numResource].Reference, htmlAttrs)
+	return ReferenceInput(frs, "definition.resource["+strconv.Itoa(numResource)+"].reference", &resource.Definition.Resource[numResource].Reference, htmlAttrs)
 }
 func (resource *ImplementationGuide) T_DefinitionResourceFhirVersion(numResource int, numFhirVersion int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFHIR_version
@@ -381,11 +381,11 @@ func (resource *ImplementationGuide) T_DefinitionPageNameUrl(htmlAttrs templ.Att
 	}
 	return StringInput("definition.page.nameUrl", &resource.Definition.Page.NameUrl, htmlAttrs)
 }
-func (resource *ImplementationGuide) T_DefinitionPageNameReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImplementationGuide) T_DefinitionPageNameReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("definition.page.nameReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "definition.page.nameReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("definition.page.nameReference", &resource.Definition.Page.NameReference, htmlAttrs)
+	return ReferenceInput(frs, "definition.page.nameReference", &resource.Definition.Page.NameReference, htmlAttrs)
 }
 func (resource *ImplementationGuide) T_DefinitionPageTitle(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -451,11 +451,11 @@ func (resource *ImplementationGuide) T_ManifestOther(numOther int, htmlAttrs tem
 	}
 	return StringInput("manifest.other["+strconv.Itoa(numOther)+"]", &resource.Manifest.Other[numOther], htmlAttrs)
 }
-func (resource *ImplementationGuide) T_ManifestResourceReference(numResource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImplementationGuide) T_ManifestResourceReference(frs []FhirResource, numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Manifest.Resource) {
-		return ReferenceInput("manifest.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
+		return ReferenceInput(frs, "manifest.resource["+strconv.Itoa(numResource)+"].reference", nil, htmlAttrs)
 	}
-	return ReferenceInput("manifest.resource["+strconv.Itoa(numResource)+"].reference", &resource.Manifest.Resource[numResource].Reference, htmlAttrs)
+	return ReferenceInput(frs, "manifest.resource["+strconv.Itoa(numResource)+"].reference", &resource.Manifest.Resource[numResource].Reference, htmlAttrs)
 }
 func (resource *ImplementationGuide) T_ManifestResourceExampleBoolean(numResource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResource >= len(resource.Manifest.Resource) {

@@ -107,17 +107,17 @@ func (resource *Organization) T_Contact(numContact int, htmlAttrs templ.Attribut
 	}
 	return ExtendedContactDetailInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
 }
-func (resource *Organization) T_PartOf(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Organization) T_PartOf(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("partOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf", resource.PartOf, htmlAttrs)
+	return ReferenceInput(frs, "partOf", resource.PartOf, htmlAttrs)
 }
-func (resource *Organization) T_Endpoint(numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Organization) T_Endpoint(frs []FhirResource, numEndpoint int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEndpoint >= len(resource.Endpoint) {
-		return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
+	return ReferenceInput(frs, "endpoint["+strconv.Itoa(numEndpoint)+"]", &resource.Endpoint[numEndpoint], htmlAttrs)
 }
 func (resource *Organization) T_QualificationCode(numQualification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
@@ -131,9 +131,9 @@ func (resource *Organization) T_QualificationPeriod(numQualification int, htmlAt
 	}
 	return PeriodInput("qualification["+strconv.Itoa(numQualification)+"].period", resource.Qualification[numQualification].Period, htmlAttrs)
 }
-func (resource *Organization) T_QualificationIssuer(numQualification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Organization) T_QualificationIssuer(frs []FhirResource, numQualification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numQualification >= len(resource.Qualification) {
-		return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", nil, htmlAttrs)
+		return ReferenceInput(frs, "qualification["+strconv.Itoa(numQualification)+"].issuer", nil, htmlAttrs)
 	}
-	return ReferenceInput("qualification["+strconv.Itoa(numQualification)+"].issuer", resource.Qualification[numQualification].Issuer, htmlAttrs)
+	return ReferenceInput(frs, "qualification["+strconv.Itoa(numQualification)+"].issuer", resource.Qualification[numQualification].Issuer, htmlAttrs)
 }

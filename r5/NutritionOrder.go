@@ -201,11 +201,11 @@ func (resource *NutritionOrder) T_Instantiates(numInstantiates int, htmlAttrs te
 	}
 	return StringInput("instantiates["+strconv.Itoa(numInstantiates)+"]", &resource.Instantiates[numInstantiates], htmlAttrs)
 }
-func (resource *NutritionOrder) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *NutritionOrder) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -237,23 +237,23 @@ func (resource *NutritionOrder) T_Priority(htmlAttrs templ.Attributes) templ.Com
 	}
 	return CodeSelect("priority", resource.Priority, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionOrder) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *NutritionOrder) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
-func (resource *NutritionOrder) T_SupportingInformation(numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_SupportingInformation(frs []FhirResource, numSupportingInformation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInformation >= len(resource.SupportingInformation) {
-		return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
+	return ReferenceInput(frs, "supportingInformation["+strconv.Itoa(numSupportingInformation)+"]", &resource.SupportingInformation[numSupportingInformation], htmlAttrs)
 }
 func (resource *NutritionOrder) T_DateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -261,11 +261,11 @@ func (resource *NutritionOrder) T_DateTime(htmlAttrs templ.Attributes) templ.Com
 	}
 	return FhirDateTimeInput("dateTime", &resource.DateTime, htmlAttrs)
 }
-func (resource *NutritionOrder) T_Orderer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_Orderer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("orderer", nil, htmlAttrs)
+		return ReferenceInput(frs, "orderer", nil, htmlAttrs)
 	}
-	return ReferenceInput("orderer", resource.Orderer, htmlAttrs)
+	return ReferenceInput(frs, "orderer", resource.Orderer, htmlAttrs)
 }
 func (resource *NutritionOrder) T_Performer(numPerformer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformer >= len(resource.Performer) {
@@ -273,11 +273,11 @@ func (resource *NutritionOrder) T_Performer(numPerformer int, htmlAttrs templ.At
 	}
 	return CodeableReferenceInput("performer["+strconv.Itoa(numPerformer)+"]", &resource.Performer[numPerformer], htmlAttrs)
 }
-func (resource *NutritionOrder) T_AllergyIntolerance(numAllergyIntolerance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_AllergyIntolerance(frs []FhirResource, numAllergyIntolerance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllergyIntolerance >= len(resource.AllergyIntolerance) {
-		return ReferenceInput("allergyIntolerance["+strconv.Itoa(numAllergyIntolerance)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "allergyIntolerance["+strconv.Itoa(numAllergyIntolerance)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("allergyIntolerance["+strconv.Itoa(numAllergyIntolerance)+"]", &resource.AllergyIntolerance[numAllergyIntolerance], htmlAttrs)
+	return ReferenceInput(frs, "allergyIntolerance["+strconv.Itoa(numAllergyIntolerance)+"]", &resource.AllergyIntolerance[numAllergyIntolerance], htmlAttrs)
 }
 func (resource *NutritionOrder) T_FoodPreferenceModifier(numFoodPreferenceModifier int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFoodPreferenceModifier >= len(resource.FoodPreferenceModifier) {
@@ -345,11 +345,11 @@ func (resource *NutritionOrder) T_OralDietNutrientModifier(numNutrient int, opti
 	}
 	return CodeableConceptSelect("oralDiet.nutrient["+strconv.Itoa(numNutrient)+"].modifier", resource.OralDiet.Nutrient[numNutrient].Modifier, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionOrder) T_OralDietNutrientAmount(numNutrient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_OralDietNutrientAmount(numNutrient int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numNutrient >= len(resource.OralDiet.Nutrient) {
-		return QuantityInput("oralDiet.nutrient["+strconv.Itoa(numNutrient)+"].amount", nil, htmlAttrs)
+		return QuantityInput("oralDiet.nutrient["+strconv.Itoa(numNutrient)+"].amount", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("oralDiet.nutrient["+strconv.Itoa(numNutrient)+"].amount", resource.OralDiet.Nutrient[numNutrient].Amount, htmlAttrs)
+	return QuantityInput("oralDiet.nutrient["+strconv.Itoa(numNutrient)+"].amount", resource.OralDiet.Nutrient[numNutrient].Amount, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_OralDietTextureModifier(numTexture int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTexture >= len(resource.OralDiet.Texture) {
@@ -375,11 +375,11 @@ func (resource *NutritionOrder) T_SupplementProductName(numSupplement int, htmlA
 	}
 	return StringInput("supplement["+strconv.Itoa(numSupplement)+"].productName", resource.Supplement[numSupplement].ProductName, htmlAttrs)
 }
-func (resource *NutritionOrder) T_SupplementQuantity(numSupplement int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_SupplementQuantity(numSupplement int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numSupplement >= len(resource.Supplement) {
-		return QuantityInput("supplement["+strconv.Itoa(numSupplement)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("supplement["+strconv.Itoa(numSupplement)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("supplement["+strconv.Itoa(numSupplement)+"].quantity", resource.Supplement[numSupplement].Quantity, htmlAttrs)
+	return QuantityInput("supplement["+strconv.Itoa(numSupplement)+"].quantity", resource.Supplement[numSupplement].Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_SupplementInstruction(numSupplement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupplement >= len(resource.Supplement) {
@@ -423,11 +423,11 @@ func (resource *NutritionOrder) T_EnteralFormulaDeliveryDevice(numDeliveryDevice
 	}
 	return CodeableReferenceInput("enteralFormula.deliveryDevice["+strconv.Itoa(numDeliveryDevice)+"]", &resource.EnteralFormula.DeliveryDevice[numDeliveryDevice], htmlAttrs)
 }
-func (resource *NutritionOrder) T_EnteralFormulaCaloricDensity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_EnteralFormulaCaloricDensity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("enteralFormula.caloricDensity", nil, htmlAttrs)
+		return QuantityInput("enteralFormula.caloricDensity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("enteralFormula.caloricDensity", resource.EnteralFormula.CaloricDensity, htmlAttrs)
+	return QuantityInput("enteralFormula.caloricDensity", resource.EnteralFormula.CaloricDensity, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaRouteOfAdministration(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -435,11 +435,11 @@ func (resource *NutritionOrder) T_EnteralFormulaRouteOfAdministration(optionsVal
 	}
 	return CodeableConceptSelect("enteralFormula.routeOfAdministration", resource.EnteralFormula.RouteOfAdministration, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionOrder) T_EnteralFormulaMaxVolumeToDeliver(htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_EnteralFormulaMaxVolumeToDeliver(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("enteralFormula.maxVolumeToDeliver", nil, htmlAttrs)
+		return QuantityInput("enteralFormula.maxVolumeToDeliver", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("enteralFormula.maxVolumeToDeliver", resource.EnteralFormula.MaxVolumeToDeliver, htmlAttrs)
+	return QuantityInput("enteralFormula.maxVolumeToDeliver", resource.EnteralFormula.MaxVolumeToDeliver, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaAdministrationInstruction(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -459,23 +459,23 @@ func (resource *NutritionOrder) T_EnteralFormulaAdditiveProductName(numAdditive 
 	}
 	return StringInput("enteralFormula.additive["+strconv.Itoa(numAdditive)+"].productName", resource.EnteralFormula.Additive[numAdditive].ProductName, htmlAttrs)
 }
-func (resource *NutritionOrder) T_EnteralFormulaAdditiveQuantity(numAdditive int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_EnteralFormulaAdditiveQuantity(numAdditive int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numAdditive >= len(resource.EnteralFormula.Additive) {
-		return QuantityInput("enteralFormula.additive["+strconv.Itoa(numAdditive)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("enteralFormula.additive["+strconv.Itoa(numAdditive)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("enteralFormula.additive["+strconv.Itoa(numAdditive)+"].quantity", resource.EnteralFormula.Additive[numAdditive].Quantity, htmlAttrs)
+	return QuantityInput("enteralFormula.additive["+strconv.Itoa(numAdditive)+"].quantity", resource.EnteralFormula.Additive[numAdditive].Quantity, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionOrder) T_EnteralFormulaAdministrationQuantity(numAdministration int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_EnteralFormulaAdministrationQuantity(numAdministration int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numAdministration >= len(resource.EnteralFormula.Administration) {
-		return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].quantity", nil, htmlAttrs)
+		return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].quantity", resource.EnteralFormula.Administration[numAdministration].Quantity, htmlAttrs)
+	return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].quantity", resource.EnteralFormula.Administration[numAdministration].Quantity, optionsValueSet, htmlAttrs)
 }
-func (resource *NutritionOrder) T_EnteralFormulaAdministrationRateQuantity(numAdministration int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *NutritionOrder) T_EnteralFormulaAdministrationRateQuantity(numAdministration int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numAdministration >= len(resource.EnteralFormula.Administration) {
-		return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].rateQuantity", nil, htmlAttrs)
+		return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].rateQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].rateQuantity", resource.EnteralFormula.Administration[numAdministration].RateQuantity, htmlAttrs)
+	return QuantityInput("enteralFormula.administration["+strconv.Itoa(numAdministration)+"].rateQuantity", resource.EnteralFormula.Administration[numAdministration].RateQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *NutritionOrder) T_EnteralFormulaAdministrationRateRatio(numAdministration int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAdministration >= len(resource.EnteralFormula.Administration) {

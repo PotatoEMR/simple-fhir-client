@@ -94,11 +94,11 @@ func (resource *Medication) T_Status(htmlAttrs templ.Attributes) templ.Component
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_MarketingAuthorizationHolder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_MarketingAuthorizationHolder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("marketingAuthorizationHolder", nil, htmlAttrs)
+		return ReferenceInput(frs, "marketingAuthorizationHolder", nil, htmlAttrs)
 	}
-	return ReferenceInput("marketingAuthorizationHolder", resource.MarketingAuthorizationHolder, htmlAttrs)
+	return ReferenceInput(frs, "marketingAuthorizationHolder", resource.MarketingAuthorizationHolder, htmlAttrs)
 }
 func (resource *Medication) T_DoseForm(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -106,17 +106,17 @@ func (resource *Medication) T_DoseForm(optionsValueSet []Coding, htmlAttrs templ
 	}
 	return CodeableConceptSelect("doseForm", resource.DoseForm, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_TotalVolume(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_TotalVolume(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("totalVolume", nil, htmlAttrs)
+		return QuantityInput("totalVolume", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("totalVolume", resource.TotalVolume, htmlAttrs)
+	return QuantityInput("totalVolume", resource.TotalVolume, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_Definition(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_Definition(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("definition", nil, htmlAttrs)
+		return ReferenceInput(frs, "definition", nil, htmlAttrs)
 	}
-	return ReferenceInput("definition", resource.Definition, htmlAttrs)
+	return ReferenceInput(frs, "definition", resource.Definition, htmlAttrs)
 }
 func (resource *Medication) T_IngredientItem(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
@@ -142,11 +142,11 @@ func (resource *Medication) T_IngredientStrengthCodeableConcept(numIngredient in
 	}
 	return CodeableConceptSelect("ingredient["+strconv.Itoa(numIngredient)+"].strengthCodeableConcept", resource.Ingredient[numIngredient].StrengthCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *Medication) T_IngredientStrengthQuantity(numIngredient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Medication) T_IngredientStrengthQuantity(numIngredient int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numIngredient >= len(resource.Ingredient) {
-		return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", nil, htmlAttrs)
+		return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", resource.Ingredient[numIngredient].StrengthQuantity, htmlAttrs)
+	return QuantityInput("ingredient["+strconv.Itoa(numIngredient)+"].strengthQuantity", resource.Ingredient[numIngredient].StrengthQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Medication) T_BatchLotNumber(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

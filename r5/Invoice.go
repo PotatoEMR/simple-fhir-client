@@ -111,17 +111,17 @@ func (resource *Invoice) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attrib
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Invoice) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *Invoice) T_Recipient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_Recipient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("recipient", nil, htmlAttrs)
+		return ReferenceInput(frs, "recipient", nil, htmlAttrs)
 	}
-	return ReferenceInput("recipient", resource.Recipient, htmlAttrs)
+	return ReferenceInput(frs, "recipient", resource.Recipient, htmlAttrs)
 }
 func (resource *Invoice) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -147,17 +147,17 @@ func (resource *Invoice) T_PeriodPeriod(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return PeriodInput("periodPeriod", resource.PeriodPeriod, htmlAttrs)
 }
-func (resource *Invoice) T_Issuer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_Issuer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("issuer", nil, htmlAttrs)
+		return ReferenceInput(frs, "issuer", nil, htmlAttrs)
 	}
-	return ReferenceInput("issuer", resource.Issuer, htmlAttrs)
+	return ReferenceInput(frs, "issuer", resource.Issuer, htmlAttrs)
 }
-func (resource *Invoice) T_Account(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_Account(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("account", nil, htmlAttrs)
+		return ReferenceInput(frs, "account", nil, htmlAttrs)
 	}
-	return ReferenceInput("account", resource.Account, htmlAttrs)
+	return ReferenceInput(frs, "account", resource.Account, htmlAttrs)
 }
 func (resource *Invoice) T_TotalPriceComponent(numTotalPriceComponent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTotalPriceComponent >= len(resource.TotalPriceComponent) {
@@ -195,11 +195,11 @@ func (resource *Invoice) T_ParticipantRole(numParticipant int, optionsValueSet [
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].role", resource.Participant[numParticipant].Role, optionsValueSet, htmlAttrs)
 }
-func (resource *Invoice) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_ParticipantActor(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemSequence(numLineItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
@@ -219,11 +219,11 @@ func (resource *Invoice) T_LineItemServicedPeriod(numLineItem int, htmlAttrs tem
 	}
 	return PeriodInput("lineItem["+strconv.Itoa(numLineItem)+"].servicedPeriod", resource.LineItem[numLineItem].ServicedPeriod, htmlAttrs)
 }
-func (resource *Invoice) T_LineItemChargeItemReference(numLineItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Invoice) T_LineItemChargeItemReference(frs []FhirResource, numLineItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {
-		return ReferenceInput("lineItem["+strconv.Itoa(numLineItem)+"].chargeItemReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "lineItem["+strconv.Itoa(numLineItem)+"].chargeItemReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("lineItem["+strconv.Itoa(numLineItem)+"].chargeItemReference", &resource.LineItem[numLineItem].ChargeItemReference, htmlAttrs)
+	return ReferenceInput(frs, "lineItem["+strconv.Itoa(numLineItem)+"].chargeItemReference", &resource.LineItem[numLineItem].ChargeItemReference, htmlAttrs)
 }
 func (resource *Invoice) T_LineItemChargeItemCodeableConcept(numLineItem int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLineItem >= len(resource.LineItem) {

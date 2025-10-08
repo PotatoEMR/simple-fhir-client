@@ -82,17 +82,17 @@ func (resource *DeviceMetric) T_Unit(optionsValueSet []Coding, htmlAttrs templ.A
 	}
 	return CodeableConceptSelect("unit", resource.Unit, optionsValueSet, htmlAttrs)
 }
-func (resource *DeviceMetric) T_Source(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceMetric) T_Source(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("source", nil, htmlAttrs)
+		return ReferenceInput(frs, "source", nil, htmlAttrs)
 	}
-	return ReferenceInput("source", resource.Source, htmlAttrs)
+	return ReferenceInput(frs, "source", resource.Source, htmlAttrs)
 }
-func (resource *DeviceMetric) T_Parent(htmlAttrs templ.Attributes) templ.Component {
+func (resource *DeviceMetric) T_Parent(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("parent", nil, htmlAttrs)
+		return ReferenceInput(frs, "parent", nil, htmlAttrs)
 	}
-	return ReferenceInput("parent", resource.Parent, htmlAttrs)
+	return ReferenceInput(frs, "parent", resource.Parent, htmlAttrs)
 }
 func (resource *DeviceMetric) T_OperationalStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMetric_operational_status

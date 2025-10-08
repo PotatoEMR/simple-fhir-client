@@ -101,11 +101,11 @@ func (r VerificationResult) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *VerificationResult) T_Target(numTarget int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *VerificationResult) T_Target(frs []FhirResource, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
-		return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], htmlAttrs)
+	return ReferenceInput(frs, "target["+strconv.Itoa(numTarget)+"]", &resource.Target[numTarget], htmlAttrs)
 }
 func (resource *VerificationResult) T_TargetLocation(numTargetLocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTargetLocation >= len(resource.TargetLocation) {
@@ -169,11 +169,11 @@ func (resource *VerificationResult) T_FailureAction(optionsValueSet []Coding, ht
 	}
 	return CodeableConceptSelect("failureAction", resource.FailureAction, optionsValueSet, htmlAttrs)
 }
-func (resource *VerificationResult) T_PrimarySourceWho(numPrimarySource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *VerificationResult) T_PrimarySourceWho(frs []FhirResource, numPrimarySource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) {
-		return ReferenceInput("primarySource["+strconv.Itoa(numPrimarySource)+"].who", nil, htmlAttrs)
+		return ReferenceInput(frs, "primarySource["+strconv.Itoa(numPrimarySource)+"].who", nil, htmlAttrs)
 	}
-	return ReferenceInput("primarySource["+strconv.Itoa(numPrimarySource)+"].who", resource.PrimarySource[numPrimarySource].Who, htmlAttrs)
+	return ReferenceInput(frs, "primarySource["+strconv.Itoa(numPrimarySource)+"].who", resource.PrimarySource[numPrimarySource].Who, htmlAttrs)
 }
 func (resource *VerificationResult) T_PrimarySourceType(numPrimarySource int, numType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrimarySource >= len(resource.PrimarySource) || numType >= len(resource.PrimarySource[numPrimarySource].Type) {
@@ -211,17 +211,17 @@ func (resource *VerificationResult) T_PrimarySourcePushTypeAvailable(numPrimaryS
 	}
 	return CodeableConceptSelect("primarySource["+strconv.Itoa(numPrimarySource)+"].pushTypeAvailable["+strconv.Itoa(numPushTypeAvailable)+"]", &resource.PrimarySource[numPrimarySource].PushTypeAvailable[numPushTypeAvailable], optionsValueSet, htmlAttrs)
 }
-func (resource *VerificationResult) T_AttestationWho(htmlAttrs templ.Attributes) templ.Component {
+func (resource *VerificationResult) T_AttestationWho(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("attestation.who", nil, htmlAttrs)
+		return ReferenceInput(frs, "attestation.who", nil, htmlAttrs)
 	}
-	return ReferenceInput("attestation.who", resource.Attestation.Who, htmlAttrs)
+	return ReferenceInput(frs, "attestation.who", resource.Attestation.Who, htmlAttrs)
 }
-func (resource *VerificationResult) T_AttestationOnBehalfOf(htmlAttrs templ.Attributes) templ.Component {
+func (resource *VerificationResult) T_AttestationOnBehalfOf(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("attestation.onBehalfOf", nil, htmlAttrs)
+		return ReferenceInput(frs, "attestation.onBehalfOf", nil, htmlAttrs)
 	}
-	return ReferenceInput("attestation.onBehalfOf", resource.Attestation.OnBehalfOf, htmlAttrs)
+	return ReferenceInput(frs, "attestation.onBehalfOf", resource.Attestation.OnBehalfOf, htmlAttrs)
 }
 func (resource *VerificationResult) T_AttestationCommunicationMethod(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -259,11 +259,11 @@ func (resource *VerificationResult) T_AttestationSourceSignature(htmlAttrs templ
 	}
 	return SignatureInput("attestation.sourceSignature", resource.Attestation.SourceSignature, htmlAttrs)
 }
-func (resource *VerificationResult) T_ValidatorOrganization(numValidator int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *VerificationResult) T_ValidatorOrganization(frs []FhirResource, numValidator int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numValidator >= len(resource.Validator) {
-		return ReferenceInput("validator["+strconv.Itoa(numValidator)+"].organization", nil, htmlAttrs)
+		return ReferenceInput(frs, "validator["+strconv.Itoa(numValidator)+"].organization", nil, htmlAttrs)
 	}
-	return ReferenceInput("validator["+strconv.Itoa(numValidator)+"].organization", &resource.Validator[numValidator].Organization, htmlAttrs)
+	return ReferenceInput(frs, "validator["+strconv.Itoa(numValidator)+"].organization", &resource.Validator[numValidator].Organization, htmlAttrs)
 }
 func (resource *VerificationResult) T_ValidatorIdentityCertificate(numValidator int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numValidator >= len(resource.Validator) {

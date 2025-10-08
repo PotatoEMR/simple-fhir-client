@@ -338,11 +338,11 @@ func (resource *ExampleScenario) T_InstanceDescription(numInstance int, htmlAttr
 	}
 	return StringInput("instance["+strconv.Itoa(numInstance)+"].description", resource.Instance[numInstance].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceContent(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ExampleScenario) T_InstanceContent(frs []FhirResource, numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].content", nil, htmlAttrs)
+		return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"].content", nil, htmlAttrs)
 	}
-	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].content", resource.Instance[numInstance].Content, htmlAttrs)
+	return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"].content", resource.Instance[numInstance].Content, htmlAttrs)
 }
 func (resource *ExampleScenario) T_InstanceVersionKey(numInstance int, numVersion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
@@ -362,11 +362,11 @@ func (resource *ExampleScenario) T_InstanceVersionDescription(numInstance int, n
 	}
 	return StringInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].description", resource.Instance[numInstance].Version[numVersion].Description, htmlAttrs)
 }
-func (resource *ExampleScenario) T_InstanceVersionContent(numInstance int, numVersion int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ExampleScenario) T_InstanceVersionContent(frs []FhirResource, numInstance int, numVersion int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) || numVersion >= len(resource.Instance[numInstance].Version) {
-		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", nil, htmlAttrs)
+		return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", nil, htmlAttrs)
 	}
-	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", resource.Instance[numInstance].Version[numVersion].Content, htmlAttrs)
+	return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"].version["+strconv.Itoa(numVersion)+"].content", resource.Instance[numInstance].Version[numVersion].Content, htmlAttrs)
 }
 func (resource *ExampleScenario) T_InstanceContainedInstanceInstanceReference(numInstance int, numContainedInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) || numContainedInstance >= len(resource.Instance[numInstance].ContainedInstance) {

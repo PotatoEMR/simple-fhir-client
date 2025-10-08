@@ -181,41 +181,41 @@ func (resource *MedicinalProduct) T_MarketingStatus(numMarketingStatus int, html
 	}
 	return MarketingStatusInput("marketingStatus["+strconv.Itoa(numMarketingStatus)+"]", &resource.MarketingStatus[numMarketingStatus], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_PharmaceuticalProduct(numPharmaceuticalProduct int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_PharmaceuticalProduct(frs []FhirResource, numPharmaceuticalProduct int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPharmaceuticalProduct >= len(resource.PharmaceuticalProduct) {
-		return ReferenceInput("pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", &resource.PharmaceuticalProduct[numPharmaceuticalProduct], htmlAttrs)
+	return ReferenceInput(frs, "pharmaceuticalProduct["+strconv.Itoa(numPharmaceuticalProduct)+"]", &resource.PharmaceuticalProduct[numPharmaceuticalProduct], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_PackagedMedicinalProduct(numPackagedMedicinalProduct int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_PackagedMedicinalProduct(frs []FhirResource, numPackagedMedicinalProduct int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPackagedMedicinalProduct >= len(resource.PackagedMedicinalProduct) {
-		return ReferenceInput("packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", &resource.PackagedMedicinalProduct[numPackagedMedicinalProduct], htmlAttrs)
+	return ReferenceInput(frs, "packagedMedicinalProduct["+strconv.Itoa(numPackagedMedicinalProduct)+"]", &resource.PackagedMedicinalProduct[numPackagedMedicinalProduct], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_AttachedDocument(numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_AttachedDocument(frs []FhirResource, numAttachedDocument int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAttachedDocument >= len(resource.AttachedDocument) {
-		return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
+	return ReferenceInput(frs, "attachedDocument["+strconv.Itoa(numAttachedDocument)+"]", &resource.AttachedDocument[numAttachedDocument], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_MasterFile(numMasterFile int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_MasterFile(frs []FhirResource, numMasterFile int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMasterFile >= len(resource.MasterFile) {
-		return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "masterFile["+strconv.Itoa(numMasterFile)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("masterFile["+strconv.Itoa(numMasterFile)+"]", &resource.MasterFile[numMasterFile], htmlAttrs)
+	return ReferenceInput(frs, "masterFile["+strconv.Itoa(numMasterFile)+"]", &resource.MasterFile[numMasterFile], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_Contact(numContact int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_Contact(frs []FhirResource, numContact int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContact >= len(resource.Contact) {
-		return ReferenceInput("contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "contact["+strconv.Itoa(numContact)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
+	return ReferenceInput(frs, "contact["+strconv.Itoa(numContact)+"]", &resource.Contact[numContact], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_ClinicalTrial(numClinicalTrial int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_ClinicalTrial(frs []FhirResource, numClinicalTrial int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClinicalTrial >= len(resource.ClinicalTrial) {
-		return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", &resource.ClinicalTrial[numClinicalTrial], htmlAttrs)
+	return ReferenceInput(frs, "clinicalTrial["+strconv.Itoa(numClinicalTrial)+"]", &resource.ClinicalTrial[numClinicalTrial], htmlAttrs)
 }
 func (resource *MedicinalProduct) T_CrossReference(numCrossReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCrossReference >= len(resource.CrossReference) {
@@ -277,17 +277,17 @@ func (resource *MedicinalProduct) T_ManufacturingBusinessOperationConfidentialit
 	}
 	return CodeableConceptSelect("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].confidentialityIndicator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].ConfidentialityIndicator, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProduct) T_ManufacturingBusinessOperationManufacturer(numManufacturingBusinessOperation int, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationManufacturer(frs []FhirResource, numManufacturingBusinessOperation int, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) || numManufacturer >= len(resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Manufacturer) {
-		return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Manufacturer[numManufacturer], htmlAttrs)
 }
-func (resource *MedicinalProduct) T_ManufacturingBusinessOperationRegulator(numManufacturingBusinessOperation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_ManufacturingBusinessOperationRegulator(frs []FhirResource, numManufacturingBusinessOperation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturingBusinessOperation >= len(resource.ManufacturingBusinessOperation) {
-		return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Regulator, htmlAttrs)
+	return ReferenceInput(frs, "manufacturingBusinessOperation["+strconv.Itoa(numManufacturingBusinessOperation)+"].regulator", resource.ManufacturingBusinessOperation[numManufacturingBusinessOperation].Regulator, htmlAttrs)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationType(numSpecialDesignation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
@@ -307,11 +307,11 @@ func (resource *MedicinalProduct) T_SpecialDesignationIndicationCodeableConcept(
 	}
 	return CodeableConceptSelect("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationCodeableConcept", resource.SpecialDesignation[numSpecialDesignation].IndicationCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *MedicinalProduct) T_SpecialDesignationIndicationReference(numSpecialDesignation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicinalProduct) T_SpecialDesignationIndicationReference(frs []FhirResource, numSpecialDesignation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {
-		return ReferenceInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", resource.SpecialDesignation[numSpecialDesignation].IndicationReference, htmlAttrs)
+	return ReferenceInput(frs, "specialDesignation["+strconv.Itoa(numSpecialDesignation)+"].indicationReference", resource.SpecialDesignation[numSpecialDesignation].IndicationReference, htmlAttrs)
 }
 func (resource *MedicinalProduct) T_SpecialDesignationStatus(numSpecialDesignation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecialDesignation >= len(resource.SpecialDesignation) {

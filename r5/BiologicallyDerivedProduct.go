@@ -103,17 +103,17 @@ func (resource *BiologicallyDerivedProduct) T_ProductCode(optionsValueSet []Codi
 	}
 	return CodeableConceptSelect("productCode", resource.ProductCode, optionsValueSet, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Parent(numParent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Parent(frs []FhirResource, numParent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParent >= len(resource.Parent) {
-		return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
+	return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_Request(numRequest int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_Request(frs []FhirResource, numRequest int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRequest >= len(resource.Request) {
-		return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
+	return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_BiologicalSourceEvent(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -121,11 +121,11 @@ func (resource *BiologicallyDerivedProduct) T_BiologicalSourceEvent(htmlAttrs te
 	}
 	return IdentifierInput("biologicalSourceEvent", resource.BiologicalSourceEvent, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_ProcessingFacility(numProcessingFacility int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_ProcessingFacility(frs []FhirResource, numProcessingFacility int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessingFacility >= len(resource.ProcessingFacility) {
-		return ReferenceInput("processingFacility["+strconv.Itoa(numProcessingFacility)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "processingFacility["+strconv.Itoa(numProcessingFacility)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("processingFacility["+strconv.Itoa(numProcessingFacility)+"]", &resource.ProcessingFacility[numProcessingFacility], htmlAttrs)
+	return ReferenceInput(frs, "processingFacility["+strconv.Itoa(numProcessingFacility)+"]", &resource.ProcessingFacility[numProcessingFacility], htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_Division(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -151,17 +151,17 @@ func (resource *BiologicallyDerivedProduct) T_StorageTempRequirements(htmlAttrs 
 	}
 	return RangeInput("storageTempRequirements", resource.StorageTempRequirements, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_CollectionCollector(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_CollectionCollector(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.collector", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.collector", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.collector", resource.Collection.Collector, htmlAttrs)
+	return ReferenceInput(frs, "collection.collector", resource.Collection.Collector, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_CollectionSource(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_CollectionSource(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.source", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.source", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.source", resource.Collection.Source, htmlAttrs)
+	return ReferenceInput(frs, "collection.source", resource.Collection.Source, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_CollectionCollectedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -205,11 +205,11 @@ func (resource *BiologicallyDerivedProduct) T_PropertyValuePeriod(numProperty in
 	}
 	return PeriodInput("property["+strconv.Itoa(numProperty)+"].valuePeriod", &resource.Property[numProperty].ValuePeriod, htmlAttrs)
 }
-func (resource *BiologicallyDerivedProduct) T_PropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *BiologicallyDerivedProduct) T_PropertyValueQuantity(numProperty int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", &resource.Property[numProperty].ValueQuantity, htmlAttrs)
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", &resource.Property[numProperty].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *BiologicallyDerivedProduct) T_PropertyValueRange(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {

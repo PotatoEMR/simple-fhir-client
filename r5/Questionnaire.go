@@ -441,17 +441,17 @@ func (resource *Questionnaire) T_ItemEnableWhenAnswerCoding(numItem int, numEnab
 	}
 	return CodingSelect("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerCoding", &resource.Item[numItem].EnableWhen[numEnableWhen].AnswerCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *Questionnaire) T_ItemEnableWhenAnswerQuantity(numItem int, numEnableWhen int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Questionnaire) T_ItemEnableWhenAnswerQuantity(numItem int, numEnableWhen int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numEnableWhen >= len(resource.Item[numItem].EnableWhen) {
-		return QuantityInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerQuantity", nil, htmlAttrs)
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerQuantity", &resource.Item[numItem].EnableWhen[numEnableWhen].AnswerQuantity, htmlAttrs)
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerQuantity", &resource.Item[numItem].EnableWhen[numEnableWhen].AnswerQuantity, optionsValueSet, htmlAttrs)
 }
-func (resource *Questionnaire) T_ItemEnableWhenAnswerReference(numItem int, numEnableWhen int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Questionnaire) T_ItemEnableWhenAnswerReference(frs []FhirResource, numItem int, numEnableWhen int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numEnableWhen >= len(resource.Item[numItem].EnableWhen) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerReference", &resource.Item[numItem].EnableWhen[numEnableWhen].AnswerReference, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].enableWhen["+strconv.Itoa(numEnableWhen)+"].answerReference", &resource.Item[numItem].EnableWhen[numEnableWhen].AnswerReference, htmlAttrs)
 }
 func (resource *Questionnaire) T_ItemAnswerOptionValueInteger(numItem int, numAnswerOption int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswerOption >= len(resource.Item[numItem].AnswerOption) {
@@ -483,11 +483,11 @@ func (resource *Questionnaire) T_ItemAnswerOptionValueCoding(numItem int, numAns
 	}
 	return CodingSelect("item["+strconv.Itoa(numItem)+"].answerOption["+strconv.Itoa(numAnswerOption)+"].valueCoding", &resource.Item[numItem].AnswerOption[numAnswerOption].ValueCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *Questionnaire) T_ItemAnswerOptionValueReference(numItem int, numAnswerOption int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Questionnaire) T_ItemAnswerOptionValueReference(frs []FhirResource, numItem int, numAnswerOption int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswerOption >= len(resource.Item[numItem].AnswerOption) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].answerOption["+strconv.Itoa(numAnswerOption)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].answerOption["+strconv.Itoa(numAnswerOption)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].answerOption["+strconv.Itoa(numAnswerOption)+"].valueReference", &resource.Item[numItem].AnswerOption[numAnswerOption].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].answerOption["+strconv.Itoa(numAnswerOption)+"].valueReference", &resource.Item[numItem].AnswerOption[numAnswerOption].ValueReference, htmlAttrs)
 }
 func (resource *Questionnaire) T_ItemAnswerOptionInitialSelected(numItem int, numAnswerOption int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numAnswerOption >= len(resource.Item[numItem].AnswerOption) {
@@ -555,15 +555,15 @@ func (resource *Questionnaire) T_ItemInitialValueCoding(numItem int, numInitial 
 	}
 	return CodingSelect("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueCoding", &resource.Item[numItem].Initial[numInitial].ValueCoding, optionsValueSet, htmlAttrs)
 }
-func (resource *Questionnaire) T_ItemInitialValueQuantity(numItem int, numInitial int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Questionnaire) T_ItemInitialValueQuantity(numItem int, numInitial int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numInitial >= len(resource.Item[numItem].Initial) {
-		return QuantityInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueQuantity", &resource.Item[numItem].Initial[numInitial].ValueQuantity, htmlAttrs)
+	return QuantityInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueQuantity", &resource.Item[numItem].Initial[numInitial].ValueQuantity, optionsValueSet, htmlAttrs)
 }
-func (resource *Questionnaire) T_ItemInitialValueReference(numItem int, numInitial int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Questionnaire) T_ItemInitialValueReference(frs []FhirResource, numItem int, numInitial int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numItem >= len(resource.Item) || numInitial >= len(resource.Item[numItem].Initial) {
-		return ReferenceInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueReference", &resource.Item[numItem].Initial[numInitial].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "item["+strconv.Itoa(numItem)+"].initial["+strconv.Itoa(numInitial)+"].valueReference", &resource.Item[numItem].Initial[numInitial].ValueReference, htmlAttrs)
 }

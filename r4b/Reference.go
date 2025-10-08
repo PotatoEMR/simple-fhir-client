@@ -13,3 +13,18 @@ type Reference struct {
 	Identifier *Identifier `json:"identifier,omitempty"`
 	Display    *string     `json:"display,omitempty"`
 }
+
+func (r Reference) String() string {
+	if r.Display != nil {
+		return *r.Display
+	} else if r.Identifier != nil {
+		return r.Identifier.String()
+	} else if r.Id != nil {
+		return *r.Id
+	} else if r.Reference != nil {
+		return *r.Reference
+	} else if r.Type != nil {
+		return *r.Type
+	}
+	return ""
+}

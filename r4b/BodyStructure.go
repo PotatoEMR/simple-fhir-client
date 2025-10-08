@@ -94,9 +94,9 @@ func (resource *BodyStructure) T_Image(numImage int, htmlAttrs templ.Attributes)
 	}
 	return AttachmentInput("image["+strconv.Itoa(numImage)+"]", &resource.Image[numImage], htmlAttrs)
 }
-func (resource *BodyStructure) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *BodyStructure) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }

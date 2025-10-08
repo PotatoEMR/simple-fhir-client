@@ -235,11 +235,11 @@ func (resource *ChargeItemDefinition) T_Code(optionsValueSet []Coding, htmlAttrs
 	}
 	return CodeableConceptSelect("code", resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ChargeItemDefinition) T_Instance(numInstance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ChargeItemDefinition) T_Instance(frs []FhirResource, numInstance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstance >= len(resource.Instance) {
-		return ReferenceInput("instance["+strconv.Itoa(numInstance)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("instance["+strconv.Itoa(numInstance)+"]", &resource.Instance[numInstance], htmlAttrs)
+	return ReferenceInput(frs, "instance["+strconv.Itoa(numInstance)+"]", &resource.Instance[numInstance], htmlAttrs)
 }
 func (resource *ChargeItemDefinition) T_ApplicabilityCondition(numApplicability int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numApplicability >= len(resource.Applicability) {

@@ -282,23 +282,23 @@ func (resource *RiskEvidenceSynthesis) T_StudyType(optionsValueSet []Coding, htm
 	}
 	return CodeableConceptSelect("studyType", resource.StudyType, optionsValueSet, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Population(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Population(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("population", nil, htmlAttrs)
+		return ReferenceInput(frs, "population", nil, htmlAttrs)
 	}
-	return ReferenceInput("population", &resource.Population, htmlAttrs)
+	return ReferenceInput(frs, "population", &resource.Population, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Exposure(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Exposure(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("exposure", nil, htmlAttrs)
+		return ReferenceInput(frs, "exposure", nil, htmlAttrs)
 	}
-	return ReferenceInput("exposure", resource.Exposure, htmlAttrs)
+	return ReferenceInput(frs, "exposure", resource.Exposure, htmlAttrs)
 }
-func (resource *RiskEvidenceSynthesis) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
+func (resource *RiskEvidenceSynthesis) T_Outcome(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("outcome", nil, htmlAttrs)
+		return ReferenceInput(frs, "outcome", nil, htmlAttrs)
 	}
-	return ReferenceInput("outcome", &resource.Outcome, htmlAttrs)
+	return ReferenceInput(frs, "outcome", &resource.Outcome, htmlAttrs)
 }
 func (resource *RiskEvidenceSynthesis) T_SampleSizeDescription(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

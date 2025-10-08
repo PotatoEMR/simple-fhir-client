@@ -111,17 +111,17 @@ func (resource *Coverage) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attri
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_PolicyHolder(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_PolicyHolder(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("policyHolder", nil, htmlAttrs)
+		return ReferenceInput(frs, "policyHolder", nil, htmlAttrs)
 	}
-	return ReferenceInput("policyHolder", resource.PolicyHolder, htmlAttrs)
+	return ReferenceInput(frs, "policyHolder", resource.PolicyHolder, htmlAttrs)
 }
-func (resource *Coverage) T_Subscriber(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_Subscriber(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subscriber", nil, htmlAttrs)
+		return ReferenceInput(frs, "subscriber", nil, htmlAttrs)
 	}
-	return ReferenceInput("subscriber", resource.Subscriber, htmlAttrs)
+	return ReferenceInput(frs, "subscriber", resource.Subscriber, htmlAttrs)
 }
 func (resource *Coverage) T_SubscriberId(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -129,11 +129,11 @@ func (resource *Coverage) T_SubscriberId(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return StringInput("subscriberId", resource.SubscriberId, htmlAttrs)
 }
-func (resource *Coverage) T_Beneficiary(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_Beneficiary(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("beneficiary", nil, htmlAttrs)
+		return ReferenceInput(frs, "beneficiary", nil, htmlAttrs)
 	}
-	return ReferenceInput("beneficiary", &resource.Beneficiary, htmlAttrs)
+	return ReferenceInput(frs, "beneficiary", &resource.Beneficiary, htmlAttrs)
 }
 func (resource *Coverage) T_Dependent(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -153,11 +153,11 @@ func (resource *Coverage) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *Coverage) T_Payor(numPayor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_Payor(frs []FhirResource, numPayor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPayor >= len(resource.Payor) {
-		return ReferenceInput("payor["+strconv.Itoa(numPayor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "payor["+strconv.Itoa(numPayor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("payor["+strconv.Itoa(numPayor)+"]", &resource.Payor[numPayor], htmlAttrs)
+	return ReferenceInput(frs, "payor["+strconv.Itoa(numPayor)+"]", &resource.Payor[numPayor], htmlAttrs)
 }
 func (resource *Coverage) T_Order(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -177,11 +177,11 @@ func (resource *Coverage) T_Subrogation(htmlAttrs templ.Attributes) templ.Compon
 	}
 	return BoolInput("subrogation", resource.Subrogation, htmlAttrs)
 }
-func (resource *Coverage) T_Contract(numContract int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_Contract(frs []FhirResource, numContract int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContract >= len(resource.Contract) {
-		return ReferenceInput("contract["+strconv.Itoa(numContract)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "contract["+strconv.Itoa(numContract)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("contract["+strconv.Itoa(numContract)+"]", &resource.Contract[numContract], htmlAttrs)
+	return ReferenceInput(frs, "contract["+strconv.Itoa(numContract)+"]", &resource.Contract[numContract], htmlAttrs)
 }
 func (resource *Coverage) T_ClassType(numClass int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClass >= len(resource.Class) {
@@ -207,11 +207,11 @@ func (resource *Coverage) T_CostToBeneficiaryType(numCostToBeneficiary int, opti
 	}
 	return CodeableConceptSelect("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].type", resource.CostToBeneficiary[numCostToBeneficiary].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Coverage) T_CostToBeneficiaryValueQuantity(numCostToBeneficiary int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Coverage) T_CostToBeneficiaryValueQuantity(numCostToBeneficiary int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {
-		return QuantityInput("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].valueQuantity", &resource.CostToBeneficiary[numCostToBeneficiary].ValueQuantity, htmlAttrs)
+	return QuantityInput("costToBeneficiary["+strconv.Itoa(numCostToBeneficiary)+"].valueQuantity", &resource.CostToBeneficiary[numCostToBeneficiary].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Coverage) T_CostToBeneficiaryValueMoney(numCostToBeneficiary int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCostToBeneficiary >= len(resource.CostToBeneficiary) {

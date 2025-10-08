@@ -142,11 +142,11 @@ func (resource *PaymentReconciliation) T_Created(htmlAttrs templ.Attributes) tem
 	}
 	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Enterer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Enterer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("enterer", nil, htmlAttrs)
+		return ReferenceInput(frs, "enterer", nil, htmlAttrs)
 	}
-	return ReferenceInput("enterer", resource.Enterer, htmlAttrs)
+	return ReferenceInput(frs, "enterer", resource.Enterer, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_IssuerType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -154,23 +154,23 @@ func (resource *PaymentReconciliation) T_IssuerType(optionsValueSet []Coding, ht
 	}
 	return CodeableConceptSelect("issuerType", resource.IssuerType, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_PaymentIssuer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_PaymentIssuer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("paymentIssuer", nil, htmlAttrs)
+		return ReferenceInput(frs, "paymentIssuer", nil, htmlAttrs)
 	}
-	return ReferenceInput("paymentIssuer", resource.PaymentIssuer, htmlAttrs)
+	return ReferenceInput(frs, "paymentIssuer", resource.PaymentIssuer, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Request(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Request(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("request", nil, htmlAttrs)
+		return ReferenceInput(frs, "request", nil, htmlAttrs)
 	}
-	return ReferenceInput("request", resource.Request, htmlAttrs)
+	return ReferenceInput(frs, "request", resource.Request, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Requestor(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Requestor(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requestor", nil, htmlAttrs)
+		return ReferenceInput(frs, "requestor", nil, htmlAttrs)
 	}
-	return ReferenceInput("requestor", resource.Requestor, htmlAttrs)
+	return ReferenceInput(frs, "requestor", resource.Requestor, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_Outcome(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPayment_outcome
@@ -192,11 +192,11 @@ func (resource *PaymentReconciliation) T_Date(htmlAttrs templ.Attributes) templ.
 	}
 	return FhirDateInput("date", &resource.Date, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_Method(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -276,11 +276,11 @@ func (resource *PaymentReconciliation) T_AllocationPredecessor(numAllocation int
 	}
 	return IdentifierInput("allocation["+strconv.Itoa(numAllocation)+"].predecessor", resource.Allocation[numAllocation].Predecessor, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationTarget(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationTarget(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].target", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].target", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].target", resource.Allocation[numAllocation].Target, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].target", resource.Allocation[numAllocation].Target, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_AllocationTargetItemString(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
@@ -300,17 +300,17 @@ func (resource *PaymentReconciliation) T_AllocationTargetItemPositiveInt(numAllo
 	}
 	return IntInput("allocation["+strconv.Itoa(numAllocation)+"].targetItemPositiveInt", resource.Allocation[numAllocation].TargetItemPositiveInt, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationEncounter(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationEncounter(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].encounter", resource.Allocation[numAllocation].Encounter, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].encounter", resource.Allocation[numAllocation].Encounter, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationAccount(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationAccount(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].account", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].account", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].account", resource.Allocation[numAllocation].Account, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].account", resource.Allocation[numAllocation].Account, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_AllocationType(numAllocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
@@ -318,17 +318,17 @@ func (resource *PaymentReconciliation) T_AllocationType(numAllocation int, optio
 	}
 	return CodeableConceptSelect("allocation["+strconv.Itoa(numAllocation)+"].type", resource.Allocation[numAllocation].Type, optionsValueSet, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationSubmitter(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationSubmitter(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].submitter", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].submitter", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].submitter", resource.Allocation[numAllocation].Submitter, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].submitter", resource.Allocation[numAllocation].Submitter, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationResponse(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationResponse(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].response", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].response", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].response", resource.Allocation[numAllocation].Response, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].response", resource.Allocation[numAllocation].Response, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_AllocationDate(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
@@ -336,17 +336,17 @@ func (resource *PaymentReconciliation) T_AllocationDate(numAllocation int, htmlA
 	}
 	return FhirDateInput("allocation["+strconv.Itoa(numAllocation)+"].date", resource.Allocation[numAllocation].Date, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationResponsible(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationResponsible(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].responsible", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].responsible", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].responsible", resource.Allocation[numAllocation].Responsible, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].responsible", resource.Allocation[numAllocation].Responsible, htmlAttrs)
 }
-func (resource *PaymentReconciliation) T_AllocationPayee(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PaymentReconciliation) T_AllocationPayee(frs []FhirResource, numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {
-		return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].payee", nil, htmlAttrs)
+		return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].payee", nil, htmlAttrs)
 	}
-	return ReferenceInput("allocation["+strconv.Itoa(numAllocation)+"].payee", resource.Allocation[numAllocation].Payee, htmlAttrs)
+	return ReferenceInput(frs, "allocation["+strconv.Itoa(numAllocation)+"].payee", resource.Allocation[numAllocation].Payee, htmlAttrs)
 }
 func (resource *PaymentReconciliation) T_AllocationAmount(numAllocation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAllocation >= len(resource.Allocation) {

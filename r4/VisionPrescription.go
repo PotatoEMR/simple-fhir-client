@@ -102,17 +102,17 @@ func (resource *VisionPrescription) T_Created(htmlAttrs templ.Attributes) templ.
 	}
 	return FhirDateTimeInput("created", &resource.Created, htmlAttrs)
 }
-func (resource *VisionPrescription) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *VisionPrescription) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
-func (resource *VisionPrescription) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *VisionPrescription) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *VisionPrescription) T_DateWritten(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -120,11 +120,11 @@ func (resource *VisionPrescription) T_DateWritten(htmlAttrs templ.Attributes) te
 	}
 	return FhirDateTimeInput("dateWritten", &resource.DateWritten, htmlAttrs)
 }
-func (resource *VisionPrescription) T_Prescriber(htmlAttrs templ.Attributes) templ.Component {
+func (resource *VisionPrescription) T_Prescriber(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("prescriber", nil, htmlAttrs)
+		return ReferenceInput(frs, "prescriber", nil, htmlAttrs)
 	}
-	return ReferenceInput("prescriber", &resource.Prescriber, htmlAttrs)
+	return ReferenceInput(frs, "prescriber", &resource.Prescriber, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationProduct(numLensSpecification int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
@@ -182,11 +182,11 @@ func (resource *VisionPrescription) T_LensSpecificationDiameter(numLensSpecifica
 	}
 	return Float64Input("lensSpecification["+strconv.Itoa(numLensSpecification)+"].diameter", resource.LensSpecification[numLensSpecification].Diameter, htmlAttrs)
 }
-func (resource *VisionPrescription) T_LensSpecificationDuration(numLensSpecification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *VisionPrescription) T_LensSpecificationDuration(numLensSpecification int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {
-		return QuantityInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].duration", nil, htmlAttrs)
+		return QuantityInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].duration", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].duration", resource.LensSpecification[numLensSpecification].Duration, htmlAttrs)
+	return QuantityInput("lensSpecification["+strconv.Itoa(numLensSpecification)+"].duration", resource.LensSpecification[numLensSpecification].Duration, optionsValueSet, htmlAttrs)
 }
 func (resource *VisionPrescription) T_LensSpecificationColor(numLensSpecification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLensSpecification >= len(resource.LensSpecification) {

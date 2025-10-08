@@ -73,11 +73,11 @@ func (resource *ImmunizationEvaluation) T_Status(htmlAttrs templ.Attributes) tem
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationEvaluation) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", &resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", &resource.Patient, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -85,11 +85,11 @@ func (resource *ImmunizationEvaluation) T_Date(htmlAttrs templ.Attributes) templ
 	}
 	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_Authority(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationEvaluation) T_Authority(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("authority", nil, htmlAttrs)
+		return ReferenceInput(frs, "authority", nil, htmlAttrs)
 	}
-	return ReferenceInput("authority", resource.Authority, htmlAttrs)
+	return ReferenceInput(frs, "authority", resource.Authority, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -97,11 +97,11 @@ func (resource *ImmunizationEvaluation) T_TargetDisease(optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("targetDisease", &resource.TargetDisease, optionsValueSet, htmlAttrs)
 }
-func (resource *ImmunizationEvaluation) T_ImmunizationEvent(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ImmunizationEvaluation) T_ImmunizationEvent(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("immunizationEvent", nil, htmlAttrs)
+		return ReferenceInput(frs, "immunizationEvent", nil, htmlAttrs)
 	}
-	return ReferenceInput("immunizationEvent", &resource.ImmunizationEvent, htmlAttrs)
+	return ReferenceInput(frs, "immunizationEvent", &resource.ImmunizationEvent, htmlAttrs)
 }
 func (resource *ImmunizationEvaluation) T_DoseStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

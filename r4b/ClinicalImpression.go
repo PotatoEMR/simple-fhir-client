@@ -116,17 +116,17 @@ func (resource *ClinicalImpression) T_Description(htmlAttrs templ.Attributes) te
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -146,23 +146,23 @@ func (resource *ClinicalImpression) T_Date(htmlAttrs templ.Attributes) templ.Com
 	}
 	return FhirDateTimeInput("date", resource.Date, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_Assessor(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_Assessor(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("assessor", nil, htmlAttrs)
+		return ReferenceInput(frs, "assessor", nil, htmlAttrs)
 	}
-	return ReferenceInput("assessor", resource.Assessor, htmlAttrs)
+	return ReferenceInput(frs, "assessor", resource.Assessor, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_Previous(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_Previous(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("previous", nil, htmlAttrs)
+		return ReferenceInput(frs, "previous", nil, htmlAttrs)
 	}
-	return ReferenceInput("previous", resource.Previous, htmlAttrs)
+	return ReferenceInput(frs, "previous", resource.Previous, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_Problem(numProblem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_Problem(frs []FhirResource, numProblem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProblem >= len(resource.Problem) {
-		return ReferenceInput("problem["+strconv.Itoa(numProblem)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "problem["+strconv.Itoa(numProblem)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("problem["+strconv.Itoa(numProblem)+"]", &resource.Problem[numProblem], htmlAttrs)
+	return ReferenceInput(frs, "problem["+strconv.Itoa(numProblem)+"]", &resource.Problem[numProblem], htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Protocol(numProtocol int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProtocol >= len(resource.Protocol) {
@@ -182,17 +182,17 @@ func (resource *ClinicalImpression) T_PrognosisCodeableConcept(numPrognosisCodea
 	}
 	return CodeableConceptSelect("prognosisCodeableConcept["+strconv.Itoa(numPrognosisCodeableConcept)+"]", &resource.PrognosisCodeableConcept[numPrognosisCodeableConcept], optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_PrognosisReference(numPrognosisReference int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_PrognosisReference(frs []FhirResource, numPrognosisReference int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPrognosisReference >= len(resource.PrognosisReference) {
-		return ReferenceInput("prognosisReference["+strconv.Itoa(numPrognosisReference)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "prognosisReference["+strconv.Itoa(numPrognosisReference)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("prognosisReference["+strconv.Itoa(numPrognosisReference)+"]", &resource.PrognosisReference[numPrognosisReference], htmlAttrs)
+	return ReferenceInput(frs, "prognosisReference["+strconv.Itoa(numPrognosisReference)+"]", &resource.PrognosisReference[numPrognosisReference], htmlAttrs)
 }
-func (resource *ClinicalImpression) T_SupportingInfo(numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_SupportingInfo(frs []FhirResource, numSupportingInfo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSupportingInfo >= len(resource.SupportingInfo) {
-		return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
+	return ReferenceInput(frs, "supportingInfo["+strconv.Itoa(numSupportingInfo)+"]", &resource.SupportingInfo[numSupportingInfo], htmlAttrs)
 }
 func (resource *ClinicalImpression) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -206,11 +206,11 @@ func (resource *ClinicalImpression) T_InvestigationCode(numInvestigation int, op
 	}
 	return CodeableConceptSelect("investigation["+strconv.Itoa(numInvestigation)+"].code", &resource.Investigation[numInvestigation].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_InvestigationItem(numInvestigation int, numItem int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_InvestigationItem(frs []FhirResource, numInvestigation int, numItem int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInvestigation >= len(resource.Investigation) || numItem >= len(resource.Investigation[numInvestigation].Item) {
-		return ReferenceInput("investigation["+strconv.Itoa(numInvestigation)+"].item["+strconv.Itoa(numItem)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "investigation["+strconv.Itoa(numInvestigation)+"].item["+strconv.Itoa(numItem)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("investigation["+strconv.Itoa(numInvestigation)+"].item["+strconv.Itoa(numItem)+"]", &resource.Investigation[numInvestigation].Item[numItem], htmlAttrs)
+	return ReferenceInput(frs, "investigation["+strconv.Itoa(numInvestigation)+"].item["+strconv.Itoa(numItem)+"]", &resource.Investigation[numInvestigation].Item[numItem], htmlAttrs)
 }
 func (resource *ClinicalImpression) T_FindingItemCodeableConcept(numFinding int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFinding >= len(resource.Finding) {
@@ -218,11 +218,11 @@ func (resource *ClinicalImpression) T_FindingItemCodeableConcept(numFinding int,
 	}
 	return CodeableConceptSelect("finding["+strconv.Itoa(numFinding)+"].itemCodeableConcept", resource.Finding[numFinding].ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ClinicalImpression) T_FindingItemReference(numFinding int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ClinicalImpression) T_FindingItemReference(frs []FhirResource, numFinding int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFinding >= len(resource.Finding) {
-		return ReferenceInput("finding["+strconv.Itoa(numFinding)+"].itemReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "finding["+strconv.Itoa(numFinding)+"].itemReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("finding["+strconv.Itoa(numFinding)+"].itemReference", resource.Finding[numFinding].ItemReference, htmlAttrs)
+	return ReferenceInput(frs, "finding["+strconv.Itoa(numFinding)+"].itemReference", resource.Finding[numFinding].ItemReference, htmlAttrs)
 }
 func (resource *ClinicalImpression) T_FindingBasis(numFinding int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFinding >= len(resource.Finding) {

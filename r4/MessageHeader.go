@@ -105,29 +105,29 @@ func (resource *MessageHeader) T_EventUri(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return StringInput("eventUri", &resource.EventUri, htmlAttrs)
 }
-func (resource *MessageHeader) T_Sender(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_Sender(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("sender", nil, htmlAttrs)
+		return ReferenceInput(frs, "sender", nil, htmlAttrs)
 	}
-	return ReferenceInput("sender", resource.Sender, htmlAttrs)
+	return ReferenceInput(frs, "sender", resource.Sender, htmlAttrs)
 }
-func (resource *MessageHeader) T_Enterer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_Enterer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("enterer", nil, htmlAttrs)
+		return ReferenceInput(frs, "enterer", nil, htmlAttrs)
 	}
-	return ReferenceInput("enterer", resource.Enterer, htmlAttrs)
+	return ReferenceInput(frs, "enterer", resource.Enterer, htmlAttrs)
 }
-func (resource *MessageHeader) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
-func (resource *MessageHeader) T_Responsible(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_Responsible(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("responsible", nil, htmlAttrs)
+		return ReferenceInput(frs, "responsible", nil, htmlAttrs)
 	}
-	return ReferenceInput("responsible", resource.Responsible, htmlAttrs)
+	return ReferenceInput(frs, "responsible", resource.Responsible, htmlAttrs)
 }
 func (resource *MessageHeader) T_Reason(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -135,11 +135,11 @@ func (resource *MessageHeader) T_Reason(optionsValueSet []Coding, htmlAttrs temp
 	}
 	return CodeableConceptSelect("reason", resource.Reason, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageHeader) T_Focus(numFocus int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_Focus(frs []FhirResource, numFocus int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFocus >= len(resource.Focus) {
-		return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "focus["+strconv.Itoa(numFocus)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
+	return ReferenceInput(frs, "focus["+strconv.Itoa(numFocus)+"]", &resource.Focus[numFocus], htmlAttrs)
 }
 func (resource *MessageHeader) T_Definition(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -153,11 +153,11 @@ func (resource *MessageHeader) T_DestinationName(numDestination int, htmlAttrs t
 	}
 	return StringInput("destination["+strconv.Itoa(numDestination)+"].name", resource.Destination[numDestination].Name, htmlAttrs)
 }
-func (resource *MessageHeader) T_DestinationTarget(numDestination int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_DestinationTarget(frs []FhirResource, numDestination int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDestination >= len(resource.Destination) {
-		return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].target", nil, htmlAttrs)
+		return ReferenceInput(frs, "destination["+strconv.Itoa(numDestination)+"].target", nil, htmlAttrs)
 	}
-	return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].target", resource.Destination[numDestination].Target, htmlAttrs)
+	return ReferenceInput(frs, "destination["+strconv.Itoa(numDestination)+"].target", resource.Destination[numDestination].Target, htmlAttrs)
 }
 func (resource *MessageHeader) T_DestinationEndpoint(numDestination int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDestination >= len(resource.Destination) {
@@ -165,11 +165,11 @@ func (resource *MessageHeader) T_DestinationEndpoint(numDestination int, htmlAtt
 	}
 	return StringInput("destination["+strconv.Itoa(numDestination)+"].endpoint", &resource.Destination[numDestination].Endpoint, htmlAttrs)
 }
-func (resource *MessageHeader) T_DestinationReceiver(numDestination int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_DestinationReceiver(frs []FhirResource, numDestination int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDestination >= len(resource.Destination) {
-		return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].receiver", nil, htmlAttrs)
+		return ReferenceInput(frs, "destination["+strconv.Itoa(numDestination)+"].receiver", nil, htmlAttrs)
 	}
-	return ReferenceInput("destination["+strconv.Itoa(numDestination)+"].receiver", resource.Destination[numDestination].Receiver, htmlAttrs)
+	return ReferenceInput(frs, "destination["+strconv.Itoa(numDestination)+"].receiver", resource.Destination[numDestination].Receiver, htmlAttrs)
 }
 func (resource *MessageHeader) T_SourceName(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -209,9 +209,9 @@ func (resource *MessageHeader) T_ResponseCode(htmlAttrs templ.Attributes) templ.
 	}
 	return CodeSelect("response.code", &resource.Response.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *MessageHeader) T_ResponseDetails(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MessageHeader) T_ResponseDetails(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("response.details", nil, htmlAttrs)
+		return ReferenceInput(frs, "response.details", nil, htmlAttrs)
 	}
-	return ReferenceInput("response.details", resource.Response.Details, htmlAttrs)
+	return ReferenceInput(frs, "response.details", resource.Response.Details, htmlAttrs)
 }

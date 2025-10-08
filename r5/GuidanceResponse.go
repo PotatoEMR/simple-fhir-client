@@ -98,17 +98,17 @@ func (resource *GuidanceResponse) T_Status(htmlAttrs templ.Attributes) templ.Com
 	}
 	return CodeSelect("status", &resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -116,11 +116,11 @@ func (resource *GuidanceResponse) T_OccurrenceDateTime(htmlAttrs templ.Attribute
 	}
 	return FhirDateTimeInput("occurrenceDateTime", resource.OccurrenceDateTime, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Performer(htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_Performer(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("performer", nil, htmlAttrs)
+		return ReferenceInput(frs, "performer", nil, htmlAttrs)
 	}
-	return ReferenceInput("performer", resource.Performer, htmlAttrs)
+	return ReferenceInput(frs, "performer", resource.Performer, htmlAttrs)
 }
 func (resource *GuidanceResponse) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -134,23 +134,23 @@ func (resource *GuidanceResponse) T_Note(numNote int, htmlAttrs templ.Attributes
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *GuidanceResponse) T_EvaluationMessage(htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_EvaluationMessage(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("evaluationMessage", nil, htmlAttrs)
+		return ReferenceInput(frs, "evaluationMessage", nil, htmlAttrs)
 	}
-	return ReferenceInput("evaluationMessage", resource.EvaluationMessage, htmlAttrs)
+	return ReferenceInput(frs, "evaluationMessage", resource.EvaluationMessage, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_OutputParameters(htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_OutputParameters(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("outputParameters", nil, htmlAttrs)
+		return ReferenceInput(frs, "outputParameters", nil, htmlAttrs)
 	}
-	return ReferenceInput("outputParameters", resource.OutputParameters, htmlAttrs)
+	return ReferenceInput(frs, "outputParameters", resource.OutputParameters, htmlAttrs)
 }
-func (resource *GuidanceResponse) T_Result(numResult int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *GuidanceResponse) T_Result(frs []FhirResource, numResult int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numResult >= len(resource.Result) {
-		return ReferenceInput("result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
+	return ReferenceInput(frs, "result["+strconv.Itoa(numResult)+"]", &resource.Result[numResult], htmlAttrs)
 }
 func (resource *GuidanceResponse) T_DataRequirement(numDataRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDataRequirement >= len(resource.DataRequirement) {

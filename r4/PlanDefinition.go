@@ -242,11 +242,11 @@ func (resource *PlanDefinition) T_SubjectCodeableConcept(optionsValueSet []Codin
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *PlanDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *PlanDefinition) T_SubjectReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "subjectReference", resource.SubjectReference, htmlAttrs)
 }
 func (resource *PlanDefinition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -404,11 +404,11 @@ func (resource *PlanDefinition) T_GoalTargetMeasure(numGoal int, numTarget int, 
 	}
 	return CodeableConceptSelect("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].measure", resource.Goal[numGoal].Target[numTarget].Measure, optionsValueSet, htmlAttrs)
 }
-func (resource *PlanDefinition) T_GoalTargetDetailQuantity(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PlanDefinition) T_GoalTargetDetailQuantity(numGoal int, numTarget int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
-		return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", nil, htmlAttrs)
+		return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", resource.Goal[numGoal].Target[numTarget].DetailQuantity, htmlAttrs)
+	return QuantityInput("goal["+strconv.Itoa(numGoal)+"].target["+strconv.Itoa(numTarget)+"].detailQuantity", resource.Goal[numGoal].Target[numTarget].DetailQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *PlanDefinition) T_GoalTargetDetailRange(numGoal int, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numGoal >= len(resource.Goal) || numTarget >= len(resource.Goal[numGoal].Target) {
@@ -490,11 +490,11 @@ func (resource *PlanDefinition) T_ActionSubjectCodeableConcept(numAction int, op
 	}
 	return CodeableConceptSelect("action["+strconv.Itoa(numAction)+"].subjectCodeableConcept", resource.Action[numAction].SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *PlanDefinition) T_ActionSubjectReference(numAction int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *PlanDefinition) T_ActionSubjectReference(frs []FhirResource, numAction int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) {
-		return ReferenceInput("action["+strconv.Itoa(numAction)+"].subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("action["+strconv.Itoa(numAction)+"].subjectReference", resource.Action[numAction].SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "action["+strconv.Itoa(numAction)+"].subjectReference", resource.Action[numAction].SubjectReference, htmlAttrs)
 }
 func (resource *PlanDefinition) T_ActionTrigger(numAction int, numTrigger int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAction >= len(resource.Action) || numTrigger >= len(resource.Action[numAction].Trigger) {

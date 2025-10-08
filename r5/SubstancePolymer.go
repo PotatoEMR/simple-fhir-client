@@ -167,11 +167,11 @@ func (resource *SubstancePolymer) T_MonomerSetStartingMaterialIsDefining(numMono
 	}
 	return BoolInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].isDefining", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].IsDefining, htmlAttrs)
 }
-func (resource *SubstancePolymer) T_MonomerSetStartingMaterialAmount(numMonomerSet int, numStartingMaterial int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SubstancePolymer) T_MonomerSetStartingMaterialAmount(numMonomerSet int, numStartingMaterial int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numMonomerSet >= len(resource.MonomerSet) || numStartingMaterial >= len(resource.MonomerSet[numMonomerSet].StartingMaterial) {
-		return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", nil, htmlAttrs)
+		return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Amount, htmlAttrs)
+	return QuantityInput("monomerSet["+strconv.Itoa(numMonomerSet)+"].startingMaterial["+strconv.Itoa(numStartingMaterial)+"].amount", resource.MonomerSet[numMonomerSet].StartingMaterial[numStartingMaterial].Amount, optionsValueSet, htmlAttrs)
 }
 func (resource *SubstancePolymer) T_RepeatAverageMolecularFormula(numRepeat int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRepeat >= len(resource.Repeat) {

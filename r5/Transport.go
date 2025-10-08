@@ -228,11 +228,11 @@ func (resource *Transport) T_InstantiatesUri(htmlAttrs templ.Attributes) templ.C
 	}
 	return StringInput("instantiatesUri", resource.InstantiatesUri, htmlAttrs)
 }
-func (resource *Transport) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
 func (resource *Transport) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -240,11 +240,11 @@ func (resource *Transport) T_GroupIdentifier(htmlAttrs templ.Attributes) templ.C
 	}
 	return IdentifierInput("groupIdentifier", resource.GroupIdentifier, htmlAttrs)
 }
-func (resource *Transport) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *Transport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSTransport_status
@@ -288,23 +288,23 @@ func (resource *Transport) T_Description(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return StringInput("description", resource.Description, htmlAttrs)
 }
-func (resource *Transport) T_Focus(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Focus(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("focus", nil, htmlAttrs)
+		return ReferenceInput(frs, "focus", nil, htmlAttrs)
 	}
-	return ReferenceInput("focus", resource.Focus, htmlAttrs)
+	return ReferenceInput(frs, "focus", resource.Focus, htmlAttrs)
 }
-func (resource *Transport) T_For(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_For(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("for", nil, htmlAttrs)
+		return ReferenceInput(frs, "for", nil, htmlAttrs)
 	}
-	return ReferenceInput("for", resource.For, htmlAttrs)
+	return ReferenceInput(frs, "for", resource.For, htmlAttrs)
 }
-func (resource *Transport) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Transport) T_CompletionTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -324,11 +324,11 @@ func (resource *Transport) T_LastModified(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return FhirDateTimeInput("lastModified", resource.LastModified, htmlAttrs)
 }
-func (resource *Transport) T_Requester(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Requester(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requester", nil, htmlAttrs)
+		return ReferenceInput(frs, "requester", nil, htmlAttrs)
 	}
-	return ReferenceInput("requester", resource.Requester, htmlAttrs)
+	return ReferenceInput(frs, "requester", resource.Requester, htmlAttrs)
 }
 func (resource *Transport) T_PerformerType(numPerformerType int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPerformerType >= len(resource.PerformerType) {
@@ -336,23 +336,23 @@ func (resource *Transport) T_PerformerType(numPerformerType int, optionsValueSet
 	}
 	return CodeableConceptSelect("performerType["+strconv.Itoa(numPerformerType)+"]", &resource.PerformerType[numPerformerType], optionsValueSet, htmlAttrs)
 }
-func (resource *Transport) T_Owner(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Owner(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("owner", nil, htmlAttrs)
+		return ReferenceInput(frs, "owner", nil, htmlAttrs)
 	}
-	return ReferenceInput("owner", resource.Owner, htmlAttrs)
+	return ReferenceInput(frs, "owner", resource.Owner, htmlAttrs)
 }
-func (resource *Transport) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
-func (resource *Transport) T_Insurance(numInsurance int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_Insurance(frs []FhirResource, numInsurance int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInsurance >= len(resource.Insurance) {
-		return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
+	return ReferenceInput(frs, "insurance["+strconv.Itoa(numInsurance)+"]", &resource.Insurance[numInsurance], htmlAttrs)
 }
 func (resource *Transport) T_Note(numNote int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numNote >= len(resource.Note) {
@@ -360,23 +360,23 @@ func (resource *Transport) T_Note(numNote int, htmlAttrs templ.Attributes) templ
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *Transport) T_RelevantHistory(numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_RelevantHistory(frs []FhirResource, numRelevantHistory int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelevantHistory >= len(resource.RelevantHistory) {
-		return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
+	return ReferenceInput(frs, "relevantHistory["+strconv.Itoa(numRelevantHistory)+"]", &resource.RelevantHistory[numRelevantHistory], htmlAttrs)
 }
-func (resource *Transport) T_RequestedLocation(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_RequestedLocation(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("requestedLocation", nil, htmlAttrs)
+		return ReferenceInput(frs, "requestedLocation", nil, htmlAttrs)
 	}
-	return ReferenceInput("requestedLocation", &resource.RequestedLocation, htmlAttrs)
+	return ReferenceInput(frs, "requestedLocation", &resource.RequestedLocation, htmlAttrs)
 }
-func (resource *Transport) T_CurrentLocation(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_CurrentLocation(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("currentLocation", nil, htmlAttrs)
+		return ReferenceInput(frs, "currentLocation", nil, htmlAttrs)
 	}
-	return ReferenceInput("currentLocation", &resource.CurrentLocation, htmlAttrs)
+	return ReferenceInput(frs, "currentLocation", &resource.CurrentLocation, htmlAttrs)
 }
 func (resource *Transport) T_Reason(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -384,11 +384,11 @@ func (resource *Transport) T_Reason(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return CodeableReferenceInput("reason", resource.Reason, htmlAttrs)
 }
-func (resource *Transport) T_History(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_History(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("history", nil, htmlAttrs)
+		return ReferenceInput(frs, "history", nil, htmlAttrs)
 	}
-	return ReferenceInput("history", resource.History, htmlAttrs)
+	return ReferenceInput(frs, "history", resource.History, htmlAttrs)
 }
 func (resource *Transport) T_RestrictionRepetitions(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -402,11 +402,11 @@ func (resource *Transport) T_RestrictionPeriod(htmlAttrs templ.Attributes) templ
 	}
 	return PeriodInput("restriction.period", resource.Restriction.Period, htmlAttrs)
 }
-func (resource *Transport) T_RestrictionRecipient(numRecipient int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_RestrictionRecipient(frs []FhirResource, numRecipient int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRecipient >= len(resource.Restriction.Recipient) {
-		return ReferenceInput("restriction.recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "restriction.recipient["+strconv.Itoa(numRecipient)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("restriction.recipient["+strconv.Itoa(numRecipient)+"]", &resource.Restriction.Recipient[numRecipient], htmlAttrs)
+	return ReferenceInput(frs, "restriction.recipient["+strconv.Itoa(numRecipient)+"]", &resource.Restriction.Recipient[numRecipient], htmlAttrs)
 }
 func (resource *Transport) T_InputType(numInput int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -624,11 +624,11 @@ func (resource *Transport) T_InputValuePeriod(numInput int, htmlAttrs templ.Attr
 	}
 	return PeriodInput("input["+strconv.Itoa(numInput)+"].valuePeriod", &resource.Input[numInput].ValuePeriod, htmlAttrs)
 }
-func (resource *Transport) T_InputValueQuantity(numInput int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_InputValueQuantity(numInput int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
-		return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", &resource.Input[numInput].ValueQuantity, htmlAttrs)
+	return QuantityInput("input["+strconv.Itoa(numInput)+"].valueQuantity", &resource.Input[numInput].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Transport) T_InputValueRange(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -648,11 +648,11 @@ func (resource *Transport) T_InputValueRatioRange(numInput int, htmlAttrs templ.
 	}
 	return RatioRangeInput("input["+strconv.Itoa(numInput)+"].valueRatioRange", &resource.Input[numInput].ValueRatioRange, htmlAttrs)
 }
-func (resource *Transport) T_InputValueReference(numInput int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_InputValueReference(frs []FhirResource, numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
-		return ReferenceInput("input["+strconv.Itoa(numInput)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "input["+strconv.Itoa(numInput)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("input["+strconv.Itoa(numInput)+"].valueReference", &resource.Input[numInput].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "input["+strconv.Itoa(numInput)+"].valueReference", &resource.Input[numInput].ValueReference, htmlAttrs)
 }
 func (resource *Transport) T_InputValueSampledData(numInput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInput >= len(resource.Input) {
@@ -954,11 +954,11 @@ func (resource *Transport) T_OutputValuePeriod(numOutput int, htmlAttrs templ.At
 	}
 	return PeriodInput("output["+strconv.Itoa(numOutput)+"].valuePeriod", &resource.Output[numOutput].ValuePeriod, htmlAttrs)
 }
-func (resource *Transport) T_OutputValueQuantity(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_OutputValueQuantity(numOutput int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
-		return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", &resource.Output[numOutput].ValueQuantity, htmlAttrs)
+	return QuantityInput("output["+strconv.Itoa(numOutput)+"].valueQuantity", &resource.Output[numOutput].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Transport) T_OutputValueRange(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
@@ -978,11 +978,11 @@ func (resource *Transport) T_OutputValueRatioRange(numOutput int, htmlAttrs temp
 	}
 	return RatioRangeInput("output["+strconv.Itoa(numOutput)+"].valueRatioRange", &resource.Output[numOutput].ValueRatioRange, htmlAttrs)
 }
-func (resource *Transport) T_OutputValueReference(numOutput int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Transport) T_OutputValueReference(frs []FhirResource, numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {
-		return ReferenceInput("output["+strconv.Itoa(numOutput)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "output["+strconv.Itoa(numOutput)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("output["+strconv.Itoa(numOutput)+"].valueReference", &resource.Output[numOutput].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "output["+strconv.Itoa(numOutput)+"].valueReference", &resource.Output[numOutput].ValueReference, htmlAttrs)
 }
 func (resource *Transport) T_OutputValueSampledData(numOutput int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numOutput >= len(resource.Output) {

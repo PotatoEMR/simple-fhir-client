@@ -86,17 +86,17 @@ func (resource *ResearchSubject) T_Period(htmlAttrs templ.Attributes) templ.Comp
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Study(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Study(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("study", nil, htmlAttrs)
+		return ReferenceInput(frs, "study", nil, htmlAttrs)
 	}
-	return ReferenceInput("study", &resource.Study, htmlAttrs)
+	return ReferenceInput(frs, "study", &resource.Study, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
 func (resource *ResearchSubject) T_AssignedComparisonGroup(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -110,11 +110,11 @@ func (resource *ResearchSubject) T_ActualComparisonGroup(htmlAttrs templ.Attribu
 	}
 	return StringInput("actualComparisonGroup", resource.ActualComparisonGroup, htmlAttrs)
 }
-func (resource *ResearchSubject) T_Consent(numConsent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ResearchSubject) T_Consent(frs []FhirResource, numConsent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numConsent >= len(resource.Consent) {
-		return ReferenceInput("consent["+strconv.Itoa(numConsent)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "consent["+strconv.Itoa(numConsent)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("consent["+strconv.Itoa(numConsent)+"]", &resource.Consent[numConsent], htmlAttrs)
+	return ReferenceInput(frs, "consent["+strconv.Itoa(numConsent)+"]", &resource.Consent[numConsent], htmlAttrs)
 }
 func (resource *ResearchSubject) T_ProgressType(numProgress int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProgress >= len(resource.Progress) {

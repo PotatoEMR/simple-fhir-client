@@ -107,11 +107,11 @@ func (resource *Person) T_Photo(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return AttachmentInput("photo", resource.Photo, htmlAttrs)
 }
-func (resource *Person) T_ManagingOrganization(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Person) T_ManagingOrganization(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("managingOrganization", nil, htmlAttrs)
+		return ReferenceInput(frs, "managingOrganization", nil, htmlAttrs)
 	}
-	return ReferenceInput("managingOrganization", resource.ManagingOrganization, htmlAttrs)
+	return ReferenceInput(frs, "managingOrganization", resource.ManagingOrganization, htmlAttrs)
 }
 func (resource *Person) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -119,11 +119,11 @@ func (resource *Person) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return BoolInput("active", resource.Active, htmlAttrs)
 }
-func (resource *Person) T_LinkTarget(numLink int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Person) T_LinkTarget(frs []FhirResource, numLink int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numLink >= len(resource.Link) {
-		return ReferenceInput("link["+strconv.Itoa(numLink)+"].target", nil, htmlAttrs)
+		return ReferenceInput(frs, "link["+strconv.Itoa(numLink)+"].target", nil, htmlAttrs)
 	}
-	return ReferenceInput("link["+strconv.Itoa(numLink)+"].target", &resource.Link[numLink].Target, htmlAttrs)
+	return ReferenceInput(frs, "link["+strconv.Itoa(numLink)+"].target", &resource.Link[numLink].Target, htmlAttrs)
 }
 func (resource *Person) T_LinkAssurance(numLink int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSIdentity_assuranceLevel

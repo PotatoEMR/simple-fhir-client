@@ -73,17 +73,17 @@ func (r SupplyDelivery) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *SupplyDelivery) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *SupplyDelivery) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *SupplyDelivery) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSupplydelivery_status
@@ -93,11 +93,11 @@ func (resource *SupplyDelivery) T_Status(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return CodeSelect("status", resource.Status, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Patient(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_Patient(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("patient", nil, htmlAttrs)
+		return ReferenceInput(frs, "patient", nil, htmlAttrs)
 	}
-	return ReferenceInput("patient", resource.Patient, htmlAttrs)
+	return ReferenceInput(frs, "patient", resource.Patient, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -123,29 +123,29 @@ func (resource *SupplyDelivery) T_OccurrenceTiming(htmlAttrs templ.Attributes) t
 	}
 	return TimingInput("occurrenceTiming", resource.OccurrenceTiming, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Supplier(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_Supplier(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("supplier", nil, htmlAttrs)
+		return ReferenceInput(frs, "supplier", nil, htmlAttrs)
 	}
-	return ReferenceInput("supplier", resource.Supplier, htmlAttrs)
+	return ReferenceInput(frs, "supplier", resource.Supplier, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Destination(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_Destination(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("destination", nil, htmlAttrs)
+		return ReferenceInput(frs, "destination", nil, htmlAttrs)
 	}
-	return ReferenceInput("destination", resource.Destination, htmlAttrs)
+	return ReferenceInput(frs, "destination", resource.Destination, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_Receiver(numReceiver int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_Receiver(frs []FhirResource, numReceiver int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReceiver >= len(resource.Receiver) {
-		return ReferenceInput("receiver["+strconv.Itoa(numReceiver)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "receiver["+strconv.Itoa(numReceiver)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("receiver["+strconv.Itoa(numReceiver)+"]", &resource.Receiver[numReceiver], htmlAttrs)
+	return ReferenceInput(frs, "receiver["+strconv.Itoa(numReceiver)+"]", &resource.Receiver[numReceiver], htmlAttrs)
 }
-func (resource *SupplyDelivery) T_SuppliedItemQuantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_SuppliedItemQuantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("suppliedItem.quantity", nil, htmlAttrs)
+		return QuantityInput("suppliedItem.quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("suppliedItem.quantity", resource.SuppliedItem.Quantity, htmlAttrs)
+	return QuantityInput("suppliedItem.quantity", resource.SuppliedItem.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -153,9 +153,9 @@ func (resource *SupplyDelivery) T_SuppliedItemItemCodeableConcept(optionsValueSe
 	}
 	return CodeableConceptSelect("suppliedItem.itemCodeableConcept", resource.SuppliedItem.ItemCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *SupplyDelivery) T_SuppliedItemItemReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *SupplyDelivery) T_SuppliedItemItemReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("suppliedItem.itemReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "suppliedItem.itemReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("suppliedItem.itemReference", resource.SuppliedItem.ItemReference, htmlAttrs)
+	return ReferenceInput(frs, "suppliedItem.itemReference", resource.SuppliedItem.ItemReference, htmlAttrs)
 }

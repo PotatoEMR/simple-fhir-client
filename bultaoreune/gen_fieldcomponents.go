@@ -227,18 +227,73 @@ templ FhirDateTimeInput(fieldname string, current *FhirDateTime, attrs templ.Att
 	}
 }
 
-templ ReferenceInput(fieldname string, current *Reference, attrs templ.Attributes) {
-	<input
-		{ attrs... }
-		name={ fieldname + ".display" }
-		if current != nil && current.Display != nil {
-			value={ *current.Display }
-		} else {
-			value=""
+
+
+var setHiddenInputsHandle = templ.NewOnceHandle()
+
+templ setHiddenInputsScript() {
+	@setHiddenInputsHandle.Once() {
+		<script>
+		//sets each input to value from set-* such as set-display="abc"
+		//-> set input with name="performer[0].actor.display" to value="abc"
+		function setHiddenInputs(selectElement) {
+			const inputs = selectElement.parentElement.querySelectorAll("input[name]"); //not sure if this parent elt always exactly right
+			const inputMap = {};
+			for (let i = 0; i < inputs.length; i++) {
+				const input = inputs[i];
+				const key = input.name.split(".").pop();
+				inputMap[key] = input;
+			}
+
+			const selectedOption = selectElement.options[selectElement.selectedIndex];
+			for (let i = 0; i < selectedOption.attributes.length; i++) {
+				const a = selectedOption.attributes[i];
+				if (a.name.startsWith("set-")) {
+					const key = a.name.slice(4);
+					if (inputMap[key]) {
+						inputMap[key].value = a.value;
+					}
+				}
+			}
 		}
-	/>
+		</script>
+	}
+}
+
+templ ReferenceInput(frs []FhirResource, fieldname string, current *Reference, attrs templ.Attributes) {
+	@setHiddenInputsScript()
+	<select onchange="setHiddenInputs(this)" name={ fieldname } { attrs... }>
+		<option value="">--</option>
+		for _, fr := range frs {
+			{{
+				ref := fr.ToRef()
+				frReference := ""
+				if ref.Reference != nil {
+					frReference = *ref.Reference
+				}
+				frType := ""
+				if ref.Type != nil {
+					frType = *ref.Type
+				}
+				frDisplay := ""
+				if ref.Display != nil {
+					frDisplay = *ref.Display
+				}
+			}}
+			//could check more fields than just .reference when comparing 2 Reference resources for equality?
+			<option
+				set-reference={ frReference }
+				set-type={ frType }
+				set-display={ frDisplay }
+				if current != nil && current.Reference != nil && ref.Reference != nil && *current.Reference == *ref.Reference {
+					selected
+				}
+			>{ ref.String() }</option>
+		}
+	</select>
+	//should probably put identifier here as well
 	<input
-		{ attrs... }
+		type="hidden"
 		name={ fieldname + ".reference" }
 		if current != nil && current.Reference != nil {
 			value={ *current.Reference }
@@ -246,9 +301,8 @@ templ ReferenceInput(fieldname string, current *Reference, attrs templ.Attribute
 			value=""
 		}
 	/>
-	//identifier later idk
 	<input
-		{ attrs... }
+		type="hidden"
 		name={ fieldname + ".type" }
 		if current != nil && current.Type != nil {
 			value={ *current.Type }
@@ -256,7 +310,17 @@ templ ReferenceInput(fieldname string, current *Reference, attrs templ.Attribute
 			value=""
 		}
 	/>
+	<input
+		type="hidden"
+		name={ fieldname + ".display" }
+		if current != nil && current.Display != nil {
+			value={ *current.Display }
+		} else {
+			value=""
+		}
+	/>
 }
+
 templ MetaInput(fieldname string, current *Meta, attrs templ.Attributes) {
 	<p>Meta not done would really like to totally ban this one but for instance Task.output.value[x] can be meta</p>
 }
@@ -269,8 +333,69 @@ templ ProductShelfLifeInput(fieldname string, current *ProductShelfLife, attrs t
 	<p>ProductShelfLife not done</p>
 }
 
-templ QuantityInput(fieldname string, current *Quantity, attrs templ.Attributes) {
-	<p>Quantity not done</p>
+type QuantityAttrs struct {
+	Unit  templ.Attributes
+	Value templ.Attributes
+}
+
+templ QuantityInput(fieldname string, current *Quantity, unitValueSet []Coding, attrs QuantityAttrs) {
+	<input
+		type="number"
+		name={ fieldname + ".value" }
+		{ attrs.Unit... }
+		if current != nil && current.Value != nil {
+			value={ *current.Value }
+		} else {
+			value=""
+		}
+	/>
+	@setHiddenInputsScript()
+	<select
+		onchange="setHiddenInputs(this)"
+		name={ fieldname + ".unit" }
+	>
+		for _, unit := range unitValueSet {
+			<option
+				name={ fieldname + ".unit" }
+				value={ unit.String() }
+				if unit.Code != nil {
+					set-code={ *unit.Code }
+				}
+				if unit.System != nil {
+					set-system={ *unit.System }
+				}
+			>
+				{ unit.String() }
+			</option>
+		}
+	</select>
+	<input
+		type="hidden"
+		name={ fieldname + ".code" }
+		if current != nil && current.Code != nil {
+			value={ *current.Code }
+		} else {
+			value=""
+		}
+	/>
+	<input
+		type="hidden"
+		name={ fieldname + ".comparator" }
+		if current != nil && current.Comparator != nil {
+			value={ *current.Comparator }
+		} else {
+			value=""
+		}
+	/>
+	<input
+		type="hidden"
+		name={ fieldname + ".system" }
+		if current != nil && current.System != nil {
+			value={ *current.System }
+		} else {
+			value=""
+		}
+	/>
 }
 
 templ RelatedArtifactInput(fieldname string, current *RelatedArtifact, attrs templ.Attributes) {

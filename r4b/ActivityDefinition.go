@@ -172,11 +172,11 @@ func (resource *ActivityDefinition) T_SubjectCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("subjectCodeableConcept", resource.SubjectCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SubjectReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_SubjectReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subjectReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "subjectReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("subjectReference", resource.SubjectReference, htmlAttrs)
+	return ReferenceInput(frs, "subjectReference", resource.SubjectReference, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_SubjectCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -376,17 +376,17 @@ func (resource *ActivityDefinition) T_TimingDuration(htmlAttrs templ.Attributes)
 	}
 	return DurationInput("timingDuration", resource.TimingDuration, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Location(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_Location(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("location", nil, htmlAttrs)
+		return ReferenceInput(frs, "location", nil, htmlAttrs)
 	}
-	return ReferenceInput("location", resource.Location, htmlAttrs)
+	return ReferenceInput(frs, "location", resource.Location, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ProductReference(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_ProductReference(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("productReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "productReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("productReference", resource.ProductReference, htmlAttrs)
+	return ReferenceInput(frs, "productReference", resource.ProductReference, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -394,11 +394,11 @@ func (resource *ActivityDefinition) T_ProductCodeableConcept(optionsValueSet []C
 	}
 	return CodeableConceptSelect("productCodeableConcept", resource.ProductCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_Quantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_Quantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("quantity", nil, htmlAttrs)
+		return QuantityInput("quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("quantity", resource.Quantity, htmlAttrs)
+	return QuantityInput("quantity", resource.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *ActivityDefinition) T_Dosage(numDosage int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDosage >= len(resource.Dosage) {
@@ -412,23 +412,23 @@ func (resource *ActivityDefinition) T_BodySite(numBodySite int, optionsValueSet 
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *ActivityDefinition) T_SpecimenRequirement(numSpecimenRequirement int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_SpecimenRequirement(frs []FhirResource, numSpecimenRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSpecimenRequirement >= len(resource.SpecimenRequirement) {
-		return ReferenceInput("specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", &resource.SpecimenRequirement[numSpecimenRequirement], htmlAttrs)
+	return ReferenceInput(frs, "specimenRequirement["+strconv.Itoa(numSpecimenRequirement)+"]", &resource.SpecimenRequirement[numSpecimenRequirement], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ObservationRequirement(numObservationRequirement int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_ObservationRequirement(frs []FhirResource, numObservationRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservationRequirement >= len(resource.ObservationRequirement) {
-		return ReferenceInput("observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", &resource.ObservationRequirement[numObservationRequirement], htmlAttrs)
+	return ReferenceInput(frs, "observationRequirement["+strconv.Itoa(numObservationRequirement)+"]", &resource.ObservationRequirement[numObservationRequirement], htmlAttrs)
 }
-func (resource *ActivityDefinition) T_ObservationResultRequirement(numObservationResultRequirement int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ActivityDefinition) T_ObservationResultRequirement(frs []FhirResource, numObservationResultRequirement int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numObservationResultRequirement >= len(resource.ObservationResultRequirement) {
-		return ReferenceInput("observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", &resource.ObservationResultRequirement[numObservationResultRequirement], htmlAttrs)
+	return ReferenceInput(frs, "observationResultRequirement["+strconv.Itoa(numObservationResultRequirement)+"]", &resource.ObservationResultRequirement[numObservationResultRequirement], htmlAttrs)
 }
 func (resource *ActivityDefinition) T_Transform(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

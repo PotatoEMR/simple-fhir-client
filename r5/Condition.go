@@ -129,17 +129,17 @@ func (resource *Condition) T_BodySite(numBodySite int, optionsValueSet []Coding,
 	}
 	return CodeableConceptSelect("bodySite["+strconv.Itoa(numBodySite)+"]", &resource.BodySite[numBodySite], optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *Condition) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Condition) T_OnsetDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -225,11 +225,11 @@ func (resource *Condition) T_ParticipantFunction(numParticipant int, optionsValu
 	}
 	return CodeableConceptSelect("participant["+strconv.Itoa(numParticipant)+"].function", resource.Participant[numParticipant].Function, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_ParticipantActor(numParticipant int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_ParticipantActor(frs []FhirResource, numParticipant int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParticipant >= len(resource.Participant) {
-		return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
+		return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", nil, htmlAttrs)
 	}
-	return ReferenceInput("participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
+	return ReferenceInput(frs, "participant["+strconv.Itoa(numParticipant)+"].actor", &resource.Participant[numParticipant].Actor, htmlAttrs)
 }
 func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {
@@ -237,11 +237,11 @@ func (resource *Condition) T_StageSummary(numStage int, optionsValueSet []Coding
 	}
 	return CodeableConceptSelect("stage["+strconv.Itoa(numStage)+"].summary", resource.Stage[numStage].Summary, optionsValueSet, htmlAttrs)
 }
-func (resource *Condition) T_StageAssessment(numStage int, numAssessment int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Condition) T_StageAssessment(frs []FhirResource, numStage int, numAssessment int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) || numAssessment >= len(resource.Stage[numStage].Assessment) {
-		return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", &resource.Stage[numStage].Assessment[numAssessment], htmlAttrs)
+	return ReferenceInput(frs, "stage["+strconv.Itoa(numStage)+"].assessment["+strconv.Itoa(numAssessment)+"]", &resource.Stage[numStage].Assessment[numAssessment], htmlAttrs)
 }
 func (resource *Condition) T_StageType(numStage int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStage >= len(resource.Stage) {

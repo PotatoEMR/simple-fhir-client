@@ -135,11 +135,11 @@ func (resource *Specimen) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attri
 	}
 	return CodeableConceptSelect("type", resource.Type, optionsValueSet, htmlAttrs)
 }
-func (resource *Specimen) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *Specimen) T_ReceivedTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -147,17 +147,17 @@ func (resource *Specimen) T_ReceivedTime(htmlAttrs templ.Attributes) templ.Compo
 	}
 	return FhirDateTimeInput("receivedTime", resource.ReceivedTime, htmlAttrs)
 }
-func (resource *Specimen) T_Parent(numParent int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_Parent(frs []FhirResource, numParent int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParent >= len(resource.Parent) {
-		return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
+	return ReferenceInput(frs, "parent["+strconv.Itoa(numParent)+"]", &resource.Parent[numParent], htmlAttrs)
 }
-func (resource *Specimen) T_Request(numRequest int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_Request(frs []FhirResource, numRequest int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRequest >= len(resource.Request) {
-		return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
+	return ReferenceInput(frs, "request["+strconv.Itoa(numRequest)+"]", &resource.Request[numRequest], htmlAttrs)
 }
 func (resource *Specimen) T_Combined(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSpecimen_combined
@@ -197,11 +197,11 @@ func (resource *Specimen) T_FeatureDescription(numFeature int, htmlAttrs templ.A
 	}
 	return StringInput("feature["+strconv.Itoa(numFeature)+"].description", &resource.Feature[numFeature].Description, htmlAttrs)
 }
-func (resource *Specimen) T_CollectionCollector(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_CollectionCollector(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.collector", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.collector", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.collector", resource.Collection.Collector, htmlAttrs)
+	return ReferenceInput(frs, "collection.collector", resource.Collection.Collector, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionCollectedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -221,11 +221,11 @@ func (resource *Specimen) T_CollectionDuration(htmlAttrs templ.Attributes) templ
 	}
 	return DurationInput("collection.duration", resource.Collection.Duration, htmlAttrs)
 }
-func (resource *Specimen) T_CollectionQuantity(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_CollectionQuantity(optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil {
-		return QuantityInput("collection.quantity", nil, htmlAttrs)
+		return QuantityInput("collection.quantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("collection.quantity", resource.Collection.Quantity, htmlAttrs)
+	return QuantityInput("collection.quantity", resource.Collection.Quantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionMethod(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -239,11 +239,11 @@ func (resource *Specimen) T_CollectionDevice(htmlAttrs templ.Attributes) templ.C
 	}
 	return CodeableReferenceInput("collection.device", resource.Collection.Device, htmlAttrs)
 }
-func (resource *Specimen) T_CollectionProcedure(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_CollectionProcedure(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("collection.procedure", nil, htmlAttrs)
+		return ReferenceInput(frs, "collection.procedure", nil, htmlAttrs)
 	}
-	return ReferenceInput("collection.procedure", resource.Collection.Procedure, htmlAttrs)
+	return ReferenceInput(frs, "collection.procedure", resource.Collection.Procedure, htmlAttrs)
 }
 func (resource *Specimen) T_CollectionBodySite(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -275,11 +275,11 @@ func (resource *Specimen) T_ProcessingMethod(numProcessing int, optionsValueSet 
 	}
 	return CodeableConceptSelect("processing["+strconv.Itoa(numProcessing)+"].method", resource.Processing[numProcessing].Method, optionsValueSet, htmlAttrs)
 }
-func (resource *Specimen) T_ProcessingAdditive(numProcessing int, numAdditive int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_ProcessingAdditive(frs []FhirResource, numProcessing int, numAdditive int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) || numAdditive >= len(resource.Processing[numProcessing].Additive) {
-		return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive["+strconv.Itoa(numAdditive)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "processing["+strconv.Itoa(numProcessing)+"].additive["+strconv.Itoa(numAdditive)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("processing["+strconv.Itoa(numProcessing)+"].additive["+strconv.Itoa(numAdditive)+"]", &resource.Processing[numProcessing].Additive[numAdditive], htmlAttrs)
+	return ReferenceInput(frs, "processing["+strconv.Itoa(numProcessing)+"].additive["+strconv.Itoa(numAdditive)+"]", &resource.Processing[numProcessing].Additive[numAdditive], htmlAttrs)
 }
 func (resource *Specimen) T_ProcessingTimeDateTime(numProcessing int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProcessing >= len(resource.Processing) {
@@ -293,21 +293,21 @@ func (resource *Specimen) T_ProcessingTimePeriod(numProcessing int, htmlAttrs te
 	}
 	return PeriodInput("processing["+strconv.Itoa(numProcessing)+"].timePeriod", resource.Processing[numProcessing].TimePeriod, htmlAttrs)
 }
-func (resource *Specimen) T_ContainerDevice(numContainer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_ContainerDevice(frs []FhirResource, numContainer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return ReferenceInput("container["+strconv.Itoa(numContainer)+"].device", nil, htmlAttrs)
+		return ReferenceInput(frs, "container["+strconv.Itoa(numContainer)+"].device", nil, htmlAttrs)
 	}
-	return ReferenceInput("container["+strconv.Itoa(numContainer)+"].device", &resource.Container[numContainer].Device, htmlAttrs)
+	return ReferenceInput(frs, "container["+strconv.Itoa(numContainer)+"].device", &resource.Container[numContainer].Device, htmlAttrs)
 }
-func (resource *Specimen) T_ContainerLocation(numContainer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_ContainerLocation(frs []FhirResource, numContainer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return ReferenceInput("container["+strconv.Itoa(numContainer)+"].location", nil, htmlAttrs)
+		return ReferenceInput(frs, "container["+strconv.Itoa(numContainer)+"].location", nil, htmlAttrs)
 	}
-	return ReferenceInput("container["+strconv.Itoa(numContainer)+"].location", resource.Container[numContainer].Location, htmlAttrs)
+	return ReferenceInput(frs, "container["+strconv.Itoa(numContainer)+"].location", resource.Container[numContainer].Location, htmlAttrs)
 }
-func (resource *Specimen) T_ContainerSpecimenQuantity(numContainer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Specimen) T_ContainerSpecimenQuantity(numContainer int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numContainer >= len(resource.Container) {
-		return QuantityInput("container["+strconv.Itoa(numContainer)+"].specimenQuantity", nil, htmlAttrs)
+		return QuantityInput("container["+strconv.Itoa(numContainer)+"].specimenQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("container["+strconv.Itoa(numContainer)+"].specimenQuantity", resource.Container[numContainer].SpecimenQuantity, htmlAttrs)
+	return QuantityInput("container["+strconv.Itoa(numContainer)+"].specimenQuantity", resource.Container[numContainer].SpecimenQuantity, optionsValueSet, htmlAttrs)
 }

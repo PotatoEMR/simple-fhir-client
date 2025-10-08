@@ -298,11 +298,11 @@ func (resource *Parameters) T_ParameterValuePeriod(numParameter int, htmlAttrs t
 	}
 	return PeriodInput("parameter["+strconv.Itoa(numParameter)+"].valuePeriod", resource.Parameter[numParameter].ValuePeriod, htmlAttrs)
 }
-func (resource *Parameters) T_ParameterValueQuantity(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Parameters) T_ParameterValueQuantity(numParameter int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, htmlAttrs)
+	return QuantityInput("parameter["+strconv.Itoa(numParameter)+"].valueQuantity", resource.Parameter[numParameter].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueRange(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
@@ -322,11 +322,11 @@ func (resource *Parameters) T_ParameterValueRatioRange(numParameter int, htmlAtt
 	}
 	return RatioRangeInput("parameter["+strconv.Itoa(numParameter)+"].valueRatioRange", resource.Parameter[numParameter].ValueRatioRange, htmlAttrs)
 }
-func (resource *Parameters) T_ParameterValueReference(numParameter int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Parameters) T_ParameterValueReference(frs []FhirResource, numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {
-		return ReferenceInput("parameter["+strconv.Itoa(numParameter)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "parameter["+strconv.Itoa(numParameter)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("parameter["+strconv.Itoa(numParameter)+"].valueReference", resource.Parameter[numParameter].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "parameter["+strconv.Itoa(numParameter)+"].valueReference", resource.Parameter[numParameter].ValueReference, htmlAttrs)
 }
 func (resource *Parameters) T_ParameterValueSampledData(numParameter int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numParameter >= len(resource.Parameter) {

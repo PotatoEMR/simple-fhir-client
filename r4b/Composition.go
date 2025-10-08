@@ -129,17 +129,17 @@ func (resource *Composition) T_Category(numCategory int, optionsValueSet []Codin
 	}
 	return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", &resource.Category[numCategory], optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *Composition) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Composition) T_Date(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -147,11 +147,11 @@ func (resource *Composition) T_Date(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return FhirDateTimeInput("date", &resource.Date, htmlAttrs)
 }
-func (resource *Composition) T_Author(numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_Author(frs []FhirResource, numAuthor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAuthor >= len(resource.Author) {
-		return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
+	return ReferenceInput(frs, "author["+strconv.Itoa(numAuthor)+"]", &resource.Author[numAuthor], htmlAttrs)
 }
 func (resource *Composition) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -165,11 +165,11 @@ func (resource *Composition) T_Confidentiality(optionsValueSet []Coding, htmlAtt
 	}
 	return CodeSelect("confidentiality", resource.Confidentiality, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_Custodian(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_Custodian(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("custodian", nil, htmlAttrs)
+		return ReferenceInput(frs, "custodian", nil, htmlAttrs)
 	}
-	return ReferenceInput("custodian", resource.Custodian, htmlAttrs)
+	return ReferenceInput(frs, "custodian", resource.Custodian, htmlAttrs)
 }
 func (resource *Composition) T_AttesterMode(numAttester int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSComposition_attestation_mode
@@ -185,11 +185,11 @@ func (resource *Composition) T_AttesterTime(numAttester int, htmlAttrs templ.Att
 	}
 	return FhirDateTimeInput("attester["+strconv.Itoa(numAttester)+"].time", resource.Attester[numAttester].Time, htmlAttrs)
 }
-func (resource *Composition) T_AttesterParty(numAttester int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_AttesterParty(frs []FhirResource, numAttester int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numAttester >= len(resource.Attester) {
-		return ReferenceInput("attester["+strconv.Itoa(numAttester)+"].party", nil, htmlAttrs)
+		return ReferenceInput(frs, "attester["+strconv.Itoa(numAttester)+"].party", nil, htmlAttrs)
 	}
-	return ReferenceInput("attester["+strconv.Itoa(numAttester)+"].party", resource.Attester[numAttester].Party, htmlAttrs)
+	return ReferenceInput(frs, "attester["+strconv.Itoa(numAttester)+"].party", resource.Attester[numAttester].Party, htmlAttrs)
 }
 func (resource *Composition) T_RelatesToCode(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSDocument_relationship_type
@@ -205,11 +205,11 @@ func (resource *Composition) T_RelatesToTargetIdentifier(numRelatesTo int, htmlA
 	}
 	return IdentifierInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetIdentifier", &resource.RelatesTo[numRelatesTo].TargetIdentifier, htmlAttrs)
 }
-func (resource *Composition) T_RelatesToTargetReference(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_RelatesToTargetReference(frs []FhirResource, numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
+	return ReferenceInput(frs, "relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
 }
 func (resource *Composition) T_EventCode(numEvent int, numCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvent >= len(resource.Event) || numCode >= len(resource.Event[numEvent].Code) {
@@ -223,11 +223,11 @@ func (resource *Composition) T_EventPeriod(numEvent int, htmlAttrs templ.Attribu
 	}
 	return PeriodInput("event["+strconv.Itoa(numEvent)+"].period", resource.Event[numEvent].Period, htmlAttrs)
 }
-func (resource *Composition) T_EventDetail(numEvent int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_EventDetail(frs []FhirResource, numEvent int, numDetail int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numEvent >= len(resource.Event) || numDetail >= len(resource.Event[numEvent].Detail) {
-		return ReferenceInput("event["+strconv.Itoa(numEvent)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "event["+strconv.Itoa(numEvent)+"].detail["+strconv.Itoa(numDetail)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("event["+strconv.Itoa(numEvent)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Event[numEvent].Detail[numDetail], htmlAttrs)
+	return ReferenceInput(frs, "event["+strconv.Itoa(numEvent)+"].detail["+strconv.Itoa(numDetail)+"]", &resource.Event[numEvent].Detail[numDetail], htmlAttrs)
 }
 func (resource *Composition) T_SectionTitle(numSection int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
@@ -241,17 +241,17 @@ func (resource *Composition) T_SectionCode(numSection int, optionsValueSet []Cod
 	}
 	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].code", resource.Section[numSection].Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_SectionAuthor(numSection int, numAuthor int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_SectionAuthor(frs []FhirResource, numSection int, numAuthor int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) || numAuthor >= len(resource.Section[numSection].Author) {
-		return ReferenceInput("section["+strconv.Itoa(numSection)+"].author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].author["+strconv.Itoa(numAuthor)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("section["+strconv.Itoa(numSection)+"].author["+strconv.Itoa(numAuthor)+"]", &resource.Section[numSection].Author[numAuthor], htmlAttrs)
+	return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].author["+strconv.Itoa(numAuthor)+"]", &resource.Section[numSection].Author[numAuthor], htmlAttrs)
 }
-func (resource *Composition) T_SectionFocus(numSection int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_SectionFocus(frs []FhirResource, numSection int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {
-		return ReferenceInput("section["+strconv.Itoa(numSection)+"].focus", nil, htmlAttrs)
+		return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].focus", nil, htmlAttrs)
 	}
-	return ReferenceInput("section["+strconv.Itoa(numSection)+"].focus", resource.Section[numSection].Focus, htmlAttrs)
+	return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].focus", resource.Section[numSection].Focus, htmlAttrs)
 }
 func (resource *Composition) T_SectionMode(numSection int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSList_mode
@@ -267,11 +267,11 @@ func (resource *Composition) T_SectionOrderedBy(numSection int, optionsValueSet 
 	}
 	return CodeableConceptSelect("section["+strconv.Itoa(numSection)+"].orderedBy", resource.Section[numSection].OrderedBy, optionsValueSet, htmlAttrs)
 }
-func (resource *Composition) T_SectionEntry(numSection int, numEntry int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Composition) T_SectionEntry(frs []FhirResource, numSection int, numEntry int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) || numEntry >= len(resource.Section[numSection].Entry) {
-		return ReferenceInput("section["+strconv.Itoa(numSection)+"].entry["+strconv.Itoa(numEntry)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].entry["+strconv.Itoa(numEntry)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("section["+strconv.Itoa(numSection)+"].entry["+strconv.Itoa(numEntry)+"]", &resource.Section[numSection].Entry[numEntry], htmlAttrs)
+	return ReferenceInput(frs, "section["+strconv.Itoa(numSection)+"].entry["+strconv.Itoa(numEntry)+"]", &resource.Section[numSection].Entry[numEntry], htmlAttrs)
 }
 func (resource *Composition) T_SectionEmptyReason(numSection int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSection >= len(resource.Section) {

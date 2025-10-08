@@ -549,11 +549,11 @@ func (resource *Citation) T_RelatesToTargetIdentifier(numRelatesTo int, htmlAttr
 	}
 	return IdentifierInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetIdentifier", &resource.RelatesTo[numRelatesTo].TargetIdentifier, htmlAttrs)
 }
-func (resource *Citation) T_RelatesToTargetReference(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_RelatesToTargetReference(frs []FhirResource, numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
-		return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
+	return ReferenceInput(frs, "relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
 }
 func (resource *Citation) T_RelatesToTargetAttachment(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.RelatesTo) {
@@ -591,11 +591,11 @@ func (resource *Citation) T_CitedArtifactVersionValue(htmlAttrs templ.Attributes
 	}
 	return StringInput("citedArtifact.version.value", &resource.CitedArtifact.Version.Value, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactVersionBaseCitation(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactVersionBaseCitation(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("citedArtifact.version.baseCitation", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.version.baseCitation", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.version.baseCitation", resource.CitedArtifact.Version.BaseCitation, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.version.baseCitation", resource.CitedArtifact.Version.BaseCitation, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactStatusDateActivity(numStatusDate int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numStatusDate >= len(resource.CitedArtifact.StatusDate) {
@@ -645,11 +645,11 @@ func (resource *Citation) T_CitedArtifactPartValue(htmlAttrs templ.Attributes) t
 	}
 	return StringInput("citedArtifact.part.value", resource.CitedArtifact.Part.Value, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactPartBaseCitation(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactPartBaseCitation(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("citedArtifact.part.baseCitation", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.part.baseCitation", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.part.baseCitation", resource.CitedArtifact.Part.BaseCitation, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.part.baseCitation", resource.CitedArtifact.Part.BaseCitation, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactRelatesToRelationshipType(numRelatesTo int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) {
@@ -675,11 +675,11 @@ func (resource *Citation) T_CitedArtifactRelatesToTargetIdentifier(numRelatesTo 
 	}
 	return IdentifierInput("citedArtifact.relatesTo["+strconv.Itoa(numRelatesTo)+"].targetIdentifier", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetIdentifier, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactRelatesToTargetReference(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactRelatesToTargetReference(frs []FhirResource, numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) {
-		return ReferenceInput("citedArtifact.relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.relatesTo["+strconv.Itoa(numRelatesTo)+"].targetReference", &resource.CitedArtifact.RelatesTo[numRelatesTo].TargetReference, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactRelatesToTargetAttachment(numRelatesTo int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatesTo >= len(resource.CitedArtifact.RelatesTo) {
@@ -747,11 +747,11 @@ func (resource *Citation) T_CitedArtifactPublicationFormPublishedInTitle(numPubl
 	}
 	return StringInput("citedArtifact.publicationForm["+strconv.Itoa(numPublicationForm)+"].publishedIn.title", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Title, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactPublicationFormPublishedInPublisher(numPublicationForm int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactPublicationFormPublishedInPublisher(frs []FhirResource, numPublicationForm int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
-		return ReferenceInput("citedArtifact.publicationForm["+strconv.Itoa(numPublicationForm)+"].publishedIn.publisher", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.publicationForm["+strconv.Itoa(numPublicationForm)+"].publishedIn.publisher", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.publicationForm["+strconv.Itoa(numPublicationForm)+"].publishedIn.publisher", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Publisher, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.publicationForm["+strconv.Itoa(numPublicationForm)+"].publishedIn.publisher", resource.CitedArtifact.PublicationForm[numPublicationForm].PublishedIn.Publisher, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactPublicationFormPublishedInPublisherLocation(numPublicationForm int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPublicationForm >= len(resource.CitedArtifact.PublicationForm) {
@@ -831,23 +831,23 @@ func (resource *Citation) T_CitedArtifactClassificationClassifier(numClassificat
 	}
 	return CodeableConceptSelect("citedArtifact.classification["+strconv.Itoa(numClassification)+"].classifier["+strconv.Itoa(numClassifier)+"]", &resource.CitedArtifact.Classification[numClassification].Classifier[numClassifier], optionsValueSet, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedPerson(numClassification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedPerson(frs []FhirResource, numClassification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.person", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.person", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.person", resource.CitedArtifact.Classification[numClassification].WhoClassified.Person, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.person", resource.CitedArtifact.Classification[numClassification].WhoClassified.Person, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedOrganization(numClassification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedOrganization(frs []FhirResource, numClassification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.organization", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.organization", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.organization", resource.CitedArtifact.Classification[numClassification].WhoClassified.Organization, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.organization", resource.CitedArtifact.Classification[numClassification].WhoClassified.Organization, htmlAttrs)
 }
-func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedPublisher(numClassification int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedPublisher(frs []FhirResource, numClassification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {
-		return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.publisher", nil, htmlAttrs)
+		return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.publisher", nil, htmlAttrs)
 	}
-	return ReferenceInput("citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.publisher", resource.CitedArtifact.Classification[numClassification].WhoClassified.Publisher, htmlAttrs)
+	return ReferenceInput(frs, "citedArtifact.classification["+strconv.Itoa(numClassification)+"].whoClassified.publisher", resource.CitedArtifact.Classification[numClassification].WhoClassified.Publisher, htmlAttrs)
 }
 func (resource *Citation) T_CitedArtifactClassificationWhoClassifiedClassifierCopyright(numClassification int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numClassification >= len(resource.CitedArtifact.Classification) {

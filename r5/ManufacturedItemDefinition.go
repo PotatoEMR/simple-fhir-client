@@ -123,11 +123,11 @@ func (resource *ManufacturedItemDefinition) T_UnitOfPresentation(optionsValueSet
 	}
 	return CodeableConceptSelect("unitOfPresentation", resource.UnitOfPresentation, optionsValueSet, htmlAttrs)
 }
-func (resource *ManufacturedItemDefinition) T_Manufacturer(numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ManufacturedItemDefinition) T_Manufacturer(frs []FhirResource, numManufacturer int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numManufacturer >= len(resource.Manufacturer) {
-		return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
+	return ReferenceInput(frs, "manufacturer["+strconv.Itoa(numManufacturer)+"]", &resource.Manufacturer[numManufacturer], htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_MarketingStatus(numMarketingStatus int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numMarketingStatus >= len(resource.MarketingStatus) {
@@ -153,11 +153,11 @@ func (resource *ManufacturedItemDefinition) T_PropertyValueCodeableConcept(numPr
 	}
 	return CodeableConceptSelect("property["+strconv.Itoa(numProperty)+"].valueCodeableConcept", resource.Property[numProperty].ValueCodeableConcept, optionsValueSet, htmlAttrs)
 }
-func (resource *ManufacturedItemDefinition) T_PropertyValueQuantity(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ManufacturedItemDefinition) T_PropertyValueQuantity(numProperty int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, htmlAttrs)
+		return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Property[numProperty].ValueQuantity, htmlAttrs)
+	return QuantityInput("property["+strconv.Itoa(numProperty)+"].valueQuantity", resource.Property[numProperty].ValueQuantity, optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_PropertyValueDate(numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
@@ -183,11 +183,11 @@ func (resource *ManufacturedItemDefinition) T_PropertyValueAttachment(numPropert
 	}
 	return AttachmentInput("property["+strconv.Itoa(numProperty)+"].valueAttachment", resource.Property[numProperty].ValueAttachment, htmlAttrs)
 }
-func (resource *ManufacturedItemDefinition) T_PropertyValueReference(numProperty int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ManufacturedItemDefinition) T_PropertyValueReference(frs []FhirResource, numProperty int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numProperty >= len(resource.Property) {
-		return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", nil, htmlAttrs)
+		return ReferenceInput(frs, "property["+strconv.Itoa(numProperty)+"].valueReference", nil, htmlAttrs)
 	}
-	return ReferenceInput("property["+strconv.Itoa(numProperty)+"].valueReference", resource.Property[numProperty].ValueReference, htmlAttrs)
+	return ReferenceInput(frs, "property["+strconv.Itoa(numProperty)+"].valueReference", resource.Property[numProperty].ValueReference, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_ComponentType(numComponent int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) {
@@ -201,17 +201,17 @@ func (resource *ManufacturedItemDefinition) T_ComponentFunction(numComponent int
 	}
 	return CodeableConceptSelect("component["+strconv.Itoa(numComponent)+"].function["+strconv.Itoa(numFunction)+"]", &resource.Component[numComponent].Function[numFunction], optionsValueSet, htmlAttrs)
 }
-func (resource *ManufacturedItemDefinition) T_ComponentAmount(numComponent int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ManufacturedItemDefinition) T_ComponentAmount(numComponent int, numAmount int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) || numAmount >= len(resource.Component[numComponent].Amount) {
-		return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+		return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Amount[numAmount], htmlAttrs)
+	return QuantityInput("component["+strconv.Itoa(numComponent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Amount[numAmount], optionsValueSet, htmlAttrs)
 }
-func (resource *ManufacturedItemDefinition) T_ComponentConstituentAmount(numComponent int, numConstituent int, numAmount int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *ManufacturedItemDefinition) T_ComponentConstituentAmount(numComponent int, numConstituent int, numAmount int, optionsValueSet []Coding, htmlAttrs QuantityAttrs) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) || numConstituent >= len(resource.Component[numComponent].Constituent) || numAmount >= len(resource.Component[numComponent].Constituent[numConstituent].Amount) {
-		return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, htmlAttrs)
+		return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", nil, optionsValueSet, htmlAttrs)
 	}
-	return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Constituent[numConstituent].Amount[numAmount], htmlAttrs)
+	return QuantityInput("component["+strconv.Itoa(numComponent)+"].constituent["+strconv.Itoa(numConstituent)+"].amount["+strconv.Itoa(numAmount)+"]", &resource.Component[numComponent].Constituent[numConstituent].Amount[numAmount], optionsValueSet, htmlAttrs)
 }
 func (resource *ManufacturedItemDefinition) T_ComponentConstituentLocation(numComponent int, numConstituent int, numLocation int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numComponent >= len(resource.Component) || numConstituent >= len(resource.Component[numComponent].Constituent) || numLocation >= len(resource.Component[numComponent].Constituent[numConstituent].Location) {

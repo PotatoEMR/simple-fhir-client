@@ -518,11 +518,11 @@ func (resource *TestScript) T_FixtureAutodelete(numFixture int, htmlAttrs templ.
 	}
 	return BoolInput("fixture["+strconv.Itoa(numFixture)+"].autodelete", &resource.Fixture[numFixture].Autodelete, htmlAttrs)
 }
-func (resource *TestScript) T_FixtureResource(numFixture int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *TestScript) T_FixtureResource(frs []FhirResource, numFixture int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numFixture >= len(resource.Fixture) {
-		return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", nil, htmlAttrs)
+		return ReferenceInput(frs, "fixture["+strconv.Itoa(numFixture)+"].resource", nil, htmlAttrs)
 	}
-	return ReferenceInput("fixture["+strconv.Itoa(numFixture)+"].resource", resource.Fixture[numFixture].Resource, htmlAttrs)
+	return ReferenceInput(frs, "fixture["+strconv.Itoa(numFixture)+"].resource", resource.Fixture[numFixture].Resource, htmlAttrs)
 }
 func (resource *TestScript) T_VariableName(numVariable int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numVariable >= len(resource.Variable) {

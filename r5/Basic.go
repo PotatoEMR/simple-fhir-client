@@ -60,11 +60,11 @@ func (resource *Basic) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attribut
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Basic) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Basic) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
 func (resource *Basic) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -72,9 +72,9 @@ func (resource *Basic) T_Created(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return FhirDateTimeInput("created", resource.Created, htmlAttrs)
 }
-func (resource *Basic) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Basic) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }

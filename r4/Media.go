@@ -73,17 +73,17 @@ func (r Media) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *Media) T_BasedOn(numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
-		return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
+	return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", &resource.BasedOn[numBasedOn], htmlAttrs)
 }
-func (resource *Media) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *Media) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEvent_status
@@ -111,17 +111,17 @@ func (resource *Media) T_View(optionsValueSet []Coding, htmlAttrs templ.Attribut
 	}
 	return CodeableConceptSelect("view", resource.View, optionsValueSet, htmlAttrs)
 }
-func (resource *Media) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", resource.Subject, htmlAttrs)
 }
-func (resource *Media) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *Media) T_CreatedDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -141,11 +141,11 @@ func (resource *Media) T_Issued(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return StringInput("issued", resource.Issued, htmlAttrs)
 }
-func (resource *Media) T_Operator(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_Operator(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("operator", nil, htmlAttrs)
+		return ReferenceInput(frs, "operator", nil, htmlAttrs)
 	}
-	return ReferenceInput("operator", resource.Operator, htmlAttrs)
+	return ReferenceInput(frs, "operator", resource.Operator, htmlAttrs)
 }
 func (resource *Media) T_ReasonCode(numReasonCode int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReasonCode >= len(resource.ReasonCode) {
@@ -165,11 +165,11 @@ func (resource *Media) T_DeviceName(htmlAttrs templ.Attributes) templ.Component 
 	}
 	return StringInput("deviceName", resource.DeviceName, htmlAttrs)
 }
-func (resource *Media) T_Device(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Media) T_Device(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("device", nil, htmlAttrs)
+		return ReferenceInput(frs, "device", nil, htmlAttrs)
 	}
-	return ReferenceInput("device", resource.Device, htmlAttrs)
+	return ReferenceInput(frs, "device", resource.Device, htmlAttrs)
 }
 func (resource *Media) T_Height(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

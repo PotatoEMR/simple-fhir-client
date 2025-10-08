@@ -78,11 +78,11 @@ func (r MedicationStatement) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
-func (resource *MedicationStatement) T_PartOf(numPartOf int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_PartOf(frs []FhirResource, numPartOf int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numPartOf >= len(resource.PartOf) {
-		return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
+	return ReferenceInput(frs, "partOf["+strconv.Itoa(numPartOf)+"]", &resource.PartOf[numPartOf], htmlAttrs)
 }
 func (resource *MedicationStatement) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMedication_statement_status
@@ -104,17 +104,17 @@ func (resource *MedicationStatement) T_Medication(htmlAttrs templ.Attributes) te
 	}
 	return CodeableReferenceInput("medication", &resource.Medication, htmlAttrs)
 }
-func (resource *MedicationStatement) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
-func (resource *MedicationStatement) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
 func (resource *MedicationStatement) T_EffectiveDateTime(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -140,17 +140,17 @@ func (resource *MedicationStatement) T_DateAsserted(htmlAttrs templ.Attributes) 
 	}
 	return FhirDateTimeInput("dateAsserted", resource.DateAsserted, htmlAttrs)
 }
-func (resource *MedicationStatement) T_InformationSource(numInformationSource int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_InformationSource(frs []FhirResource, numInformationSource int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInformationSource >= len(resource.InformationSource) {
-		return ReferenceInput("informationSource["+strconv.Itoa(numInformationSource)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "informationSource["+strconv.Itoa(numInformationSource)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("informationSource["+strconv.Itoa(numInformationSource)+"]", &resource.InformationSource[numInformationSource], htmlAttrs)
+	return ReferenceInput(frs, "informationSource["+strconv.Itoa(numInformationSource)+"]", &resource.InformationSource[numInformationSource], htmlAttrs)
 }
-func (resource *MedicationStatement) T_DerivedFrom(numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_DerivedFrom(frs []FhirResource, numDerivedFrom int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDerivedFrom >= len(resource.DerivedFrom) {
-		return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
+	return ReferenceInput(frs, "derivedFrom["+strconv.Itoa(numDerivedFrom)+"]", &resource.DerivedFrom[numDerivedFrom], htmlAttrs)
 }
 func (resource *MedicationStatement) T_Reason(numReason int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numReason >= len(resource.Reason) {
@@ -164,11 +164,11 @@ func (resource *MedicationStatement) T_Note(numNote int, htmlAttrs templ.Attribu
 	}
 	return AnnotationTextArea("note["+strconv.Itoa(numNote)+"]", &resource.Note[numNote], htmlAttrs)
 }
-func (resource *MedicationStatement) T_RelatedClinicalInformation(numRelatedClinicalInformation int, htmlAttrs templ.Attributes) templ.Component {
+func (resource *MedicationStatement) T_RelatedClinicalInformation(frs []FhirResource, numRelatedClinicalInformation int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numRelatedClinicalInformation >= len(resource.RelatedClinicalInformation) {
-		return ReferenceInput("relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", nil, htmlAttrs)
+		return ReferenceInput(frs, "relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", nil, htmlAttrs)
 	}
-	return ReferenceInput("relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", &resource.RelatedClinicalInformation[numRelatedClinicalInformation], htmlAttrs)
+	return ReferenceInput(frs, "relatedClinicalInformation["+strconv.Itoa(numRelatedClinicalInformation)+"]", &resource.RelatedClinicalInformation[numRelatedClinicalInformation], htmlAttrs)
 }
 func (resource *MedicationStatement) T_RenderedDosageInstruction(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {

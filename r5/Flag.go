@@ -78,11 +78,11 @@ func (resource *Flag) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attribute
 	}
 	return CodeableConceptSelect("code", &resource.Code, optionsValueSet, htmlAttrs)
 }
-func (resource *Flag) T_Subject(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Flag) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("subject", nil, htmlAttrs)
+		return ReferenceInput(frs, "subject", nil, htmlAttrs)
 	}
-	return ReferenceInput("subject", &resource.Subject, htmlAttrs)
+	return ReferenceInput(frs, "subject", &resource.Subject, htmlAttrs)
 }
 func (resource *Flag) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
@@ -90,15 +90,15 @@ func (resource *Flag) T_Period(htmlAttrs templ.Attributes) templ.Component {
 	}
 	return PeriodInput("period", resource.Period, htmlAttrs)
 }
-func (resource *Flag) T_Encounter(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Flag) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("encounter", nil, htmlAttrs)
+		return ReferenceInput(frs, "encounter", nil, htmlAttrs)
 	}
-	return ReferenceInput("encounter", resource.Encounter, htmlAttrs)
+	return ReferenceInput(frs, "encounter", resource.Encounter, htmlAttrs)
 }
-func (resource *Flag) T_Author(htmlAttrs templ.Attributes) templ.Component {
+func (resource *Flag) T_Author(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
-		return ReferenceInput("author", nil, htmlAttrs)
+		return ReferenceInput(frs, "author", nil, htmlAttrs)
 	}
-	return ReferenceInput("author", resource.Author, htmlAttrs)
+	return ReferenceInput(frs, "author", resource.Author, htmlAttrs)
 }
