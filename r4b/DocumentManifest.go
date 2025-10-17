@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -46,7 +47,7 @@ type DocumentManifestRelated struct {
 
 type OtherDocumentManifest DocumentManifest
 
-// on convert struct to json, automatically add resourceType=DocumentManifest
+// struct -> json, automatically add resourceType=Patient
 func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherDocumentManifest
@@ -56,6 +57,17 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 		ResourceType:          "DocumentManifest",
 	})
 }
+
+// json -> struct, first reject if resourceType != DocumentManifest
+func (r *DocumentManifest) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "DocumentManifest" {
+		return errors.New("resourceType not DocumentManifest")
+	}
+	return json.Unmarshal(data, (*OtherDocumentManifest)(r))
+}
+
 func (r DocumentManifest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -162,7 +163,7 @@ type ImplementationGuideManifestPage struct {
 
 type OtherImplementationGuide ImplementationGuide
 
-// on convert struct to json, automatically add resourceType=ImplementationGuide
+// struct -> json, automatically add resourceType=Patient
 func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherImplementationGuide
@@ -172,6 +173,17 @@ func (r ImplementationGuide) MarshalJSON() ([]byte, error) {
 		ResourceType:             "ImplementationGuide",
 	})
 }
+
+// json -> struct, first reject if resourceType != ImplementationGuide
+func (r *ImplementationGuide) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ImplementationGuide" {
+		return errors.New("resourceType not ImplementationGuide")
+	}
+	return json.Unmarshal(data, (*OtherImplementationGuide)(r))
+}
+
 func (r ImplementationGuide) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

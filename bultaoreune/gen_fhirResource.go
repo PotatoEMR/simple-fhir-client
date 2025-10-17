@@ -6,5 +6,10 @@ func FhirResource(fhirVersion string) string {
 	type FhirResource interface {
 		ToRef() Reference
 }
+
+var checkType struct {
+					ResourceType string ` + "`json:\"resourceType\"`" + `
+				}
 	`
+	//checkType should not be in here xd just lazy
 }

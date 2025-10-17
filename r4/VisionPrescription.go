@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -63,7 +64,7 @@ type VisionPrescriptionLensSpecificationPrism struct {
 
 type OtherVisionPrescription VisionPrescription
 
-// on convert struct to json, automatically add resourceType=VisionPrescription
+// struct -> json, automatically add resourceType=Patient
 func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherVisionPrescription
@@ -73,6 +74,17 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 		ResourceType:            "VisionPrescription",
 	})
 }
+
+// json -> struct, first reject if resourceType != VisionPrescription
+func (r *VisionPrescription) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "VisionPrescription" {
+		return errors.New("resourceType not VisionPrescription")
+	}
+	return json.Unmarshal(data, (*OtherVisionPrescription)(r))
+}
+
 func (r VisionPrescription) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -66,7 +67,7 @@ type SubstanceNucleicAcidSubunitSugar struct {
 
 type OtherSubstanceNucleicAcid SubstanceNucleicAcid
 
-// on convert struct to json, automatically add resourceType=SubstanceNucleicAcid
+// struct -> json, automatically add resourceType=Patient
 func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSubstanceNucleicAcid
@@ -76,6 +77,17 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 		ResourceType:              "SubstanceNucleicAcid",
 	})
 }
+
+// json -> struct, first reject if resourceType != SubstanceNucleicAcid
+func (r *SubstanceNucleicAcid) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "SubstanceNucleicAcid" {
+		return errors.New("resourceType not SubstanceNucleicAcid")
+	}
+	return json.Unmarshal(data, (*OtherSubstanceNucleicAcid)(r))
+}
+
 func (r SubstanceNucleicAcid) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

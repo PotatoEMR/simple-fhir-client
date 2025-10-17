@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -100,7 +101,7 @@ type ConsentProvisionData struct {
 
 type OtherConsent Consent
 
-// on convert struct to json, automatically add resourceType=Consent
+// struct -> json, automatically add resourceType=Patient
 func (r Consent) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherConsent
@@ -110,6 +111,17 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 		ResourceType: "Consent",
 	})
 }
+
+// json -> struct, first reject if resourceType != Consent
+func (r *Consent) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Consent" {
+		return errors.New("resourceType not Consent")
+	}
+	return json.Unmarshal(data, (*OtherConsent)(r))
+}
+
 func (r Consent) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

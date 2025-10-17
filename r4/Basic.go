@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 
 	"github.com/a-h/templ"
 )
@@ -29,7 +30,7 @@ type Basic struct {
 
 type OtherBasic Basic
 
-// on convert struct to json, automatically add resourceType=Basic
+// struct -> json, automatically add resourceType=Patient
 func (r Basic) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherBasic
@@ -39,6 +40,17 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 		ResourceType: "Basic",
 	})
 }
+
+// json -> struct, first reject if resourceType != Basic
+func (r *Basic) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Basic" {
+		return errors.New("resourceType not Basic")
+	}
+	return json.Unmarshal(data, (*OtherBasic)(r))
+}
+
 func (r Basic) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

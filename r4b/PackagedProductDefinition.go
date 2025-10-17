@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -97,7 +98,7 @@ type PackagedProductDefinitionPackageContainedItem struct {
 
 type OtherPackagedProductDefinition PackagedProductDefinition
 
-// on convert struct to json, automatically add resourceType=PackagedProductDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherPackagedProductDefinition
@@ -107,6 +108,17 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                   "PackagedProductDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != PackagedProductDefinition
+func (r *PackagedProductDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "PackagedProductDefinition" {
+		return errors.New("resourceType not PackagedProductDefinition")
+	}
+	return json.Unmarshal(data, (*OtherPackagedProductDefinition)(r))
+}
+
 func (r PackagedProductDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

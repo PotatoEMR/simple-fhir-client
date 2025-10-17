@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -76,7 +77,7 @@ type ProcedureFocalDevice struct {
 
 type OtherProcedure Procedure
 
-// on convert struct to json, automatically add resourceType=Procedure
+// struct -> json, automatically add resourceType=Patient
 func (r Procedure) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherProcedure
@@ -86,6 +87,17 @@ func (r Procedure) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Procedure",
 	})
 }
+
+// json -> struct, first reject if resourceType != Procedure
+func (r *Procedure) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Procedure" {
+		return errors.New("resourceType not Procedure")
+	}
+	return json.Unmarshal(data, (*OtherProcedure)(r))
+}
+
 func (r Procedure) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

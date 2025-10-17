@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 	"strings"
 
@@ -25,9 +26,35 @@ type OperationOutcome struct {
 	Issue             []OperationOutcomeIssue `json:"issue"`
 }
 
+// client create, read, etc return OperationOutcome err
+// Error() includes function trace, String() does not
+func (oo OperationOutcome) Error() string {
+	return oo.StringWithErrorTrace()
+}
+
+// print each issue except internal fhir client error trace issues
 func (oo OperationOutcome) String() string {
 	var b strings.Builder
-	b.WriteString("OperationOutcome ")
+	for _, v := range oo.Issue {
+		isDebug := false
+		for _, coding := range v.Details.Coding {
+			if coding.System != nil && *coding.System == "https://potatoemr.github.io/bultaoreune#debug" {
+				isDebug = true
+				break
+			}
+		}
+		if !isDebug {
+			b.WriteString(v.String())
+			b.WriteString(" ")
+		}
+	}
+	return b.String()
+}
+
+// includes fhir client error trace issues
+func (oo OperationOutcome) StringWithErrorTrace() string {
+	var b strings.Builder
+	b.WriteString("OperationOutcome: ")
 	for _, v := range oo.Issue {
 		b.WriteString(v.String())
 		b.WriteString(" ")
@@ -61,7 +88,7 @@ func (ooi OperationOutcomeIssue) String() string {
 
 type OtherOperationOutcome OperationOutcome
 
-// on convert struct to json, automatically add resourceType=OperationOutcome
+// struct -> json, automatically add resourceType=Patient
 func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherOperationOutcome
@@ -71,6 +98,17 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 		ResourceType:          "OperationOutcome",
 	})
 }
+
+// json -> struct, first reject if resourceType != OperationOutcome
+func (r *OperationOutcome) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "OperationOutcome" {
+		return errors.New("resourceType not OperationOutcome")
+	}
+	return json.Unmarshal(data, (*OtherOperationOutcome)(r))
+}
+
 func (r OperationOutcome) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

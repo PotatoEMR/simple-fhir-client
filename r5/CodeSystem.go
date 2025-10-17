@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -123,7 +124,7 @@ type CodeSystemConceptProperty struct {
 
 type OtherCodeSystem CodeSystem
 
-// on convert struct to json, automatically add resourceType=CodeSystem
+// struct -> json, automatically add resourceType=Patient
 func (r CodeSystem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCodeSystem
@@ -133,6 +134,17 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 		ResourceType:    "CodeSystem",
 	})
 }
+
+// json -> struct, first reject if resourceType != CodeSystem
+func (r *CodeSystem) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "CodeSystem" {
+		return errors.New("resourceType not CodeSystem")
+	}
+	return json.Unmarshal(data, (*OtherCodeSystem)(r))
+}
+
 func (r CodeSystem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

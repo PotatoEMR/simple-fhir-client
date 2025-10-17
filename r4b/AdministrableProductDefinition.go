@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -82,7 +83,7 @@ type AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalP
 
 type OtherAdministrableProductDefinition AdministrableProductDefinition
 
-// on convert struct to json, automatically add resourceType=AdministrableProductDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherAdministrableProductDefinition
@@ -92,6 +93,17 @@ func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                        "AdministrableProductDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != AdministrableProductDefinition
+func (r *AdministrableProductDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "AdministrableProductDefinition" {
+		return errors.New("resourceType not AdministrableProductDefinition")
+	}
+	return json.Unmarshal(data, (*OtherAdministrableProductDefinition)(r))
+}
+
 func (r AdministrableProductDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

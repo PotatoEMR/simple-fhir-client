@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -60,7 +61,7 @@ type SearchParameterComponent struct {
 
 type OtherSearchParameter SearchParameter
 
-// on convert struct to json, automatically add resourceType=SearchParameter
+// struct -> json, automatically add resourceType=Patient
 func (r SearchParameter) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSearchParameter
@@ -70,6 +71,17 @@ func (r SearchParameter) MarshalJSON() ([]byte, error) {
 		ResourceType:         "SearchParameter",
 	})
 }
+
+// json -> struct, first reject if resourceType != SearchParameter
+func (r *SearchParameter) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "SearchParameter" {
+		return errors.New("resourceType not SearchParameter")
+	}
+	return json.Unmarshal(data, (*OtherSearchParameter)(r))
+}
+
 func (r SearchParameter) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

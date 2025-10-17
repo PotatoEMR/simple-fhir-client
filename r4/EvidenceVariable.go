@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -74,7 +75,7 @@ type EvidenceVariableCharacteristic struct {
 
 type OtherEvidenceVariable EvidenceVariable
 
-// on convert struct to json, automatically add resourceType=EvidenceVariable
+// struct -> json, automatically add resourceType=Patient
 func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherEvidenceVariable
@@ -84,6 +85,17 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 		ResourceType:          "EvidenceVariable",
 	})
 }
+
+// json -> struct, first reject if resourceType != EvidenceVariable
+func (r *EvidenceVariable) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "EvidenceVariable" {
+		return errors.New("resourceType not EvidenceVariable")
+	}
+	return json.Unmarshal(data, (*OtherEvidenceVariable)(r))
+}
+
 func (r EvidenceVariable) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

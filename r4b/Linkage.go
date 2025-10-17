@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -37,7 +38,7 @@ type LinkageItem struct {
 
 type OtherLinkage Linkage
 
-// on convert struct to json, automatically add resourceType=Linkage
+// struct -> json, automatically add resourceType=Patient
 func (r Linkage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherLinkage
@@ -47,6 +48,17 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 		ResourceType: "Linkage",
 	})
 }
+
+// json -> struct, first reject if resourceType != Linkage
+func (r *Linkage) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Linkage" {
+		return errors.New("resourceType not Linkage")
+	}
+	return json.Unmarshal(data, (*OtherLinkage)(r))
+}
+
 func (r Linkage) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

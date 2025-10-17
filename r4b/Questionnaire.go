@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -121,7 +122,7 @@ type QuestionnaireItemInitial struct {
 
 type OtherQuestionnaire Questionnaire
 
-// on convert struct to json, automatically add resourceType=Questionnaire
+// struct -> json, automatically add resourceType=Patient
 func (r Questionnaire) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherQuestionnaire
@@ -131,6 +132,17 @@ func (r Questionnaire) MarshalJSON() ([]byte, error) {
 		ResourceType:       "Questionnaire",
 	})
 }
+
+// json -> struct, first reject if resourceType != Questionnaire
+func (r *Questionnaire) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Questionnaire" {
+		return errors.New("resourceType not Questionnaire")
+	}
+	return json.Unmarshal(data, (*OtherQuestionnaire)(r))
+}
+
 func (r Questionnaire) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

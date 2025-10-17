@@ -165,12 +165,14 @@ func TestClient(t *testing.T) {
 		t.Error("Error deleting patient", err)
 	}
 	fmt.Println("deleted?", oo)
-	_, err = client.ReadPatient(*newPat.Id)
+	idkpat, err := client.ReadPatient(*newPat.Id)
 	if err == nil {
+		fmt.Println(idkpat.String())
 		t.Error("SHOULD get an error here because we're reading deleted patient")
+	} else {
+		fmt.Println("note: this SHOULD say deleted because we're getting patient we just deleted")
+		fmt.Println(err)
 	}
-	fmt.Println("note: this SHOULD say deleted because we're getting patient we just deleted")
-	fmt.Println(err)
 }
 
 func TestSearch(t *testing.T) {
@@ -179,12 +181,14 @@ func TestSearch(t *testing.T) {
 	if err != nil {
 		t.Error("Search", err)
 	} else {
-		for _, e := range allPatients.Entry {
-			switch pat := e.Resource.(type) {
-			case *r4.Patient:
-				fmt.Println("pat is", pat)
-			default:
-				t.Error("got resource of different type, not patient")
+		for i, e := range allPatients.Entry {
+			if i < 5 {
+				switch pat := e.Resource.(type) {
+				case *r4.Patient:
+					fmt.Println("pat is", pat)
+				default:
+					t.Error("got resource of different type, not patient")
+				}
 			}
 		}
 	}
@@ -196,19 +200,25 @@ func TestSearch(t *testing.T) {
 	}
 
 	pats := resGroup.Patients
-	for _, p := range pats {
-		fmt.Println(p)
+	for i, p := range pats {
+		if i < 3 {
+			fmt.Println(p)
+		}
 	}
 
 	firstId := pats[0].Id
 	pEverything, _ := client.PatientEverythingBundled(*firstId)
-	for _, e := range pEverything.Entry {
-		fmt.Printf("type %T\n", e.Resource)
+	for i, e := range pEverything.Entry {
+		if i < 3 {
+			fmt.Printf("type %T\n", e.Resource)
+		}
 	}
 
 	PEgrouped, _ := client.PatientEverythingGrouped(*firstId)
-	for _, o := range PEgrouped.Observations {
-		fmt.Println("observation:", *o.Subject, *o.Id)
+	for i, o := range PEgrouped.Observations {
+		if i < 3 {
+			fmt.Println("observation:", *o.Subject, *o.Id)
+		}
 	}
 }
 

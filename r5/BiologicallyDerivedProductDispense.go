@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -50,7 +51,7 @@ type BiologicallyDerivedProductDispensePerformer struct {
 
 type OtherBiologicallyDerivedProductDispense BiologicallyDerivedProductDispense
 
-// on convert struct to json, automatically add resourceType=BiologicallyDerivedProductDispense
+// struct -> json, automatically add resourceType=Patient
 func (r BiologicallyDerivedProductDispense) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherBiologicallyDerivedProductDispense
@@ -60,6 +61,17 @@ func (r BiologicallyDerivedProductDispense) MarshalJSON() ([]byte, error) {
 		ResourceType:                            "BiologicallyDerivedProductDispense",
 	})
 }
+
+// json -> struct, first reject if resourceType != BiologicallyDerivedProductDispense
+func (r *BiologicallyDerivedProductDispense) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "BiologicallyDerivedProductDispense" {
+		return errors.New("resourceType not BiologicallyDerivedProductDispense")
+	}
+	return json.Unmarshal(data, (*OtherBiologicallyDerivedProductDispense)(r))
+}
+
 func (r BiologicallyDerivedProductDispense) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

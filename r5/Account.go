@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -107,7 +108,7 @@ type AccountBalance struct {
 
 type OtherAccount Account
 
-// on convert struct to json, automatically add resourceType=Account
+// struct -> json, automatically add resourceType=Patient
 func (r Account) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherAccount
@@ -117,6 +118,17 @@ func (r Account) MarshalJSON() ([]byte, error) {
 		ResourceType: "Account",
 	})
 }
+
+// json -> struct, first reject if resourceType != Account
+func (r *Account) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Account" {
+		return errors.New("resourceType not Account")
+	}
+	return json.Unmarshal(data, (*OtherAccount)(r))
+}
+
 func (r Account) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

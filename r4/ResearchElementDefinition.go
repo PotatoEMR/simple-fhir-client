@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -87,7 +88,7 @@ type ResearchElementDefinitionCharacteristic struct {
 
 type OtherResearchElementDefinition ResearchElementDefinition
 
-// on convert struct to json, automatically add resourceType=ResearchElementDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherResearchElementDefinition
@@ -97,6 +98,17 @@ func (r ResearchElementDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                   "ResearchElementDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != ResearchElementDefinition
+func (r *ResearchElementDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ResearchElementDefinition" {
+		return errors.New("resourceType not ResearchElementDefinition")
+	}
+	return json.Unmarshal(data, (*OtherResearchElementDefinition)(r))
+}
+
 func (r ResearchElementDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

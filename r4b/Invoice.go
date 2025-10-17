@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -71,7 +72,7 @@ type InvoiceLineItemPriceComponent struct {
 
 type OtherInvoice Invoice
 
-// on convert struct to json, automatically add resourceType=Invoice
+// struct -> json, automatically add resourceType=Patient
 func (r Invoice) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherInvoice
@@ -81,6 +82,17 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 		ResourceType: "Invoice",
 	})
 }
+
+// json -> struct, first reject if resourceType != Invoice
+func (r *Invoice) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Invoice" {
+		return errors.New("resourceType not Invoice")
+	}
+	return json.Unmarshal(data, (*OtherInvoice)(r))
+}
+
 func (r Invoice) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

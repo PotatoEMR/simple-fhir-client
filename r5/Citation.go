@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -270,7 +271,7 @@ type CitationCitedArtifactContributorshipSummary struct {
 
 type OtherCitation Citation
 
-// on convert struct to json, automatically add resourceType=Citation
+// struct -> json, automatically add resourceType=Patient
 func (r Citation) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCitation
@@ -280,6 +281,17 @@ func (r Citation) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Citation",
 	})
 }
+
+// json -> struct, first reject if resourceType != Citation
+func (r *Citation) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Citation" {
+		return errors.New("resourceType not Citation")
+	}
+	return json.Unmarshal(data, (*OtherCitation)(r))
+}
+
 func (r Citation) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

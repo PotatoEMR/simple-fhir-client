@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -91,7 +92,7 @@ type StructureDefinitionDifferential struct {
 
 type OtherStructureDefinition StructureDefinition
 
-// on convert struct to json, automatically add resourceType=StructureDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherStructureDefinition
@@ -101,6 +102,17 @@ func (r StructureDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:             "StructureDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != StructureDefinition
+func (r *StructureDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "StructureDefinition" {
+		return errors.New("resourceType not StructureDefinition")
+	}
+	return json.Unmarshal(data, (*OtherStructureDefinition)(r))
+}
+
 func (r StructureDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -110,7 +111,7 @@ type InventoryItemInstance struct {
 
 type OtherInventoryItem InventoryItem
 
-// on convert struct to json, automatically add resourceType=InventoryItem
+// struct -> json, automatically add resourceType=Patient
 func (r InventoryItem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherInventoryItem
@@ -120,6 +121,17 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 		ResourceType:       "InventoryItem",
 	})
 }
+
+// json -> struct, first reject if resourceType != InventoryItem
+func (r *InventoryItem) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "InventoryItem" {
+		return errors.New("resourceType not InventoryItem")
+	}
+	return json.Unmarshal(data, (*OtherInventoryItem)(r))
+}
+
 func (r InventoryItem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

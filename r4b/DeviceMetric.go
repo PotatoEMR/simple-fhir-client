@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -45,7 +46,7 @@ type DeviceMetricCalibration struct {
 
 type OtherDeviceMetric DeviceMetric
 
-// on convert struct to json, automatically add resourceType=DeviceMetric
+// struct -> json, automatically add resourceType=Patient
 func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherDeviceMetric
@@ -55,6 +56,17 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 		ResourceType:      "DeviceMetric",
 	})
 }
+
+// json -> struct, first reject if resourceType != DeviceMetric
+func (r *DeviceMetric) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "DeviceMetric" {
+		return errors.New("resourceType not DeviceMetric")
+	}
+	return json.Unmarshal(data, (*OtherDeviceMetric)(r))
+}
+
 func (r DeviceMetric) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

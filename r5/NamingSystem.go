@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -70,7 +71,7 @@ type NamingSystemUniqueId struct {
 
 type OtherNamingSystem NamingSystem
 
-// on convert struct to json, automatically add resourceType=NamingSystem
+// struct -> json, automatically add resourceType=Patient
 func (r NamingSystem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherNamingSystem
@@ -80,6 +81,17 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 		ResourceType:      "NamingSystem",
 	})
 }
+
+// json -> struct, first reject if resourceType != NamingSystem
+func (r *NamingSystem) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "NamingSystem" {
+		return errors.New("resourceType not NamingSystem")
+	}
+	return json.Unmarshal(data, (*OtherNamingSystem)(r))
+}
+
 func (r NamingSystem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

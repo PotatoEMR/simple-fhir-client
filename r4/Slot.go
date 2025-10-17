@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -36,7 +37,7 @@ type Slot struct {
 
 type OtherSlot Slot
 
-// on convert struct to json, automatically add resourceType=Slot
+// struct -> json, automatically add resourceType=Patient
 func (r Slot) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSlot
@@ -46,6 +47,17 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 		ResourceType: "Slot",
 	})
 }
+
+// json -> struct, first reject if resourceType != Slot
+func (r *Slot) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Slot" {
+		return errors.New("resourceType not Slot")
+	}
+	return json.Unmarshal(data, (*OtherSlot)(r))
+}
+
 func (r Slot) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

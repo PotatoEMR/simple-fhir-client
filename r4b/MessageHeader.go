@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -70,7 +71,7 @@ type MessageHeaderResponse struct {
 
 type OtherMessageHeader MessageHeader
 
-// on convert struct to json, automatically add resourceType=MessageHeader
+// struct -> json, automatically add resourceType=Patient
 func (r MessageHeader) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMessageHeader
@@ -80,6 +81,17 @@ func (r MessageHeader) MarshalJSON() ([]byte, error) {
 		ResourceType:       "MessageHeader",
 	})
 }
+
+// json -> struct, first reject if resourceType != MessageHeader
+func (r *MessageHeader) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MessageHeader" {
+		return errors.New("resourceType not MessageHeader")
+	}
+	return json.Unmarshal(data, (*OtherMessageHeader)(r))
+}
+
 func (r MessageHeader) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

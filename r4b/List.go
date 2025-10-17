@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -49,7 +50,7 @@ type ListEntry struct {
 
 type OtherList List
 
-// on convert struct to json, automatically add resourceType=List
+// struct -> json, automatically add resourceType=Patient
 func (r List) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherList
@@ -59,6 +60,17 @@ func (r List) MarshalJSON() ([]byte, error) {
 		ResourceType: "List",
 	})
 }
+
+// json -> struct, first reject if resourceType != List
+func (r *List) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "List" {
+		return errors.New("resourceType not List")
+	}
+	return json.Unmarshal(data, (*OtherList)(r))
+}
+
 func (r List) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

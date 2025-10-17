@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -111,7 +112,7 @@ type RiskEvidenceSynthesisCertaintyCertaintySubcomponent struct {
 
 type OtherRiskEvidenceSynthesis RiskEvidenceSynthesis
 
-// on convert struct to json, automatically add resourceType=RiskEvidenceSynthesis
+// struct -> json, automatically add resourceType=Patient
 func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherRiskEvidenceSynthesis
@@ -121,6 +122,17 @@ func (r RiskEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 		ResourceType:               "RiskEvidenceSynthesis",
 	})
 }
+
+// json -> struct, first reject if resourceType != RiskEvidenceSynthesis
+func (r *RiskEvidenceSynthesis) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "RiskEvidenceSynthesis" {
+		return errors.New("resourceType not RiskEvidenceSynthesis")
+	}
+	return json.Unmarshal(data, (*OtherRiskEvidenceSynthesis)(r))
+}
+
 func (r RiskEvidenceSynthesis) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

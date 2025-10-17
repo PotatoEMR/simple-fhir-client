@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -74,7 +75,7 @@ type MolecularSequenceRelativeEdit struct {
 
 type OtherMolecularSequence MolecularSequence
 
-// on convert struct to json, automatically add resourceType=MolecularSequence
+// struct -> json, automatically add resourceType=Patient
 func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMolecularSequence
@@ -84,6 +85,17 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MolecularSequence",
 	})
 }
+
+// json -> struct, first reject if resourceType != MolecularSequence
+func (r *MolecularSequence) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MolecularSequence" {
+		return errors.New("resourceType not MolecularSequence")
+	}
+	return json.Unmarshal(data, (*OtherMolecularSequence)(r))
+}
+
 func (r MolecularSequence) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

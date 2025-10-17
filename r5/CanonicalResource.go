@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -43,7 +44,7 @@ type CanonicalResource struct {
 
 type OtherCanonicalResource CanonicalResource
 
-// on convert struct to json, automatically add resourceType=CanonicalResource
+// struct -> json, automatically add resourceType=Patient
 func (r CanonicalResource) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCanonicalResource
@@ -53,6 +54,17 @@ func (r CanonicalResource) MarshalJSON() ([]byte, error) {
 		ResourceType:           "CanonicalResource",
 	})
 }
+
+// json -> struct, first reject if resourceType != CanonicalResource
+func (r *CanonicalResource) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "CanonicalResource" {
+		return errors.New("resourceType not CanonicalResource")
+	}
+	return json.Unmarshal(data, (*OtherCanonicalResource)(r))
+}
+
 func (r CanonicalResource) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

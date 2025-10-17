@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -161,7 +162,7 @@ type PlanDefinitionActionDynamicValue struct {
 
 type OtherPlanDefinition PlanDefinition
 
-// on convert struct to json, automatically add resourceType=PlanDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r PlanDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherPlanDefinition
@@ -171,6 +172,17 @@ func (r PlanDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:        "PlanDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != PlanDefinition
+func (r *PlanDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "PlanDefinition" {
+		return errors.New("resourceType not PlanDefinition")
+	}
+	return json.Unmarshal(data, (*OtherPlanDefinition)(r))
+}
+
 func (r PlanDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

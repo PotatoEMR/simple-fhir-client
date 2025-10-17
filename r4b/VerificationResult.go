@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -78,7 +79,7 @@ type VerificationResultValidator struct {
 
 type OtherVerificationResult VerificationResult
 
-// on convert struct to json, automatically add resourceType=VerificationResult
+// struct -> json, automatically add resourceType=Patient
 func (r VerificationResult) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherVerificationResult
@@ -88,6 +89,17 @@ func (r VerificationResult) MarshalJSON() ([]byte, error) {
 		ResourceType:            "VerificationResult",
 	})
 }
+
+// json -> struct, first reject if resourceType != VerificationResult
+func (r *VerificationResult) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "VerificationResult" {
+		return errors.New("resourceType not VerificationResult")
+	}
+	return json.Unmarshal(data, (*OtherVerificationResult)(r))
+}
+
 func (r VerificationResult) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

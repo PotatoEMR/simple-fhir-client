@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -97,7 +98,7 @@ type ActivityDefinitionDynamicValue struct {
 
 type OtherActivityDefinition ActivityDefinition
 
-// on convert struct to json, automatically add resourceType=ActivityDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherActivityDefinition
@@ -107,6 +108,17 @@ func (r ActivityDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:            "ActivityDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != ActivityDefinition
+func (r *ActivityDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ActivityDefinition" {
+		return errors.New("resourceType not ActivityDefinition")
+	}
+	return json.Unmarshal(data, (*OtherActivityDefinition)(r))
+}
+
 func (r ActivityDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

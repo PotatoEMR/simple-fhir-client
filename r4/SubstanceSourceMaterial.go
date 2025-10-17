@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -103,7 +104,7 @@ type SubstanceSourceMaterialPartDescription struct {
 
 type OtherSubstanceSourceMaterial SubstanceSourceMaterial
 
-// on convert struct to json, automatically add resourceType=SubstanceSourceMaterial
+// struct -> json, automatically add resourceType=Patient
 func (r SubstanceSourceMaterial) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSubstanceSourceMaterial
@@ -113,6 +114,17 @@ func (r SubstanceSourceMaterial) MarshalJSON() ([]byte, error) {
 		ResourceType:                 "SubstanceSourceMaterial",
 	})
 }
+
+// json -> struct, first reject if resourceType != SubstanceSourceMaterial
+func (r *SubstanceSourceMaterial) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "SubstanceSourceMaterial" {
+		return errors.New("resourceType not SubstanceSourceMaterial")
+	}
+	return json.Unmarshal(data, (*OtherSubstanceSourceMaterial)(r))
+}
+
 func (r SubstanceSourceMaterial) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

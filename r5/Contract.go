@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -275,7 +276,7 @@ type ContractRule struct {
 
 type OtherContract Contract
 
-// on convert struct to json, automatically add resourceType=Contract
+// struct -> json, automatically add resourceType=Patient
 func (r Contract) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherContract
@@ -285,6 +286,17 @@ func (r Contract) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Contract",
 	})
 }
+
+// json -> struct, first reject if resourceType != Contract
+func (r *Contract) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Contract" {
+		return errors.New("resourceType not Contract")
+	}
+	return json.Unmarshal(data, (*OtherContract)(r))
+}
+
 func (r Contract) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -93,7 +94,7 @@ type SubstancePolymerRepeatRepeatUnitStructuralRepresentation struct {
 
 type OtherSubstancePolymer SubstancePolymer
 
-// on convert struct to json, automatically add resourceType=SubstancePolymer
+// struct -> json, automatically add resourceType=Patient
 func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSubstancePolymer
@@ -103,6 +104,17 @@ func (r SubstancePolymer) MarshalJSON() ([]byte, error) {
 		ResourceType:          "SubstancePolymer",
 	})
 }
+
+// json -> struct, first reject if resourceType != SubstancePolymer
+func (r *SubstancePolymer) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "SubstancePolymer" {
+		return errors.New("resourceType not SubstancePolymer")
+	}
+	return json.Unmarshal(data, (*OtherSubstancePolymer)(r))
+}
+
 func (r SubstancePolymer) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -153,7 +154,7 @@ type MeasureSupplementalData struct {
 
 type OtherMeasure Measure
 
-// on convert struct to json, automatically add resourceType=Measure
+// struct -> json, automatically add resourceType=Patient
 func (r Measure) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMeasure
@@ -163,6 +164,17 @@ func (r Measure) MarshalJSON() ([]byte, error) {
 		ResourceType: "Measure",
 	})
 }
+
+// json -> struct, first reject if resourceType != Measure
+func (r *Measure) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Measure" {
+		return errors.New("resourceType not Measure")
+	}
+	return json.Unmarshal(data, (*OtherMeasure)(r))
+}
+
 func (r Measure) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

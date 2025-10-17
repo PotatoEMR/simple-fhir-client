@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -65,7 +66,7 @@ type AdverseEventSuspectEntityCausality struct {
 
 type OtherAdverseEvent AdverseEvent
 
-// on convert struct to json, automatically add resourceType=AdverseEvent
+// struct -> json, automatically add resourceType=Patient
 func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherAdverseEvent
@@ -75,6 +76,17 @@ func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 		ResourceType:      "AdverseEvent",
 	})
 }
+
+// json -> struct, first reject if resourceType != AdverseEvent
+func (r *AdverseEvent) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "AdverseEvent" {
+		return errors.New("resourceType not AdverseEvent")
+	}
+	return json.Unmarshal(data, (*OtherAdverseEvent)(r))
+}
+
 func (r AdverseEvent) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

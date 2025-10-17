@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -193,7 +194,7 @@ type StructureMapGroupRuleDependent struct {
 
 type OtherStructureMap StructureMap
 
-// on convert struct to json, automatically add resourceType=StructureMap
+// struct -> json, automatically add resourceType=Patient
 func (r StructureMap) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherStructureMap
@@ -203,6 +204,17 @@ func (r StructureMap) MarshalJSON() ([]byte, error) {
 		ResourceType:      "StructureMap",
 	})
 }
+
+// json -> struct, first reject if resourceType != StructureMap
+func (r *StructureMap) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "StructureMap" {
+		return errors.New("resourceType not StructureMap")
+	}
+	return json.Unmarshal(data, (*OtherStructureMap)(r))
+}
+
 func (r StructureMap) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

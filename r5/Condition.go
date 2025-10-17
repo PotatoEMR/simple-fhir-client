@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -68,7 +69,7 @@ type ConditionStage struct {
 
 type OtherCondition Condition
 
-// on convert struct to json, automatically add resourceType=Condition
+// struct -> json, automatically add resourceType=Patient
 func (r Condition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCondition
@@ -78,6 +79,17 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 		ResourceType:   "Condition",
 	})
 }
+
+// json -> struct, first reject if resourceType != Condition
+func (r *Condition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Condition" {
+		return errors.New("resourceType not Condition")
+	}
+	return json.Unmarshal(data, (*OtherCondition)(r))
+}
+
 func (r Condition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

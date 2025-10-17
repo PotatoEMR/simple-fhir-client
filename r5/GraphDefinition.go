@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -85,7 +86,7 @@ type GraphDefinitionLinkCompartment struct {
 
 type OtherGraphDefinition GraphDefinition
 
-// on convert struct to json, automatically add resourceType=GraphDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherGraphDefinition
@@ -95,6 +96,17 @@ func (r GraphDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "GraphDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != GraphDefinition
+func (r *GraphDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "GraphDefinition" {
+		return errors.New("resourceType not GraphDefinition")
+	}
+	return json.Unmarshal(data, (*OtherGraphDefinition)(r))
+}
+
 func (r GraphDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

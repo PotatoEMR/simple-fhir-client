@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -130,7 +131,7 @@ type ExampleScenarioProcessStepAlternative struct {
 
 type OtherExampleScenario ExampleScenario
 
-// on convert struct to json, automatically add resourceType=ExampleScenario
+// struct -> json, automatically add resourceType=Patient
 func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherExampleScenario
@@ -140,6 +141,17 @@ func (r ExampleScenario) MarshalJSON() ([]byte, error) {
 		ResourceType:         "ExampleScenario",
 	})
 }
+
+// json -> struct, first reject if resourceType != ExampleScenario
+func (r *ExampleScenario) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ExampleScenario" {
+		return errors.New("resourceType not ExampleScenario")
+	}
+	return json.Unmarshal(data, (*OtherExampleScenario)(r))
+}
+
 func (r ExampleScenario) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

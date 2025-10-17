@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -82,7 +83,7 @@ type PermissionRuleActivity struct {
 
 type OtherPermission Permission
 
-// on convert struct to json, automatically add resourceType=Permission
+// struct -> json, automatically add resourceType=Patient
 func (r Permission) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherPermission
@@ -92,6 +93,17 @@ func (r Permission) MarshalJSON() ([]byte, error) {
 		ResourceType:    "Permission",
 	})
 }
+
+// json -> struct, first reject if resourceType != Permission
+func (r *Permission) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Permission" {
+		return errors.New("resourceType not Permission")
+	}
+	return json.Unmarshal(data, (*OtherPermission)(r))
+}
+
 func (r Permission) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

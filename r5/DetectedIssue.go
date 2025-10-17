@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -60,7 +61,7 @@ type DetectedIssueMitigation struct {
 
 type OtherDetectedIssue DetectedIssue
 
-// on convert struct to json, automatically add resourceType=DetectedIssue
+// struct -> json, automatically add resourceType=Patient
 func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherDetectedIssue
@@ -70,6 +71,17 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 		ResourceType:       "DetectedIssue",
 	})
 }
+
+// json -> struct, first reject if resourceType != DetectedIssue
+func (r *DetectedIssue) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "DetectedIssue" {
+		return errors.New("resourceType not DetectedIssue")
+	}
+	return json.Unmarshal(data, (*OtherDetectedIssue)(r))
+}
+
 func (r DetectedIssue) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

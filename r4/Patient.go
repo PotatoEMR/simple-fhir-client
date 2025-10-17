@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 	"strings"
 
@@ -91,7 +92,7 @@ type PatientLink struct {
 
 type OtherPatient Patient
 
-// on convert struct to json, automatically add resourceType=Patient
+// struct -> json, automatically add resourceType=Patient
 func (r Patient) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherPatient
@@ -101,6 +102,17 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 		ResourceType: "Patient",
 	})
 }
+
+// json -> struct, first reject if resourceType != Patient
+func (r *Patient) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Patient" {
+		return errors.New("resourceType not Patient")
+	}
+	return json.Unmarshal(data, (*OtherPatient)(r))
+}
+
 func (r Patient) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -69,7 +70,7 @@ type MedicationAdministrationDosage struct {
 
 type OtherMedicationAdministration MedicationAdministration
 
-// on convert struct to json, automatically add resourceType=MedicationAdministration
+// struct -> json, automatically add resourceType=Patient
 func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMedicationAdministration
@@ -79,6 +80,17 @@ func (r MedicationAdministration) MarshalJSON() ([]byte, error) {
 		ResourceType:                  "MedicationAdministration",
 	})
 }
+
+// json -> struct, first reject if resourceType != MedicationAdministration
+func (r *MedicationAdministration) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MedicationAdministration" {
+		return errors.New("resourceType not MedicationAdministration")
+	}
+	return json.Unmarshal(data, (*OtherMedicationAdministration)(r))
+}
+
 func (r MedicationAdministration) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

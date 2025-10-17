@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -146,7 +147,7 @@ type RequestOrchestrationActionDynamicValue struct {
 
 type OtherRequestOrchestration RequestOrchestration
 
-// on convert struct to json, automatically add resourceType=RequestOrchestration
+// struct -> json, automatically add resourceType=Patient
 func (r RequestOrchestration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherRequestOrchestration
@@ -156,6 +157,17 @@ func (r RequestOrchestration) MarshalJSON() ([]byte, error) {
 		ResourceType:              "RequestOrchestration",
 	})
 }
+
+// json -> struct, first reject if resourceType != RequestOrchestration
+func (r *RequestOrchestration) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "RequestOrchestration" {
+		return errors.New("resourceType not RequestOrchestration")
+	}
+	return json.Unmarshal(data, (*OtherRequestOrchestration)(r))
+}
+
 func (r RequestOrchestration) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

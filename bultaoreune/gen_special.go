@@ -17,18 +17,14 @@ func (fc *FhirClient) PatientEverythingBundled(patId string) (*` + fhirVersion +
 		return nil, fmt.Errorf("error creating req, your fault not fhir server's %s", err)
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed ` + fhirVersion + `.Bundle
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, fmt.Errorf("error decoding json %s", err)
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+	        err = fmt.Errorf("PatientEverythingBundled: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // Search for everything about a patient, returns a list of each resource type

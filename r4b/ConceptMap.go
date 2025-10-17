@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -102,7 +103,7 @@ type ConceptMapGroupUnmapped struct {
 
 type OtherConceptMap ConceptMap
 
-// on convert struct to json, automatically add resourceType=ConceptMap
+// struct -> json, automatically add resourceType=Patient
 func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherConceptMap
@@ -112,6 +113,17 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 		ResourceType:    "ConceptMap",
 	})
 }
+
+// json -> struct, first reject if resourceType != ConceptMap
+func (r *ConceptMap) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ConceptMap" {
+		return errors.New("resourceType not ConceptMap")
+	}
+	return json.Unmarshal(data, (*OtherConceptMap)(r))
+}
+
 func (r ConceptMap) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

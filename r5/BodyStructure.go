@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -64,7 +65,7 @@ type BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark s
 
 type OtherBodyStructure BodyStructure
 
-// on convert struct to json, automatically add resourceType=BodyStructure
+// struct -> json, automatically add resourceType=Patient
 func (r BodyStructure) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherBodyStructure
@@ -74,6 +75,17 @@ func (r BodyStructure) MarshalJSON() ([]byte, error) {
 		ResourceType:       "BodyStructure",
 	})
 }
+
+// json -> struct, first reject if resourceType != BodyStructure
+func (r *BodyStructure) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "BodyStructure" {
+		return errors.New("resourceType not BodyStructure")
+	}
+	return json.Unmarshal(data, (*OtherBodyStructure)(r))
+}
+
 func (r BodyStructure) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

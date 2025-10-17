@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -72,7 +73,7 @@ type CoverageCostToBeneficiaryException struct {
 
 type OtherCoverage Coverage
 
-// on convert struct to json, automatically add resourceType=Coverage
+// struct -> json, automatically add resourceType=Patient
 func (r Coverage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCoverage
@@ -82,6 +83,17 @@ func (r Coverage) MarshalJSON() ([]byte, error) {
 		ResourceType:  "Coverage",
 	})
 }
+
+// json -> struct, first reject if resourceType != Coverage
+func (r *Coverage) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Coverage" {
+		return errors.New("resourceType not Coverage")
+	}
+	return json.Unmarshal(data, (*OtherCoverage)(r))
+}
+
 func (r Coverage) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

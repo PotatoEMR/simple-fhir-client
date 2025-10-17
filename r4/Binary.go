@@ -17,6 +17,19 @@ type Binary struct {
 	Data            *string    `json:"data,omitempty"`
 }
 
+func (r Binary) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Binary/" + *r.Id
+		ref.Reference = &refStr
+	}
+
+	rtype := "Binary"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
 func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet, htmlAttrs)

@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -125,7 +126,7 @@ type MedicinalProductDefinitionCharacteristic struct {
 
 type OtherMedicinalProductDefinition MedicinalProductDefinition
 
-// on convert struct to json, automatically add resourceType=MedicinalProductDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r MedicinalProductDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMedicinalProductDefinition
@@ -135,6 +136,17 @@ func (r MedicinalProductDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "MedicinalProductDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != MedicinalProductDefinition
+func (r *MedicinalProductDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MedicinalProductDefinition" {
+		return errors.New("resourceType not MedicinalProductDefinition")
+	}
+	return json.Unmarshal(data, (*OtherMedicinalProductDefinition)(r))
+}
+
 func (r MedicinalProductDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

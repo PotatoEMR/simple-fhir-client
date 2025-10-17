@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -59,7 +60,7 @@ type AllergyIntoleranceReaction struct {
 
 type OtherAllergyIntolerance AllergyIntolerance
 
-// on convert struct to json, automatically add resourceType=AllergyIntolerance
+// struct -> json, automatically add resourceType=Patient
 func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherAllergyIntolerance
@@ -69,6 +70,17 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 		ResourceType:            "AllergyIntolerance",
 	})
 }
+
+// json -> struct, first reject if resourceType != AllergyIntolerance
+func (r *AllergyIntolerance) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "AllergyIntolerance" {
+		return errors.New("resourceType not AllergyIntolerance")
+	}
+	return json.Unmarshal(data, (*OtherAllergyIntolerance)(r))
+}
+
 func (r AllergyIntolerance) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

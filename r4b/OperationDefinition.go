@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -95,7 +96,7 @@ type OperationDefinitionOverload struct {
 
 type OtherOperationDefinition OperationDefinition
 
-// on convert struct to json, automatically add resourceType=OperationDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherOperationDefinition
@@ -105,6 +106,17 @@ func (r OperationDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:             "OperationDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != OperationDefinition
+func (r *OperationDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "OperationDefinition" {
+		return errors.New("resourceType not OperationDefinition")
+	}
+	return json.Unmarshal(data, (*OtherOperationDefinition)(r))
+}
+
 func (r OperationDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

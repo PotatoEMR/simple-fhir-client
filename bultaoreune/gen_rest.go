@@ -24,18 +24,14 @@ func (fc *FhirClient) SearchBundled(sp SearchParam) (*FHIR_VERSION.Bundle, error
 		return nil, fmt.Errorf("searchBundle error creating req, your fault not fhir server's %s", err)
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("searchBundle makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.Bundle
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, fmt.Errorf("searchBundle error decoding json %s", err)
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("SearchBundled: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // search for resource by its Sp<resource> search params, return bundle of matching resources
@@ -44,7 +40,7 @@ func (fc *FhirClient) SearchBundled(sp SearchParam) (*FHIR_VERSION.Bundle, error
 func (fc *FhirClient) SearchGrouped(sp SearchParam) (*ResourceGroup, error) {
 	bundle, err := fc.SearchBundled(sp)
 	if err != nil {
-		return nil, fmt.Errorf("search error %s", err)
+		return nil, err
 	}
 	return BundleToGroup(bundle)
 }
@@ -76,20 +72,16 @@ func (fc *FhirClient) CreateDOMAIN_RESOURCE(createResource *FHIR_VERSION.DOMAIN_
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.DOMAIN_RESOURCE
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDOMAIN_RESOURCE: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
-	
+
 // read DOMAIN_RESOURCE from fhir server by id, return DOMAIN_RESOURCE or OperationOutcome error
 func (fc *FhirClient) ReadDOMAIN_RESOURCE(id string) (*FHIR_VERSION.DOMAIN_RESOURCE, error) {
 	if id == "" {
@@ -106,18 +98,14 @@ func (fc *FhirClient) ReadDOMAIN_RESOURCE(id string) (*FHIR_VERSION.DOMAIN_RESOU
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.DOMAIN_RESOURCE
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDOMAIN_RESOURCE: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DOMAIN_RESOURCE if exists on server, else create new DOMAIN_RESOURCE with given id, return DOMAIN_RESOURCE or OperationOutcome error
@@ -145,18 +133,14 @@ func (fc *FhirClient) UpdateDOMAIN_RESOURCE(updateResource *FHIR_VERSION.DOMAIN_
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.DOMAIN_RESOURCE
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDOMAIN_RESOURCE: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 
@@ -189,18 +173,14 @@ func (fc *FhirClient) PatchDOMAIN_RESOURCE(patchResource *FHIR_VERSION.DOMAIN_RE
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.DOMAIN_RESOURCE
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDOMAIN_RESOURCE: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 
@@ -228,18 +208,14 @@ func (fc *FhirClient) DeleteDOMAIN_RESOURCEById(id string) (*FHIR_VERSION.Operat
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed FHIR_VERSION.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+	    if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDOMAIN_RESOURCEById: %s", err)
+	    }
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }`
 		restDomainResorce := strings.ReplaceAll(templateStr, "DOMAIN_RESOURCE", dr)
 		sb.WriteString(strings.ReplaceAll(restDomainResorce, "FHIR_VERSION", fhirVersion))
@@ -261,32 +237,34 @@ func (fc *FhirClient) DeleteDOMAIN_RESOURCEById(id string) (*FHIR_VERSION.Operat
 		`+fhirVersion+" \"github.com/PotatoEMR/simple-fhir-client/"+fhirVersion+"\")\n")
 	fmt.Fprintln(cf, sb.String())
 	helpers := `
-	// common checks for malformed response or operationoutcome response, rather than expected resource
-func makeRequestCheckError(fc *FhirClient, req *http.Request) (*http.Response, error) {
-	req.Header.Set("Accept", "application/fhir+json")
-	resp, err := fc.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("error making request %s", err)
-	}
-	ct := resp.Header.Get("Content-Type")
-	if ct == "text/html" {
-		body, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("status %s received HTML response (expects json)\n%s", resp.Status, string(body))
-	}
-	if resp.StatusCode >= 300 {
-		var opOutcome ` + fhirVersion + `.OperationOutcome
-		err = json.NewDecoder(resp.Body).Decode(&opOutcome)
+
+	// get a fhir resource of type you asked for,
+	// or an operationoutcome error from server response,
+	// or some other string error if server misbehaving eg down
+	func getFhirResourceOrError(fc *FhirClient, req *http.Request, retResource  ` + fhirVersion + `.FhirResource) error {
+		req.Header.Set("Accept", "application/fhir+json")
+		resp, err := fc.Do(req)
 		if err != nil {
-			if ct == "" {
-				ct = "not provided in response header!"
-			}
-			return nil, fmt.Errorf("status %s, content type %s, could not parse OperationOutcome, error %s", resp.Status, ct, err.Error())
+			return fmt.Errorf("getFhirResourceOrError, making req got err %s", err)
 		}
-		return nil, fmt.Errorf("status %s, %s", resp.Status, opOutcome.String())
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("getFhirResourceOrError: reading body got err %s", err)
+		}
+		defer resp.Body.Close()
+		err = json.Unmarshal(body, retResource)
+		if err == nil {
+			//managed to unmarshal server response into desired resource type
+			return nil
+		}
+		var oo ` + fhirVersion + `.OperationOutcome
+		err = json.Unmarshal(body, oo)
+		if err == nil {
+			return oo
+		}
+		return fmt.Errorf("getFhirResourceOrError: response body is %s", string(body))
 	}
-	return resp, nil
-}
-	
+
 type PatchOperation struct {
 	Op    string BACKTICKjson:"op"BACKTICK
 	Path  string BACKTICKjson:"path"BACKTICK

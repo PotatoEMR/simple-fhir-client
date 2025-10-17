@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -54,7 +55,7 @@ type EventDefinition struct {
 
 type OtherEventDefinition EventDefinition
 
-// on convert struct to json, automatically add resourceType=EventDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r EventDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherEventDefinition
@@ -64,6 +65,17 @@ func (r EventDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:         "EventDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != EventDefinition
+func (r *EventDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "EventDefinition" {
+		return errors.New("resourceType not EventDefinition")
+	}
+	return json.Unmarshal(data, (*OtherEventDefinition)(r))
+}
+
 func (r EventDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

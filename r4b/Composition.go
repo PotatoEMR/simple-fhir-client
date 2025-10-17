@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -86,7 +87,7 @@ type CompositionSection struct {
 
 type OtherComposition Composition
 
-// on convert struct to json, automatically add resourceType=Composition
+// struct -> json, automatically add resourceType=Patient
 func (r Composition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherComposition
@@ -96,6 +97,17 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 		ResourceType:     "Composition",
 	})
 }
+
+// json -> struct, first reject if resourceType != Composition
+func (r *Composition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Composition" {
+		return errors.New("resourceType not Composition")
+	}
+	return json.Unmarshal(data, (*OtherComposition)(r))
+}
+
 func (r Composition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

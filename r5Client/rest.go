@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/PotatoEMR/simple-fhir-client/r4"
 	r5 "github.com/PotatoEMR/simple-fhir-client/r5"
 )
 
@@ -27,18 +28,14 @@ func (fc *FhirClient) SearchBundled(sp SearchParam) (*r5.Bundle, error) {
 		return nil, fmt.Errorf("searchBundle error creating req, your fault not fhir server's %s", err)
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("searchBundle makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Bundle
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, fmt.Errorf("searchBundle error decoding json %s", err)
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("SearchBundled: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // search for resource by its Sp<resource> search params, return bundle of matching resources
@@ -47,7 +44,7 @@ func (fc *FhirClient) SearchBundled(sp SearchParam) (*r5.Bundle, error) {
 func (fc *FhirClient) SearchGrouped(sp SearchParam) (*ResourceGroup, error) {
 	bundle, err := fc.SearchBundled(sp)
 	if err != nil {
-		return nil, fmt.Errorf("search error %s", err)
+		return nil, err
 	}
 	return BundleToGroup(bundle)
 }
@@ -68,18 +65,14 @@ func (fc *FhirClient) PatientEverythingBundled(patId string) (*r5.Bundle, error)
 		return nil, fmt.Errorf("error creating req, your fault not fhir server's %s", err)
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Bundle
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, fmt.Errorf("error decoding json %s", err)
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatientEverythingBundled: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // Search for everything about a patient, returns a list of each resource type
@@ -112,18 +105,14 @@ func (fc *FhirClient) CreateAccount(createResource *r5.Account) (*r5.Account, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Account
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAccount: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Account from fhir server by id, return Account or OperationOutcome error
@@ -142,18 +131,14 @@ func (fc *FhirClient) ReadAccount(id string) (*r5.Account, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Account
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAccount: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Account if exists on server, else create new Account with given id, return Account or OperationOutcome error
@@ -181,18 +166,14 @@ func (fc *FhirClient) UpdateAccount(updateResource *r5.Account) (*r5.Account, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Account
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAccount: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Account or error OperationOutcome
@@ -224,18 +205,14 @@ func (fc *FhirClient) PatchAccount(patchResource *r5.Account) (*r5.Account, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Account
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAccount: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Account and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -261,18 +238,14 @@ func (fc *FhirClient) DeleteAccountById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAccountById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ActivityDefinition, return id of created ActivityDefinition or OperationOutcome error
@@ -294,18 +267,14 @@ func (fc *FhirClient) CreateActivityDefinition(createResource *r5.ActivityDefini
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActivityDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateActivityDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ActivityDefinition from fhir server by id, return ActivityDefinition or OperationOutcome error
@@ -324,18 +293,14 @@ func (fc *FhirClient) ReadActivityDefinition(id string) (*r5.ActivityDefinition,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActivityDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadActivityDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ActivityDefinition if exists on server, else create new ActivityDefinition with given id, return ActivityDefinition or OperationOutcome error
@@ -363,18 +328,14 @@ func (fc *FhirClient) UpdateActivityDefinition(updateResource *r5.ActivityDefini
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActivityDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateActivityDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ActivityDefinition or error OperationOutcome
@@ -406,18 +367,14 @@ func (fc *FhirClient) PatchActivityDefinition(patchResource *r5.ActivityDefiniti
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActivityDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchActivityDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ActivityDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -443,18 +400,14 @@ func (fc *FhirClient) DeleteActivityDefinitionById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteActivityDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ActorDefinition, return id of created ActorDefinition or OperationOutcome error
@@ -476,18 +429,14 @@ func (fc *FhirClient) CreateActorDefinition(createResource *r5.ActorDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActorDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateActorDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ActorDefinition from fhir server by id, return ActorDefinition or OperationOutcome error
@@ -506,18 +455,14 @@ func (fc *FhirClient) ReadActorDefinition(id string) (*r5.ActorDefinition, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActorDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadActorDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ActorDefinition if exists on server, else create new ActorDefinition with given id, return ActorDefinition or OperationOutcome error
@@ -545,18 +490,14 @@ func (fc *FhirClient) UpdateActorDefinition(updateResource *r5.ActorDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActorDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateActorDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ActorDefinition or error OperationOutcome
@@ -588,18 +529,14 @@ func (fc *FhirClient) PatchActorDefinition(patchResource *r5.ActorDefinition) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ActorDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchActorDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ActorDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -625,18 +562,14 @@ func (fc *FhirClient) DeleteActorDefinitionById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteActorDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create AdministrableProductDefinition, return id of created AdministrableProductDefinition or OperationOutcome error
@@ -658,18 +591,14 @@ func (fc *FhirClient) CreateAdministrableProductDefinition(createResource *r5.Ad
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdministrableProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAdministrableProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read AdministrableProductDefinition from fhir server by id, return AdministrableProductDefinition or OperationOutcome error
@@ -688,18 +617,14 @@ func (fc *FhirClient) ReadAdministrableProductDefinition(id string) (*r5.Adminis
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdministrableProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAdministrableProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace AdministrableProductDefinition if exists on server, else create new AdministrableProductDefinition with given id, return AdministrableProductDefinition or OperationOutcome error
@@ -727,18 +652,14 @@ func (fc *FhirClient) UpdateAdministrableProductDefinition(updateResource *r5.Ad
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdministrableProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAdministrableProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return AdministrableProductDefinition or error OperationOutcome
@@ -770,18 +691,14 @@ func (fc *FhirClient) PatchAdministrableProductDefinition(patchResource *r5.Admi
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdministrableProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAdministrableProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete AdministrableProductDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -807,18 +724,14 @@ func (fc *FhirClient) DeleteAdministrableProductDefinitionById(id string) (*r5.O
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAdministrableProductDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create AdverseEvent, return id of created AdverseEvent or OperationOutcome error
@@ -840,18 +753,14 @@ func (fc *FhirClient) CreateAdverseEvent(createResource *r5.AdverseEvent) (*r5.A
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdverseEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAdverseEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read AdverseEvent from fhir server by id, return AdverseEvent or OperationOutcome error
@@ -870,18 +779,14 @@ func (fc *FhirClient) ReadAdverseEvent(id string) (*r5.AdverseEvent, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdverseEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAdverseEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace AdverseEvent if exists on server, else create new AdverseEvent with given id, return AdverseEvent or OperationOutcome error
@@ -909,18 +814,14 @@ func (fc *FhirClient) UpdateAdverseEvent(updateResource *r5.AdverseEvent) (*r5.A
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdverseEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAdverseEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return AdverseEvent or error OperationOutcome
@@ -952,18 +853,14 @@ func (fc *FhirClient) PatchAdverseEvent(patchResource *r5.AdverseEvent) (*r5.Adv
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AdverseEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAdverseEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete AdverseEvent and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -989,18 +886,14 @@ func (fc *FhirClient) DeleteAdverseEventById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAdverseEventById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create AllergyIntolerance, return id of created AllergyIntolerance or OperationOutcome error
@@ -1022,18 +915,14 @@ func (fc *FhirClient) CreateAllergyIntolerance(createResource *r5.AllergyIntoler
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AllergyIntolerance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAllergyIntolerance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read AllergyIntolerance from fhir server by id, return AllergyIntolerance or OperationOutcome error
@@ -1052,18 +941,14 @@ func (fc *FhirClient) ReadAllergyIntolerance(id string) (*r5.AllergyIntolerance,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AllergyIntolerance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAllergyIntolerance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace AllergyIntolerance if exists on server, else create new AllergyIntolerance with given id, return AllergyIntolerance or OperationOutcome error
@@ -1091,18 +976,14 @@ func (fc *FhirClient) UpdateAllergyIntolerance(updateResource *r5.AllergyIntoler
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AllergyIntolerance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAllergyIntolerance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return AllergyIntolerance or error OperationOutcome
@@ -1134,18 +1015,14 @@ func (fc *FhirClient) PatchAllergyIntolerance(patchResource *r5.AllergyIntoleran
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AllergyIntolerance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAllergyIntolerance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete AllergyIntolerance and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -1171,18 +1048,14 @@ func (fc *FhirClient) DeleteAllergyIntoleranceById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAllergyIntoleranceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Appointment, return id of created Appointment or OperationOutcome error
@@ -1204,18 +1077,14 @@ func (fc *FhirClient) CreateAppointment(createResource *r5.Appointment) (*r5.App
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Appointment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAppointment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Appointment from fhir server by id, return Appointment or OperationOutcome error
@@ -1234,18 +1103,14 @@ func (fc *FhirClient) ReadAppointment(id string) (*r5.Appointment, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Appointment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAppointment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Appointment if exists on server, else create new Appointment with given id, return Appointment or OperationOutcome error
@@ -1273,18 +1138,14 @@ func (fc *FhirClient) UpdateAppointment(updateResource *r5.Appointment) (*r5.App
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Appointment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAppointment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Appointment or error OperationOutcome
@@ -1316,18 +1177,14 @@ func (fc *FhirClient) PatchAppointment(patchResource *r5.Appointment) (*r5.Appoi
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Appointment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAppointment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Appointment and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -1353,18 +1210,14 @@ func (fc *FhirClient) DeleteAppointmentById(id string) (*r5.OperationOutcome, er
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAppointmentById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create AppointmentResponse, return id of created AppointmentResponse or OperationOutcome error
@@ -1386,18 +1239,14 @@ func (fc *FhirClient) CreateAppointmentResponse(createResource *r5.AppointmentRe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AppointmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAppointmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read AppointmentResponse from fhir server by id, return AppointmentResponse or OperationOutcome error
@@ -1416,18 +1265,14 @@ func (fc *FhirClient) ReadAppointmentResponse(id string) (*r5.AppointmentRespons
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AppointmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAppointmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace AppointmentResponse if exists on server, else create new AppointmentResponse with given id, return AppointmentResponse or OperationOutcome error
@@ -1455,18 +1300,14 @@ func (fc *FhirClient) UpdateAppointmentResponse(updateResource *r5.AppointmentRe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AppointmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAppointmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return AppointmentResponse or error OperationOutcome
@@ -1498,18 +1339,14 @@ func (fc *FhirClient) PatchAppointmentResponse(patchResource *r5.AppointmentResp
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AppointmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAppointmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete AppointmentResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -1535,18 +1372,14 @@ func (fc *FhirClient) DeleteAppointmentResponseById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAppointmentResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ArtifactAssessment, return id of created ArtifactAssessment or OperationOutcome error
@@ -1568,18 +1401,14 @@ func (fc *FhirClient) CreateArtifactAssessment(createResource *r5.ArtifactAssess
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ArtifactAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateArtifactAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ArtifactAssessment from fhir server by id, return ArtifactAssessment or OperationOutcome error
@@ -1598,18 +1427,14 @@ func (fc *FhirClient) ReadArtifactAssessment(id string) (*r5.ArtifactAssessment,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ArtifactAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadArtifactAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ArtifactAssessment if exists on server, else create new ArtifactAssessment with given id, return ArtifactAssessment or OperationOutcome error
@@ -1637,18 +1462,14 @@ func (fc *FhirClient) UpdateArtifactAssessment(updateResource *r5.ArtifactAssess
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ArtifactAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateArtifactAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ArtifactAssessment or error OperationOutcome
@@ -1680,18 +1501,14 @@ func (fc *FhirClient) PatchArtifactAssessment(patchResource *r5.ArtifactAssessme
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ArtifactAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchArtifactAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ArtifactAssessment and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -1717,18 +1534,14 @@ func (fc *FhirClient) DeleteArtifactAssessmentById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteArtifactAssessmentById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create AuditEvent, return id of created AuditEvent or OperationOutcome error
@@ -1750,18 +1563,14 @@ func (fc *FhirClient) CreateAuditEvent(createResource *r5.AuditEvent) (*r5.Audit
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AuditEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateAuditEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read AuditEvent from fhir server by id, return AuditEvent or OperationOutcome error
@@ -1780,18 +1589,14 @@ func (fc *FhirClient) ReadAuditEvent(id string) (*r5.AuditEvent, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AuditEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadAuditEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace AuditEvent if exists on server, else create new AuditEvent with given id, return AuditEvent or OperationOutcome error
@@ -1819,18 +1624,14 @@ func (fc *FhirClient) UpdateAuditEvent(updateResource *r5.AuditEvent) (*r5.Audit
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AuditEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateAuditEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return AuditEvent or error OperationOutcome
@@ -1862,18 +1663,14 @@ func (fc *FhirClient) PatchAuditEvent(patchResource *r5.AuditEvent) (*r5.AuditEv
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.AuditEvent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchAuditEvent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete AuditEvent and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -1899,18 +1696,14 @@ func (fc *FhirClient) DeleteAuditEventById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteAuditEventById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Basic, return id of created Basic or OperationOutcome error
@@ -1932,18 +1725,14 @@ func (fc *FhirClient) CreateBasic(createResource *r5.Basic) (*r5.Basic, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Basic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateBasic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Basic from fhir server by id, return Basic or OperationOutcome error
@@ -1962,18 +1751,14 @@ func (fc *FhirClient) ReadBasic(id string) (*r5.Basic, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Basic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadBasic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Basic if exists on server, else create new Basic with given id, return Basic or OperationOutcome error
@@ -2001,18 +1786,14 @@ func (fc *FhirClient) UpdateBasic(updateResource *r5.Basic) (*r5.Basic, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Basic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateBasic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Basic or error OperationOutcome
@@ -2044,18 +1825,14 @@ func (fc *FhirClient) PatchBasic(patchResource *r5.Basic) (*r5.Basic, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Basic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchBasic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Basic and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2081,18 +1858,14 @@ func (fc *FhirClient) DeleteBasicById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteBasicById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Binary, return id of created Binary or OperationOutcome error
@@ -2114,18 +1887,14 @@ func (fc *FhirClient) CreateBinary(createResource *r5.Binary) (*r5.Binary, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Binary
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateBinary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Binary from fhir server by id, return Binary or OperationOutcome error
@@ -2144,18 +1913,14 @@ func (fc *FhirClient) ReadBinary(id string) (*r5.Binary, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Binary
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadBinary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Binary if exists on server, else create new Binary with given id, return Binary or OperationOutcome error
@@ -2183,18 +1948,14 @@ func (fc *FhirClient) UpdateBinary(updateResource *r5.Binary) (*r5.Binary, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Binary
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateBinary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Binary or error OperationOutcome
@@ -2226,18 +1987,14 @@ func (fc *FhirClient) PatchBinary(patchResource *r5.Binary) (*r5.Binary, error) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Binary
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchBinary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Binary and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2263,18 +2020,14 @@ func (fc *FhirClient) DeleteBinaryById(id string) (*r5.OperationOutcome, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteBinaryById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create BiologicallyDerivedProduct, return id of created BiologicallyDerivedProduct or OperationOutcome error
@@ -2296,18 +2049,14 @@ func (fc *FhirClient) CreateBiologicallyDerivedProduct(createResource *r5.Biolog
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateBiologicallyDerivedProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read BiologicallyDerivedProduct from fhir server by id, return BiologicallyDerivedProduct or OperationOutcome error
@@ -2326,18 +2075,14 @@ func (fc *FhirClient) ReadBiologicallyDerivedProduct(id string) (*r5.Biologicall
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadBiologicallyDerivedProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace BiologicallyDerivedProduct if exists on server, else create new BiologicallyDerivedProduct with given id, return BiologicallyDerivedProduct or OperationOutcome error
@@ -2365,18 +2110,14 @@ func (fc *FhirClient) UpdateBiologicallyDerivedProduct(updateResource *r5.Biolog
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateBiologicallyDerivedProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return BiologicallyDerivedProduct or error OperationOutcome
@@ -2408,18 +2149,14 @@ func (fc *FhirClient) PatchBiologicallyDerivedProduct(patchResource *r5.Biologic
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchBiologicallyDerivedProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete BiologicallyDerivedProduct and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2445,18 +2182,14 @@ func (fc *FhirClient) DeleteBiologicallyDerivedProductById(id string) (*r5.Opera
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteBiologicallyDerivedProductById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create BiologicallyDerivedProductDispense, return id of created BiologicallyDerivedProductDispense or OperationOutcome error
@@ -2478,18 +2211,14 @@ func (fc *FhirClient) CreateBiologicallyDerivedProductDispense(createResource *r
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProductDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateBiologicallyDerivedProductDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read BiologicallyDerivedProductDispense from fhir server by id, return BiologicallyDerivedProductDispense or OperationOutcome error
@@ -2508,18 +2237,14 @@ func (fc *FhirClient) ReadBiologicallyDerivedProductDispense(id string) (*r5.Bio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProductDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadBiologicallyDerivedProductDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace BiologicallyDerivedProductDispense if exists on server, else create new BiologicallyDerivedProductDispense with given id, return BiologicallyDerivedProductDispense or OperationOutcome error
@@ -2547,18 +2272,14 @@ func (fc *FhirClient) UpdateBiologicallyDerivedProductDispense(updateResource *r
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProductDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateBiologicallyDerivedProductDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return BiologicallyDerivedProductDispense or error OperationOutcome
@@ -2590,18 +2311,14 @@ func (fc *FhirClient) PatchBiologicallyDerivedProductDispense(patchResource *r5.
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BiologicallyDerivedProductDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchBiologicallyDerivedProductDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete BiologicallyDerivedProductDispense and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2627,18 +2344,14 @@ func (fc *FhirClient) DeleteBiologicallyDerivedProductDispenseById(id string) (*
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteBiologicallyDerivedProductDispenseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create BodyStructure, return id of created BodyStructure or OperationOutcome error
@@ -2660,18 +2373,14 @@ func (fc *FhirClient) CreateBodyStructure(createResource *r5.BodyStructure) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BodyStructure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateBodyStructure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read BodyStructure from fhir server by id, return BodyStructure or OperationOutcome error
@@ -2690,18 +2399,14 @@ func (fc *FhirClient) ReadBodyStructure(id string) (*r5.BodyStructure, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BodyStructure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadBodyStructure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace BodyStructure if exists on server, else create new BodyStructure with given id, return BodyStructure or OperationOutcome error
@@ -2729,18 +2434,14 @@ func (fc *FhirClient) UpdateBodyStructure(updateResource *r5.BodyStructure) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BodyStructure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateBodyStructure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return BodyStructure or error OperationOutcome
@@ -2772,18 +2473,14 @@ func (fc *FhirClient) PatchBodyStructure(patchResource *r5.BodyStructure) (*r5.B
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.BodyStructure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchBodyStructure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete BodyStructure and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2809,18 +2506,14 @@ func (fc *FhirClient) DeleteBodyStructureById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteBodyStructureById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CanonicalResource, return id of created CanonicalResource or OperationOutcome error
@@ -2842,18 +2535,14 @@ func (fc *FhirClient) CreateCanonicalResource(createResource *r5.CanonicalResour
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CanonicalResource
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCanonicalResource: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CanonicalResource from fhir server by id, return CanonicalResource or OperationOutcome error
@@ -2872,18 +2561,14 @@ func (fc *FhirClient) ReadCanonicalResource(id string) (*r5.CanonicalResource, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CanonicalResource
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCanonicalResource: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CanonicalResource if exists on server, else create new CanonicalResource with given id, return CanonicalResource or OperationOutcome error
@@ -2911,18 +2596,14 @@ func (fc *FhirClient) UpdateCanonicalResource(updateResource *r5.CanonicalResour
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CanonicalResource
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCanonicalResource: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CanonicalResource or error OperationOutcome
@@ -2954,18 +2635,14 @@ func (fc *FhirClient) PatchCanonicalResource(patchResource *r5.CanonicalResource
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CanonicalResource
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCanonicalResource: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CanonicalResource and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -2991,18 +2668,14 @@ func (fc *FhirClient) DeleteCanonicalResourceById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCanonicalResourceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CapabilityStatement, return id of created CapabilityStatement or OperationOutcome error
@@ -3024,18 +2697,14 @@ func (fc *FhirClient) CreateCapabilityStatement(createResource *r5.CapabilitySta
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CapabilityStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCapabilityStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CapabilityStatement from fhir server by id, return CapabilityStatement or OperationOutcome error
@@ -3054,18 +2723,14 @@ func (fc *FhirClient) ReadCapabilityStatement(id string) (*r5.CapabilityStatemen
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CapabilityStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCapabilityStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CapabilityStatement if exists on server, else create new CapabilityStatement with given id, return CapabilityStatement or OperationOutcome error
@@ -3093,18 +2758,14 @@ func (fc *FhirClient) UpdateCapabilityStatement(updateResource *r5.CapabilitySta
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CapabilityStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCapabilityStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CapabilityStatement or error OperationOutcome
@@ -3136,18 +2797,14 @@ func (fc *FhirClient) PatchCapabilityStatement(patchResource *r5.CapabilityState
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CapabilityStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCapabilityStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CapabilityStatement and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -3173,18 +2830,14 @@ func (fc *FhirClient) DeleteCapabilityStatementById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCapabilityStatementById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CarePlan, return id of created CarePlan or OperationOutcome error
@@ -3206,18 +2859,14 @@ func (fc *FhirClient) CreateCarePlan(createResource *r5.CarePlan) (*r5.CarePlan,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CarePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCarePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CarePlan from fhir server by id, return CarePlan or OperationOutcome error
@@ -3236,18 +2885,14 @@ func (fc *FhirClient) ReadCarePlan(id string) (*r5.CarePlan, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CarePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCarePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CarePlan if exists on server, else create new CarePlan with given id, return CarePlan or OperationOutcome error
@@ -3275,18 +2920,14 @@ func (fc *FhirClient) UpdateCarePlan(updateResource *r5.CarePlan) (*r5.CarePlan,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CarePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCarePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CarePlan or error OperationOutcome
@@ -3318,18 +2959,14 @@ func (fc *FhirClient) PatchCarePlan(patchResource *r5.CarePlan) (*r5.CarePlan, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CarePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCarePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CarePlan and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -3355,18 +2992,14 @@ func (fc *FhirClient) DeleteCarePlanById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCarePlanById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CareTeam, return id of created CareTeam or OperationOutcome error
@@ -3388,18 +3021,14 @@ func (fc *FhirClient) CreateCareTeam(createResource *r5.CareTeam) (*r5.CareTeam,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CareTeam
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCareTeam: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CareTeam from fhir server by id, return CareTeam or OperationOutcome error
@@ -3418,18 +3047,14 @@ func (fc *FhirClient) ReadCareTeam(id string) (*r5.CareTeam, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CareTeam
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCareTeam: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CareTeam if exists on server, else create new CareTeam with given id, return CareTeam or OperationOutcome error
@@ -3457,18 +3082,14 @@ func (fc *FhirClient) UpdateCareTeam(updateResource *r5.CareTeam) (*r5.CareTeam,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CareTeam
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCareTeam: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CareTeam or error OperationOutcome
@@ -3500,18 +3121,14 @@ func (fc *FhirClient) PatchCareTeam(patchResource *r5.CareTeam) (*r5.CareTeam, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CareTeam
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCareTeam: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CareTeam and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -3537,18 +3154,14 @@ func (fc *FhirClient) DeleteCareTeamById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCareTeamById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ChargeItem, return id of created ChargeItem or OperationOutcome error
@@ -3570,18 +3183,14 @@ func (fc *FhirClient) CreateChargeItem(createResource *r5.ChargeItem) (*r5.Charg
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateChargeItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ChargeItem from fhir server by id, return ChargeItem or OperationOutcome error
@@ -3600,18 +3209,14 @@ func (fc *FhirClient) ReadChargeItem(id string) (*r5.ChargeItem, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadChargeItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ChargeItem if exists on server, else create new ChargeItem with given id, return ChargeItem or OperationOutcome error
@@ -3639,18 +3244,14 @@ func (fc *FhirClient) UpdateChargeItem(updateResource *r5.ChargeItem) (*r5.Charg
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateChargeItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ChargeItem or error OperationOutcome
@@ -3682,18 +3283,14 @@ func (fc *FhirClient) PatchChargeItem(patchResource *r5.ChargeItem) (*r5.ChargeI
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchChargeItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ChargeItem and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -3719,18 +3316,14 @@ func (fc *FhirClient) DeleteChargeItemById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteChargeItemById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ChargeItemDefinition, return id of created ChargeItemDefinition or OperationOutcome error
@@ -3752,18 +3345,14 @@ func (fc *FhirClient) CreateChargeItemDefinition(createResource *r5.ChargeItemDe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateChargeItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ChargeItemDefinition from fhir server by id, return ChargeItemDefinition or OperationOutcome error
@@ -3782,18 +3371,14 @@ func (fc *FhirClient) ReadChargeItemDefinition(id string) (*r5.ChargeItemDefinit
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadChargeItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ChargeItemDefinition if exists on server, else create new ChargeItemDefinition with given id, return ChargeItemDefinition or OperationOutcome error
@@ -3821,18 +3406,14 @@ func (fc *FhirClient) UpdateChargeItemDefinition(updateResource *r5.ChargeItemDe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateChargeItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ChargeItemDefinition or error OperationOutcome
@@ -3864,18 +3445,14 @@ func (fc *FhirClient) PatchChargeItemDefinition(patchResource *r5.ChargeItemDefi
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ChargeItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchChargeItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ChargeItemDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -3901,18 +3478,14 @@ func (fc *FhirClient) DeleteChargeItemDefinitionById(id string) (*r5.OperationOu
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteChargeItemDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Citation, return id of created Citation or OperationOutcome error
@@ -3934,18 +3507,14 @@ func (fc *FhirClient) CreateCitation(createResource *r5.Citation) (*r5.Citation,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Citation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCitation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Citation from fhir server by id, return Citation or OperationOutcome error
@@ -3964,18 +3533,14 @@ func (fc *FhirClient) ReadCitation(id string) (*r5.Citation, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Citation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCitation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Citation if exists on server, else create new Citation with given id, return Citation or OperationOutcome error
@@ -4003,18 +3568,14 @@ func (fc *FhirClient) UpdateCitation(updateResource *r5.Citation) (*r5.Citation,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Citation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCitation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Citation or error OperationOutcome
@@ -4046,18 +3607,14 @@ func (fc *FhirClient) PatchCitation(patchResource *r5.Citation) (*r5.Citation, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Citation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCitation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Citation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4083,18 +3640,14 @@ func (fc *FhirClient) DeleteCitationById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCitationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Claim, return id of created Claim or OperationOutcome error
@@ -4116,18 +3669,14 @@ func (fc *FhirClient) CreateClaim(createResource *r5.Claim) (*r5.Claim, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Claim
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateClaim: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Claim from fhir server by id, return Claim or OperationOutcome error
@@ -4146,18 +3695,14 @@ func (fc *FhirClient) ReadClaim(id string) (*r5.Claim, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Claim
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadClaim: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Claim if exists on server, else create new Claim with given id, return Claim or OperationOutcome error
@@ -4185,18 +3730,14 @@ func (fc *FhirClient) UpdateClaim(updateResource *r5.Claim) (*r5.Claim, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Claim
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateClaim: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Claim or error OperationOutcome
@@ -4228,18 +3769,14 @@ func (fc *FhirClient) PatchClaim(patchResource *r5.Claim) (*r5.Claim, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Claim
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchClaim: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Claim and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4265,18 +3802,14 @@ func (fc *FhirClient) DeleteClaimById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteClaimById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ClaimResponse, return id of created ClaimResponse or OperationOutcome error
@@ -4298,18 +3831,14 @@ func (fc *FhirClient) CreateClaimResponse(createResource *r5.ClaimResponse) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClaimResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateClaimResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ClaimResponse from fhir server by id, return ClaimResponse or OperationOutcome error
@@ -4328,18 +3857,14 @@ func (fc *FhirClient) ReadClaimResponse(id string) (*r5.ClaimResponse, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClaimResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadClaimResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ClaimResponse if exists on server, else create new ClaimResponse with given id, return ClaimResponse or OperationOutcome error
@@ -4367,18 +3892,14 @@ func (fc *FhirClient) UpdateClaimResponse(updateResource *r5.ClaimResponse) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClaimResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateClaimResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ClaimResponse or error OperationOutcome
@@ -4410,18 +3931,14 @@ func (fc *FhirClient) PatchClaimResponse(patchResource *r5.ClaimResponse) (*r5.C
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClaimResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchClaimResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ClaimResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4447,18 +3964,14 @@ func (fc *FhirClient) DeleteClaimResponseById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteClaimResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ClinicalImpression, return id of created ClinicalImpression or OperationOutcome error
@@ -4480,18 +3993,14 @@ func (fc *FhirClient) CreateClinicalImpression(createResource *r5.ClinicalImpres
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalImpression
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateClinicalImpression: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ClinicalImpression from fhir server by id, return ClinicalImpression or OperationOutcome error
@@ -4510,18 +4019,14 @@ func (fc *FhirClient) ReadClinicalImpression(id string) (*r5.ClinicalImpression,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalImpression
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadClinicalImpression: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ClinicalImpression if exists on server, else create new ClinicalImpression with given id, return ClinicalImpression or OperationOutcome error
@@ -4549,18 +4054,14 @@ func (fc *FhirClient) UpdateClinicalImpression(updateResource *r5.ClinicalImpres
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalImpression
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateClinicalImpression: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ClinicalImpression or error OperationOutcome
@@ -4592,18 +4093,14 @@ func (fc *FhirClient) PatchClinicalImpression(patchResource *r5.ClinicalImpressi
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalImpression
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchClinicalImpression: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ClinicalImpression and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4629,18 +4126,14 @@ func (fc *FhirClient) DeleteClinicalImpressionById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteClinicalImpressionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ClinicalUseDefinition, return id of created ClinicalUseDefinition or OperationOutcome error
@@ -4662,18 +4155,14 @@ func (fc *FhirClient) CreateClinicalUseDefinition(createResource *r5.ClinicalUse
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalUseDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateClinicalUseDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ClinicalUseDefinition from fhir server by id, return ClinicalUseDefinition or OperationOutcome error
@@ -4692,18 +4181,14 @@ func (fc *FhirClient) ReadClinicalUseDefinition(id string) (*r5.ClinicalUseDefin
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalUseDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadClinicalUseDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ClinicalUseDefinition if exists on server, else create new ClinicalUseDefinition with given id, return ClinicalUseDefinition or OperationOutcome error
@@ -4731,18 +4216,14 @@ func (fc *FhirClient) UpdateClinicalUseDefinition(updateResource *r5.ClinicalUse
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalUseDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateClinicalUseDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ClinicalUseDefinition or error OperationOutcome
@@ -4774,18 +4255,14 @@ func (fc *FhirClient) PatchClinicalUseDefinition(patchResource *r5.ClinicalUseDe
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ClinicalUseDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchClinicalUseDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ClinicalUseDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4811,18 +4288,14 @@ func (fc *FhirClient) DeleteClinicalUseDefinitionById(id string) (*r5.OperationO
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteClinicalUseDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CodeSystem, return id of created CodeSystem or OperationOutcome error
@@ -4844,18 +4317,14 @@ func (fc *FhirClient) CreateCodeSystem(createResource *r5.CodeSystem) (*r5.CodeS
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CodeSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCodeSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CodeSystem from fhir server by id, return CodeSystem or OperationOutcome error
@@ -4874,18 +4343,14 @@ func (fc *FhirClient) ReadCodeSystem(id string) (*r5.CodeSystem, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CodeSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCodeSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CodeSystem if exists on server, else create new CodeSystem with given id, return CodeSystem or OperationOutcome error
@@ -4913,18 +4378,14 @@ func (fc *FhirClient) UpdateCodeSystem(updateResource *r5.CodeSystem) (*r5.CodeS
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CodeSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCodeSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CodeSystem or error OperationOutcome
@@ -4956,18 +4417,14 @@ func (fc *FhirClient) PatchCodeSystem(patchResource *r5.CodeSystem) (*r5.CodeSys
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CodeSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCodeSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CodeSystem and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -4993,18 +4450,14 @@ func (fc *FhirClient) DeleteCodeSystemById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCodeSystemById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Communication, return id of created Communication or OperationOutcome error
@@ -5026,18 +4479,14 @@ func (fc *FhirClient) CreateCommunication(createResource *r5.Communication) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Communication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCommunication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Communication from fhir server by id, return Communication or OperationOutcome error
@@ -5056,18 +4505,14 @@ func (fc *FhirClient) ReadCommunication(id string) (*r5.Communication, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Communication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCommunication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Communication if exists on server, else create new Communication with given id, return Communication or OperationOutcome error
@@ -5095,18 +4540,14 @@ func (fc *FhirClient) UpdateCommunication(updateResource *r5.Communication) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Communication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCommunication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Communication or error OperationOutcome
@@ -5138,18 +4579,14 @@ func (fc *FhirClient) PatchCommunication(patchResource *r5.Communication) (*r5.C
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Communication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCommunication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Communication and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -5175,18 +4612,14 @@ func (fc *FhirClient) DeleteCommunicationById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCommunicationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CommunicationRequest, return id of created CommunicationRequest or OperationOutcome error
@@ -5208,18 +4641,14 @@ func (fc *FhirClient) CreateCommunicationRequest(createResource *r5.Communicatio
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CommunicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCommunicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CommunicationRequest from fhir server by id, return CommunicationRequest or OperationOutcome error
@@ -5238,18 +4667,14 @@ func (fc *FhirClient) ReadCommunicationRequest(id string) (*r5.CommunicationRequ
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CommunicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCommunicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CommunicationRequest if exists on server, else create new CommunicationRequest with given id, return CommunicationRequest or OperationOutcome error
@@ -5277,18 +4702,14 @@ func (fc *FhirClient) UpdateCommunicationRequest(updateResource *r5.Communicatio
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CommunicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCommunicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CommunicationRequest or error OperationOutcome
@@ -5320,18 +4741,14 @@ func (fc *FhirClient) PatchCommunicationRequest(patchResource *r5.CommunicationR
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CommunicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCommunicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CommunicationRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -5357,18 +4774,14 @@ func (fc *FhirClient) DeleteCommunicationRequestById(id string) (*r5.OperationOu
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCommunicationRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CompartmentDefinition, return id of created CompartmentDefinition or OperationOutcome error
@@ -5390,18 +4803,14 @@ func (fc *FhirClient) CreateCompartmentDefinition(createResource *r5.Compartment
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CompartmentDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCompartmentDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CompartmentDefinition from fhir server by id, return CompartmentDefinition or OperationOutcome error
@@ -5420,18 +4829,14 @@ func (fc *FhirClient) ReadCompartmentDefinition(id string) (*r5.CompartmentDefin
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CompartmentDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCompartmentDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CompartmentDefinition if exists on server, else create new CompartmentDefinition with given id, return CompartmentDefinition or OperationOutcome error
@@ -5459,18 +4864,14 @@ func (fc *FhirClient) UpdateCompartmentDefinition(updateResource *r5.Compartment
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CompartmentDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCompartmentDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CompartmentDefinition or error OperationOutcome
@@ -5502,18 +4903,14 @@ func (fc *FhirClient) PatchCompartmentDefinition(patchResource *r5.CompartmentDe
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CompartmentDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCompartmentDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CompartmentDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -5539,18 +4936,14 @@ func (fc *FhirClient) DeleteCompartmentDefinitionById(id string) (*r5.OperationO
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCompartmentDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Composition, return id of created Composition or OperationOutcome error
@@ -5572,18 +4965,14 @@ func (fc *FhirClient) CreateComposition(createResource *r5.Composition) (*r5.Com
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Composition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateComposition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Composition from fhir server by id, return Composition or OperationOutcome error
@@ -5602,18 +4991,14 @@ func (fc *FhirClient) ReadComposition(id string) (*r5.Composition, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Composition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadComposition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Composition if exists on server, else create new Composition with given id, return Composition or OperationOutcome error
@@ -5641,18 +5026,14 @@ func (fc *FhirClient) UpdateComposition(updateResource *r5.Composition) (*r5.Com
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Composition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateComposition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Composition or error OperationOutcome
@@ -5684,18 +5065,14 @@ func (fc *FhirClient) PatchComposition(patchResource *r5.Composition) (*r5.Compo
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Composition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchComposition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Composition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -5721,18 +5098,14 @@ func (fc *FhirClient) DeleteCompositionById(id string) (*r5.OperationOutcome, er
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCompositionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ConceptMap, return id of created ConceptMap or OperationOutcome error
@@ -5754,18 +5127,14 @@ func (fc *FhirClient) CreateConceptMap(createResource *r5.ConceptMap) (*r5.Conce
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConceptMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateConceptMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ConceptMap from fhir server by id, return ConceptMap or OperationOutcome error
@@ -5784,18 +5153,14 @@ func (fc *FhirClient) ReadConceptMap(id string) (*r5.ConceptMap, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConceptMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadConceptMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ConceptMap if exists on server, else create new ConceptMap with given id, return ConceptMap or OperationOutcome error
@@ -5823,18 +5188,14 @@ func (fc *FhirClient) UpdateConceptMap(updateResource *r5.ConceptMap) (*r5.Conce
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConceptMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateConceptMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ConceptMap or error OperationOutcome
@@ -5866,18 +5227,14 @@ func (fc *FhirClient) PatchConceptMap(patchResource *r5.ConceptMap) (*r5.Concept
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConceptMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchConceptMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ConceptMap and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -5903,18 +5260,14 @@ func (fc *FhirClient) DeleteConceptMapById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteConceptMapById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Condition, return id of created Condition or OperationOutcome error
@@ -5936,18 +5289,14 @@ func (fc *FhirClient) CreateCondition(createResource *r5.Condition) (*r5.Conditi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Condition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCondition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Condition from fhir server by id, return Condition or OperationOutcome error
@@ -5966,18 +5315,14 @@ func (fc *FhirClient) ReadCondition(id string) (*r5.Condition, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Condition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCondition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Condition if exists on server, else create new Condition with given id, return Condition or OperationOutcome error
@@ -6005,18 +5350,14 @@ func (fc *FhirClient) UpdateCondition(updateResource *r5.Condition) (*r5.Conditi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Condition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCondition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Condition or error OperationOutcome
@@ -6048,18 +5389,14 @@ func (fc *FhirClient) PatchCondition(patchResource *r5.Condition) (*r5.Condition
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Condition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCondition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Condition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6085,18 +5422,14 @@ func (fc *FhirClient) DeleteConditionById(id string) (*r5.OperationOutcome, erro
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteConditionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ConditionDefinition, return id of created ConditionDefinition or OperationOutcome error
@@ -6118,18 +5451,14 @@ func (fc *FhirClient) CreateConditionDefinition(createResource *r5.ConditionDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConditionDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateConditionDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ConditionDefinition from fhir server by id, return ConditionDefinition or OperationOutcome error
@@ -6148,18 +5477,14 @@ func (fc *FhirClient) ReadConditionDefinition(id string) (*r5.ConditionDefinitio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConditionDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadConditionDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ConditionDefinition if exists on server, else create new ConditionDefinition with given id, return ConditionDefinition or OperationOutcome error
@@ -6187,18 +5512,14 @@ func (fc *FhirClient) UpdateConditionDefinition(updateResource *r5.ConditionDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConditionDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateConditionDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ConditionDefinition or error OperationOutcome
@@ -6230,18 +5551,14 @@ func (fc *FhirClient) PatchConditionDefinition(patchResource *r5.ConditionDefini
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ConditionDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchConditionDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ConditionDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6267,18 +5584,14 @@ func (fc *FhirClient) DeleteConditionDefinitionById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteConditionDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Consent, return id of created Consent or OperationOutcome error
@@ -6300,18 +5613,14 @@ func (fc *FhirClient) CreateConsent(createResource *r5.Consent) (*r5.Consent, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Consent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateConsent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Consent from fhir server by id, return Consent or OperationOutcome error
@@ -6330,18 +5639,14 @@ func (fc *FhirClient) ReadConsent(id string) (*r5.Consent, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Consent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadConsent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Consent if exists on server, else create new Consent with given id, return Consent or OperationOutcome error
@@ -6369,18 +5674,14 @@ func (fc *FhirClient) UpdateConsent(updateResource *r5.Consent) (*r5.Consent, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Consent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateConsent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Consent or error OperationOutcome
@@ -6412,18 +5713,14 @@ func (fc *FhirClient) PatchConsent(patchResource *r5.Consent) (*r5.Consent, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Consent
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchConsent: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Consent and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6449,18 +5746,14 @@ func (fc *FhirClient) DeleteConsentById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteConsentById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Contract, return id of created Contract or OperationOutcome error
@@ -6482,18 +5775,14 @@ func (fc *FhirClient) CreateContract(createResource *r5.Contract) (*r5.Contract,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Contract
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateContract: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Contract from fhir server by id, return Contract or OperationOutcome error
@@ -6512,18 +5801,14 @@ func (fc *FhirClient) ReadContract(id string) (*r5.Contract, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Contract
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadContract: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Contract if exists on server, else create new Contract with given id, return Contract or OperationOutcome error
@@ -6551,18 +5836,14 @@ func (fc *FhirClient) UpdateContract(updateResource *r5.Contract) (*r5.Contract,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Contract
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateContract: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Contract or error OperationOutcome
@@ -6594,18 +5875,14 @@ func (fc *FhirClient) PatchContract(patchResource *r5.Contract) (*r5.Contract, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Contract
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchContract: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Contract and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6631,18 +5908,14 @@ func (fc *FhirClient) DeleteContractById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteContractById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Coverage, return id of created Coverage or OperationOutcome error
@@ -6664,18 +5937,14 @@ func (fc *FhirClient) CreateCoverage(createResource *r5.Coverage) (*r5.Coverage,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Coverage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCoverage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Coverage from fhir server by id, return Coverage or OperationOutcome error
@@ -6694,18 +5963,14 @@ func (fc *FhirClient) ReadCoverage(id string) (*r5.Coverage, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Coverage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCoverage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Coverage if exists on server, else create new Coverage with given id, return Coverage or OperationOutcome error
@@ -6733,18 +5998,14 @@ func (fc *FhirClient) UpdateCoverage(updateResource *r5.Coverage) (*r5.Coverage,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Coverage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCoverage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Coverage or error OperationOutcome
@@ -6776,18 +6037,14 @@ func (fc *FhirClient) PatchCoverage(patchResource *r5.Coverage) (*r5.Coverage, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Coverage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCoverage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Coverage and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6813,18 +6070,14 @@ func (fc *FhirClient) DeleteCoverageById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCoverageById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CoverageEligibilityRequest, return id of created CoverageEligibilityRequest or OperationOutcome error
@@ -6846,18 +6099,14 @@ func (fc *FhirClient) CreateCoverageEligibilityRequest(createResource *r5.Covera
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCoverageEligibilityRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CoverageEligibilityRequest from fhir server by id, return CoverageEligibilityRequest or OperationOutcome error
@@ -6876,18 +6125,14 @@ func (fc *FhirClient) ReadCoverageEligibilityRequest(id string) (*r5.CoverageEli
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCoverageEligibilityRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CoverageEligibilityRequest if exists on server, else create new CoverageEligibilityRequest with given id, return CoverageEligibilityRequest or OperationOutcome error
@@ -6915,18 +6160,14 @@ func (fc *FhirClient) UpdateCoverageEligibilityRequest(updateResource *r5.Covera
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCoverageEligibilityRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CoverageEligibilityRequest or error OperationOutcome
@@ -6958,18 +6199,14 @@ func (fc *FhirClient) PatchCoverageEligibilityRequest(patchResource *r5.Coverage
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCoverageEligibilityRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CoverageEligibilityRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -6995,18 +6232,14 @@ func (fc *FhirClient) DeleteCoverageEligibilityRequestById(id string) (*r5.Opera
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCoverageEligibilityRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create CoverageEligibilityResponse, return id of created CoverageEligibilityResponse or OperationOutcome error
@@ -7028,18 +6261,14 @@ func (fc *FhirClient) CreateCoverageEligibilityResponse(createResource *r5.Cover
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateCoverageEligibilityResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read CoverageEligibilityResponse from fhir server by id, return CoverageEligibilityResponse or OperationOutcome error
@@ -7058,18 +6287,14 @@ func (fc *FhirClient) ReadCoverageEligibilityResponse(id string) (*r5.CoverageEl
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadCoverageEligibilityResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace CoverageEligibilityResponse if exists on server, else create new CoverageEligibilityResponse with given id, return CoverageEligibilityResponse or OperationOutcome error
@@ -7097,18 +6322,14 @@ func (fc *FhirClient) UpdateCoverageEligibilityResponse(updateResource *r5.Cover
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateCoverageEligibilityResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return CoverageEligibilityResponse or error OperationOutcome
@@ -7140,18 +6361,14 @@ func (fc *FhirClient) PatchCoverageEligibilityResponse(patchResource *r5.Coverag
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.CoverageEligibilityResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchCoverageEligibilityResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete CoverageEligibilityResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -7177,18 +6394,14 @@ func (fc *FhirClient) DeleteCoverageEligibilityResponseById(id string) (*r5.Oper
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteCoverageEligibilityResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DetectedIssue, return id of created DetectedIssue or OperationOutcome error
@@ -7210,18 +6423,14 @@ func (fc *FhirClient) CreateDetectedIssue(createResource *r5.DetectedIssue) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DetectedIssue
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDetectedIssue: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DetectedIssue from fhir server by id, return DetectedIssue or OperationOutcome error
@@ -7240,18 +6449,14 @@ func (fc *FhirClient) ReadDetectedIssue(id string) (*r5.DetectedIssue, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DetectedIssue
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDetectedIssue: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DetectedIssue if exists on server, else create new DetectedIssue with given id, return DetectedIssue or OperationOutcome error
@@ -7279,18 +6484,14 @@ func (fc *FhirClient) UpdateDetectedIssue(updateResource *r5.DetectedIssue) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DetectedIssue
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDetectedIssue: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DetectedIssue or error OperationOutcome
@@ -7322,18 +6523,14 @@ func (fc *FhirClient) PatchDetectedIssue(patchResource *r5.DetectedIssue) (*r5.D
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DetectedIssue
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDetectedIssue: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DetectedIssue and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -7359,18 +6556,14 @@ func (fc *FhirClient) DeleteDetectedIssueById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDetectedIssueById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Device, return id of created Device or OperationOutcome error
@@ -7392,18 +6585,14 @@ func (fc *FhirClient) CreateDevice(createResource *r5.Device) (*r5.Device, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Device
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDevice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Device from fhir server by id, return Device or OperationOutcome error
@@ -7422,18 +6611,14 @@ func (fc *FhirClient) ReadDevice(id string) (*r5.Device, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Device
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDevice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Device if exists on server, else create new Device with given id, return Device or OperationOutcome error
@@ -7461,18 +6646,14 @@ func (fc *FhirClient) UpdateDevice(updateResource *r5.Device) (*r5.Device, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Device
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDevice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Device or error OperationOutcome
@@ -7504,18 +6685,14 @@ func (fc *FhirClient) PatchDevice(patchResource *r5.Device) (*r5.Device, error) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Device
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDevice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Device and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -7541,18 +6718,14 @@ func (fc *FhirClient) DeleteDeviceById(id string) (*r5.OperationOutcome, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceAssociation, return id of created DeviceAssociation or OperationOutcome error
@@ -7574,18 +6747,14 @@ func (fc *FhirClient) CreateDeviceAssociation(createResource *r5.DeviceAssociati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceAssociation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceAssociation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceAssociation from fhir server by id, return DeviceAssociation or OperationOutcome error
@@ -7604,18 +6773,14 @@ func (fc *FhirClient) ReadDeviceAssociation(id string) (*r5.DeviceAssociation, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceAssociation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceAssociation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceAssociation if exists on server, else create new DeviceAssociation with given id, return DeviceAssociation or OperationOutcome error
@@ -7643,18 +6808,14 @@ func (fc *FhirClient) UpdateDeviceAssociation(updateResource *r5.DeviceAssociati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceAssociation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceAssociation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceAssociation or error OperationOutcome
@@ -7686,18 +6847,14 @@ func (fc *FhirClient) PatchDeviceAssociation(patchResource *r5.DeviceAssociation
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceAssociation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceAssociation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceAssociation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -7723,18 +6880,14 @@ func (fc *FhirClient) DeleteDeviceAssociationById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceAssociationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceDefinition, return id of created DeviceDefinition or OperationOutcome error
@@ -7756,18 +6909,14 @@ func (fc *FhirClient) CreateDeviceDefinition(createResource *r5.DeviceDefinition
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceDefinition from fhir server by id, return DeviceDefinition or OperationOutcome error
@@ -7786,18 +6935,14 @@ func (fc *FhirClient) ReadDeviceDefinition(id string) (*r5.DeviceDefinition, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceDefinition if exists on server, else create new DeviceDefinition with given id, return DeviceDefinition or OperationOutcome error
@@ -7825,18 +6970,14 @@ func (fc *FhirClient) UpdateDeviceDefinition(updateResource *r5.DeviceDefinition
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceDefinition or error OperationOutcome
@@ -7868,18 +7009,14 @@ func (fc *FhirClient) PatchDeviceDefinition(patchResource *r5.DeviceDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -7905,18 +7042,14 @@ func (fc *FhirClient) DeleteDeviceDefinitionById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceDispense, return id of created DeviceDispense or OperationOutcome error
@@ -7938,18 +7071,14 @@ func (fc *FhirClient) CreateDeviceDispense(createResource *r5.DeviceDispense) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceDispense from fhir server by id, return DeviceDispense or OperationOutcome error
@@ -7968,18 +7097,14 @@ func (fc *FhirClient) ReadDeviceDispense(id string) (*r5.DeviceDispense, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceDispense if exists on server, else create new DeviceDispense with given id, return DeviceDispense or OperationOutcome error
@@ -8007,18 +7132,14 @@ func (fc *FhirClient) UpdateDeviceDispense(updateResource *r5.DeviceDispense) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceDispense or error OperationOutcome
@@ -8050,18 +7171,14 @@ func (fc *FhirClient) PatchDeviceDispense(patchResource *r5.DeviceDispense) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceDispense and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8087,18 +7204,14 @@ func (fc *FhirClient) DeleteDeviceDispenseById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceDispenseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceMetric, return id of created DeviceMetric or OperationOutcome error
@@ -8120,18 +7233,14 @@ func (fc *FhirClient) CreateDeviceMetric(createResource *r5.DeviceMetric) (*r5.D
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceMetric
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceMetric: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceMetric from fhir server by id, return DeviceMetric or OperationOutcome error
@@ -8150,18 +7259,14 @@ func (fc *FhirClient) ReadDeviceMetric(id string) (*r5.DeviceMetric, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceMetric
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceMetric: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceMetric if exists on server, else create new DeviceMetric with given id, return DeviceMetric or OperationOutcome error
@@ -8189,18 +7294,14 @@ func (fc *FhirClient) UpdateDeviceMetric(updateResource *r5.DeviceMetric) (*r5.D
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceMetric
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceMetric: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceMetric or error OperationOutcome
@@ -8232,18 +7333,14 @@ func (fc *FhirClient) PatchDeviceMetric(patchResource *r5.DeviceMetric) (*r5.Dev
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceMetric
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceMetric: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceMetric and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8269,18 +7366,14 @@ func (fc *FhirClient) DeleteDeviceMetricById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceMetricById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceRequest, return id of created DeviceRequest or OperationOutcome error
@@ -8302,18 +7395,14 @@ func (fc *FhirClient) CreateDeviceRequest(createResource *r5.DeviceRequest) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceRequest from fhir server by id, return DeviceRequest or OperationOutcome error
@@ -8332,18 +7421,14 @@ func (fc *FhirClient) ReadDeviceRequest(id string) (*r5.DeviceRequest, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceRequest if exists on server, else create new DeviceRequest with given id, return DeviceRequest or OperationOutcome error
@@ -8371,18 +7456,14 @@ func (fc *FhirClient) UpdateDeviceRequest(updateResource *r5.DeviceRequest) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceRequest or error OperationOutcome
@@ -8414,18 +7495,14 @@ func (fc *FhirClient) PatchDeviceRequest(patchResource *r5.DeviceRequest) (*r5.D
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8451,18 +7528,14 @@ func (fc *FhirClient) DeleteDeviceRequestById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DeviceUsage, return id of created DeviceUsage or OperationOutcome error
@@ -8484,18 +7557,14 @@ func (fc *FhirClient) CreateDeviceUsage(createResource *r5.DeviceUsage) (*r5.Dev
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceUsage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDeviceUsage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DeviceUsage from fhir server by id, return DeviceUsage or OperationOutcome error
@@ -8514,18 +7583,14 @@ func (fc *FhirClient) ReadDeviceUsage(id string) (*r5.DeviceUsage, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceUsage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDeviceUsage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DeviceUsage if exists on server, else create new DeviceUsage with given id, return DeviceUsage or OperationOutcome error
@@ -8553,18 +7618,14 @@ func (fc *FhirClient) UpdateDeviceUsage(updateResource *r5.DeviceUsage) (*r5.Dev
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceUsage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDeviceUsage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DeviceUsage or error OperationOutcome
@@ -8596,18 +7657,14 @@ func (fc *FhirClient) PatchDeviceUsage(patchResource *r5.DeviceUsage) (*r5.Devic
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DeviceUsage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDeviceUsage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DeviceUsage and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8633,18 +7690,14 @@ func (fc *FhirClient) DeleteDeviceUsageById(id string) (*r5.OperationOutcome, er
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDeviceUsageById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DiagnosticReport, return id of created DiagnosticReport or OperationOutcome error
@@ -8666,18 +7719,14 @@ func (fc *FhirClient) CreateDiagnosticReport(createResource *r5.DiagnosticReport
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DiagnosticReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDiagnosticReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DiagnosticReport from fhir server by id, return DiagnosticReport or OperationOutcome error
@@ -8696,18 +7745,14 @@ func (fc *FhirClient) ReadDiagnosticReport(id string) (*r5.DiagnosticReport, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DiagnosticReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDiagnosticReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DiagnosticReport if exists on server, else create new DiagnosticReport with given id, return DiagnosticReport or OperationOutcome error
@@ -8735,18 +7780,14 @@ func (fc *FhirClient) UpdateDiagnosticReport(updateResource *r5.DiagnosticReport
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DiagnosticReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDiagnosticReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DiagnosticReport or error OperationOutcome
@@ -8778,18 +7819,14 @@ func (fc *FhirClient) PatchDiagnosticReport(patchResource *r5.DiagnosticReport) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DiagnosticReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDiagnosticReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DiagnosticReport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8815,18 +7852,14 @@ func (fc *FhirClient) DeleteDiagnosticReportById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDiagnosticReportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create DocumentReference, return id of created DocumentReference or OperationOutcome error
@@ -8848,18 +7881,14 @@ func (fc *FhirClient) CreateDocumentReference(createResource *r5.DocumentReferen
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DocumentReference
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateDocumentReference: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read DocumentReference from fhir server by id, return DocumentReference or OperationOutcome error
@@ -8878,18 +7907,14 @@ func (fc *FhirClient) ReadDocumentReference(id string) (*r5.DocumentReference, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DocumentReference
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadDocumentReference: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace DocumentReference if exists on server, else create new DocumentReference with given id, return DocumentReference or OperationOutcome error
@@ -8917,18 +7942,14 @@ func (fc *FhirClient) UpdateDocumentReference(updateResource *r5.DocumentReferen
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DocumentReference
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateDocumentReference: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return DocumentReference or error OperationOutcome
@@ -8960,18 +7981,14 @@ func (fc *FhirClient) PatchDocumentReference(patchResource *r5.DocumentReference
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.DocumentReference
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchDocumentReference: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete DocumentReference and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -8997,18 +8014,14 @@ func (fc *FhirClient) DeleteDocumentReferenceById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteDocumentReferenceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Encounter, return id of created Encounter or OperationOutcome error
@@ -9030,18 +8043,14 @@ func (fc *FhirClient) CreateEncounter(createResource *r5.Encounter) (*r5.Encount
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Encounter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEncounter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Encounter from fhir server by id, return Encounter or OperationOutcome error
@@ -9060,18 +8069,14 @@ func (fc *FhirClient) ReadEncounter(id string) (*r5.Encounter, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Encounter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEncounter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Encounter if exists on server, else create new Encounter with given id, return Encounter or OperationOutcome error
@@ -9099,18 +8104,14 @@ func (fc *FhirClient) UpdateEncounter(updateResource *r5.Encounter) (*r5.Encount
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Encounter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEncounter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Encounter or error OperationOutcome
@@ -9142,18 +8143,14 @@ func (fc *FhirClient) PatchEncounter(patchResource *r5.Encounter) (*r5.Encounter
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Encounter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEncounter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Encounter and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -9179,18 +8176,14 @@ func (fc *FhirClient) DeleteEncounterById(id string) (*r5.OperationOutcome, erro
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEncounterById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EncounterHistory, return id of created EncounterHistory or OperationOutcome error
@@ -9212,18 +8205,14 @@ func (fc *FhirClient) CreateEncounterHistory(createResource *r5.EncounterHistory
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EncounterHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEncounterHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EncounterHistory from fhir server by id, return EncounterHistory or OperationOutcome error
@@ -9242,18 +8231,14 @@ func (fc *FhirClient) ReadEncounterHistory(id string) (*r5.EncounterHistory, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EncounterHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEncounterHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EncounterHistory if exists on server, else create new EncounterHistory with given id, return EncounterHistory or OperationOutcome error
@@ -9281,18 +8266,14 @@ func (fc *FhirClient) UpdateEncounterHistory(updateResource *r5.EncounterHistory
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EncounterHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEncounterHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EncounterHistory or error OperationOutcome
@@ -9324,18 +8305,14 @@ func (fc *FhirClient) PatchEncounterHistory(patchResource *r5.EncounterHistory) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EncounterHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEncounterHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EncounterHistory and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -9361,18 +8338,14 @@ func (fc *FhirClient) DeleteEncounterHistoryById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEncounterHistoryById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Endpoint, return id of created Endpoint or OperationOutcome error
@@ -9394,18 +8367,14 @@ func (fc *FhirClient) CreateEndpoint(createResource *r5.Endpoint) (*r5.Endpoint,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Endpoint
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEndpoint: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Endpoint from fhir server by id, return Endpoint or OperationOutcome error
@@ -9424,18 +8393,14 @@ func (fc *FhirClient) ReadEndpoint(id string) (*r5.Endpoint, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Endpoint
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEndpoint: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Endpoint if exists on server, else create new Endpoint with given id, return Endpoint or OperationOutcome error
@@ -9463,18 +8428,14 @@ func (fc *FhirClient) UpdateEndpoint(updateResource *r5.Endpoint) (*r5.Endpoint,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Endpoint
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEndpoint: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Endpoint or error OperationOutcome
@@ -9506,18 +8467,14 @@ func (fc *FhirClient) PatchEndpoint(patchResource *r5.Endpoint) (*r5.Endpoint, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Endpoint
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEndpoint: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Endpoint and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -9543,18 +8500,14 @@ func (fc *FhirClient) DeleteEndpointById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEndpointById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EnrollmentRequest, return id of created EnrollmentRequest or OperationOutcome error
@@ -9576,18 +8529,14 @@ func (fc *FhirClient) CreateEnrollmentRequest(createResource *r5.EnrollmentReque
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEnrollmentRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EnrollmentRequest from fhir server by id, return EnrollmentRequest or OperationOutcome error
@@ -9606,18 +8555,14 @@ func (fc *FhirClient) ReadEnrollmentRequest(id string) (*r5.EnrollmentRequest, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEnrollmentRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EnrollmentRequest if exists on server, else create new EnrollmentRequest with given id, return EnrollmentRequest or OperationOutcome error
@@ -9645,18 +8590,14 @@ func (fc *FhirClient) UpdateEnrollmentRequest(updateResource *r5.EnrollmentReque
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEnrollmentRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EnrollmentRequest or error OperationOutcome
@@ -9688,18 +8629,14 @@ func (fc *FhirClient) PatchEnrollmentRequest(patchResource *r5.EnrollmentRequest
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEnrollmentRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EnrollmentRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -9725,18 +8662,14 @@ func (fc *FhirClient) DeleteEnrollmentRequestById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEnrollmentRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EnrollmentResponse, return id of created EnrollmentResponse or OperationOutcome error
@@ -9758,18 +8691,14 @@ func (fc *FhirClient) CreateEnrollmentResponse(createResource *r5.EnrollmentResp
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEnrollmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EnrollmentResponse from fhir server by id, return EnrollmentResponse or OperationOutcome error
@@ -9788,18 +8717,14 @@ func (fc *FhirClient) ReadEnrollmentResponse(id string) (*r5.EnrollmentResponse,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEnrollmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EnrollmentResponse if exists on server, else create new EnrollmentResponse with given id, return EnrollmentResponse or OperationOutcome error
@@ -9827,18 +8752,14 @@ func (fc *FhirClient) UpdateEnrollmentResponse(updateResource *r5.EnrollmentResp
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEnrollmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EnrollmentResponse or error OperationOutcome
@@ -9870,18 +8791,14 @@ func (fc *FhirClient) PatchEnrollmentResponse(patchResource *r5.EnrollmentRespon
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EnrollmentResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEnrollmentResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EnrollmentResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -9907,18 +8824,14 @@ func (fc *FhirClient) DeleteEnrollmentResponseById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEnrollmentResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EpisodeOfCare, return id of created EpisodeOfCare or OperationOutcome error
@@ -9940,18 +8853,14 @@ func (fc *FhirClient) CreateEpisodeOfCare(createResource *r5.EpisodeOfCare) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EpisodeOfCare
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEpisodeOfCare: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EpisodeOfCare from fhir server by id, return EpisodeOfCare or OperationOutcome error
@@ -9970,18 +8879,14 @@ func (fc *FhirClient) ReadEpisodeOfCare(id string) (*r5.EpisodeOfCare, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EpisodeOfCare
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEpisodeOfCare: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EpisodeOfCare if exists on server, else create new EpisodeOfCare with given id, return EpisodeOfCare or OperationOutcome error
@@ -10009,18 +8914,14 @@ func (fc *FhirClient) UpdateEpisodeOfCare(updateResource *r5.EpisodeOfCare) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EpisodeOfCare
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEpisodeOfCare: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EpisodeOfCare or error OperationOutcome
@@ -10052,18 +8953,14 @@ func (fc *FhirClient) PatchEpisodeOfCare(patchResource *r5.EpisodeOfCare) (*r5.E
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EpisodeOfCare
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEpisodeOfCare: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EpisodeOfCare and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10089,18 +8986,14 @@ func (fc *FhirClient) DeleteEpisodeOfCareById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEpisodeOfCareById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EventDefinition, return id of created EventDefinition or OperationOutcome error
@@ -10122,18 +9015,14 @@ func (fc *FhirClient) CreateEventDefinition(createResource *r5.EventDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EventDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEventDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EventDefinition from fhir server by id, return EventDefinition or OperationOutcome error
@@ -10152,18 +9041,14 @@ func (fc *FhirClient) ReadEventDefinition(id string) (*r5.EventDefinition, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EventDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEventDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EventDefinition if exists on server, else create new EventDefinition with given id, return EventDefinition or OperationOutcome error
@@ -10191,18 +9076,14 @@ func (fc *FhirClient) UpdateEventDefinition(updateResource *r5.EventDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EventDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEventDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EventDefinition or error OperationOutcome
@@ -10234,18 +9115,14 @@ func (fc *FhirClient) PatchEventDefinition(patchResource *r5.EventDefinition) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EventDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEventDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EventDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10271,18 +9148,14 @@ func (fc *FhirClient) DeleteEventDefinitionById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEventDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Evidence, return id of created Evidence or OperationOutcome error
@@ -10304,18 +9177,14 @@ func (fc *FhirClient) CreateEvidence(createResource *r5.Evidence) (*r5.Evidence,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Evidence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEvidence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Evidence from fhir server by id, return Evidence or OperationOutcome error
@@ -10334,18 +9203,14 @@ func (fc *FhirClient) ReadEvidence(id string) (*r5.Evidence, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Evidence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEvidence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Evidence if exists on server, else create new Evidence with given id, return Evidence or OperationOutcome error
@@ -10373,18 +9238,14 @@ func (fc *FhirClient) UpdateEvidence(updateResource *r5.Evidence) (*r5.Evidence,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Evidence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEvidence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Evidence or error OperationOutcome
@@ -10416,18 +9277,14 @@ func (fc *FhirClient) PatchEvidence(patchResource *r5.Evidence) (*r5.Evidence, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Evidence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEvidence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Evidence and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10453,18 +9310,14 @@ func (fc *FhirClient) DeleteEvidenceById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEvidenceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EvidenceReport, return id of created EvidenceReport or OperationOutcome error
@@ -10486,18 +9339,14 @@ func (fc *FhirClient) CreateEvidenceReport(createResource *r5.EvidenceReport) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEvidenceReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EvidenceReport from fhir server by id, return EvidenceReport or OperationOutcome error
@@ -10516,18 +9365,14 @@ func (fc *FhirClient) ReadEvidenceReport(id string) (*r5.EvidenceReport, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEvidenceReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EvidenceReport if exists on server, else create new EvidenceReport with given id, return EvidenceReport or OperationOutcome error
@@ -10555,18 +9400,14 @@ func (fc *FhirClient) UpdateEvidenceReport(updateResource *r5.EvidenceReport) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEvidenceReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EvidenceReport or error OperationOutcome
@@ -10598,18 +9439,14 @@ func (fc *FhirClient) PatchEvidenceReport(patchResource *r5.EvidenceReport) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEvidenceReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EvidenceReport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10635,18 +9472,14 @@ func (fc *FhirClient) DeleteEvidenceReportById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEvidenceReportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create EvidenceVariable, return id of created EvidenceVariable or OperationOutcome error
@@ -10668,18 +9501,14 @@ func (fc *FhirClient) CreateEvidenceVariable(createResource *r5.EvidenceVariable
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceVariable
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateEvidenceVariable: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read EvidenceVariable from fhir server by id, return EvidenceVariable or OperationOutcome error
@@ -10698,18 +9527,14 @@ func (fc *FhirClient) ReadEvidenceVariable(id string) (*r5.EvidenceVariable, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceVariable
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadEvidenceVariable: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace EvidenceVariable if exists on server, else create new EvidenceVariable with given id, return EvidenceVariable or OperationOutcome error
@@ -10737,18 +9562,14 @@ func (fc *FhirClient) UpdateEvidenceVariable(updateResource *r5.EvidenceVariable
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceVariable
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateEvidenceVariable: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return EvidenceVariable or error OperationOutcome
@@ -10780,18 +9601,14 @@ func (fc *FhirClient) PatchEvidenceVariable(patchResource *r5.EvidenceVariable) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.EvidenceVariable
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchEvidenceVariable: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete EvidenceVariable and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10817,18 +9634,14 @@ func (fc *FhirClient) DeleteEvidenceVariableById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteEvidenceVariableById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ExampleScenario, return id of created ExampleScenario or OperationOutcome error
@@ -10850,18 +9663,14 @@ func (fc *FhirClient) CreateExampleScenario(createResource *r5.ExampleScenario) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExampleScenario
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateExampleScenario: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ExampleScenario from fhir server by id, return ExampleScenario or OperationOutcome error
@@ -10880,18 +9689,14 @@ func (fc *FhirClient) ReadExampleScenario(id string) (*r5.ExampleScenario, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExampleScenario
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadExampleScenario: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ExampleScenario if exists on server, else create new ExampleScenario with given id, return ExampleScenario or OperationOutcome error
@@ -10919,18 +9724,14 @@ func (fc *FhirClient) UpdateExampleScenario(updateResource *r5.ExampleScenario) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExampleScenario
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateExampleScenario: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ExampleScenario or error OperationOutcome
@@ -10962,18 +9763,14 @@ func (fc *FhirClient) PatchExampleScenario(patchResource *r5.ExampleScenario) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExampleScenario
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchExampleScenario: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ExampleScenario and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -10999,18 +9796,14 @@ func (fc *FhirClient) DeleteExampleScenarioById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteExampleScenarioById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ExplanationOfBenefit, return id of created ExplanationOfBenefit or OperationOutcome error
@@ -11032,18 +9825,14 @@ func (fc *FhirClient) CreateExplanationOfBenefit(createResource *r5.ExplanationO
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExplanationOfBenefit
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateExplanationOfBenefit: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ExplanationOfBenefit from fhir server by id, return ExplanationOfBenefit or OperationOutcome error
@@ -11062,18 +9851,14 @@ func (fc *FhirClient) ReadExplanationOfBenefit(id string) (*r5.ExplanationOfBene
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExplanationOfBenefit
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadExplanationOfBenefit: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ExplanationOfBenefit if exists on server, else create new ExplanationOfBenefit with given id, return ExplanationOfBenefit or OperationOutcome error
@@ -11101,18 +9886,14 @@ func (fc *FhirClient) UpdateExplanationOfBenefit(updateResource *r5.ExplanationO
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExplanationOfBenefit
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateExplanationOfBenefit: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ExplanationOfBenefit or error OperationOutcome
@@ -11144,18 +9925,14 @@ func (fc *FhirClient) PatchExplanationOfBenefit(patchResource *r5.ExplanationOfB
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ExplanationOfBenefit
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchExplanationOfBenefit: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ExplanationOfBenefit and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -11181,18 +9958,14 @@ func (fc *FhirClient) DeleteExplanationOfBenefitById(id string) (*r5.OperationOu
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteExplanationOfBenefitById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create FamilyMemberHistory, return id of created FamilyMemberHistory or OperationOutcome error
@@ -11214,18 +9987,14 @@ func (fc *FhirClient) CreateFamilyMemberHistory(createResource *r5.FamilyMemberH
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FamilyMemberHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateFamilyMemberHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read FamilyMemberHistory from fhir server by id, return FamilyMemberHistory or OperationOutcome error
@@ -11244,18 +10013,14 @@ func (fc *FhirClient) ReadFamilyMemberHistory(id string) (*r5.FamilyMemberHistor
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FamilyMemberHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadFamilyMemberHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace FamilyMemberHistory if exists on server, else create new FamilyMemberHistory with given id, return FamilyMemberHistory or OperationOutcome error
@@ -11283,18 +10048,14 @@ func (fc *FhirClient) UpdateFamilyMemberHistory(updateResource *r5.FamilyMemberH
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FamilyMemberHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateFamilyMemberHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return FamilyMemberHistory or error OperationOutcome
@@ -11326,18 +10087,14 @@ func (fc *FhirClient) PatchFamilyMemberHistory(patchResource *r5.FamilyMemberHis
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FamilyMemberHistory
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchFamilyMemberHistory: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete FamilyMemberHistory and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -11363,18 +10120,14 @@ func (fc *FhirClient) DeleteFamilyMemberHistoryById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteFamilyMemberHistoryById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Flag, return id of created Flag or OperationOutcome error
@@ -11396,18 +10149,14 @@ func (fc *FhirClient) CreateFlag(createResource *r5.Flag) (*r5.Flag, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Flag
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateFlag: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Flag from fhir server by id, return Flag or OperationOutcome error
@@ -11426,18 +10175,14 @@ func (fc *FhirClient) ReadFlag(id string) (*r5.Flag, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Flag
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadFlag: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Flag if exists on server, else create new Flag with given id, return Flag or OperationOutcome error
@@ -11465,18 +10210,14 @@ func (fc *FhirClient) UpdateFlag(updateResource *r5.Flag) (*r5.Flag, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Flag
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateFlag: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Flag or error OperationOutcome
@@ -11508,18 +10249,14 @@ func (fc *FhirClient) PatchFlag(patchResource *r5.Flag) (*r5.Flag, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Flag
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchFlag: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Flag and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -11545,18 +10282,14 @@ func (fc *FhirClient) DeleteFlagById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteFlagById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create FormularyItem, return id of created FormularyItem or OperationOutcome error
@@ -11578,18 +10311,14 @@ func (fc *FhirClient) CreateFormularyItem(createResource *r5.FormularyItem) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FormularyItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateFormularyItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read FormularyItem from fhir server by id, return FormularyItem or OperationOutcome error
@@ -11608,18 +10337,14 @@ func (fc *FhirClient) ReadFormularyItem(id string) (*r5.FormularyItem, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FormularyItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadFormularyItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace FormularyItem if exists on server, else create new FormularyItem with given id, return FormularyItem or OperationOutcome error
@@ -11647,18 +10372,14 @@ func (fc *FhirClient) UpdateFormularyItem(updateResource *r5.FormularyItem) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FormularyItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateFormularyItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return FormularyItem or error OperationOutcome
@@ -11690,18 +10411,14 @@ func (fc *FhirClient) PatchFormularyItem(patchResource *r5.FormularyItem) (*r5.F
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.FormularyItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchFormularyItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete FormularyItem and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -11727,18 +10444,14 @@ func (fc *FhirClient) DeleteFormularyItemById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteFormularyItemById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create GenomicStudy, return id of created GenomicStudy or OperationOutcome error
@@ -11760,18 +10473,14 @@ func (fc *FhirClient) CreateGenomicStudy(createResource *r5.GenomicStudy) (*r5.G
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GenomicStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateGenomicStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read GenomicStudy from fhir server by id, return GenomicStudy or OperationOutcome error
@@ -11790,18 +10499,14 @@ func (fc *FhirClient) ReadGenomicStudy(id string) (*r5.GenomicStudy, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GenomicStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadGenomicStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace GenomicStudy if exists on server, else create new GenomicStudy with given id, return GenomicStudy or OperationOutcome error
@@ -11829,18 +10534,14 @@ func (fc *FhirClient) UpdateGenomicStudy(updateResource *r5.GenomicStudy) (*r5.G
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GenomicStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateGenomicStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return GenomicStudy or error OperationOutcome
@@ -11872,18 +10573,14 @@ func (fc *FhirClient) PatchGenomicStudy(patchResource *r5.GenomicStudy) (*r5.Gen
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GenomicStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchGenomicStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete GenomicStudy and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -11909,18 +10606,14 @@ func (fc *FhirClient) DeleteGenomicStudyById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteGenomicStudyById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Goal, return id of created Goal or OperationOutcome error
@@ -11942,18 +10635,14 @@ func (fc *FhirClient) CreateGoal(createResource *r5.Goal) (*r5.Goal, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Goal
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateGoal: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Goal from fhir server by id, return Goal or OperationOutcome error
@@ -11972,18 +10661,14 @@ func (fc *FhirClient) ReadGoal(id string) (*r5.Goal, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Goal
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadGoal: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Goal if exists on server, else create new Goal with given id, return Goal or OperationOutcome error
@@ -12011,18 +10696,14 @@ func (fc *FhirClient) UpdateGoal(updateResource *r5.Goal) (*r5.Goal, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Goal
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateGoal: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Goal or error OperationOutcome
@@ -12054,18 +10735,14 @@ func (fc *FhirClient) PatchGoal(patchResource *r5.Goal) (*r5.Goal, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Goal
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchGoal: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Goal and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -12091,18 +10768,14 @@ func (fc *FhirClient) DeleteGoalById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteGoalById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create GraphDefinition, return id of created GraphDefinition or OperationOutcome error
@@ -12124,18 +10797,14 @@ func (fc *FhirClient) CreateGraphDefinition(createResource *r5.GraphDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GraphDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateGraphDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read GraphDefinition from fhir server by id, return GraphDefinition or OperationOutcome error
@@ -12154,18 +10823,14 @@ func (fc *FhirClient) ReadGraphDefinition(id string) (*r5.GraphDefinition, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GraphDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadGraphDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace GraphDefinition if exists on server, else create new GraphDefinition with given id, return GraphDefinition or OperationOutcome error
@@ -12193,18 +10858,14 @@ func (fc *FhirClient) UpdateGraphDefinition(updateResource *r5.GraphDefinition) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GraphDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateGraphDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return GraphDefinition or error OperationOutcome
@@ -12236,18 +10897,14 @@ func (fc *FhirClient) PatchGraphDefinition(patchResource *r5.GraphDefinition) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GraphDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchGraphDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete GraphDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -12273,18 +10930,14 @@ func (fc *FhirClient) DeleteGraphDefinitionById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteGraphDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Group, return id of created Group or OperationOutcome error
@@ -12306,18 +10959,14 @@ func (fc *FhirClient) CreateGroup(createResource *r5.Group) (*r5.Group, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Group
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateGroup: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Group from fhir server by id, return Group or OperationOutcome error
@@ -12336,18 +10985,14 @@ func (fc *FhirClient) ReadGroup(id string) (*r5.Group, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Group
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadGroup: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Group if exists on server, else create new Group with given id, return Group or OperationOutcome error
@@ -12375,18 +11020,14 @@ func (fc *FhirClient) UpdateGroup(updateResource *r5.Group) (*r5.Group, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Group
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateGroup: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Group or error OperationOutcome
@@ -12418,18 +11059,14 @@ func (fc *FhirClient) PatchGroup(patchResource *r5.Group) (*r5.Group, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Group
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchGroup: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Group and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -12455,18 +11092,14 @@ func (fc *FhirClient) DeleteGroupById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteGroupById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create GuidanceResponse, return id of created GuidanceResponse or OperationOutcome error
@@ -12488,18 +11121,14 @@ func (fc *FhirClient) CreateGuidanceResponse(createResource *r5.GuidanceResponse
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GuidanceResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateGuidanceResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read GuidanceResponse from fhir server by id, return GuidanceResponse or OperationOutcome error
@@ -12518,18 +11147,14 @@ func (fc *FhirClient) ReadGuidanceResponse(id string) (*r5.GuidanceResponse, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GuidanceResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadGuidanceResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace GuidanceResponse if exists on server, else create new GuidanceResponse with given id, return GuidanceResponse or OperationOutcome error
@@ -12557,18 +11182,14 @@ func (fc *FhirClient) UpdateGuidanceResponse(updateResource *r5.GuidanceResponse
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GuidanceResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateGuidanceResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return GuidanceResponse or error OperationOutcome
@@ -12600,18 +11221,14 @@ func (fc *FhirClient) PatchGuidanceResponse(patchResource *r5.GuidanceResponse) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.GuidanceResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchGuidanceResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete GuidanceResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -12637,18 +11254,14 @@ func (fc *FhirClient) DeleteGuidanceResponseById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteGuidanceResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create HealthcareService, return id of created HealthcareService or OperationOutcome error
@@ -12670,18 +11283,14 @@ func (fc *FhirClient) CreateHealthcareService(createResource *r5.HealthcareServi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.HealthcareService
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateHealthcareService: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read HealthcareService from fhir server by id, return HealthcareService or OperationOutcome error
@@ -12700,18 +11309,14 @@ func (fc *FhirClient) ReadHealthcareService(id string) (*r5.HealthcareService, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.HealthcareService
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadHealthcareService: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace HealthcareService if exists on server, else create new HealthcareService with given id, return HealthcareService or OperationOutcome error
@@ -12739,18 +11344,14 @@ func (fc *FhirClient) UpdateHealthcareService(updateResource *r5.HealthcareServi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.HealthcareService
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateHealthcareService: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return HealthcareService or error OperationOutcome
@@ -12782,18 +11383,14 @@ func (fc *FhirClient) PatchHealthcareService(patchResource *r5.HealthcareService
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.HealthcareService
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchHealthcareService: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete HealthcareService and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -12819,18 +11416,14 @@ func (fc *FhirClient) DeleteHealthcareServiceById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteHealthcareServiceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ImagingSelection, return id of created ImagingSelection or OperationOutcome error
@@ -12852,18 +11445,14 @@ func (fc *FhirClient) CreateImagingSelection(createResource *r5.ImagingSelection
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingSelection
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImagingSelection: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ImagingSelection from fhir server by id, return ImagingSelection or OperationOutcome error
@@ -12882,18 +11471,14 @@ func (fc *FhirClient) ReadImagingSelection(id string) (*r5.ImagingSelection, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingSelection
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImagingSelection: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ImagingSelection if exists on server, else create new ImagingSelection with given id, return ImagingSelection or OperationOutcome error
@@ -12921,18 +11506,14 @@ func (fc *FhirClient) UpdateImagingSelection(updateResource *r5.ImagingSelection
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingSelection
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImagingSelection: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ImagingSelection or error OperationOutcome
@@ -12964,18 +11545,14 @@ func (fc *FhirClient) PatchImagingSelection(patchResource *r5.ImagingSelection) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingSelection
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImagingSelection: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ImagingSelection and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13001,18 +11578,14 @@ func (fc *FhirClient) DeleteImagingSelectionById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImagingSelectionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ImagingStudy, return id of created ImagingStudy or OperationOutcome error
@@ -13034,18 +11607,14 @@ func (fc *FhirClient) CreateImagingStudy(createResource *r5.ImagingStudy) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImagingStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ImagingStudy from fhir server by id, return ImagingStudy or OperationOutcome error
@@ -13064,18 +11633,14 @@ func (fc *FhirClient) ReadImagingStudy(id string) (*r5.ImagingStudy, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImagingStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ImagingStudy if exists on server, else create new ImagingStudy with given id, return ImagingStudy or OperationOutcome error
@@ -13103,18 +11668,14 @@ func (fc *FhirClient) UpdateImagingStudy(updateResource *r5.ImagingStudy) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImagingStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ImagingStudy or error OperationOutcome
@@ -13146,18 +11707,14 @@ func (fc *FhirClient) PatchImagingStudy(patchResource *r5.ImagingStudy) (*r5.Ima
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImagingStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImagingStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ImagingStudy and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13183,18 +11740,14 @@ func (fc *FhirClient) DeleteImagingStudyById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImagingStudyById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Immunization, return id of created Immunization or OperationOutcome error
@@ -13216,18 +11769,14 @@ func (fc *FhirClient) CreateImmunization(createResource *r5.Immunization) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Immunization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImmunization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Immunization from fhir server by id, return Immunization or OperationOutcome error
@@ -13246,18 +11795,14 @@ func (fc *FhirClient) ReadImmunization(id string) (*r5.Immunization, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Immunization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImmunization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Immunization if exists on server, else create new Immunization with given id, return Immunization or OperationOutcome error
@@ -13285,18 +11830,14 @@ func (fc *FhirClient) UpdateImmunization(updateResource *r5.Immunization) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Immunization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImmunization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Immunization or error OperationOutcome
@@ -13328,18 +11869,14 @@ func (fc *FhirClient) PatchImmunization(patchResource *r5.Immunization) (*r5.Imm
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Immunization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImmunization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Immunization and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13365,18 +11902,14 @@ func (fc *FhirClient) DeleteImmunizationById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImmunizationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ImmunizationEvaluation, return id of created ImmunizationEvaluation or OperationOutcome error
@@ -13398,18 +11931,14 @@ func (fc *FhirClient) CreateImmunizationEvaluation(createResource *r5.Immunizati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationEvaluation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImmunizationEvaluation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ImmunizationEvaluation from fhir server by id, return ImmunizationEvaluation or OperationOutcome error
@@ -13428,18 +11957,14 @@ func (fc *FhirClient) ReadImmunizationEvaluation(id string) (*r5.ImmunizationEva
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationEvaluation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImmunizationEvaluation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ImmunizationEvaluation if exists on server, else create new ImmunizationEvaluation with given id, return ImmunizationEvaluation or OperationOutcome error
@@ -13467,18 +11992,14 @@ func (fc *FhirClient) UpdateImmunizationEvaluation(updateResource *r5.Immunizati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationEvaluation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImmunizationEvaluation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ImmunizationEvaluation or error OperationOutcome
@@ -13510,18 +12031,14 @@ func (fc *FhirClient) PatchImmunizationEvaluation(patchResource *r5.Immunization
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationEvaluation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImmunizationEvaluation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ImmunizationEvaluation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13547,18 +12064,14 @@ func (fc *FhirClient) DeleteImmunizationEvaluationById(id string) (*r5.Operation
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImmunizationEvaluationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ImmunizationRecommendation, return id of created ImmunizationRecommendation or OperationOutcome error
@@ -13580,18 +12093,14 @@ func (fc *FhirClient) CreateImmunizationRecommendation(createResource *r5.Immuni
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationRecommendation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImmunizationRecommendation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ImmunizationRecommendation from fhir server by id, return ImmunizationRecommendation or OperationOutcome error
@@ -13610,18 +12119,14 @@ func (fc *FhirClient) ReadImmunizationRecommendation(id string) (*r5.Immunizatio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationRecommendation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImmunizationRecommendation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ImmunizationRecommendation if exists on server, else create new ImmunizationRecommendation with given id, return ImmunizationRecommendation or OperationOutcome error
@@ -13649,18 +12154,14 @@ func (fc *FhirClient) UpdateImmunizationRecommendation(updateResource *r5.Immuni
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationRecommendation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImmunizationRecommendation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ImmunizationRecommendation or error OperationOutcome
@@ -13692,18 +12193,14 @@ func (fc *FhirClient) PatchImmunizationRecommendation(patchResource *r5.Immuniza
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImmunizationRecommendation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImmunizationRecommendation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ImmunizationRecommendation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13729,18 +12226,14 @@ func (fc *FhirClient) DeleteImmunizationRecommendationById(id string) (*r5.Opera
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImmunizationRecommendationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ImplementationGuide, return id of created ImplementationGuide or OperationOutcome error
@@ -13762,18 +12255,14 @@ func (fc *FhirClient) CreateImplementationGuide(createResource *r5.Implementatio
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImplementationGuide
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateImplementationGuide: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ImplementationGuide from fhir server by id, return ImplementationGuide or OperationOutcome error
@@ -13792,18 +12281,14 @@ func (fc *FhirClient) ReadImplementationGuide(id string) (*r5.ImplementationGuid
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImplementationGuide
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadImplementationGuide: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ImplementationGuide if exists on server, else create new ImplementationGuide with given id, return ImplementationGuide or OperationOutcome error
@@ -13831,18 +12316,14 @@ func (fc *FhirClient) UpdateImplementationGuide(updateResource *r5.Implementatio
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImplementationGuide
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateImplementationGuide: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ImplementationGuide or error OperationOutcome
@@ -13874,18 +12355,14 @@ func (fc *FhirClient) PatchImplementationGuide(patchResource *r5.ImplementationG
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ImplementationGuide
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchImplementationGuide: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ImplementationGuide and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -13911,18 +12388,14 @@ func (fc *FhirClient) DeleteImplementationGuideById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteImplementationGuideById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Ingredient, return id of created Ingredient or OperationOutcome error
@@ -13944,18 +12417,14 @@ func (fc *FhirClient) CreateIngredient(createResource *r5.Ingredient) (*r5.Ingre
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Ingredient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateIngredient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Ingredient from fhir server by id, return Ingredient or OperationOutcome error
@@ -13974,18 +12443,14 @@ func (fc *FhirClient) ReadIngredient(id string) (*r5.Ingredient, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Ingredient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadIngredient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Ingredient if exists on server, else create new Ingredient with given id, return Ingredient or OperationOutcome error
@@ -14013,18 +12478,14 @@ func (fc *FhirClient) UpdateIngredient(updateResource *r5.Ingredient) (*r5.Ingre
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Ingredient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateIngredient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Ingredient or error OperationOutcome
@@ -14056,18 +12517,14 @@ func (fc *FhirClient) PatchIngredient(patchResource *r5.Ingredient) (*r5.Ingredi
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Ingredient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchIngredient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Ingredient and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -14093,18 +12550,14 @@ func (fc *FhirClient) DeleteIngredientById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteIngredientById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create InsurancePlan, return id of created InsurancePlan or OperationOutcome error
@@ -14126,18 +12579,14 @@ func (fc *FhirClient) CreateInsurancePlan(createResource *r5.InsurancePlan) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InsurancePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateInsurancePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read InsurancePlan from fhir server by id, return InsurancePlan or OperationOutcome error
@@ -14156,18 +12605,14 @@ func (fc *FhirClient) ReadInsurancePlan(id string) (*r5.InsurancePlan, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InsurancePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadInsurancePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace InsurancePlan if exists on server, else create new InsurancePlan with given id, return InsurancePlan or OperationOutcome error
@@ -14195,18 +12640,14 @@ func (fc *FhirClient) UpdateInsurancePlan(updateResource *r5.InsurancePlan) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InsurancePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateInsurancePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return InsurancePlan or error OperationOutcome
@@ -14238,18 +12679,14 @@ func (fc *FhirClient) PatchInsurancePlan(patchResource *r5.InsurancePlan) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InsurancePlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchInsurancePlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete InsurancePlan and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -14275,18 +12712,14 @@ func (fc *FhirClient) DeleteInsurancePlanById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteInsurancePlanById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create InventoryItem, return id of created InventoryItem or OperationOutcome error
@@ -14308,18 +12741,14 @@ func (fc *FhirClient) CreateInventoryItem(createResource *r5.InventoryItem) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateInventoryItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read InventoryItem from fhir server by id, return InventoryItem or OperationOutcome error
@@ -14338,18 +12767,14 @@ func (fc *FhirClient) ReadInventoryItem(id string) (*r5.InventoryItem, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadInventoryItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace InventoryItem if exists on server, else create new InventoryItem with given id, return InventoryItem or OperationOutcome error
@@ -14377,18 +12802,14 @@ func (fc *FhirClient) UpdateInventoryItem(updateResource *r5.InventoryItem) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateInventoryItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return InventoryItem or error OperationOutcome
@@ -14420,18 +12841,14 @@ func (fc *FhirClient) PatchInventoryItem(patchResource *r5.InventoryItem) (*r5.I
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryItem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchInventoryItem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete InventoryItem and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -14457,18 +12874,14 @@ func (fc *FhirClient) DeleteInventoryItemById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteInventoryItemById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create InventoryReport, return id of created InventoryReport or OperationOutcome error
@@ -14490,18 +12903,14 @@ func (fc *FhirClient) CreateInventoryReport(createResource *r5.InventoryReport) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateInventoryReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read InventoryReport from fhir server by id, return InventoryReport or OperationOutcome error
@@ -14520,18 +12929,14 @@ func (fc *FhirClient) ReadInventoryReport(id string) (*r5.InventoryReport, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadInventoryReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace InventoryReport if exists on server, else create new InventoryReport with given id, return InventoryReport or OperationOutcome error
@@ -14559,18 +12964,14 @@ func (fc *FhirClient) UpdateInventoryReport(updateResource *r5.InventoryReport) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateInventoryReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return InventoryReport or error OperationOutcome
@@ -14602,18 +13003,14 @@ func (fc *FhirClient) PatchInventoryReport(patchResource *r5.InventoryReport) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.InventoryReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchInventoryReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete InventoryReport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -14639,18 +13036,14 @@ func (fc *FhirClient) DeleteInventoryReportById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteInventoryReportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Invoice, return id of created Invoice or OperationOutcome error
@@ -14672,18 +13065,14 @@ func (fc *FhirClient) CreateInvoice(createResource *r5.Invoice) (*r5.Invoice, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Invoice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateInvoice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Invoice from fhir server by id, return Invoice or OperationOutcome error
@@ -14702,18 +13091,14 @@ func (fc *FhirClient) ReadInvoice(id string) (*r5.Invoice, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Invoice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadInvoice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Invoice if exists on server, else create new Invoice with given id, return Invoice or OperationOutcome error
@@ -14741,18 +13126,14 @@ func (fc *FhirClient) UpdateInvoice(updateResource *r5.Invoice) (*r5.Invoice, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Invoice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateInvoice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Invoice or error OperationOutcome
@@ -14784,18 +13165,14 @@ func (fc *FhirClient) PatchInvoice(patchResource *r5.Invoice) (*r5.Invoice, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Invoice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchInvoice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Invoice and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -14821,18 +13198,14 @@ func (fc *FhirClient) DeleteInvoiceById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteInvoiceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Library, return id of created Library or OperationOutcome error
@@ -14854,18 +13227,14 @@ func (fc *FhirClient) CreateLibrary(createResource *r5.Library) (*r5.Library, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Library
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateLibrary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Library from fhir server by id, return Library or OperationOutcome error
@@ -14884,18 +13253,14 @@ func (fc *FhirClient) ReadLibrary(id string) (*r5.Library, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Library
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadLibrary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Library if exists on server, else create new Library with given id, return Library or OperationOutcome error
@@ -14923,18 +13288,14 @@ func (fc *FhirClient) UpdateLibrary(updateResource *r5.Library) (*r5.Library, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Library
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateLibrary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Library or error OperationOutcome
@@ -14966,18 +13327,14 @@ func (fc *FhirClient) PatchLibrary(patchResource *r5.Library) (*r5.Library, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Library
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchLibrary: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Library and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15003,18 +13360,14 @@ func (fc *FhirClient) DeleteLibraryById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteLibraryById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Linkage, return id of created Linkage or OperationOutcome error
@@ -15036,18 +13389,14 @@ func (fc *FhirClient) CreateLinkage(createResource *r5.Linkage) (*r5.Linkage, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Linkage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateLinkage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Linkage from fhir server by id, return Linkage or OperationOutcome error
@@ -15066,18 +13415,14 @@ func (fc *FhirClient) ReadLinkage(id string) (*r5.Linkage, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Linkage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadLinkage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Linkage if exists on server, else create new Linkage with given id, return Linkage or OperationOutcome error
@@ -15105,18 +13450,14 @@ func (fc *FhirClient) UpdateLinkage(updateResource *r5.Linkage) (*r5.Linkage, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Linkage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateLinkage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Linkage or error OperationOutcome
@@ -15148,18 +13489,14 @@ func (fc *FhirClient) PatchLinkage(patchResource *r5.Linkage) (*r5.Linkage, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Linkage
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchLinkage: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Linkage and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15185,18 +13522,14 @@ func (fc *FhirClient) DeleteLinkageById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteLinkageById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create List, return id of created List or OperationOutcome error
@@ -15218,18 +13551,14 @@ func (fc *FhirClient) CreateList(createResource *r5.List) (*r5.List, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.List
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateList: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read List from fhir server by id, return List or OperationOutcome error
@@ -15248,18 +13577,14 @@ func (fc *FhirClient) ReadList(id string) (*r5.List, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.List
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadList: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace List if exists on server, else create new List with given id, return List or OperationOutcome error
@@ -15287,18 +13612,14 @@ func (fc *FhirClient) UpdateList(updateResource *r5.List) (*r5.List, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.List
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateList: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return List or error OperationOutcome
@@ -15330,18 +13651,14 @@ func (fc *FhirClient) PatchList(patchResource *r5.List) (*r5.List, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.List
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchList: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete List and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15367,18 +13684,14 @@ func (fc *FhirClient) DeleteListById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteListById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Location, return id of created Location or OperationOutcome error
@@ -15400,18 +13713,14 @@ func (fc *FhirClient) CreateLocation(createResource *r5.Location) (*r5.Location,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Location
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateLocation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Location from fhir server by id, return Location or OperationOutcome error
@@ -15430,18 +13739,14 @@ func (fc *FhirClient) ReadLocation(id string) (*r5.Location, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Location
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadLocation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Location if exists on server, else create new Location with given id, return Location or OperationOutcome error
@@ -15469,18 +13774,14 @@ func (fc *FhirClient) UpdateLocation(updateResource *r5.Location) (*r5.Location,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Location
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateLocation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Location or error OperationOutcome
@@ -15512,18 +13813,14 @@ func (fc *FhirClient) PatchLocation(patchResource *r5.Location) (*r5.Location, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Location
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchLocation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Location and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15549,18 +13846,14 @@ func (fc *FhirClient) DeleteLocationById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteLocationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ManufacturedItemDefinition, return id of created ManufacturedItemDefinition or OperationOutcome error
@@ -15582,18 +13875,14 @@ func (fc *FhirClient) CreateManufacturedItemDefinition(createResource *r5.Manufa
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ManufacturedItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateManufacturedItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ManufacturedItemDefinition from fhir server by id, return ManufacturedItemDefinition or OperationOutcome error
@@ -15612,18 +13901,14 @@ func (fc *FhirClient) ReadManufacturedItemDefinition(id string) (*r5.Manufacture
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ManufacturedItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadManufacturedItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ManufacturedItemDefinition if exists on server, else create new ManufacturedItemDefinition with given id, return ManufacturedItemDefinition or OperationOutcome error
@@ -15651,18 +13936,14 @@ func (fc *FhirClient) UpdateManufacturedItemDefinition(updateResource *r5.Manufa
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ManufacturedItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateManufacturedItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ManufacturedItemDefinition or error OperationOutcome
@@ -15694,18 +13975,14 @@ func (fc *FhirClient) PatchManufacturedItemDefinition(patchResource *r5.Manufact
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ManufacturedItemDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchManufacturedItemDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ManufacturedItemDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15731,18 +14008,14 @@ func (fc *FhirClient) DeleteManufacturedItemDefinitionById(id string) (*r5.Opera
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteManufacturedItemDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Measure, return id of created Measure or OperationOutcome error
@@ -15764,18 +14037,14 @@ func (fc *FhirClient) CreateMeasure(createResource *r5.Measure) (*r5.Measure, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Measure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMeasure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Measure from fhir server by id, return Measure or OperationOutcome error
@@ -15794,18 +14063,14 @@ func (fc *FhirClient) ReadMeasure(id string) (*r5.Measure, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Measure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMeasure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Measure if exists on server, else create new Measure with given id, return Measure or OperationOutcome error
@@ -15833,18 +14098,14 @@ func (fc *FhirClient) UpdateMeasure(updateResource *r5.Measure) (*r5.Measure, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Measure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMeasure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Measure or error OperationOutcome
@@ -15876,18 +14137,14 @@ func (fc *FhirClient) PatchMeasure(patchResource *r5.Measure) (*r5.Measure, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Measure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMeasure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Measure and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -15913,18 +14170,14 @@ func (fc *FhirClient) DeleteMeasureById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMeasureById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MeasureReport, return id of created MeasureReport or OperationOutcome error
@@ -15946,18 +14199,14 @@ func (fc *FhirClient) CreateMeasureReport(createResource *r5.MeasureReport) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MeasureReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMeasureReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MeasureReport from fhir server by id, return MeasureReport or OperationOutcome error
@@ -15976,18 +14225,14 @@ func (fc *FhirClient) ReadMeasureReport(id string) (*r5.MeasureReport, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MeasureReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMeasureReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MeasureReport if exists on server, else create new MeasureReport with given id, return MeasureReport or OperationOutcome error
@@ -16015,18 +14260,14 @@ func (fc *FhirClient) UpdateMeasureReport(updateResource *r5.MeasureReport) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MeasureReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMeasureReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MeasureReport or error OperationOutcome
@@ -16058,18 +14299,14 @@ func (fc *FhirClient) PatchMeasureReport(patchResource *r5.MeasureReport) (*r5.M
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MeasureReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMeasureReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MeasureReport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -16095,18 +14332,14 @@ func (fc *FhirClient) DeleteMeasureReportById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMeasureReportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Medication, return id of created Medication or OperationOutcome error
@@ -16128,18 +14361,14 @@ func (fc *FhirClient) CreateMedication(createResource *r5.Medication) (*r5.Medic
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Medication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Medication from fhir server by id, return Medication or OperationOutcome error
@@ -16158,18 +14387,14 @@ func (fc *FhirClient) ReadMedication(id string) (*r5.Medication, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Medication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Medication if exists on server, else create new Medication with given id, return Medication or OperationOutcome error
@@ -16197,18 +14422,14 @@ func (fc *FhirClient) UpdateMedication(updateResource *r5.Medication) (*r5.Medic
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Medication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Medication or error OperationOutcome
@@ -16240,18 +14461,14 @@ func (fc *FhirClient) PatchMedication(patchResource *r5.Medication) (*r5.Medicat
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Medication
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedication: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Medication and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -16277,18 +14494,14 @@ func (fc *FhirClient) DeleteMedicationById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicationAdministration, return id of created MedicationAdministration or OperationOutcome error
@@ -16310,18 +14523,14 @@ func (fc *FhirClient) CreateMedicationAdministration(createResource *r5.Medicati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationAdministration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicationAdministration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicationAdministration from fhir server by id, return MedicationAdministration or OperationOutcome error
@@ -16340,18 +14549,14 @@ func (fc *FhirClient) ReadMedicationAdministration(id string) (*r5.MedicationAdm
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationAdministration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicationAdministration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicationAdministration if exists on server, else create new MedicationAdministration with given id, return MedicationAdministration or OperationOutcome error
@@ -16379,18 +14584,14 @@ func (fc *FhirClient) UpdateMedicationAdministration(updateResource *r5.Medicati
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationAdministration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicationAdministration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicationAdministration or error OperationOutcome
@@ -16422,18 +14623,14 @@ func (fc *FhirClient) PatchMedicationAdministration(patchResource *r5.Medication
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationAdministration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicationAdministration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicationAdministration and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -16459,18 +14656,14 @@ func (fc *FhirClient) DeleteMedicationAdministrationById(id string) (*r5.Operati
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationAdministrationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicationDispense, return id of created MedicationDispense or OperationOutcome error
@@ -16492,18 +14685,14 @@ func (fc *FhirClient) CreateMedicationDispense(createResource *r5.MedicationDisp
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicationDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicationDispense from fhir server by id, return MedicationDispense or OperationOutcome error
@@ -16522,18 +14711,14 @@ func (fc *FhirClient) ReadMedicationDispense(id string) (*r5.MedicationDispense,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicationDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicationDispense if exists on server, else create new MedicationDispense with given id, return MedicationDispense or OperationOutcome error
@@ -16561,18 +14746,14 @@ func (fc *FhirClient) UpdateMedicationDispense(updateResource *r5.MedicationDisp
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicationDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicationDispense or error OperationOutcome
@@ -16604,18 +14785,14 @@ func (fc *FhirClient) PatchMedicationDispense(patchResource *r5.MedicationDispen
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationDispense
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicationDispense: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicationDispense and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -16641,18 +14818,14 @@ func (fc *FhirClient) DeleteMedicationDispenseById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationDispenseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicationKnowledge, return id of created MedicationKnowledge or OperationOutcome error
@@ -16674,18 +14847,14 @@ func (fc *FhirClient) CreateMedicationKnowledge(createResource *r5.MedicationKno
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationKnowledge
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicationKnowledge: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicationKnowledge from fhir server by id, return MedicationKnowledge or OperationOutcome error
@@ -16704,18 +14873,14 @@ func (fc *FhirClient) ReadMedicationKnowledge(id string) (*r5.MedicationKnowledg
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationKnowledge
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicationKnowledge: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicationKnowledge if exists on server, else create new MedicationKnowledge with given id, return MedicationKnowledge or OperationOutcome error
@@ -16743,18 +14908,14 @@ func (fc *FhirClient) UpdateMedicationKnowledge(updateResource *r5.MedicationKno
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationKnowledge
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicationKnowledge: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicationKnowledge or error OperationOutcome
@@ -16786,18 +14947,14 @@ func (fc *FhirClient) PatchMedicationKnowledge(patchResource *r5.MedicationKnowl
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationKnowledge
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicationKnowledge: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicationKnowledge and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -16823,18 +14980,14 @@ func (fc *FhirClient) DeleteMedicationKnowledgeById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationKnowledgeById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicationRequest, return id of created MedicationRequest or OperationOutcome error
@@ -16856,18 +15009,14 @@ func (fc *FhirClient) CreateMedicationRequest(createResource *r5.MedicationReque
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicationRequest from fhir server by id, return MedicationRequest or OperationOutcome error
@@ -16886,18 +15035,14 @@ func (fc *FhirClient) ReadMedicationRequest(id string) (*r5.MedicationRequest, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicationRequest if exists on server, else create new MedicationRequest with given id, return MedicationRequest or OperationOutcome error
@@ -16925,18 +15070,14 @@ func (fc *FhirClient) UpdateMedicationRequest(updateResource *r5.MedicationReque
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicationRequest or error OperationOutcome
@@ -16968,18 +15109,14 @@ func (fc *FhirClient) PatchMedicationRequest(patchResource *r5.MedicationRequest
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicationRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicationRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17005,18 +15142,14 @@ func (fc *FhirClient) DeleteMedicationRequestById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicationStatement, return id of created MedicationStatement or OperationOutcome error
@@ -17038,18 +15171,14 @@ func (fc *FhirClient) CreateMedicationStatement(createResource *r5.MedicationSta
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicationStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicationStatement from fhir server by id, return MedicationStatement or OperationOutcome error
@@ -17068,18 +15197,14 @@ func (fc *FhirClient) ReadMedicationStatement(id string) (*r5.MedicationStatemen
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicationStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicationStatement if exists on server, else create new MedicationStatement with given id, return MedicationStatement or OperationOutcome error
@@ -17107,18 +15232,14 @@ func (fc *FhirClient) UpdateMedicationStatement(updateResource *r5.MedicationSta
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicationStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicationStatement or error OperationOutcome
@@ -17150,18 +15271,14 @@ func (fc *FhirClient) PatchMedicationStatement(patchResource *r5.MedicationState
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicationStatement
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicationStatement: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicationStatement and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17187,18 +15304,14 @@ func (fc *FhirClient) DeleteMedicationStatementById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicationStatementById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MedicinalProductDefinition, return id of created MedicinalProductDefinition or OperationOutcome error
@@ -17220,18 +15333,14 @@ func (fc *FhirClient) CreateMedicinalProductDefinition(createResource *r5.Medici
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicinalProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMedicinalProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MedicinalProductDefinition from fhir server by id, return MedicinalProductDefinition or OperationOutcome error
@@ -17250,18 +15359,14 @@ func (fc *FhirClient) ReadMedicinalProductDefinition(id string) (*r5.MedicinalPr
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicinalProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMedicinalProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MedicinalProductDefinition if exists on server, else create new MedicinalProductDefinition with given id, return MedicinalProductDefinition or OperationOutcome error
@@ -17289,18 +15394,14 @@ func (fc *FhirClient) UpdateMedicinalProductDefinition(updateResource *r5.Medici
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicinalProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMedicinalProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MedicinalProductDefinition or error OperationOutcome
@@ -17332,18 +15433,14 @@ func (fc *FhirClient) PatchMedicinalProductDefinition(patchResource *r5.Medicina
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MedicinalProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMedicinalProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MedicinalProductDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17369,18 +15466,14 @@ func (fc *FhirClient) DeleteMedicinalProductDefinitionById(id string) (*r5.Opera
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMedicinalProductDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MessageDefinition, return id of created MessageDefinition or OperationOutcome error
@@ -17402,18 +15495,14 @@ func (fc *FhirClient) CreateMessageDefinition(createResource *r5.MessageDefiniti
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMessageDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MessageDefinition from fhir server by id, return MessageDefinition or OperationOutcome error
@@ -17432,18 +15521,14 @@ func (fc *FhirClient) ReadMessageDefinition(id string) (*r5.MessageDefinition, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMessageDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MessageDefinition if exists on server, else create new MessageDefinition with given id, return MessageDefinition or OperationOutcome error
@@ -17471,18 +15556,14 @@ func (fc *FhirClient) UpdateMessageDefinition(updateResource *r5.MessageDefiniti
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMessageDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MessageDefinition or error OperationOutcome
@@ -17514,18 +15595,14 @@ func (fc *FhirClient) PatchMessageDefinition(patchResource *r5.MessageDefinition
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMessageDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MessageDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17551,18 +15628,14 @@ func (fc *FhirClient) DeleteMessageDefinitionById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMessageDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MessageHeader, return id of created MessageHeader or OperationOutcome error
@@ -17584,18 +15657,14 @@ func (fc *FhirClient) CreateMessageHeader(createResource *r5.MessageHeader) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageHeader
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMessageHeader: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MessageHeader from fhir server by id, return MessageHeader or OperationOutcome error
@@ -17614,18 +15683,14 @@ func (fc *FhirClient) ReadMessageHeader(id string) (*r5.MessageHeader, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageHeader
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMessageHeader: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MessageHeader if exists on server, else create new MessageHeader with given id, return MessageHeader or OperationOutcome error
@@ -17653,18 +15718,14 @@ func (fc *FhirClient) UpdateMessageHeader(updateResource *r5.MessageHeader) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageHeader
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMessageHeader: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MessageHeader or error OperationOutcome
@@ -17696,18 +15757,14 @@ func (fc *FhirClient) PatchMessageHeader(patchResource *r5.MessageHeader) (*r5.M
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MessageHeader
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMessageHeader: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MessageHeader and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17733,18 +15790,14 @@ func (fc *FhirClient) DeleteMessageHeaderById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMessageHeaderById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create MolecularSequence, return id of created MolecularSequence or OperationOutcome error
@@ -17766,18 +15819,14 @@ func (fc *FhirClient) CreateMolecularSequence(createResource *r5.MolecularSequen
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MolecularSequence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateMolecularSequence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read MolecularSequence from fhir server by id, return MolecularSequence or OperationOutcome error
@@ -17796,18 +15845,14 @@ func (fc *FhirClient) ReadMolecularSequence(id string) (*r5.MolecularSequence, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MolecularSequence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadMolecularSequence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace MolecularSequence if exists on server, else create new MolecularSequence with given id, return MolecularSequence or OperationOutcome error
@@ -17835,18 +15880,14 @@ func (fc *FhirClient) UpdateMolecularSequence(updateResource *r5.MolecularSequen
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MolecularSequence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateMolecularSequence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return MolecularSequence or error OperationOutcome
@@ -17878,18 +15919,14 @@ func (fc *FhirClient) PatchMolecularSequence(patchResource *r5.MolecularSequence
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.MolecularSequence
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchMolecularSequence: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete MolecularSequence and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -17915,18 +15952,14 @@ func (fc *FhirClient) DeleteMolecularSequenceById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteMolecularSequenceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create NamingSystem, return id of created NamingSystem or OperationOutcome error
@@ -17948,18 +15981,14 @@ func (fc *FhirClient) CreateNamingSystem(createResource *r5.NamingSystem) (*r5.N
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NamingSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateNamingSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read NamingSystem from fhir server by id, return NamingSystem or OperationOutcome error
@@ -17978,18 +16007,14 @@ func (fc *FhirClient) ReadNamingSystem(id string) (*r5.NamingSystem, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NamingSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadNamingSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace NamingSystem if exists on server, else create new NamingSystem with given id, return NamingSystem or OperationOutcome error
@@ -18017,18 +16042,14 @@ func (fc *FhirClient) UpdateNamingSystem(updateResource *r5.NamingSystem) (*r5.N
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NamingSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateNamingSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return NamingSystem or error OperationOutcome
@@ -18060,18 +16081,14 @@ func (fc *FhirClient) PatchNamingSystem(patchResource *r5.NamingSystem) (*r5.Nam
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NamingSystem
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchNamingSystem: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete NamingSystem and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -18097,18 +16114,14 @@ func (fc *FhirClient) DeleteNamingSystemById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteNamingSystemById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create NutritionIntake, return id of created NutritionIntake or OperationOutcome error
@@ -18130,18 +16143,14 @@ func (fc *FhirClient) CreateNutritionIntake(createResource *r5.NutritionIntake) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionIntake
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateNutritionIntake: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read NutritionIntake from fhir server by id, return NutritionIntake or OperationOutcome error
@@ -18160,18 +16169,14 @@ func (fc *FhirClient) ReadNutritionIntake(id string) (*r5.NutritionIntake, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionIntake
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadNutritionIntake: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace NutritionIntake if exists on server, else create new NutritionIntake with given id, return NutritionIntake or OperationOutcome error
@@ -18199,18 +16204,14 @@ func (fc *FhirClient) UpdateNutritionIntake(updateResource *r5.NutritionIntake) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionIntake
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateNutritionIntake: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return NutritionIntake or error OperationOutcome
@@ -18242,18 +16243,14 @@ func (fc *FhirClient) PatchNutritionIntake(patchResource *r5.NutritionIntake) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionIntake
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchNutritionIntake: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete NutritionIntake and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -18279,18 +16276,14 @@ func (fc *FhirClient) DeleteNutritionIntakeById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteNutritionIntakeById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create NutritionOrder, return id of created NutritionOrder or OperationOutcome error
@@ -18312,18 +16305,14 @@ func (fc *FhirClient) CreateNutritionOrder(createResource *r5.NutritionOrder) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionOrder
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateNutritionOrder: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read NutritionOrder from fhir server by id, return NutritionOrder or OperationOutcome error
@@ -18342,18 +16331,14 @@ func (fc *FhirClient) ReadNutritionOrder(id string) (*r5.NutritionOrder, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionOrder
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadNutritionOrder: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace NutritionOrder if exists on server, else create new NutritionOrder with given id, return NutritionOrder or OperationOutcome error
@@ -18381,18 +16366,14 @@ func (fc *FhirClient) UpdateNutritionOrder(updateResource *r5.NutritionOrder) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionOrder
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateNutritionOrder: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return NutritionOrder or error OperationOutcome
@@ -18424,18 +16405,14 @@ func (fc *FhirClient) PatchNutritionOrder(patchResource *r5.NutritionOrder) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionOrder
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchNutritionOrder: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete NutritionOrder and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -18461,18 +16438,14 @@ func (fc *FhirClient) DeleteNutritionOrderById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteNutritionOrderById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create NutritionProduct, return id of created NutritionProduct or OperationOutcome error
@@ -18494,18 +16467,14 @@ func (fc *FhirClient) CreateNutritionProduct(createResource *r5.NutritionProduct
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateNutritionProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read NutritionProduct from fhir server by id, return NutritionProduct or OperationOutcome error
@@ -18524,18 +16493,14 @@ func (fc *FhirClient) ReadNutritionProduct(id string) (*r5.NutritionProduct, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadNutritionProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace NutritionProduct if exists on server, else create new NutritionProduct with given id, return NutritionProduct or OperationOutcome error
@@ -18563,18 +16528,14 @@ func (fc *FhirClient) UpdateNutritionProduct(updateResource *r5.NutritionProduct
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateNutritionProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return NutritionProduct or error OperationOutcome
@@ -18606,18 +16567,14 @@ func (fc *FhirClient) PatchNutritionProduct(patchResource *r5.NutritionProduct) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.NutritionProduct
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchNutritionProduct: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete NutritionProduct and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -18643,18 +16600,14 @@ func (fc *FhirClient) DeleteNutritionProductById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteNutritionProductById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Observation, return id of created Observation or OperationOutcome error
@@ -18676,18 +16629,14 @@ func (fc *FhirClient) CreateObservation(createResource *r5.Observation) (*r5.Obs
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Observation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateObservation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Observation from fhir server by id, return Observation or OperationOutcome error
@@ -18706,18 +16655,14 @@ func (fc *FhirClient) ReadObservation(id string) (*r5.Observation, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Observation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadObservation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Observation if exists on server, else create new Observation with given id, return Observation or OperationOutcome error
@@ -18745,18 +16690,14 @@ func (fc *FhirClient) UpdateObservation(updateResource *r5.Observation) (*r5.Obs
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Observation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateObservation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Observation or error OperationOutcome
@@ -18788,18 +16729,14 @@ func (fc *FhirClient) PatchObservation(patchResource *r5.Observation) (*r5.Obser
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Observation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchObservation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Observation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -18825,18 +16762,14 @@ func (fc *FhirClient) DeleteObservationById(id string) (*r5.OperationOutcome, er
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteObservationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ObservationDefinition, return id of created ObservationDefinition or OperationOutcome error
@@ -18858,18 +16791,14 @@ func (fc *FhirClient) CreateObservationDefinition(createResource *r5.Observation
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ObservationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateObservationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ObservationDefinition from fhir server by id, return ObservationDefinition or OperationOutcome error
@@ -18888,18 +16817,14 @@ func (fc *FhirClient) ReadObservationDefinition(id string) (*r5.ObservationDefin
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ObservationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadObservationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ObservationDefinition if exists on server, else create new ObservationDefinition with given id, return ObservationDefinition or OperationOutcome error
@@ -18927,18 +16852,14 @@ func (fc *FhirClient) UpdateObservationDefinition(updateResource *r5.Observation
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ObservationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateObservationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ObservationDefinition or error OperationOutcome
@@ -18970,18 +16891,14 @@ func (fc *FhirClient) PatchObservationDefinition(patchResource *r5.ObservationDe
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ObservationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchObservationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ObservationDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19007,18 +16924,14 @@ func (fc *FhirClient) DeleteObservationDefinitionById(id string) (*r5.OperationO
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteObservationDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create OperationDefinition, return id of created OperationDefinition or OperationOutcome error
@@ -19040,18 +16953,14 @@ func (fc *FhirClient) CreateOperationDefinition(createResource *r5.OperationDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateOperationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read OperationDefinition from fhir server by id, return OperationDefinition or OperationOutcome error
@@ -19070,18 +16979,14 @@ func (fc *FhirClient) ReadOperationDefinition(id string) (*r5.OperationDefinitio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadOperationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace OperationDefinition if exists on server, else create new OperationDefinition with given id, return OperationDefinition or OperationOutcome error
@@ -19109,18 +17014,14 @@ func (fc *FhirClient) UpdateOperationDefinition(updateResource *r5.OperationDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateOperationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return OperationDefinition or error OperationOutcome
@@ -19152,18 +17053,14 @@ func (fc *FhirClient) PatchOperationDefinition(patchResource *r5.OperationDefini
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchOperationDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete OperationDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19189,18 +17086,14 @@ func (fc *FhirClient) DeleteOperationDefinitionById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteOperationDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create OperationOutcome, return id of created OperationOutcome or OperationOutcome error
@@ -19222,18 +17115,14 @@ func (fc *FhirClient) CreateOperationOutcome(createResource *r5.OperationOutcome
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateOperationOutcome: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read OperationOutcome from fhir server by id, return OperationOutcome or OperationOutcome error
@@ -19252,18 +17141,14 @@ func (fc *FhirClient) ReadOperationOutcome(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadOperationOutcome: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace OperationOutcome if exists on server, else create new OperationOutcome with given id, return OperationOutcome or OperationOutcome error
@@ -19291,18 +17176,14 @@ func (fc *FhirClient) UpdateOperationOutcome(updateResource *r5.OperationOutcome
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateOperationOutcome: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return OperationOutcome or error OperationOutcome
@@ -19334,18 +17215,14 @@ func (fc *FhirClient) PatchOperationOutcome(patchResource *r5.OperationOutcome) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchOperationOutcome: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete OperationOutcome and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19371,18 +17248,14 @@ func (fc *FhirClient) DeleteOperationOutcomeById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteOperationOutcomeById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Organization, return id of created Organization or OperationOutcome error
@@ -19404,18 +17277,14 @@ func (fc *FhirClient) CreateOrganization(createResource *r5.Organization) (*r5.O
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Organization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateOrganization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Organization from fhir server by id, return Organization or OperationOutcome error
@@ -19434,18 +17303,14 @@ func (fc *FhirClient) ReadOrganization(id string) (*r5.Organization, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Organization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadOrganization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Organization if exists on server, else create new Organization with given id, return Organization or OperationOutcome error
@@ -19473,18 +17338,14 @@ func (fc *FhirClient) UpdateOrganization(updateResource *r5.Organization) (*r5.O
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Organization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateOrganization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Organization or error OperationOutcome
@@ -19516,18 +17377,14 @@ func (fc *FhirClient) PatchOrganization(patchResource *r5.Organization) (*r5.Org
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Organization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchOrganization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Organization and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19553,18 +17410,14 @@ func (fc *FhirClient) DeleteOrganizationById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteOrganizationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create OrganizationAffiliation, return id of created OrganizationAffiliation or OperationOutcome error
@@ -19586,18 +17439,14 @@ func (fc *FhirClient) CreateOrganizationAffiliation(createResource *r5.Organizat
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OrganizationAffiliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateOrganizationAffiliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read OrganizationAffiliation from fhir server by id, return OrganizationAffiliation or OperationOutcome error
@@ -19616,18 +17465,14 @@ func (fc *FhirClient) ReadOrganizationAffiliation(id string) (*r5.OrganizationAf
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OrganizationAffiliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadOrganizationAffiliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace OrganizationAffiliation if exists on server, else create new OrganizationAffiliation with given id, return OrganizationAffiliation or OperationOutcome error
@@ -19655,18 +17500,14 @@ func (fc *FhirClient) UpdateOrganizationAffiliation(updateResource *r5.Organizat
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OrganizationAffiliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateOrganizationAffiliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return OrganizationAffiliation or error OperationOutcome
@@ -19698,18 +17539,14 @@ func (fc *FhirClient) PatchOrganizationAffiliation(patchResource *r5.Organizatio
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OrganizationAffiliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchOrganizationAffiliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete OrganizationAffiliation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19735,18 +17572,14 @@ func (fc *FhirClient) DeleteOrganizationAffiliationById(id string) (*r5.Operatio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteOrganizationAffiliationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create PackagedProductDefinition, return id of created PackagedProductDefinition or OperationOutcome error
@@ -19768,18 +17601,14 @@ func (fc *FhirClient) CreatePackagedProductDefinition(createResource *r5.Package
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PackagedProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePackagedProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read PackagedProductDefinition from fhir server by id, return PackagedProductDefinition or OperationOutcome error
@@ -19798,18 +17627,14 @@ func (fc *FhirClient) ReadPackagedProductDefinition(id string) (*r5.PackagedProd
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PackagedProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPackagedProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace PackagedProductDefinition if exists on server, else create new PackagedProductDefinition with given id, return PackagedProductDefinition or OperationOutcome error
@@ -19837,18 +17662,14 @@ func (fc *FhirClient) UpdatePackagedProductDefinition(updateResource *r5.Package
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PackagedProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePackagedProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return PackagedProductDefinition or error OperationOutcome
@@ -19880,18 +17701,14 @@ func (fc *FhirClient) PatchPackagedProductDefinition(patchResource *r5.PackagedP
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PackagedProductDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPackagedProductDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete PackagedProductDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -19917,18 +17734,14 @@ func (fc *FhirClient) DeletePackagedProductDefinitionById(id string) (*r5.Operat
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePackagedProductDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Patient, return id of created Patient or OperationOutcome error
@@ -19950,18 +17763,14 @@ func (fc *FhirClient) CreatePatient(createResource *r5.Patient) (*r5.Patient, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Patient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePatient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Patient from fhir server by id, return Patient or OperationOutcome error
@@ -19980,18 +17789,14 @@ func (fc *FhirClient) ReadPatient(id string) (*r5.Patient, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Patient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPatient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Patient if exists on server, else create new Patient with given id, return Patient or OperationOutcome error
@@ -20019,18 +17824,14 @@ func (fc *FhirClient) UpdatePatient(updateResource *r5.Patient) (*r5.Patient, er
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Patient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePatient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Patient or error OperationOutcome
@@ -20062,18 +17863,14 @@ func (fc *FhirClient) PatchPatient(patchResource *r5.Patient) (*r5.Patient, erro
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Patient
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPatient: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Patient and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -20099,18 +17896,14 @@ func (fc *FhirClient) DeletePatientById(id string) (*r5.OperationOutcome, error)
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePatientById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create PaymentNotice, return id of created PaymentNotice or OperationOutcome error
@@ -20132,18 +17925,14 @@ func (fc *FhirClient) CreatePaymentNotice(createResource *r5.PaymentNotice) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentNotice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePaymentNotice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read PaymentNotice from fhir server by id, return PaymentNotice or OperationOutcome error
@@ -20162,18 +17951,14 @@ func (fc *FhirClient) ReadPaymentNotice(id string) (*r5.PaymentNotice, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentNotice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPaymentNotice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace PaymentNotice if exists on server, else create new PaymentNotice with given id, return PaymentNotice or OperationOutcome error
@@ -20201,18 +17986,14 @@ func (fc *FhirClient) UpdatePaymentNotice(updateResource *r5.PaymentNotice) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentNotice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePaymentNotice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return PaymentNotice or error OperationOutcome
@@ -20244,18 +18025,14 @@ func (fc *FhirClient) PatchPaymentNotice(patchResource *r5.PaymentNotice) (*r5.P
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentNotice
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPaymentNotice: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete PaymentNotice and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -20281,18 +18058,14 @@ func (fc *FhirClient) DeletePaymentNoticeById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePaymentNoticeById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create PaymentReconciliation, return id of created PaymentReconciliation or OperationOutcome error
@@ -20314,18 +18087,14 @@ func (fc *FhirClient) CreatePaymentReconciliation(createResource *r5.PaymentReco
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentReconciliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePaymentReconciliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read PaymentReconciliation from fhir server by id, return PaymentReconciliation or OperationOutcome error
@@ -20344,18 +18113,14 @@ func (fc *FhirClient) ReadPaymentReconciliation(id string) (*r5.PaymentReconcili
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentReconciliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPaymentReconciliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace PaymentReconciliation if exists on server, else create new PaymentReconciliation with given id, return PaymentReconciliation or OperationOutcome error
@@ -20383,18 +18148,14 @@ func (fc *FhirClient) UpdatePaymentReconciliation(updateResource *r5.PaymentReco
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentReconciliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePaymentReconciliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return PaymentReconciliation or error OperationOutcome
@@ -20426,18 +18187,14 @@ func (fc *FhirClient) PatchPaymentReconciliation(patchResource *r5.PaymentReconc
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PaymentReconciliation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPaymentReconciliation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete PaymentReconciliation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -20463,18 +18220,14 @@ func (fc *FhirClient) DeletePaymentReconciliationById(id string) (*r5.OperationO
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePaymentReconciliationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Permission, return id of created Permission or OperationOutcome error
@@ -20496,18 +18249,14 @@ func (fc *FhirClient) CreatePermission(createResource *r5.Permission) (*r5.Permi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Permission
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePermission: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Permission from fhir server by id, return Permission or OperationOutcome error
@@ -20526,18 +18275,14 @@ func (fc *FhirClient) ReadPermission(id string) (*r5.Permission, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Permission
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPermission: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Permission if exists on server, else create new Permission with given id, return Permission or OperationOutcome error
@@ -20565,18 +18310,14 @@ func (fc *FhirClient) UpdatePermission(updateResource *r5.Permission) (*r5.Permi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Permission
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePermission: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Permission or error OperationOutcome
@@ -20608,18 +18349,14 @@ func (fc *FhirClient) PatchPermission(patchResource *r5.Permission) (*r5.Permiss
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Permission
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPermission: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Permission and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -20645,18 +18382,14 @@ func (fc *FhirClient) DeletePermissionById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePermissionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Person, return id of created Person or OperationOutcome error
@@ -20678,18 +18411,14 @@ func (fc *FhirClient) CreatePerson(createResource *r5.Person) (*r5.Person, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Person
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Person from fhir server by id, return Person or OperationOutcome error
@@ -20708,18 +18437,14 @@ func (fc *FhirClient) ReadPerson(id string) (*r5.Person, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Person
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Person if exists on server, else create new Person with given id, return Person or OperationOutcome error
@@ -20747,18 +18472,14 @@ func (fc *FhirClient) UpdatePerson(updateResource *r5.Person) (*r5.Person, error
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Person
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Person or error OperationOutcome
@@ -20790,18 +18511,14 @@ func (fc *FhirClient) PatchPerson(patchResource *r5.Person) (*r5.Person, error) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Person
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Person and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -20827,18 +18544,14 @@ func (fc *FhirClient) DeletePersonById(id string) (*r5.OperationOutcome, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePersonById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create PlanDefinition, return id of created PlanDefinition or OperationOutcome error
@@ -20860,18 +18573,14 @@ func (fc *FhirClient) CreatePlanDefinition(createResource *r5.PlanDefinition) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PlanDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePlanDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read PlanDefinition from fhir server by id, return PlanDefinition or OperationOutcome error
@@ -20890,18 +18599,14 @@ func (fc *FhirClient) ReadPlanDefinition(id string) (*r5.PlanDefinition, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PlanDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPlanDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace PlanDefinition if exists on server, else create new PlanDefinition with given id, return PlanDefinition or OperationOutcome error
@@ -20929,18 +18634,14 @@ func (fc *FhirClient) UpdatePlanDefinition(updateResource *r5.PlanDefinition) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PlanDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePlanDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return PlanDefinition or error OperationOutcome
@@ -20972,18 +18673,14 @@ func (fc *FhirClient) PatchPlanDefinition(patchResource *r5.PlanDefinition) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PlanDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPlanDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete PlanDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21009,18 +18706,14 @@ func (fc *FhirClient) DeletePlanDefinitionById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePlanDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Practitioner, return id of created Practitioner or OperationOutcome error
@@ -21042,18 +18735,14 @@ func (fc *FhirClient) CreatePractitioner(createResource *r5.Practitioner) (*r5.P
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Practitioner
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePractitioner: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Practitioner from fhir server by id, return Practitioner or OperationOutcome error
@@ -21072,18 +18761,14 @@ func (fc *FhirClient) ReadPractitioner(id string) (*r5.Practitioner, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Practitioner
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPractitioner: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Practitioner if exists on server, else create new Practitioner with given id, return Practitioner or OperationOutcome error
@@ -21111,18 +18796,14 @@ func (fc *FhirClient) UpdatePractitioner(updateResource *r5.Practitioner) (*r5.P
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Practitioner
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePractitioner: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Practitioner or error OperationOutcome
@@ -21154,18 +18835,14 @@ func (fc *FhirClient) PatchPractitioner(patchResource *r5.Practitioner) (*r5.Pra
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Practitioner
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPractitioner: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Practitioner and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21191,18 +18868,14 @@ func (fc *FhirClient) DeletePractitionerById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePractitionerById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create PractitionerRole, return id of created PractitionerRole or OperationOutcome error
@@ -21224,18 +18897,14 @@ func (fc *FhirClient) CreatePractitionerRole(createResource *r5.PractitionerRole
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PractitionerRole
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreatePractitionerRole: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read PractitionerRole from fhir server by id, return PractitionerRole or OperationOutcome error
@@ -21254,18 +18923,14 @@ func (fc *FhirClient) ReadPractitionerRole(id string) (*r5.PractitionerRole, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PractitionerRole
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadPractitionerRole: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace PractitionerRole if exists on server, else create new PractitionerRole with given id, return PractitionerRole or OperationOutcome error
@@ -21293,18 +18958,14 @@ func (fc *FhirClient) UpdatePractitionerRole(updateResource *r5.PractitionerRole
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PractitionerRole
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdatePractitionerRole: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return PractitionerRole or error OperationOutcome
@@ -21336,18 +18997,14 @@ func (fc *FhirClient) PatchPractitionerRole(patchResource *r5.PractitionerRole) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.PractitionerRole
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchPractitionerRole: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete PractitionerRole and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21373,18 +19030,14 @@ func (fc *FhirClient) DeletePractitionerRoleById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeletePractitionerRoleById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Procedure, return id of created Procedure or OperationOutcome error
@@ -21406,18 +19059,14 @@ func (fc *FhirClient) CreateProcedure(createResource *r5.Procedure) (*r5.Procedu
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Procedure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateProcedure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Procedure from fhir server by id, return Procedure or OperationOutcome error
@@ -21436,18 +19085,14 @@ func (fc *FhirClient) ReadProcedure(id string) (*r5.Procedure, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Procedure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadProcedure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Procedure if exists on server, else create new Procedure with given id, return Procedure or OperationOutcome error
@@ -21475,18 +19120,14 @@ func (fc *FhirClient) UpdateProcedure(updateResource *r5.Procedure) (*r5.Procedu
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Procedure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateProcedure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Procedure or error OperationOutcome
@@ -21518,18 +19159,14 @@ func (fc *FhirClient) PatchProcedure(patchResource *r5.Procedure) (*r5.Procedure
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Procedure
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchProcedure: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Procedure and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21555,18 +19192,14 @@ func (fc *FhirClient) DeleteProcedureById(id string) (*r5.OperationOutcome, erro
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteProcedureById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Provenance, return id of created Provenance or OperationOutcome error
@@ -21588,18 +19221,14 @@ func (fc *FhirClient) CreateProvenance(createResource *r5.Provenance) (*r5.Prove
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Provenance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateProvenance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Provenance from fhir server by id, return Provenance or OperationOutcome error
@@ -21618,18 +19247,14 @@ func (fc *FhirClient) ReadProvenance(id string) (*r5.Provenance, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Provenance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadProvenance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Provenance if exists on server, else create new Provenance with given id, return Provenance or OperationOutcome error
@@ -21657,18 +19282,14 @@ func (fc *FhirClient) UpdateProvenance(updateResource *r5.Provenance) (*r5.Prove
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Provenance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateProvenance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Provenance or error OperationOutcome
@@ -21700,18 +19321,14 @@ func (fc *FhirClient) PatchProvenance(patchResource *r5.Provenance) (*r5.Provena
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Provenance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchProvenance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Provenance and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21737,18 +19354,14 @@ func (fc *FhirClient) DeleteProvenanceById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteProvenanceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Questionnaire, return id of created Questionnaire or OperationOutcome error
@@ -21770,18 +19383,14 @@ func (fc *FhirClient) CreateQuestionnaire(createResource *r5.Questionnaire) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Questionnaire
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateQuestionnaire: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Questionnaire from fhir server by id, return Questionnaire or OperationOutcome error
@@ -21800,18 +19409,14 @@ func (fc *FhirClient) ReadQuestionnaire(id string) (*r5.Questionnaire, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Questionnaire
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadQuestionnaire: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Questionnaire if exists on server, else create new Questionnaire with given id, return Questionnaire or OperationOutcome error
@@ -21839,18 +19444,14 @@ func (fc *FhirClient) UpdateQuestionnaire(updateResource *r5.Questionnaire) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Questionnaire
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateQuestionnaire: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Questionnaire or error OperationOutcome
@@ -21882,18 +19483,14 @@ func (fc *FhirClient) PatchQuestionnaire(patchResource *r5.Questionnaire) (*r5.Q
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Questionnaire
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchQuestionnaire: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Questionnaire and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -21919,18 +19516,14 @@ func (fc *FhirClient) DeleteQuestionnaireById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteQuestionnaireById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create QuestionnaireResponse, return id of created QuestionnaireResponse or OperationOutcome error
@@ -21952,18 +19545,14 @@ func (fc *FhirClient) CreateQuestionnaireResponse(createResource *r5.Questionnai
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.QuestionnaireResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateQuestionnaireResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read QuestionnaireResponse from fhir server by id, return QuestionnaireResponse or OperationOutcome error
@@ -21982,18 +19571,14 @@ func (fc *FhirClient) ReadQuestionnaireResponse(id string) (*r5.QuestionnaireRes
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.QuestionnaireResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadQuestionnaireResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace QuestionnaireResponse if exists on server, else create new QuestionnaireResponse with given id, return QuestionnaireResponse or OperationOutcome error
@@ -22021,18 +19606,14 @@ func (fc *FhirClient) UpdateQuestionnaireResponse(updateResource *r5.Questionnai
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.QuestionnaireResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateQuestionnaireResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return QuestionnaireResponse or error OperationOutcome
@@ -22064,18 +19645,14 @@ func (fc *FhirClient) PatchQuestionnaireResponse(patchResource *r5.Questionnaire
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.QuestionnaireResponse
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchQuestionnaireResponse: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete QuestionnaireResponse and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -22101,18 +19678,14 @@ func (fc *FhirClient) DeleteQuestionnaireResponseById(id string) (*r5.OperationO
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteQuestionnaireResponseById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create RegulatedAuthorization, return id of created RegulatedAuthorization or OperationOutcome error
@@ -22134,18 +19707,14 @@ func (fc *FhirClient) CreateRegulatedAuthorization(createResource *r5.RegulatedA
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RegulatedAuthorization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateRegulatedAuthorization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read RegulatedAuthorization from fhir server by id, return RegulatedAuthorization or OperationOutcome error
@@ -22164,18 +19733,14 @@ func (fc *FhirClient) ReadRegulatedAuthorization(id string) (*r5.RegulatedAuthor
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RegulatedAuthorization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadRegulatedAuthorization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace RegulatedAuthorization if exists on server, else create new RegulatedAuthorization with given id, return RegulatedAuthorization or OperationOutcome error
@@ -22203,18 +19768,14 @@ func (fc *FhirClient) UpdateRegulatedAuthorization(updateResource *r5.RegulatedA
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RegulatedAuthorization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateRegulatedAuthorization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return RegulatedAuthorization or error OperationOutcome
@@ -22246,18 +19807,14 @@ func (fc *FhirClient) PatchRegulatedAuthorization(patchResource *r5.RegulatedAut
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RegulatedAuthorization
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchRegulatedAuthorization: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete RegulatedAuthorization and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -22283,18 +19840,14 @@ func (fc *FhirClient) DeleteRegulatedAuthorizationById(id string) (*r5.Operation
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteRegulatedAuthorizationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create RelatedPerson, return id of created RelatedPerson or OperationOutcome error
@@ -22316,18 +19869,14 @@ func (fc *FhirClient) CreateRelatedPerson(createResource *r5.RelatedPerson) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RelatedPerson
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateRelatedPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read RelatedPerson from fhir server by id, return RelatedPerson or OperationOutcome error
@@ -22346,18 +19895,14 @@ func (fc *FhirClient) ReadRelatedPerson(id string) (*r5.RelatedPerson, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RelatedPerson
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadRelatedPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace RelatedPerson if exists on server, else create new RelatedPerson with given id, return RelatedPerson or OperationOutcome error
@@ -22385,18 +19930,14 @@ func (fc *FhirClient) UpdateRelatedPerson(updateResource *r5.RelatedPerson) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RelatedPerson
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateRelatedPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return RelatedPerson or error OperationOutcome
@@ -22428,18 +19969,14 @@ func (fc *FhirClient) PatchRelatedPerson(patchResource *r5.RelatedPerson) (*r5.R
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RelatedPerson
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchRelatedPerson: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete RelatedPerson and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -22465,18 +20002,14 @@ func (fc *FhirClient) DeleteRelatedPersonById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteRelatedPersonById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create RequestOrchestration, return id of created RequestOrchestration or OperationOutcome error
@@ -22498,18 +20031,14 @@ func (fc *FhirClient) CreateRequestOrchestration(createResource *r5.RequestOrche
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RequestOrchestration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateRequestOrchestration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read RequestOrchestration from fhir server by id, return RequestOrchestration or OperationOutcome error
@@ -22528,18 +20057,14 @@ func (fc *FhirClient) ReadRequestOrchestration(id string) (*r5.RequestOrchestrat
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RequestOrchestration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadRequestOrchestration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace RequestOrchestration if exists on server, else create new RequestOrchestration with given id, return RequestOrchestration or OperationOutcome error
@@ -22567,18 +20092,14 @@ func (fc *FhirClient) UpdateRequestOrchestration(updateResource *r5.RequestOrche
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RequestOrchestration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateRequestOrchestration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return RequestOrchestration or error OperationOutcome
@@ -22610,18 +20131,14 @@ func (fc *FhirClient) PatchRequestOrchestration(patchResource *r5.RequestOrchest
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RequestOrchestration
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchRequestOrchestration: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete RequestOrchestration and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -22647,18 +20164,14 @@ func (fc *FhirClient) DeleteRequestOrchestrationById(id string) (*r5.OperationOu
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteRequestOrchestrationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Requirements, return id of created Requirements or OperationOutcome error
@@ -22680,18 +20193,14 @@ func (fc *FhirClient) CreateRequirements(createResource *r5.Requirements) (*r5.R
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Requirements
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateRequirements: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Requirements from fhir server by id, return Requirements or OperationOutcome error
@@ -22710,18 +20219,14 @@ func (fc *FhirClient) ReadRequirements(id string) (*r5.Requirements, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Requirements
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadRequirements: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Requirements if exists on server, else create new Requirements with given id, return Requirements or OperationOutcome error
@@ -22749,18 +20254,14 @@ func (fc *FhirClient) UpdateRequirements(updateResource *r5.Requirements) (*r5.R
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Requirements
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateRequirements: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Requirements or error OperationOutcome
@@ -22792,18 +20293,14 @@ func (fc *FhirClient) PatchRequirements(patchResource *r5.Requirements) (*r5.Req
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Requirements
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchRequirements: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Requirements and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -22829,18 +20326,14 @@ func (fc *FhirClient) DeleteRequirementsById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteRequirementsById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ResearchStudy, return id of created ResearchStudy or OperationOutcome error
@@ -22862,18 +20355,14 @@ func (fc *FhirClient) CreateResearchStudy(createResource *r5.ResearchStudy) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateResearchStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ResearchStudy from fhir server by id, return ResearchStudy or OperationOutcome error
@@ -22892,18 +20381,14 @@ func (fc *FhirClient) ReadResearchStudy(id string) (*r5.ResearchStudy, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadResearchStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ResearchStudy if exists on server, else create new ResearchStudy with given id, return ResearchStudy or OperationOutcome error
@@ -22931,18 +20416,14 @@ func (fc *FhirClient) UpdateResearchStudy(updateResource *r5.ResearchStudy) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateResearchStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ResearchStudy or error OperationOutcome
@@ -22974,18 +20455,14 @@ func (fc *FhirClient) PatchResearchStudy(patchResource *r5.ResearchStudy) (*r5.R
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchStudy
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchResearchStudy: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ResearchStudy and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23011,18 +20488,14 @@ func (fc *FhirClient) DeleteResearchStudyById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteResearchStudyById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ResearchSubject, return id of created ResearchSubject or OperationOutcome error
@@ -23044,18 +20517,14 @@ func (fc *FhirClient) CreateResearchSubject(createResource *r5.ResearchSubject) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchSubject
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateResearchSubject: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ResearchSubject from fhir server by id, return ResearchSubject or OperationOutcome error
@@ -23074,18 +20543,14 @@ func (fc *FhirClient) ReadResearchSubject(id string) (*r5.ResearchSubject, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchSubject
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadResearchSubject: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ResearchSubject if exists on server, else create new ResearchSubject with given id, return ResearchSubject or OperationOutcome error
@@ -23113,18 +20578,14 @@ func (fc *FhirClient) UpdateResearchSubject(updateResource *r5.ResearchSubject) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchSubject
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateResearchSubject: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ResearchSubject or error OperationOutcome
@@ -23156,18 +20617,14 @@ func (fc *FhirClient) PatchResearchSubject(patchResource *r5.ResearchSubject) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ResearchSubject
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchResearchSubject: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ResearchSubject and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23193,18 +20650,14 @@ func (fc *FhirClient) DeleteResearchSubjectById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteResearchSubjectById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create RiskAssessment, return id of created RiskAssessment or OperationOutcome error
@@ -23226,18 +20679,14 @@ func (fc *FhirClient) CreateRiskAssessment(createResource *r5.RiskAssessment) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RiskAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateRiskAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read RiskAssessment from fhir server by id, return RiskAssessment or OperationOutcome error
@@ -23256,18 +20705,14 @@ func (fc *FhirClient) ReadRiskAssessment(id string) (*r5.RiskAssessment, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RiskAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadRiskAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace RiskAssessment if exists on server, else create new RiskAssessment with given id, return RiskAssessment or OperationOutcome error
@@ -23295,18 +20740,14 @@ func (fc *FhirClient) UpdateRiskAssessment(updateResource *r5.RiskAssessment) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RiskAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateRiskAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return RiskAssessment or error OperationOutcome
@@ -23338,18 +20779,14 @@ func (fc *FhirClient) PatchRiskAssessment(patchResource *r5.RiskAssessment) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.RiskAssessment
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchRiskAssessment: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete RiskAssessment and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23375,18 +20812,14 @@ func (fc *FhirClient) DeleteRiskAssessmentById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteRiskAssessmentById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Schedule, return id of created Schedule or OperationOutcome error
@@ -23408,18 +20841,14 @@ func (fc *FhirClient) CreateSchedule(createResource *r5.Schedule) (*r5.Schedule,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Schedule
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSchedule: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Schedule from fhir server by id, return Schedule or OperationOutcome error
@@ -23438,18 +20867,14 @@ func (fc *FhirClient) ReadSchedule(id string) (*r5.Schedule, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Schedule
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSchedule: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Schedule if exists on server, else create new Schedule with given id, return Schedule or OperationOutcome error
@@ -23477,18 +20902,14 @@ func (fc *FhirClient) UpdateSchedule(updateResource *r5.Schedule) (*r5.Schedule,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Schedule
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSchedule: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Schedule or error OperationOutcome
@@ -23520,18 +20941,14 @@ func (fc *FhirClient) PatchSchedule(patchResource *r5.Schedule) (*r5.Schedule, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Schedule
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSchedule: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Schedule and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23557,18 +20974,14 @@ func (fc *FhirClient) DeleteScheduleById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteScheduleById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SearchParameter, return id of created SearchParameter or OperationOutcome error
@@ -23590,18 +21003,14 @@ func (fc *FhirClient) CreateSearchParameter(createResource *r5.SearchParameter) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SearchParameter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSearchParameter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SearchParameter from fhir server by id, return SearchParameter or OperationOutcome error
@@ -23620,18 +21029,14 @@ func (fc *FhirClient) ReadSearchParameter(id string) (*r5.SearchParameter, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SearchParameter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSearchParameter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SearchParameter if exists on server, else create new SearchParameter with given id, return SearchParameter or OperationOutcome error
@@ -23659,18 +21064,14 @@ func (fc *FhirClient) UpdateSearchParameter(updateResource *r5.SearchParameter) 
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SearchParameter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSearchParameter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SearchParameter or error OperationOutcome
@@ -23702,18 +21103,14 @@ func (fc *FhirClient) PatchSearchParameter(patchResource *r5.SearchParameter) (*
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SearchParameter
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSearchParameter: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SearchParameter and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23739,18 +21136,14 @@ func (fc *FhirClient) DeleteSearchParameterById(id string) (*r5.OperationOutcome
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSearchParameterById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ServiceRequest, return id of created ServiceRequest or OperationOutcome error
@@ -23772,18 +21165,14 @@ func (fc *FhirClient) CreateServiceRequest(createResource *r5.ServiceRequest) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ServiceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateServiceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ServiceRequest from fhir server by id, return ServiceRequest or OperationOutcome error
@@ -23802,18 +21191,14 @@ func (fc *FhirClient) ReadServiceRequest(id string) (*r5.ServiceRequest, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ServiceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadServiceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ServiceRequest if exists on server, else create new ServiceRequest with given id, return ServiceRequest or OperationOutcome error
@@ -23841,18 +21226,14 @@ func (fc *FhirClient) UpdateServiceRequest(updateResource *r5.ServiceRequest) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ServiceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateServiceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ServiceRequest or error OperationOutcome
@@ -23884,18 +21265,14 @@ func (fc *FhirClient) PatchServiceRequest(patchResource *r5.ServiceRequest) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ServiceRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchServiceRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ServiceRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -23921,18 +21298,14 @@ func (fc *FhirClient) DeleteServiceRequestById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteServiceRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Slot, return id of created Slot or OperationOutcome error
@@ -23954,18 +21327,14 @@ func (fc *FhirClient) CreateSlot(createResource *r5.Slot) (*r5.Slot, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Slot
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSlot: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Slot from fhir server by id, return Slot or OperationOutcome error
@@ -23984,18 +21353,14 @@ func (fc *FhirClient) ReadSlot(id string) (*r5.Slot, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Slot
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSlot: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Slot if exists on server, else create new Slot with given id, return Slot or OperationOutcome error
@@ -24023,18 +21388,14 @@ func (fc *FhirClient) UpdateSlot(updateResource *r5.Slot) (*r5.Slot, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Slot
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSlot: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Slot or error OperationOutcome
@@ -24066,18 +21427,14 @@ func (fc *FhirClient) PatchSlot(patchResource *r5.Slot) (*r5.Slot, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Slot
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSlot: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Slot and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -24103,18 +21460,14 @@ func (fc *FhirClient) DeleteSlotById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSlotById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Specimen, return id of created Specimen or OperationOutcome error
@@ -24136,18 +21489,14 @@ func (fc *FhirClient) CreateSpecimen(createResource *r5.Specimen) (*r5.Specimen,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Specimen
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSpecimen: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Specimen from fhir server by id, return Specimen or OperationOutcome error
@@ -24166,18 +21515,14 @@ func (fc *FhirClient) ReadSpecimen(id string) (*r5.Specimen, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Specimen
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSpecimen: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Specimen if exists on server, else create new Specimen with given id, return Specimen or OperationOutcome error
@@ -24205,18 +21550,14 @@ func (fc *FhirClient) UpdateSpecimen(updateResource *r5.Specimen) (*r5.Specimen,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Specimen
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSpecimen: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Specimen or error OperationOutcome
@@ -24248,18 +21589,14 @@ func (fc *FhirClient) PatchSpecimen(patchResource *r5.Specimen) (*r5.Specimen, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Specimen
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSpecimen: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Specimen and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -24285,18 +21622,14 @@ func (fc *FhirClient) DeleteSpecimenById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSpecimenById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SpecimenDefinition, return id of created SpecimenDefinition or OperationOutcome error
@@ -24318,18 +21651,14 @@ func (fc *FhirClient) CreateSpecimenDefinition(createResource *r5.SpecimenDefini
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SpecimenDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSpecimenDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SpecimenDefinition from fhir server by id, return SpecimenDefinition or OperationOutcome error
@@ -24348,18 +21677,14 @@ func (fc *FhirClient) ReadSpecimenDefinition(id string) (*r5.SpecimenDefinition,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SpecimenDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSpecimenDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SpecimenDefinition if exists on server, else create new SpecimenDefinition with given id, return SpecimenDefinition or OperationOutcome error
@@ -24387,18 +21712,14 @@ func (fc *FhirClient) UpdateSpecimenDefinition(updateResource *r5.SpecimenDefini
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SpecimenDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSpecimenDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SpecimenDefinition or error OperationOutcome
@@ -24430,18 +21751,14 @@ func (fc *FhirClient) PatchSpecimenDefinition(patchResource *r5.SpecimenDefiniti
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SpecimenDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSpecimenDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SpecimenDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -24467,18 +21784,14 @@ func (fc *FhirClient) DeleteSpecimenDefinitionById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSpecimenDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create StructureDefinition, return id of created StructureDefinition or OperationOutcome error
@@ -24500,18 +21813,14 @@ func (fc *FhirClient) CreateStructureDefinition(createResource *r5.StructureDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateStructureDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read StructureDefinition from fhir server by id, return StructureDefinition or OperationOutcome error
@@ -24530,18 +21839,14 @@ func (fc *FhirClient) ReadStructureDefinition(id string) (*r5.StructureDefinitio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadStructureDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace StructureDefinition if exists on server, else create new StructureDefinition with given id, return StructureDefinition or OperationOutcome error
@@ -24569,18 +21874,14 @@ func (fc *FhirClient) UpdateStructureDefinition(updateResource *r5.StructureDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateStructureDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return StructureDefinition or error OperationOutcome
@@ -24612,18 +21913,14 @@ func (fc *FhirClient) PatchStructureDefinition(patchResource *r5.StructureDefini
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchStructureDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete StructureDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -24649,18 +21946,14 @@ func (fc *FhirClient) DeleteStructureDefinitionById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteStructureDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create StructureMap, return id of created StructureMap or OperationOutcome error
@@ -24682,18 +21975,14 @@ func (fc *FhirClient) CreateStructureMap(createResource *r5.StructureMap) (*r5.S
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateStructureMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read StructureMap from fhir server by id, return StructureMap or OperationOutcome error
@@ -24712,18 +22001,14 @@ func (fc *FhirClient) ReadStructureMap(id string) (*r5.StructureMap, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadStructureMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace StructureMap if exists on server, else create new StructureMap with given id, return StructureMap or OperationOutcome error
@@ -24751,18 +22036,14 @@ func (fc *FhirClient) UpdateStructureMap(updateResource *r5.StructureMap) (*r5.S
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateStructureMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return StructureMap or error OperationOutcome
@@ -24794,18 +22075,14 @@ func (fc *FhirClient) PatchStructureMap(patchResource *r5.StructureMap) (*r5.Str
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.StructureMap
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchStructureMap: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete StructureMap and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -24831,18 +22108,14 @@ func (fc *FhirClient) DeleteStructureMapById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteStructureMapById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Subscription, return id of created Subscription or OperationOutcome error
@@ -24864,18 +22137,14 @@ func (fc *FhirClient) CreateSubscription(createResource *r5.Subscription) (*r5.S
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Subscription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubscription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Subscription from fhir server by id, return Subscription or OperationOutcome error
@@ -24894,18 +22163,14 @@ func (fc *FhirClient) ReadSubscription(id string) (*r5.Subscription, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Subscription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubscription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Subscription if exists on server, else create new Subscription with given id, return Subscription or OperationOutcome error
@@ -24933,18 +22198,14 @@ func (fc *FhirClient) UpdateSubscription(updateResource *r5.Subscription) (*r5.S
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Subscription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubscription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Subscription or error OperationOutcome
@@ -24976,18 +22237,14 @@ func (fc *FhirClient) PatchSubscription(patchResource *r5.Subscription) (*r5.Sub
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Subscription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubscription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Subscription and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25013,18 +22270,14 @@ func (fc *FhirClient) DeleteSubscriptionById(id string) (*r5.OperationOutcome, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubscriptionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubscriptionStatus, return id of created SubscriptionStatus or OperationOutcome error
@@ -25046,18 +22299,14 @@ func (fc *FhirClient) CreateSubscriptionStatus(createResource *r5.SubscriptionSt
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionStatus
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubscriptionStatus: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubscriptionStatus from fhir server by id, return SubscriptionStatus or OperationOutcome error
@@ -25076,18 +22325,14 @@ func (fc *FhirClient) ReadSubscriptionStatus(id string) (*r5.SubscriptionStatus,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionStatus
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubscriptionStatus: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubscriptionStatus if exists on server, else create new SubscriptionStatus with given id, return SubscriptionStatus or OperationOutcome error
@@ -25115,18 +22360,14 @@ func (fc *FhirClient) UpdateSubscriptionStatus(updateResource *r5.SubscriptionSt
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionStatus
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubscriptionStatus: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubscriptionStatus or error OperationOutcome
@@ -25158,18 +22399,14 @@ func (fc *FhirClient) PatchSubscriptionStatus(patchResource *r5.SubscriptionStat
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionStatus
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubscriptionStatus: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubscriptionStatus and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25195,18 +22432,14 @@ func (fc *FhirClient) DeleteSubscriptionStatusById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubscriptionStatusById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubscriptionTopic, return id of created SubscriptionTopic or OperationOutcome error
@@ -25228,18 +22461,14 @@ func (fc *FhirClient) CreateSubscriptionTopic(createResource *r5.SubscriptionTop
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionTopic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubscriptionTopic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubscriptionTopic from fhir server by id, return SubscriptionTopic or OperationOutcome error
@@ -25258,18 +22487,14 @@ func (fc *FhirClient) ReadSubscriptionTopic(id string) (*r5.SubscriptionTopic, e
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionTopic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubscriptionTopic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubscriptionTopic if exists on server, else create new SubscriptionTopic with given id, return SubscriptionTopic or OperationOutcome error
@@ -25297,18 +22522,14 @@ func (fc *FhirClient) UpdateSubscriptionTopic(updateResource *r5.SubscriptionTop
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionTopic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubscriptionTopic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubscriptionTopic or error OperationOutcome
@@ -25340,18 +22561,14 @@ func (fc *FhirClient) PatchSubscriptionTopic(patchResource *r5.SubscriptionTopic
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubscriptionTopic
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubscriptionTopic: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubscriptionTopic and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25377,18 +22594,14 @@ func (fc *FhirClient) DeleteSubscriptionTopicById(id string) (*r5.OperationOutco
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubscriptionTopicById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Substance, return id of created Substance or OperationOutcome error
@@ -25410,18 +22623,14 @@ func (fc *FhirClient) CreateSubstance(createResource *r5.Substance) (*r5.Substan
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Substance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Substance from fhir server by id, return Substance or OperationOutcome error
@@ -25440,18 +22649,14 @@ func (fc *FhirClient) ReadSubstance(id string) (*r5.Substance, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Substance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Substance if exists on server, else create new Substance with given id, return Substance or OperationOutcome error
@@ -25479,18 +22684,14 @@ func (fc *FhirClient) UpdateSubstance(updateResource *r5.Substance) (*r5.Substan
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Substance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Substance or error OperationOutcome
@@ -25522,18 +22723,14 @@ func (fc *FhirClient) PatchSubstance(patchResource *r5.Substance) (*r5.Substance
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Substance
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstance: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Substance and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25559,18 +22756,14 @@ func (fc *FhirClient) DeleteSubstanceById(id string) (*r5.OperationOutcome, erro
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstanceDefinition, return id of created SubstanceDefinition or OperationOutcome error
@@ -25592,18 +22785,14 @@ func (fc *FhirClient) CreateSubstanceDefinition(createResource *r5.SubstanceDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstanceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstanceDefinition from fhir server by id, return SubstanceDefinition or OperationOutcome error
@@ -25622,18 +22811,14 @@ func (fc *FhirClient) ReadSubstanceDefinition(id string) (*r5.SubstanceDefinitio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstanceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstanceDefinition if exists on server, else create new SubstanceDefinition with given id, return SubstanceDefinition or OperationOutcome error
@@ -25661,18 +22846,14 @@ func (fc *FhirClient) UpdateSubstanceDefinition(updateResource *r5.SubstanceDefi
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstanceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstanceDefinition or error OperationOutcome
@@ -25704,18 +22885,14 @@ func (fc *FhirClient) PatchSubstanceDefinition(patchResource *r5.SubstanceDefini
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceDefinition
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstanceDefinition: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstanceDefinition and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25741,18 +22918,14 @@ func (fc *FhirClient) DeleteSubstanceDefinitionById(id string) (*r5.OperationOut
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceDefinitionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstanceNucleicAcid, return id of created SubstanceNucleicAcid or OperationOutcome error
@@ -25774,18 +22947,14 @@ func (fc *FhirClient) CreateSubstanceNucleicAcid(createResource *r5.SubstanceNuc
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceNucleicAcid
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstanceNucleicAcid: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstanceNucleicAcid from fhir server by id, return SubstanceNucleicAcid or OperationOutcome error
@@ -25804,18 +22973,14 @@ func (fc *FhirClient) ReadSubstanceNucleicAcid(id string) (*r5.SubstanceNucleicA
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceNucleicAcid
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstanceNucleicAcid: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstanceNucleicAcid if exists on server, else create new SubstanceNucleicAcid with given id, return SubstanceNucleicAcid or OperationOutcome error
@@ -25843,18 +23008,14 @@ func (fc *FhirClient) UpdateSubstanceNucleicAcid(updateResource *r5.SubstanceNuc
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceNucleicAcid
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstanceNucleicAcid: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstanceNucleicAcid or error OperationOutcome
@@ -25886,18 +23047,14 @@ func (fc *FhirClient) PatchSubstanceNucleicAcid(patchResource *r5.SubstanceNucle
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceNucleicAcid
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstanceNucleicAcid: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstanceNucleicAcid and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -25923,18 +23080,14 @@ func (fc *FhirClient) DeleteSubstanceNucleicAcidById(id string) (*r5.OperationOu
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceNucleicAcidById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstancePolymer, return id of created SubstancePolymer or OperationOutcome error
@@ -25956,18 +23109,14 @@ func (fc *FhirClient) CreateSubstancePolymer(createResource *r5.SubstancePolymer
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstancePolymer
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstancePolymer: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstancePolymer from fhir server by id, return SubstancePolymer or OperationOutcome error
@@ -25986,18 +23135,14 @@ func (fc *FhirClient) ReadSubstancePolymer(id string) (*r5.SubstancePolymer, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstancePolymer
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstancePolymer: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstancePolymer if exists on server, else create new SubstancePolymer with given id, return SubstancePolymer or OperationOutcome error
@@ -26025,18 +23170,14 @@ func (fc *FhirClient) UpdateSubstancePolymer(updateResource *r5.SubstancePolymer
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstancePolymer
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstancePolymer: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstancePolymer or error OperationOutcome
@@ -26068,18 +23209,14 @@ func (fc *FhirClient) PatchSubstancePolymer(patchResource *r5.SubstancePolymer) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstancePolymer
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstancePolymer: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstancePolymer and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -26105,18 +23242,14 @@ func (fc *FhirClient) DeleteSubstancePolymerById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstancePolymerById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstanceProtein, return id of created SubstanceProtein or OperationOutcome error
@@ -26138,18 +23271,14 @@ func (fc *FhirClient) CreateSubstanceProtein(createResource *r5.SubstanceProtein
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceProtein
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstanceProtein: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstanceProtein from fhir server by id, return SubstanceProtein or OperationOutcome error
@@ -26168,18 +23297,14 @@ func (fc *FhirClient) ReadSubstanceProtein(id string) (*r5.SubstanceProtein, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceProtein
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstanceProtein: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstanceProtein if exists on server, else create new SubstanceProtein with given id, return SubstanceProtein or OperationOutcome error
@@ -26207,18 +23332,14 @@ func (fc *FhirClient) UpdateSubstanceProtein(updateResource *r5.SubstanceProtein
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceProtein
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstanceProtein: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstanceProtein or error OperationOutcome
@@ -26250,18 +23371,14 @@ func (fc *FhirClient) PatchSubstanceProtein(patchResource *r5.SubstanceProtein) 
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceProtein
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstanceProtein: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstanceProtein and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -26287,18 +23404,14 @@ func (fc *FhirClient) DeleteSubstanceProteinById(id string) (*r5.OperationOutcom
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceProteinById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstanceReferenceInformation, return id of created SubstanceReferenceInformation or OperationOutcome error
@@ -26320,18 +23433,14 @@ func (fc *FhirClient) CreateSubstanceReferenceInformation(createResource *r5.Sub
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceReferenceInformation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstanceReferenceInformation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstanceReferenceInformation from fhir server by id, return SubstanceReferenceInformation or OperationOutcome error
@@ -26350,18 +23459,14 @@ func (fc *FhirClient) ReadSubstanceReferenceInformation(id string) (*r5.Substanc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceReferenceInformation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstanceReferenceInformation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstanceReferenceInformation if exists on server, else create new SubstanceReferenceInformation with given id, return SubstanceReferenceInformation or OperationOutcome error
@@ -26389,18 +23494,14 @@ func (fc *FhirClient) UpdateSubstanceReferenceInformation(updateResource *r5.Sub
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceReferenceInformation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstanceReferenceInformation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstanceReferenceInformation or error OperationOutcome
@@ -26432,18 +23533,14 @@ func (fc *FhirClient) PatchSubstanceReferenceInformation(patchResource *r5.Subst
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceReferenceInformation
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstanceReferenceInformation: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstanceReferenceInformation and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -26469,18 +23566,14 @@ func (fc *FhirClient) DeleteSubstanceReferenceInformationById(id string) (*r5.Op
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceReferenceInformationById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SubstanceSourceMaterial, return id of created SubstanceSourceMaterial or OperationOutcome error
@@ -26502,18 +23595,14 @@ func (fc *FhirClient) CreateSubstanceSourceMaterial(createResource *r5.Substance
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceSourceMaterial
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSubstanceSourceMaterial: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SubstanceSourceMaterial from fhir server by id, return SubstanceSourceMaterial or OperationOutcome error
@@ -26532,18 +23621,14 @@ func (fc *FhirClient) ReadSubstanceSourceMaterial(id string) (*r5.SubstanceSourc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceSourceMaterial
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSubstanceSourceMaterial: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SubstanceSourceMaterial if exists on server, else create new SubstanceSourceMaterial with given id, return SubstanceSourceMaterial or OperationOutcome error
@@ -26571,18 +23656,14 @@ func (fc *FhirClient) UpdateSubstanceSourceMaterial(updateResource *r5.Substance
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceSourceMaterial
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSubstanceSourceMaterial: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SubstanceSourceMaterial or error OperationOutcome
@@ -26614,18 +23695,14 @@ func (fc *FhirClient) PatchSubstanceSourceMaterial(patchResource *r5.SubstanceSo
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SubstanceSourceMaterial
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSubstanceSourceMaterial: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SubstanceSourceMaterial and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -26651,18 +23728,14 @@ func (fc *FhirClient) DeleteSubstanceSourceMaterialById(id string) (*r5.Operatio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSubstanceSourceMaterialById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SupplyDelivery, return id of created SupplyDelivery or OperationOutcome error
@@ -26684,18 +23757,14 @@ func (fc *FhirClient) CreateSupplyDelivery(createResource *r5.SupplyDelivery) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyDelivery
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSupplyDelivery: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SupplyDelivery from fhir server by id, return SupplyDelivery or OperationOutcome error
@@ -26714,18 +23783,14 @@ func (fc *FhirClient) ReadSupplyDelivery(id string) (*r5.SupplyDelivery, error) 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyDelivery
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSupplyDelivery: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SupplyDelivery if exists on server, else create new SupplyDelivery with given id, return SupplyDelivery or OperationOutcome error
@@ -26753,18 +23818,14 @@ func (fc *FhirClient) UpdateSupplyDelivery(updateResource *r5.SupplyDelivery) (*
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyDelivery
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSupplyDelivery: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SupplyDelivery or error OperationOutcome
@@ -26796,18 +23857,14 @@ func (fc *FhirClient) PatchSupplyDelivery(patchResource *r5.SupplyDelivery) (*r5
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyDelivery
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSupplyDelivery: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SupplyDelivery and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -26833,18 +23890,14 @@ func (fc *FhirClient) DeleteSupplyDeliveryById(id string) (*r5.OperationOutcome,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSupplyDeliveryById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create SupplyRequest, return id of created SupplyRequest or OperationOutcome error
@@ -26866,18 +23919,14 @@ func (fc *FhirClient) CreateSupplyRequest(createResource *r5.SupplyRequest) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateSupplyRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read SupplyRequest from fhir server by id, return SupplyRequest or OperationOutcome error
@@ -26896,18 +23945,14 @@ func (fc *FhirClient) ReadSupplyRequest(id string) (*r5.SupplyRequest, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadSupplyRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace SupplyRequest if exists on server, else create new SupplyRequest with given id, return SupplyRequest or OperationOutcome error
@@ -26935,18 +23980,14 @@ func (fc *FhirClient) UpdateSupplyRequest(updateResource *r5.SupplyRequest) (*r5
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateSupplyRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return SupplyRequest or error OperationOutcome
@@ -26978,18 +24019,14 @@ func (fc *FhirClient) PatchSupplyRequest(patchResource *r5.SupplyRequest) (*r5.S
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.SupplyRequest
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchSupplyRequest: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete SupplyRequest and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27015,18 +24052,14 @@ func (fc *FhirClient) DeleteSupplyRequestById(id string) (*r5.OperationOutcome, 
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteSupplyRequestById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Task, return id of created Task or OperationOutcome error
@@ -27048,18 +24081,14 @@ func (fc *FhirClient) CreateTask(createResource *r5.Task) (*r5.Task, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Task
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTask: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Task from fhir server by id, return Task or OperationOutcome error
@@ -27078,18 +24107,14 @@ func (fc *FhirClient) ReadTask(id string) (*r5.Task, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Task
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTask: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Task if exists on server, else create new Task with given id, return Task or OperationOutcome error
@@ -27117,18 +24142,14 @@ func (fc *FhirClient) UpdateTask(updateResource *r5.Task) (*r5.Task, error) {
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Task
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTask: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Task or error OperationOutcome
@@ -27160,18 +24181,14 @@ func (fc *FhirClient) PatchTask(patchResource *r5.Task) (*r5.Task, error) {
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Task
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTask: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Task and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27197,18 +24214,14 @@ func (fc *FhirClient) DeleteTaskById(id string) (*r5.OperationOutcome, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTaskById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create TerminologyCapabilities, return id of created TerminologyCapabilities or OperationOutcome error
@@ -27230,18 +24243,14 @@ func (fc *FhirClient) CreateTerminologyCapabilities(createResource *r5.Terminolo
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TerminologyCapabilities
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTerminologyCapabilities: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read TerminologyCapabilities from fhir server by id, return TerminologyCapabilities or OperationOutcome error
@@ -27260,18 +24269,14 @@ func (fc *FhirClient) ReadTerminologyCapabilities(id string) (*r5.TerminologyCap
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TerminologyCapabilities
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTerminologyCapabilities: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace TerminologyCapabilities if exists on server, else create new TerminologyCapabilities with given id, return TerminologyCapabilities or OperationOutcome error
@@ -27299,18 +24304,14 @@ func (fc *FhirClient) UpdateTerminologyCapabilities(updateResource *r5.Terminolo
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TerminologyCapabilities
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTerminologyCapabilities: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return TerminologyCapabilities or error OperationOutcome
@@ -27342,18 +24343,14 @@ func (fc *FhirClient) PatchTerminologyCapabilities(patchResource *r5.Terminology
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TerminologyCapabilities
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTerminologyCapabilities: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete TerminologyCapabilities and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27379,18 +24376,14 @@ func (fc *FhirClient) DeleteTerminologyCapabilitiesById(id string) (*r5.Operatio
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTerminologyCapabilitiesById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create TestPlan, return id of created TestPlan or OperationOutcome error
@@ -27412,18 +24405,14 @@ func (fc *FhirClient) CreateTestPlan(createResource *r5.TestPlan) (*r5.TestPlan,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestPlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTestPlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read TestPlan from fhir server by id, return TestPlan or OperationOutcome error
@@ -27442,18 +24431,14 @@ func (fc *FhirClient) ReadTestPlan(id string) (*r5.TestPlan, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestPlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTestPlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace TestPlan if exists on server, else create new TestPlan with given id, return TestPlan or OperationOutcome error
@@ -27481,18 +24466,14 @@ func (fc *FhirClient) UpdateTestPlan(updateResource *r5.TestPlan) (*r5.TestPlan,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestPlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTestPlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return TestPlan or error OperationOutcome
@@ -27524,18 +24505,14 @@ func (fc *FhirClient) PatchTestPlan(patchResource *r5.TestPlan) (*r5.TestPlan, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestPlan
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTestPlan: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete TestPlan and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27561,18 +24538,14 @@ func (fc *FhirClient) DeleteTestPlanById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTestPlanById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create TestReport, return id of created TestReport or OperationOutcome error
@@ -27594,18 +24567,14 @@ func (fc *FhirClient) CreateTestReport(createResource *r5.TestReport) (*r5.TestR
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTestReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read TestReport from fhir server by id, return TestReport or OperationOutcome error
@@ -27624,18 +24593,14 @@ func (fc *FhirClient) ReadTestReport(id string) (*r5.TestReport, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTestReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace TestReport if exists on server, else create new TestReport with given id, return TestReport or OperationOutcome error
@@ -27663,18 +24628,14 @@ func (fc *FhirClient) UpdateTestReport(updateResource *r5.TestReport) (*r5.TestR
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTestReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return TestReport or error OperationOutcome
@@ -27706,18 +24667,14 @@ func (fc *FhirClient) PatchTestReport(patchResource *r5.TestReport) (*r5.TestRep
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestReport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTestReport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete TestReport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27743,18 +24700,14 @@ func (fc *FhirClient) DeleteTestReportById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTestReportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create TestScript, return id of created TestScript or OperationOutcome error
@@ -27776,18 +24729,14 @@ func (fc *FhirClient) CreateTestScript(createResource *r5.TestScript) (*r5.TestS
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestScript
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTestScript: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read TestScript from fhir server by id, return TestScript or OperationOutcome error
@@ -27806,18 +24755,14 @@ func (fc *FhirClient) ReadTestScript(id string) (*r5.TestScript, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestScript
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTestScript: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace TestScript if exists on server, else create new TestScript with given id, return TestScript or OperationOutcome error
@@ -27845,18 +24790,14 @@ func (fc *FhirClient) UpdateTestScript(updateResource *r5.TestScript) (*r5.TestS
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestScript
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTestScript: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return TestScript or error OperationOutcome
@@ -27888,18 +24829,14 @@ func (fc *FhirClient) PatchTestScript(patchResource *r5.TestScript) (*r5.TestScr
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.TestScript
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTestScript: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete TestScript and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -27925,18 +24862,14 @@ func (fc *FhirClient) DeleteTestScriptById(id string) (*r5.OperationOutcome, err
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTestScriptById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create Transport, return id of created Transport or OperationOutcome error
@@ -27958,18 +24891,14 @@ func (fc *FhirClient) CreateTransport(createResource *r5.Transport) (*r5.Transpo
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Transport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateTransport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read Transport from fhir server by id, return Transport or OperationOutcome error
@@ -27988,18 +24917,14 @@ func (fc *FhirClient) ReadTransport(id string) (*r5.Transport, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Transport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadTransport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace Transport if exists on server, else create new Transport with given id, return Transport or OperationOutcome error
@@ -28027,18 +24952,14 @@ func (fc *FhirClient) UpdateTransport(updateResource *r5.Transport) (*r5.Transpo
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Transport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateTransport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return Transport or error OperationOutcome
@@ -28070,18 +24991,14 @@ func (fc *FhirClient) PatchTransport(patchResource *r5.Transport) (*r5.Transport
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.Transport
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchTransport: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete Transport and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -28107,18 +25024,14 @@ func (fc *FhirClient) DeleteTransportById(id string) (*r5.OperationOutcome, erro
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteTransportById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create ValueSet, return id of created ValueSet or OperationOutcome error
@@ -28140,18 +25053,14 @@ func (fc *FhirClient) CreateValueSet(createResource *r5.ValueSet) (*r5.ValueSet,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ValueSet
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateValueSet: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read ValueSet from fhir server by id, return ValueSet or OperationOutcome error
@@ -28170,18 +25079,14 @@ func (fc *FhirClient) ReadValueSet(id string) (*r5.ValueSet, error) {
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ValueSet
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadValueSet: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace ValueSet if exists on server, else create new ValueSet with given id, return ValueSet or OperationOutcome error
@@ -28209,18 +25114,14 @@ func (fc *FhirClient) UpdateValueSet(updateResource *r5.ValueSet) (*r5.ValueSet,
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ValueSet
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateValueSet: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return ValueSet or error OperationOutcome
@@ -28252,18 +25153,14 @@ func (fc *FhirClient) PatchValueSet(patchResource *r5.ValueSet) (*r5.ValueSet, e
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.ValueSet
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchValueSet: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete ValueSet and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -28289,18 +25186,14 @@ func (fc *FhirClient) DeleteValueSetById(id string) (*r5.OperationOutcome, error
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteValueSetById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create VerificationResult, return id of created VerificationResult or OperationOutcome error
@@ -28322,18 +25215,14 @@ func (fc *FhirClient) CreateVerificationResult(createResource *r5.VerificationRe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VerificationResult
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateVerificationResult: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read VerificationResult from fhir server by id, return VerificationResult or OperationOutcome error
@@ -28352,18 +25241,14 @@ func (fc *FhirClient) ReadVerificationResult(id string) (*r5.VerificationResult,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VerificationResult
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadVerificationResult: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace VerificationResult if exists on server, else create new VerificationResult with given id, return VerificationResult or OperationOutcome error
@@ -28391,18 +25276,14 @@ func (fc *FhirClient) UpdateVerificationResult(updateResource *r5.VerificationRe
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VerificationResult
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateVerificationResult: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return VerificationResult or error OperationOutcome
@@ -28434,18 +25315,14 @@ func (fc *FhirClient) PatchVerificationResult(patchResource *r5.VerificationResu
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VerificationResult
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchVerificationResult: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete VerificationResult and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -28471,18 +25348,14 @@ func (fc *FhirClient) DeleteVerificationResultById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteVerificationResultById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // create VisionPrescription, return id of created VisionPrescription or OperationOutcome error
@@ -28504,18 +25377,14 @@ func (fc *FhirClient) CreateVisionPrescription(createResource *r5.VisionPrescrip
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VisionPrescription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("CreateVisionPrescription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // read VisionPrescription from fhir server by id, return VisionPrescription or OperationOutcome error
@@ -28534,18 +25403,14 @@ func (fc *FhirClient) ReadVisionPrescription(id string) (*r5.VisionPrescription,
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VisionPrescription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("ReadVisionPrescription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // replace VisionPrescription if exists on server, else create new VisionPrescription with given id, return VisionPrescription or OperationOutcome error
@@ -28573,18 +25438,14 @@ func (fc *FhirClient) UpdateVisionPrescription(updateResource *r5.VisionPrescrip
 	}
 	req.Header.Set("Content-Type", "application/fhir+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VisionPrescription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("UpdateVisionPrescription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // add or replace fields in existing resource on server, return VisionPrescription or error OperationOutcome
@@ -28616,18 +25477,14 @@ func (fc *FhirClient) PatchVisionPrescription(patchResource *r5.VisionPrescripti
 	}
 	req.Header.Set("Content-Type", "application/json-patch+json")
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.VisionPrescription
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("PatchVisionPrescription: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
 // delete VisionPrescription and all resources that reference it, return OperationOutcome or error OperationOutcome
@@ -28653,44 +25510,41 @@ func (fc *FhirClient) DeleteVisionPrescriptionById(id string) (*r5.OperationOutc
 		return nil, err
 	}
 
-	resp, err := makeRequestCheckError(fc, req)
-	if err != nil {
-		return nil, fmt.Errorf("makeRequestCheckError %s", err)
-	}
-
 	var parsed r5.OperationOutcome
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = getFhirResourceOrError(fc, req, &parsed)
 	if err != nil {
-		return nil, err
+		if _, ok := err.(*r4.OperationOutcome); !ok {
+			err = fmt.Errorf("DeleteVisionPrescriptionById: %s", err)
+		}
 	}
-	resp.Body.Close()
-	return &parsed, nil
+	return &parsed, err
 }
 
-// common checks for malformed response or operationoutcome response, rather than expected resource
-func makeRequestCheckError(fc *FhirClient, req *http.Request) (*http.Response, error) {
+// get a fhir resource of type you asked for,
+// or an operationoutcome error from server response,
+// or some other string error if server misbehaving eg down
+func getFhirResourceOrError(fc *FhirClient, req *http.Request, retResource r5.FhirResource) error {
 	req.Header.Set("Accept", "application/fhir+json")
 	resp, err := fc.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("error making request %s", err)
+		return fmt.Errorf("getFhirResourceOrError, making req got err %s", err)
 	}
-	ct := resp.Header.Get("Content-Type")
-	if ct == "text/html" {
-		body, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("status %s received HTML response (expects json)\n%s", resp.Status, string(body))
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("getFhirResourceOrError: reading body got err %s", err)
 	}
-	if resp.StatusCode >= 300 {
-		var opOutcome r5.OperationOutcome
-		err = json.NewDecoder(resp.Body).Decode(&opOutcome)
-		if err != nil {
-			if ct == "" {
-				ct = "not provided in response header!"
-			}
-			return nil, fmt.Errorf("status %s, content type %s, could not parse OperationOutcome, error %s", resp.Status, ct, err.Error())
-		}
-		return nil, fmt.Errorf("status %s, %s", resp.Status, opOutcome.String())
+	defer resp.Body.Close()
+	err = json.Unmarshal(body, retResource)
+	if err == nil {
+		//managed to unmarshal server response into desired resource type
+		return nil
 	}
-	return resp, nil
+	var oo r5.OperationOutcome
+	err = json.Unmarshal(body, oo)
+	if err == nil {
+		return oo
+	}
+	return fmt.Errorf("getFhirResourceOrError: response body is %s", string(body))
 }
 
 type PatchOperation struct {

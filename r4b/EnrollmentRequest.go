@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 
 	"github.com/a-h/templ"
 )
@@ -31,7 +32,7 @@ type EnrollmentRequest struct {
 
 type OtherEnrollmentRequest EnrollmentRequest
 
-// on convert struct to json, automatically add resourceType=EnrollmentRequest
+// struct -> json, automatically add resourceType=Patient
 func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherEnrollmentRequest
@@ -41,6 +42,17 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:           "EnrollmentRequest",
 	})
 }
+
+// json -> struct, first reject if resourceType != EnrollmentRequest
+func (r *EnrollmentRequest) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "EnrollmentRequest" {
+		return errors.New("resourceType not EnrollmentRequest")
+	}
+	return json.Unmarshal(data, (*OtherEnrollmentRequest)(r))
+}
+
 func (r EnrollmentRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

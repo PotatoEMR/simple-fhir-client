@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -30,7 +31,7 @@ type MedicinalProductUndesirableEffect struct {
 
 type OtherMedicinalProductUndesirableEffect MedicinalProductUndesirableEffect
 
-// on convert struct to json, automatically add resourceType=MedicinalProductUndesirableEffect
+// struct -> json, automatically add resourceType=Patient
 func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMedicinalProductUndesirableEffect
@@ -40,6 +41,17 @@ func (r MedicinalProductUndesirableEffect) MarshalJSON() ([]byte, error) {
 		ResourceType:                           "MedicinalProductUndesirableEffect",
 	})
 }
+
+// json -> struct, first reject if resourceType != MedicinalProductUndesirableEffect
+func (r *MedicinalProductUndesirableEffect) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MedicinalProductUndesirableEffect" {
+		return errors.New("resourceType not MedicinalProductUndesirableEffect")
+	}
+	return json.Unmarshal(data, (*OtherMedicinalProductUndesirableEffect)(r))
+}
+
 func (r MedicinalProductUndesirableEffect) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

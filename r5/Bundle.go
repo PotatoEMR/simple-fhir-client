@@ -85,6 +85,19 @@ type BundleEntryResponse struct {
 	Outcome           *Resource   `json:"outcome,omitempty"`
 }
 
+func (r Bundle) ToRef() Reference {
+	var ref Reference
+	if r.Id != nil {
+		refStr := "Bundle/" + *r.Id
+		ref.Reference = &refStr
+	}
+	ref.Identifier = r.Identifier
+	rtype := "Bundle"
+	ref.Type = &rtype
+	//rDisplay := r.String()
+	//ref.Display = &rDisplay
+	return ref
+}
 func (resource *Bundle) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBundle_type
 

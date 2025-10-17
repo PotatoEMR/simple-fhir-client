@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -86,7 +87,7 @@ type DocumentReferenceContentProfile struct {
 
 type OtherDocumentReference DocumentReference
 
-// on convert struct to json, automatically add resourceType=DocumentReference
+// struct -> json, automatically add resourceType=Patient
 func (r DocumentReference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherDocumentReference
@@ -96,6 +97,17 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 		ResourceType:           "DocumentReference",
 	})
 }
+
+// json -> struct, first reject if resourceType != DocumentReference
+func (r *DocumentReference) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "DocumentReference" {
+		return errors.New("resourceType not DocumentReference")
+	}
+	return json.Unmarshal(data, (*OtherDocumentReference)(r))
+}
+
 func (r DocumentReference) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

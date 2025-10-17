@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -64,7 +65,7 @@ type DeviceRequestParameter struct {
 
 type OtherDeviceRequest DeviceRequest
 
-// on convert struct to json, automatically add resourceType=DeviceRequest
+// struct -> json, automatically add resourceType=Patient
 func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherDeviceRequest
@@ -74,6 +75,17 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:       "DeviceRequest",
 	})
 }
+
+// json -> struct, first reject if resourceType != DeviceRequest
+func (r *DeviceRequest) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "DeviceRequest" {
+		return errors.New("resourceType not DeviceRequest")
+	}
+	return json.Unmarshal(data, (*OtherDeviceRequest)(r))
+}
+
 func (r DeviceRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

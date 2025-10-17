@@ -120,16 +120,43 @@ func ResourceStrings() (map[string]string, []string) {
 	`
 
 	ri = append(ri, "OperationOutcome")
+	//oo has error too
 	rs["OperationOutcome"] = `
-	func (oo OperationOutcome) String() string {
-		var b strings.Builder
-		b.WriteString("OperationOutcome ")
-		for _, v := range oo.Issue {
-			b.WriteString(v.String())
-			b.WriteString(" ")
+		// client create, read, etc return OperationOutcome err
+		// Error() includes function trace, String() does not
+		func (oo OperationOutcome) Error() string {
+					return oo.StringWithErrorTrace()
 		}
-		return b.String()
-	}`
+
+		// print each issue except internal fhir client error trace issues
+		func (oo OperationOutcome) String() string {
+					var b strings.Builder
+					for _, v := range oo.Issue {
+						isDebug := false
+						for _, coding := range v.Details.Coding {
+							if coding.System != nil && *coding.System == "https://potatoemr.github.io/bultaoreune#debug" {
+								isDebug = true
+								break
+							}
+						}
+						if !isDebug {
+							b.WriteString(v.String())
+							b.WriteString(" ")
+						}
+					}
+					return b.String()
+		}
+
+		// includes fhir client error trace issues
+		func (oo OperationOutcome) StringWithErrorTrace() string {
+					var b strings.Builder
+					b.WriteString("OperationOutcome: ")
+					for _, v := range oo.Issue {
+						b.WriteString(v.String())
+						b.WriteString(" ")
+					}
+					return b.String()
+		}`
 
 	rs["OperationOutcomeIssue"] = `
 	func (ooi OperationOutcomeIssue) String() string {

@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -103,7 +104,7 @@ type SubscriptionTopicNotificationShape struct {
 
 type OtherSubscriptionTopic SubscriptionTopic
 
-// on convert struct to json, automatically add resourceType=SubscriptionTopic
+// struct -> json, automatically add resourceType=Patient
 func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherSubscriptionTopic
@@ -113,6 +114,17 @@ func (r SubscriptionTopic) MarshalJSON() ([]byte, error) {
 		ResourceType:           "SubscriptionTopic",
 	})
 }
+
+// json -> struct, first reject if resourceType != SubscriptionTopic
+func (r *SubscriptionTopic) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "SubscriptionTopic" {
+		return errors.New("resourceType not SubscriptionTopic")
+	}
+	return json.Unmarshal(data, (*OtherSubscriptionTopic)(r))
+}
+
 func (r SubscriptionTopic) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

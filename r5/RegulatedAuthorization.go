@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -52,7 +53,7 @@ type RegulatedAuthorizationCase struct {
 
 type OtherRegulatedAuthorization RegulatedAuthorization
 
-// on convert struct to json, automatically add resourceType=RegulatedAuthorization
+// struct -> json, automatically add resourceType=Patient
 func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherRegulatedAuthorization
@@ -62,6 +63,17 @@ func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 		ResourceType:                "RegulatedAuthorization",
 	})
 }
+
+// json -> struct, first reject if resourceType != RegulatedAuthorization
+func (r *RegulatedAuthorization) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "RegulatedAuthorization" {
+		return errors.New("resourceType not RegulatedAuthorization")
+	}
+	return json.Unmarshal(data, (*OtherRegulatedAuthorization)(r))
+}
+
 func (r RegulatedAuthorization) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

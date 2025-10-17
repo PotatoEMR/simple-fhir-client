@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -61,7 +62,7 @@ type GroupMember struct {
 
 type OtherGroup Group
 
-// on convert struct to json, automatically add resourceType=Group
+// struct -> json, automatically add resourceType=Patient
 func (r Group) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherGroup
@@ -71,6 +72,17 @@ func (r Group) MarshalJSON() ([]byte, error) {
 		ResourceType: "Group",
 	})
 }
+
+// json -> struct, first reject if resourceType != Group
+func (r *Group) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "Group" {
+		return errors.New("resourceType not Group")
+	}
+	return json.Unmarshal(data, (*OtherGroup)(r))
+}
+
 func (r Group) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

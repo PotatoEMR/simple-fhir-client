@@ -6,6 +6,7 @@ package r4
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -58,7 +59,7 @@ type CommunicationRequestPayload struct {
 
 type OtherCommunicationRequest CommunicationRequest
 
-// on convert struct to json, automatically add resourceType=CommunicationRequest
+// struct -> json, automatically add resourceType=Patient
 func (r CommunicationRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherCommunicationRequest
@@ -68,6 +69,17 @@ func (r CommunicationRequest) MarshalJSON() ([]byte, error) {
 		ResourceType:              "CommunicationRequest",
 	})
 }
+
+// json -> struct, first reject if resourceType != CommunicationRequest
+func (r *CommunicationRequest) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "CommunicationRequest" {
+		return errors.New("resourceType not CommunicationRequest")
+	}
+	return json.Unmarshal(data, (*OtherCommunicationRequest)(r))
+}
+
 func (r CommunicationRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

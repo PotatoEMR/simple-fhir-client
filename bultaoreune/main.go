@@ -463,10 +463,11 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 		if isDomainResource {
 			sb.WriteString(fmt.Sprintf(`
 				type Other%s %s
-				// on convert struct to json, automatically add resourceType=%s
+
+				// struct -> json, automatically add resourceType=Patient
 				func (r %s) MarshalJSON() ([]byte, error) {
 					return json.Marshal(struct {
-						Other%s`, res.Name, res.Name, res.Name, res.Name, res.Name))
+						Other%s`, res.Name, res.Name, res.Name, res.Name))
 			sb.WriteString("\nResourceType string `json:\"resourceType\"`")
 			sb.WriteString(fmt.Sprintf(`
 							}{
@@ -474,8 +475,28 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 						ResourceType:            "%s",
 					})
 				}
+
 				`, res.Name, res.Name, res.Name))
 
+			// unmarshal json rejecting wrong resourceType is important
+			// so that getFhirResourceOrError first rejects resource then tries op outcome
+			sb.WriteString(fmt.Sprintf(`
+				// json -> struct, first reject if resourceType != %s
+				func (r *%s) UnmarshalJSON(data []byte) error {
+				if err := json.Unmarshal(data, &checkType); err != nil {
+					return err
+				} else if checkType.ResourceType != "%s" {
+					return errors.New("resourceType not %s")
+				}
+				return json.Unmarshal(data, (*Other%s)(r))
+				}
+
+				`, res.Name, res.Name, res.Name, res.Name, res.Name))
+		}
+		// add toRef to satisfy DomainResource interface
+		// not sure if technically you can reference a bundle
+		// but lets search bundle reuse same function for get fhir resource from server
+		if isDomainResource || res.Name == "Binary" || res.Name == "Bundle" {
 			refFromIdentifier := ""
 			if identifierType == "1" {
 				refFromIdentifier = `ref.Identifier = r.Identifier`

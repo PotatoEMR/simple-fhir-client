@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -73,7 +74,7 @@ type MessageDefinitionAllowedResponse struct {
 
 type OtherMessageDefinition MessageDefinition
 
-// on convert struct to json, automatically add resourceType=MessageDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMessageDefinition
@@ -83,6 +84,17 @@ func (r MessageDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:           "MessageDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != MessageDefinition
+func (r *MessageDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MessageDefinition" {
+		return errors.New("resourceType not MessageDefinition")
+	}
+	return json.Unmarshal(data, (*OtherMessageDefinition)(r))
+}
+
 func (r MessageDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

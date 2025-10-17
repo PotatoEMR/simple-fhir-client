@@ -6,6 +6,7 @@ package r4b
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -45,7 +46,7 @@ type ManufacturedItemDefinitionProperty struct {
 
 type OtherManufacturedItemDefinition ManufacturedItemDefinition
 
-// on convert struct to json, automatically add resourceType=ManufacturedItemDefinition
+// struct -> json, automatically add resourceType=Patient
 func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherManufacturedItemDefinition
@@ -55,6 +56,17 @@ func (r ManufacturedItemDefinition) MarshalJSON() ([]byte, error) {
 		ResourceType:                    "ManufacturedItemDefinition",
 	})
 }
+
+// json -> struct, first reject if resourceType != ManufacturedItemDefinition
+func (r *ManufacturedItemDefinition) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "ManufacturedItemDefinition" {
+		return errors.New("resourceType not ManufacturedItemDefinition")
+	}
+	return json.Unmarshal(data, (*OtherManufacturedItemDefinition)(r))
+}
+
 func (r ManufacturedItemDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {

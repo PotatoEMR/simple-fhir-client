@@ -6,6 +6,7 @@ package r5
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -52,7 +53,7 @@ type MetadataResource struct {
 
 type OtherMetadataResource MetadataResource
 
-// on convert struct to json, automatically add resourceType=MetadataResource
+// struct -> json, automatically add resourceType=Patient
 func (r MetadataResource) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		OtherMetadataResource
@@ -62,6 +63,17 @@ func (r MetadataResource) MarshalJSON() ([]byte, error) {
 		ResourceType:          "MetadataResource",
 	})
 }
+
+// json -> struct, first reject if resourceType != MetadataResource
+func (r *MetadataResource) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &checkType); err != nil {
+		return err
+	} else if checkType.ResourceType != "MetadataResource" {
+		return errors.New("resourceType not MetadataResource")
+	}
+	return json.Unmarshal(data, (*OtherMetadataResource)(r))
+}
+
 func (r MetadataResource) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
