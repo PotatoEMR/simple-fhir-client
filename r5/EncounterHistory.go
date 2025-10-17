@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -59,16 +58,6 @@ func (r EncounterHistory) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != EncounterHistory
-func (r *EncounterHistory) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "EncounterHistory" {
-		return errors.New("resourceType not EncounterHistory")
-	}
-	return json.Unmarshal(data, (*OtherEncounterHistory)(r))
-}
-
 func (r EncounterHistory) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -84,6 +73,10 @@ func (r EncounterHistory) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r EncounterHistory) ResourceType() string {
+	return "EncounterHistory"
+}
+
 func (resource *EncounterHistory) T_Encounter(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return ReferenceInput(frs, "encounter", nil, htmlAttrs)

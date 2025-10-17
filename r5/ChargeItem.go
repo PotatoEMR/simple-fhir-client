@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -74,16 +73,6 @@ func (r ChargeItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ChargeItem
-func (r *ChargeItem) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ChargeItem" {
-		return errors.New("resourceType not ChargeItem")
-	}
-	return json.Unmarshal(data, (*OtherChargeItem)(r))
-}
-
 func (r ChargeItem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -99,6 +88,10 @@ func (r ChargeItem) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ChargeItem) ResourceType() string {
+	return "ChargeItem"
+}
+
 func (resource *ChargeItem) T_DefinitionUri(numDefinitionUri int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numDefinitionUri >= len(resource.DefinitionUri) {
 		return StringInput("definitionUri["+strconv.Itoa(numDefinitionUri)+"]", nil, htmlAttrs)

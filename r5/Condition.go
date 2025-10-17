@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -80,16 +79,6 @@ func (r Condition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Condition
-func (r *Condition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Condition" {
-		return errors.New("resourceType not Condition")
-	}
-	return json.Unmarshal(data, (*OtherCondition)(r))
-}
-
 func (r Condition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -105,6 +94,10 @@ func (r Condition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Condition) ResourceType() string {
+	return "Condition"
+}
+
 func (resource *Condition) T_ClinicalStatus(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("clinicalStatus", nil, optionsValueSet, htmlAttrs)

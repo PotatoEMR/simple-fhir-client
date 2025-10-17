@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -71,16 +70,6 @@ func (r Goal) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Goal
-func (r *Goal) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Goal" {
-		return errors.New("resourceType not Goal")
-	}
-	return json.Unmarshal(data, (*OtherGoal)(r))
-}
-
 func (r Goal) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -96,6 +85,10 @@ func (r Goal) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Goal) ResourceType() string {
+	return "Goal"
+}
+
 func (resource *Goal) T_LifecycleStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSGoal_status
 

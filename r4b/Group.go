@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -72,16 +71,6 @@ func (r Group) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Group
-func (r *Group) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Group" {
-		return errors.New("resourceType not Group")
-	}
-	return json.Unmarshal(data, (*OtherGroup)(r))
-}
-
 func (r Group) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -97,6 +86,10 @@ func (r Group) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Group) ResourceType() string {
+	return "Group"
+}
+
 func (resource *Group) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)

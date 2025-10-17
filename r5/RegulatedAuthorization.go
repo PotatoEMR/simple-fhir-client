@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -64,16 +63,6 @@ func (r RegulatedAuthorization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != RegulatedAuthorization
-func (r *RegulatedAuthorization) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "RegulatedAuthorization" {
-		return errors.New("resourceType not RegulatedAuthorization")
-	}
-	return json.Unmarshal(data, (*OtherRegulatedAuthorization)(r))
-}
-
 func (r RegulatedAuthorization) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -89,6 +78,10 @@ func (r RegulatedAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r RegulatedAuthorization) ResourceType() string {
+	return "RegulatedAuthorization"
+}
+
 func (resource *RegulatedAuthorization) T_Subject(frs []FhirResource, numSubject int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numSubject >= len(resource.Subject) {
 		return ReferenceInput(frs, "subject["+strconv.Itoa(numSubject)+"]", nil, htmlAttrs)

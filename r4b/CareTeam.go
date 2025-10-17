@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -61,16 +60,6 @@ func (r CareTeam) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != CareTeam
-func (r *CareTeam) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "CareTeam" {
-		return errors.New("resourceType not CareTeam")
-	}
-	return json.Unmarshal(data, (*OtherCareTeam)(r))
-}
-
 func (r CareTeam) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -86,6 +75,10 @@ func (r CareTeam) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r CareTeam) ResourceType() string {
+	return "CareTeam"
+}
+
 func (resource *CareTeam) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSCare_team_status
 

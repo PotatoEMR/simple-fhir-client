@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -90,16 +89,6 @@ func (r Composition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Composition
-func (r *Composition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Composition" {
-		return errors.New("resourceType not Composition")
-	}
-	return json.Unmarshal(data, (*OtherComposition)(r))
-}
-
 func (r Composition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -115,6 +104,10 @@ func (r Composition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Composition) ResourceType() string {
+	return "Composition"
+}
+
 func (resource *Composition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

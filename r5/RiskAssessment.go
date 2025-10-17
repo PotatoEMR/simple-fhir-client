@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -69,16 +68,6 @@ func (r RiskAssessment) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != RiskAssessment
-func (r *RiskAssessment) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "RiskAssessment" {
-		return errors.New("resourceType not RiskAssessment")
-	}
-	return json.Unmarshal(data, (*OtherRiskAssessment)(r))
-}
-
 func (r RiskAssessment) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -94,6 +83,10 @@ func (r RiskAssessment) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r RiskAssessment) ResourceType() string {
+	return "RiskAssessment"
+}
+
 func (resource *RiskAssessment) T_BasedOn(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return ReferenceInput(frs, "basedOn", nil, htmlAttrs)

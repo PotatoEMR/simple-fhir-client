@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -216,16 +215,6 @@ func (r ValueSet) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ValueSet
-func (r *ValueSet) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ValueSet" {
-		return errors.New("resourceType not ValueSet")
-	}
-	return json.Unmarshal(data, (*OtherValueSet)(r))
-}
-
 func (r ValueSet) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -241,6 +230,10 @@ func (r ValueSet) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ValueSet) ResourceType() string {
+	return "ValueSet"
+}
+
 func (resource *ValueSet) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

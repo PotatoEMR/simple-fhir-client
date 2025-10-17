@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -55,16 +54,6 @@ func (r SubscriptionStatus) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != SubscriptionStatus
-func (r *SubscriptionStatus) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "SubscriptionStatus" {
-		return errors.New("resourceType not SubscriptionStatus")
-	}
-	return json.Unmarshal(data, (*OtherSubscriptionStatus)(r))
-}
-
 func (r SubscriptionStatus) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -78,6 +67,10 @@ func (r SubscriptionStatus) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r SubscriptionStatus) ResourceType() string {
+	return "SubscriptionStatus"
+}
+
 func (resource *SubscriptionStatus) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSubscription_status
 

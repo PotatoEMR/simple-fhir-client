@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 	"strings"
 
@@ -99,16 +98,6 @@ func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != OperationOutcome
-func (r *OperationOutcome) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "OperationOutcome" {
-		return errors.New("resourceType not OperationOutcome")
-	}
-	return json.Unmarshal(data, (*OtherOperationOutcome)(r))
-}
-
 func (r OperationOutcome) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -122,6 +111,10 @@ func (r OperationOutcome) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r OperationOutcome) ResourceType() string {
+	return "OperationOutcome"
+}
+
 func (resource *OperationOutcome) T_IssueSeverity(numIssue int, htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSIssue_severity
 

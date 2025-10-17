@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -75,16 +74,6 @@ func (r ServiceRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ServiceRequest
-func (r *ServiceRequest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ServiceRequest" {
-		return errors.New("resourceType not ServiceRequest")
-	}
-	return json.Unmarshal(data, (*OtherServiceRequest)(r))
-}
-
 func (r ServiceRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -100,6 +89,10 @@ func (r ServiceRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ServiceRequest) ResourceType() string {
+	return "ServiceRequest"
+}
+
 func (resource *ServiceRequest) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
 		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)

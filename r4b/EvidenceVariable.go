@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -100,16 +99,6 @@ func (r EvidenceVariable) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != EvidenceVariable
-func (r *EvidenceVariable) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "EvidenceVariable" {
-		return errors.New("resourceType not EvidenceVariable")
-	}
-	return json.Unmarshal(data, (*OtherEvidenceVariable)(r))
-}
-
 func (r EvidenceVariable) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -125,6 +114,10 @@ func (r EvidenceVariable) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r EvidenceVariable) ResourceType() string {
+	return "EvidenceVariable"
+}
+
 func (resource *EvidenceVariable) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

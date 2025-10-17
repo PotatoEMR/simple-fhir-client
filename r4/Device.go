@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -114,16 +113,6 @@ func (r Device) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Device
-func (r *Device) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Device" {
-		return errors.New("resourceType not Device")
-	}
-	return json.Unmarshal(data, (*OtherDevice)(r))
-}
-
 func (r Device) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -139,6 +128,10 @@ func (r Device) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Device) ResourceType() string {
+	return "Device"
+}
+
 func (resource *Device) T_Definition(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return ReferenceInput(frs, "definition", nil, htmlAttrs)

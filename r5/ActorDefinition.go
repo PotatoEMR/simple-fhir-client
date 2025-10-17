@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -60,16 +59,6 @@ func (r ActorDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ActorDefinition
-func (r *ActorDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ActorDefinition" {
-		return errors.New("resourceType not ActorDefinition")
-	}
-	return json.Unmarshal(data, (*OtherActorDefinition)(r))
-}
-
 func (r ActorDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -85,6 +74,10 @@ func (r ActorDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ActorDefinition) ResourceType() string {
+	return "ActorDefinition"
+}
+
 func (resource *ActorDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

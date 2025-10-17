@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -114,16 +113,6 @@ func (r ConceptMap) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ConceptMap
-func (r *ConceptMap) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ConceptMap" {
-		return errors.New("resourceType not ConceptMap")
-	}
-	return json.Unmarshal(data, (*OtherConceptMap)(r))
-}
-
 func (r ConceptMap) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -137,6 +126,10 @@ func (r ConceptMap) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ConceptMap) ResourceType() string {
+	return "ConceptMap"
+}
+
 func (resource *ConceptMap) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

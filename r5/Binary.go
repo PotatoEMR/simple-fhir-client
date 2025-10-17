@@ -30,6 +30,10 @@ func (r Binary) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Binary) ResourceType() string {
+	return "Binary"
+}
+
 func (resource *Binary) T_ContentType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeSelect("contentType", nil, optionsValueSet, htmlAttrs)

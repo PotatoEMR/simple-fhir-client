@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -110,16 +109,6 @@ func (r Immunization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Immunization
-func (r *Immunization) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Immunization" {
-		return errors.New("resourceType not Immunization")
-	}
-	return json.Unmarshal(data, (*OtherImmunization)(r))
-}
-
 func (r Immunization) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -135,6 +124,10 @@ func (r Immunization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Immunization) ResourceType() string {
+	return "Immunization"
+}
+
 func (resource *Immunization) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSImmunization_status
 

@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -77,16 +76,6 @@ func (r DeviceRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DeviceRequest
-func (r *DeviceRequest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DeviceRequest" {
-		return errors.New("resourceType not DeviceRequest")
-	}
-	return json.Unmarshal(data, (*OtherDeviceRequest)(r))
-}
-
 func (r DeviceRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -102,6 +91,10 @@ func (r DeviceRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DeviceRequest) ResourceType() string {
+	return "DeviceRequest"
+}
+
 func (resource *DeviceRequest) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
 		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)

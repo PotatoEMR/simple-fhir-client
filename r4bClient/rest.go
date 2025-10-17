@@ -22604,6 +22604,11 @@ func (fc *FhirClient) DeleteVisionPrescriptionById(id string) (*r4b.OperationOut
 	return &parsed, err
 }
 
+// when parsing, check which fhir resource type (AllergyIntolerance, Patient, OperationOutcome, etc)
+type checkType struct {
+	ResourceType string `json:"resourceType"`
+}
+
 // get a fhir resource of type you asked for,
 // or an operationoutcome error from server response,
 // or some other string error if server misbehaving eg down
@@ -22618,17 +22623,29 @@ func getFhirResourceOrError(fc *FhirClient, req *http.Request, retResource r4b.F
 		return fmt.Errorf("getFhirResourceOrError: reading body got err %s", err)
 	}
 	defer resp.Body.Close()
-	err = json.Unmarshal(body, retResource)
-	if err == nil {
-		//managed to unmarshal server response into desired resource type
-		return nil
+	var ct checkType
+	err = json.Unmarshal(body, &ct)
+	if err != nil {
+		return fmt.Errorf("getFhirResourceOrError: response body does not have resourceType: %s", string(body))
 	}
-	var oo r4b.OperationOutcome
-	err = json.Unmarshal(body, oo)
-	if err == nil {
-		return oo
+	if ct.ResourceType == retResource.ResourceType() {
+		err = json.Unmarshal(body, &retResource)
+		if err == nil {
+			//managed to unmarshal server response into desired resource type
+			return nil
+		} else {
+			return fmt.Errorf("getFhirResourceOrError: %s resourceType could not unmarshal from body: %s", ct.ResourceType, string(body))
+		}
+	} else if ct.ResourceType == "OperationOutcome" {
+		var oo r4b.OperationOutcome
+		err = json.Unmarshal(body, &oo)
+		if err == nil {
+			return oo
+		} else {
+			return fmt.Errorf("getFhirResourceOrError: could not unmarshal OperationOutcome from body: %s", string(body))
+		}
 	}
-	return fmt.Errorf("getFhirResourceOrError: response body is %s", string(body))
+	return fmt.Errorf("getFhirResourceOrError: response body has no fhir resource type: %s", string(body))
 }
 
 type PatchOperation struct {

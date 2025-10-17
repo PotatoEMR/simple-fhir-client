@@ -98,6 +98,10 @@ func (r Bundle) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Bundle) ResourceType() string {
+	return "Bundle"
+}
+
 func (resource *Bundle) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSBundle_type
 

@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -125,16 +124,6 @@ func (r Encounter) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Encounter
-func (r *Encounter) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Encounter" {
-		return errors.New("resourceType not Encounter")
-	}
-	return json.Unmarshal(data, (*OtherEncounter)(r))
-}
-
 func (r Encounter) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -150,6 +139,10 @@ func (r Encounter) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Encounter) ResourceType() string {
+	return "Encounter"
+}
+
 func (resource *Encounter) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEncounter_status
 

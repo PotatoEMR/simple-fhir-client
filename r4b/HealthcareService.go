@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -90,16 +89,6 @@ func (r HealthcareService) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != HealthcareService
-func (r *HealthcareService) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "HealthcareService" {
-		return errors.New("resourceType not HealthcareService")
-	}
-	return json.Unmarshal(data, (*OtherHealthcareService)(r))
-}
-
 func (r HealthcareService) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -115,6 +104,10 @@ func (r HealthcareService) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r HealthcareService) ResourceType() string {
+	return "HealthcareService"
+}
+
 func (resource *HealthcareService) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)

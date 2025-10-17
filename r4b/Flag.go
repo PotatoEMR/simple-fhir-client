@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -45,16 +44,6 @@ func (r Flag) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Flag
-func (r *Flag) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Flag" {
-		return errors.New("resourceType not Flag")
-	}
-	return json.Unmarshal(data, (*OtherFlag)(r))
-}
-
 func (r Flag) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -70,6 +59,10 @@ func (r Flag) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Flag) ResourceType() string {
+	return "Flag"
+}
+
 func (resource *Flag) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFlag_status
 

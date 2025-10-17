@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 
 	"github.com/a-h/templ"
 )
@@ -43,16 +42,6 @@ func (r EnrollmentRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != EnrollmentRequest
-func (r *EnrollmentRequest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "EnrollmentRequest" {
-		return errors.New("resourceType not EnrollmentRequest")
-	}
-	return json.Unmarshal(data, (*OtherEnrollmentRequest)(r))
-}
-
 func (r EnrollmentRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -68,6 +57,10 @@ func (r EnrollmentRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r EnrollmentRequest) ResourceType() string {
+	return "EnrollmentRequest"
+}
+
 func (resource *EnrollmentRequest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 

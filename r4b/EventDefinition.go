@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -66,16 +65,6 @@ func (r EventDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != EventDefinition
-func (r *EventDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "EventDefinition" {
-		return errors.New("resourceType not EventDefinition")
-	}
-	return json.Unmarshal(data, (*OtherEventDefinition)(r))
-}
-
 func (r EventDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -91,6 +80,10 @@ func (r EventDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r EventDefinition) ResourceType() string {
+	return "EventDefinition"
+}
+
 func (resource *EventDefinition) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

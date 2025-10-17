@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -75,16 +74,6 @@ func (r VisionPrescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != VisionPrescription
-func (r *VisionPrescription) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "VisionPrescription" {
-		return errors.New("resourceType not VisionPrescription")
-	}
-	return json.Unmarshal(data, (*OtherVisionPrescription)(r))
-}
-
 func (r VisionPrescription) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -100,6 +89,10 @@ func (r VisionPrescription) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r VisionPrescription) ResourceType() string {
+	return "VisionPrescription"
+}
+
 func (resource *VisionPrescription) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 

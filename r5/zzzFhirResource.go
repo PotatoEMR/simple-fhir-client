@@ -1,9 +1,6 @@
 package r5
 
 type FhirResource interface {
+	ResourceType() string
 	ToRef() Reference
-}
-
-var checkType struct {
-	ResourceType string `json:"resourceType"`
 }

@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -62,16 +61,6 @@ func (r NamingSystem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != NamingSystem
-func (r *NamingSystem) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "NamingSystem" {
-		return errors.New("resourceType not NamingSystem")
-	}
-	return json.Unmarshal(data, (*OtherNamingSystem)(r))
-}
-
 func (r NamingSystem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -85,6 +74,10 @@ func (r NamingSystem) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r NamingSystem) ResourceType() string {
+	return "NamingSystem"
+}
+
 func (resource *NamingSystem) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)

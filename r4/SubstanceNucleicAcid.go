@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -78,16 +77,6 @@ func (r SubstanceNucleicAcid) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != SubstanceNucleicAcid
-func (r *SubstanceNucleicAcid) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "SubstanceNucleicAcid" {
-		return errors.New("resourceType not SubstanceNucleicAcid")
-	}
-	return json.Unmarshal(data, (*OtherSubstanceNucleicAcid)(r))
-}
-
 func (r SubstanceNucleicAcid) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -101,6 +90,10 @@ func (r SubstanceNucleicAcid) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r SubstanceNucleicAcid) ResourceType() string {
+	return "SubstanceNucleicAcid"
+}
+
 func (resource *SubstanceNucleicAcid) T_SequenceType(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("sequenceType", nil, optionsValueSet, htmlAttrs)

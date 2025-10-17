@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -122,16 +121,6 @@ func (r CodeSystem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != CodeSystem
-func (r *CodeSystem) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "CodeSystem" {
-		return errors.New("resourceType not CodeSystem")
-	}
-	return json.Unmarshal(data, (*OtherCodeSystem)(r))
-}
-
 func (r CodeSystem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -147,6 +136,10 @@ func (r CodeSystem) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r CodeSystem) ResourceType() string {
+	return "CodeSystem"
+}
+
 func (resource *CodeSystem) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

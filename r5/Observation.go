@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -127,16 +126,6 @@ func (r Observation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Observation
-func (r *Observation) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Observation" {
-		return errors.New("resourceType not Observation")
-	}
-	return json.Unmarshal(data, (*OtherObservation)(r))
-}
-
 func (r Observation) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -152,6 +141,10 @@ func (r Observation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Observation) ResourceType() string {
+	return "Observation"
+}
+
 func (resource *Observation) T_InstantiatesCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesCanonical", nil, htmlAttrs)

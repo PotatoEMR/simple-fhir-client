@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -123,16 +122,6 @@ func (r ClinicalUseDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ClinicalUseDefinition
-func (r *ClinicalUseDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ClinicalUseDefinition" {
-		return errors.New("resourceType not ClinicalUseDefinition")
-	}
-	return json.Unmarshal(data, (*OtherClinicalUseDefinition)(r))
-}
-
 func (r ClinicalUseDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -148,6 +137,10 @@ func (r ClinicalUseDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ClinicalUseDefinition) ResourceType() string {
+	return "ClinicalUseDefinition"
+}
+
 func (resource *ClinicalUseDefinition) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSClinical_use_definition_type
 

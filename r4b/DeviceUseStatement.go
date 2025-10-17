@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -52,16 +51,6 @@ func (r DeviceUseStatement) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DeviceUseStatement
-func (r *DeviceUseStatement) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DeviceUseStatement" {
-		return errors.New("resourceType not DeviceUseStatement")
-	}
-	return json.Unmarshal(data, (*OtherDeviceUseStatement)(r))
-}
-
 func (r DeviceUseStatement) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -77,6 +66,10 @@ func (r DeviceUseStatement) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DeviceUseStatement) ResourceType() string {
+	return "DeviceUseStatement"
+}
+
 func (resource *DeviceUseStatement) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
 		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)

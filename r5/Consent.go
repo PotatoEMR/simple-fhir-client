@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -112,16 +111,6 @@ func (r Consent) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Consent
-func (r *Consent) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Consent" {
-		return errors.New("resourceType not Consent")
-	}
-	return json.Unmarshal(data, (*OtherConsent)(r))
-}
-
 func (r Consent) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -137,6 +126,10 @@ func (r Consent) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Consent) ResourceType() string {
+	return "Consent"
+}
+
 func (resource *Consent) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSConsent_state_codes
 

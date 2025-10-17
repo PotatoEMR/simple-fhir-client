@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -98,16 +97,6 @@ func (r DocumentReference) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DocumentReference
-func (r *DocumentReference) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DocumentReference" {
-		return errors.New("resourceType not DocumentReference")
-	}
-	return json.Unmarshal(data, (*OtherDocumentReference)(r))
-}
-
 func (r DocumentReference) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -123,6 +112,10 @@ func (r DocumentReference) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DocumentReference) ResourceType() string {
+	return "DocumentReference"
+}
+
 func (resource *DocumentReference) T_Version(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("version", nil, htmlAttrs)

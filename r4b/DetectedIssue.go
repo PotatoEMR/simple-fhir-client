@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -69,16 +68,6 @@ func (r DetectedIssue) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DetectedIssue
-func (r *DetectedIssue) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DetectedIssue" {
-		return errors.New("resourceType not DetectedIssue")
-	}
-	return json.Unmarshal(data, (*OtherDetectedIssue)(r))
-}
-
 func (r DetectedIssue) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -94,6 +83,10 @@ func (r DetectedIssue) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DetectedIssue) ResourceType() string {
+	return "DetectedIssue"
+}
+
 func (resource *DetectedIssue) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSObservation_status
 

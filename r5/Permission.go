@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -94,16 +93,6 @@ func (r Permission) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Permission
-func (r *Permission) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Permission" {
-		return errors.New("resourceType not Permission")
-	}
-	return json.Unmarshal(data, (*OtherPermission)(r))
-}
-
 func (r Permission) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -117,6 +106,10 @@ func (r Permission) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Permission) ResourceType() string {
+	return "Permission"
+}
+
 func (resource *Permission) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPermission_status
 

@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -54,16 +53,6 @@ func (r GuidanceResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != GuidanceResponse
-func (r *GuidanceResponse) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "GuidanceResponse" {
-		return errors.New("resourceType not GuidanceResponse")
-	}
-	return json.Unmarshal(data, (*OtherGuidanceResponse)(r))
-}
-
 func (r GuidanceResponse) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -79,6 +68,10 @@ func (r GuidanceResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r GuidanceResponse) ResourceType() string {
+	return "GuidanceResponse"
+}
+
 func (resource *GuidanceResponse) T_RequestIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IdentifierInput("requestIdentifier", nil, htmlAttrs)

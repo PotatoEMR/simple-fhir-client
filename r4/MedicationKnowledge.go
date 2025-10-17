@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -214,16 +213,6 @@ func (r MedicationKnowledge) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MedicationKnowledge
-func (r *MedicationKnowledge) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MedicationKnowledge" {
-		return errors.New("resourceType not MedicationKnowledge")
-	}
-	return json.Unmarshal(data, (*OtherMedicationKnowledge)(r))
-}
-
 func (r MedicationKnowledge) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -237,6 +226,10 @@ func (r MedicationKnowledge) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MedicationKnowledge) ResourceType() string {
+	return "MedicationKnowledge"
+}
+
 func (resource *MedicationKnowledge) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)

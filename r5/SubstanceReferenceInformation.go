@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -78,16 +77,6 @@ func (r SubstanceReferenceInformation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != SubstanceReferenceInformation
-func (r *SubstanceReferenceInformation) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "SubstanceReferenceInformation" {
-		return errors.New("resourceType not SubstanceReferenceInformation")
-	}
-	return json.Unmarshal(data, (*OtherSubstanceReferenceInformation)(r))
-}
-
 func (r SubstanceReferenceInformation) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -101,6 +90,10 @@ func (r SubstanceReferenceInformation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r SubstanceReferenceInformation) ResourceType() string {
+	return "SubstanceReferenceInformation"
+}
+
 func (resource *SubstanceReferenceInformation) T_Comment(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("comment", nil, htmlAttrs)

@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -67,16 +66,6 @@ func (r ArtifactAssessment) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ArtifactAssessment
-func (r *ArtifactAssessment) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ArtifactAssessment" {
-		return errors.New("resourceType not ArtifactAssessment")
-	}
-	return json.Unmarshal(data, (*OtherArtifactAssessment)(r))
-}
-
 func (r ArtifactAssessment) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -92,6 +81,10 @@ func (r ArtifactAssessment) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ArtifactAssessment) ResourceType() string {
+	return "ArtifactAssessment"
+}
+
 func (resource *ArtifactAssessment) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)

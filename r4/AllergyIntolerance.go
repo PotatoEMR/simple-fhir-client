@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -71,16 +70,6 @@ func (r AllergyIntolerance) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != AllergyIntolerance
-func (r *AllergyIntolerance) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "AllergyIntolerance" {
-		return errors.New("resourceType not AllergyIntolerance")
-	}
-	return json.Unmarshal(data, (*OtherAllergyIntolerance)(r))
-}
-
 func (r AllergyIntolerance) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -96,6 +85,10 @@ func (r AllergyIntolerance) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r AllergyIntolerance) ResourceType() string {
+	return "AllergyIntolerance"
+}
+
 func (resource *AllergyIntolerance) T_ClinicalStatus(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAllergyintolerance_clinical
 

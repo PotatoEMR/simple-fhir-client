@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -61,16 +60,6 @@ func (r List) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != List
-func (r *List) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "List" {
-		return errors.New("resourceType not List")
-	}
-	return json.Unmarshal(data, (*OtherList)(r))
-}
-
 func (r List) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -86,6 +75,10 @@ func (r List) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r List) ResourceType() string {
+	return "List"
+}
+
 func (resource *List) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSList_status
 

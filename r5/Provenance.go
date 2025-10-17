@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -71,16 +70,6 @@ func (r Provenance) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Provenance
-func (r *Provenance) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Provenance" {
-		return errors.New("resourceType not Provenance")
-	}
-	return json.Unmarshal(data, (*OtherProvenance)(r))
-}
-
 func (r Provenance) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -94,6 +83,10 @@ func (r Provenance) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Provenance) ResourceType() string {
+	return "Provenance"
+}
+
 func (resource *Provenance) T_Target(frs []FhirResource, numTarget int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTarget >= len(resource.Target) {
 		return ReferenceInput(frs, "target["+strconv.Itoa(numTarget)+"]", nil, htmlAttrs)

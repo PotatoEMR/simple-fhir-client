@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -122,16 +121,6 @@ func (r InventoryItem) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != InventoryItem
-func (r *InventoryItem) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "InventoryItem" {
-		return errors.New("resourceType not InventoryItem")
-	}
-	return json.Unmarshal(data, (*OtherInventoryItem)(r))
-}
-
 func (r InventoryItem) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -147,6 +136,10 @@ func (r InventoryItem) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r InventoryItem) ResourceType() string {
+	return "InventoryItem"
+}
+
 func (resource *InventoryItem) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSInventoryitem_status
 

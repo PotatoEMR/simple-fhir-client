@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -67,16 +66,6 @@ func (r Account) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Account
-func (r *Account) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Account" {
-		return errors.New("resourceType not Account")
-	}
-	return json.Unmarshal(data, (*OtherAccount)(r))
-}
-
 func (r Account) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -92,6 +81,10 @@ func (r Account) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Account) ResourceType() string {
+	return "Account"
+}
+
 func (resource *Account) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAccount_status
 

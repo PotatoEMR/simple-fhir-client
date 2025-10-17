@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -216,16 +215,6 @@ func (r ClaimResponse) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ClaimResponse
-func (r *ClaimResponse) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ClaimResponse" {
-		return errors.New("resourceType not ClaimResponse")
-	}
-	return json.Unmarshal(data, (*OtherClaimResponse)(r))
-}
-
 func (r ClaimResponse) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -241,6 +230,10 @@ func (r ClaimResponse) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ClaimResponse) ResourceType() string {
+	return "ClaimResponse"
+}
+
 func (resource *ClaimResponse) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSFm_status
 

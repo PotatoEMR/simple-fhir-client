@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -49,16 +48,6 @@ func (r Linkage) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Linkage
-func (r *Linkage) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Linkage" {
-		return errors.New("resourceType not Linkage")
-	}
-	return json.Unmarshal(data, (*OtherLinkage)(r))
-}
-
 func (r Linkage) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -72,6 +61,10 @@ func (r Linkage) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Linkage) ResourceType() string {
+	return "Linkage"
+}
+
 func (resource *Linkage) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)

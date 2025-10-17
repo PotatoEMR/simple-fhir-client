@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -448,16 +447,6 @@ func (r ExplanationOfBenefit) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ExplanationOfBenefit
-func (r *ExplanationOfBenefit) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ExplanationOfBenefit" {
-		return errors.New("resourceType not ExplanationOfBenefit")
-	}
-	return json.Unmarshal(data, (*OtherExplanationOfBenefit)(r))
-}
-
 func (r ExplanationOfBenefit) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -473,6 +462,10 @@ func (r ExplanationOfBenefit) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ExplanationOfBenefit) ResourceType() string {
+	return "ExplanationOfBenefit"
+}
+
 func (resource *ExplanationOfBenefit) T_TraceNumber(numTraceNumber int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numTraceNumber >= len(resource.TraceNumber) {
 		return IdentifierInput("traceNumber["+strconv.Itoa(numTraceNumber)+"]", nil, htmlAttrs)

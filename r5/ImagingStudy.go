@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -94,16 +93,6 @@ func (r ImagingStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ImagingStudy
-func (r *ImagingStudy) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ImagingStudy" {
-		return errors.New("resourceType not ImagingStudy")
-	}
-	return json.Unmarshal(data, (*OtherImagingStudy)(r))
-}
-
 func (r ImagingStudy) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -119,6 +108,10 @@ func (r ImagingStudy) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ImagingStudy) ResourceType() string {
+	return "ImagingStudy"
+}
+
 func (resource *ImagingStudy) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSImagingstudy_status
 

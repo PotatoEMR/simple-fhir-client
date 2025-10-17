@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -67,16 +66,6 @@ func (r SupplyRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != SupplyRequest
-func (r *SupplyRequest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "SupplyRequest" {
-		return errors.New("resourceType not SupplyRequest")
-	}
-	return json.Unmarshal(data, (*OtherSupplyRequest)(r))
-}
-
 func (r SupplyRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -92,6 +81,10 @@ func (r SupplyRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r SupplyRequest) ResourceType() string {
+	return "SupplyRequest"
+}
+
 func (resource *SupplyRequest) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSupplyrequest_status
 

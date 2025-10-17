@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -115,16 +114,6 @@ func (r GenomicStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != GenomicStudy
-func (r *GenomicStudy) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "GenomicStudy" {
-		return errors.New("resourceType not GenomicStudy")
-	}
-	return json.Unmarshal(data, (*OtherGenomicStudy)(r))
-}
-
 func (r GenomicStudy) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -140,6 +129,10 @@ func (r GenomicStudy) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r GenomicStudy) ResourceType() string {
+	return "GenomicStudy"
+}
+
 func (resource *GenomicStudy) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSGenomicstudy_status
 

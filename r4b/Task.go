@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -194,16 +193,6 @@ func (r Task) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Task
-func (r *Task) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Task" {
-		return errors.New("resourceType not Task")
-	}
-	return json.Unmarshal(data, (*OtherTask)(r))
-}
-
 func (r Task) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -219,6 +208,10 @@ func (r Task) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Task) ResourceType() string {
+	return "Task"
+}
+
 func (resource *Task) T_InstantiatesCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesCanonical", nil, htmlAttrs)

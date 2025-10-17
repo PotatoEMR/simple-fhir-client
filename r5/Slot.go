@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -48,16 +47,6 @@ func (r Slot) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Slot
-func (r *Slot) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Slot" {
-		return errors.New("resourceType not Slot")
-	}
-	return json.Unmarshal(data, (*OtherSlot)(r))
-}
-
 func (r Slot) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -73,6 +62,10 @@ func (r Slot) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Slot) ResourceType() string {
+	return "Slot"
+}
+
 func (resource *Slot) T_ServiceCategory(numServiceCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numServiceCategory >= len(resource.ServiceCategory) {
 		return CodeableConceptSelect("serviceCategory["+strconv.Itoa(numServiceCategory)+"]", nil, optionsValueSet, htmlAttrs)

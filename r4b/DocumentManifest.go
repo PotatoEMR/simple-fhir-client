@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -58,16 +57,6 @@ func (r DocumentManifest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DocumentManifest
-func (r *DocumentManifest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DocumentManifest" {
-		return errors.New("resourceType not DocumentManifest")
-	}
-	return json.Unmarshal(data, (*OtherDocumentManifest)(r))
-}
-
 func (r DocumentManifest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -83,6 +72,10 @@ func (r DocumentManifest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DocumentManifest) ResourceType() string {
+	return "DocumentManifest"
+}
+
 func (resource *DocumentManifest) T_MasterIdentifier(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return IdentifierInput("masterIdentifier", nil, htmlAttrs)

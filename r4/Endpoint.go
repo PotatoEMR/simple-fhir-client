@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -48,16 +47,6 @@ func (r Endpoint) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Endpoint
-func (r *Endpoint) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Endpoint" {
-		return errors.New("resourceType not Endpoint")
-	}
-	return json.Unmarshal(data, (*OtherEndpoint)(r))
-}
-
 func (r Endpoint) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -73,6 +62,10 @@ func (r Endpoint) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Endpoint) ResourceType() string {
+	return "Endpoint"
+}
+
 func (resource *Endpoint) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSEndpoint_status
 

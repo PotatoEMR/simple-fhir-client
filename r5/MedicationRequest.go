@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -105,16 +104,6 @@ func (r MedicationRequest) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MedicationRequest
-func (r *MedicationRequest) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MedicationRequest" {
-		return errors.New("resourceType not MedicationRequest")
-	}
-	return json.Unmarshal(data, (*OtherMedicationRequest)(r))
-}
-
 func (r MedicationRequest) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -130,6 +119,10 @@ func (r MedicationRequest) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MedicationRequest) ResourceType() string {
+	return "MedicationRequest"
+}
+
 func (resource *MedicationRequest) T_BasedOn(frs []FhirResource, numBasedOn int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numBasedOn >= len(resource.BasedOn) {
 		return ReferenceInput(frs, "basedOn["+strconv.Itoa(numBasedOn)+"]", nil, htmlAttrs)

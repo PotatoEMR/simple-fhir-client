@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -94,16 +93,6 @@ func (r AdministrableProductDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != AdministrableProductDefinition
-func (r *AdministrableProductDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "AdministrableProductDefinition" {
-		return errors.New("resourceType not AdministrableProductDefinition")
-	}
-	return json.Unmarshal(data, (*OtherAdministrableProductDefinition)(r))
-}
-
 func (r AdministrableProductDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -119,6 +108,10 @@ func (r AdministrableProductDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r AdministrableProductDefinition) ResourceType() string {
+	return "AdministrableProductDefinition"
+}
+
 func (resource *AdministrableProductDefinition) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 

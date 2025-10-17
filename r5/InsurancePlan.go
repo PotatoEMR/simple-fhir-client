@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -133,16 +132,6 @@ func (r InsurancePlan) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != InsurancePlan
-func (r *InsurancePlan) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "InsurancePlan" {
-		return errors.New("resourceType not InsurancePlan")
-	}
-	return json.Unmarshal(data, (*OtherInsurancePlan)(r))
-}
-
 func (r InsurancePlan) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -158,6 +147,10 @@ func (r InsurancePlan) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r InsurancePlan) ResourceType() string {
+	return "InsurancePlan"
+}
+
 func (resource *InsurancePlan) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 

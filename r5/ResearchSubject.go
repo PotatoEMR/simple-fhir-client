@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -59,16 +58,6 @@ func (r ResearchSubject) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ResearchSubject
-func (r *ResearchSubject) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ResearchSubject" {
-		return errors.New("resourceType not ResearchSubject")
-	}
-	return json.Unmarshal(data, (*OtherResearchSubject)(r))
-}
-
 func (r ResearchSubject) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -84,6 +73,10 @@ func (r ResearchSubject) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ResearchSubject) ResourceType() string {
+	return "ResearchSubject"
+}
+
 func (resource *ResearchSubject) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 

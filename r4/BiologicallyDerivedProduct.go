@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -92,16 +91,6 @@ func (r BiologicallyDerivedProduct) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != BiologicallyDerivedProduct
-func (r *BiologicallyDerivedProduct) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "BiologicallyDerivedProduct" {
-		return errors.New("resourceType not BiologicallyDerivedProduct")
-	}
-	return json.Unmarshal(data, (*OtherBiologicallyDerivedProduct)(r))
-}
-
 func (r BiologicallyDerivedProduct) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -117,6 +106,10 @@ func (r BiologicallyDerivedProduct) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r BiologicallyDerivedProduct) ResourceType() string {
+	return "BiologicallyDerivedProduct"
+}
+
 func (resource *BiologicallyDerivedProduct) T_ProductCategory(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSProduct_category
 

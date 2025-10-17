@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -72,16 +71,6 @@ func (r SearchParameter) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != SearchParameter
-func (r *SearchParameter) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "SearchParameter" {
-		return errors.New("resourceType not SearchParameter")
-	}
-	return json.Unmarshal(data, (*OtherSearchParameter)(r))
-}
-
 func (r SearchParameter) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -95,6 +84,10 @@ func (r SearchParameter) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r SearchParameter) ResourceType() string {
+	return "SearchParameter"
+}
+
 func (resource *SearchParameter) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

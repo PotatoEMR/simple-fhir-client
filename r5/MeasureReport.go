@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -142,16 +141,6 @@ func (r MeasureReport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MeasureReport
-func (r *MeasureReport) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MeasureReport" {
-		return errors.New("resourceType not MeasureReport")
-	}
-	return json.Unmarshal(data, (*OtherMeasureReport)(r))
-}
-
 func (r MeasureReport) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -167,6 +156,10 @@ func (r MeasureReport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MeasureReport) ResourceType() string {
+	return "MeasureReport"
+}
+
 func (resource *MeasureReport) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSMeasure_report_status
 

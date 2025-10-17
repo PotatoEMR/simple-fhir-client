@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -99,16 +98,6 @@ func (r Ingredient) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Ingredient
-func (r *Ingredient) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Ingredient" {
-		return errors.New("resourceType not Ingredient")
-	}
-	return json.Unmarshal(data, (*OtherIngredient)(r))
-}
-
 func (r Ingredient) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -122,6 +111,10 @@ func (r Ingredient) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Ingredient) ResourceType() string {
+	return "Ingredient"
+}
+
 func (resource *Ingredient) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSPublication_status
 

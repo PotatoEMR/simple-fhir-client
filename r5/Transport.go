@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -203,16 +202,6 @@ func (r Transport) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Transport
-func (r *Transport) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Transport" {
-		return errors.New("resourceType not Transport")
-	}
-	return json.Unmarshal(data, (*OtherTransport)(r))
-}
-
 func (r Transport) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -228,6 +217,10 @@ func (r Transport) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Transport) ResourceType() string {
+	return "Transport"
+}
+
 func (resource *Transport) T_InstantiatesCanonical(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("instantiatesCanonical", nil, htmlAttrs)

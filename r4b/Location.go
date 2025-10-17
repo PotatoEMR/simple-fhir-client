@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -75,16 +74,6 @@ func (r Location) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Location
-func (r *Location) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Location" {
-		return errors.New("resourceType not Location")
-	}
-	return json.Unmarshal(data, (*OtherLocation)(r))
-}
-
 func (r Location) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -100,6 +89,10 @@ func (r Location) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Location) ResourceType() string {
+	return "Location"
+}
+
 func (resource *Location) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSLocation_status
 

@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -80,16 +79,6 @@ func (r ResearchStudy) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ResearchStudy
-func (r *ResearchStudy) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ResearchStudy" {
-		return errors.New("resourceType not ResearchStudy")
-	}
-	return json.Unmarshal(data, (*OtherResearchStudy)(r))
-}
-
 func (r ResearchStudy) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -105,6 +94,10 @@ func (r ResearchStudy) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ResearchStudy) ResourceType() string {
+	return "ResearchStudy"
+}
+
 func (resource *ResearchStudy) T_Title(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("title", nil, htmlAttrs)

@@ -477,21 +477,6 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 				}
 
 				`, res.Name, res.Name, res.Name))
-
-			// unmarshal json rejecting wrong resourceType is important
-			// so that getFhirResourceOrError first rejects resource then tries op outcome
-			sb.WriteString(fmt.Sprintf(`
-				// json -> struct, first reject if resourceType != %s
-				func (r *%s) UnmarshalJSON(data []byte) error {
-				if err := json.Unmarshal(data, &checkType); err != nil {
-					return err
-				} else if checkType.ResourceType != "%s" {
-					return errors.New("resourceType not %s")
-				}
-				return json.Unmarshal(data, (*Other%s)(r))
-				}
-
-				`, res.Name, res.Name, res.Name, res.Name, res.Name))
 		}
 		// add toRef to satisfy DomainResource interface
 		// not sure if technically you can reference a bundle
@@ -518,6 +503,12 @@ func fileToStructs(spec_file, generateStructsDir, fhirVersion string, valueset_l
 							//ref.Display = &rDisplay
 							return ref
 						}`)
+
+			sb.WriteString(fmt.Sprintf(`
+				func (r %s) ResourceType() string{
+					return "%s"
+				}
+				`, res.Name, res.Name))
 		}
 		filename := filepath.Join(generateStructsDir, res.Name+".go")
 		file, err := os.Create(filename)

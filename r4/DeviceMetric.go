@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -57,16 +56,6 @@ func (r DeviceMetric) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != DeviceMetric
-func (r *DeviceMetric) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "DeviceMetric" {
-		return errors.New("resourceType not DeviceMetric")
-	}
-	return json.Unmarshal(data, (*OtherDeviceMetric)(r))
-}
-
 func (r DeviceMetric) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -82,6 +71,10 @@ func (r DeviceMetric) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r DeviceMetric) ResourceType() string {
+	return "DeviceMetric"
+}
+
 func (resource *DeviceMetric) T_Type(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("type", nil, optionsValueSet, htmlAttrs)

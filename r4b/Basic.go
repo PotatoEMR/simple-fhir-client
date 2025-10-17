@@ -6,7 +6,6 @@ package r4b
 
 import (
 	"encoding/json"
-	"errors"
 
 	"github.com/a-h/templ"
 )
@@ -41,16 +40,6 @@ func (r Basic) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Basic
-func (r *Basic) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Basic" {
-		return errors.New("resourceType not Basic")
-	}
-	return json.Unmarshal(data, (*OtherBasic)(r))
-}
-
 func (r Basic) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -66,6 +55,10 @@ func (r Basic) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Basic) ResourceType() string {
+	return "Basic"
+}
+
 func (resource *Basic) T_Code(optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return CodeableConceptSelect("code", nil, optionsValueSet, htmlAttrs)

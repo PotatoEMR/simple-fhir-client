@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -83,16 +82,6 @@ func (r Invoice) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Invoice
-func (r *Invoice) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Invoice" {
-		return errors.New("resourceType not Invoice")
-	}
-	return json.Unmarshal(data, (*OtherInvoice)(r))
-}
-
 func (r Invoice) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -108,6 +97,10 @@ func (r Invoice) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Invoice) ResourceType() string {
+	return "Invoice"
+}
+
 func (resource *Invoice) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSInvoice_status
 

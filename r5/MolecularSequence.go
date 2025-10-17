@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -86,16 +85,6 @@ func (r MolecularSequence) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MolecularSequence
-func (r *MolecularSequence) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MolecularSequence" {
-		return errors.New("resourceType not MolecularSequence")
-	}
-	return json.Unmarshal(data, (*OtherMolecularSequence)(r))
-}
-
 func (r MolecularSequence) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -111,6 +100,10 @@ func (r MolecularSequence) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MolecularSequence) ResourceType() string {
+	return "MolecularSequence"
+}
+
 func (resource *MolecularSequence) T_Type(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSSequence_type
 

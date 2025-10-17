@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -128,16 +127,6 @@ func (r AdverseEvent) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != AdverseEvent
-func (r *AdverseEvent) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "AdverseEvent" {
-		return errors.New("resourceType not AdverseEvent")
-	}
-	return json.Unmarshal(data, (*OtherAdverseEvent)(r))
-}
-
 func (r AdverseEvent) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -153,6 +142,10 @@ func (r AdverseEvent) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r AdverseEvent) ResourceType() string {
+	return "AdverseEvent"
+}
+
 func (resource *AdverseEvent) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSAdverse_event_status
 

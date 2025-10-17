@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -76,16 +75,6 @@ func (r MedicinalProductAuthorization) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MedicinalProductAuthorization
-func (r *MedicinalProductAuthorization) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MedicinalProductAuthorization" {
-		return errors.New("resourceType not MedicinalProductAuthorization")
-	}
-	return json.Unmarshal(data, (*OtherMedicinalProductAuthorization)(r))
-}
-
 func (r MedicinalProductAuthorization) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -101,6 +90,10 @@ func (r MedicinalProductAuthorization) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MedicinalProductAuthorization) ResourceType() string {
+	return "MedicinalProductAuthorization"
+}
+
 func (resource *MedicinalProductAuthorization) T_Subject(frs []FhirResource, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return ReferenceInput(frs, "subject", nil, htmlAttrs)

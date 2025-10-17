@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -50,16 +49,6 @@ func (r ImmunizationEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ImmunizationEvaluation
-func (r *ImmunizationEvaluation) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ImmunizationEvaluation" {
-		return errors.New("resourceType not ImmunizationEvaluation")
-	}
-	return json.Unmarshal(data, (*OtherImmunizationEvaluation)(r))
-}
-
 func (r ImmunizationEvaluation) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -75,6 +64,10 @@ func (r ImmunizationEvaluation) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ImmunizationEvaluation) ResourceType() string {
+	return "ImmunizationEvaluation"
+}
+
 func (resource *ImmunizationEvaluation) T_Status(htmlAttrs templ.Attributes) templ.Component {
 	optionsValueSet := VSImmunization_evaluation_status
 

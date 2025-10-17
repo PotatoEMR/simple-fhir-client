@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 	"strings"
 
@@ -103,16 +102,6 @@ func (r Patient) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != Patient
-func (r *Patient) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "Patient" {
-		return errors.New("resourceType not Patient")
-	}
-	return json.Unmarshal(data, (*OtherPatient)(r))
-}
-
 func (r Patient) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -128,6 +117,10 @@ func (r Patient) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r Patient) ResourceType() string {
+	return "Patient"
+}
+
 func (resource *Patient) T_Active(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return BoolInput("active", nil, htmlAttrs)

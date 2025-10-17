@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -64,16 +63,6 @@ func (r MetadataResource) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != MetadataResource
-func (r *MetadataResource) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "MetadataResource" {
-		return errors.New("resourceType not MetadataResource")
-	}
-	return json.Unmarshal(data, (*OtherMetadataResource)(r))
-}
-
 func (r MetadataResource) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -89,6 +78,10 @@ func (r MetadataResource) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r MetadataResource) ResourceType() string {
+	return "MetadataResource"
+}
+
 func (resource *MetadataResource) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)

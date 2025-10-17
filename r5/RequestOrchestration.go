@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -158,16 +157,6 @@ func (r RequestOrchestration) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != RequestOrchestration
-func (r *RequestOrchestration) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "RequestOrchestration" {
-		return errors.New("resourceType not RequestOrchestration")
-	}
-	return json.Unmarshal(data, (*OtherRequestOrchestration)(r))
-}
-
 func (r RequestOrchestration) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -183,6 +172,10 @@ func (r RequestOrchestration) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r RequestOrchestration) ResourceType() string {
+	return "RequestOrchestration"
+}
+
 func (resource *RequestOrchestration) T_InstantiatesCanonical(numInstantiatesCanonical int, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numInstantiatesCanonical >= len(resource.InstantiatesCanonical) {
 		return StringInput("instantiatesCanonical["+strconv.Itoa(numInstantiatesCanonical)+"]", nil, htmlAttrs)

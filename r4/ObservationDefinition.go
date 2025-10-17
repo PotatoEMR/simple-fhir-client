@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -76,16 +75,6 @@ func (r ObservationDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != ObservationDefinition
-func (r *ObservationDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "ObservationDefinition" {
-		return errors.New("resourceType not ObservationDefinition")
-	}
-	return json.Unmarshal(data, (*OtherObservationDefinition)(r))
-}
-
 func (r ObservationDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -101,6 +90,10 @@ func (r ObservationDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r ObservationDefinition) ResourceType() string {
+	return "ObservationDefinition"
+}
+
 func (resource *ObservationDefinition) T_Category(numCategory int, optionsValueSet []Coding, htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil || numCategory >= len(resource.Category) {
 		return CodeableConceptSelect("category["+strconv.Itoa(numCategory)+"]", nil, optionsValueSet, htmlAttrs)

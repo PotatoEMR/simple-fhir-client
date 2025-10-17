@@ -6,7 +6,6 @@ package r5
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -99,16 +98,6 @@ func (r PackagedProductDefinition) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != PackagedProductDefinition
-func (r *PackagedProductDefinition) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "PackagedProductDefinition" {
-		return errors.New("resourceType not PackagedProductDefinition")
-	}
-	return json.Unmarshal(data, (*OtherPackagedProductDefinition)(r))
-}
-
 func (r PackagedProductDefinition) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -124,6 +113,10 @@ func (r PackagedProductDefinition) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r PackagedProductDefinition) ResourceType() string {
+	return "PackagedProductDefinition"
+}
+
 func (resource *PackagedProductDefinition) T_Name(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("name", nil, htmlAttrs)

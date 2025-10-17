@@ -6,7 +6,6 @@ package r4
 
 import (
 	"encoding/json"
-	"errors"
 	"strconv"
 
 	"github.com/a-h/templ"
@@ -135,16 +134,6 @@ func (r EffectEvidenceSynthesis) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// json -> struct, first reject if resourceType != EffectEvidenceSynthesis
-func (r *EffectEvidenceSynthesis) UnmarshalJSON(data []byte) error {
-	if err := json.Unmarshal(data, &checkType); err != nil {
-		return err
-	} else if checkType.ResourceType != "EffectEvidenceSynthesis" {
-		return errors.New("resourceType not EffectEvidenceSynthesis")
-	}
-	return json.Unmarshal(data, (*OtherEffectEvidenceSynthesis)(r))
-}
-
 func (r EffectEvidenceSynthesis) ToRef() Reference {
 	var ref Reference
 	if r.Id != nil {
@@ -160,6 +149,10 @@ func (r EffectEvidenceSynthesis) ToRef() Reference {
 	//ref.Display = &rDisplay
 	return ref
 }
+func (r EffectEvidenceSynthesis) ResourceType() string {
+	return "EffectEvidenceSynthesis"
+}
+
 func (resource *EffectEvidenceSynthesis) T_Url(htmlAttrs templ.Attributes) templ.Component {
 	if resource == nil {
 		return StringInput("url", nil, htmlAttrs)
