@@ -1,3 +1,5 @@
+not actively working on this, maybe try https://pkg.go.dev/github.com/DAMEDIC/fhir-toolbox-go/model instead
+
 go install golang.org/x/tools/gopls@latest
 go install golang.org/x/tools/cmd/goimports@latest
 go install github.com/a-h/templ/cmd/templ@latest
@@ -113,3 +115,4 @@ search
 generate
 
 go run ./bultaoreune
+
